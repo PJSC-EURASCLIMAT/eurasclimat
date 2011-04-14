@@ -98,12 +98,6 @@ $db->query('SET names utf8');
 // migration from 1.6 -> 1.7
 Zend_Locale::$compatibilityMode = false;
 Zend_Locale::disableCache(true);
-//OSDN_Language::setDefaultLocale($config->ui->language->default);
-
-Zend_Registry::set('dynamic_config', OSDN_Config::getInstance());
-
-//Zend_Translate::setCache($cacheCore);
-//OSDN_Translation::factory(null, null, OSDN_Language::getDefaultLocale());
 
 // configure mail
 //$transport = new Zend_Mail_Transport_Smtp($config->mail->SMTP, $config->mail->authentificate->toArray());
@@ -116,7 +110,6 @@ require_once 'OSDN/Functions.php';
 $fc = Zend_Controller_Front::getInstance();
 $fc->throwExceptions(OSDN_DEBUG);
 $fc->addModuleDirectory(MODULES_DIR);
-
 $config = Zend_Registry::get('config');
 $options = array(
     'layoutPath'    => LAYOUT_DIR,

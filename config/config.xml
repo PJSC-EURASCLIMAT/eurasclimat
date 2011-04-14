@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<zend-config>
+  <general>
+    <debug>1</debug>
+    <company>
+      <name>eurasclimat</name>
+    </company>
+    <ui>
+      <timezone>Europe/Moscow</timezone>
+    </ui>
+    <accounts>
+      <max>1000</max>
+    </accounts>
+    <db>
+      <host>localhost</host>
+      <username>ca</username>
+      <password>wramu9hE</password>
+      <dbname>eurasclimat</dbname>
+      <prefix></prefix>
+    </db>
+    <mail>
+      <from>
+        <address>robot@eurasclimat.ru</address>
+        <caption>FEEDBACK SUPPORT</caption>
+      </from>
+      <SMTP>e-head.ru</SMTP>
+      <authentificate>
+        <auth>login</auth>
+        <username>1</username>
+        <password>1</password>
+      </authentificate>
+    </mail>
+    <remoteauth>
+      <host></host>
+      <login></login>
+      <password></password>
+      <enable>0</enable>
+    </remoteauth>
+  </general>
+</zend-config>

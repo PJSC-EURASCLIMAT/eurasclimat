@@ -1,0 +1,36 @@
+.settings {
+    background-image:url(/images/folder_wrench.png) !important;
+}
+.delete {
+    background-image:url(/images/delete.gif) !important;
+}
+.add {
+    background-image:url(/images/add.gif) !important;
+}
+.edit {
+    background-image:url(/images/cog_edit.png) !important;
+}
+.print {
+    background-image:url(/images/print.png) !important;
+}
+.paperclip {
+    background-image:url(/images/paperclip.png) !important;
+}
+.accounts {
+    background-image:url(/images/acl.gif) !important;
+}
+.exit {
+    background-image:url(/images/exit_16x16.png) !important;
+}
+.check-box-checked {
+	width: 19px; 
+	height: 16px;
+	background-repeat: no-repeat;
+    background-image:url(/images/checkboxChecked.gif) !important;
+}
+.check-box-unchecked {
+	width: 19px; 
+	height: 16px;
+	background-repeat: no-repeat;
+    background-image:url(/images/checkboxUnchecked.gif) !important;
+}

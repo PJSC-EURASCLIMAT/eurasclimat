@@ -2,7 +2,7 @@
 
 /**
  * Default application conroller
- * @version $Id: IndexController.php 10173 2009-07-03 13:28:06Z uerter $
+ * @version $Id: $
  */
 class IndexController extends OSDN_Controller_Action
 {

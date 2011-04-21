@@ -1,6 +1,6 @@
-Ext.ns('xlib.Acl');
+Ext.ns('Admin.Acl');
 
-xlib.Acl.Layout = Ext.extend(Ext.Panel, {
+Admin.Acl.Layout = Ext.extend(Ext.Panel, {
     
     layout: 'border',
     
@@ -8,11 +8,11 @@ xlib.Acl.Layout = Ext.extend(Ext.Panel, {
     
     title: 'Менеджер доступа',
     
-    id: 'xlib.acl.layout',
+    id: 'Admin.Acl.Layout',
     
     initComponent: function() {
         
-        this.roles = new xlib.Acl.Roles.Tree({
+        this.roles = new Admin.Acl.Roles.Tree({
             region: 'west',
             width: 200,
             border: false,
@@ -20,13 +20,13 @@ xlib.Acl.Layout = Ext.extend(Ext.Panel, {
 			cls: 'x-border-right'
         });
         
-        this.accounts = new xlib.Acl.Accounts.List({
+        this.accounts = new Admin.Acl.Accounts.List({
             region: 'center',
 			border: false,
 			cls: 'x-border-bottom x-border-left'
         });
         
-        this.permissions = new xlib.Acl.Permission.Tree({
+        this.permissions = new Admin.Acl.Permission.Tree({
             region: 'south',
             height: 300,
             margins: '2 0 0 0',
@@ -44,7 +44,7 @@ xlib.Acl.Layout = Ext.extend(Ext.Panel, {
             items: [this.accounts, this.permissions]
         }];
         
-        xlib.Acl.Layout.superclass.initComponent.apply(this, arguments);
+        Admin.Acl.Layout.superclass.initComponent.apply(this, arguments);
         this.roles.on('click', this.onRolesClick, this);
         this.roles.on('firstnodeselected', this.onRolesClick, this);
     },
@@ -63,4 +63,4 @@ xlib.Acl.Layout = Ext.extend(Ext.Panel, {
     }
 });
 
-Ext.reg('xlib.acl.layout', xlib.Acl.Layout);
+Ext.reg('Admin.Acl.Layout', Admin.Acl.Layout);

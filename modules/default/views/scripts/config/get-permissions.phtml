@@ -1,16 +1,16 @@
-if ('object' != typeof xlib) {
-    xlib = {};
+if ('object' != typeof Admin) {
+    Admin = {};
 }
 
-if ('object' != typeof xlib.Acl) {
-    xlib.Acl = {};
+if ('object' != typeof Admin.Acl) {
+    Admin.Acl = {};
 }
 
-xlib.Acl.Storage = function() {
+Admin.Acl.Storage = function() {
 
     var permissions = <?=Zend_Json::encode($this->acl); ?> || [];
-    var privileges = <?=Zend_Json::encode($this->privileges); ?> || {};
     var resources = <?=Zend_Json::encode($this->resources); ?> || {};
+    var privileges = <?=Zend_Json::encode($this->privileges); ?> || {};
 
     return {
         getPermissions: function() {
@@ -23,10 +23,6 @@ xlib.Acl.Storage = function() {
 
         getPrivileges: function() {
             return privileges;
-        },
-
-        getWorkflowPermissions: function() {
-            return workflowPermissions;
         }
     };
 }();

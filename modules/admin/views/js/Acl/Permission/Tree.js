@@ -1,11 +1,11 @@
-Ext.ns('xlib.Acl.Permission');
+Ext.ns('Admin.Acl.Permission');
 
-xlib.Acl.Permission.TreeNodeUI = Ext.extend(Ext.tree.ColumnNodeUI, {
+Admin.Acl.Permission.TreeNodeUI = Ext.extend(Ext.tree.ColumnNodeUI, {
     onCheckboxClick: function() {},
 	onCheckChange: function() {}
 });
 
-xlib.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
+Admin.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
 
     animCollapse: false,
     
@@ -101,7 +101,7 @@ xlib.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
         this.loader = new Ext.tree.TreeLoader({
             dataUrl: this.loadUrl,
             uiProviders:{
-                'col': xlib.Acl.Permission.TreeNodeUI
+                'col': Admin.Acl.Permission.TreeNodeUI
             },
             baseAttrs: {
                 uiProvider: 'col',
@@ -127,7 +127,7 @@ xlib.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
             expanded: false
         });
         
-        xlib.Acl.Permission.Tree.superclass.initComponent.apply(this, arguments);
+        Admin.Acl.Permission.Tree.superclass.initComponent.apply(this, arguments);
         this.on({
             renderelements: this.onRenderElements,
 			addcorenode: function(tree, node, destinationNode) {
@@ -158,7 +158,7 @@ xlib.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
 	},
 	
     onRenderElements: function(ui) {
-		ui.manager = new xlib.Acl.Permission.TreeManager({
+		ui.manager = new Admin.Acl.Permission.TreeManager({
             ui: ui,
             node: ui.node
         });
@@ -231,4 +231,4 @@ xlib.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
     }
 });
 
-Ext.reg('xlib.acl.permission.tree', xlib.Acl.Permission.Tree);
+Ext.reg('Admin.Acl.Permission.Tree', Admin.Acl.Permission.Tree);

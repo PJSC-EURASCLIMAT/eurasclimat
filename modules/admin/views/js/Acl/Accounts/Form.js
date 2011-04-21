@@ -1,6 +1,6 @@
-Ext.ns('xlib.Acl.Accounts');
+Ext.ns('Admin.Acl.Accounts');
 
-xlib.Acl.Accounts.Form = Ext.extend(xlib.form.FormPanel, {
+Admin.Acl.Accounts.Form = Ext.extend(xlib.form.FormPanel, {
     
     accountId: null,
     
@@ -38,7 +38,7 @@ xlib.Acl.Accounts.Form = Ext.extend(xlib.form.FormPanel, {
             'login', 'name', 'email', 'phone', 'active'
         ]);
         
-        xlib.Acl.Accounts.Form.superclass.initComponent.apply(this, arguments);
+        Admin.Acl.Accounts.Form.superclass.initComponent.apply(this, arguments);
     },
     
     getWindow: function() {
@@ -90,4 +90,4 @@ xlib.Acl.Accounts.Form = Ext.extend(xlib.form.FormPanel, {
     }
 });
 
-Ext.reg('xlib.acl.accounts.form', xlib.Acl.Accounts.Form);
+Ext.reg('Admin.Acl.Accounts.Form', Admin.Acl.Accounts.Form);

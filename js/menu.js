@@ -35,8 +35,8 @@ System.Menu = function(username, rolename, roleId) {
 		handler: function() {
 			System.Layout.getTabPanel().add({
 				iconCls: 'accounts',
-				xtype: 'xlib.acl.layout',
-				id: 'xlib.acl.layout'
+				xtype: 'Admin.Acl.Layout',
+				id: 'Admin.Acl.Layout'
 			});
 		}
 	}, {

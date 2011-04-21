@@ -1,6 +1,6 @@
-Ext.ns('xlib.Acl.Accounts');
+Ext.ns('Admin.Acl.Accounts');
 
-xlib.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
+Admin.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
 
     title: 'Учётные записи',
 
@@ -44,7 +44,7 @@ xlib.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
                 hidden: !this.permissions,
                 handler: function(g, rowIndex) {
                     var record = g.getStore().getAt(rowIndex);
-                    var w = new xlib.Acl.Accounts.Form({
+                    var w = new Admin.Acl.Accounts.Form({
                         accountId: record.get('id')
                     }).getWindow();
                     
@@ -112,7 +112,7 @@ xlib.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
             items: ['-', this.createAccountBtn]
         });
         
-        xlib.Acl.Accounts.List.superclass.initComponent.apply(this, arguments);
+        Admin.Acl.Accounts.List.superclass.initComponent.apply(this, arguments);
         
         this.on({
             afteredit: this.onAfterEdit,
@@ -287,4 +287,4 @@ xlib.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
     }
 });
 
-Ext.reg('xlib.acl.accounts.list', xlib.Acl.Accounts.List);
+Ext.reg('Admin.Acl.Accounts.List', Admin.Acl.Accounts.List);

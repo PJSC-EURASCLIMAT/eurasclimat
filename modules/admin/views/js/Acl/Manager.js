@@ -1,12 +1,12 @@
-Ext.ns('xlib.Acl');
+Ext.ns('Admin.Acl');
 
-xlib.Acl.Manager = function() {
+Admin.Acl.Manager = function() {
     
-    var privileges = xlib.Acl.Storage.Privileges || {};
-    var permissions = xlib.Acl.Storage.Permissions || {};
+    var privileges = Admin.Acl.Storage.Privileges || {};
+    var permissions = Admin.Acl.Storage.Permissions || {};
     var resources = new Ext.util.MixedCollection();
     
-    Ext.each(xlib.Acl.Storage.getResources(), function(i, index) {
+    Ext.each(Admin.Acl.Storage.getResources(), function(i, index) {
         resources.add(i[0], {
             name: i[1],
             parent: i[2] || false
@@ -17,26 +17,26 @@ xlib.Acl.Manager = function() {
     	
         isView: function() {
             var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().view);
+            return this.isAllowedPrivilege(resourceId, Admin.Acl.Storage.getPrivileges().view);
         },
         
         isAdd: function() {
             var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().add);
+            return this.isAllowedPrivilege(resourceId, Admin.Acl.Storage.getPrivileges().add);
         },
         
         isUpdate: function() {
             var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().update);
+            return this.isAllowedPrivilege(resourceId, Admin.Acl.Storage.getPrivileges().update);
         },
         
         isDelete: function() {
             var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges()['delete']);
+            return this.isAllowedPrivilege(resourceId, Admin.Acl.Storage.getPrivileges()['delete']);
         },
         
         isAllowedPrivilege: function(resourceId, privilege) {
-            var collection = xlib.Acl.Storage.getPermissions()[resourceId];
+            var collection = Admin.Acl.Storage.getPermissions()[resourceId];
             if (!collection || !Ext.isArray(collection)) {
                 return false;
             }
@@ -88,4 +88,4 @@ xlib.Acl.Manager = function() {
     };
 }();
 
-acl = xlib.Acl.Manager;
+acl = Admin.Acl.Manager;

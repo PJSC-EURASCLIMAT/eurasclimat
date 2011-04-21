@@ -2,7 +2,6 @@
 
 /**
  * Default application conroller
- * @version $Id: $
  */
 class IndexController extends OSDN_Controller_Action
 {

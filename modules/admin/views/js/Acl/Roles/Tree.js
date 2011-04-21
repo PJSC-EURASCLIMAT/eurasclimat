@@ -1,6 +1,6 @@
-Ext.ns('xlib.Acl.Roles');
+Ext.ns('Admin.Acl.Roles');
 
-xlib.Acl.Roles.Tree = Ext.extend(xlib.TreePanel, {
+Admin.Acl.Roles.Tree = Ext.extend(xlib.TreePanel, {
 
     title: 'Роли',
 
@@ -42,7 +42,7 @@ xlib.Acl.Roles.Tree = Ext.extend(xlib.TreePanel, {
             }
         });
         
-        xlib.Acl.Roles.Tree.superclass.initComponent.apply(this, arguments);
+        Admin.Acl.Roles.Tree.superclass.initComponent.apply(this, arguments);
     },
     
     onContextMenu: function(node, e) {
@@ -143,4 +143,4 @@ xlib.Acl.Roles.Tree = Ext.extend(xlib.TreePanel, {
     }
 });
 
-Ext.reg('xlib.acl.roles.tree', xlib.Acl.Roles.Tree);
+Ext.reg('Admin.Acl.Roles.Tree', Admin.Acl.Roles.Tree);

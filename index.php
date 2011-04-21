@@ -1,10 +1,10 @@
 <?php
-ini_set('session.gc_maxlifetime', 28800);
-
 //die('This resource is temporary unreachable.');
 
+ini_set('session.gc_maxlifetime', 28800);
+
 if (!empty($argv[1])) {
-$_SERVER['REQUEST_URI'] = $argv[1];
+    $_SERVER['REQUEST_URI'] = $argv[1];
 }
 
 error_reporting(E_ALL | E_STRICT);
@@ -22,16 +22,14 @@ if (!file_exists(CONFIG_FILE)) {
     exit;
 }
 
-set_include_path(join(PATH_SEPARATOR, array(
-    ROOT_DIR, API_DIR,
-//    ROOT_DIR . '/library/PEAR',
-//    ROOT_DIR . '/library/ezComponents'
-)));
+set_include_path(join(PATH_SEPARATOR, array(ROOT_DIR, API_DIR)));
 
 require_once 'Zend/Loader/Autoloader.php';
+require_once 'OSDN/Loader/Autoloader.php';
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
+$autoloader->pushAutoloader(array('OSDN_Loader_Autoloader', 'autoload'));
 
 Zend_Session::start();
 
@@ -110,28 +108,33 @@ require_once 'OSDN/Functions.php';
 $fc = Zend_Controller_Front::getInstance();
 $fc->throwExceptions(OSDN_DEBUG);
 $fc->addModuleDirectory(MODULES_DIR);
-$config = Zend_Registry::get('config');
+
 $options = array(
     'layoutPath'    => LAYOUT_DIR,
     'debug'         => OSDN_DEBUG,
     'locale'        => OSDN_Language::getDefaultLocale()
 );
 
-if(!OSDN_Accounts_Prototype::isAuthenticated()) {
+if (!OSDN_Accounts_Prototype::isAuthenticated()) {
     $options['layout'] = 'auth';
 } else {
-	$roles = new OSDN_Acl_Roles();
-	try {
-		$role = $roles->fetchRole(OSDN_Accounts_Prototype::getRoleId());
-		$roleRow = $role->getRow();
+
+    $roleName = '';
+
+    $roles = new OSDN_Acl_Roles();
+	$response = $roles->fetchRole(OSDN_Accounts_Prototype::getRoleId());
+	if ($response->isSuccess()) {
+		$roleRow = $response->getRow();
 		$roleName = $roleRow['name'];
-	} catch (Exception $e) {$roleName = '';}
-    $options += array(
+	}
+
+	$options += array(
         'roleId' => OSDN_Accounts_Prototype::getRoleId(),
         'username' => OSDN_Accounts_Prototype::getInformation()->name,
         'rolename' => $roleName
     );
 }
+
 $fc->registerPlugin(new OSDN_Controller_Plugin_ViewEngine($options));
 $fc->registerPlugin(new OSDN_Controller_Plugin_Authorization());
 Zend_Controller_Action_HelperBroker::addPrefix('OSDN_Controller_Action_Helper');

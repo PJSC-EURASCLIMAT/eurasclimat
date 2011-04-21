@@ -1,0 +1,17 @@
+<xml>
+    <data>
+
+        <script src="/js/Acl/Manager.js"/>
+
+        <script src="/js/Acl/Permission/Tree.js"/>
+        <script src="/js/Acl/Permission/TreeManager.js"/>
+
+        <script src="/js/Acl/Accounts/Form.js"/>
+        <script src="/js/Acl/Accounts/List.js"/>
+
+        <script src="/js/Acl/Roles/Tree.js"/>
+
+        <script src="/js/Acl/Layout.js"/>
+        
+    </data>
+</xml>

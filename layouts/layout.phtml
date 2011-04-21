@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
 	<link rel="stylesheet" type="text/css" href="/js/Library/xlib/LoadingMask.css" />
-    <?=$this->IncludeCss($this->layoutPath . '/jsCss.xml');?>
+    <?=$this->IncludeCss(); ?>
 </head>
 <body>
     <script src="/js/Library/xlib/LoadingMask.js"></script>
@@ -14,7 +14,7 @@
         xlib.LoadingMask.show();
     </script>
     <script src="/default/config/get-permissions" ></script>
-	<?=$this->IncludeJs($this->layoutPath . '/jsCss.xml'); ?>
+	<?=$this->IncludeJs(); ?>
     <?php echo $this->layout()->content; ?>
 	</body>
 </html>

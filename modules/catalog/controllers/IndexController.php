@@ -11,7 +11,7 @@ class Catalog_IndexController extends OSDN_Controller_Action
 
     public function indexAction()
     {
-        $a = new Catalog_Main();
+        $a = new Catalog_Items();
         die($a->foo);
     }
 }

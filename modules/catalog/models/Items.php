@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Main
+class Catalog_Items
 {
     public $foo = 'FOO';
 }

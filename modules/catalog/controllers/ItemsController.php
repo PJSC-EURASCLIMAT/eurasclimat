@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_IndexController extends OSDN_Controller_Action
+class Catalog_ItemsController extends OSDN_Controller_Action
 {
 
     public function permission(OSDN_Controller_Action_Helper_Acl $acl)

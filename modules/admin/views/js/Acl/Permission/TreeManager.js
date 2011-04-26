@@ -1,6 +1,6 @@
-Ext.ns('xlib.Acl.Permission');
+Ext.ns('Admin.Acl.Permission');
 
-xlib.Acl.Permission.TreeManager = function(c) {
+Admin.Acl.Permission.TreeManager = function(c) {
     Ext.apply(this, c || {});
     this.items = new Ext.util.MixedCollection();
     this.node.on({
@@ -15,7 +15,7 @@ xlib.Acl.Permission.TreeManager = function(c) {
     });
 };
 
-xlib.Acl.Permission.TreeManager.prototype = {
+Admin.Acl.Permission.TreeManager.prototype = {
 
     ui: null,
     

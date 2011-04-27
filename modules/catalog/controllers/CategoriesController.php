@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ChaptersController extends OSDN_Controller_Action
+class Catalog_CategoriesController extends OSDN_Controller_Action
 {
 	/**
 	 * @var model
@@ -9,7 +9,7 @@ class Catalog_ChaptersController extends OSDN_Controller_Action
 
 	public function init()
 	{
-		$this->_model = new Catalog_Chapters();
+		$this->_model = new Catalog_Categories();
 		parent::init();
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_types_Table extends OSDN_Db_Table_Abstract
+class Catalog_Types_Table extends OSDN_Db_Table_Abstract
 {
     /**
      * Table name

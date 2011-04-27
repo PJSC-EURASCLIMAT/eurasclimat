@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ItemsController extends OSDN_Controller_Action
+class Catalog_MeasuresController extends OSDN_Controller_Action
 {
 
     /**
@@ -10,7 +10,7 @@ class Catalog_ItemsController extends OSDN_Controller_Action
 
     public function init()
     {
-        $this->_model = new Catalog_Items();
+        $this->_model = new Catalog_Measures();
         parent::init();
     }
 
@@ -49,7 +49,7 @@ class Catalog_ItemsController extends OSDN_Controller_Action
 
     public function addAction()
     {
-        $response = $this->_model->add($this->_getAllParams());
+        $response = $this->_model->add($this->_getParam('name'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
@@ -60,7 +60,7 @@ class Catalog_ItemsController extends OSDN_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update($this->_getAllParams());
+        $response = $this->_model->update($this->_getParam('id'), $this->_getParam('name'));
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

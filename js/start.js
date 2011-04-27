@@ -77,6 +77,12 @@ Ext.onReady(function(){
     		mainMenu: System.Menu(xlib.username || '', xlib.rolename || '', xlib.roleId || '')
         });
         
+        System.Layout.getTabPanel().add({
+            iconCls: 'settings',
+            xtype: 'Catalog.Layout',
+            id: 'Catalog.Layout'
+        });
+        
         System.Layout.doLayout();
 
     });

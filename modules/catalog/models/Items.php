@@ -33,7 +33,7 @@ class Catalog_Items
         )
         ->joinLeft(array('ms' => 'catalog_measures'),
             'i.measure_id=ms.id',
-            array('type_name' => 'ms.name')
+            array('measure_name' => 'ms.name')
         );
 
         $plugin = new OSDN_Db_Plugin_Select($this->_table, $select);
@@ -78,10 +78,6 @@ class Catalog_Items
         ->joinLeft(array('t' => 'catalog_types'),
             'i.type_id=t.id',
             array('type_name' => 't.name')
-        )
-        ->joinLeft(array('ms' => 'catalog_measures'),
-            'i.measure_id=ms.id',
-            array('type_name' => 'ms.name')
         )
         ->where('i.id = ?', $id);
 

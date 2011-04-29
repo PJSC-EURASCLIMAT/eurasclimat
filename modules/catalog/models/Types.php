@@ -32,6 +32,21 @@ class Catalog_Types
         return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
     }
 
+    public function getAll()
+    {
+        $response = new OSDN_Response();
+
+        $nodes = $this->_walkTree();
+        if (false === $nodes) {
+            $status = OSDN_Status::DATABASE_ERROR;
+            $response->setRowset(array());
+        } else {
+            $status = OSDN_Status::OK;
+            $response->setRowset($nodes);
+        }
+        return $response->addStatus(new OSDN_Status($status));
+    }
+
     public function getListByParent($parent = 0)
     {
         $response = new OSDN_Response();
@@ -143,5 +158,33 @@ class Catalog_Types
             return false;
         }
         return $rowset;
+    }
+
+    private function _walkTree($parent = 0)
+    {
+        $parent = intval($parent);
+        $where = $parent ? array('parent = ?' => $parent) : array('parent IS NULL');
+        try {
+            $rowset = $this->_table->fetchAll($where, 'name ASC')->toArray();
+        } catch (Exception $e) {
+            if (OSDN_DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
+
+        // Form array for tree node
+        $nodes = array();
+        foreach ($rowset as $row) {
+            $childrens = $this->_walkTree($row['id']);
+            $nodes[] = array(
+                'id'        => $row['id'],
+                'text'      => $row['name'],
+                'expanded'  => true,
+                'leaf'      => !count($childrens),
+                'children'  => $childrens
+            );
+        }
+        return $nodes;
     }
 }

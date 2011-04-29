@@ -4,8 +4,6 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
 
     itemId: null,
     
-    categoryId: null,
-    
     itemURL:    link('catalog', 'items', 'get'),
     
     addURL:     link('catalog', 'items', 'add'),
@@ -18,18 +16,87 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
     
     permissions: acl.isUpdate('catalog'),
     
+    labelWidth: 100,
+    
     initComponent: function() {
         
         this.items = [{
+            xtype: 'treecombo',
+            fieldLabel: 'Категория',
+            name: 'category_id',
+            hiddenName: 'category_id',
+            allowBlank: true,
+            lazyRender: true,
+            lazyInit: true,
+            rootVisible: false,
+            url: link('catalog', 'categories', 'get')
+        }, {
+            xtype: 'treecombo',
+            fieldLabel: 'Раздел',
+            name: 'chapter_id',
+            hiddenName: 'chapter_id',
+            allowBlank: true,
+            lazyRender: true,
+            lazyInit: true,
+            rootVisible: false,
+            url: link('catalog', 'chapters', 'get')
+        }, {
+            xtype: 'Catalog.Marks.ComboBox',
+            name: 'mark_id',
+            hiddenName: 'mark_id',
+            allowBlank: true
+        }, {
+            xtype: 'treecombo',
+            fieldLabel: 'Тип',
+            name: 'type_id',
+            hiddenName: 'type_id',
+            allowBlank: true,
+            lazyRender: true,
+            lazyInit: true,
+            rootVisible: false,
+            url: link('catalog', 'types', 'get')
+        }, {
             xtype: 'textfield',
             fieldLabel: 'Маркировка',
             name: 'marking',
-            allowBlank: false
+            allowBlank: true
+        }, {
+            xtype: 'Catalog.Measures.ComboBox',
+            name: 'measure_id',
+            hiddenName: 'measure_id',
+            allowBlank: true
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Цена',
+            name: 'price',
+            allowBlank: true
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Холод',
+            name: 'cold',
+            allowBlank: true
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Тепло',
+            name: 'warm',
+            allowBlank: true
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Потребление',
+            name: 'power',
+            allowBlank: true
         }];
         
         Catalog.Items.Form.superclass.initComponent.apply(this, arguments);
         
         var w = this.getWindow(this.itemId).show();
+        
+//        this.getForm().setValues({
+//            type_id: {
+//                id: 1,
+//                text: 'Кондиционеры'
+//            }
+//        });
         
         if (this.itemId) {
             this.getForm().load({
@@ -49,8 +116,8 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
             title: !id ? 'Новая запись' : 'Запись № ' + id,
             resizable: false,
             hidden: false,
-            width: 750,
-            height: 200,
+            width: 400,
+            //height: 400,
             modal: true,
             items: [this],
             buttons: [{
@@ -63,9 +130,8 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
                     }
                     
                     this.getForm().submit({
-                        params: {
-                            id: this.itemId,
-                            category_id: this.categoryId
+                        params: !this.itemId ? {} : {
+                            id: this.itemId
                         },
                         url: !this.itemId ? this.addURL : this.updateURL,
                         success: function(form, options) {

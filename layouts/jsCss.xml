@@ -45,6 +45,8 @@
         <style href="/js/Library/extjs/ux/form/FileUploadField.css"/>
         <script src="/js/Library/extjs/ux/form/FileUploadField.js"/>
         
+        <script src="/js/Library/extjs/ux/form/TreeComboBox.js"/>
+        
         <!-- Ext ux -->
         
 		<!-- ================ xlib ================ -->
@@ -64,6 +66,9 @@
         <script src="/js/Library/xlib/form/FormPanel.js"/>
         
         <script src="/js/Library/xlib/form/ComboBox.js"/>
+        
+        <script src="/js/Library/xlib/form/GroupComboBox.js"/>
+        <script src="/js/Library/xlib/form/GroupDataView.js"/>
         
         <style href="/js/Library/xlib/form/ComboTrigger.css"/>
         <script src="/js/Library/xlib/form/ComboTrigger.js"/>

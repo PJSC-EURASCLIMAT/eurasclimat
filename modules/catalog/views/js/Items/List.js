@@ -22,14 +22,26 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             autoLoad: true,
             root: 'data',
             sortInfo: {
-                field: 'marking',
+                field: 'id',
                 direction: 'ASC'
             },
             totalProperty: 'totalCount',
             fields: [
-                {name: 'id', type: 'int'}, 
-                {name: 'category_id', type: 'int'}, 
-                'marking'
+                'id', 
+                'category_name',
+                'category_path',
+                'chapter_name',
+                'chapter_path',
+                'type_name',
+                'type_path',
+                'mark_name',
+                'mark_country',
+                'marking',
+                'measure_name',
+                'price',
+                'cold',
+                'warm',
+                'power'
             ]
         });
         
@@ -60,10 +72,54 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
                 dataIndex: 'id',
                 width: 40
             }, {
+                header: 'Категория',
+                dataIndex: 'category_name',
+                minWidth: 200,
+                id: this.autoExpandColumn
+            }, {
+                header: 'Раздел',
+                dataIndex: 'chapter_name',
+                width: 200
+            }, {
+                header: 'Марка',
+                dataIndex: 'mark_name',
+                width: 100
+            }, {
+                header: 'Тип',
+                dataIndex: 'type_name',
+                width: 100
+            }, {
                 header: 'Маркировка',
                 dataIndex: 'marking',
-                minWidth: 250,
-                id: this.autoExpandColumn
+                width: 100
+            }, {
+                header: 'Eд. изм.',
+                dataIndex: 'measure_name',
+                width: 60
+            }, {
+                header: 'Цена',
+                dataIndex: 'price',
+                width: 80,
+                renderer: function(value) {
+                    var summ = Ext.util.Format.number(value, '0,000.00');
+                    return summ.replace(/,/g, ' ');
+                }
+            }, {
+                header: 'Холод',
+                dataIndex: 'cold',
+                width: 60
+            }, {
+                header: 'Тепло',
+                dataIndex: 'warm',
+                width: 60
+            }, {
+                header: 'Потребление',
+                dataIndex: 'power',
+                width: 80,
+                renderer: function(value) {
+                    var summ = Ext.util.Format.number(value, '0,000.000');
+                    return summ.replace(/,/g, ' ');
+                }
             }]
         });
         

@@ -17,6 +17,7 @@ class Catalog_TypesController extends OSDN_Controller_Action
     {
         $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->catalog);
         $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get');
+        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-all');
         $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'delete');
@@ -25,6 +26,16 @@ class Catalog_TypesController extends OSDN_Controller_Action
 	public function getAction()
     {
         $response = $this->_model->getListByParent($this->_getParam('node'));
+        if ($response->isSuccess()) {
+            $this->view->assign($response->getRowset());
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function getAllAction()
+    {
+        $response = $this->_model->getAll();
         if ($response->isSuccess()) {
             $this->view->assign($response->getRowset());
         } else {

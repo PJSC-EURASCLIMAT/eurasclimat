@@ -27,21 +27,41 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             },
             totalProperty: 'totalCount',
             fields: [
-                'id', 
-                'category_name',
-                'category_path',
-                'chapter_name',
-                'chapter_path',
-                'type_name',
-                'type_path',
+                'id',
+                'sku',
+                'title_name',
                 'mark_name',
-                'mark_country',
-                'marking',
-                'measure_name',
-                'price',
-                'cold',
-                'warm',
-                'power'
+                'model',
+                'product_type_name',
+                'construction_type_name',
+                'territoriality_name',
+                'condition_name',
+                'purpose_name',
+                'availability_name',
+                'system_type_name',
+                'served_square',
+                'served_capacity',
+                'cooling_power',
+                'heating_power',
+                'drying_intensity',
+                'air_flow_rate',
+                'power_consumption_in_cooling_mode',
+                'power_consumption_in_heating_mode',
+                'cooling_energy_efficiency',
+                'heating_energy_efficiency',
+                'power_supply',
+                'refrigerant',
+                'interblock_communications_length',
+                'differential_interconnects_heights',
+                'drainage_pump',
+                'winter_set',
+                'noise_level',
+                'manufacturer_warranty',
+                'stock',
+                'reserve',
+                'order',
+                'measure',
+                'price'
             ]
         });
         
@@ -68,56 +88,144 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         this.colModel = new Ext.grid.ColumnModel({
             defaultSortable: true,
             columns: [{
-                header: '№',
-                dataIndex: 'id',
-                width: 40
+                header: 'Артикул',
+                dataIndex: 'sku',
+                width: 60
             }, {
-                header: 'Категория',
-                dataIndex: 'category_name',
-                minWidth: 200,
-                id: this.autoExpandColumn
-            }, {
-                header: 'Раздел',
-                dataIndex: 'chapter_name',
-                width: 200
+                header: 'Наименование',
+                dataIndex: 'title_name',
+                width: 100
             }, {
                 header: 'Марка',
                 dataIndex: 'mark_name',
                 width: 100
             }, {
-                header: 'Тип',
-                dataIndex: 'type_name',
+                header: 'Модель',
+                dataIndex: 'model',
+                minWidth: 200,
+                id: this.autoExpandColumn
+            }, {
+                header: 'Тип продукции',
+                dataIndex: 'product_type_name',
                 width: 100
             }, {
-                header: 'Маркировка',
-                dataIndex: 'marking',
+                header: 'Тип исполнения',
+                dataIndex: 'construction_type_name',
+                width: 100
+            }, {
+                header: 'Территориальность производства',
+                dataIndex: 'territoriality_name',
+                width: 100
+            }, {
+                header: 'Состояние продукции',
+                dataIndex: 'condition_name',
+                width: 100
+            }, {
+                header: 'Назначение продукции',
+                dataIndex: 'purpose_name',
+                width: 100
+            }, {
+                header: 'Наличие продукции',
+                dataIndex: 'availability_name',
+                width: 100
+            }, {
+                header: 'Тип системы',
+                dataIndex: 'system_type_name',
+                width: 100
+            }, {
+                header: 'Площадь обслуживаемого помещения (кв.м)',
+                dataIndex: 'served_square',
+                width: 100
+            }, {
+                header: 'Объем обслуживаемого помещения (куб.м)',
+                dataIndex: 'served_capacity',
+                width: 100
+            }, {
+                header: 'Мощность охлаждения (кВт)',
+                dataIndex: 'cooling_power',
+                width: 100
+            }, {
+                header: 'Мощность обогрева (кВт)',
+                dataIndex: 'heating_power',
+                width: 100
+            }, {
+                header: 'Интенсивность осушки воздуха (л/ч)',
+                dataIndex: 'drying_intensity',
+                width: 100
+            }, {
+                header: 'Расход воздуха (куб.м/ч)',
+                dataIndex: 'air_flow_rate',
+                width: 100
+            }, {
+                header: 'Мощность потребления в режиме охлаждения (кВт)',
+                dataIndex: 'power_consumption_in_cooling_mode',
+                width: 100
+            }, {
+                header: 'Мощность потребления в режиме обогрева (кВт)',
+                dataIndex: 'power_consumption_in_heating_mode',
+                width: 100
+            }, {
+                header: 'Энергоэффективность охлаждения (EER)',
+                dataIndex: 'cooling_energy_efficiency',
+                width: 100
+            }, {
+                header: 'Энергоэффективность обогрева (EER)',
+                dataIndex: 'heating_energy_efficiency',
+                width: 100
+            }, {
+                header: 'Электропитание (В.Гц.Ф.)',
+                dataIndex: 'power_supply',
+                width: 100
+            }, {
+                header: 'Хладагент-теплоноситель',
+                dataIndex: 'refrigerant',
+                width: 100
+            }, {
+                header: 'Длина межблочных коммуникаций (м/п)',
+                dataIndex: 'interblock_communications_length',
+                width: 100
+            }, {
+                header: 'Перепад межблочных высот (м/п)',
+                dataIndex: 'differential_interconnects_heights',
+                width: 100
+            }, {
+                header: 'Наличие дренажной помпы',
+                dataIndex: 'drainage_pump',
+                width: 100
+            }, {
+                header: 'Наличие зимнего комплекта',
+                dataIndex: 'winter_set',
+                width: 100
+            }, {
+                header: 'Уровень шума (дБА)',
+                dataIndex: 'noise_level',
+                width: 100
+            }, {
+                header: 'Период гарантии производителя',
+                dataIndex: 'manufacturer_warranty',
+                width: 100
+            }, {
+                header: 'Склад',
+                dataIndex: 'stock',
+                width: 100
+            }, {
+                header: 'Резерв',
+                dataIndex: 'reserve',
+                width: 100
+            }, {
+                header: 'Заказ',
+                dataIndex: 'order',
                 width: 100
             }, {
                 header: 'Eд. изм.',
-                dataIndex: 'measure_name',
-                width: 60
+                dataIndex: 'measure',
+                width: 100
             }, {
                 header: 'Цена',
                 dataIndex: 'price',
                 width: 80,
                 renderer: function(value) {
                     var summ = Ext.util.Format.number(value, '0,000.00');
-                    return summ.replace(/,/g, ' ');
-                }
-            }, {
-                header: 'Холод',
-                dataIndex: 'cold',
-                width: 60
-            }, {
-                header: 'Тепло',
-                dataIndex: 'warm',
-                width: 60
-            }, {
-                header: 'Потребление',
-                dataIndex: 'power',
-                width: 80,
-                renderer: function(value) {
-                    var summ = Ext.util.Format.number(value, '0,000.000');
                     return summ.replace(/,/g, ' ');
                 }
             }]
@@ -132,7 +240,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         this.plugins = [actions, this.filtersPlugin];
 
         this.addBtn = new Ext.Toolbar.Button({
-            text: 'Добавить',
+            text: 'Добавить запись в каталог',
             iconCls: 'add',
             hidden: !this.permissions,
             tooltip: 'Добавить',
@@ -143,7 +251,8 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         this.tbar = new Ext.Toolbar({
             items: [
                 this.addBtn, 
-                ' ', 
+                '->', 
+                'Поиск: ',
                 this.filtersPlugin.getSearchField({width: 400}), 
                 ' '
             ]

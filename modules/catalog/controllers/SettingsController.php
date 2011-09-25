@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_TypesController extends OSDN_Controller_Action
+class Catalog_SettingsController extends OSDN_Controller_Action
 {
 	/**
 	 * @var model
@@ -9,7 +9,7 @@ class Catalog_TypesController extends OSDN_Controller_Action
 
 	public function init()
 	{
-		$this->_model = new Catalog_Types();
+		$this->_model = new Catalog_Settings();
 		parent::init();
 	}
 
@@ -45,7 +45,7 @@ class Catalog_TypesController extends OSDN_Controller_Action
 
     public function addAction()
     {
-        $response = $this->_model->add($this->_getParam('name'), $this->_getParam('parent'));
+        $response = $this->_model->add($this->_getParam('name'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
@@ -56,7 +56,7 @@ class Catalog_TypesController extends OSDN_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update($this->_getParam('name'), $this->_getParam('node'));
+        $response = $this->_model->update($this->_getParam('name'), $this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

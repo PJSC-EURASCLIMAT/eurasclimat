@@ -73,14 +73,16 @@ Ext.onReady(function(){
         
     	Ext.ns('System');
 
-        System.Layout = new xlib.Layout.Workspace({
-    		mainMenu: System.Menu(xlib.username || '', xlib.rolename || '', xlib.roleId || '')
-        });
-        
-        System.Layout.getTabPanel().add({
-            iconCls: 'settings',
-            xtype: 'Catalog.Layout',
-            id: 'Catalog.Layout'
+        System.Layout = new Ext.Viewport({
+            layout: 'border',
+            items: [new Ext.Toolbar({
+                region: 'north',
+                height: 30,
+                items: System.Menu()
+            }), new Catalog.Items.List({
+                region: 'center',
+                layout: 'fit'
+            })]
         });
         
         System.Layout.doLayout();

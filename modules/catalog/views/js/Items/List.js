@@ -94,7 +94,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             }, {
                 header: 'Наименование',
                 dataIndex: 'title_name',
-                width: 100
+                width: 200
             }, {
                 header: 'Марка',
                 dataIndex: 'mark_name',
@@ -107,7 +107,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             }, {
                 header: 'Тип продукции',
                 dataIndex: 'product_type_name',
-                width: 100
+                width: 200
             }, {
                 header: 'Тип исполнения',
                 dataIndex: 'construction_type_name',
@@ -115,106 +115,132 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             }, {
                 header: 'Территориальность производства',
                 dataIndex: 'territoriality_name',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Состояние продукции',
                 dataIndex: 'condition_name',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Назначение продукции',
                 dataIndex: 'purpose_name',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Наличие продукции',
                 dataIndex: 'availability_name',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Тип системы',
                 dataIndex: 'system_type_name',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Площадь обслуживаемого помещения (кв.м)',
                 dataIndex: 'served_square',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Объем обслуживаемого помещения (куб.м)',
                 dataIndex: 'served_capacity',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Мощность охлаждения (кВт)',
                 dataIndex: 'cooling_power',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Мощность обогрева (кВт)',
                 dataIndex: 'heating_power',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Интенсивность осушки воздуха (л/ч)',
                 dataIndex: 'drying_intensity',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Расход воздуха (куб.м/ч)',
                 dataIndex: 'air_flow_rate',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Мощность потребления в режиме охлаждения (кВт)',
                 dataIndex: 'power_consumption_in_cooling_mode',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Мощность потребления в режиме обогрева (кВт)',
                 dataIndex: 'power_consumption_in_heating_mode',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Энергоэффективность охлаждения (EER)',
                 dataIndex: 'cooling_energy_efficiency',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Энергоэффективность обогрева (EER)',
                 dataIndex: 'heating_energy_efficiency',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Электропитание (В.Гц.Ф.)',
                 dataIndex: 'power_supply',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Хладагент-теплоноситель',
                 dataIndex: 'refrigerant',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Длина межблочных коммуникаций (м/п)',
                 dataIndex: 'interblock_communications_length',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Перепад межблочных высот (м/п)',
                 dataIndex: 'differential_interconnects_heights',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Наличие дренажной помпы',
                 dataIndex: 'drainage_pump',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Наличие зимнего комплекта',
                 dataIndex: 'winter_set',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Уровень шума (дБА)',
                 dataIndex: 'noise_level',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Период гарантии производителя',
                 dataIndex: 'manufacturer_warranty',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Склад',
                 dataIndex: 'stock',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Резерв',
                 dataIndex: 'reserve',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Заказ',
                 dataIndex: 'order',
+                hidden: true,
                 width: 100
             }, {
                 header: 'Eд. изм.',

@@ -1,22 +1,16 @@
-Ext.ns('Catalog.Marks');
+Ext.ns('Catalog.Settings');
 
-Catalog.Marks.Form = Ext.extend(xlib.form.FormPanel, {
+Catalog.Settings.Form = Ext.extend(xlib.form.FormPanel, {
 
     itemId: null,
     
-    categoryId: null,
+    entity: null,
     
-    itemURL:    link('catalog', 'marks', 'get'),
+    addURL:     link('catalog', 'settings', 'add'),
     
-    addURL:     link('catalog', 'marks', 'add'),
+    updateURL:  link('catalog', 'settings', 'update'),
     
-    updateURL:  link('catalog', 'marks', 'update'),
-    
-    loadMask: true,
-
-    markFieldsDirty: false,
-    
-    permissions: acl.isUpdate('catalog'),
+    permissions: true,
     
     labelWidth: 80,
     
@@ -33,26 +27,9 @@ Catalog.Marks.Form = Ext.extend(xlib.form.FormPanel, {
             fieldLabel: 'Название',
             name: 'name',
             allowBlank: false
-        }, {
-            xtype: 'xlib.form.combobox',
-            fieldLabel: 'Страна',
-            name: 'country',
-            hiddenName: 'country',
-            valueField: 'name', 
-            displayField: 'name',
-            allowBlankOption: true,
-            mode: 'local',
-            allowBlank: true,
-            store: new Ext.data.JsonStore({
-                autoLoad: true,
-                url: link('default', 'countries', 'index'),
-                root: 'countries',
-                key: 'countries',
-                fields: ['name']
-            })
         }];
         
-        Catalog.Marks.Form.superclass.initComponent.apply(this, arguments);
+        Catalog.Settings.Form.superclass.initComponent.apply(this, arguments);
         
         this.getForm().on('saved', function() {
             w.close();
@@ -126,4 +103,4 @@ Catalog.Marks.Form = Ext.extend(xlib.form.FormPanel, {
     }
 });
 
-Ext.reg('Catalog.Marks.Form', Catalog.Marks.Form);
+Ext.reg('Catalog.Settings.Form', Catalog.Settings.Form);

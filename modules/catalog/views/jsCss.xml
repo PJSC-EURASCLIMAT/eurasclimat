@@ -1,24 +1,9 @@
 <xml>
     <data>
-        
-        <script src="/js/Layout.js"/>
-        
         <script src="/js/Items/List.js"/>
         <script src="/js/Items/Form.js"/>
-        
-        <script src="/js/Measures/List.js"/>
-        <script src="/js/Measures/Form.js"/>
-        <script src="/js/Measures/ComboBox.js"/>
-        
-        <script src="/js/Marks/List.js"/>
-        <script src="/js/Marks/Form.js"/>
-        <script src="/js/Marks/ComboBox.js"/>
-        
-        <script src="/js/Types/Tree.js"/>
-        <script src="/js/Types/ComboBox.js"/>
-        
-        <script src="/js/Categories/Tree.js"/>
-        <script src="/js/Chapters/Tree.js"/>
-        
+        <script src="/js/Settings/List.js"/>
+        <script src="/js/Settings/Form.js"/>
+        <script src="/js/Settings/ComboBox.js"/>
     </data>
 </xml>

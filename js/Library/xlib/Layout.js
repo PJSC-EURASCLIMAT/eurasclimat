@@ -1,4 +1,4 @@
-Ext.namespace('xlib.Layout');
+Ext.ns('xlib.Layout');
 
 xlib.Layout.TabPanel = Ext.extend(Ext.TabPanel, {
     
@@ -45,6 +45,7 @@ xlib.Layout.Workspace = Ext.extend(Ext.Viewport, {
     
     initComponent: function() {
         
+        /*
 		this.menuPanel = new Ext.Panel({
         	region: 'west',
             padding: '10',
@@ -69,6 +70,7 @@ xlib.Layout.Workspace = Ext.extend(Ext.Viewport, {
                 width: 160
             }]
         });
+        */
         
 		this.menuToolbar = new Ext.Toolbar({
         	region: 'north',
@@ -76,45 +78,44 @@ xlib.Layout.Workspace = Ext.extend(Ext.Viewport, {
             items: this.mainMenu
         });
 		
-        this.tp = new xlib.Layout.TabPanel({
+        this.tp = new Ext.Panel({
             region: 'center',
-            border: false,
-			defaults: {
-				border: false,
-                closable: true
-			}
+            border: false
         });
-                
+        
+        /*      
         this.items = [this.menuPanel, {
             xtype: 'panel',
             layout: 'border',
             region: 'center',
             items: [this.menuToolbar, this.tp]
         }];
+        */
         
+        this.items = [this.menuToolbar, this.tp];
         xlib.Layout.Workspace.superclass.initComponent.apply(this, arguments);
     },
 	
 	getTabPanel: function() {
 		return this.tp;
-	},
-    
-    createComponent: function(cmp) {
-        
-        switch (typeof cmp) {
-            case 'undefined':
-            case 'object':
-                if (typeof cmp.id != undefined) {
-                    var id = cmp.id;
-                    var component = Ext.getCmp(id);
-                    return component || Ext.ComponentMgr.create(cmp); 
-                } 
-                throw 'The component id is missing.';
-                break;
-                
-            default:
-                throw 'The component is wrong';
-        }
-    }
+	}//,
+//    
+//    createComponent: function(cmp) {
+//        
+//        switch (typeof cmp) {
+//            case 'undefined':
+//            case 'object':
+//                if (typeof cmp.id != undefined) {
+//                    var id = cmp.id;
+//                    var component = Ext.getCmp(id);
+//                    return component || Ext.ComponentMgr.create(cmp); 
+//                } 
+//                throw 'The component id is missing.';
+//                break;
+//                
+//            default:
+//                throw 'The component is wrong';
+//        }
+//    }
     
 });

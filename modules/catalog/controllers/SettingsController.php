@@ -25,7 +25,10 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
 	public function getAction()
     {
-        $response = $this->_model->getListByParent($this->_getParam('node'));
+        $response = $this->_model->getListByParent(
+            $this->_getParam('id'),
+            $this->_getParam('entity')
+        );
         if ($response->isSuccess()) {
             $this->view->assign($response->getRowset());
         } else {
@@ -35,7 +38,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function getAllAction()
     {
-        $response = $this->_model->getAll();
+        $response = $this->_model->getAll($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->assign($response->getRowset());
         } else {
@@ -45,7 +48,10 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function addAction()
     {
-        $response = $this->_model->add($this->_getParam('name'));
+        $response = $this->_model->add(
+            $this->_getParam('name'),
+            $this->_getParam('entity')
+        );
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
@@ -56,7 +62,11 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update($this->_getParam('name'), $this->_getParam('id'));
+        $response = $this->_model->update(
+            $this->_getParam('name'),
+            $this->_getParam('id'),
+            $this->_getParam('entity')
+        );
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {
@@ -66,7 +76,10 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function deleteAction()
     {
-        $response = $this->_model->delete($this->_getParam('id'));
+        $response = $this->_model->delete(
+            $this->_getParam('id'),
+            $this->_getParam('entity')
+        );
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

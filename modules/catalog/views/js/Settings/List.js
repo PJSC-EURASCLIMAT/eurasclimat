@@ -1,25 +1,38 @@
-Ext.ns('Catalog.Marks');
+Ext.ns('Catalog.Settings');
 
-Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
+Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
     
-    title: 'Марки',
-
-    listURL:    link('catalog', 'marks', 'get-list'),
+    title: false,
     
-    deleteURL:  link('catalog', 'marks', 'delete'),
+    entity: null,
+    
+    border: false,
     
     loadMask: true,
 
-    permissions: acl.isUpdate('catalog'),
+    permissions: true,
 
     defaultSortable: true,
     
+    layout: 'fit',
+    
+    listURL:    link('catalog', 'settings', 'get-list'),
+    
+    deleteURL:  link('catalog', 'settings', 'delete'),
+    
     initComponent: function() {
+        
+        if (!Ext.isDefined(this.entity)) {
+            throw 'entity is not defined';
+        }
         
         this.autoExpandColumn = Ext.id();
         
         this.ds = new Ext.data.JsonStore({
             url: this.listURL,
+            baseParams: {
+                entity: this.entity
+            },
             remoteSort: true,
             autoLoad: true,
             root: 'data',
@@ -27,7 +40,7 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
                 field: 'id',
                 direction: 'ASC'
             },
-            fields: ['id', 'name', 'country']
+            fields: ['id', 'name']
         });
         
         this.sm = new Ext.grid.RowSelectionModel();
@@ -37,13 +50,11 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
             items: [{
                 text: 'Редактировать',
                 iconCls: 'edit',
-                hidden: !acl.isUpdate('catalog'),
                 handler: this.onUpdate,
                 scope: this
             }, {
                 text: 'Удалить',
                 iconCls: 'delete',
-                hidden: !acl.isUpdate('catalog'),
                 handler: this.onDelete,
                 scope: this
             }],
@@ -60,10 +71,6 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
                 header: 'Название',
                 dataIndex: 'name',
                 id: this.autoExpandColumn
-            }, {
-                header: 'Страна',
-                dataIndex: 'country',
-                width: 200
             }]
         });
         
@@ -78,7 +85,6 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
         this.addBtn = new Ext.Toolbar.Button({
             text: 'Добавить',
             iconCls: 'add',
-            hidden: !this.permissions,
             tooltip: 'Добавить',
             handler: this.onAdd,
             scope: this
@@ -101,16 +107,24 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
             ]
         });
         
-        Catalog.Marks.List.superclass.initComponent.apply(this, arguments);
+        Catalog.Settings.List.superclass.initComponent.apply(this, arguments);
         
-        if (this.permissions) {
-            this.on('rowdblclick', this.onUpdate, this);
-        }
+        new Ext.Window({
+            title: this.windowTitle,
+            layout: 'fit',
+            width: 600,
+            height: 400,
+            modal: true,
+            items: [this]
+        }).show();
+        
     },
     
     onAdd: function(b, e) {
         
-        var formPanel = new Catalog.Marks.Form();
+        var formPanel = new Catalog.Settings.Form({
+            entity: this.entity
+        });
         
         formPanel.getForm().on('saved', function() {
             this.getStore().reload();
@@ -122,8 +136,9 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
         var record = g.getStore().getAt(rowIndex);
         var id = parseInt(record.get('id'));
         
-        var formPanel = new Catalog.Marks.Form({
-            itemId: id
+        var formPanel = new Catalog.Settings.Form({
+            itemId: id,
+            entity: this.entity
         });
         
         formPanel.getForm().on('saved', function() {
@@ -141,7 +156,8 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
             Ext.Ajax.request({
                 url: this.deleteURL,
                 params: {
-                    id: id
+                    id: id,
+                    entity: this.entity
                 },
                 callback: function(options, success, response) {
                     var res = xlib.decode(response.responseText);
@@ -158,4 +174,4 @@ Catalog.Marks.List = Ext.extend(Ext.grid.GridPanel, {
     }
 });
 
-Ext.reg('Catalog.Marks.List', Catalog.Marks.List);
+Ext.reg('Catalog.Settings.List', Catalog.Settings.List);

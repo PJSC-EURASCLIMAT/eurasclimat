@@ -44,6 +44,27 @@ System.Menu = function() {
     });
     
     menuItems.push('->');
+
+    /*
+    menuItems.push({
+        text: 'Менеджер доступа',
+        iconCls: 'settings',
+        handler: function() {
+            new Ext.Window({
+                width: 1000,
+                height: 600,
+                modal: true,
+                layout: 'fit',
+                title: 'Менеджер доступа',
+                items: [{
+                    xtype: 'Admin.Acl.Layout',
+                    iconCls: 'settings'
+                }]
+            }).show();
+        }
+    });
+    */
+    
     menuItems.push({
         text: 'Выход',
         iconCls: 'exit',
@@ -53,71 +74,4 @@ System.Menu = function() {
     });
     
     return menuItems;
-    
-	return [{
-	    text: 'Категории',
-	    iconCls: 'settings',
-        handler: function() {
-            new Ext.Window({
-                width: 800,
-                height: 600,
-                modal: true,
-                title: 'Категории',
-                items: [{
-                    title: false,
-                    autoHight: true,
-                    layout: 'fit',
-                    iconCls: 'settings',
-                    xtype: 'Catalog.Categories.Tree',
-                    id: 'Catalog.Categories.Tree'
-                }]
-            }).show();
-        }
-    }, {
-	    text: 'Разделы',
-	    iconCls: 'settings',
-        handler: function() {
-            System.Layout.getTabPanel().add({
-                iconCls: 'settings',
-                xtype: 'Catalog.Chapters.Tree',
-                id: 'Catalog.Chapters.Tree'
-            });
-        }
-    }, {
-	    text: 'Марки',
-	    iconCls: 'settings',
-        handler: function() {
-            System.Layout.getTabPanel().add({
-                iconCls: 'settings',
-                xtype: 'Catalog.Marks.List',
-                id: 'Catalog.Marks.List'
-            });
-        }
-    }, {
-	    text: 'Типы',
-	    iconCls: 'settings',
-        handler: function() {
-            System.Layout.getTabPanel().add({
-                iconCls: 'settings',
-                xtype: 'Catalog.Types.Tree',
-                id: 'Catalog.Types.Tree'
-            });
-        }
-    }, {
-	    text: 'Единицы измерения',
-	    iconCls: 'settings',
-        handler: function() {
-            System.Layout.getTabPanel().add({
-                iconCls: 'settings',
-                xtype: 'Catalog.Measures.List',
-                id: 'Catalog.Measures.List'
-            });
-        }
-	}, '->', {
-        text: 'Выход',
-        iconCls: 'exit',
-        handler: function() {
-            window.location.href = '/index/logout';
-        }
-    }];
 }

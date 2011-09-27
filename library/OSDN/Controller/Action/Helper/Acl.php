@@ -19,21 +19,21 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
      * @var OSDN_Acl
      */
     protected $_acl;
-    
+
     /**
      * The role
      *
      * @var Zend_Acl_Role
      */
     protected $_role;
-    
+
     /**
      * The common resource
      *
      * @var Zend_Acl_Resource
      */
     protected $_resource;
-    
+
     /**
      * The active controller action
      *
@@ -52,22 +52,22 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
      * </code>
      */
     protected $_trace = array();
-    
+
     protected $_errorPage = array(
         'module'        => 'default',
         'controller'    => 'error',
         'action'        => 'denied'
     );
-    
+
     /**
      * Indicate if access is allowed
      */
     protected $_isAllowed = false;
-    
+
     protected $_allowRouters = array(
         'default'
     );
-    
+
     /**
      * Helper initialization
      *
@@ -78,7 +78,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         if (empty($GLOBALS['i'])) {
             $GLOBALS['i'] = 0;
         }
-        
+
         $GLOBALS['i']++;
         $this->_acl = OSDN_Accounts_Prototype::getAcl();
         $this->_role = OSDN_Accounts_Prototype::getRoleId();
@@ -86,7 +86,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         $this->_isAllowed = false;
         $this->_trace = array();
     }
-    
+
     /**
      * Check if permission is allowed
      *
@@ -100,7 +100,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         if ($this->_action != $action) {
             return false;
         }
-        
+
         return $this->isAllowedAction($privilege, $resource);
     }
 
@@ -109,7 +109,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         if (empty($resource)) {
             $resource = $this->_resource;
         }
-        
+
         $resource = (string) $resource;
 
         if (!is_array($privilege)) {
@@ -120,23 +120,23 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
             }
             return $result;
         }
-        
+
         $result = array();
         foreach ($privilege as $p) {
             if (! $allowed = (int) $this->_acl->isAllowed($resource, $p)) {
                 $this->_trace[] = array($resource, $p);
             }
-            
+
             $result[] = $allowed;
         }
-        
+
         if ($result = array_sum($result) > 0) {
             $this->_isAllowed = true;
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Set up the common resource
      *
@@ -148,16 +148,16 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         $this->_resource = (string) $resource;
         return $this;
     }
-    
+
     public function preDispatch()
     {
         if (in_array(strtolower($this->getActionController()->getRequest()->getModuleName()),
             $this->_allowRouters)) {
             return;
         }
-        
+
         $this->getActionController()->permission($this);
-        
+
         if (true !== $this->_isAllowed) {
             $frontController = $this->getFrontController();
             if ('default' == $frontController->getRouter()->getCurrentRouteName()) {
@@ -170,7 +170,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
             }
         }
     }
-    
+
     /**
      * Deny Access Function
      * Redirects to errorPage, this can be called from an action using the action helper

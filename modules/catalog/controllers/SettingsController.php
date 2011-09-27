@@ -9,7 +9,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
 	public function init()
 	{
-		$this->_model = new Catalog_Settings();
+		$this->_model = new Catalog_Settings($this->_getParam('entity'));
 		parent::init();
 	}
 
@@ -25,10 +25,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
 	public function getAction()
     {
-        $response = $this->_model->getListByParent(
-            $this->_getParam('id'),
-            $this->_getParam('entity')
-        );
+        $response = $this->_model->getListByParent($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->assign($response->getRowset());
         } else {
@@ -48,10 +45,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function addAction()
     {
-        $response = $this->_model->add(
-            $this->_getParam('name'),
-            $this->_getParam('entity')
-        );
+        $response = $this->_model->add($this->_getParam('name'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
@@ -62,11 +56,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update(
-            $this->_getParam('name'),
-            $this->_getParam('id'),
-            $this->_getParam('entity')
-        );
+        $response = $this->_model->update($this->_getParam('name'), $this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {
@@ -76,10 +66,7 @@ class Catalog_SettingsController extends OSDN_Controller_Action
 
     public function deleteAction()
     {
-        $response = $this->_model->delete(
-            $this->_getParam('id'),
-            $this->_getParam('entity')
-        );
+        $response = $this->_model->delete($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

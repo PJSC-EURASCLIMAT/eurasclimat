@@ -32,20 +32,13 @@ class Catalog_Settings
         return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
     }
 
-    public function getAll($params)
+    public function getAll()
     {
         $response = new OSDN_Response();
 
-        $select = $this->_table->getAdapter()->select()
-            ->from($this->_table->getTableName());
-
-        $plugin = new OSDN_Db_Plugin_Select($this->_table, $select);
-        $plugin->parse($params);
-
         try {
-            $rows = $select->query()->fetchAll();
+            $rows = $this->_table->fetchAll()->toArray();
             $response->setRowset($rows);
-            $response->totalCount = $plugin->getTotalCount();
             $status = OSDN_Status::OK;
         } catch (Exception $e) {
             if (OSDN_DEBUG) {

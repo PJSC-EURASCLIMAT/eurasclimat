@@ -16,6 +16,10 @@ Catalog.Settings.Form = Ext.extend(xlib.form.FormPanel, {
     
     initComponent: function() {
         
+        if (Ext.isEmpty(this.entity)) {
+            throw 'Entity is not defined';
+        }
+        
         this.keys = [{
             key: [10,13],
             fn: this.submitForm,
@@ -36,17 +40,6 @@ Catalog.Settings.Form = Ext.extend(xlib.form.FormPanel, {
         }, this);
         
         var w = this.getWindow(this.itemId).show();
-                
-        if (!this.itemId) {
-            return;
-        }
-        
-        this.getForm().load({
-            url: this.itemURL,
-            params: {
-                id: this.itemId
-            }
-        });
     },
     
     // Private functions 
@@ -85,7 +78,7 @@ Catalog.Settings.Form = Ext.extend(xlib.form.FormPanel, {
         this.getForm().submit({
             params: {
                 id: this.itemId,
-                category_id: this.categoryId
+                entity: this.entity
             },
             url: !this.itemId ? this.addURL : this.updateURL,
             success: function(form, options) {

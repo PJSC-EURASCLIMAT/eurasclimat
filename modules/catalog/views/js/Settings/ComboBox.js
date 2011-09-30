@@ -1,10 +1,11 @@
+Ext.ns('Catalog.Settings');
 
-Ext.ns('Catalog.Marks');
-
-Catalog.Marks.ComboBox = Ext.extend(xlib.form.GroupComboBox, {
+Catalog.Settings.ComboBox = Ext.extend(xlib.form.ComboBox, {
 
     fieldLabel: 'Марка',
 
+    entity: null,
+    
     typeAhead: true,
     
     editable: false,
@@ -27,35 +28,34 @@ Catalog.Marks.ComboBox = Ext.extend(xlib.form.GroupComboBox, {
     
     updatePermissions: acl.isUpdate('catalog'),
     
-    listURL: link('catalog', 'marks', 'get-list'),
-    
-    groupTextTpl: '<b>{group} ({[values.rs.length]})</b>',
+    listURL: link('catalog', 'settings', 'get-list'),
     
     width: 'auto',
     
     initComponent: function() {
         
-        this.store = new Ext.data.GroupingStore({
+        if (Ext.isEmpty(this.entity)) {
+            throw 'Entity is not defined';
+        }
+        
+        this.store = new Ext.data.Store({
             url: this.listURL,
+            baseParams: {
+                entity: this.entity
+            },
             autoDestroy: true,
             root: 'data',
             fields: ['id', 'name'],
-            sortInfo: {
-                field: 'name', 
-                direction: 'ASC'
-            },
-            groupField: 'country',
             reader: new Ext.data.JsonReader({
                 root: 'data'
             }, [
                {name: 'id'},
-               {name: 'name'},
-               {name: 'country'}
+               {name: 'name'}
             ])
         });
         
-        Catalog.Marks.ComboBox.superclass.initComponent.apply(this, arguments);
+        Catalog.Settings.ComboBox.superclass.initComponent.apply(this, arguments);
     }
 });
 
-Ext.reg('Catalog.Marks.ComboBox', Catalog.Marks.ComboBox);
+Ext.reg('Catalog.Settings.ComboBox', Catalog.Settings.ComboBox);

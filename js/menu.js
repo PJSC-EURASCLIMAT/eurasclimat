@@ -6,7 +6,7 @@ System.Menu = function() {
         text: 'Наименования',
         entity: 'titles'
     },{
-        text: 'Марка',
+        text: 'Марки',
         entity: 'marks'
     },{
         text: 'Тип продукции',
@@ -30,7 +30,7 @@ System.Menu = function() {
         text: 'Тип системы',
         entity: 'system_types'
     }];
-        
+
     Ext.each(menuItems, function(i) {
         i.iconCls = 'settings';
         if (!Ext.isFunction(i.handler)) {

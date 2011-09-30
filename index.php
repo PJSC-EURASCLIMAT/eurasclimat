@@ -1,5 +1,5 @@
 <?php
-//die('This resource is temporary unreachable.');
+//die('This resource is temporary unavailable.');
 
 ini_set('session.gc_maxlifetime', 28800);
 
@@ -100,7 +100,7 @@ Zend_Locale::disableCache(true);
 // configure mail
 //$transport = new Zend_Mail_Transport_Smtp($config->mail->SMTP, $config->mail->authentificate->toArray());
 //Zend_Mail::setDefaultTransport($transport);
-require_once 'OSDN/Functions.php';
+//require_once 'OSDN/Functions.php';
 
 /**
  * Prepare front controller

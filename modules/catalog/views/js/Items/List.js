@@ -298,9 +298,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
     
     onAdd: function(b, e) {
         
-        var formPanel = new Catalog.Items.Form({
-            //categoryId: this.categoryId
-        });
+        var formPanel = new Catalog.Items.Form();
         
         formPanel.getForm().on('saved', function() {
             this.getStore().reload();
@@ -311,10 +309,9 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         
         var record = g.getStore().getAt(rowIndex);
         var id = parseInt(record.get('id'));
-        
+
         var formPanel = new Catalog.Items.Form({
             itemId: id
-            //,categoryId: this.categoryId
         });
         
         formPanel.getForm().on('saved', function() {

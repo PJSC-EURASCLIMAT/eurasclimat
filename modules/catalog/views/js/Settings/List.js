@@ -91,20 +91,15 @@ Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
         });
         
         this.tbar = new Ext.Toolbar({
-            items: [
-                this.addBtn, 
-                ' ', 
-                this.filtersPlugin.getSearchField({width: 400}), 
-                ' ', {
-                    xtype: 'button',
-                    tooltip: 'Обновить',
-                    iconCls: 'x-tbar-loading',
-                    handler: function() {
-                        this.getStore().reload();
-                    },
-                    scope: this
-                }
-            ]
+            items: [this.addBtn, '->', {
+                xtype: 'button',
+                text: 'Обновить',
+                iconCls: 'x-tbar-loading',
+                handler: function() {
+                    this.getStore().reload();
+                },
+                scope: this
+            }]
         });
         
         Catalog.Settings.List.superclass.initComponent.apply(this, arguments);
@@ -140,6 +135,8 @@ Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
             itemId: id,
             entity: this.entity
         });
+        
+        formPanel.getForm().loadRecord(record);
         
         formPanel.getForm().on('saved', function() {
             this.getStore().reload();

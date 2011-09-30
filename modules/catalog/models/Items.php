@@ -14,27 +14,44 @@ class Catalog_Items
         $response = new OSDN_Response();
 
         $select = $this->_table->getAdapter()->select()
-        ->from(array('i' => $this->_table->getTableName()))
-        ->joinLeft(array('c' => 'catalog_categories'),
-            'i.category_id=c.id',
-            array('category_name' => 'c.name')
-        )
-        ->joinLeft(array('ch' => 'catalog_chapters'),
-            'i.chapter_id=ch.id',
-            array('chapter_name' => 'ch.name')
-        )
-        ->joinLeft(array('m' => 'catalog_marks'),
-            'i.mark_id=m.id',
-            array('mark_name' => 'm.name')
-        )
-        ->joinLeft(array('t' => 'catalog_types'),
-            'i.type_id=t.id',
-            array('type_name' => 't.name')
-        )
-        ->joinLeft(array('ms' => 'catalog_measures'),
-            'i.measure_id=ms.id',
-            array('measure_name' => 'ms.name')
-        );
+            ->from(array('i' => $this->_table->getTableName()))
+            ->joinLeft(array('titles' => 'catalog_titles'),
+                'i.title_id=titles.id',
+                array('title_name' => 'titles.name')
+            )
+            ->joinLeft(array('m' => 'catalog_marks'),
+                'i.mark_id=m.id',
+                array('mark_name' => 'm.name')
+            )
+            ->joinLeft(array('pt' => 'catalog_product_types'),
+                'i.product_type_id=pt.id',
+                array('product_type_name' => 'pt.name')
+            )
+            ->joinLeft(array('ct' => 'catalog_construction_types'),
+                'i.construction_type_id=ct.id',
+                array('construction_type_name' => 'ct.name')
+            )
+            ->joinLeft(array('t' => 'catalog_territorialities'),
+                'i.territoriality_id=t.id',
+                array('territoriality_name' => 't.name')
+            )
+            ->joinLeft(array('c' => 'catalog_conditions'),
+                'i.condition_id=c.id',
+                array('condition_name' => 'c.name')
+            )
+            ->joinLeft(array('p' => 'catalog_purposes'),
+                'i.purpose_id=p.id',
+                array('purpose_name' => 'p.name')
+            )
+            ->joinLeft(array('a' => 'catalog_availabilities'),
+                'i.availability_id=a.id',
+                array('availability_name' => 'a.name')
+            )
+            ->joinLeft(array('st' => 'catalog_system_types'),
+                'i.system_type_id=st.id',
+                array('system_type_name' => 'st.name')
+            )
+        ;
 
         $plugin = new OSDN_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -61,54 +78,11 @@ class Catalog_Items
                 OSDN_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $select = $this->_table->getAdapter()->select()
-        ->from(array('i' => $this->_table->getTableName()))
-        ->joinLeft(array('c' => 'catalog_categories'),
-            'i.category_id=c.id',
-            array('category_name' => 'c.name')
-        )
-        ->joinLeft(array('ch' => 'catalog_chapters'),
-            'i.chapter_id=ch.id',
-            array('chapter_name' => 'ch.name')
-        )
-        ->joinLeft(array('m' => 'catalog_marks'),
-            'i.mark_id=m.id',
-            array('mark_name' => 'm.name')
-        )
-        ->joinLeft(array('t' => 'catalog_types'),
-            'i.type_id=t.id',
-            array('type_name' => 't.name')
-        )
-        ->where('i.id = ?', $id);
-
-        $rows = $select->query()->fetchAll();
-        if (!$rows) {
+        $row = $this->_table->findOne($id);
+        if (!$row) {
             return $response->addStatus(new OSDN_Status(OSDN_Status::DATABASE_ERROR));
         }
-        $r = $rows[0];
-        $data = array(
-            'id'            => $r['id'],
-            'mark_id'       => $r['mark_id'],
-            'measure_id'    => $r['measure_id'],
-            'marking'       => $r['marking'],
-            'price'         => $r['price'],
-            'cold'          => $r['cold'],
-            'warm'          => $r['warm'],
-            'power'         => $r['power'],
-            'category_id'   => array(
-                                'id'    => $r['category_id'],
-                                'text'  => $r['category_name'],
-                            ),
-            'type_id'   => array(
-                                'id'    => $r['type_id'],
-                                'text'  => $r['type_name'],
-                            ),
-            'chapter_id'   => array(
-                                'id'    => $r['chapter_id'],
-                                'text'  => $r['chapter_name'],
-                            )
-        );
-        $response->setRow($data);
+        $response->setRow($row->toArray());
         return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
     }
 
@@ -117,16 +91,58 @@ class Catalog_Items
         $f = new OSDN_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'category_id'   => array('Id', 'presence' => 'required'),
-            'mark_id'       => array('Id', 'allowEmpty' => true),
-            'type_id'       => array('Id', 'allowEmpty' => true),
-            'measure_id'    => array('Id', 'allowEmpty' => true),
-            'chapter_id'    => array('Id', 'allowEmpty' => true),
-            'price'         => array(array('Float', 'en'), 'allowEmpty' => true),
-            'cold'          => array('Int', 'allowEmpty' => true),
-            'warm'          => array('Int', 'allowEmpty' => true),
-            'power'         => array(array('Float', 'en'), 'allowEmpty' => true),
-            'marking'       => array(array('StringLength', 1, 250), 'presence' => 'required')
+            'sku'       => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'model'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'title_id'              => array('Id', 'presence' => 'required'),
+            'mark_id'               => array('Id', 'allowEmpty' => true),
+            'product_type_id'       => array('Id', 'allowEmpty' => true),
+            'construction_type_id'  => array('Id', 'allowEmpty' => true),
+            'territoriality_id'     => array('Id', 'allowEmpty' => true),
+            'condition_id'          => array('Id', 'allowEmpty' => true),
+            'purpose_id'            => array('Id', 'allowEmpty' => true),
+            'availability_id'       => array('Id', 'allowEmpty' => true),
+            'system_type_id'        => array('Id', 'allowEmpty' => true),
+            'served_square'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'served_capacity'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'cooling_power'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'heating_power'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'drying_intensity'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'air_flow_rate'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_consumption_in_cooling_mode'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_consumption_in_heating_mode'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'cooling_energy_efficiency'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'heating_energy_efficiency'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_supply'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'refrigerant'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'interblock_communications_length'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'differential_interconnects_heights'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'drainage_pump'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'winter_set'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'noise_level'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'manufacturer_warranty'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'stock'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'reserve'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'order'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'measure'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'price'     => array(array('StringLength', 1, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new OSDN_Response();
@@ -150,17 +166,59 @@ class Catalog_Items
         $f = new OSDN_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'id'            => array('Id', 'presence' => 'required'),
-            'category_id'   => array('Id', 'presence' => 'required'),
-            'mark_id'       => array('Id', 'allowEmpty' => true),
-            'type_id'       => array('Id', 'allowEmpty' => true),
-            'measure_id'    => array('Id', 'allowEmpty' => true),
-            'chapter_id'    => array('Id', 'allowEmpty' => true),
-            'price'         => array(array('Float', 'en'), 'allowEmpty' => true),
-            'cold'          => array('Int', 'allowEmpty' => true),
-            'warm'          => array('Int', 'allowEmpty' => true),
-            'power'         => array(array('Float', 'en'), 'allowEmpty' => true),
-            'marking'       => array(array('StringLength', 1, 250), 'presence' => 'required')
+            'id'        => array('Id', 'presence' => 'required'),
+            'sku'       => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'model'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'title_id'              => array('Id', 'presence' => 'required'),
+            'mark_id'               => array('Id', 'allowEmpty' => true),
+            'product_type_id'       => array('Id', 'allowEmpty' => true),
+            'construction_type_id'  => array('Id', 'allowEmpty' => true),
+            'territoriality_id'     => array('Id', 'allowEmpty' => true),
+            'condition_id'          => array('Id', 'allowEmpty' => true),
+            'purpose_id'            => array('Id', 'allowEmpty' => true),
+            'availability_id'       => array('Id', 'allowEmpty' => true),
+            'system_type_id'        => array('Id', 'allowEmpty' => true),
+            'served_square'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'served_capacity'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'cooling_power'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'heating_power'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'drying_intensity'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'air_flow_rate'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_consumption_in_cooling_mode'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_consumption_in_heating_mode'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'cooling_energy_efficiency'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'heating_energy_efficiency'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'power_supply'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'refrigerant'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'interblock_communications_length'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'differential_interconnects_heights'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'drainage_pump'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'winter_set'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'noise_level'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'manufacturer_warranty'
+                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'stock'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'reserve'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'order'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'measure'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'price'     => array(array('StringLength', 1, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new OSDN_Response();
@@ -183,12 +241,6 @@ class Catalog_Items
             return $response->addStatus(new OSDN_Status(
                 OSDN_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
-
-        $resp = $this->get($id);
-        if ($resp->hasNotSuccess()) {
-            return $response->importStatuses($resp->getStatusCollection());
-        }
-        $row = $resp->getRow();
 
         $res = $this->_table->deleteByPk($id);
         if (false === $res) {

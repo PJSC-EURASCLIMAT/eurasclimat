@@ -10,12 +10,12 @@ class Catalog_Items_Table extends OSDN_Db_Table_Abstract
 
     protected $_nullableFields = array(
         'mark_id',
-        'type_id',
-        'measure_id',
-        'chapter_id',
-        'price',
-        'cold',
-        'warm',
-        'power'
+        'product_type_id',
+        'construction_type_id',
+        'territoriality_id',
+        'condition_id',
+        'purpose_id',
+        'availability_id',
+        'system_type_id'
     );
 }

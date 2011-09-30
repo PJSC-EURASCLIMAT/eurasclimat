@@ -91,8 +91,8 @@ class Catalog_Items
         $f = new OSDN_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'sku'       => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'model'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'sku'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'model'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'title_id'              => array('Id', 'presence' => 'required'),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
@@ -103,46 +103,46 @@ class Catalog_Items
             'availability_id'       => array('Id', 'allowEmpty' => true),
             'system_type_id'        => array('Id', 'allowEmpty' => true),
             'served_square'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'served_capacity'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'cooling_power'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'heating_power'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'drying_intensity'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'air_flow_rate'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_consumption_in_cooling_mode'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_consumption_in_heating_mode'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'cooling_energy_efficiency'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'heating_energy_efficiency'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_supply'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'refrigerant'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'interblock_communications_length'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'differential_interconnects_heights'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'drainage_pump'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'winter_set'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'noise_level'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'manufacturer_warranty'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'stock'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'reserve'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'order'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'measure'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'price'     => array(array('StringLength', 1, 255), 'allowEmpty' => true)
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'stock'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'measure'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new OSDN_Response();
@@ -167,8 +167,8 @@ class Catalog_Items
             '*'             => 'StringTrim'
         ), array(
             'id'        => array('Id', 'presence' => 'required'),
-            'sku'       => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'model'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+            'sku'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'model'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'title_id'              => array('Id', 'presence' => 'required'),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
@@ -179,46 +179,46 @@ class Catalog_Items
             'availability_id'       => array('Id', 'allowEmpty' => true),
             'system_type_id'        => array('Id', 'allowEmpty' => true),
             'served_square'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'served_capacity'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'cooling_power'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'heating_power'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'drying_intensity'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'air_flow_rate'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_consumption_in_cooling_mode'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_consumption_in_heating_mode'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'cooling_energy_efficiency'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'heating_energy_efficiency'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_supply'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'refrigerant'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'interblock_communications_length'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'differential_interconnects_heights'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'drainage_pump'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'winter_set'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'noise_level'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'manufacturer_warranty'
-                => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'stock'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'reserve'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'order'     => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'measure'   => array(array('StringLength', 1, 255), 'allowEmpty' => true),
-            'price'     => array(array('StringLength', 1, 255), 'allowEmpty' => true)
+                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'stock'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'measure'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new OSDN_Response();

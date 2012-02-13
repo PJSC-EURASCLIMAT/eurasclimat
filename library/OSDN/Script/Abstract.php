@@ -58,7 +58,7 @@ abstract class OSDN_Script_Abstract
 
             if (is_array($el) && (isset($el['src']) || isset($el['href']))) {
                 if (isset($el['debug'])
-                    && OSDN_DEBUG != (boolean)($el['debug'] === 'true')) {
+                    && DEBUG != (boolean)($el['debug'] === 'true')) {
                     continue;
                 }
 
@@ -157,7 +157,7 @@ abstract class OSDN_Script_Abstract
         foreach ((array)$data[$fileType] as $el) {
             if (is_array($el) && (isset($el['src']) || isset($el['href']))) {
                 if (isset($el['debug'])
-                    && OSDN_DEBUG != (boolean)($el['debug'] === 'true')) {
+                    && DEBUG != (boolean)($el['debug'] === 'true')) {
                     continue;
                 }
                 if (isset($el['project'])

@@ -68,7 +68,7 @@ class OSDN_Translation
         try { 
             self::$_instance = new Zend_Translate($adapter, $data, $locale, $options);
         } catch (Exception $e) {
-        	if (OSDN_DEBUG) {
+        	if (DEBUG) {
         		throw $e;
         	}
         	return false;

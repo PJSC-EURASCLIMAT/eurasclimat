@@ -25,11 +25,11 @@ if (!file_exists(CONFIG_FILE)) {
 set_include_path(join(PATH_SEPARATOR, array(ROOT_DIR, API_DIR)));
 
 require_once 'Zend/Loader/Autoloader.php';
-require_once 'OSDN/Loader/Autoloader.php';
+require_once 'Xend/Autoloader.php';
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
-$autoloader->pushAutoloader(array('OSDN_Loader_Autoloader', 'autoload'));
+$autoloader->pushAutoloader(array('Xend_Autoloader', 'autoload'));
 
 Zend_Session::start();
 
@@ -56,15 +56,15 @@ date_default_timezone_set($config->ui->timezone);
 Zend_Registry::set('config', $config);
 
 define('ADMIN_ROLE', 1);
-define('OSDN_DEBUG', (boolean) $config->debug);
+define('DEBUG', (boolean) $config->debug);
 define('MYSQL_DATE_TIME_FORMAT', 'Y-m-d H:i:s');
 define('MYSQL_DATE_FORMAT', 'Y-m-d');
-define('OSDN_DATE_TIME_FORMAT', 'YY-MM-DD HH:mm:ss');
-define('OSDN_TIME_FORMAT', 'HH:mm:ss');
-define('OSDN_DATE_FORMAT', 'YYYY-MM-DD');
-define('OSDN_DATE_DISPLAY_FORMAT', 'd-m-Y');
+define('DATE_TIME_FORMAT', 'YY-MM-DD HH:mm:ss');
+define('TIME_FORMAT', 'HH:mm:ss');
+define('DATE_FORMAT', 'YYYY-MM-DD');
+define('DATE_DISPLAY_FORMAT', 'd-m-Y');
 
-if (!OSDN_DEBUG) {
+if (!DEBUG) {
     error_reporting(0);
     ini_set('display_errors', 0);
 }
@@ -85,7 +85,7 @@ OSDN_Db_Table_Abstract::setDefaultPrefix($config->db->prefix);
 OSDN_Db_Table_Abstract::setDefaultSequence(true);
 Zend_Registry::set('db', $db);
 
-if (OSDN_DEBUG) {
+if (DEBUG) {
     $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
     $profiler->setEnabled(true);
     $db->setProfiler($profiler);
@@ -106,12 +106,12 @@ Zend_Locale::disableCache(true);
  * Prepare front controller
  */
 $fc = Zend_Controller_Front::getInstance();
-$fc->throwExceptions(OSDN_DEBUG);
+$fc->throwExceptions(DEBUG);
 $fc->addModuleDirectory(MODULES_DIR);
 
 $options = array(
     'layoutPath'    => LAYOUT_DIR,
-    'debug'         => OSDN_DEBUG,
+    'debug'         => DEBUG,
     'locale'        => OSDN_Language::getDefaultLocale()
 );
 

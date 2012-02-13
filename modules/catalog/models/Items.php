@@ -61,7 +61,7 @@ class Catalog_Items
             $response->totalCount = $plugin->getTotalCount();
             $status = OSDN_Status::OK;
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             $status = OSDN_Status::DATABASE_ERROR;

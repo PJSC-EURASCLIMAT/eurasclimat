@@ -188,7 +188,7 @@ abstract class OSDN_Db_Table_Abstract extends Zend_Db_Table_Abstract
         try {
             return parent::insert($data);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;
@@ -226,7 +226,7 @@ abstract class OSDN_Db_Table_Abstract extends Zend_Db_Table_Abstract
         try {
             return parent::update($data, $where);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;
@@ -244,7 +244,7 @@ abstract class OSDN_Db_Table_Abstract extends Zend_Db_Table_Abstract
         try {
             return parent::delete($where);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
 
@@ -411,7 +411,7 @@ abstract class OSDN_Db_Table_Abstract extends Zend_Db_Table_Abstract
 	            return $data->current();
 	        }
     	} catch (Exception $e) {
-    		if (OSDN_DEBUG) {
+    		if (DEBUG) {
     			throw $e;
     		}
     		return false;
@@ -524,7 +524,7 @@ abstract class OSDN_Db_Table_Abstract extends Zend_Db_Table_Abstract
         try {
             return (int) $select->query()->fetchColumn();
         } catch (Exception $e) {
-        	if (OSDN_DEBUG) {
+        	if (DEBUG) {
         		throw $e;
         	}
         	return false;

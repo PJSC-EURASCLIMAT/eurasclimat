@@ -75,7 +75,7 @@ class OSDN_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
         );
 
         // prepare debug router
-        if (OSDN_DEBUG) {
+        if (DEBUG) {
             $router->addRoute(
                 'debug',
                 new Zend_Controller_Router_Route('debug/:module/:controller/:action/*',

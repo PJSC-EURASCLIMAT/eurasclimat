@@ -68,7 +68,7 @@ class ErrorController extends OSDN_Controller_Action
                     break;
                 }
                 
-                if (OSDN_DEBUG) {
+                if (DEBUG) {
                     $this->view->message = $errors->exception->getMessage();
                     $this->view->details = Zend_Debug::dump($errors, null, false);
                 }

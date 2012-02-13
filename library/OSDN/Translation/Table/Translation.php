@@ -104,7 +104,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
         try {
             $rows = $select->query()->fetchAll();
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return array();
@@ -122,7 +122,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
         try {
             $rows = $this->fetchAll(array('status = ? or status = "' . self::TRANSLATED_WORD . '"' => self::NEW_WORD))->toArray();
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;
@@ -153,7 +153,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
         try {
             $rows = $select->query()->fetchAll();
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;
@@ -185,7 +185,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
         try {
             $count = $select->query()->fetchColumn();
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;

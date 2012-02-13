@@ -97,7 +97,7 @@ class OSDN_Translation_Data
         try {
             $result = $this->_translationTable->insert($prepared);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;

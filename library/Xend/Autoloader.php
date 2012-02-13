@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_Loader_Autoloader
+class Xend_Autoloader
 {
     /**
      * Autoload a class

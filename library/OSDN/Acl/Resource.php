@@ -50,7 +50,7 @@ class OSDN_Acl_Resource
             $response->rows = $rowset->toArray();
             $status = OSDN_Acl_Status::OK;
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             

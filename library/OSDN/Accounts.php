@@ -167,7 +167,7 @@ class OSDN_Accounts
             $status = OSDN_Acl_Status::OK;
 
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
 
@@ -510,7 +510,7 @@ class OSDN_Accounts
             $affectedRows = $this->_tableAccounts->deleteByPk($id);
             $status = OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             $status = OSDN_Accounts_Status::DATABASE_ERROR;

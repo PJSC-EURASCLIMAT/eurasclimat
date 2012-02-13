@@ -64,7 +64,7 @@ class Admin_AclController extends OSDN_Controller_Action
     public function insertResourceAction()
     {
         $resourceChain = explode(',', $this->_getParam('resource', ''));
-        if (!OSDN_DEBUG || 0 == count($resourceChain) || empty($resourceChain)) {
+        if (!DEBUG || 0 == count($resourceChain) || empty($resourceChain)) {
             $this->view->success = false;
         }
 

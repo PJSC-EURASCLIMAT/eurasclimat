@@ -16,7 +16,7 @@ class Catalog_Settings
         try {
             $row = $this->_table->findOne($id);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return $response->addStatus(new OSDN_Status(
@@ -41,7 +41,7 @@ class Catalog_Settings
             $response->setRowset($rows);
             $status = OSDN_Status::OK;
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             $status = OSDN_Status::DATABASE_ERROR;
@@ -57,7 +57,7 @@ class Catalog_Settings
         try {
             $id = $this->_table->insert(array('name' => $name));
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return $response->addStatus(new OSDN_Status(
@@ -84,7 +84,7 @@ class Catalog_Settings
         try {
             $result = $this->_table->updateByPk(array('name' => $name), $id);
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
         }

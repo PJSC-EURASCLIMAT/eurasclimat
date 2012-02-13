@@ -460,7 +460,7 @@ class OSDN_Db_Plugin_Select
             $count = $s->query()->fetchColumn(0);
             return $count;
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
 
@@ -482,7 +482,7 @@ class OSDN_Db_Plugin_Select
 		try {
 			$count = $this->_adapter->query('SELECT FOUND_ROWS()')->fetchColumn(0);
 		} catch (Exception $e) {
-			if (OSDN_DEBUG) {
+			if (DEBUG) {
                 throw $e;
             }
 

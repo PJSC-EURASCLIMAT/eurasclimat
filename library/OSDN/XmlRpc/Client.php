@@ -25,7 +25,7 @@ class OSDN_XmlRpc_Client extends Zend_XmlRpc_Client
         try {
             $result = parent::call($method, $params);
         } catch(Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 $this->_writeLog($e, $method, $params);
             }
             throw $e;

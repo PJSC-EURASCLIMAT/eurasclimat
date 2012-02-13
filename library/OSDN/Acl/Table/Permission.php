@@ -57,7 +57,7 @@ class OSDN_Acl_Table_Permission extends OSDN_Db_Table_Abstract
         try {
             $rowset = $select->query()->fetchAll();
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             return false;

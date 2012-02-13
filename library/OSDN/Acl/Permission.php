@@ -41,7 +41,7 @@ class OSDN_Acl_Permission
             $response->setRowset($rowset->toArray());
             $status = OSDN_Acl_Status::OK;
         } catch (Exception $e) {
-            if (OSDN_DEBUG) {
+            if (DEBUG) {
                 throw $e;
             }
             $status = OSDN_Acl_Status::DATABASE_ERROR;
@@ -176,7 +176,7 @@ class OSDN_Acl_Permission
                 $rowset = $tableResource->fetchAll($whereClause);
                 $rows = $rowset->toArray();
             } catch (Exception $e) {
-                if (OSDN_DEBUG) {
+                if (DEBUG) {
                     throw $e;
                 }
                 continue;

@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Settings_TableFactory extends OSDN_Db_Table_Abstract
+class Catalog_Settings_TableFactory extends Xend_Db_Table_Abstract
 {
     public function __construct($entity)
     {

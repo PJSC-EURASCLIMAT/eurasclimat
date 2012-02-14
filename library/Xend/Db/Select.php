@@ -4,7 +4,6 @@
  *
  * @category	Xend
  * @package		Xend_Db
- * @version 	$Id: $
  */
 class Xend_Db_Select extends Zend_Db_Select
 {

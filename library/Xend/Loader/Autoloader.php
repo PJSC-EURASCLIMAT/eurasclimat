@@ -1,6 +1,6 @@
 <?php
 
-class Xend_Autoloader
+class Xend_Loader_Autoloader
 {
     /**
      * Autoload a class

@@ -49,10 +49,10 @@ class IndexController extends OSDN_Controller_Action
             return;
         }
 
-        $dbAdapter = OSDN_Db_Table_Abstract::getDefaultAdapter();
+        $dbAdapter = Xend_Db_Table_Abstract::getDefaultAdapter();
         $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
 
-        $authAdapter->setTableName(OSDN_Db_Table_Abstract::getDefaultPrefix() . 'accounts');
+        $authAdapter->setTableName(Xend_Db_Table_Abstract::getDefaultPrefix() . 'accounts');
         $authAdapter->setIdentityColumn('login');
         $authAdapter->setCredentialColumn('password');
 

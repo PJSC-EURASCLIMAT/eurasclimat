@@ -53,7 +53,7 @@ class Catalog_Items
             )
         ;
 
-        $plugin = new OSDN_Db_Plugin_Select($this->_table, $select);
+        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
         try {
             $rows = $select->query()->fetchAll();

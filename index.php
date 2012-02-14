@@ -25,11 +25,11 @@ if (!file_exists(CONFIG_FILE)) {
 set_include_path(join(PATH_SEPARATOR, array(ROOT_DIR, API_DIR)));
 
 require_once 'Zend/Loader/Autoloader.php';
-require_once 'Xend/Autoloader.php';
+require_once 'Xend/Loader/Autoloader.php';
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
-$autoloader->pushAutoloader(array('Xend_Autoloader', 'autoload'));
+$autoloader->pushAutoloader(array('Xend_Loader_Autoloader', 'autoload'));
 
 Zend_Session::start();
 
@@ -73,16 +73,16 @@ if (!DEBUG) {
  * Needed this specific loading because in factory method
  * the adapter name convert to camel case
  */
-Zend_Loader::loadClass('OSDN_Db_Adapter_Pdo_Mysql');
+Zend_Loader::loadClass('Xend_Db_Adapter_Pdo_Mysql');
 
 $dbConfig = $config->db->toArray();
-$dbConfig['adapterNamespace'] = 'OSDN_Db_Adapter';
+$dbConfig['adapterNamespace'] = 'Xend_Db_Adapter';
 
 $db = Zend_Db::factory('PDO_MYSQL', $dbConfig);
 Zend_Db_Table_Abstract::setDefaultAdapter($db);
 Zend_Db_Table_Abstract::setDefaultMetadataCache($cacheCore);
-OSDN_Db_Table_Abstract::setDefaultPrefix($config->db->prefix);
-OSDN_Db_Table_Abstract::setDefaultSequence(true);
+Xend_Db_Table_Abstract::setDefaultPrefix($config->db->prefix);
+Xend_Db_Table_Abstract::setDefaultSequence(true);
 Zend_Registry::set('db', $db);
 
 if (DEBUG) {

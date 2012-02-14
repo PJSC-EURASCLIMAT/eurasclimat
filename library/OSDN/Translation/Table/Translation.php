@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
+class OSDN_Translation_Table_Translation extends Xend_Db_Table_Abstract
 {
     const NEW_WORD = 0;
     
@@ -147,7 +147,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
             'languages.id'              => 'caption'
         );
         
-        $filter = new OSDN_Db_Plugin_Select($this, $select, $fields);
+        $filter = new Xend_Db_Plugin_Select($this, $select, $fields);
         $filter->parse($options);
 
         try {
@@ -177,7 +177,7 @@ class OSDN_Translation_Table_Translation extends OSDN_Db_Table_Abstract
             'languages.id'              => 'caption'
         );
         
-        $filter = new OSDN_Db_Plugin_Select($this, $select, $fields);
+        $filter = new Xend_Db_Plugin_Select($this, $select, $fields);
         $filter->parse($options);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);

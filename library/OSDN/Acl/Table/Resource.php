@@ -7,7 +7,7 @@
  * @package OSDN_Acl
  * @subpackage OSDN_Acl
  */
-class OSDN_Acl_Table_Resource extends OSDN_Db_Table_Abstract
+class OSDN_Acl_Table_Resource extends Xend_Db_Table_Abstract
 {
     /**
      * Table name

@@ -150,7 +150,7 @@ class OSDN_Accounts
         $select = $this->_tableAccounts->getAdapter()->select();
         $select->from(array('a' => $this->_tableAccounts->getTableName()));
 
-        $plugin = new OSDN_Db_Plugin_Select($this->_tableAccounts, $select);
+        $plugin = new Xend_Db_Plugin_Select($this->_tableAccounts, $select);
         $plugin->parse($params);
 
         if (!empty($where)) {

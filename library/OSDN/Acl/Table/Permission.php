@@ -7,7 +7,7 @@
  * @package OSDN_Acl
  * @subpackage OSDN_Acl
  */
-class OSDN_Acl_Table_Permission extends OSDN_Db_Table_Abstract
+class OSDN_Acl_Table_Permission extends Xend_Db_Table_Abstract
 {
     /**
      * Table name
@@ -35,7 +35,7 @@ class OSDN_Acl_Table_Permission extends OSDN_Db_Table_Abstract
         
         $select = $this->_db->select()
             ->from(
-                array('resources' => OSDN_Db_Table_Abstract::getDefaultPrefix() . 'acl_resources'),
+                array('resources' => Xend_Db_Table_Abstract::getDefaultPrefix() . 'acl_resources'),
                 array('id', 'text' => 'title')
            )
            ->joinLeft(

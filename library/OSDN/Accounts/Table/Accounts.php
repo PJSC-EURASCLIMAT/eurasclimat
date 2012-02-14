@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_Accounts_Table_Accounts extends OSDN_Db_Table_Abstract
+class OSDN_Accounts_Table_Accounts extends Xend_Db_Table_Abstract
 {
     protected $_name = 'accounts';
     

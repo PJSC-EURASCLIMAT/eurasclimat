@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ItemsController extends OSDN_Controller_Action
+class Catalog_ItemsController extends Xend_Controller_Action
 {
 
     /**

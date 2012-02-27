@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <zend-config>
   <general>
+    <debug>1</debug>
     <company>
       <name>eurasclimat</name>
     </company>
@@ -35,6 +36,5 @@
       <password></password>
       <enable>0</enable>
     </remoteauth>
-    <debug>0</debug>
   </general>
 </zend-config>

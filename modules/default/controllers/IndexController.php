@@ -3,7 +3,7 @@
 /**
  * Default application conroller
  */
-class IndexController extends OSDN_Controller_Action
+class IndexController extends Xend_Controller_Action
 {
     /**
      * The main access point into application

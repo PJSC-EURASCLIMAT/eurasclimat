@@ -1,6 +1,6 @@
 <?php
 
-class Admin_AclController extends OSDN_Controller_Action
+class Admin_AclController extends Xend_Controller_Action
 {
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {

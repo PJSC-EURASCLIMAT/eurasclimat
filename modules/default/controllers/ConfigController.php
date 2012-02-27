@@ -1,6 +1,6 @@
 <?php
 
-class ConfigController extends OSDN_Controller_Action
+class ConfigController extends Xend_Controller_Action
 {
     public function getPermissionsAction()
     {

@@ -130,7 +130,7 @@ class Xend_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
      * Get front controller instance
      *
      * @return Zend_Controller_Front
-     * @throws OSDN_Controller_Exception
+     * @throws Xend_Controller_Exception
      */
     public function getFrontController()
     {
@@ -144,7 +144,7 @@ class Xend_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
         }
 
         // Throw exception in all other cases
-        throw new OSDN_Controller_Exception('Front controller class has not been loaded');
+        throw new Xend_Controller_Exception('Front controller class has not been loaded');
 
     }
 }

@@ -1,12 +1,6 @@
 <?php
 
-/**
- * Zend_Controller_Action
- *
- * @category OSDN
- * @package OSDN_Controller
- */
-class OSDN_Controller_Action extends Zend_Controller_Action
+class Xend_Controller_Action extends Zend_Controller_Action
 {
     /**
      * Set permission in this function
@@ -22,7 +16,7 @@ class OSDN_Controller_Action extends Zend_Controller_Action
      */
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {}
-    
+
     /**
      * Generate url link
      *
@@ -36,13 +30,13 @@ class OSDN_Controller_Action extends Zend_Controller_Action
     {
         return $this->_helper->url($action, $controller, $module, $params);
     }
-    
+
     /**
      * Disable rendering
      * Alias for set no render
      *
      * @param boolean $flag        true to disable
-     * @return OSDN_Controller_Action
+     * @return Xend_Controller_Action
      */
     public function disableRender($flag = true)
     {
@@ -50,29 +44,29 @@ class OSDN_Controller_Action extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender($flag);
         return $this;
     }
-    
+
     /**
      * Disable layout
      *
      * @param bool $flag
-     * @return OSDN_Controller_Action
+     * @return Xend_Controller_Action
      */
     public function disableLayout($flag = true)
     {
         if (!$this->_helper->hasHelper('layout')) {
             return;
         }
-        
+
         $layout = $this->_helper->layout;
         if ($flag) {
             $layout->disableLayout();
         } else {
             $layout->enableLayout();
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Collect errors from response to $this->view->errors
      *
@@ -85,10 +79,10 @@ class OSDN_Controller_Action extends Zend_Controller_Action
         if ($response->hasNotSuccess()) {
             $this->view->success = false;
         }
-        
+
         $this->view->errors = $this->_getErrors($response);
     }
-    
+
     /**
      * Return errors from given response
      *
@@ -104,14 +98,14 @@ class OSDN_Controller_Action extends Zend_Controller_Action
 
             foreach ($statuses as $status) {
                 $msg = $status->getMessage();
-                
+
                 switch($status->getModuleCode()) {
                     case OSDN_Filter_Input::MODULE_CODE:
                         break;
                     default:
                         $msg = $msg;
                 }
-                
+
                 $errors[] = array(
                     'id'    => $status->getField(),
                     'msg'   => $msg,

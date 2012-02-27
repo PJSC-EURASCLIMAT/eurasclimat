@@ -1,6 +1,6 @@
 <?php
 
-class ErrorController extends OSDN_Controller_Action
+class ErrorController extends Xend_Controller_Action
 {
 
     const PERMISSION_CLASS = 'Zend_Acl_Exception';

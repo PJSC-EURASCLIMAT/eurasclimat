@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_SettingsController extends OSDN_Controller_Action
+class Catalog_SettingsController extends Xend_Controller_Action
 {
 	/**
 	 * @var model

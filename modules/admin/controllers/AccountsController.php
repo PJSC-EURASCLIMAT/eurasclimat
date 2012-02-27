@@ -1,6 +1,6 @@
 <?php
 
-class Admin_AccountsController extends OSDN_Controller_Action
+class Admin_AccountsController extends Xend_Controller_Action
 {
     /**
      * Accounts object

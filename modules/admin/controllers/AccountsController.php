@@ -9,7 +9,7 @@ class Admin_AccountsController extends OSDN_Controller_Action
      */
     protected $_accounts;
 
-    public function permission(OSDN_Controller_Action_Helper_Acl $acl)
+    public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->admin);
         $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-accounts');

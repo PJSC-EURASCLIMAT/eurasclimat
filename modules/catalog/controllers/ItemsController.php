@@ -14,7 +14,7 @@ class Catalog_ItemsController extends OSDN_Controller_Action
         parent::init();
     }
 
-    public function permission(OSDN_Controller_Action_Helper_Acl $acl)
+    public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->catalog);
         $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-list');
@@ -28,7 +28,7 @@ class Catalog_ItemsController extends OSDN_Controller_Action
     {
         $response = $this->_model->getList($this->_getAllParams());
         if ($response->isSuccess()) {
-            $this->view->succces = true;
+            $this->view->success = true;
             $this->view->data = $response->getRowset();
             $this->view->totalCount = $response->totalCount;
         } else {

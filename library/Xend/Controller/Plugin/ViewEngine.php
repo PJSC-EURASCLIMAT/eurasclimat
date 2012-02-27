@@ -8,12 +8,8 @@
  * /debug       for print the variable recursive
  * /assemble    for assemble callback functions
  *
- * @category    OSDN
- * @package     OSDN_Controller
- * @subpackage  OSDN_Controller_Plugin
- * @version     $Id: ViewEngine.php 6711 2009-02-10 13:30:04Z flash $
  */
-class OSDN_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
+class Xend_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
 {
 
     protected $_options = array();

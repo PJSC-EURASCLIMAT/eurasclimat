@@ -12,7 +12,7 @@ class OSDN_Controller_Action extends Zend_Controller_Action
      * Set permission in this function
      * Overwrite this function and set own permission
      *
-     * @param OSDN_Controller_Action_Helper_Acl $acl     An acl helper
+     * @param Xend_Controller_Action_Helper_Acl $acl     An acl helper
      *
      * <example>
      *   $acl = $this->_helper->acl;
@@ -20,7 +20,7 @@ class OSDN_Controller_Action extends Zend_Controller_Action
      *   $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-list');
      * </example>
      */
-    public function permission(OSDN_Controller_Action_Helper_Acl $acl)
+    public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {}
     
     /**

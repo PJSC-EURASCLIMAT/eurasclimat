@@ -1,16 +1,12 @@
 <?php
 
 /**
- * OSDN authorization plugin
+ * Authorization plugin
  *
- * @uses        Zend_Controller_Plugin_Abstract
- * @category    OSDN
- * @package     OSDN_Controller
- * @subpackage  OSDN_Controller_Plugin
- * @version     $Id: Authorization.php 6735 2009-02-12 10:57:32Z flash $
+ * @uses Zend_Controller_Plugin_Abstract
  */
 
-class OSDN_Controller_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
+class Xend_Controller_Plugin_Authorization extends Zend_Controller_Plugin_Abstract
 {
 
     protected $_public = 'public';
@@ -37,7 +33,7 @@ class OSDN_Controller_Plugin_Authorization extends Zend_Controller_Plugin_Abstra
         // account is authenticated
         // add acl helper
         if (OSDN_Accounts_Prototype::isAuthenticated()) {
-            Zend_Controller_Action_HelperBroker::addHelper(new OSDN_Controller_Action_Helper_Acl());
+            Zend_Controller_Action_HelperBroker::addHelper(new Xend_Controller_Action_Helper_Acl());
             return;
         }
 

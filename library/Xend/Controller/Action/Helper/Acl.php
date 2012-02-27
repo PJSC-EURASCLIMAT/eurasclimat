@@ -8,10 +8,8 @@
  * Also contain the acl object
  * Can simply interface for access from any controller to check the acl
  *
- * @category OSDN
- * @package OSDN_Controller
  */
-class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abstract
+class Xend_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Abstract
 {
     /**
      * The acl instance
@@ -141,7 +139,7 @@ class OSDN_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
      * Set up the common resource
      *
      * @param Zend_Acl_Resource $resource
-     * @return OSDN_Controller_Action_Helper_Acl
+     * @return Xend_Controller_Action_Helper_Acl
      */
     public function setResource($resource)
     {

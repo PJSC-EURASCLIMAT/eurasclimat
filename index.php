@@ -79,11 +79,13 @@ $dbConfig = $config->db->toArray();
 $dbConfig['adapterNamespace'] = 'Xend_Db_Adapter';
 
 $db = Zend_Db::factory('PDO_MYSQL', $dbConfig);
+$db->query('SET names utf8');
+
 Zend_Db_Table_Abstract::setDefaultAdapter($db);
 Zend_Db_Table_Abstract::setDefaultMetadataCache($cacheCore);
-Xend_Db_Table_Abstract::setDefaultPrefix($config->db->prefix);
-Xend_Db_Table_Abstract::setDefaultSequence(true);
 Zend_Registry::set('db', $db);
+
+Xend_Db_Table_Abstract::setDefaultSequence(true);
 
 if (DEBUG) {
     $profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
@@ -91,16 +93,16 @@ if (DEBUG) {
     $db->setProfiler($profiler);
 }
 
-$db->query('SET names utf8');
-
 // migration from 1.6 -> 1.7
 Zend_Locale::$compatibilityMode = false;
 Zend_Locale::disableCache(true);
 
 // configure mail
-//$transport = new Zend_Mail_Transport_Smtp($config->mail->SMTP, $config->mail->authentificate->toArray());
+//$transport = new Zend_Mail_Transport_Smtp(
+//    $config->mail->SMTP,
+//    $config->mail->authentificate->toArray()
+//);
 //Zend_Mail::setDefaultTransport($transport);
-//require_once 'OSDN/Functions.php';
 
 /**
  * Prepare front controller
@@ -112,31 +114,15 @@ $fc->addModuleDirectory(MODULES_DIR);
 $options = array(
     'layoutPath'    => LAYOUT_DIR,
     'debug'         => DEBUG,
-    'locale'        => OSDN_Language::getDefaultLocale()
+    'locale'        => 'ru'
 );
 
 if (!OSDN_Accounts_Prototype::isAuthenticated()) {
     $options['layout'] = 'auth';
-} else {
-
-    $roleName = '';
-
-    $roles = new OSDN_Acl_Roles();
-	$response = $roles->fetchRole(OSDN_Accounts_Prototype::getRoleId());
-	if ($response->isSuccess()) {
-		$roleRow = $response->getRow();
-		$roleName = $roleRow['name'];
-	}
-
-	$options += array(
-        'roleId' => OSDN_Accounts_Prototype::getRoleId(),
-        'username' => OSDN_Accounts_Prototype::getInformation()->name,
-        'rolename' => $roleName
-    );
 }
 
-$fc->registerPlugin(new OSDN_Controller_Plugin_ViewEngine($options));
-$fc->registerPlugin(new OSDN_Controller_Plugin_Authorization());
-Zend_Controller_Action_HelperBroker::addPrefix('OSDN_Controller_Action_Helper');
+$fc->registerPlugin(new Xend_Controller_Plugin_ViewEngine($options));
+$fc->registerPlugin(new Xend_Controller_Plugin_Authorization());
+Zend_Controller_Action_HelperBroker::addPrefix('Xend_Controller_Action_Helper');
 
 $fc->dispatch();

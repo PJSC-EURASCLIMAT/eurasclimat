@@ -17,7 +17,7 @@ class OSDN_View_Helper_IncludeCss
 
     public function IncludeCss($params = array())
     {
-		return OSDN_Script::factory("Css")->generateHtml($params, $this->view->baseUrl());
+		return Xend_Script::factory("Css")->generateHtml($params, $this->view->baseUrl());
     }
 
     public function setView(Zend_View_Interface $view)

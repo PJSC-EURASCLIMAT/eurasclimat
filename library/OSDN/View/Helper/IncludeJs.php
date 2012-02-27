@@ -17,7 +17,7 @@ class OSDN_View_Helper_IncludeJs
 
     public function IncludeJs($params = array())
     {
-        return OSDN_Script::factory()->generateHtml($params, $this->view->baseUrl());
+        return Xend_Script::factory()->generateHtml($params, $this->view->baseUrl());
     }
 
     public function setView(Zend_View_Interface $view)

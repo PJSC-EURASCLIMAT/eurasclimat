@@ -93,17 +93,6 @@ if (DEBUG) {
     $db->setProfiler($profiler);
 }
 
-// migration from 1.6 -> 1.7
-Zend_Locale::$compatibilityMode = false;
-Zend_Locale::disableCache(true);
-
-// configure mail
-//$transport = new Zend_Mail_Transport_Smtp(
-//    $config->mail->SMTP,
-//    $config->mail->authentificate->toArray()
-//);
-//Zend_Mail::setDefaultTransport($transport);
-
 /**
  * Prepare front controller
  */

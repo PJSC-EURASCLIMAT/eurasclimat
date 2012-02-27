@@ -1,6 +1,6 @@
 <?php
 
-abstract class OSDN_Script_Abstract
+abstract class Xend_Script_Abstract
 {
     protected $_basePath;
 

@@ -4,20 +4,20 @@
  * Class for using the script loading
  *
  * @category		OSDN
- * @package		OSDN_Script
+ * @package		Xend_Script
  */
-class OSDN_Script
+class Xend_Script
 {
     /**
      * Create the script instance
      *
      * @param string $adapter
-     * @return OSDN_Script_Interface
+     * @return Xend_Script_Interface
      */
     public static function factory($adapter = 'Js')
     {
         $adapter = ucfirst(strtolower($adapter));
-        $adapterNamespace = 'OSDN_Script_';
+        $adapterNamespace = 'Xend_Script_';
         $adapterCls = $adapterNamespace . $adapter;
         $adapterInstance = new $adapterCls();
         return $adapterInstance;

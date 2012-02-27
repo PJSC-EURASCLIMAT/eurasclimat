@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_Script_Css extends OSDN_Script_Abstract
+class Xend_Script_Css extends Xend_Script_Abstract
 {
     public function get($params = array())
     {

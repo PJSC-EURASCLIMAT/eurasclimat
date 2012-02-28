@@ -2,14 +2,9 @@
 
 /**
  * include js files
- *
- * @category OSDN
- * @package OSDN_View
- * @subpackage OSDN_View_Helper
  */
-class OSDN_View_Helper_IncludeJs
+class Xend_View_Helper_IncludeJs
 {
-
     /**
      * @var Zend_View
      */

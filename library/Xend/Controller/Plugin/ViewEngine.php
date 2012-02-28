@@ -97,7 +97,7 @@ class Xend_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
         $frontController = $this->getFrontController();
         $route = $frontController->getRouter();
         $routeName = $route->getCurrentRouteName();
-        $view = OSDN_View::factory($routeName, $this->_options);
+        $view = Xend_View::factory($routeName, $this->_options);
 
         // set a predefined variables
         if ($view instanceof Zend_View_Abstract) {

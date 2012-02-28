@@ -3,18 +3,15 @@
 /**
  * Provide the output functionality by different engine
  * xml, json, html
- *
- * @category OSDN
- * @package OSDN_View
  */
-class OSDN_View
+class Xend_View
 {
-    
+
     /**
-     * Factory for OSDN_View classes
+     * Factory for Xend_View classes
      *
      * First argument may be a string containing the base of the engine class
-     * name, e.g. 'json' corresponds to class OSDN_View_Engine_Json.  This
+     * name, e.g. 'json' corresponds to class Xend_View_Engine_Json.  This
      * is case-insensitive.
      *
      * Second argument is optional and may be an associative array of key-value
@@ -22,19 +19,19 @@ class OSDN_View
      *
      * @param  mixed $engine String name of base engine class.
      * @param  mixed $config  OPTIONAL; an array of engine parameters.
-     * @return OSDN_View_Engine_Abstract | Zend_View_Abstract
+     * @return Xend_View_Engine_Abstract | Zend_View_Abstract
      */
     public static function factory($engine, $config = array())
     {
         if (!is_string($engine) || empty($engine)) {
             throw new Xend_Exception('View engine must be specified in a string');
         }
-        
+
         $engine = strtolower($engine);
         switch ($engine) {
             case 'json':
             case 'debug':
-                $engineName = 'OSDN_View_Engine_' . ucfirst($engine);
+                $engineName = 'Xend_View_Engine_' . ucfirst($engine);
                 $engineObject = new $engineName();
                 break;
 
@@ -43,13 +40,13 @@ class OSDN_View
                 if (!empty($config['disableLayout']) && true == $config['disableLayout']) {
                     $mvc->disableLayout();
                 }
-                
+
                 $engineObject = new Zend_View($config);
-                $engineObject->addHelperPath('OSDN/View/Helper', 'OSDN_View_Helper');
+                $engineObject->addHelperPath('Xend/View/Helper', 'Xend_View_Helper');
                 break;
         }
-        
+
         return $engineObject;
     }
-    
+
 }

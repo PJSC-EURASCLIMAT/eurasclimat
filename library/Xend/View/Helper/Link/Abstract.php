@@ -2,14 +2,9 @@
 
 /**
  * Generage url link in view template
- *
- * @category OSDN
- * @package OSDN_View
- * @subpackage OSDN_View_Helper
  */
-abstract class OSDN_View_Helper_Link_Abstract
+abstract class Xend_View_Helper_Link_Abstract
 {
-    
     /**
      * @var Zend_View
      */
@@ -23,17 +18,17 @@ abstract class OSDN_View_Helper_Link_Abstract
      * @param string $action
      * @param array $options
      */
-    protected function _link($module, $controller, $action, array $options = array(), $engine = null) 
+    protected function _link($module, $controller, $action, array $options = array(), $engine = null)
     {
         $front = Zend_Controller_Front::getInstance();
-        
+
         if (empty($module)) {
             throw new Xend_Exception('Module is empty');
         }
 
         $urlParts = array($front->getBaseUrl());
         if (!is_null($engine)) {
-            array_push($urlParts, $engine);    
+            array_push($urlParts, $engine);
         }
         $urlParts = array_merge($urlParts, array($module, $controller, $action));
         $url = join('/', $urlParts);
@@ -45,12 +40,12 @@ abstract class OSDN_View_Helper_Link_Abstract
             }
             $url .= '/' . join('/', $params);
         }
-        
+
         return $url;
     }
-    
+
     public function setView(Zend_View_Interface $view)
     {
-        $this->view = $view; 
+        $this->view = $view;
     }
 }

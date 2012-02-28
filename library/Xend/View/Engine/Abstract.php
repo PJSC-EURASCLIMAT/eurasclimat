@@ -1,13 +1,9 @@
 <?php
 
 /**
- * Abstract class for OSDN_View_Engine_Interface implementation
- * 
- * @category OSDN
- * @package OSDN_View
- * @subpackage OSDN_View_Engine
+ * Abstract class for Xend_View_Engine_Interface implementation
  */
-abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
+abstract class Xend_View_Engine_Abstract implements Xend_View_Engine_Interface
 {
     /**
      * Data container
@@ -18,7 +14,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
 
     public function getEngine()
     {}
-    
+
     /**
      * Retrieve the data from collection
      *
@@ -28,19 +24,19 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
     {
         return $this->_data;
     }
-    
+
     /**
      * Directly assigns a variable
      *
      * @param string $key   The variable key
      * @param mixed $val    The variable value
-     * @return null 
+     * @return null
      */
-    public function __set($key, $val) 
+    public function __set($key, $val)
     {
         $this->_data[$key] = $val;
     }
-    
+
     /**
      * Directly access to variable
      *
@@ -53,13 +49,13 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
             throw new Xend_Exception('Protected or private is not allowed.');
             return;
         }
-        
+
         if (isset($this->$key)) {
             return $this->_data[$key];
         }
         return;
     }
-    
+
     /**
      * Allows testing with empty() and isset()
      *
@@ -83,7 +79,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
             unset($this->$key);
         }
     }
-    
+
     /**
      * Assigns variables to the storage via differing strategies.
      *
@@ -97,7 +93,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
      * @param  string|array The assignment strategy to use.
      * @param  mixed (Optional) If assigning a named variable, use this
      * as the value.
-     * @return OSDN_View_Abstract Fluent interface
+     * @return Xend_View_Abstract Fluent interface
      * @throws Xend_Exception if $spec is neither a string nor an array,
      * or if an attempt to set a private or protected member is detected
      */
@@ -109,9 +105,9 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
                 return;
             }
             $this->$spec = $value;
-            
+
         } elseif (is_array($spec)) {
-            
+
             $error = false;
             foreach ($spec as $key => $val) {
                 if ($this->_isProtected($key)) {
@@ -120,7 +116,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
                 }
                 $this->$key = $val;
             }
-            
+
             if ($error) {
                 throw new Xend_Exception('Setting private or protected class members is not allowed');
             }
@@ -130,7 +126,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
 
         return $this;
     }
-    
+
     /**
      * Check if key can be private
      *
@@ -141,14 +137,14 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
     {
         return '_data' == substr($key, 0, 5);
     }
-    
+
     /**
      * Writed for implement Zend_View_Interface only
      *
      * @param unknown_type $path
      */
     public function setScriptPath($path) {}
-    public function getScriptPaths() 
+    public function getScriptPaths()
     {
         return array();
     }

@@ -2,14 +2,9 @@
 
 /**
  * include css files
- *
- * @category OSDN
- * @package OSDN_View
- * @subpackage OSDN_View_Helper
  */
-class OSDN_View_Helper_IncludeCss
+class Xend_View_Helper_IncludeCss
 {
-
     /**
      * @var Zend_View
      */

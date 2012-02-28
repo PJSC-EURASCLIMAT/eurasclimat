@@ -1,15 +1,10 @@
 <?php
 
 /**
- * Generate link for html engine
- * 
- * @category OSDN
- * @package OSDN_View_Helper
- * 
+ * Generate link for json engine
  */
-class OSDN_View_Helper_Link extends OSDN_View_Helper_Link_Abstract 
+class Xend_View_Helper_JsonLink extends Xend_View_Helper_Link_Abstract
 {
-
     /**
      * Generate the url by following params
      *
@@ -19,8 +14,8 @@ class OSDN_View_Helper_Link extends OSDN_View_Helper_Link_Abstract
      * @param array $options                value/pair options
      * @return string
      */
-    public function link($module, $controller, $action, array $options = array())
+    public function JsonLink($module, $controller, $action, array $options = array())
     {
-        return parent::_link($module, $controller, $action, $options);
+        return parent::_link($module, $controller, $action, $options, 'json');
     }
 }

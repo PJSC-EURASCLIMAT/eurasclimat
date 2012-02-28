@@ -5,7 +5,7 @@ class Admin_AccountsController extends Xend_Controller_Action
     /**
      * Accounts object
      *
-     * @var OSDN_Accounts
+     * @var Xend_Accounts
      */
     protected $_accounts;
 
@@ -24,7 +24,7 @@ class Admin_AccountsController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_accounts = new OSDN_Accounts();
+        $this->_accounts = new Xend_Accounts();
         parent::init();
     }
 

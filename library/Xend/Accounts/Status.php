@@ -2,11 +2,8 @@
 
 /**
  * Accounts status constant
- *
- * @category OSDN
- * @package OSDN_Accounts
  */
-class OSDN_Accounts_Status extends Xend_Response_Status_Storage_Abstract
+class Xend_Accounts_Status extends Xend_Response_Status_Storage_Abstract
 {
     /**
      * Module code

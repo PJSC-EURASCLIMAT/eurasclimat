@@ -78,8 +78,8 @@ class Xend_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
         }
 
         $GLOBALS['i']++;
-        $this->_acl = OSDN_Accounts_Prototype::getAcl();
-        $this->_role = OSDN_Accounts_Prototype::getRoleId();
+        $this->_acl = Xend_Accounts_Prototype::getAcl();
+        $this->_role = Xend_Accounts_Prototype::getRoleId();
         $this->_action = $this->getRequest()->getActionName();
         $this->_isAllowed = false;
         $this->_trace = array();

@@ -32,7 +32,7 @@ class Xend_Controller_Plugin_Authorization extends Zend_Controller_Plugin_Abstra
 
         // account is authenticated
         // add acl helper
-        if (OSDN_Accounts_Prototype::isAuthenticated()) {
+        if (Xend_Accounts_Prototype::isAuthenticated()) {
             Zend_Controller_Action_HelperBroker::addHelper(new Xend_Controller_Action_Helper_Acl());
             return;
         }

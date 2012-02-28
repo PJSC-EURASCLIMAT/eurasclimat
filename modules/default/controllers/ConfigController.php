@@ -6,7 +6,7 @@ class ConfigController extends Xend_Controller_Action
     {
         $this->disableLayout(true);
 
-        $acl = OSDN_Accounts_Prototype::getAcl();
+        $acl = Xend_Accounts_Prototype::getAcl();
         $aclCollection = array();
         if (!empty($acl)) {
             $aclCollection = (object) $acl->toArray();

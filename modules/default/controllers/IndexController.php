@@ -10,7 +10,7 @@ class IndexController extends Xend_Controller_Action
      */
     public function indexAction()
     {
-        if (!OSDN_Accounts_Prototype::isAuthenticated()) {
+        if (!Xend_Accounts_Prototype::isAuthenticated()) {
         	$assemble->path = $_SERVER['REQUEST_URI'];
             $this->_redirect('/index/login');
         }

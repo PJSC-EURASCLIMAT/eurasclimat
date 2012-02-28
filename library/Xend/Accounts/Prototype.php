@@ -2,11 +2,8 @@
 
 /**
  * Contain information about logged account at the moment
- *
- * @category OSDN
- * @package OSDN_Accounts
  */
-class OSDN_Accounts_Prototype
+class Xend_Accounts_Prototype
 {
     const ID = 'id';
 

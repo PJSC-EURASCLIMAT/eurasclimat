@@ -4,15 +4,15 @@
  * General class for manipulate accounts
  *
  * @category		OSDN
- * @package		OSDN_Accounts
+ * @package		Xend_Accounts
  * @version		$Id: Accounts.php 8098 2009-04-16 07:08:48Z flash $
  */
-class OSDN_Accounts
+class Xend_Accounts
 {
     /**
      * The accounts table
      *
-     * @var OSDN_Accounts_Table_Accounts
+     * @var Xend_Accounts_Table_Accounts
      */
     protected $_tableAccounts;
 
@@ -22,7 +22,7 @@ class OSDN_Accounts
      */
     public function __construct()
     {
-        $this->_tableAccounts = new OSDN_Accounts_Table_Accounts();
+        $this->_tableAccounts = new Xend_Accounts_Table_Accounts();
     }
 
     /**
@@ -40,8 +40,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($accountId)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
         $rowset = $this->_tableAccounts->findOne($accountId);
@@ -52,7 +52,7 @@ class OSDN_Accounts
         }
         $response->rowset = $rowset;
         $response->setRowset($rowset);
-        return $response->addStatus(new OSDN_Accounts_Status(OSDN_Accounts_Status::OK));
+        return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));
     }
 
     /**
@@ -81,16 +81,16 @@ class OSDN_Accounts
 
         } catch (Exception $e) {
             $row = null;
-            $status = OSDN_Accounts_Status::DATABASE_ERROR;
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
         }
 
         if (is_null($row)) {
-            $status = OSDN_Accounts_Status::FAILURE;
+            $status = Xend_Accounts_Status::FAILURE;
         } else {
-            $status = OSDN_Accounts_Status::OK;
+            $status = Xend_Accounts_Status::OK;
         }
 
-        return $response->addStatus(new OSDN_Accounts_Status($status));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**
@@ -243,8 +243,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $data['id'] = $id;
@@ -269,8 +269,8 @@ class OSDN_Accounts
         ), $f->id);
 
         $response->affectedRows = $affectedRows;
-        return $response->addStatus(new OSDN_Accounts_Status(
-            OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /**
@@ -290,8 +290,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $data['id'] = $id;
@@ -314,8 +314,8 @@ class OSDN_Accounts
         ), $f->id);
 
         $response->affectedRows = $affectedRows;
-        return $response->addStatus(new OSDN_Accounts_Status(
-            OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /**
@@ -331,8 +331,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $validate = new Xend_Validate_Id();
@@ -406,8 +406,8 @@ class OSDN_Accounts
 
         $max_accounts = Zend_Registry::get('config')->accounts->max;
         if ($this->getCount() >= $max_accounts) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_MAX_REACHED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_MAX_REACHED));
         }
 
         $f = new Xend_Filter_Input(array(
@@ -437,13 +437,13 @@ class OSDN_Accounts
             'role_id'   => $roleId
         ));
 
-        $status = OSDN_Accounts_Status::FAILURE;
+        $status = Xend_Accounts_Status::FAILURE;
         if ($id > 0) {
-            $status = OSDN_Accounts_Status::OK;
+            $status = Xend_Accounts_Status::OK;
             $response->id = $id;
         }
 
-        return $response->addStatus(new OSDN_Accounts_Status($status));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**
@@ -464,8 +464,8 @@ class OSDN_Accounts
         $loginValidator = new Xend_Validate_Login();
         $response = new Xend_Response();
         if (!$stringLengthValidator->isValid($login) || !$loginValidator->isValid($login)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'login'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'login'));
         }
 
         $count = $this->_tableAccounts->count(array('login = ?' => $login));
@@ -473,16 +473,16 @@ class OSDN_Accounts
         $exists = true;
 
         if (0 === $count) {
-            $status = OSDN_Accounts_Status::OK;
+            $status = Xend_Accounts_Status::OK;
             $exists = false;
         } elseif (false === $count) {
-            $status = OSDN_Accounts_Status::DATABASE_ERROR;
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
         } else {
-            $status = OSDN_Accounts_Status::ACCOUNT_IS_ALREADY_EXISTS;
+            $status = Xend_Accounts_Status::ACCOUNT_IS_ALREADY_EXISTS;
         }
 
         $response->exists = $exists;
-        return $response->addStatus(new OSDN_Accounts_Status($status));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**
@@ -496,27 +496,27 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         try {
             $affectedRows = $this->_tableAccounts->deleteByPk($id);
-            $status = OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows);
+            $status = Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows);
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = OSDN_Accounts_Status::DATABASE_ERROR;
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
         }
 
-        return $response->addStatus(new OSDN_Accounts_Status($status));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**
@@ -531,8 +531,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $f = new Xend_Filter_Input(array(
@@ -554,8 +554,8 @@ class OSDN_Accounts
             'password'  => md5($password),
         ), $id);
 
-        return $response->addStatus(new OSDN_Accounts_Status(
-            OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
     }
 
     /**
@@ -575,8 +575,8 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         $data['id'] = $id;
@@ -597,13 +597,13 @@ class OSDN_Accounts
         $password = $this->_tableAccounts->fetchPassword($id);
 
         if ($password !== md5($f->old_password)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::WRONG_PASSWORD, 'old_password'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::WRONG_PASSWORD, 'old_password'));
         }
 
         if ($f->new_password1 !== $f->new_password2) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INCORRECT_NEW_PASSWORD, 'new_password2'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INCORRECT_NEW_PASSWORD, 'new_password2'));
         }
 
         $affectedRows = $this->_tableAccounts->updateByPk(array(
@@ -611,8 +611,8 @@ class OSDN_Accounts
         ), $id);
 
         $response->affectedRows = $affectedRows;
-        return $response->addStatus(new OSDN_Accounts_Status(
-            OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /**
@@ -626,24 +626,24 @@ class OSDN_Accounts
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $row = $this->_tableAccounts->findOne($id);
         if (is_null($row)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::NO_ONE_ROWS_AFFECTED));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::NO_ONE_ROWS_AFFECTED));
         }
 
 
         if (false !== ($state = @unserialize($row->state))) {
             $response->rows = $state;
-            $status = OSDN_Accounts_Status::OK;
+            $status = Xend_Accounts_Status::OK;
         } else {
-            $status = OSDN_Accounts_Status::FAILURE;
+            $status = Xend_Accounts_Status::FAILURE;
         }
-        return $response->addStatus(new OSDN_Accounts_Status($status));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**
@@ -658,16 +658,16 @@ class OSDN_Accounts
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            return $response->addStatus(new OSDN_Accounts_Status(
-                OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $affectedRows = $this->_tableAccounts->updateByPk(array(
             'state' => serialize($state)
         ), $id);
 
-        return $response->addStatus(new OSDN_Accounts_Status(
-            OSDN_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /*********************** Private methods ******************************/

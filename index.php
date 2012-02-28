@@ -106,7 +106,7 @@ $options = array(
     'locale'        => 'ru'
 );
 
-if (!OSDN_Accounts_Prototype::isAuthenticated()) {
+if (!Xend_Accounts_Prototype::isAuthenticated()) {
     $options['layout'] = 'auth';
 }
 

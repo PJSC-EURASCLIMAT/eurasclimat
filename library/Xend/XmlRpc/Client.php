@@ -4,7 +4,7 @@
  * XML-RPC client
  * Allow logging
  */
-class OSDN_XmlRpc_Client extends Zend_XmlRpc_Client
+class Xend_XmlRpc_Client extends Zend_XmlRpc_Client
 {
     protected $_format;
 
@@ -46,7 +46,7 @@ class OSDN_XmlRpc_Client extends Zend_XmlRpc_Client
     public function doRequest($request, $response = null)
     {
     	if (is_null($response) && $this->_responseSerializable) {
-    		$response = new OSDN_XmlRpc_Response_Http();
+    		$response = new Xend_XmlRpc_Response_Http();
     		$response->setResponseSerializable(true);
     	}
 

@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_XmlRpc_Client_Proxy_Response
+class Xend_XmlRpc_Client_Proxy_Response
 {
     /**
      * @var Zend_XmlRpc_Client

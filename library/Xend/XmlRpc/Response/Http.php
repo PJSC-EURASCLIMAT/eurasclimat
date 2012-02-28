@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_XmlRpc_Response_Http extends Zend_XmlRpc_Response_Http
+class Xend_XmlRpc_Response_Http extends Zend_XmlRpc_Response_Http
 {
 	protected $_serializable = false;
 	

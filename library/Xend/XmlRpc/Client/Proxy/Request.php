@@ -8,13 +8,8 @@
  * I'd like to extend this class from Zend_XmlRpc_Client_ServerProxy
  * but the client and namespace are private properties
  * @todo Try resolve this information in future
- * 
- * @category    OSDN
- * @package     OSDN_XmlRpc
- * @subpackage  Client
- * @version     $Id: $
  */
-class OSDN_XmlRpc_Client_Proxy_Request
+class Xend_XmlRpc_Client_Proxy_Request
 {
     /**
      * @var Zend_XmlRpc_Client
@@ -28,7 +23,7 @@ class OSDN_XmlRpc_Client_Proxy_Request
 
 
     /**
-     * @var array of OSDN_XmlRpc_Client_Proxy_Request
+     * @var array of Xend_XmlRpc_Client_Proxy_Request
      */
     protected $_cache = array();
 
@@ -50,7 +45,7 @@ class OSDN_XmlRpc_Client_Proxy_Request
      * Get the next successive namespace
      *
      * @param string $name
-     * @return OSDN_XmlRpc_Client_Proxy_Request
+     * @return Xend_XmlRpc_Client_Proxy_Request
      */
     public function __get($namespace)
     {
@@ -73,12 +68,12 @@ class OSDN_XmlRpc_Client_Proxy_Request
     {
         $method = ltrim("$this->_namespace.$method", '.');
         $method = str_replace('proxy.request', "", $method);
-        
+
         $proxyArgs = array(
             'method'    => $method,
             'args'      => $args
         );
-        
+
         return $this->_client->call('proxy.request', array($proxyArgs));
     }
 }

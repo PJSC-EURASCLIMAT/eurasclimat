@@ -100,7 +100,7 @@ class Xend_Controller_Action extends Zend_Controller_Action
                 $msg = $status->getMessage();
 
                 switch($status->getModuleCode()) {
-                    case OSDN_Filter_Input::MODULE_CODE:
+                    case Xend_Filter_Input::MODULE_CODE:
                         break;
                     default:
                         $msg = $msg;

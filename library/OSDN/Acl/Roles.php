@@ -42,7 +42,7 @@ class OSDN_Acl_Roles
     {
         $response = new Xend_Response();
 
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
@@ -68,7 +68,7 @@ class OSDN_Acl_Roles
     public function rename($id, $name)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
@@ -109,7 +109,7 @@ class OSDN_Acl_Roles
     public function delete($id)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
@@ -132,7 +132,7 @@ class OSDN_Acl_Roles
     {
         $response = new Xend_Response();
         $data['id'] = $id;
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             '*' => 'StringTrim'
         ), array(
             'name'  => array('presence' => 'required'),

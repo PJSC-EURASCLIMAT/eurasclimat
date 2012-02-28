@@ -88,7 +88,7 @@ class Catalog_Items
 
     public function add(array $params)
     {
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
             'sku'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
@@ -163,7 +163,7 @@ class Catalog_Items
 
     public function update(array $params)
     {
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
             'id'        => array('Id', 'presence' => 'required'),

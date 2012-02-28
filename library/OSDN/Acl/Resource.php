@@ -33,7 +33,7 @@ class OSDN_Acl_Resource
     public function fetchByParentId($parentId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id(true);
+        $validate = new Xend_Validate_Id(true);
         if (!$validate->isValid($parentId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'parent_id'));
             return $response;
@@ -74,7 +74,7 @@ class OSDN_Acl_Resource
     public function fetchCountByParentId($parentId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id(true);
+        $validate = new Xend_Validate_Id(true);
         if (!$validate->isValid($parentId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'parent_id'));
             return $response;
@@ -107,7 +107,7 @@ class OSDN_Acl_Resource
     public function deleteResource($resourceId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($resourceId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
             return $response;
@@ -153,7 +153,7 @@ class OSDN_Acl_Resource
     public function fetchResourcesRecursive($id)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
             return $response;
@@ -173,7 +173,7 @@ class OSDN_Acl_Resource
     public function fetchResourceNamesRecursive($id)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
             return $response;

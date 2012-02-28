@@ -2,16 +2,12 @@
 
 /**
  * The md5 hash validator
- *
- * @category    OSDN
- * @package     OSDN_Validate
- * @version     $Id: Md5.php 5539 2008-11-20 08:20:44Z flash $
  */
-class OSDN_Validate_Md5 extends Zend_Validate_Abstract
+class Xend_Validate_Md5 extends Zend_Validate_Abstract
 {
 
     const INCORRECT = 'notCorrectCode';
-    
+
     /**
      * Contain error messages
      * @var array
@@ -19,7 +15,7 @@ class OSDN_Validate_Md5 extends Zend_Validate_Abstract
     protected $_messageTemplates = array(
         self::INCORRECT => "'%value%' does not appear to be an md5 hash"
     );
-    
+
     /**
      * Defined by Zend_Validate_Interface
      *

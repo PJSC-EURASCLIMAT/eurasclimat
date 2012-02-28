@@ -38,7 +38,7 @@ class OSDN_Accounts
     public function fetchAccount($accountId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($accountId)) {
             return $response->addStatus(new OSDN_Accounts_Status(
                 OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
@@ -104,7 +104,7 @@ class OSDN_Accounts
      */
     public function fetchByRole($roleId, array $params = array())
     {
-        $validate = new OSDN_Validate_Id(true);
+        $validate = new Xend_Validate_Id(true);
         if (!$validate->isValid($roleId)) {
             return new Xend_Response(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
@@ -199,7 +199,7 @@ class OSDN_Accounts
         $response = new Xend_Response();
 
 
-        $validateRole = new OSDN_Validate_Id(true);
+        $validateRole = new Xend_Validate_Id(true);
         if (!$validateRole->isValid($roleId)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
@@ -209,7 +209,7 @@ class OSDN_Accounts
             $accountIds = array($accountIds);
         }
 
-        $validateAccount = new OSDN_Validate_Id();
+        $validateAccount = new Xend_Validate_Id();
         foreach ($accountIds as $accountId) {
             if (!$validateAccount->isValid($accountId)) {
                 return $response->addStatus(new OSDN_Acl_Status(
@@ -248,7 +248,7 @@ class OSDN_Accounts
         }
 
         $data['id'] = $id;
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             'id'        => 'int'
         ), array(
             'id'        => array('id', 'presense' => 'required'),
@@ -295,7 +295,7 @@ class OSDN_Accounts
         }
 
         $data['id'] = $id;
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
             'id'    => array('id', 'presense' => 'required'),
@@ -335,7 +335,7 @@ class OSDN_Accounts
                 OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
@@ -354,7 +354,7 @@ class OSDN_Accounts
                 break;
 
             case 'active':
-                $fieldValidate = new OSDN_Validate_Boolean();
+                $fieldValidate = new Xend_Validate_Boolean();
                 break;
 
             case 'phone':
@@ -410,7 +410,7 @@ class OSDN_Accounts
                 OSDN_Accounts_Status::ACCOUNT_MAX_REACHED));
         }
 
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             '*'     => array('StringTrim')
         ), array(
             'login'     => array('login', 'presense' => 'required'),
@@ -461,7 +461,7 @@ class OSDN_Accounts
         $login = $f->filter($login);
 
         $stringLengthValidator = new Zend_Validate_StringLength(3, 50);
-        $loginValidator = new OSDN_Validate_Login();
+        $loginValidator = new Xend_Validate_Login();
         $response = new Xend_Response();
         if (!$stringLengthValidator->isValid($login) || !$loginValidator->isValid($login)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -500,7 +500,7 @@ class OSDN_Accounts
                 OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
                 OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
@@ -535,7 +535,7 @@ class OSDN_Accounts
                 OSDN_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
             'id'        => array('id', 'presense'   => 'required'),
@@ -581,7 +581,7 @@ class OSDN_Accounts
 
         $data['id'] = $id;
 
-        $f = new OSDN_Filter_Input(array(
+        $f = new Xend_Filter_Input(array(
             '*'     => array('StringTrim')
         ), array(
             'old_password'  => array('password', 'presense' => 'required'),
@@ -624,7 +624,7 @@ class OSDN_Accounts
     public function getState($id)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
                 OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
@@ -656,7 +656,7 @@ class OSDN_Accounts
     public function saveState($id, array $state = array())
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
                 OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));

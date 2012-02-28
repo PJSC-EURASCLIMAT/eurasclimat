@@ -30,7 +30,7 @@ class OSDN_Acl_Permission
     public function fetchByRoleId($roleId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($roleId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'roleid'));
             return $response;
@@ -59,13 +59,13 @@ class OSDN_Acl_Permission
     public function fetchPermission($roleId, $resourceId)
     {
         $response = new Xend_Response();
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         if (!$validate->isValid($roleId)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
-        $validateResource = new OSDN_Validate_Id(true);
+        $validateResource = new Xend_Validate_Id(true);
         if (!$validateResource->isValid($resourceId)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
@@ -89,7 +89,7 @@ class OSDN_Acl_Permission
      * @param string $privilege The privilege name  @see OSDN_Acl_Privilege
      * @param mixed $value      The value
      *                           Value can be string, int or boolean
-     *                           @see OSDN_Validate_Boolean for choose allowed format
+     *                           @see Xend_Validate_Boolean for choose allowed format
      * @return Xend_Response <code>
      * The possible returned data is:
      * array(
@@ -98,7 +98,7 @@ class OSDN_Acl_Permission
      */
     public function setPermission($roleId, $resourceId, $privilege, $value)
     {
-        $validate = new OSDN_Validate_Id();
+        $validate = new Xend_Validate_Id();
         $response = new Xend_Response();
         if (!$validate->isValid($roleId)) {
             return $response->addStatus(new OSDN_Acl_Status(
@@ -115,13 +115,13 @@ class OSDN_Acl_Permission
                 OSDN_Acl_Status::PRIVILEGE_DOES_NOT_EXISTS, 'privilege'));
         }
 
-        $validateValue = new OSDN_Validate_Boolean(true);
+        $validateValue = new Xend_Validate_Boolean(true);
         if (!$validateValue->isValid($value)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'value'));
         }
 
-        $booleanFilter = new OSDN_Filter_Boolean(true);
+        $booleanFilter = new Xend_Filter_Boolean(true);
         $value = $booleanFilter->filter($value);
         $privilegeId = OSDN_Acl_Privilege::name2id($privilege);
 

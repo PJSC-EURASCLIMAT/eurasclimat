@@ -1,20 +1,17 @@
 <?php
 
 /**
- * OSDN_Filter_Input
- *
- * @category OSDN
- * @package OSDN_Filter
+ * Xend_Filter_Input
  */
-class OSDN_Filter_Input extends Zend_Filter_Input
+class Xend_Filter_Input extends Zend_Filter_Input
 {
 
     const MODULE_CODE = 2;
-    
+
     const MODULE_NAME = 'Filter';
-    
+
     /**
-     * OSDN_Filter_Input constructor
+     * Xend_Filter_Input constructor
      *
      * @param array $filterRules
      * @param array $validatorRules
@@ -26,16 +23,16 @@ class OSDN_Filter_Input extends Zend_Filter_Input
     public function __construct($filterRules, $validatorRules, array $data = null, array $options = null)
     {
         $this->setOptions(array(
-            self::INPUT_NAMESPACE => 'OSDN_Validate',
+            self::INPUT_NAMESPACE => 'Xend_Validate',
             self::ESCAPE_FILTER   => 'StringTrim'
         ));
         parent::__construct($filterRules, $validatorRules, $data, $options);
-        
-        $this->addFilterPrefixPath('OSDN_Filter', dirname(__FILE__));
+
+        $this->addFilterPrefixPath('Xend_Filter', dirname(__FILE__));
     }
-    
+
     /**
-     * Retrieve statuses from OSDN_Filter_Input
+     * Retrieve statuses from Xend_Filter_Input
      *
      * @return array     Contain Xend_Response_Status collection
      */
@@ -43,7 +40,7 @@ class OSDN_Filter_Input extends Zend_Filter_Input
     {
         $data = array();
         $messageCollection = $this->getMessages();
-        
+
         foreach ($messageCollection as $field => $messages) {
             foreach ($messages as $status => $msg) {
                 array_push($data, new Xend_Response_Status(array(
@@ -56,10 +53,10 @@ class OSDN_Filter_Input extends Zend_Filter_Input
                 )));
             }
         }
-        
+
         return $data;
     }
-    
+
     /**
      * Retrieve all data previously escaped
      *
@@ -90,7 +87,7 @@ class OSDN_Filter_Input extends Zend_Filter_Input
         }
         return $value;
     }
-    
+
     /**
      * Get unescaped field
      *
@@ -109,5 +106,5 @@ class OSDN_Filter_Input extends Zend_Filter_Input
             }
         }
     }
-    
+
 }

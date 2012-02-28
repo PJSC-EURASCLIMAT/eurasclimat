@@ -65,12 +65,12 @@ class Xend_Response
     }
 
     /**
-     * Add new response status by OSDN_Filter_Input data
+     * Add new response status by Xend_Filter_Input data
      *
-     * @param OSDN_Filter_Input $filterInput
+     * @param Xend_Filter_Input $filterInput
      * @return Xend_Response
      */
-    public function addInputStatus(OSDN_Filter_Input $filterInput)
+    public function addInputStatus(Xend_Filter_Input $filterInput)
     {
         $statuses = $filterInput->getStatuses();
         foreach ($statuses as $s) {

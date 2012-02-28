@@ -374,9 +374,9 @@ abstract class Xend_Db_Table_Abstract extends Zend_Db_Table_Abstract
     private function _preparePkCollection($pkValue)
     {
         if (true === $this->_sequence) {
-            $validate = new OSDN_Validate_Id();
+            $validate = new Xend_Validate_Id();
         } else {
-            $validate = new OSDN_Validate_SecureId();
+            $validate = new Xend_Validate_SecureId();
         }
 
         if (!is_array($pkValue)) {

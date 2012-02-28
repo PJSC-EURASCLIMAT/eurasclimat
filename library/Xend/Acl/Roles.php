@@ -1,17 +1,17 @@
 <?php
 
-class OSDN_Acl_Roles
+class Xend_Acl_Roles
 {
     /**
      * The role table object
      *
-     * @var OSDN_Acl_Table_Roles
+     * @var Xend_Acl_Table_Roles
      */
     protected $_tableRoles;
 
     public function __construct()
     {
-        $this->_tableRoles = new OSDN_Acl_Table_Roles();
+        $this->_tableRoles = new Xend_Acl_Table_Roles();
     }
 
     /**
@@ -29,7 +29,7 @@ class OSDN_Acl_Roles
         $response = new Xend_Response();
         $rowset = $this->_tableRoles->fetchAll()->toArray();
         $response->setRowset($rowset);
-        return $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
     /**
@@ -44,7 +44,7 @@ class OSDN_Acl_Roles
 
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
         }
 
@@ -53,7 +53,7 @@ class OSDN_Acl_Roles
             $row = $row->toArray();
         }
 
-        $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
+        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
         $response->setRow($row);
         return $response;
     }
@@ -70,14 +70,14 @@ class OSDN_Acl_Roles
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
         }
 
         $affectedRows = $this->_tableRoles->updateByPk(array(
             'name'  => $name
         ), $id);
-        $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
+        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;
     }
 
@@ -95,7 +95,7 @@ class OSDN_Acl_Roles
         $id = $this->_tableRoles->insert(array(
             'name'  => $name
         ));
-        $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
+        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
         $response->id = $id;
         return $response;
     }
@@ -111,12 +111,12 @@ class OSDN_Acl_Roles
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
         }
 
         $affectedRows = $this->_tableRoles->deleteByPk($id);
-        $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
+        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;
     }
 
@@ -148,7 +148,7 @@ class OSDN_Acl_Roles
         unset($data['id']);
 
         $affectedRows = $this->_tableRoles->updateByPk($data, $id);
-        $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
+        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;
     }
 }

@@ -15,11 +15,11 @@ class Catalog_SettingsController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->catalog);
-        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-list');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'add');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'update');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'delete');
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
     }
 
     public function getListAction()

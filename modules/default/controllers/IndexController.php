@@ -70,8 +70,8 @@ class IndexController extends Xend_Controller_Action
         $roleId = $data->role_id;
 
         // try to create acl object and assign the permissions
-        $acl = new OSDN_Acl();
-        $permissions = new OSDN_Acl_Permission();
+        $acl = new Xend_Acl();
+        $permissions = new Xend_Acl_Permission();
         $response = $permissions->fetchByRoleId($roleId);
         if ($response->isSuccess()) {
             $rowset = $response->getRowset();

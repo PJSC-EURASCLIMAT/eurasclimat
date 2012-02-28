@@ -14,7 +14,7 @@ class Xend_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
     /**
      * The acl instance
      *
-     * @var OSDN_Acl
+     * @var Xend_Acl
      */
     protected $_acl;
 
@@ -88,7 +88,7 @@ class Xend_Controller_Action_Helper_Acl extends Zend_Controller_Action_Helper_Ab
     /**
      * Check if permission is allowed
      *
-     * @param string            $privilege         The privilege type      @see OSDN_Acl_Privilege
+     * @param string            $privilege         The privilege type      @see Xend_Acl_Privilege
      * @param string            $action
      * @param Zend_Acl_Resource $resource          The specific resource   OPTIONAL
      * @return boolean

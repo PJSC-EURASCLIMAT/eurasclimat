@@ -4,13 +4,13 @@ class Admin_AclRoleController extends Xend_Controller_Action
 {
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->admin);
-        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'fetch-roles');
-        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'fetch-role');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'create-role');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'rename-role');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'update-role');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'remove-role');
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'fetch-roles');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'fetch-role');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create-role');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'rename-role');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-role');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'remove-role');
     }
 
     public function fetchRolesAction()
@@ -21,7 +21,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
         if ($parentId) {
             return;
         }
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->fetchRoles();
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -40,7 +40,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
     {
         $roleId = $this->_getParam('node');
         $text = $this->_getParam('text');
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->rename($roleId, $text);
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -53,7 +53,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
     public function createRoleAction()
     {
         $name = $this->_getParam('name');
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->createRole($name);
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -66,7 +66,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
     public function removeRoleAction()
     {
         $id = $this->_getParam('id');
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->delete($id);
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -79,7 +79,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
     public function fetchRoleAction()
     {
         $id = $this->_getParam('id');
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->fetchRole($id);
         $rowset = array();
 
@@ -95,7 +95,7 @@ class Admin_AclRoleController extends Xend_Controller_Action
 
     public function updateRoleAction()
     {
-        $roles = new OSDN_Acl_Roles();
+        $roles = new Xend_Acl_Roles();
         $response = $roles->update($this->_getParam('id'), $this->_getAllParams());
         $success = $response->isSuccess();
         $this->view->rowset = array();

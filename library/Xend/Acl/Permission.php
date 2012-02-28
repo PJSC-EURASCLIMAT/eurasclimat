@@ -1,11 +1,11 @@
 <?php
 
-class OSDN_Acl_Permission
+class Xend_Acl_Permission
 {
     /**
      * Permission table instance
      *
-     * @var OSDN_Acl_Table_Permission
+     * @var Xend_Acl_Table_Permission
      */
     protected $_tablePermission = null;
 
@@ -15,7 +15,7 @@ class OSDN_Acl_Permission
      */
     public function __construct()
     {
-        $this->_tablePermission = new OSDN_Acl_Table_Permission();
+        $this->_tablePermission = new Xend_Acl_Table_Permission();
     }
 
     /**
@@ -32,21 +32,21 @@ class OSDN_Acl_Permission
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($roleId)) {
-            $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'roleid'));
+            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'roleid'));
             return $response;
         }
 
         try {
             $rowset = $this->_tablePermission->fetchAll(array('role_id = ?' => $roleId));
             $response->setRowset($rowset->toArray());
-            $status = OSDN_Acl_Status::OK;
+            $status = Xend_Acl_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = OSDN_Acl_Status::DATABASE_ERROR;
+            $status = Xend_Acl_Status::DATABASE_ERROR;
         }
-        return $response->addStatus(new OSDN_Acl_Status($status));
+        return $response->addStatus(new Xend_Acl_Status($status));
     }
 
     /**
@@ -61,24 +61,24 @@ class OSDN_Acl_Permission
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($roleId)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
         $validateResource = new Xend_Validate_Id(true);
         if (!$validateResource->isValid($resourceId)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
         }
 
         $rows = $this->_tablePermission->fetchPermissions($roleId, $resourceId);
         if (false !== $rows) {
-            $status = OSDN_Acl_Status::OK;
+            $status = Xend_Acl_Status::OK;
             $response->rows = $rows;
         } else {
-            $status = OSDN_Acl_Status::DATABASE_ERROR;
+            $status = Xend_Acl_Status::DATABASE_ERROR;
         }
-        return $response->addStatus(new OSDN_Acl_Status($status));
+        return $response->addStatus(new Xend_Acl_Status($status));
     }
 
     /**
@@ -86,7 +86,7 @@ class OSDN_Acl_Permission
      *
      * @param int $roleId       The role id
      * @param int $resourceId   The resource id
-     * @param string $privilege The privilege name  @see OSDN_Acl_Privilege
+     * @param string $privilege The privilege name  @see Xend_Acl_Privilege
      * @param mixed $value      The value
      *                           Value can be string, int or boolean
      *                           @see Xend_Validate_Boolean for choose allowed format
@@ -101,29 +101,29 @@ class OSDN_Acl_Permission
         $validate = new Xend_Validate_Id();
         $response = new Xend_Response();
         if (!$validate->isValid($roleId)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
         if (!$validate->isValid($resourceId)) {
-            $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
+            $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
         }
 
-        if (true !== OSDN_Acl_Privilege::isExists($privilege)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::PRIVILEGE_DOES_NOT_EXISTS, 'privilege'));
+        if (true !== Xend_Acl_Privilege::isExists($privilege)) {
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::PRIVILEGE_DOES_NOT_EXISTS, 'privilege'));
         }
 
         $validateValue = new Xend_Validate_Boolean(true);
         if (!$validateValue->isValid($value)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'value'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'value'));
         }
 
         $booleanFilter = new Xend_Filter_Boolean(true);
         $value = $booleanFilter->filter($value);
-        $privilegeId = OSDN_Acl_Privilege::name2id($privilege);
+        $privilegeId = Xend_Acl_Privilege::name2id($privilege);
 
         if (true === $value) {
             $id = $this->_tablePermission->insert(array(
@@ -133,17 +133,17 @@ class OSDN_Acl_Permission
             ));
 
             if (false !== $id) {
-                $status = OSDN_Acl_Status::OK;
+                $status = Xend_Acl_Status::OK;
                 $response->id = $id;
             } else {
-                $status = OSDN_Acl_Status::DATABASE_ERROR;
+                $status = Xend_Acl_Status::DATABASE_ERROR;
             }
-            $response->addStatus(new OSDN_Acl_Status($status));
+            $response->addStatus(new Xend_Acl_Status($status));
             return $response;
         }
 
         $this->_deletePermission($roleId, $resourceId, $privilegeId);
-        return $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
     /**
@@ -157,7 +157,7 @@ class OSDN_Acl_Permission
     protected function _deletePermission($roleId, $resourceId, $privilegeId)
     {
         $resourceIds = array($resourceId);
-        $tableResource = new OSDN_Acl_Table_Resource();
+        $tableResource = new Xend_Acl_Table_Resource();
 
         do {
             $affectedRows = false;

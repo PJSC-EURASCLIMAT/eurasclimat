@@ -2,11 +2,8 @@
 
 /**
  * Comments status constant
- * 
- * @category OSDN
- * @package OSDN_Acl
  */
-class OSDN_Acl_Status extends Xend_Response_Status_Storage_Abstract     
+class Xend_Acl_Status extends Xend_Response_Status_Storage_Abstract
 {
     /**
      * Module code
@@ -14,16 +11,16 @@ class OSDN_Acl_Status extends Xend_Response_Status_Storage_Abstract
      * @var int
      */
     protected $_moduleCode = 112;
-    
+
     /**
      * Module name
      *
      * @var int
      */
     protected $_moduleName = 'Acl';
-    
+
     const PRIVILEGE_DOES_NOT_EXISTS = -100;
-    
+
     /**
      * Description storage
      *

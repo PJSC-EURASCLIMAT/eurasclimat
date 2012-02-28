@@ -14,7 +14,7 @@ class ConfigController extends Xend_Controller_Action
         $this->view->acl = $aclCollection;
 
         $resourceCollection = array();
-        $resource = new OSDN_Acl_Resource();
+        $resource = new Xend_Acl_Resource();
         $response = $resource->fetchAll();
         if ($response->isSuccess()) {
             foreach (@$response->rows as $row) {
@@ -23,7 +23,7 @@ class ConfigController extends Xend_Controller_Action
         }
 
         $this->view->resources = $resourceCollection;
-        $privilege = OSDN_Acl_Privilege::fetchAll();
+        $privilege = Xend_Acl_Privilege::fetchAll();
         $this->view->privileges = (object) $privilege;
     }
 }

@@ -2,12 +2,8 @@
 
 /**
  * Storage table for resources
- *
- * @category OSDN
- * @package OSDN_Acl
- * @subpackage OSDN_Acl
  */
-class OSDN_Acl_Table_Resource extends Xend_Db_Table_Abstract
+class Xend_Acl_Table_Resource extends Xend_Db_Table_Abstract
 {
     /**
      * Table name
@@ -15,7 +11,7 @@ class OSDN_Acl_Table_Resource extends Xend_Db_Table_Abstract
      * @var string
      */
     protected $_name = 'acl_resources';
-    
+
     /**
      * Fetch resource id by name
      * if resource is not present in parent scope then
@@ -36,16 +32,16 @@ class OSDN_Acl_Table_Resource extends Xend_Db_Table_Abstract
         } else {
             $clause[] = new Zend_Db_Expr('parent_id IS NULL');
         }
-        
+
         $row = $this->fetchRow($clause);
         if (!is_null($row)) {
             return $row->id;
         }
-        
+
         if (true !== $autoGenerate) {
             return 0;
         }
-        
+
         $data = array('name' => $name);
         if (0 != $parentId) {
             $data['parent_id'] = $parentId;

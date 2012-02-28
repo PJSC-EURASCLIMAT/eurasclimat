@@ -62,7 +62,7 @@ class Xend_Accounts_Prototype
     /**
      * Retrieve the acl object
      *
-     * @return OSDN_Acl|null
+     * @return Xend_Acl|null
      */
     public static function getAcl()
     {

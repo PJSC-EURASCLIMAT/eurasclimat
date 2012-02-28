@@ -2,12 +2,8 @@
 
 /**
  * Storage table for permitions
- *
- * @category OSDN
- * @package OSDN_Acl
- * @subpackage OSDN_Acl
  */
-class OSDN_Acl_Table_Permission extends Xend_Db_Table_Abstract
+class Xend_Acl_Table_Permission extends Xend_Db_Table_Abstract
 {
     /**
      * Table name
@@ -15,7 +11,7 @@ class OSDN_Acl_Table_Permission extends Xend_Db_Table_Abstract
      * @var string
      */
     protected $_name = 'acl_permissions';
-    
+
     /**
      * Fetch permissions
      *
@@ -28,11 +24,11 @@ class OSDN_Acl_Table_Permission extends Xend_Db_Table_Abstract
     public function fetchPermissions($roleId, $resourceId)
     {
         $cols = array();
-        foreach (OSDN_Acl_Privilege::fetchAll() as $name => $value) {
+        foreach (Xend_Acl_Privilege::fetchAll() as $name => $value) {
             $name = strtolower($name);
             $cols[$name] = new Zend_Db_Expr("SUM(IF(`permissions`.`privilege_id` = '$value', 1, 0))");
         }
-        
+
         $select = $this->_db->select()
             ->from(
                 array('resources' => Xend_Db_Table_Abstract::getDefaultPrefix() . 'acl_resources'),
@@ -47,13 +43,13 @@ class OSDN_Acl_Table_Permission extends Xend_Db_Table_Abstract
                 $cols
            )
            ->group('resources.id');
-           
+
         if (!$resourceId) {
             $select->where(new Zend_Db_Expr('`resources`.`parent_id` IS NULL'));
         } else {
             $select->where('`resources`.`parent_id` = ?', $resourceId);
         }
-        
+
         try {
             $rowset = $select->query()->fetchAll();
         } catch (Exception $e) {

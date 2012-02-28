@@ -2,9 +2,6 @@
 
 /**
  * Class for using the script loading
- *
- * @category		OSDN
- * @package		Xend_Script
  */
 class Xend_Script
 {

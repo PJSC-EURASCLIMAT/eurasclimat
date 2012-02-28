@@ -2,10 +2,6 @@
 
 /**
  * General class for manipulate accounts
- *
- * @category		OSDN
- * @package		Xend_Accounts
- * @version		$Id: Accounts.php 8098 2009-04-16 07:08:48Z flash $
  */
 class Xend_Accounts
 {
@@ -106,8 +102,8 @@ class Xend_Accounts
     {
         $validate = new Xend_Validate_Id(true);
         if (!$validate->isValid($roleId)) {
-            return new Xend_Response(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
+            return new Xend_Response(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
         $clause = array();
@@ -164,17 +160,17 @@ class Xend_Accounts
             $rowset = $select->query()->fetchAll();
             $response->setRowset($rowset);
             $response->total = $plugin->getTotalCount();
-            $status = OSDN_Acl_Status::OK;
+            $status = Xend_Acl_Status::OK;
 
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
 
-            $status = OSDN_Acl_Status::DATABASE_ERROR;
+            $status = Xend_Acl_Status::DATABASE_ERROR;
         }
 
-        return $response->addStatus(new OSDN_Acl_Status($status));
+        return $response->addStatus(new Xend_Acl_Status($status));
     }
 
     /**
@@ -201,8 +197,8 @@ class Xend_Accounts
 
         $validateRole = new Xend_Validate_Id(true);
         if (!$validateRole->isValid($roleId)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
         if (!is_array($accountIds)) {
@@ -212,8 +208,8 @@ class Xend_Accounts
         $validateAccount = new Xend_Validate_Id();
         foreach ($accountIds as $accountId) {
             if (!$validateAccount->isValid($accountId)) {
-                return $response->addStatus(new OSDN_Acl_Status(
-                    OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
+                return $response->addStatus(new Xend_Acl_Status(
+                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
             }
 
             if ($this->isRemoteauthEnabled() && $this->isAdmin($accountId)) {
@@ -225,11 +221,11 @@ class Xend_Accounts
             ), $accountId);
 
             if (false === $affectedRows) {
-                return $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::DATABASE_ERROR));
+                return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::DATABASE_ERROR));
             }
         }
 
-        return $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
     /**
@@ -337,8 +333,8 @@ class Xend_Accounts
 
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            return $response->addStatus(new OSDN_Acl_Status(
-                OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Acl_Status(
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $fieldValidate = null;
@@ -361,14 +357,14 @@ class Xend_Accounts
                 break;
 
             default:
-                return $response->addStatus(new OSDN_Acl_Status(
-                    OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
+                return $response->addStatus(new Xend_Acl_Status(
+                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         if ($fieldValidate instanceof Zend_Validate_Interface) {
             if (!$fieldValidate->isValid($value) || !$this->_tableAccounts->isAllowedField($field)) {
-                return $response->addStatus(new OSDN_Acl_Status(
-                    OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, $field));
+                return $response->addStatus(new Xend_Acl_Status(
+                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, $field));
             }
         }
         $affectedRows = false;
@@ -383,8 +379,8 @@ class Xend_Accounts
             ), $id);
         }
 
-        return $response->addStatus(new OSDN_Acl_Status(
-            OSDN_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Acl_Status(
+            Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /**

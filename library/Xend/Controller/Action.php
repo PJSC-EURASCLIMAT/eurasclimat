@@ -10,8 +10,8 @@ class Xend_Controller_Action extends Zend_Controller_Action
      *
      * <example>
      *   $acl = $this->_helper->acl;
-     *   $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->student->commentary);
-     *   $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-list');
+     *   $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->student->commentary);
+     *   $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
      * </example>
      */
     public function permission(Xend_Controller_Action_Helper_Acl $acl)

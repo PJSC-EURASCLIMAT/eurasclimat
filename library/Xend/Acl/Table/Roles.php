@@ -2,12 +2,8 @@
 
 /**
  * Storage table for roles
- *
- * @category OSDN
- * @package OSDN_Acl
- * @subpackage OSDN_Acl_Table
  */
-class OSDN_Acl_Table_Roles extends Xend_Db_Table_Abstract
+class Xend_Acl_Table_Roles extends Xend_Db_Table_Abstract
 {
     /**
      * Table name

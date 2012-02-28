@@ -11,15 +11,15 @@ class Admin_AccountsController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(OSDN_Acl_Resource_Generator::getInstance()->admin);
-        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'get-accounts');
-        $acl->isAllowed(OSDN_Acl_Privilege::VIEW, 'fetch');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'update');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'change-role');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'update-field');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'add-account');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'delete-account');
-        $acl->isAllowed(OSDN_Acl_Privilege::UPDATE, 'change-password');
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-accounts');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'fetch');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-role');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-field');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-account');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-account');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
     }
 
     public function init()

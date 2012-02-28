@@ -11,7 +11,7 @@ class ErrorController extends Xend_Controller_Action
         if (is_array($trace)) {
             $traceCollection = array();
             
-            $resourceModel = new OSDN_Acl_Resource();
+            $resourceModel = new Xend_Acl_Resource();
 
             foreach($trace as $log) {
                 if (2 != count($log)) {
@@ -22,7 +22,7 @@ class ErrorController extends Xend_Controller_Action
                 $response = $resourceModel->fetchResourceNamesRecursive($resource);
                 if ($response->isSuccess()) {
                     
-                    $privilegeName = OSDN_Acl_Privilege::id2name($privilege);
+                    $privilegeName = Xend_Acl_Privilege::id2name($privilege);
                     if (!empty($privilegeName)) {
                         $privilegeName = lang(ucfirst($privilegeName));
                     }

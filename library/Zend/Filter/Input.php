@@ -17,7 +17,6 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Input.php 7108 2009-03-10 13:35:53Z flash $
  */
 
 /**
@@ -852,7 +851,7 @@ class Zend_Filter_Input
         if (isset($this->_missingFields[$validatorRule[self::RULE]]) && count($this->_missingFields[$validatorRule[self::RULE]]) > 0) {
             return;
         }
-        
+
         /**
          * Evaluate the inputs against the validator chain.
          */

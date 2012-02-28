@@ -37,7 +37,7 @@ class OSDN_Filter_Input extends Zend_Filter_Input
     /**
      * Retrieve statuses from OSDN_Filter_Input
      *
-     * @return array     Contain OSDN_Response_Status collection
+     * @return array     Contain Xend_Response_Status collection
      */
     public function getStatuses()
     {
@@ -46,8 +46,8 @@ class OSDN_Filter_Input extends Zend_Filter_Input
         
         foreach ($messageCollection as $field => $messages) {
             foreach ($messages as $status => $msg) {
-                array_push($data, new OSDN_Response_Status(array(
-                    'statusCode'    => OSDN_Response_Status_Storage_Abstract::INPUT_PARAMS_INCORRECT,
+                array_push($data, new Xend_Response_Status(array(
+                    'statusCode'    => Xend_Response_Status_Storage_Abstract::INPUT_PARAMS_INCORRECT,
                     'statusMessage' => $msg,
                     'moduleCode'    => self::MODULE_CODE,
                     'moduleName'    => self::MODULE_NAME,

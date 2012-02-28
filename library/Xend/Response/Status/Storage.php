@@ -2,11 +2,8 @@
 
 /**
  * System response status storage
- *
- * @category OSDN
- * @package OSDN_Response_Status
  */
-class OSDN_Response_Status_Storage extends OSDN_Response_Status_Storage_Abstract
+class Xend_Response_Status_Storage extends Xend_Response_Status_Storage_Abstract
 {
     /**
      * Module code
@@ -14,14 +11,14 @@ class OSDN_Response_Status_Storage extends OSDN_Response_Status_Storage_Abstract
      * @var int
      */
     protected $_moduleCode = 1;
-    
+
     /**
      * Module name
      *
      * @var int
      */
     protected $_moduleName = 'System';
-    
+
     public function __construct($status, $field = null)
     {
         if (is_int($status)) {

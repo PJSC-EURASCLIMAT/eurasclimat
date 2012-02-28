@@ -17,7 +17,7 @@ class OSDN_Acl_Roles
     /**
      * Fetch all roles
      *
-     * @return OSDN_Response <code>
+     * @return Xend_Response <code>
      *  rows: array(
      *      id: int
      *      name: string
@@ -26,7 +26,7 @@ class OSDN_Acl_Roles
      */
     public function fetchRoles()
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $rowset = $this->_tableRoles->fetchAll()->toArray();
         $response->setRowset($rowset);
         return $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::OK));
@@ -36,11 +36,11 @@ class OSDN_Acl_Roles
      * Retrieve the role by id
      *
      * @param int $id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchRole($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
@@ -63,11 +63,11 @@ class OSDN_Acl_Roles
      *
      * @param int $id       The role id
      * @param string $name  New role name
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function rename($id, $name)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
@@ -85,13 +85,13 @@ class OSDN_Acl_Roles
      * Create new role
      *
      * @param string $name      The role name
-     * @return OSDN_Response <code>
+     * @return Xend_Response <code>
      *  id: int
      * </code>
      */
     public function createRole($name)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $id = $this->_tableRoles->insert(array(
             'name'  => $name
         ));
@@ -104,11 +104,11 @@ class OSDN_Acl_Roles
      * Delete role
      *
      * @param int $id       The role id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function delete($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
@@ -126,11 +126,11 @@ class OSDN_Acl_Roles
      * @param int $id
      * @param array $data
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function update($id, array $data = array())
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $data['id'] = $id;
         $f = new OSDN_Filter_Input(array(
             '*' => 'StringTrim'

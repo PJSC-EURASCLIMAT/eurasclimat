@@ -1,26 +1,22 @@
 <?php
 
 /**
- * The OSDN_Response class is a class for make easily communication
- * interface and API parts
- *
- * @category OSDN
- * @package OSDN_Response
+ * The response class for easily communication between interface and API parts
  */
-class OSDN_Response
+class Xend_Response
 {
 
     /**
      * Status storage container
      *
-     * @var OSDN_Response_Status_Collection
+     * @var Xend_Response_Status_Collection
      */
     protected $_statusStorage;
 
     /**
      * Data storage container
      *
-     * @var OSDN_Response_Data_Collection
+     * @var Xend_Response_Data_Collection
      */
     protected $_dataStorage;
 
@@ -30,12 +26,12 @@ class OSDN_Response
      * The constructor create default storage object for status and data,
      * take the status and add to status storage
      *
-     * @param OSDN_Response_Status_Storage_Interface $status
+     * @param Xend_Response_Status_Storage_Interface $status
      */
-    public function __construct(OSDN_Response_Status_Storage_Interface $status = null)
+    public function __construct(Xend_Response_Status_Storage_Interface $status = null)
     {
-        $this->_statusStorage = new OSDN_Response_Status_Collection();
-        $this->_dataStorage = new OSDN_Response_Data_Collection();
+        $this->_statusStorage = new Xend_Response_Status_Collection();
+        $this->_dataStorage = new Xend_Response_Data_Collection();
 
         if ($status !== null) {
             $this->addStatus($status);
@@ -45,10 +41,10 @@ class OSDN_Response
     /**
      * Add new response status
      *
-     * @param OSDN_Response_Status_Storage_Interface $status    status object with predefined status
-     * @return OSDN_Response
+     * @param Xend_Response_Status_Storage_Interface $status    status object with predefined status
+     * @return Xend_Response
      */
-    public function addStatus(OSDN_Response_Status_Storage_Interface $status)
+    public function addStatus(Xend_Response_Status_Storage_Interface $status)
     {
         $this->getStatusCollection()->add($status->getStatus());
         return $this;
@@ -57,10 +53,10 @@ class OSDN_Response
     /**
      * Import statuses to response object
      *
-     * @param OSDN_Response_Status_Collection $collection
-     * @return OSDN_Response
+     * @param Xend_Response_Status_Collection $collection
+     * @return Xend_Response
      */
-    public function importStatuses(OSDN_Response_Status_Collection $collection)
+    public function importStatuses(Xend_Response_Status_Collection $collection)
     {
         foreach ($collection as $status) {
             $this->getStatusCollection()->add($status);
@@ -72,7 +68,7 @@ class OSDN_Response
      * Add new response status by OSDN_Filter_Input data
      *
      * @param OSDN_Filter_Input $filterInput
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function addInputStatus(OSDN_Filter_Input $filterInput)
     {
@@ -169,7 +165,7 @@ class OSDN_Response
      *
      * @param mixed $param
      * @param mixed $value
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function addData($param, $value = null)
     {
@@ -180,7 +176,7 @@ class OSDN_Response
     /**
      * Retrieve a status collection
      *
-     * @return OSDN_Response_Status_Collection
+     * @return Xend_Response_Status_Collection
      */
     public function getStatusCollection()
     {
@@ -190,7 +186,7 @@ class OSDN_Response
     /**
      * Retrieve a data collection
      *
-     * @return OSDN_Response_Data_Collection
+     * @return Xend_Response_Data_Collection
      */
     public function getDataCollection()
     {
@@ -223,19 +219,19 @@ class OSDN_Response
      * );
      * </code>
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function import($configs)
     {
         if (!is_array($configs)) {
-            $status = new OSDN_Response_Status_Storage(OSDN_Response_Status_Storage::FAILURE);
+            $status = new Xend_Response_Status_Storage(Xend_Response_Status_Storage::FAILURE);
             $this->getStatusCollection()->add($status->getStatus());
             return $this;
         }
 
         if (!empty($configs['status']) && is_array($configs['status'])) {
             foreach ($configs['status'] as $status) {
-                $this->getStatusCollection()->add(new OSDN_Response_Status($status));
+                $this->getStatusCollection()->add(new Xend_Response_Status($status));
             }
         }
 
@@ -252,7 +248,7 @@ class OSDN_Response
      * Set rowset to data collection
      *
      * @param array $rowset The rows collection
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function setRowset(array $rowset)
     {
@@ -278,7 +274,7 @@ class OSDN_Response
      * Set row to data collection
      *
      * @param mixed $row    The row collection
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function setRow($row)
     {

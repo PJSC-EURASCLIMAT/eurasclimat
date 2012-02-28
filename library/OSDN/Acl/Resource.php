@@ -28,11 +28,11 @@ class OSDN_Acl_Resource
      * Fetch resource by parent id
      *
      * @param int $parentId
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchByParentId($parentId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id(true);
         if (!$validate->isValid($parentId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'parent_id'));
@@ -64,7 +64,7 @@ class OSDN_Acl_Resource
      * Fetch count of resources by parent id
      *
      * @param int $parentId     The parent id
-     * @return OSDN_Response
+     * @return Xend_Response
      * <data>
      * array(
      *      count: int
@@ -73,7 +73,7 @@ class OSDN_Acl_Resource
      */
     public function fetchCountByParentId($parentId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id(true);
         if (!$validate->isValid($parentId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'parent_id'));
@@ -102,11 +102,11 @@ class OSDN_Acl_Resource
      * Delete resource by id
      *
      * @param int $resourceId       The resource id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function deleteResource($resourceId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($resourceId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
@@ -122,11 +122,11 @@ class OSDN_Acl_Resource
     /**
      * Fetch all resources
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchAll()
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $rowset = $this->_tableResource->fetchAll();
         if (!is_null($rowset)) {
             $rowset = $rowset->toArray();
@@ -143,7 +143,7 @@ class OSDN_Acl_Resource
      * Fetch resources recursive
      *
      * @param int $id
-     * @return OSDN_Response
+     * @return Xend_Response
      * <code>
      *  array(
      *      rowset: array()
@@ -152,7 +152,7 @@ class OSDN_Acl_Resource
      */
     public function fetchResourcesRecursive($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
@@ -168,11 +168,11 @@ class OSDN_Acl_Resource
      * Fetch resources names recursive
      *
      * @param int $id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchResourceNamesRecursive($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));

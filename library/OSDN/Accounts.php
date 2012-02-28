@@ -29,7 +29,7 @@ class OSDN_Accounts
      * Fetch account information by id
      *
      * @param int $accountId    The account id
-     * @return OSDN_Response
+     * @return Xend_Response
      * <code> array(
      *     'rowset' => Zend_Db_Table_Row | null
      * )
@@ -37,7 +37,7 @@ class OSDN_Accounts
      */
     public function fetchAccount($accountId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($accountId)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -60,11 +60,11 @@ class OSDN_Accounts
      *
      * @param string $login         The account login
      * @param string $password      The account password
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchByLoginPassword($login, $password)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         try {
             $row = $this->_tableAccounts->fetchRow(array(
@@ -100,13 +100,13 @@ class OSDN_Accounts
      * @param int $roleId       The account role
      * @param array $params
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchByRole($roleId, array $params = array())
     {
         $validate = new OSDN_Validate_Id(true);
         if (!$validate->isValid($roleId)) {
-            return new OSDN_Response(new OSDN_Acl_Status(
+            return new Xend_Response(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
@@ -138,7 +138,7 @@ class OSDN_Accounts
      *      array('company_id = ?' => 1)
      *  );</code>
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      * Details of contain data <code>
      *      rows array          The modules collection
      *      total int           The total count of rows
@@ -146,7 +146,7 @@ class OSDN_Accounts
      */
     protected function _fetchAll($where, array $params = array())
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $select = $this->_tableAccounts->getAdapter()->select();
         $select->from(array('a' => $this->_tableAccounts->getTableName()));
 
@@ -180,7 +180,7 @@ class OSDN_Accounts
     /**
      * @see _fetchAll()
      *
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchAll(array $params = array())
     {
@@ -192,11 +192,11 @@ class OSDN_Accounts
      *
      * @param int|array $accountId        The account id
      * @param int $roleId                 The role id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function changeRole($accountIds, $roleId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
 
         $validateRole = new OSDN_Validate_Id(true);
@@ -240,7 +240,7 @@ class OSDN_Accounts
      */
     public function update($id, array $data = array())
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -278,7 +278,7 @@ class OSDN_Accounts
      *
      * @param int $id       The account id
      * @param array $data   Updated personal data
-     * @return OSDN_Response
+     * @return Xend_Response
      * <data>
      * array(
      *  affectedRows: int
@@ -287,7 +287,7 @@ class OSDN_Accounts
      */
     public function updatePersonalInformation($id, array $data = array())
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -324,11 +324,11 @@ class OSDN_Accounts
      * @param int $id           The account id
      * @param string $field     Available field in database
      * @param mixed $value      Field value
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function updateByField($id, $field, $value)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -395,14 +395,14 @@ class OSDN_Accounts
      *  login       string  REQUIRED
      *  password    string  REQUIRED
      * </code>
-     * @return OSDN_Response
+     * @return Xend_Response
      * <code>
      *  id: int
      * </code>
      */
     public function createAccount(array $data)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $max_accounts = Zend_Registry::get('config')->accounts->max;
         if ($this->getCount() >= $max_accounts) {
@@ -450,7 +450,7 @@ class OSDN_Accounts
      * Check if present account
      *
      * @param string $login
-     * @return OSDN_Response
+     * @return Xend_Response
      * <code>
      *  exists: bool
      * </code>
@@ -462,7 +462,7 @@ class OSDN_Accounts
 
         $stringLengthValidator = new Zend_Validate_StringLength(3, 50);
         $loginValidator = new OSDN_Validate_Login();
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         if (!$stringLengthValidator->isValid($login) || !$loginValidator->isValid($login)) {
             return $response->addStatus(new OSDN_Accounts_Status(
                 OSDN_Accounts_Status::INPUT_PARAMS_INCORRECT, 'login'));
@@ -489,11 +489,11 @@ class OSDN_Accounts
      * Delete account by id
      *
      * @param int $id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function deleteAccount($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -524,11 +524,11 @@ class OSDN_Accounts
      *
      * @param int $id           The account id
      * @param string $password  The account password
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function changePassword($id, $password)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -563,7 +563,7 @@ class OSDN_Accounts
      *
      * @param int $id       The account id
      * @param array $data   contains old password and new one (old_password, new_password1, new_password2)
-     * @return OSDN_Response
+     * @return Xend_Response
      * <data>
      * array(
      *  affectedRows: int
@@ -572,7 +572,7 @@ class OSDN_Accounts
      */
     public function chPassword($id, array $data)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -619,11 +619,11 @@ class OSDN_Accounts
      * Retrieve account state
      *
      * @param int $id       The account id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function getState($id)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(
@@ -651,11 +651,11 @@ class OSDN_Accounts
      *
      * @param int $id           The account id
      * @param array $state      The state storage
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function saveState($id, array $state = array())
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new OSDN_Accounts_Status(

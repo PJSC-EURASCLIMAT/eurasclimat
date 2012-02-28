@@ -2,10 +2,8 @@
 
 /**
  * The collection of response statuses
- * @category OSDN
- * @package OSDN_Response
  */
-class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
+class Xend_Response_Status_Collection implements IteratorAggregate, Countable
 {
 
     /**
@@ -25,7 +23,7 @@ class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
     {
         return new ArrayObject($this->_data);
     }
-    
+
     /**
      * Return the count of statuses
      * Complete a Countable interface
@@ -36,14 +34,14 @@ class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
     {
         return count($this->_data);
     }
-    
+
     /**
      * Add new status to storage
      *
-     * @param OSDN_Response_Status_Interface $data      status object
-     * @return OSDN_Response_Status_Collection
+     * @param Xend_Response_Status_Interface $data      status object
+     * @return Xend_Response_Status_Collection
      */
-    public function add(OSDN_Response_Status_Interface $data)
+    public function add(Xend_Response_Status_Interface $data)
     {
         array_push($this->_data, $data);
         return $this;
@@ -52,13 +50,13 @@ class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
     /**
      * Retrieve a first status from collection
      *
-     * @return OSDN_Response_Status_Interface status object
+     * @return Xend_Response_Status_Interface status object
      */
     public function first()
     {
         return current($this->_data);
     }
-    
+
     /**
      * Debug mode for status collection
      *
@@ -72,7 +70,7 @@ class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
         }
         return join("<br />\n", $output);
     }
-    
+
     /**
      * Dump to array
      *
@@ -84,7 +82,7 @@ class OSDN_Response_Status_Collection implements IteratorAggregate, Countable
         foreach ($this->_data as $status) {
             $output[] = $status->toArray();
         }
-        
+
         return $output;
     }
 }

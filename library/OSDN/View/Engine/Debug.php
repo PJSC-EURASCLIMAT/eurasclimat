@@ -14,7 +14,7 @@ class OSDN_View_Engine_Debug extends OSDN_View_Engine_Abstract
     public function render($name)
     {
         if (!DEBUG) {
-            throw new OSDN_Exception('Debugging is disabled. Change the view');
+            throw new Xend_Exception('Debugging is disabled. Change the view');
             exit();    
         }
         

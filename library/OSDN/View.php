@@ -27,7 +27,7 @@ class OSDN_View
     public static function factory($engine, $config = array())
     {
         if (!is_string($engine) || empty($engine)) {
-            throw new OSDN_Exception('View engine must be specified in a string');
+            throw new Xend_Exception('View engine must be specified in a string');
         }
         
         $engine = strtolower($engine);

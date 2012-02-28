@@ -22,14 +22,14 @@ class OSDN_Acl_Permission
      * Retrieve permissions by role id
      *
      * @param int $roleId
-     * @return OSDN_Response
+     * @return Xend_Response
      * <code>contain data {
      *     rows : array
      * }</code>
      */
     public function fetchByRoleId($roleId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($roleId)) {
             $response->addStatus(new OSDN_Acl_Status(OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'roleid'));
@@ -54,11 +54,11 @@ class OSDN_Acl_Permission
      *
      * @param int $roleId       The role id
      * @param int $resourceId   The resource id
-     * @return OSDN_Response
+     * @return Xend_Response
      */
     public function fetchPermission($roleId, $resourceId)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         $validate = new OSDN_Validate_Id();
         if (!$validate->isValid($roleId)) {
             return $response->addStatus(new OSDN_Acl_Status(
@@ -90,7 +90,7 @@ class OSDN_Acl_Permission
      * @param mixed $value      The value
      *                           Value can be string, int or boolean
      *                           @see OSDN_Validate_Boolean for choose allowed format
-     * @return OSDN_Response <code>
+     * @return Xend_Response <code>
      * The possible returned data is:
      * array(
      *      id: int
@@ -99,7 +99,7 @@ class OSDN_Acl_Permission
     public function setPermission($roleId, $resourceId, $privilege, $value)
     {
         $validate = new OSDN_Validate_Id();
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         if (!$validate->isValid($roleId)) {
             return $response->addStatus(new OSDN_Acl_Status(
                 OSDN_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));

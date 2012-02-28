@@ -11,7 +11,7 @@ class Catalog_Items
 
     public function getList($params)
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()))
@@ -59,31 +59,31 @@ class Catalog_Items
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
             $response->totalCount = $plugin->getTotalCount();
-            $status = OSDN_Status::OK;
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = OSDN_Status::DATABASE_ERROR;
+            $status = Xend_Status::DATABASE_ERROR;
         }
-        return $response->addStatus(new OSDN_Status($status));
+        return $response->addStatus(new Xend_Status($status));
     }
 
     public function get($id)
     {
         $id = intval($id);
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         if ($id == 0) {
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $row = $this->_table->findOne($id);
         if (!$row) {
-            return $response->addStatus(new OSDN_Status(OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
         $response->setRow($row->toArray());
-        return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function add(array $params)
@@ -145,7 +145,7 @@ class Catalog_Items
             'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
@@ -154,11 +154,11 @@ class Catalog_Items
 
         $id = $this->_table->insert($f->getData());
         if (!$id) {
-            return $response->addStatus(new OSDN_Status(OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         $response->id = $id;
-        return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function update(array $params)
@@ -221,7 +221,7 @@ class Catalog_Items
             'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
@@ -229,24 +229,24 @@ class Catalog_Items
         }
 
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
-        $status = OSDN_Status::retrieveAffectedRowStatus($rows);
-        return $response->addStatus(new OSDN_Status($status));
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
     }
 
     public function delete($id)
     {
         $id = intval($id);
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         if ($id == 0) {
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $res = $this->_table->deleteByPk($id);
         if (false === $res) {
-            return $response->addStatus(new OSDN_Status(OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 }

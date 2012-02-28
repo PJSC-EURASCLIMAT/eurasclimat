@@ -6,7 +6,7 @@
  * @category OSDN
  * @package OSDN_Acl
  */
-class OSDN_Acl_Status extends OSDN_Response_Status_Storage_Abstract     
+class OSDN_Acl_Status extends Xend_Response_Status_Storage_Abstract     
 {
     /**
      * Module code

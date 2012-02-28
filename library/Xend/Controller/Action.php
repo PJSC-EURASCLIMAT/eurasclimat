@@ -70,11 +70,11 @@ class Xend_Controller_Action extends Zend_Controller_Action
     /**
      * Collect errors from response to $this->view->errors
      *
-     * @param OSDN_Response $response
+     * @param Xend_Response $response
      *
      * @param void
      */
-    protected function _collectErrors(OSDN_Response $response)
+    protected function _collectErrors(Xend_Response $response)
     {
         if ($response->hasNotSuccess()) {
             $this->view->success = false;
@@ -86,11 +86,11 @@ class Xend_Controller_Action extends Zend_Controller_Action
     /**
      * Return errors from given response
      *
-     * @param OSDN_Response $response
+     * @param Xend_Response $response
      *
      * @return array
      */
-    protected function _getErrors(OSDN_Response $response)
+    protected function _getErrors(Xend_Response $response)
     {
         $errors = array();
         if ($response->hasNotSuccess()) {

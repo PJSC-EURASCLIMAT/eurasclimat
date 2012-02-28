@@ -1,12 +1,9 @@
 <?php
 
 /**
- * OSDN_Response_Data_Collection
- *
- * @category OSDN
- * @package OSDN_Response
+ * Xend_Response_Data_Collection
  */
-class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
+class Xend_Response_Data_Collection implements IteratorAggregate, Countable
 {
     /**
      * Storage of response data
@@ -14,7 +11,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
      * @var array
      */
     protected $_data = array();
-    
+
     /**
      * get iterator object
      * Complete the IteratorAggragate interface
@@ -25,7 +22,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
     {
         return new ArrayObject($this->_data);
     }
-    
+
     /**
      * Get count of response data storage
      * Complete the Contable interface
@@ -36,24 +33,24 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
     {
         return count($this->_data);
     }
-    
+
     /**
      * Clear the data collection
      *
-     * @return OSDN_Response_Data_Collection
+     * @return Xend_Response_Data_Collection
      */
     public function clear()
     {
 	    $this->_data = array();
 	    return $this;
     }
-    
+
     /**
      * Add data to response data collection
      *
      * @param mixed $param
      * @param mixed $value
-     * @return OSDN_Response_Data_Collection
+     * @return Xend_Response_Data_Collection
      */
     public function add($param, $value = null)
     {
@@ -65,7 +62,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
         }
         return $this;
     }
-    
+
     /**
      * Get data by variable name
      *
@@ -92,7 +89,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
     {
         return $this->get($param);
     }
-    
+
     /**
      * Check if variable present in data collection
      *
@@ -103,7 +100,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
     {
         return array_key_exists(strtolower($param), $this->_data);
     }
-    
+
     /**
      * Alias to add()
      * Add data to response data collection
@@ -115,7 +112,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
     {
         $this->add($param, $value);
     }
-    
+
     /**
      * Remove value from data collection
      *
@@ -128,7 +125,7 @@ class OSDN_Response_Data_Collection implements IteratorAggregate, Countable
             unset($this->_data[$param]);
         }
     }
-    
+
     /**
      * Dump to array
      *

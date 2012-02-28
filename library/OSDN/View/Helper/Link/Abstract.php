@@ -28,7 +28,7 @@ abstract class OSDN_View_Helper_Link_Abstract
         $front = Zend_Controller_Front::getInstance();
         
         if (empty($module)) {
-            throw new OSDN_Exception('Module is empty');
+            throw new Xend_Exception('Module is empty');
         }
 
         $urlParts = array($front->getBaseUrl());

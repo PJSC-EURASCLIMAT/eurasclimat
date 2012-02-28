@@ -50,7 +50,7 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
     public function __get($key)
     {
         if ($this->_isProtected($key)) {
-            throw new OSDN_Exception('Protected or private is not allowed.');
+            throw new Xend_Exception('Protected or private is not allowed.');
             return;
         }
         
@@ -98,14 +98,14 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
      * @param  mixed (Optional) If assigning a named variable, use this
      * as the value.
      * @return OSDN_View_Abstract Fluent interface
-     * @throws OSDN_Exception if $spec is neither a string nor an array,
+     * @throws Xend_Exception if $spec is neither a string nor an array,
      * or if an attempt to set a private or protected member is detected
      */
     public function assign($spec, $value = null)
     {
         if (is_string($spec)) {
             if ($this->_isProtected($spec)) {
-                throw new OSDN_Exception('Private or protected members is not allowed');
+                throw new Xend_Exception('Private or protected members is not allowed');
                 return;
             }
             $this->$spec = $value;
@@ -122,10 +122,10 @@ abstract class OSDN_View_Engine_Abstract implements OSDN_View_Engine_Interface
             }
             
             if ($error) {
-                throw new OSDN_Exception('Setting private or protected class members is not allowed');
+                throw new Xend_Exception('Setting private or protected class members is not allowed');
             }
         } else {
-            throw new OSDN_Exception('assign() expects a string or array, received ' . gettype($spec));
+            throw new Xend_Exception('assign() expects a string or array, received ' . gettype($spec));
         }
 
         return $this;

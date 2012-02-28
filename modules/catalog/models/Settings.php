@@ -12,47 +12,47 @@ class Catalog_Settings
     public function get($id)
     {
         $id = intval($id);
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
         try {
             $row = $this->_table->findOne($id);
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
         }
 
         if ($row === false) {
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
         }
 
         $response->setRow(is_null($row) ? array() : $row->toArray());
-        return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function getAll()
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         try {
             $rows = $this->_table->fetchAll()->toArray();
             $response->setRowset($rows);
-            $status = OSDN_Status::OK;
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = OSDN_Status::DATABASE_ERROR;
+            $status = Xend_Status::DATABASE_ERROR;
         }
 
-        return $response->addStatus(new OSDN_Status($status));
+        return $response->addStatus(new Xend_Status($status));
     }
 
     public function add($name = '')
     {
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         try {
             $id = $this->_table->insert(array('name' => $name));
@@ -60,12 +60,12 @@ class Catalog_Settings
             if (DEBUG) {
                 throw $e;
             }
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
         }
 
         $response->id = $id;
-        return $response->addStatus(new OSDN_Status(OSDN_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function update($name, $id)
@@ -73,12 +73,12 @@ class Catalog_Settings
         $id = intval($id);
         $name = trim($name);
 
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         $validator = new Zend_Validate_StringLength(1, 250);
         if ($id == 0 || !$validator->isValid($name)) {
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::INPUT_PARAMS_INCORRECT));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
         try {
@@ -89,24 +89,24 @@ class Catalog_Settings
             }
         }
 
-        return $response->addStatus(new OSDN_Status(
-            OSDN_Status::retrieveAffectedRowStatus($result)));
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
     public function delete($id)
     {
         $id = intval($id);
 
-        $response = new OSDN_Response();
+        $response = new Xend_Response();
 
         if (!$id) {
-            return $response->addStatus(new OSDN_Status(
-                OSDN_Status::INPUT_PARAMS_INCORRECT));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
         $result = $this->_table->deleteByPk($id);
 
-        return $response->addStatus(new OSDN_Status(
-            OSDN_Status::retrieveAffectedRowStatus($result)));
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($result)));
     }
 }

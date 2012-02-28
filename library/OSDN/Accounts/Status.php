@@ -6,7 +6,7 @@
  * @category OSDN
  * @package OSDN_Accounts
  */
-class OSDN_Accounts_Status extends OSDN_Response_Status_Storage_Abstract
+class OSDN_Accounts_Status extends Xend_Response_Status_Storage_Abstract
 {
     /**
      * Module code

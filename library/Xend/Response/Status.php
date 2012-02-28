@@ -1,12 +1,9 @@
 <?php
 
 /**
- * The class give interface for easily operating with response status information
- *
- * @category OSDN
- * @package OSDN_Response
+ * The interface class for easily operating with response status information
  */
-class OSDN_Response_Status implements OSDN_Response_Status_Interface
+class Xend_Response_Status implements Xend_Response_Status_Interface
 {
     /**
      * Status code
@@ -14,42 +11,42 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
      * @var int
      */
     protected $_statusCode;
-    
+
     /**
      * Status message
      *
      * @var string
      */
     protected $_statusMessage;
-    
+
     /**
      * Module code
      *
      * @var int
      */
     protected $_moduleCode;
-    
+
     /**
      * Module name
      *
      * @var string
      */
     protected $_moduleName;
-    
+
     /**
      * Field name
      *
      * @var string
      */
     protected $_field;
-    
+
     /**
      * Status abbreviation
      *
      * @var string
      */
     protected $_statusAbbr;
-    
+
     /**
      * Status constructor
      *
@@ -64,7 +61,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
      *      field               string      may be empty
      *      statusAbbr          string      may be empty
      * </pre>
-     * @throws OSDN_Exception
+     * @throws Xend_Exception
      */
     public function __construct(array $config)
     {
@@ -90,15 +87,15 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
                     break;
             }
         }
-        
+
         if (empty($this->_statusCode)
             || empty($this->_statusMessage)
             || empty($this->_moduleCode)
             || empty($this->_moduleName)) {
-            throw new OSDN_Exception('Bad arguments for OSDN_Response_Status::__construct()');
+            throw new Xend_Exception('Bad arguments for Xend_Response_Status::__construct()');
         }
     }
-    
+
     /**
      * Retrieve the status code
      *
@@ -108,7 +105,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
     {
         return $this->_statusCode;
     }
-    
+
     /**
      * Retrieve the status message
      *
@@ -118,7 +115,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
     {
         return $this->_statusMessage;
     }
-    
+
     /**
      * Retrieve the module code
      *
@@ -128,7 +125,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
     {
         return $this->_moduleCode;
     }
-    
+
     /**
      * Retrieve the module name
      *
@@ -138,7 +135,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
     {
         return $this->_moduleName;
     }
-    
+
     /**
      * Retrieve the field
      *
@@ -148,7 +145,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
     {
         return $this->_field;
     }
-    
+
     /**
      * Retrieve the array of status and module configs
      *
@@ -165,7 +162,7 @@ class OSDN_Response_Status implements OSDN_Response_Status_Interface
             'statusAbbr'    => $this->_statusAbbr
         );
     }
-    
+
     /**
      * Verify the status on success
      *

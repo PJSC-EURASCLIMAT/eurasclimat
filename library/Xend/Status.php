@@ -1,6 +1,6 @@
 <?php
 
-class OSDN_Status extends OSDN_Response_Status_Storage_Abstract
+class Xend_Status extends Xend_Response_Status_Storage_Abstract
 {
     /**
      * Module code
@@ -12,7 +12,7 @@ class OSDN_Status extends OSDN_Response_Status_Storage_Abstract
      * Module name
      * @var int
      */
-    protected $_moduleName = 'OSDN';
+    protected $_moduleName = 'Xend';
 
     /**
      * Description storage

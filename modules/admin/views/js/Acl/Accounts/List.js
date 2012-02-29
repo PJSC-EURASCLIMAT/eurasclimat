@@ -17,6 +17,7 @@ Admin.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
     initComponent: function() {
         
         this.ds = new Ext.data.Store({
+            simpleSortMode: true,
             url: link('admin', 'accounts', 'get-accounts'),
             reader: new Ext.data.JsonReader({
                 root: 'rows',

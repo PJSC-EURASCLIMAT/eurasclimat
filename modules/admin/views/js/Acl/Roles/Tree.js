@@ -142,5 +142,3 @@ Admin.Acl.Roles.Tree = Ext.extend(xlib.TreePanel, {
         });
     }
 });
-
-Ext.reg('Admin.Acl.Roles.Tree', Admin.Acl.Roles.Tree);

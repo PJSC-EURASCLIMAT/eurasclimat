@@ -62,5 +62,3 @@ Admin.Acl.Layout = Ext.extend(Ext.Panel, {
         this.accounts.createAccountBtn.setDisabled(isRoot);
     }
 });
-
-Ext.reg('Admin.Acl.Layout', Admin.Acl.Layout);

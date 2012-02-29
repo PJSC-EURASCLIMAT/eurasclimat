@@ -89,5 +89,3 @@ Admin.Acl.Accounts.Form = Ext.extend(xlib.form.FormPanel, {
         return w;
     }
 });
-
-Ext.reg('Admin.Acl.Accounts.Form', Admin.Acl.Accounts.Form);

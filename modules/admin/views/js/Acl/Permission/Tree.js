@@ -230,5 +230,3 @@ Admin.Acl.Permission.Tree = Ext.extend(Ext.tree.ColumnTree, {
         menu.showAt(e.getXY());
     }
 });
-
-Ext.reg('Admin.Acl.Permission.Tree', Admin.Acl.Permission.Tree);

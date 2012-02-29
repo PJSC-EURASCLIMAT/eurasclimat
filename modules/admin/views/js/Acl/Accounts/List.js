@@ -286,5 +286,3 @@ Admin.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
         w.show()
     }
 });
-
-Ext.reg('Admin.Acl.Accounts.List', Admin.Acl.Accounts.List);

@@ -340,5 +340,3 @@ xlib.form.ComboBox = Ext.extend(Ext.form.ComboBox, {
         }
     }
 });
-
-Ext.reg('xlib.form.combobox', xlib.form.ComboBox);

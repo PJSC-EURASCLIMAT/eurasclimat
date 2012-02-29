@@ -345,5 +345,3 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         }, this);
     }
 });
-
-Ext.reg('Catalog.Items.List', Catalog.Items.List);

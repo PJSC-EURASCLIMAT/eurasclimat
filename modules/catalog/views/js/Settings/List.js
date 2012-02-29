@@ -170,5 +170,3 @@ Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
         }, this);
     }
 });
-
-Ext.reg('Catalog.Settings.List', Catalog.Settings.List);

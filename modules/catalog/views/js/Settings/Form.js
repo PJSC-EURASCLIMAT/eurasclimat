@@ -95,5 +95,3 @@ Catalog.Settings.Form = Ext.extend(xlib.form.FormPanel, {
         });
     }
 });
-
-Ext.reg('Catalog.Settings.Form', Catalog.Settings.Form);

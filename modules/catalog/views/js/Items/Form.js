@@ -37,66 +37,57 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
                     xtype: 'textfield',
                     fieldLabel: 'Артикул',
                     name: 'sku'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }, new Catalog.Settings.ComboBox({
                     fieldLabel: 'Наименование',
                     name: 'title_id',
                     hiddenName: 'title_id',
                     entity: 'titles',
                     allowBlank: false
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Марка',
                     name: 'mark_id',
                     hiddenName: 'mark_id',
                     entity: 'marks'
-                }, {
+                }), {
                     xtype: 'textfield',
                     fieldLabel: 'Модель',
                     name: 'model'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }, new Catalog.Settings.ComboBox({
                     fieldLabel: 'Тип продукции',
                     name: 'product_type_id',
                     hiddenName: 'product_type_id',
                     entity: 'product_types'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Тип исполнения',
                     name: 'construction_type_id',
                     hiddenName: 'construction_type_id',
                     entity: 'construction_types'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Территориальность производства',
                     name: 'territoriality_id',
                     hiddenName: 'territoriality_id',
                     entity: 'territorialities'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Состояние продукции',
                     name: 'condition_id',
                     hiddenName: 'condition_id',
                     entity: 'conditions'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Назначение продукции',
                     name: 'purpose_id',
                     hiddenName: 'purpose_id',
                     entity: 'purposes'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Наличие продукции',
                     name: 'availability_id',
                     hiddenName: 'availability_id',
                     entity: 'availabilities'
-                }, {
-                    xtype: 'Catalog.Settings.ComboBox',
+                }), new Catalog.Settings.ComboBox({
                     fieldLabel: 'Тип системы',
                     name: 'system_type_id',
                     hiddenName: 'system_type_id',
                     entity: 'system_types'
-                }, {
+                }), {
                     xtype: 'textfield',
                     fieldLabel: 'Период гарантии производителя',
                     name: 'manufacturer_warranty'
@@ -265,5 +256,3 @@ Catalog.Items.Form = Ext.extend(xlib.form.FormPanel, {
         return w;
     }
 });
-
-Ext.reg('Catalog.Items.Form', Catalog.Items.Form);

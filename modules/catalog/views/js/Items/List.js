@@ -65,8 +65,6 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             ]
         });
         
-        this.sm = new Ext.grid.RowSelectionModel();
-        
         var actions = new xlib.grid.Actions({
             autoWidth: true,
             items: [{
@@ -265,7 +263,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
         
         this.plugins = [actions, this.filtersPlugin];
 
-        this.addBtn = new Ext.Toolbar.Button({
+        this.addBtn = new Ext.Button({
             text: 'Добавить запись в каталог',
             iconCls: 'add',
             hidden: !this.permissions,

@@ -29,8 +29,6 @@ Admin.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
             ])
         });
         
-        this.sm = new Ext.grid.RowSelectionModel();
-        
         var activeCheckColumn = new Ext.grid.CheckColumn({
             header: 'Активная',
             dataIndex: 'active'
@@ -98,7 +96,7 @@ Admin.Acl.Accounts.List = Ext.extend(Ext.grid.EditorGridPanel, {
             actions
         ];
         
-        this.createAccountBtn = new Ext.Toolbar.Button({
+        this.createAccountBtn = new Ext.Button({
             text: 'Добавить',
             iconCls: 'add',
             hidden: !this.permissions,

@@ -1216,7 +1216,6 @@ Ext.extend(Ext.ux.UploadDialog.Dialog, Ext.Panel, {
     }
 });
 
-Ext.reg('uploaddialog', Ext.ux.UploadDialog.Dialog);
 // ---------------------------------------------------------------------------------------------- //
 
 var p = Ext.ux.UploadDialog.Dialog.prototype;

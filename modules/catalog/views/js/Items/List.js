@@ -83,9 +83,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
             scope: this
         });
         
-        this.colModel = new Ext.grid.ColumnModel({
-            defaultSortable: true,
-            columns: [{
+        this.columns = [{
                 header: 'Артикул',
                 dataIndex: 'sku',
                 width: 60
@@ -252,8 +250,7 @@ Catalog.Items.List = Ext.extend(Ext.grid.GridPanel, {
                     var summ = Ext.util.Format.number(value, '0,000.00');
                     return summ.replace(/,/g, ' ');
                 }
-            }]
-        });
+            }];
         
         this.filtersPlugin = new Ext.grid.GridFilters({
             filters: [

@@ -29,6 +29,7 @@ Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
         this.autoExpandColumn = Ext.id();
         
         this.ds = new Ext.data.JsonStore({
+            simpleSortMode: true,
             url: this.listURL,
             baseParams: {
                 entity: this.entity
@@ -72,13 +73,13 @@ Catalog.Settings.List = Ext.extend(Ext.grid.GridPanel, {
             }]
         });
         
-        this.filtersPlugin = new Ext.grid.GridFilters({
-            filters: [
-                {type: 'string',  dataIndex: 'name'}
-            ]
-        });
+//        this.filtersPlugin = new Ext.grid.GridFilters({
+//            filters: [
+//                {type: 'string',  dataIndex: 'name'}
+//            ]
+//        });
         
-        this.plugins = [actions, this.filtersPlugin];
+        this.plugins = [actions]//, this.filtersPlugin];
 
         this.addBtn = new Ext.Button({
             text: 'Добавить',

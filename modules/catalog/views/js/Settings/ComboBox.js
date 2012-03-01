@@ -1,6 +1,6 @@
 Ext.ns('Catalog.Settings');
 
-Catalog.Settings.ComboBox = Ext.extend(xlib.form.ComboBox, {
+Catalog.Settings.ComboBox = Ext.extend(Ext.form.ComboBox, {
 
     fieldLabel: 'Марка',
 
@@ -57,5 +57,3 @@ Catalog.Settings.ComboBox = Ext.extend(xlib.form.ComboBox, {
         Catalog.Settings.ComboBox.superclass.initComponent.apply(this, arguments);
     }
 });
-
-Ext.reg('Catalog.Settings.ComboBox', Catalog.Settings.ComboBox);

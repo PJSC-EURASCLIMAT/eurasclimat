@@ -56,10 +56,9 @@ System.Menu = function() {
                 modal: true,
                 layout: 'fit',
                 title: 'Менеджер доступа',
-                items: [{
-                    xtype: 'Admin.Acl.Layout',
+                items: [new Admin.Acl.Layout({
                     iconCls: 'settings'
-                }]
+                })]
             }).show();
         }
     });

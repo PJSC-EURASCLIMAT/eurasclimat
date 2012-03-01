@@ -143,5 +143,3 @@ xlib.form.ComboTrigger = Ext.extend(xlib.form.ComboBox, {
     },
     onCustomTriggerClick: Ext.emptyFn
 });
-
-Ext.reg('xlib.form.combotrigger', xlib.form.ComboTrigger);

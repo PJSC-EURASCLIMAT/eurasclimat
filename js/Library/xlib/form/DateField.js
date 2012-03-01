@@ -59,5 +59,3 @@ xlib.form.DateField = Ext.extend(Ext.form.DateField, {
     	return (this.hiddenField)? this.hiddenField.value : '';
     }
 });
-
-Ext.reg('xlib.form.DateField', xlib.form.DateField);

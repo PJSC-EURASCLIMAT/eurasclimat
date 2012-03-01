@@ -13,7 +13,7 @@ Ext.onReady(function(){
         eq: '/js/Library/extjs/plugins/grid/GridFiltering/img/equals.png',
         neq: '/js/Library/extjs/plugins/grid/GridFiltering/img/not_equals.png'
     };
-    Ext.grid.filter.StringFilter.prototype.icon = '/js/Library/extjs/plugins/grid/GridFiltering/img/find.png';
+    //Ext.grid.filter.StringFilter.prototype.icon = '/js/Library/extjs/plugins/grid/GridFiltering/img/find.png';
     
     // disable stateful
     Ext.Window.prototype.stateful = false;
@@ -74,15 +74,18 @@ Ext.onReady(function(){
     	Ext.ns('System');
 
         System.Layout = new Ext.Viewport({
-            layout: 'border',
-            items: [new Ext.Toolbar({
-                region: 'north',
-                height: 30,
-                items: System.Menu()
-            }), new Catalog.Items.List({
-                region: 'center',
-                layout: 'fit'
-            })]
+//            layout: 'border',
+            items: [ 
+                new Ext.Toolbar({
+                    region: 'north',
+                    height: 30,
+                    items: System.Menu()
+                })
+            ]
+//        new Catalog.Items.List({
+//                region: 'center',
+//                layout: 'fit'
+//            })]
         });
         
         System.Layout.doLayout();

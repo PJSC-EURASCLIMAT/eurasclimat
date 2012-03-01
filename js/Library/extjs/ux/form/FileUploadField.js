@@ -176,7 +176,5 @@ Ext.ux.form.FileUploadField = Ext.extend(Ext.form.TextField,  {
 
 });
 
-Ext.reg('fileuploadfield', Ext.ux.form.FileUploadField);
-
 // backwards compat
 Ext.form.FileUploadField = Ext.ux.form.FileUploadField;

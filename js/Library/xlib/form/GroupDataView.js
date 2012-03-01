@@ -160,4 +160,3 @@ xlib.form.GroupDataView = Ext.extend(Ext.DataView, {
 		this.refresh();
 	}	
 });
-Ext.reg('xlib.form.GroupDataView', xlib.form.GroupDataView);

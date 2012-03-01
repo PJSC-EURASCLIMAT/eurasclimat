@@ -51,5 +51,3 @@ xlib.Legend.Item = Ext.extend(Ext.BoxComponent, {
     	xlib.Legend.Item.superclass.onRender.apply(this, arguments); 
 	}
 });
-
-Ext.reg('xlib.legend.item', xlib.Legend.Item);

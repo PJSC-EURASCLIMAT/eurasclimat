@@ -85,5 +85,3 @@ xlib.form.GroupComboBox = Ext.extend(xlib.form.ComboBox, {
         }
     }
 });
-
-Ext.reg('xlib.form.GroupComboBox', xlib.form.GroupComboBox);

@@ -332,4 +332,3 @@ Ext.ux.TreeComboBox = Ext.extend(Ext.form.TriggerField, {
     }
   }
 });
-Ext.reg('treecombo', Ext.ux.TreeComboBox);

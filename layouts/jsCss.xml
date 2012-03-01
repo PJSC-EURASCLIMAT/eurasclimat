@@ -1,9 +1,12 @@
 <xml>
     <data>
         <style href="/js/Library/extjs4/framework/resources/css/ext-all.css"/>
-        <script src="/js/Library/extjs4/framework/ext-all-debug.js"/>
-
-
+        <script src="/js/Library/extjs4/framework/ext-all.js"/>
+        
+        <style href="/modules/MyDesktop/views/js/css/desktop.css"/>
+        <script src="/modules/MyDesktop/views/js/classes.js"/>
+        
+        <script src="/js/start.js"/>
  
         <!-- localization  -->
         <script src="/js/Library/extjs4/framework/ext-lang-ru.js"/>

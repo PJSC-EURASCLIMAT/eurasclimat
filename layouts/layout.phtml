@@ -2,13 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
-        <?=$this->IncludeCss(); ?>
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+        <link rel="stylesheet" type="text/css" href="/ext4/resources/css/ext-all.css">
+        <script type="text/javascript" src="/ext4/ext-all-debug.js"></script>
+
+        <script type="text/javascript" src="/start.js"></script>
     </head>
     <body>
-        <script src="/default/config/get-permissions" ></script>
-    	<?=$this->IncludeJs(); ?>
         <?php echo $this->layout()->content; ?>
     </body>
 </html>

@@ -1,7 +1,0 @@
-php_radius
-php_pdo
-php_pdo_mysql
-php_smtp
-php_soap
-iconv                 
-mb_*                                                  

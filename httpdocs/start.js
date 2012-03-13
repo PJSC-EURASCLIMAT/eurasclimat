@@ -1,15 +1,19 @@
+Ext.ns('EC');
+
 Ext.Loader.setConfig({
     enabled: true,
-    disableCaching: false,
+    disableCaching: true,
     paths: {
         'Ext'   : './library/ext4/src',
         'xlib'  : './library/xlib',
-        'EC'    : './modules/'
+        'EC'    : './modules'
     }
 });
 
+Ext.require('EC.MyDesktop.App');
+
 Ext.onReady(function () {
-   new MyDesktop.App();
+   new EC.MyDesktop.App();
 });
 
 //Ext.require('EC.Layout.controller.Users');

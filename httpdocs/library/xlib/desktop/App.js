@@ -8,7 +8,6 @@ Ext.define('xlib.desktop.App', {
 
     requires: [
         'Ext.container.Viewport',
-
         'xlib.desktop.Desktop'
     ],
 
@@ -45,7 +44,7 @@ Ext.define('xlib.desktop.App', {
         }
 
         desktopCfg = me.getDesktopConfig();
-        me.desktop = new Ext.ux.desktop.Desktop(desktopCfg);
+        me.desktop = new xlib.desktop.Desktop(desktopCfg);
 
         me.viewport = new Ext.container.Viewport({
             layout: 'fit',

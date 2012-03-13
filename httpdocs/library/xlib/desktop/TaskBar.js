@@ -43,16 +43,16 @@ Ext.define('xlib.desktop.TaskBar', {
                 menuAlign: 'bl-tl',
                 text: me.startBtnText
             },
-            me.quickStart,
-            {
-                xtype: 'splitter', html: '&#160;',
-                height: 14, width: 2, // TODO - there should be a CSS way here
-                cls: 'x-toolbar-separator x-toolbar-separator-horizontal'
-            },
-            //'-',
-            me.windowBar,
+//            me.quickStart,
+//            {
+//                xtype: 'splitter', html: '&#160;',
+//                height: 14, width: 2, // TODO - there should be a CSS way here
+//                cls: 'x-toolbar-separator x-toolbar-separator-horizontal'
+//            },
             '-',
-            me.tray
+            me.windowBar //,
+//            '-',
+//            me.tray
         ];
 
         me.callParent();

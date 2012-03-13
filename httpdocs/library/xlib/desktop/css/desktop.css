@@ -42,7 +42,7 @@
 */
 
 .ux-start-button-icon {
-    background-image: url(../images/taskbar/sencha.gif) !important;
+    background-image: url(/images/favicon.png) !important;
     background-color: transparent;
 }
 
@@ -150,7 +150,7 @@
 }
 
 .ux-desktop-black .ux-taskbar .x-btn-inner {
-    color: white;
+    color: black;
 }
 
 .ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner, .ux-taskbar .x-btn-over .x-btn-inner {

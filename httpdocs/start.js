@@ -8,6 +8,10 @@ Ext.Loader.setConfig({
     }
 });
 
+Ext.onReady(function () {
+   new MyDesktop.App();
+});
+
 //Ext.require('EC.Layout.controller.Users');
 
 //console.log('test loader');

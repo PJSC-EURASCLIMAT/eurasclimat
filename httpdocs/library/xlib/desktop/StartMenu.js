@@ -22,10 +22,6 @@ Ext.define('xlib.desktop.StartMenu', {
 
     shadow: true,
 
-    // We have to hardcode a width because the internal Menu cannot drive our width.
-    // This is combined with changing the align property of the menu's layout from the
-    // typical 'stretchmax' to 'stretch' which allows the the items to fill the menu
-    // area.
     width: 300,
 
     initComponent: function() {

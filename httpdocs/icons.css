@@ -1,0 +1,40 @@
+.add {
+    background-image:url(/images/icons/fam/add.gif) !important;
+}
+.option {
+    background-image:url(/images/icons/fam/plugin.gif) !important;
+}
+.remove {
+    background-image:url(/images/icons/fam/delete.gif) !important;
+}
+.save {
+    background-image:url(/images/icons/save.gif) !important;
+}
+
+.user {
+    background-image:url( /images/icons/fam/user.gif ) !important;
+}
+
+.user-add {
+    background-image:url(/images/icons/fam/user_add.gif) !important;
+}
+
+.user-delete {
+    background-image:url(/images/icons/fam/user_delete.gif) !important;
+}
+
+.connect {
+    background-image:url(/images/icons/fam/connect.gif) !important;
+}
+
+.user-girl {
+    background-image:url(/images/icons/fam/user_female.gif) !important;
+}
+
+.user-kid {
+    background-image:url(/images/icons/fam/user_green.gif) !important;
+}
+
+.user-suit {
+    background-image:url(/images/icons/fam/user_suit.gif) !important;
+}

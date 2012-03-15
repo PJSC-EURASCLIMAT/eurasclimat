@@ -197,26 +197,6 @@
     height: 46px;
 }
 
-.x-ie6 .accordion-shortcut {
-    background-image: none;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/im48x48.png', sizingMethod='scale');
-}
-
-.x-ie6 .cpu-shortcut {
-    background-image: none;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/statusLarge.png', sizingMethod='scale');
-}
-
-.x-ie6 .grid-shortcut {
-    background-image: none;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/grid48x48.png', sizingMethod='scale');
-}
-
-.x-ie6 .notepad-shortcut {
-    background-image: none;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/notepadLarge.png', sizingMethod='scale');
-}
-
 .video {
     background-image: url(../images/gears.gif);
 }
@@ -237,57 +217,13 @@
     background-image: url( ../images/gears.gif ) !important;
 }
 
-
 .icon-grid {
     background-image:url( ../images/grid.png ) !important;
 }
-.add {
-    background-image:url(../../shared/icons/fam/add.gif) !important;
-}
-.option {
-    background-image:url(../../shared/icons/fam/plugin.gif) !important;
-}
-.remove {
-    background-image:url(../../shared/icons/fam/delete.gif) !important;
-}
-.save {
-    background-image:url(../../shared/icons/save.gif) !important;
-}
+
 .accordion {
     background-image:url(../images/accordian.gif) !important;
 }
 .tabs {
     background-image:url(../images/tabs.gif) !important;
-}
-
-/*----------------------------------------------------
-    IM window icons
-*/
-
-.user {
-    background-image:url( ../../shared/icons/fam/user.gif ) !important;
-}
-
-.user-add {
-    background-image:url(../../shared/icons/fam/user_add.gif) !important;
-}
-
-.user-delete {
-    background-image:url(../../shared/icons/fam/user_delete.gif) !important;
-}
-
-.connect {
-    background-image:url(../../shared/icons/fam/connect.gif) !important;
-}
-
-.user-girl {
-    background-image:url(../../shared/icons/fam/user_female.gif) !important;
-}
-
-.user-kid {
-    background-image:url(../../shared/icons/fam/user_green.gif) !important;
-}
-
-.user-suit {
-    background-image:url(../../shared/icons/fam/user_suit.gif) !important;
 }

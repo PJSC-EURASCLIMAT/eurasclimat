@@ -44,7 +44,8 @@ Ext.define('EC.MyDesktop.App', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            //cls: 'ux-desktop-black',
+            
+            cls: 'ux-desktop-black',
 
             contextMenuItems: [
 //                { text: 'Change Settings', handler: me.onSettings, scope: me }
@@ -53,11 +54,7 @@ Ext.define('EC.MyDesktop.App', {
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'xlib.desktop.ShortcutModel',
                 data: [
-//                    { name: 'Grid Window', iconCls: 'grid-shortcut', module: 'grid-win' },
-//                    { name: 'Accordion Window', iconCls: 'accordion-shortcut', module: 'acc-win' }
-                    
-//                    { name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
-//                    { name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
+                    { name: 'Список', iconCls: 'grid-shortcut', module: 'grid-win' }
                 ]
             }),
 
@@ -90,10 +87,11 @@ Ext.define('EC.MyDesktop.App', {
         var ret = this.callParent();
 
         return Ext.apply(ret, {
-            quickStart: false,// [
+            startBtnText: 'Пуск',
+            quickStart: [
 //                { name: 'Accordion Window', iconCls: 'accordion', module: 'acc-win' },
 //                { name: 'Grid Window', iconCls: 'icon-grid', module: 'grid-win' }
-//            ],
+            ],
             trayItems: [
             ]
         });

@@ -5,38 +5,6 @@
 * http://www.sencha.com/license
 */
 
-#poweredby {
-    position: absolute;
-    bottom: 40px;
-    right: 20px;
-    z-index: 15000;
-
-    /* IE 5-7 */
-    filter: alpha(opacity=70);
-    /* Netscape */
-    -moz-opacity: 0.7;
-    /* Safari 1.x */
-    -khtml-opacity: 0.7;
-    /* Good browsers */
-    opacity: 0.7;
-}
-
-#poweredby div {
-    position: relative;
-    width: 150px;
-    height: 25px;
-    background-image: url(../images/powered-by-ext-js.png);
-    background-repeat: no-repeat;
-}
-
-/* The simple background image PNG does not work in IE6-8, but does in IE9 */
-.x-ie6 #poweredby div,
-.x-ie7 #poweredby div,
-.x-ie8 #poweredby div {
-    background-image: none;
-    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/powered-by-ext-js.png', sizingMethod='scale');
-}
-
 /*----------------------------------------------------
     Start Button
 */
@@ -150,7 +118,7 @@
 }
 
 .ux-desktop-black .ux-taskbar .x-btn-inner {
-    color: black;
+    color: white;
 }
 
 .ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner, .ux-taskbar .x-btn-over .x-btn-inner {

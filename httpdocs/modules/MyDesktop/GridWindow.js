@@ -13,9 +13,9 @@ Ext.define('EC.MyDesktop.GridWindow', {
 
     init : function(){
         this.launcher = {
-            text: 'Grid Window',
-            iconCls:'icon-grid',
-            handler : this.createWindow,
+            text: 'Список',
+            iconCls: 'icon-grid',
+            handler: this.createWindow,
             scope: this
         };
     },
@@ -23,15 +23,15 @@ Ext.define('EC.MyDesktop.GridWindow', {
     createWindow : function(){
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('grid-win');
-        if(!win){
+        if (!win){
             win = desktop.createWindow({
                 id: 'grid-win',
-                title:'Grid Window',
-                width:740,
-                height:480,
+                title: 'Список',
+                width: 740,
+                height: 480,
                 iconCls: 'icon-grid',
-                animCollapse:false,
-                constrainHeader:true,
+                animCollapse: false,
+                constrainHeader: true,
                 layout: 'fit',
                 items: [
                     {

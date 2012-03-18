@@ -66,7 +66,9 @@ Ext.define('EC.MyDesktop.App', {
 
     getTaskbarConfig: function() {
         var ret = this.callParent();
-        return Ext.apply(ret, {startBtnText: 'Пуск'});
+        return Ext.apply(ret, {
+            startBtnText: 'Пуск'
+        });
     },
 
     onAdmin: function() {

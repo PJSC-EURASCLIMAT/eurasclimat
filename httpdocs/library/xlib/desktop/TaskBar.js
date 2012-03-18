@@ -24,18 +24,18 @@ Ext.define('xlib.desktop.TaskBar', {
     startBtnText: 'Start',
 
     initComponent: function () {
+        
         var me = this;
 
         me.startMenu = new xlib.desktop.StartMenu(me.startConfig);
 
-        me.quickStart = new Ext.toolbar.Toolbar(me.getQuickStart());
-
         me.windowBar = new Ext.toolbar.Toolbar(me.getWindowBarConfig());
 
-        me.tray = new Ext.toolbar.Toolbar(me.getTrayConfig());
+//        me.quickStart = new Ext.toolbar.Toolbar(me.getQuickStart());
+//        
+//        me.tray = new Ext.toolbar.Toolbar(me.getTrayConfig());
 
-        me.items = [
-            {
+        me.items = [{
                 xtype: 'button',
                 cls: 'ux-start-button',
                 iconCls: 'ux-start-button-icon',

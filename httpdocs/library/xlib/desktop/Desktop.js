@@ -74,6 +74,7 @@ Ext.define('xlib.desktop.Desktop', {
     windowMenu: null,
 
     initComponent: function () {
+        
         var me = this;
 
         me.windowMenu = new Ext.menu.Menu(me.createWindowMenu());

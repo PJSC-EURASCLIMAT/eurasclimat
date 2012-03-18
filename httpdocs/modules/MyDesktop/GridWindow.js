@@ -2,12 +2,12 @@ Ext.define('EC.MyDesktop.GridWindow', {
     
     extend: 'xlib.desktop.Module',
 
-    requires: [
-        'Ext.data.ArrayStore',
-        'Ext.util.Format',
-        'Ext.grid.Panel',
-        'Ext.grid.RowNumberer'
-    ],
+//    requires: [
+//        'Ext.data.ArrayStore',
+//        'Ext.util.Format',
+//        'Ext.grid.Panel',
+//        'Ext.grid.RowNumberer'
+//    ],
 
     id: 'grid-win',
 
@@ -47,7 +47,6 @@ Ext.define('EC.MyDesktop.GridWindow', {
                             data: EC.MyDesktop.GridWindow.getDummyData()
                         }),
                         columns: [
-                            new Ext.grid.RowNumberer(),
                             {
                                 text: "Company",
                                 flex: 1,

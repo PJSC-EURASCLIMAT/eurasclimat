@@ -50,6 +50,11 @@ Ext.define('EC.MyDesktop.App', {
             toolConfig: {
                 width: 100,
                 items: [{
+                    text: 'Админка',
+                    iconCls: 'settings',
+                    handler: me.onAdmin,
+                    scope: me
+                }, {
                     text: 'Выход',
                     iconCls: 'logout',
                     handler: me.onLogout,
@@ -64,6 +69,10 @@ Ext.define('EC.MyDesktop.App', {
         return Ext.apply(ret, {startBtnText: 'Пуск'});
     },
 
+    onAdmin: function() {
+        this.getModule('admin-win').createWindow();
+    },
+    
     onLogout: function () {
         Ext.Msg.confirm('Выход', 'Вы уверены, что хотите покинуть приложение?', function(b) {
             if (b == 'yes') {

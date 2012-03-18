@@ -44,6 +44,7 @@ Ext.define('xlib.desktop.Module', {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow(this.id);
         if (!win) {
+            
             win = desktop.createWindow({
                 id: this.id,
                 title: this.name,
@@ -52,14 +53,17 @@ Ext.define('xlib.desktop.Module', {
                 iconCls: this.iconCls,
                 animCollapse: false,
                 constrainHeader: true,
+                border: false,
                 layout: 'fit',
-                items: [this.getContent() || Ext.emptyFn()]
+                items: []
             });
+            
+            this.run(win);
         }
         win.show();
         return win;
     },
     
-    getContent: Ext.emptyFn
+    run: Ext.emptyFn
 });
 

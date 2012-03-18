@@ -3,6 +3,7 @@
  * To install module, just add here a class name, which extends 'xlib.desktop.Module' 
  */
 var MyDesktopModulesList = [
+    'EC.Admin.Module',
     'EC.Catalog.Module'
 ];
 

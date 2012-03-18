@@ -1,7 +1,7 @@
 Ext.define('EC.Catalog.Module', {
     
     extend: 'xlib.desktop.Module',
-
+    
     id: 'catalog-win',
 
     name: 'Каталог',
@@ -10,12 +10,18 @@ Ext.define('EC.Catalog.Module', {
     
     shortcutCls: 'grid-shortcut',
     
-    getContent: function() {
-        return Ext.require('EC.Catalog.controller.Main',  
-            function() { 
-                var controller = Ext.create('EC.Catalog.controller.Main');
-                controller.init();
+    showShortcut: true,
+    
+    showInStartMenu: true,
+    
+    run: function(win) {
+        Ext.application({
+            name: 'EC.Catalog',
+            appFolder: './modules/Catalog',
+            controllers: ['Main'],
+            launch: function() {
+                win.add({xtype: 'Layout'});
             }
-        )
+        });
     }
 });

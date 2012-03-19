@@ -91,10 +91,6 @@
     padding: 0;
 }
 
-.x-toolbar .x-toolbar {
-    padding: 0;
-}
-
 /*
     TaskBar (Black)
 */
@@ -123,17 +119,6 @@
 
 .ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner, .ux-taskbar .x-btn-over .x-btn-inner {
     color: black;
-}
-
-/*----------------------------------------------------
-    Tray Clock
-*/
-
-.ux-desktop-trayclock {
-    text-align: center;
-    vertical-align: middle;
-    padding-top: 0;
-    padding-bottom: 0;
 }
 
 /*----------------------------------------------------

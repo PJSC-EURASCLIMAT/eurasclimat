@@ -1,17 +1,21 @@
-Ext.ns('EC');
-
 Ext.Loader.setConfig({
     enabled: true,
     disableCaching: true,
     paths: {
-        'Ext'   : './library/ext4/src',
-        'xlib'  : './library/xlib',
-        'EC'    : './modules'
+        'Ext'   : '/library/ext4/src',
+        'xlib'  : '/library/xlib',
+        'EC'    : '/modules'
     }
 });
 
-Ext.require('EC.MyDesktop.App');
-
-Ext.onReady(function () {
-   new EC.MyDesktop.App();
+Ext.application({
+    name: 'EC',
+    appFolder: 'app',
+    controllers: ['Main'],
+    launch: function() {
+        Ext.create('Ext.container.Viewport', {
+            layout: 'fit',
+            items: [this.getView('Layout').create()]
+        });
+    }
 });

@@ -1,10 +1,10 @@
 Ext.define('EC.Admin.Module', {
     
-    extend: 'xlib.desktop.Module',
+    extend: 'xlib.MyDesktop.Module',
     
     id: 'admin-win',
 
-    name: 'Админка',
+    name: 'Настройки',
     
     iconCls: 'settings',
     
@@ -18,7 +18,7 @@ Ext.define('EC.Admin.Module', {
             appFolder: './modules/Admin',
             controllers: ['Main'],
             launch: function() {
-                win.add({xtype: 'Layout'});
+                win.add({xtype: 'Admin.Layout'});
             }
         });
     }

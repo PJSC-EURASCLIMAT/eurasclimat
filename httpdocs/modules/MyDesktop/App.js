@@ -1,10 +1,10 @@
 Ext.define('EC.MyDesktop.App', {
     
-    extend: 'xlib.desktop.App',
+    extend: 'xlib.MyDesktop.App',
 
     requires: [
         'Ext.window.MessageBox',
-        'xlib.desktop.ShortcutModel',
+        'xlib.MyDesktop.ShortcutModel',
         'EC.MyDesktop.Modules'
     ],
 
@@ -30,7 +30,7 @@ Ext.define('EC.MyDesktop.App', {
             cls: 'ux-desktop-black',
 
             shortcuts: Ext.create('Ext.data.Store', {
-                model: 'xlib.desktop.ShortcutModel',
+                model: 'xlib.MyDesktop.ShortcutModel',
                 data: this.dataClass.shortcuts
             }),
 
@@ -50,7 +50,7 @@ Ext.define('EC.MyDesktop.App', {
             toolConfig: {
                 width: 100,
                 items: [{
-                    text: 'Админка',
+                    text: 'Настройки',
                     iconCls: 'settings',
                     handler: me.onAdmin,
                     scope: me

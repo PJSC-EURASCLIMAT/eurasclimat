@@ -1,7 +1,12 @@
 Ext.define('EC.Admin.view.Layout', {
 
-    extend: 'Ext.Panel',
+    extend: 'Ext.tab.Panel',
     
-    alias: ['widget.Layout']
+    alias: ['widget.Admin.Layout']
+//    ,
+//    
+//    items: [{
+//        title: 'Пользователи'
+//    }]
     
 });

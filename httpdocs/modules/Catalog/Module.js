@@ -1,6 +1,6 @@
 Ext.define('EC.Catalog.Module', {
     
-    extend: 'xlib.desktop.Module',
+    extend: 'xlib.MyDesktop.Module',
     
     id: 'catalog-win',
 
@@ -23,5 +23,13 @@ Ext.define('EC.Catalog.Module', {
                 win.add({xtype: 'Layout'});
             }
         });
+        
+        return Ext.require('EC.Catalog.controller.Main',  
+            function() { 
+                var controller = Ext.create('EC.Catalog.controller.Main');
+                controller.init();
+            }
+        )
+        
     }
 });

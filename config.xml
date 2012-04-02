@@ -13,9 +13,9 @@
     </accounts>
     <db>
       <host>localhost</host>
-      <username>ca</username>
-      <password>wramu9hE</password>
-      <dbname>eurasclimat</dbname>
+      <username>pms</username>
+      <password>Hope123</password>
+      <dbname>e-head_ec</dbname>
       <prefix></prefix>
     </db>
     <mail>

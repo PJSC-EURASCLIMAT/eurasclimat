@@ -1,10 +1,31 @@
 @CHARSET "UTF-8";
 
-.xlib-wallpaper {
-    background: url("/images/wallpaper_new_c.png") no-repeat;
+body, .xlib-wallpaper {
+    background: url("/images/body-bg.png") repeat-x scroll 0 0 #B3BBCF;
 }
 .xlib-bkg .xlib-bkg-body {
     background: transparent;
+}
+
+#bg-left {
+    background: url("/images/top-bg.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 229px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 361px;
+    z-index: 0;
+}
+
+#bg-bottom {
+    background: url("/images/bottom-bg.png") no-repeat scroll 0 0 transparent;
+    bottom: 0;
+    height: 222px;
+    left: 0;
+    position: absolute;
+    width: 530px;
+    z-index: 99999999;
 }
 
 .x-portal-body {

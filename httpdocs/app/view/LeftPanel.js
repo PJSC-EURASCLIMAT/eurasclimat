@@ -8,7 +8,7 @@ Ext.define('EC.view.LeftPanel', {
     
     layout: 'border', 
     
-    width: 180,
+    width: 150,
     
     baseCls: 'xlib-bkg',
     
@@ -21,7 +21,7 @@ Ext.define('EC.view.LeftPanel', {
         items: [{
             xtype: 'image',
             src: '/images/logo.png',
-            margin: 30,
+            margin: 20,
             width: 120, 
             height: 109
         }]
@@ -32,7 +32,7 @@ Ext.define('EC.view.LeftPanel', {
             type: 'vbox',
             align: 'stretch'
         },
-        padding: 10,
+        padding: 5,
         defaultType: 'button',
         defaults: {
             margins: 5,

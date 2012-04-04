@@ -8,7 +8,7 @@ Ext.define('EC.view.TopPanel', {
     
     region: 'north',
     
-    height: 70,
+    height: 40,
     
     border: false
     

@@ -5,7 +5,7 @@ Ext.define('EC.view.Layout', {
     layout: 'border',
     
     baseCls: 'xlib-wallpaper',
-
+    
     initComponent: function() {
     
         this.items = [{

@@ -19,10 +19,12 @@ Ext.define('EC.controller.Main', {
     },
     
     openWidget: function(button, e, options) {
-        this.getCenterPanel().getActiveTab().child('portalcolumn').add({
+        var tab = this.getCenterPanel().getActiveTab();
+        tab.child('portalcolumn').add({
             xtype: 'portlet',
             title: button.text,
             html: 'Произвольное содержимое'
         });
+        tab.doLayout();
     }
 });

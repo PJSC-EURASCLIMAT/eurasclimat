@@ -16,7 +16,7 @@ Ext.define('EC.view.CenterPanel', {
     
     items: [{
         id: 'tab1',
-        title: 'Вкладка раздела 1',
+        title: 'Мой портал',
         xtype: 'portalpanel',
         columns: 3,
         defaults: {
@@ -35,18 +35,11 @@ Ext.define('EC.view.CenterPanel', {
             id: 'col-3',
             items: [{
                 title: 'Ещё один уже открытый виджет',
-                height: 380
+                height: 380,
+                html: 'Content'
             }]
         }
         ]
-    }, {
-        id: 'tab2', 
-        layout: 'fit',
-        title: 'Вкладка раздела 2',
-        items: [{
-            title: 'Панель 1',
-            layout: 'fit'
-        }]
     }]
     
 });

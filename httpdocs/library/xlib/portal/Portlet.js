@@ -21,5 +21,13 @@ Ext.define('xlib.portal.Portlet', {
             },
             scope: this
         });
-    }
+    },
+    
+    tools: [{
+        type: 'maximize',
+        handler: function(event, toolEl, parent, tool) {
+            var portlet = parent.findParentByType('portlet');
+            portlet.fireEvent('maximize', portlet);
+        }
+    }]
 });

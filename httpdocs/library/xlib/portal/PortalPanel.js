@@ -28,6 +28,7 @@ Ext.define('xlib.portal.PortalPanel', {
             beforedrop: true,
             drop: true
         });
+        
         this.on('drop', this.doLayout, this);
     },
 
@@ -49,16 +50,16 @@ Ext.define('xlib.portal.PortalPanel', {
     },
 
     // private
-    initEvents : function(){
+    initEvents: function(){
         this.callParent();
         this.dd = Ext.create('xlib.portal.PortalDropZone', this, this.dropConfig);
     },
 
     // private
-    beforeDestroy : function() {
+    beforeDestroy: function() {
         if (this.dd) {
             this.dd.unreg();
         }
-        xlib.portal.PortalPanel.superclass.beforeDestroy.call(this);
+        this.callParent();
     }
 });

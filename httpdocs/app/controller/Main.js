@@ -35,7 +35,6 @@ Ext.define('EC.controller.Main', {
     maxumizeWidget: function(portlet) {
         var tab = this.getCenterPanel().add(portlet.cloneConfig());
         portlet.close();
-        this.getCenterPanel().setActive(true, tab);
-//        console.log('it works');
+        tab.show();
     }
 });

@@ -9,16 +9,15 @@ Ext.define('EC.Catalog.controller.Main', {
         'EC.Catalog.view.Edit'
     ],
     
-    init: function() {
+    init: function(container) {
         
-        this.application.viewport.add({xtype: 'CatalogList'});
+        container.add({xtype: 'CatalogList'});
         
         this.control({
             'CatalogList': {
                 itemdblclick: this.editItem
             }
         });
-        //container.add({xtype: 'CatalogList'});
     },
     
     editItem: function(grid, record) {

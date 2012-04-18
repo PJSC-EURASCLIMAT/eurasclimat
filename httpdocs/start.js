@@ -9,7 +9,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    name: 'EC',
+    name: 'App',
     appFolder: 'app',
     controllers: ['Main'],
     launch: function() {

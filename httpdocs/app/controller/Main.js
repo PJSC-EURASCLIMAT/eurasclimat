@@ -1,4 +1,4 @@
-Ext.define('EC.controller.Main', {
+Ext.define('App.controller.Main', {
     
     extend: 'Ext.app.Controller',
 
@@ -16,23 +16,27 @@ Ext.define('EC.controller.Main', {
                 scope: this
             },
             'CenterPanel portlet': {
-                maximize: this.maxumizeWidget,
+                maximize: this.maximizeWidget,
                 scope: this
             }
         })
     },
     
     openWidget: function(button, e, options) {
-        var tab = this.getCenterPanel().getActiveTab();
-        tab.down().insert(0, {
-            xtype: 'portlet',
-            title: button.text,
-            html: 'Произвольное содержимое'
-        });
-        tab.doLayout();
+        if (typeof button.lunch == 'function') {
+            button.lunch.call(this);
+        } else {
+            var tab = this.getCenterPanel().getActiveTab();
+            tab.down().insert(0, {
+                xtype: 'portlet',
+                title: button.text,
+                html: 'Произвольное содержимое'
+            });
+            tab.doLayout();
+        }
     },
     
-    maxumizeWidget: function(portlet) {
+    maximizeWidget: function(portlet) {
         var tab = this.getCenterPanel().add(portlet.cloneConfig());
         portlet.close();
         tab.show();

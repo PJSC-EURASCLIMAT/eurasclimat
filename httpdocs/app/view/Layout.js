@@ -1,4 +1,4 @@
-Ext.define('EC.view.Layout', {
+Ext.define('App.view.Layout', {
 
     extend: 'Ext.container.Container',
 

@@ -1,4 +1,4 @@
-Ext.define('EC.view.CenterPanel', {
+Ext.define('App.view.CenterPanel', {
 
     extend: 'Ext.tab.Panel',
 

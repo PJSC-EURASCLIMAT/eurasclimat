@@ -1,4 +1,4 @@
-Ext.define('EC.view.LeftPanel', {
+Ext.define('App.view.LeftPanel', {
 
     extend: 'Ext.Panel',
     
@@ -39,6 +39,18 @@ Ext.define('EC.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
+            text: 'Каталог',
+            lunch: function() {
+                var tab = this.getCenterPanel().add({
+                    title: 'Каталог' 
+                }).show();
+                var controller = Ext.create('EC.Catalog.controller.Main', {
+                    application: this.application
+                });
+                this.application.controllers.add(controller);
+                controller.init(tab);
+            }
+        }, {
             text: 'Виджет'
         }, {
             text: 'Другой виджет'

@@ -1,4 +1,4 @@
-Ext.define('EC.view.TopPanel', {
+Ext.define('App.view.TopPanel', {
 
     extend: 'Ext.Panel',
     

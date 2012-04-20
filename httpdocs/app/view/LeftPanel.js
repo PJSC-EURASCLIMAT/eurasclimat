@@ -50,10 +50,6 @@ Ext.define('App.view.LeftPanel', {
             }
         }, {
             text: 'Виджет'
-        }, {
-            text: 'Другой виджет'
-        }, {
-            text: 'И ещё виджет'
         }]
     }]
 });

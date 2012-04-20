@@ -11,8 +11,7 @@ Ext.define('App.controller.Main', {
     
     init: function() {
         
-        var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}); 
-        vpMask.show();
+        var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}).show();
         
         this.getView('Layout').create({
             listeners: {

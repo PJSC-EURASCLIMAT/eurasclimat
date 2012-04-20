@@ -41,14 +41,12 @@ Ext.define('App.view.LeftPanel', {
         items: [{
             text: 'Каталог',
             lunch: function() {
+                this.getCenterPanel().setLoading('Загрузка...', true);
                 var controller = Ext.create('EC.Catalog.controller.Main', {
                     application: this.application
                 });
                 this.application.controllers.add(controller);
-//                var tab = this.getCenterPanel().add({
-//                    title: 'Каталог' 
-//                }).show();
-                controller.init();// tab);
+                controller.init();
             }
         }, {
             text: 'Виджет'

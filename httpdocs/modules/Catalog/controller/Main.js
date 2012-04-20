@@ -16,13 +16,18 @@ Ext.define('EC.Catalog.controller.Main', {
         'EC.Catalog.model.ListModel'
     ],
     
-    init: function(container) {
+    init: function() {
         
-        this.application.getController('Main').getCenterPanel().add({
-            xtype: 'CatalogLayout'
+        var container = this.application.getController('Main').getCenterPanel();
+        
+        container.add({
+            xtype: 'CatalogLayout',
+            listeners: {
+                afterLayout: function() {
+                    container.setLoading(false);
+                }
+            }
         }).show();
-        
-        //container.add({xtype: 'CatalogLayout'});
         
         this.control({
             'CatalogList': {

@@ -10,6 +10,23 @@ Ext.define('App.controller.Main', {
     }], 
     
     init: function() {
+        
+        var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}); 
+        vpMask.show();
+        
+        this.getView('Layout').create({
+            listeners: {
+                render: function() {
+                    vpMask.destroy();
+                    vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Инициализация...'});
+                    vpMask.show();
+                },
+                afterLayout: function() {
+                    vpMask.destroy();
+                }
+            }
+        });
+        
         this.control({
             'LeftPanel button': {
                 click: this.openWidget,

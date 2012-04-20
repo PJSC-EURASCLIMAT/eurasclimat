@@ -14,10 +14,15 @@ Ext.define('App.view.CenterPanel', {
         baseCls: 'xlib-bkg'
     },
     
+    defaults: {
+        closable: true
+    },
+    
     items: [{
         id: 'tab1',
         title: 'Мой портал',
         xtype: 'portalpanel',
+        closable: false,
         columns: 3,
         defaults: {
             defaults: {

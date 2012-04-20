@@ -4,19 +4,38 @@ Ext.define('EC.Catalog.view.List', {
    
     alias: ['widget.CatalogList'],
     
+    store: 'EC.Catalog.store.ListStore',
+    
+    layout: 'fit',
+    
+    border: false,
+    
+    forceFit: true,
+    
     initComponent: function() {
-        this.store = {
-            fields: ['name', 'email'],
-            data  : [
-                {name: 'Ed',    email: 'ed@sencha.com'},
-                {name: 'Tommy', email: 'tommy@sencha.com'}
-            ]
-        };
 
-        this.columns = [
-            {header: 'Имя',  dataIndex: 'name',  flex: 1},
-            {header: 'Email', dataIndex: 'email', flex: 1}
-        ];
+        this.columns = [{
+            header: 'Группа оборудования', 
+            dataIndex: 'group'
+        }, {
+            header: 'Наименование',
+            dataIndex: 'name'
+        }, {
+            header: 'Марка',
+            dataIndex: 'mark'
+        }, {
+            header: 'Маркировка',
+            dataIndex: 'marking'
+        }, {
+            header: 'Тип продукции',
+            dataIndex: 'product_type'
+        }, {
+            header: 'Тип исполнения',
+            dataIndex: 'implementation_type'
+        }, {
+            header: 'Тип исполнения',
+            dataIndex: 'implementation_type'
+        }];
 
         this.callParent(arguments);
     }

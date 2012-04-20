@@ -4,6 +4,8 @@ Ext.define('App.view.Layout', {
 
     layout: 'border',
     
+    baseCls: 'xlib-wallpaper',
+    
     items: [{
         xtype: 'LeftPanel'
     }, {

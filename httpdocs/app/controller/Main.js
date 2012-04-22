@@ -42,12 +42,13 @@ Ext.define('App.controller.Main', {
         if (typeof button.lunch == 'function') {
             button.lunch.call(this);
         } else {
-            var tab = this.getCenterPanel().getActiveTab();
+            var tab = this.getCenterPanel().getComponent('portal-tab-1');
             tab.down().insert(0, {
                 xtype: 'portlet',
                 title: button.text,
                 html: 'Произвольное содержимое'
             });
+            tab.show();
             tab.doLayout();
         }
     },

@@ -19,7 +19,7 @@ Ext.define('App.view.CenterPanel', {
     },
     
     items: [{
-        id: 'tab1',
+        id: 'portal-tab-1',
         title: 'Мой портал',
         xtype: 'portalpanel',
         closable: false,

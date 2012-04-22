@@ -17,17 +17,17 @@ Ext.define('EC.Catalog.view.ConditionersList', {
     plugins: [{
         ptype: 'rowexpander',
         rowBodyTpl : [
-            '<table><tr>',
+            '<div style="padding: 10px;"><table><tr>',
             '<td>',
-            '<p><b>Охлаждение:</b> {cooling}</p><br>',
-            '<p><b>Обогрев:</b> {heating}</p><br><br>',
-            '<p><b>Площадь м²:</b> {square}</p><br>',
+            '<p><b>Охлаждение:</b> {cooling}</p>',
+            '<p><b>Обогрев:</b> {heating}</p><br>',
+            '<p><b>Площадь м²:</b> {square}</p>',
             '</td><td>',
-            '<p><b>Охлаждение:</b> {cooling1}</p><br>',
-            '<p><b>Обогрев:</b> {heating1}</p><br><br>',
-            '<p><b>Площадь м³:</b> {volume}</p><br>',
+            '<p><b>Охлаждение:</b> {cooling1}</p>',
+            '<p><b>Обогрев:</b> {heating1}</p><br>',
+            '<p><b>Площадь м³:</b> {volume}</p>',
             '</td>',
-            '</tr></table>'
+            '</tr></table></div>'
         ]
     }],
     
@@ -98,6 +98,27 @@ Ext.define('EC.Catalog.view.ConditionersList', {
         }, {
             header: 'Цена',
             dataIndex: 'price'
+        }, {
+            header: 'Действия',
+            xtype:'actioncolumn',
+            width:50,
+            items: [{
+                icon: '/images/icons/fam/plugin.gif',
+                //iconCls: 'option', // 'extjs/examples/shared/icons/fam/cog_edit.png',  // Use a URL in the icon config
+                tooltip: 'Редактировать',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    alert("Редактирование " + rec.get('marking'));
+                }
+            }, {
+                icon: '/images/icons/fam/delete.gif',
+                //iconCls: 'remove', // 'extjs/examples/restful/images/delete.png',
+                tooltip: 'Удалить',
+                handler: function(grid, rowIndex, colIndex) {
+                    var rec = grid.getStore().getAt(rowIndex);
+                    alert("Удаление " + rec.get('marking'));
+                }
+            }]
         }];
 
         this.callParent(arguments);

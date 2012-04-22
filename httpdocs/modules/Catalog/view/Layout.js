@@ -8,12 +8,12 @@ Ext.define('EC.Catalog.view.Layout', {
     
     defaults: {
         layout: 'fit',
-        xtype: 'CatalogList',
         border: false,
         closable: false
     },
     
     items: [{
+        xtype: 'ConditionersList',
         title: 'Кондиционирование'
     }, {
         title: 'Вентиляция'

@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.model.ListModel', {
+Ext.define('EC.Catalog.model.Conditioners', {
 
     extend: 'Ext.data.Model',
    

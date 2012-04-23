@@ -14,6 +14,51 @@ Ext.define('EC.Catalog.view.ConditionersList', {
     
     forceFit: true,
     
+    dockedItems: [{
+        title: 'Фильтр продукции',
+        xtype: 'panel',
+        bodyCls: 'x-tab-bar',
+        layout: 'column',
+        collapsible: true,
+        border: false,
+        dock: 'top',
+        //height: 120,
+        defaults: {
+            padding: 10,
+            bodyCls: 'x-tab-bar',
+            border: false,
+            width: 170
+        },
+        items: [{
+            items: [{ 
+                xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Страна',
+                store: Ext.create('Ext.data.Store', { fields: ['name'], data: [{name: 'Страна'}] })
+            }, {
+                xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Марка',
+                store: Ext.create('Ext.data.Store', { fields: ['name'], data: [{name: 'Марка'}] })
+            }, {
+                xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Наличие',
+                store: Ext.create('Ext.data.Store', { fields: ['name'], data: [{name: 'Наличие'}] })
+            }]
+        }, {
+            items: [{ 
+                xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Тип продукции',
+                store: Ext.create('Ext.data.Store', { fields: ['name'], data: [{name: 'Тип продукции'}] })
+            }, {
+                xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Тип исполнения',
+                store: Ext.create('Ext.data.Store', { fields: ['name'], data: [{name: 'Тип исполнения'}] })
+            }]
+        }],
+        listeners: {
+            collapse: function(panel) {
+                panel.ownerCt.ownerCt.doLayout();
+            },
+            expand: function(panel) {
+                panel.ownerCt.ownerCt.doLayout();
+            } 
+        }
+    }],
+    
     plugins: [{
         ptype: 'rowexpander',
         rowBodyTpl : [

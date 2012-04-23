@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
-        <link rel="stylesheet" type="text/css" href="/main.css">
-    </head>
-    <body>
-        <?=$this->layout()->content; ?>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body id="login-page">
+<table width="100%" border="0">
+    <tr height="220">
+        <td align="right" valign="bottom">
+            <div style="width: 200px;">
+                <center>
+                    <strong>КОМПАНИЯ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+        <td align="center">
+            <img src="/images/logo.png"  style="border:none;"/>
+        </td>
+        <td align="left" valign="bottom">
+            <div style="width: 200px;">
+                <center>
+                    <strong>ОТДЫХ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+    </tr>
+    <tr height="220">
+        <td align="center">
+            <div style="width: 200px;">
+                <center>
+                    <strong>КАТАЛОГ ПРОДУКЦИИ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+        <td align="center">
+            <?=$this->layout()->content; ?>
+        </td>
+        <td align="center">
+            <div style="width: 200px;">
+                <center>
+                    <strong>МУЛЬТИФОРУМ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+    </tr>
+    <tr height="220">
+        <td align="right" valign="top">
+            <div style="width: 200px;">
+                <center>
+                    <strong>КАТАЛОГ УСЛУГ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+        <td align="center">
+            <div style="width: 200px;">
+                <center>
+                    <strong>СПЕЦИАЛИСТЫ</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+        <td align="left" valign="top">
+            <div style="width: 200px;">
+                <center>
+                    <strong>ТОРГОВАЯ ПЛОЩАДКА</strong>
+                    <img src="/images/screen-thumb.png"  style="border:none;"/>
+                </center>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
 </html>

@@ -30,8 +30,10 @@ Ext.define('EC.Catalog.controller.Main', {
         }).show();
         
 //        this.control({
-//            'ConditionersList': {
-//                itemdblclick: this.editItem
+//            'ConditionersList > panel': {
+//                collapse: function(panel) {
+//                    panel.up('tabpanel').doLayout();
+//                }
 //            }
 //        });
         

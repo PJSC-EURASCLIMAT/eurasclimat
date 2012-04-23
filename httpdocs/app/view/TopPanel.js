@@ -1,6 +1,6 @@
 Ext.define('App.view.TopPanel', {
 
-    extend: 'Ext.Panel',
+    extend: 'Ext.toolbar.Toolbar',
     
     alias: 'widget.TopPanel',
 
@@ -8,8 +8,17 @@ Ext.define('App.view.TopPanel', {
     
     region: 'north',
     
-    height: 40,
+    padding: 5,
     
-    border: false
+    border: false,
+    
+    items: ['->', {
+        xtype: 'button',
+        text: 'Выход',
+        pressed: true,
+        handler: function() {
+            window.location.href = '/index/logout';
+        }
+    }]
     
 });

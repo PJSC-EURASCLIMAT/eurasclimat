@@ -28,6 +28,19 @@ body, .xlib-wallpaper {
     z-index: 99999999;
 }
 
+#login-page {
+    font-family: sans-serif;
+    font-size: small;
+}
+
+#login-page input[type="text"], input[type="password"] {
+    background: url(/images/input-bkg.png) no-repeat transparent;
+    padding: 0 10px;
+    border: none;
+    height: 35px;
+    width: 183px;
+}
+
 .x-portal-body {
     padding: 0 0 0 8px;
 }

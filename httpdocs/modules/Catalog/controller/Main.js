@@ -18,16 +18,22 @@ Ext.define('EC.Catalog.controller.Main', {
     
     init: function() {
         
-        var container = this.application.getController('Main').getCenterPanel();
+        var container = this.application.getController('Main').getCenterPanel(),
+            tab = container.child('CatalogLayout');
         
-        container.add({
-            xtype: 'CatalogLayout',
-            listeners: {
-                afterLayout: function() {
-                    container.setLoading(false);
+        if (!tab) {
+            container.add({
+                xtype: 'CatalogLayout',
+                listeners: {
+                    afterLayout: function() {
+                        container.setLoading(false);
+                    }
                 }
-            }
-        }).show();
+            }).show();
+        } else {
+            tab.show();
+            container.setLoading(false);
+        }
         
 //        this.control({
 //            'ConditionersList > panel': {

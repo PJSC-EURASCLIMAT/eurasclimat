@@ -26,10 +26,10 @@ Ext.define('EC.Catalog.view.ConditionersList', {
         border: false,
         dock: 'top',
         defaults: {
-            padding: 10,
+            padding: 5,
             bodyCls: 'x-tab-bar',
             border: false,
-            width: 170
+            width: 160
         },
         items: [{
             items: [{ 
@@ -99,13 +99,32 @@ Ext.define('EC.Catalog.view.ConditionersList', {
                 xtype: 'combo', displayField: 'name', valueField: 'name', emptyText: 'Гарантия',
                 store: Ext.create('Ext.data.Store', { fields: ['name'], data: [] })
             }]
+        }, {
+            defaults: {
+                margin: 2,
+                width: 140
+            },
+            items: [{
+                xtype: 'button',
+                text: 'Применить фильтр'
+            }, {
+                xtype: 'button',
+                text: 'Сбросить фильтр'
+            }, {
+                xtype: 'button',
+                iconCls: 'add',
+                text: 'Добавить позицию',
+                handler: function() {
+                    this.findParentByType('ConditionersList').fireEvent('addbuttonclick');
+                }
+            }]
         }],
         tools: [{
             type: 'plus',
             iconCls: 'add',
             tooltip: 'Добавить',
-            handler: function(grid, rowIndex, colIndex) {
-                alert("Добавление");
+            handler: function() {
+                this.findParentByType('ConditionersList').fireEvent('addbuttonclick');
             }
         }],
         listeners: {

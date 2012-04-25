@@ -35,13 +35,13 @@ Ext.define('EC.Catalog.controller.Main', {
             container.setLoading(false);
         }
         
-//        this.control({
-//            'ConditionersList > panel': {
-//                collapse: function(panel) {
-//                    panel.up('tabpanel').doLayout();
-//                }
-//            }
-//        });
+        this.control({
+            'ConditionersList': {
+                addbuttonclick: function(panel) {
+                    alert('Добавление новой позиции');
+                }
+            }
+        });
         
     },
     

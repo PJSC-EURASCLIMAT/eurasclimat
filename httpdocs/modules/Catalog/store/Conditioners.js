@@ -4,6 +4,22 @@ Ext.define('EC.Catalog.store.Conditioners', {
    
     model: 'EC.Catalog.model.Conditioners',
     
+    autoLoad: true,
+
+    proxy: {
+        type: 'ajax',
+        api: {
+            read:   '/json/catalog/items/get-list',
+            update: '/json/catalog/items/update'
+        },
+        reader: {
+            type: 'json',
+            root: 'data',
+            successProperty: 'success'
+        }
+    }
+    
+    /*
     data: [{
         group: 'Внутренние блоки настенного типа',
         name: 'Кондиционер',
@@ -43,4 +59,5 @@ Ext.define('EC.Catalog.store.Conditioners', {
         measure: '',
         price: ''
     }]
+    */
 });

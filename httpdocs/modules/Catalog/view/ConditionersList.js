@@ -17,7 +17,7 @@ Ext.define('EC.Catalog.view.ConditionersList', {
     //disableSelection: true,
     
     dockedItems: [{
-        title: 'Фильтр продукции',
+        title: 'Фильтры и настройки',
         xtype: 'panel',
         bodyCls: 'x-tab-bar',
         layout: 'column',
@@ -102,14 +102,23 @@ Ext.define('EC.Catalog.view.ConditionersList', {
         }, {
             defaults: {
                 margin: 2,
+                textAlign: 'left',
                 width: 140
             },
             items: [{
                 xtype: 'button',
-                text: 'Применить фильтр'
+                iconCls: 'remove',
+                text: 'Сбросить фильтры',
+                handler: function() {
+                    this.findParentByType('ConditionersList').fireEvent('clearfiltersclick');
+                }
             }, {
                 xtype: 'button',
-                text: 'Сбросить фильтр'
+                iconCls: 'option',
+                text: 'Настройки каталога',
+                handler: function() {
+                    this.findParentByType('ConditionersList').fireEvent('settingslick');
+                }
             }, {
                 xtype: 'button',
                 iconCls: 'add',
@@ -120,8 +129,13 @@ Ext.define('EC.Catalog.view.ConditionersList', {
             }]
         }],
         tools: [{
+            type: 'gear',
+            tooltip: 'Настройки каталога',
+            handler: function() {
+                this.findParentByType('ConditionersList').fireEvent('settingslick');
+            }
+        }, {
             type: 'plus',
-            iconCls: 'add',
             tooltip: 'Добавить',
             handler: function() {
                 this.findParentByType('ConditionersList').fireEvent('addbuttonclick');
@@ -145,6 +159,7 @@ Ext.define('EC.Catalog.view.ConditionersList', {
             '<td rowspan="3" width="320"><img src="http://placehold.it/300x220"/></td>',
             '<td colspan="3" height="40"><h1><p>{name} {mark} {marking}</p></h1></td>',
             '</tr><tr valign="top"><td>',
+            '<p>Группа оборудования: <b>{group}</b></p>',
             '<p>Тип продукции: <b>{product_type}</b></p>',
             '<p>Тип исполнения: <b>{implementation_type}</b></p>',
             '<p>Назначение продукции: <b>{purpose}</b></p>',
@@ -199,13 +214,13 @@ Ext.define('EC.Catalog.view.ConditionersList', {
             hidden: true,
             dataIndex: 'country'
         }, {
-            header: 'Назначение продукции',
-            hidden: true,
-            dataIndex: 'purpose'
-        }, {
             header: 'Состояние продукции',
             hidden: true,
             dataIndex: 'condition'
+        }, {
+            header: 'Назначение продукции',
+            hidden: true,
+            dataIndex: 'purpose'
         }, {
             header: 'Охлаждение',
             hidden: true,
@@ -233,7 +248,7 @@ Ext.define('EC.Catalog.view.ConditionersList', {
         }, {
             header: 'Гарантия',
             hidden: true,
-            dataIndex: 'years'
+            dataIndex: 'warranty'
         }, {
             header: 'Склад',
             hidden: true,

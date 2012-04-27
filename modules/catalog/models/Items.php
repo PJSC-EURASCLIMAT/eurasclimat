@@ -13,6 +13,8 @@ class Catalog_Items
     {
         $response = new Xend_Response();
 
+        /*
+
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()))
             ->joinLeft(array('titles' => 'catalog_titles'),
@@ -52,6 +54,9 @@ class Catalog_Items
                 array('system_type_name' => 'st.name')
             )
         ;
+        */
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('i' => $this->_table->getTableName()));
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);

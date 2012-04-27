@@ -37,6 +37,12 @@ Ext.define('EC.Catalog.controller.Main', {
         
         this.control({
             'ConditionersList': {
+                clearfiltersclick: function(panel) {
+                    alert('Сброс фильтров');
+                },
+                settingslick: function(panel) {
+                    alert('Настройки каталога');
+                },
                 addbuttonclick: function(panel) {
                     alert('Добавление новой позиции');
                 }

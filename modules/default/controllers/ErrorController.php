@@ -4,29 +4,29 @@ class ErrorController extends Xend_Controller_Action
 {
 
     const PERMISSION_CLASS = 'Zend_Acl_Exception';
-    
+
     public function deniedAction()
     {
         $trace = $this->_getParam('trace');
         if (is_array($trace)) {
             $traceCollection = array();
-            
+
             $resourceModel = new Xend_Acl_Resource();
 
             foreach($trace as $log) {
                 if (2 != count($log)) {
                     continue;
                 }
-                
+
                 list($resource, $privilege) = $log;
                 $response = $resourceModel->fetchResourceNamesRecursive($resource);
                 if ($response->isSuccess()) {
-                    
+
                     $privilegeName = Xend_Acl_Privilege::id2name($privilege);
                     if (!empty($privilegeName)) {
-                        $privilegeName = lang(ucfirst($privilegeName));
+                        $privilegeName = ucfirst($privilegeName);
                     }
-                    
+
                     $traceCollection[] = array(
                         'resource'  => $response->rowset,
                         'privilege' => $privilegeName
@@ -36,7 +36,7 @@ class ErrorController extends Xend_Controller_Action
 
             $this->view->trace = $traceCollection;
         }
-        
+
         header($_SERVER['SERVER_PROTOCOL'] . ' 405 Permission denied', false, 405);
         $this->disableLayout(true);
     }
@@ -47,32 +47,32 @@ class ErrorController extends Xend_Controller_Action
         switch ($this->view->getEngine()) {
             case 'json':
             case 'xml':
-                
+
                 switch ($errors->type) {
                     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
                     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                         header('Not found.', false, 404);
                         break;
-                        
+
                     default:
                         header('Internal server error', false, 500);
                         break;
                 }
                 break;
-                
+
             default:
-                
-                
+
+
                 if (self::PERMISSION_CLASS === get_class($errors->exception)) {
                     header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden', null, 403);
                     break;
                 }
-                
+
                 if (DEBUG) {
                     $this->view->message = $errors->exception->getMessage();
                     $this->view->details = Zend_Debug::dump($errors, null, false);
                 }
-                
+
                 switch ($errors->type) {
                     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
                     case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:

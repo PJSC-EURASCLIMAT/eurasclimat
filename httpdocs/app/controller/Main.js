@@ -28,7 +28,7 @@ Ext.define('App.controller.Main', {
         
         this.control({
             'LeftPanel button': {
-                click: this.openWidget,
+                click: this.openModule,
                 scope: this
             },
             'CenterPanel portlet': {
@@ -38,24 +38,42 @@ Ext.define('App.controller.Main', {
         })
     },
     
-    openWidget: function(button, e, options) {
-        if (typeof button.lunch == 'function') {
-            button.lunch.call(this);
+    openModule: function(button, e, options) {
+
+        var container;
+        
+        if (button.maxMode) {
+            
+            container = this.getCenterPanel().add({
+                title: button.text
+            }).show();
+
         } else {
-            var tab = this.getCenterPanel().getComponent('portal-tab-1');
-            tab.down().insert(0, {
-                xtype: 'portlet',
-                title: button.text,
-                html: 'Произвольное содержимое'
+            
+            container = Ext.create('xlib.portal.Portlet', {
+                title: button.text, 
+                lunchModule: button.lunchModule
             });
-            tab.show();
-            tab.doLayout();
+            
+            var tab = this.getCenterPanel().getComponent('portal-tab-1');
+            tab.down().insert(0, container);
+            tab.show().doLayout();
+            
+        }
+        
+        if (button.lunchModule) {
+            this.getController(button.lunchModule).init(container);
         }
     },
     
     maximizeWidget: function(portlet) {
-        var tab = this.getCenterPanel().add(portlet.cloneConfig());
-        portlet.close();
-        tab.show();
+
+        if (portlet.lunchModule) {
+            var tab = this.getCenterPanel().add({
+                title: portlet.title
+            }).show();
+            this.getController(portlet.lunchModule).init(tab);
+            portlet.close();
+        }
     }
 });

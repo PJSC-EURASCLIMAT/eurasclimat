@@ -15,6 +15,7 @@ Ext.define('App.view.CenterPanel', {
     },
     
     defaults: {
+        layout: 'fit',
         closable: true
     },
     
@@ -31,20 +32,8 @@ Ext.define('App.view.CenterPanel', {
         },
         items: [{
         }, {
-            id: 'col-2',
-            items: [{
-                title: 'Открытый по умолчанию виджет',
-                height: 300
-            }]
         }, {
-            id: 'col-3',
-            items: [{
-                title: 'Ещё один уже открытый виджет',
-                height: 380,
-                html: 'Content'
-            }]
-        }
-        ]
+        }]
     }]
     
 });

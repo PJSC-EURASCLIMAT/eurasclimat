@@ -109,4 +109,26 @@ class IndexController extends Xend_Controller_Action
         $this->view->success = true;
         header('Location: /');
     }
+
+    public function getCountriesAction()
+    {
+        $countries = Zend_Locale::getCountryTranslationList();
+        echo '<pre>';
+        var_export($countries);
+        exit;
+
+        if (is_array($countries)) {
+            sort($countries);
+            foreach ($countries as $v) {
+                array_push($output, array('name' => $v));
+            }
+        }
+        if ($callback) {
+            $this->disableRender(true);
+            echo $callback.'('.Zend_Json::encode($output).')';
+        } else {
+            $this->view->countries = $output;
+            $this->view->success = true;
+        }
+    }
 }

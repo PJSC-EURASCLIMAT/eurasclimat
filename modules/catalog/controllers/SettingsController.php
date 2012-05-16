@@ -35,7 +35,8 @@ class Catalog_SettingsController extends Xend_Controller_Action
 
     public function addAction()
     {
-        $response = $this->_model->add($this->_getParam('name'));
+        $data = Zend_Json::decode($this->_getParam('data'));
+        $response = $this->_model->add($data['name']);
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
@@ -46,7 +47,8 @@ class Catalog_SettingsController extends Xend_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update($this->_getParam('name'), $this->_getParam('id'));
+        $data = Zend_Json::decode($this->_getParam('data'));
+        $response = $this->_model->update($data['name'], $data['id']);
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {
@@ -56,7 +58,8 @@ class Catalog_SettingsController extends Xend_Controller_Action
 
     public function deleteAction()
     {
-        $response = $this->_model->delete($this->_getParam('id'));
+        $data = Zend_Json::decode($this->_getParam('data'));
+        $response = $this->_model->delete($data['id']);
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

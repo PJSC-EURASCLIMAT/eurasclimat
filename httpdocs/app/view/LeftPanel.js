@@ -37,15 +37,9 @@ Ext.define('App.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
+            maxMode: true,
             text: 'Каталог',
-            lunch: function() {
-                this.getCenterPanel().setLoading('Загрузка...', true);
-                var controller = Ext.create('EC.Catalog.controller.Main', {
-                    application: this.application
-                });
-                this.application.controllers.add(controller);
-                controller.init();
-            }
+            lunchModule: 'EC.Catalog.controller.Main'
         }, {
             text: 'Виджет'
         }]

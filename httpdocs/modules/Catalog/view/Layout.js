@@ -4,16 +4,17 @@ Ext.define('EC.Catalog.view.Layout', {
    
     alias: ['widget.CatalogLayout'],
     
-    title: 'Каталог',
+    layout: 'fit',
+    
+    border: false,
     
     defaults: {
-        layout: 'fit',
         border: false,
         closable: false
     },
     
     items: [{
-        xtype: 'ConditionersList',
+        xtype: 'ConditionersLayout',
         title: 'Кондиционирование'
     }, {
         title: 'Вентиляция'

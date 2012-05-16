@@ -41,6 +41,22 @@ body, .xlib-wallpaper {
     width: 183px;
 }
 
+.x-border-top {
+    border-top: 1px solid #99BBE8 !important;
+}
+
+.x-border-bottom {
+    border-bottom: 1px solid #99BBE8 !important;
+}
+
+.x-border-left {
+    border-left: 1px solid #99BBE8 !important;
+}
+
+.x-border-right {
+    border-right: 1px solid #99BBE8 !important;
+}
+
 .x-portal-body {
     padding: 0 0 0 8px;
 }

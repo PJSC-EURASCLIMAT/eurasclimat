@@ -3,6 +3,7 @@ Ext.define('EC.Catalog.model.Conditioners', {
     extend: 'Ext.data.Model',
    
     fields: [
+        'id',
         'group_id',
         'name_id',
         'mark_id',

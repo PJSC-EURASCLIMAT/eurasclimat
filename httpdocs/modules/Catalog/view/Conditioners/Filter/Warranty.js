@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Warranty', {
     
     emptyText: 'Гарантия',
     
+    fieldLabel: 'Гарантия',
+    
     editable: false,
     
     store: { 

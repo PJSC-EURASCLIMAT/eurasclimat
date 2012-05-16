@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
     
     emptyText: 'Страна',
     
+    fieldLabel: 'Страна',
+    
     editable: false,
     
     store: { 

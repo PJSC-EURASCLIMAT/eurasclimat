@@ -19,7 +19,10 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     defaults: {
         padding: 5,
         border: false,
-        width: 160
+        width: 160,
+        defaults: {
+            hideLabel: true
+        }
     },
     
     initComponent: function() {

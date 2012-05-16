@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Name', {
     
     emptyText: 'Наименование',
     
+    fieldLabel: 'Наименование',
+    
     editable: false,
     
     queryMode: 'local',

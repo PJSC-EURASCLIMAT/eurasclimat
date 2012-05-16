@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Mark', {
     
     emptyText: 'Марка',
     
+    fieldLabel: 'Марка',
+    
     editable: false,
     
     queryMode: 'local',

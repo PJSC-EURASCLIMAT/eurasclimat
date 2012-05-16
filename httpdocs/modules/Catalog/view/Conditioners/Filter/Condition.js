@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Condition', {
     
     emptyText: 'Состояние',
     
+    fieldLabel: 'Состояние',
+    
     editable: false,
     
     store: { 

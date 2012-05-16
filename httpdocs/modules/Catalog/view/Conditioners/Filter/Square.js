@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Square', {
     
     emptyText: 'Площадь',
     
+    fieldLabel: 'Площадь',
+    
     editable: false,
     
     store: { 

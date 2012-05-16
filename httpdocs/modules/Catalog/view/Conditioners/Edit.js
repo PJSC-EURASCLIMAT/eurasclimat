@@ -31,81 +31,73 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
             },
             items: [{
                 items: [{
-                    xtype: 'textfield',
-                    fieldLabel: 'Группа оборудования',
+                    xtype: 'ConditionersFilterGroup',
                     name: 'group_id'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Наименование',
+                    xtype: 'ConditionersFilterName',
                     name: 'name_id'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Марка',
+                    xtype: 'ConditionersFilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'textfield',
                     fieldLabel: 'Маркировка',
                     name: 'marking'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Тип продукции',
+                    xtype: 'ConditionersFilterProductType',
                     name: 'product_type_id'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Тип исполнения',
+                    xtype: 'ConditionersFilterImplementationType',
                     name: 'implementation_type_id'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Страна',
+                    xtype: 'ConditionersFilterCountry',
                     name: 'country'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Состояние продукции',
+                    xtype: 'ConditionersFilterCondition',
                     name: 'condition'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Назначение продукции',
+                    xtype: 'ConditionersFilterPurpose',
                     name: 'purpose'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Охлаждение',
+                    xtype: 'numberfield',
+                    fieldLabel: 'Охлаждение (потр.)',
                     name: 'input_cooling'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Обогрев',
+                    xtype: 'numberfield',
+                    fieldLabel: 'Обогрев (потр.)',
                     name: 'input_heating'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Площадь м²',
                     name: 'square'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Объём м³',
                     name: 'volume'
                 }]
             }, { 
                 items: [{
-                    xtype: 'textfield',
-                    fieldLabel: 'Охлаждение',
+                    xtype: 'numberfield',
+                    fieldLabel: 'Охлаждение (произв.)',
                     name: 'output_cooling'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Обогрев',
+                    xtype: 'numberfield',
+                    fieldLabel: 'Обогрев (произв.)',
                     name: 'output_heating'
                 }, {
-                    xtype: 'textfield',
-                    fieldLabel: 'Гарантия',
+                    xtype: 'numberfield',
+                    fieldLabel: 'Гарантия (лет)',
                     name: 'warranty'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Склад',
                     name: 'storage'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Резерв',
                     name: 'reserve'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Заказ',
                     name: 'order'
                 }, {
@@ -113,7 +105,7 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
                     fieldLabel: 'Ед. изм.',
                     name: 'measure'
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     fieldLabel: 'Цена',
                     name: 'price'
                 }]

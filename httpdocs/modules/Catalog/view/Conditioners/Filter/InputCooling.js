@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.InputCooling', {
     
     emptyText: 'Охлаждение',
     
+    fieldLabel: 'Охлаждение',
+    
     editable: false,
     
     store: { 

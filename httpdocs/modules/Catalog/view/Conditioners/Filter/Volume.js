@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Volume', {
     
     emptyText: 'Объём',
     
+    fieldLabel: 'Объём',
+    
     editable: false,
     
     store: { 

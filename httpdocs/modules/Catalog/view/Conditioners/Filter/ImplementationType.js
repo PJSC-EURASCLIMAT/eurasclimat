@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ImplementationType', {
     
     emptyText: 'Тип исполнения',
     
+    fieldLabel: 'Тип исполнения',
+    
     editable: false,
     
     queryMode: 'local',

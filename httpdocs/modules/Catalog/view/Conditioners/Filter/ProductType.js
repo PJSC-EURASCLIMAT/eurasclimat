@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
     
     emptyText: 'Тип продукции',
     
+    fieldLabel: 'Тип продукции',
+    
     editable: false,
     
     queryMode: 'local',

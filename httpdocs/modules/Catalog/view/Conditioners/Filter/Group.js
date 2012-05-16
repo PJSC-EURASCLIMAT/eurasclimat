@@ -10,6 +10,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Group', {
     
     emptyText: 'Группа оборудования',
     
+    fieldLabel: 'Группа оборудования',
+    
     editable: false,
     
     queryMode: 'local',

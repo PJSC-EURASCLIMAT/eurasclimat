@@ -60,6 +60,8 @@ class Catalog_ItemsController extends Xend_Controller_Action
 
     public function updateAction()
     {
+//        die(var_dump($this->_getAllParams()));
+
         $response = $this->_model->update($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;

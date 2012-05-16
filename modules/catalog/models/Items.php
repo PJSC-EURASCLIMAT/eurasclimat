@@ -96,58 +96,29 @@ class Catalog_Items
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'sku'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'model'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'title_id'              => array('Id', 'presence' => 'required'),
+            'group_id'              => array('Id', 'allowEmpty' => true),
+            'name_id'               => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
+            'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
-            'construction_type_id'  => array('Id', 'allowEmpty' => true),
-            'territoriality_id'     => array('Id', 'allowEmpty' => true),
-            'condition_id'          => array('Id', 'allowEmpty' => true),
-            'purpose_id'            => array('Id', 'allowEmpty' => true),
-            'availability_id'       => array('Id', 'allowEmpty' => true),
-            'system_type_id'        => array('Id', 'allowEmpty' => true),
-            'served_square'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'served_capacity'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'cooling_power'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_power'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'drying_intensity'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'air_flow_rate'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_consumption_in_cooling_mode'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_consumption_in_heating_mode'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'cooling_energy_efficiency'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_energy_efficiency'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_supply'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'refrigerant'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'interblock_communications_length'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'differential_interconnects_heights'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'drainage_pump'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'winter_set'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'noise_level'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'manufacturer_warranty'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'stock'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'reserve'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'order'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'measure'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'implementation_type_id' => array('Id', 'allowEmpty' => true),
+            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
+            'condition'             => array(array('InArray', array('NEW','SHOWCASE','ILLIQUID','USED')), 'allowEmpty' => true),
+            'purpose'               => array(array('InArray', array('COMMON','SEMI-INDUSTRIAL','INDUSTRIAL')), 'allowEmpty' => true),
+            'input_cooling'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'input_heating'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'output_cooling'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'output_heating'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'square'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'volume'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'measure'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();
@@ -171,59 +142,30 @@ class Catalog_Items
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'id'        => array('Id', 'presence' => 'required'),
-            'sku'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'model'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'title_id'              => array('Id', 'presence' => 'required'),
+            'id'                    => array('Id', 'presence' => 'required'),
+            'group_id'              => array('Id', 'allowEmpty' => true),
+            'name_id'               => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
+            'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
-            'construction_type_id'  => array('Id', 'allowEmpty' => true),
-            'territoriality_id'     => array('Id', 'allowEmpty' => true),
-            'condition_id'          => array('Id', 'allowEmpty' => true),
-            'purpose_id'            => array('Id', 'allowEmpty' => true),
-            'availability_id'       => array('Id', 'allowEmpty' => true),
-            'system_type_id'        => array('Id', 'allowEmpty' => true),
-            'served_square'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'served_capacity'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'cooling_power'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_power'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'drying_intensity'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'air_flow_rate'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_consumption_in_cooling_mode'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_consumption_in_heating_mode'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'cooling_energy_efficiency'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_energy_efficiency'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_supply'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'refrigerant'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'interblock_communications_length'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'differential_interconnects_heights'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'drainage_pump'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'winter_set'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'noise_level'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'manufacturer_warranty'
-                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'stock'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'reserve'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'order'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'measure'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'     => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'implementation_type_id' => array('Id', 'allowEmpty' => true),
+            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
+            'condition'             => array(array('InArray', array('NEW','SHOWCASE','ILLIQUID','USED')), 'allowEmpty' => true),
+            'purpose'               => array(array('InArray', array('COMMON','SEMI-INDUSTRIAL','INDUSTRIAL')), 'allowEmpty' => true),
+            'input_cooling'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'input_heating'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'output_cooling'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'output_heating'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'square'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'volume'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'measure'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();

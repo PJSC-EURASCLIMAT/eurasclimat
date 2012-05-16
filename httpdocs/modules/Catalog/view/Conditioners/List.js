@@ -18,44 +18,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     
     title: 'Результаты выборки',
     
-    plugins: [{
-        ptype: 'rowexpander',
-        rowBodyTpl: [
-            '<div style="padding: 10px;"><table width="100%" border="0">',
-            '<tr valign="top">',
-            '<td rowspan="3" width="320"><img src="http://placehold.it/300x220"/></td>',
-            '<td colspan="3" height="40"><h1><p>{name} {mark} {marking}</p></h1></td>',
-            '</tr><tr valign="top"><td>',
-            '<p>Группа оборудования: <b>{group}</b></p>',
-            '<p>Тип продукции: <b>{product_type}</b></p>',
-            '<p>Тип исполнения: <b>{implementation_type}</b></p>',
-            '<p>Назначение продукции: <b>{purpose}</b></p>',
-            '<p>Состояние продукции: <b>{condition}</b></p>',
-            '<p>Страна изготовления: <b>{country}</b></p>',
-            '<p>Единица измерения: <b>{measure}</b></p>',
-            '</td><td>',
-            '<p><b>Производительность</b></p>',
-            '<p>Охлаждение: <b>{output_cooling} кВт</b></p>',
-            '<p>Обогрев: <b>{output_heating} кВт</b></p>',
-            '<br/>',
-            '<p><b>Потребление</b></p>',
-            '<p>Охлаждение: <b>{input_cooling} кВт</b></p>',
-            '<p>Обогрев: <b>{input_heating} кВт</b></p>',
-            '</td><td>',
-            '<p>Площадь: <b>{square} м²</b></p>',
-            '<p>Объём: <b>{volume} м³</b></p>',
-            '<p>Гарантия: <b>{years} лет</b></p>',
-            '<br/>',
-            '<p>Склад: <b>{storage}</b></p>',
-            '<p>Резерв: <b>{reserve}</b></p>',
-            '<p>Заказ: <b>{order}</b></p>',
-            '</td></tr>',
-            '<tr valign="top">',
-            '<td colspan="3" height="40"><p>Цена: <b>{price} руб.</b></p></td>',
-            '</tr></table></div>'
-        ]
-    }],
-    
     tools: [{
         type: 'plus',
         tooltip: 'Добавить',
@@ -66,39 +28,123 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         action: 'refresh'
     }],
     
+    constructor: function() {
+        
+        this.plugins = [{
+            ptype: 'rowexpander',
+            rowBodyTpl: Ext.create('Ext.XTemplate', 
+                '<div style="padding: 10px;"><table width="100%" border="0">',
+                '<tr valign="top">',
+                '<td rowspan="3" width="320"><img src="http://placehold.it/300x220"/></td>',
+                '<td colspan="3" height="40"><h1><p>',
+                '{[this.r("ConditionersFilterName", values.name_id)]} ',
+                '{[this.r("ConditionersFilterMark", values.mark_id)]} ',
+                '{marking}</p></h1></td>',
+                '</tr><tr valign="top"><td>',
+                '<p>Группа оборудования: <b>',
+                '{[this.r("ConditionersFilterGroup", values.group_id)]}',
+                '</b></p>',
+                '<p>Тип продукции: <b>',
+                '{[this.r("ConditionersFilterProductType", values.product_type_id)]}',
+                '</b></p>',
+                '<p>Тип исполнения: <b>',
+                '{[this.r("ConditionersFilterImplementationType", values.implementation_type_id)]}',
+                '</b></p>',
+                '<p>Назначение продукции: <b>',
+                '{[this.r("ConditionersFilterPurpose", values.purpose)]}',
+                '</b></p>',
+                '<p>Состояние продукции: <b>',
+                '{[this.r("ConditionersFilterCondition", values.condition)]}',
+                '</b></p>',
+                '<p>Страна изготовления: <b>',
+                '{[this.r("ConditionersFilterCountry", values.country)]}',
+                '</b></p>',
+                '<p>Единица измерения: <b>{measure}</b></p>',
+                '</td><td>',
+                '<p><b>Производительность</b></p>',
+                '<p>Охлаждение: <b>{output_cooling} кВт</b></p>',
+                '<p>Обогрев: <b>{output_heating} кВт</b></p>',
+                '<br/>',
+                '<p><b>Потребление</b></p>',
+                '<p>Охлаждение: <b>{input_cooling} кВт</b></p>',
+                '<p>Обогрев: <b>{input_heating} кВт</b></p>',
+                '</td><td>',
+                '<p>Площадь: <b>{square} м²</b></p>',
+                '<p>Объём: <b>{volume} м³</b></p>',
+                '<p>Гарантия: <b>{years} лет</b></p>',
+                '<br/>',
+                '<p>Склад: <b>{storage}</b></p>',
+                '<p>Резерв: <b>{reserve}</b></p>',
+                '<p>Заказ: <b>{order}</b></p>',
+                '</td></tr>',
+                '<tr valign="top">',
+                '<td colspan="3" height="40"><p>Цена: <b>{price} руб.</b></p></td>',
+                '</tr></table></div>', 
+                {r: Ext.bind(this.comboRenderer, this)}
+            )
+        }]
+        
+        this.callParent(arguments);
+    
+    },
+    
     initComponent: function() {
 
         this.columns = [{
             header: 'Группа оборудования',
             //flex: 1,
-            dataIndex: 'group_id'
+            dataIndex: 'group_id',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterGroup', value);
+            }
         }, {
             header: 'Наименование',
-            dataIndex: 'name_id'
+            dataIndex: 'name_id',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterName', value);
+            }
         }, {
             header: 'Марка',
-            dataIndex: 'mark_id'
+            dataIndex: 'mark_id',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterMark', value);
+            }
         }, {
             header: 'Маркировка',
             dataIndex: 'marking'
         }, {
             header: 'Тип продукции',
-            dataIndex: 'product_type_id'
+            dataIndex: 'product_type_id',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterProductType', value);
+            }
         }, {
             header: 'Тип исполнения',
-            dataIndex: 'implementation_type_id'
+            dataIndex: 'implementation_type_id',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterImplementationType', value);
+            }
         }, {
             header: 'Страна',
             hidden: true,
-            dataIndex: 'country'
+            dataIndex: 'country',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterCountry', value);
+            }
         }, {
             header: 'Состояние продукции',
             hidden: true,
-            dataIndex: 'condition'
+            dataIndex: 'condition',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterCondition', value);
+            }
         }, {
             header: 'Назначение продукции',
             hidden: true,
-            dataIndex: 'purpose'
+            dataIndex: 'purpose',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterPurpose', value);
+            }
         }, {
             header: 'Охлаждение',
             hidden: true,
@@ -169,5 +215,17 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         }];
 
         this.callParent(arguments);
+        
+        Ext.defer(function() {
+            this.getStore().load() 
+        }, 1000, this);
+    },
+    
+    comboRenderer: function(comboName, value) {
+        var combo = this.up('ConditionersLayout').down(comboName);
+        var idx = combo.getStore().find(combo.valueField, value);
+        if (idx == -1) return value;
+        var rec = combo.getStore().getAt(idx);
+        return rec.get(combo.displayField);
     }
 });

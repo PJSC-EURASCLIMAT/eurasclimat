@@ -16,10 +16,10 @@ Ext.define('EC.Catalog.view.Layout', {
     items: [{
         xtype: 'ConditionersLayout',
         title: 'Кондиционирование'
-    }, {
-        title: 'Вентиляция'
-    }, {
-        title: 'Автоматика'
+//    }, {
+//        title: 'Вентиляция'
+//    }, {
+//        title: 'Автоматика'
     }]
     
 });

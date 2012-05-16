@@ -70,22 +70,32 @@ Ext.define('EC.Catalog.controller.Main', {
             });
             
             catalog.down('ConditionersFiltersPanel tool[action=additem]').on({
-                click: this.addItem
+                click: this.addItem,
+                scope: this
             });
             catalog.down('ConditionersFiltersPanel button[action=additem]').on({
-                click: this.addItem
+                click: this.addItem,
+                scope: this
             });
             
             catalog.down('ConditionersList').on({
                 edititem: this.editItem,
-                deleteitem: this.deleteItem
+                deleteitem: this.deleteItem,
+                scope: this
             });
             catalog.down('ConditionersList tool[action=additem]').on({
-                click: this.addItem
+                click: this.addItem,
+                scope: this
             });
             catalog.down('ConditionersList tool[action=refresh]').on({
                 click: function(button) {
                     button.up('ConditionersList').getStore().load();
+                }
+            });
+            
+            this.on({
+                'itemSaved': function() {
+                    catalog.down('ConditionersList').getStore().load();
                 }
             });
         }
@@ -107,16 +117,100 @@ Ext.define('EC.Catalog.controller.Main', {
     
     addItem: function() {
         var view = Ext.widget('ConditionersEdit');
+        view.down('button[action=save]').on({
+            click: function() {
+                this.createItem(view);
+            },
+            scope: this
+        });
     },
     
     editItem: function(grid, record) {
         var view = Ext.widget('ConditionersEdit', {
+            recordId: record.get('id'),
             title: 'Редактирование позиции №' + record.get('id')
         });
         view.down('form').loadRecord(record);
+        view.down('button[action=save]').on({
+            click: function() {
+                this.updateItem(view);
+            },
+            scope: this
+        });
+    },
+    
+    createItem: function(view) {
+        var form = view.down('form');
+        form.submit({
+            url: '/json/catalog/items/add',
+            success: function(form, action) {
+               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
+               view.close();
+               this.fireEvent('itemSaved');
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+               }
+            },
+            scope: this
+        });
+    },
+    
+    updateItem: function(view) {
+        var form = view.down('form');
+        form.submit({
+            url: '/json/catalog/items/update',
+            params: {
+                id: view.recordId
+            },
+            success: function(form, action) {
+               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
+               view.close();
+               this.fireEvent('itemSaved');
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+               }
+            },
+            scope: this
+        });
     },
     
     deleteItem: function(grid, record) {
-        alert("Удаление позиции №" + record.get('id'));
+        
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: {
+                        id: record.get('id')
+                    },
+                    url: '/json/catalog/items/delete',
+                    success: function(response, opts) {
+                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                        this.fireEvent('itemSaved');
+                    },
+                    failure: function(response, opts) {
+                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                    },
+                    scope: this
+                });
+            }
+        }, this);
     }
 });

@@ -95,10 +95,11 @@ Ext.define('xlib.RowExpander', {
             Ext.Error.raise("The 'rowBodyTpl' config is required and is not defined.");
         }
         // </debug>
-        // TODO: if XTemplate/Template receives a template as an arg, should
-        // just return it back!
-        var rowBodyTpl = Ext.create('Ext.XTemplate', this.rowBodyTpl),
-            features = [{
+        var rowBodyTpl = 
+            (Ext.isObject(this.rowBodyTpl) && (this.rowBodyTpl instanceof Ext.XTemplate)) ?
+            this.rowBodyTpl : Ext.create('Ext.XTemplate', this.rowBodyTpl);
+            
+        var features = [{
                 ftype: 'rowbody',
                 columnId: this.getHeaderId(),
                 recordsExpanded: this.recordsExpanded,

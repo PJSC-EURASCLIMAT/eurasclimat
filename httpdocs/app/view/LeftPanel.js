@@ -17,11 +17,11 @@ Ext.define('App.view.LeftPanel', {
     items: [{
         region: 'north',
         baseCls: 'xlib-bkg',
-        height: 110, 
+        height: 140, 
         items: [{
             xtype: 'image',
             src: '/images/logo.png',
-            margin: 15
+            margin: '20 10'
         }]
     }, {
         region: 'center',

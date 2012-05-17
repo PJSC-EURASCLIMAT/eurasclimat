@@ -5,74 +5,83 @@
     <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
     <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
     <link rel="stylesheet" type="text/css" href="/main.css">
+    <style>
+        strong {
+            font-size: 12px;
+            display: block;
+            margin-top: -130px;
+            padding-bottom: 130px;
+        }
+        a {text-decoration: none; color: black; text-align: center;}
+    </style>
 </head>
 <body id="login-page">
-<table width="100%" border="0">
-    <tr height="220">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr style="height: 250px;">
         <td align="right" valign="bottom">
-            <div style="width: 200px;">
-                <center>
-                    <strong>КОМПАНИЯ</strong>
+            <div style="width: 150px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>КОМПАНИЯ</strong>
+                </a></a>
             </div>
         </td>
-        <td align="center">
-            <img src="/images/logo.png"  style="border:none;"/>
+        <td align="center" valign="bottom" style="width: 250px;">
+            <img src="/images/logo.png"  style="border:none; margin-bottom: 70px;"/>
         </td>
         <td align="left" valign="bottom">
-            <div style="width: 200px;">
-                <center>
-                    <strong>ОТДЫХ</strong>
+            <div style="width: 150px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>ОТДЫХ</strong>
+                </a>
             </div>
         </td>
     </tr>
-    <tr height="220">
-        <td align="center">
-            <div style="width: 200px;">
-                <center>
-                    <strong>КАТАЛОГ ПРОДУКЦИИ</strong>
+    <tr style="height: 250px;">
+        <td align="right">
+            <div style="width: 150px; margin-right: 75px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>КАТАЛОГ ПРОДУКЦИИ</strong>
+                </a>
             </div>
         </td>
         <td align="center">
             <?=$this->layout()->content; ?>
         </td>
-        <td align="center">
-            <div style="width: 200px;">
-                <center>
-                    <strong>МУЛЬТИФОРУМ</strong>
+        <td align="left">
+            <div style="width: 150px; margin-left: 75px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>МУЛЬТИФОРУМ</strong>
+                </a>
             </div>
         </td>
     </tr>
-    <tr height="220">
+    <tr style="height: 250px;">
         <td align="right" valign="top">
-            <div style="width: 200px;">
-                <center>
-                    <strong>КАТАЛОГ УСЛУГ</strong>
+            <div style="width: 150px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>КАТАЛОГ УСЛУГ</strong>
+                </a>
             </div>
         </td>
-        <td align="center">
-            <div style="width: 200px;">
-                <center>
-                    <strong>СПЕЦИАЛИСТЫ</strong>
+        <td align="center" valign="top">
+            <div style="width: 150px; margin-top: 70px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>СПЕЦИАЛИСТЫ</strong>
+                </a>
             </div>
         </td>
         <td align="left" valign="top">
-            <div style="width: 200px;">
-                <center>
-                    <strong>ТОРГОВАЯ ПЛОЩАДКА</strong>
+            <div style="width: 150px;">
+                <a href="">
                     <img src="/images/screen-thumb.png"  style="border:none;"/>
-                </center>
+                    <strong>ТОРГОВАЯ ПЛОЩАДКА</strong>
+                </a>
             </div>
         </td>
     </tr>

@@ -214,6 +214,13 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             }]
         }];
 
+        this.bbar = Ext.create('Ext.PagingToolbar', {
+            pageSize: 10,
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        })
+        
         this.callParent(arguments);
         
         Ext.defer(function() {

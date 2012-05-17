@@ -17,7 +17,9 @@ class Xend_Db_Plugin_Select
 	const LIMIT                = 'limit';
 	const START                = 'start';
 	const SORT                 = 'sort';
+	const MSORT                = 'property';
 	const DIR                  = 'dir';
+	const MDIR                 = 'direction';
 	const FILTER               = 'filter';
 
     /**
@@ -59,7 +61,9 @@ class Xend_Db_Plugin_Select
         self::LIMIT                 => self::LIMIT,
         self::START                 => self::START,
         self::SORT                  => self::SORT,
+        self::MSORT                 => self::MSORT,
         self::DIR                   => self::DIR,
+        self::MDIR                  => self::MDIR,
         self::FILTER                => self::FILTER
     );
 
@@ -204,16 +208,51 @@ class Xend_Db_Plugin_Select
             $params = $this->_params;
         }
 
-        if (!isset($params[self::SORT]) || !in_array($params[self::SORT], $this->_fields)) {
+        if (!isset($params[self::SORT])) {
             return $this->_selectStatement;
         }
 
-        if (!isset($params[self::DIR]) || !in_array(strtolower($params[self::DIR]), array('asc', 'desc'))) {
-            $params[self::DIR] = 'asc';
+        // Check for multiple sorting (JSON array expected)
+        $sorters = Zend_Json::decode($params[self::SORT]);
+
+        // Common sorting
+        if (is_string($sorters)) {
+
+            if (!in_array($params[self::SORT], $this->_fields)) {
+                return $this->_selectStatement;
+            }
+
+            if (!isset($params[self::DIR])
+            || !in_array(strtolower($params[self::DIR]), array('asc', 'desc'))) {
+                $params[self::DIR] = 'asc';
+            }
+
+            $orderClause = $this->getAlias($params[self::SORT], false) . " " . strtoupper($params[self::DIR]);
+            return $this->_selectStatement->order($orderClause);
         }
 
-        $orderClause = $this->getAlias($params[self::SORT], false) . " " . strtoupper($params[self::DIR]);
-        return $this->_selectStatement->order($orderClause);
+        // Multiple sorting
+        if (!is_array($sorters)) {
+            return $this->_selectStatement;
+        }
+
+        foreach ($sorters as $sort) {
+
+            if (in_array($sort[self::MSORT], $this->_fields)) {
+
+                if (!isset($sort[self::MDIR])
+                || !in_array(strtolower($sort[self::MDIR]), array('asc', 'desc'))) {
+                    $sort[self::MDIR] = 'asc';
+                }
+
+                $orderClause = $this->getAlias($sort[self::MSORT], false)
+                             . " " . strtoupper($sort[self::MDIR]);
+                $this->_selectStatement->order($orderClause);
+            }
+
+        }
+
+        return $this->_selectStatement;
     }
 
     /**

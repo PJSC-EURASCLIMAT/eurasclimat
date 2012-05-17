@@ -27,10 +27,3 @@ Ext.define('EC.Catalog.model.Conditioners', {
         'price'
     ]
 });
-
-/*
-
-conditions  = ['NEW','SHOWCASE','ILLIQUID','USED'];
-purposes    = ['COMMON','SEMI-INDUSTRIAL','INDUSTRIAL'];
-
-*/

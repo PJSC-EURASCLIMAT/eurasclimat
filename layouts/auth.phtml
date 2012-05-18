@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png" type="image/png" />
-    <link rel="stylesheet" type="text/css" href="/main.css">
-    <style>
-        strong {
-            font-size: 12px;
-            display: block;
-            margin-top: -130px;
-            padding-bottom: 130px;
-        }
-        span {text-align: center;}
-    </style>
+<meta charset="utf-8">
+<link rel="shortcut icon"
+	href="<?=$this->baseUrl(); ?>/images/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="<?=$this->baseUrl(); ?>/images/favicon.png"
+	type="image/png" />
+<link rel="stylesheet" type="text/css" href="/main.css">
+<style>
+#content {
+	display: block;
+	position: absolute;
+	z-index: 999;
+	width: 98%;
+	height: 98%;
+	overflow: auto;
+}
+
+strong {
+	font-size: 12px;
+	display: block;
+	margin-top: -130px;
+	padding-bottom: 130px;
+}
+
+span {
+	text-align: center;
+}
+</style>
 </head>
 <body id="login-page">
 
@@ -25,75 +39,50 @@
 <div id="bg-tr">‌</div>
 <div id="bg-br">‌</div>
 
-<table width="99%" border="0" cellpadding="0" cellspacing="0" style="position: absolute; z-index: 999;">
-    <tr style="height: 250px;">
-        <td align="right" valign="bottom">
-            <div style="width: 150px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>КОМПАНИЯ</strong>
-                </span></span>
-            </div>
-        </td>
-        <td align="center" valign="bottom" style="width: 250px;">
-            <img src="/images/logo.png"  style="border:none; margin-bottom: 70px;"/>
-        </td>
-        <td align="left" valign="bottom">
-            <div style="width: 150px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>ОТДЫХ</strong>
-                </span>
-            </div>
-        </td>
-    </tr>
-    <tr style="height: 250px;">
-        <td align="right">
-            <div style="width: 150px; margin-right: 75px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>КАТАЛОГ ПРОДУКЦИИ</strong>
-                </span>
-            </div>
-        </td>
-        <td align="center">
-            <?=$this->layout()->content; ?>
-        </td>
-        <td align="left">
-            <div style="width: 150px; margin-left: 75px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>МУЛЬТИФОРУМ</strong>
-                </span>
-            </div>
-        </td>
-    </tr>
-    <tr style="height: 250px;">
-        <td align="right" valign="top">
-            <div style="width: 150px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>КАТАЛОГ УСЛУГ</strong>
-                </span>
-            </div>
-        </td>
-        <td align="center" valign="top">
-            <div style="width: 150px; margin-top: 70px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>СПЕЦИАЛИСТЫ</strong>
-                </span>
-            </div>
-        </td>
-        <td align="left" valign="top">
-            <div style="width: 150px;">
-                <span>
-                    <img src="/images/screen-thumb.png"  style="border:none;"/>
-                    <strong>ТОРГОВАЯ ПЛОЩАДКА</strong>
-                </span>
-            </div>
-        </td>
-    </tr>
+<div id="content">
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+	<tr style="height: 250px;">
+		<td align="right" valign="bottom">
+		<div style="width: 150px;"><span> <img src="/images/screen-thumb.png"
+			style="border: none;" /> <strong>КОМПАНИЯ</strong> </span></span></div>
+		</td>
+		<td align="center" valign="bottom" style="width: 250px;"><img
+			src="/images/logo.png" style="border: none; margin-bottom: 70px;" />
+		</td>
+		<td align="left" valign="bottom">
+		<div style="width: 150px;"><span> <img src="/images/screen-thumb.png"
+			style="border: none;" /> <strong>ОТДЫХ</strong> </span></div>
+		</td>
+	</tr>
+	<tr style="height: 250px;">
+		<td align="right">
+		<div style="width: 150px; margin-right: 75px;"><span> <img
+			src="/images/screen-thumb.png" style="border: none;" /> <strong>КАТАЛОГ
+		ПРОДУКЦИИ</strong> </span></div>
+		</td>
+		<td align="center"><?=$this->layout()->content; ?></td>
+		<td align="left">
+		<div style="width: 150px; margin-left: 75px;"><span> <img
+			src="/images/screen-thumb.png" style="border: none;" /> <strong>МУЛЬТИФОРУМ</strong>
+		</span></div>
+		</td>
+	</tr>
+	<tr style="height: 250px;">
+		<td align="right" valign="top">
+		<div style="width: 150px;"><span> <img src="/images/screen-thumb.png"
+			style="border: none;" /> <strong>КАТАЛОГ УСЛУГ</strong> </span></div>
+		</td>
+		<td align="center" valign="top">
+		<div style="width: 150px; margin-top: 70px;"><span> <img
+			src="/images/screen-thumb.png" style="border: none;" /> <strong>СПЕЦИАЛИСТЫ</strong>
+		</span></div>
+		</td>
+		<td align="left" valign="top">
+		<div style="width: 150px;"><span> <img src="/images/screen-thumb.png"
+			style="border: none;" /> <strong>ТОРГОВАЯ ПЛОЩАДКА</strong> </span></div>
+		</td>
+	</tr>
 </table>
+</div>
 </body>
 </html>

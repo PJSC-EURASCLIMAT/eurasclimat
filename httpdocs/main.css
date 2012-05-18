@@ -7,25 +7,70 @@ body, .xlib-wallpaper {
     background: transparent;
 }
 
-#bg-left {
-    background: url("/images/top-bg.png") no-repeat scroll 0 0 transparent;
-    display: block;
-    height: 229px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 361px;
-    z-index: 0;
+body#login-page {
+    background: transparent;
+}
+
+#bg-top {
+    background: url("/images/body-bg-top.png") repeat-x scroll 0 0;
+	position: absolute;
+	height: 365px;
+	width: 100%;
+	left: 0;
+	top: 0;
 }
 
 #bg-bottom {
-    background: url("/images/bottom-bg.png") no-repeat scroll 0 0 transparent;
-    bottom: 0;
-    height: 222px;
-    left: 0;
+    background: url("/images/body-bg-bottom.png") repeat-x scroll 0 0;
     position: absolute;
-    width: 530px;
-    z-index: 99999999;
+    height: 365px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+#bg-tl {
+    background: url("/images/bg-tl.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 463px;
+    height: 287px;
+}
+
+#bg-bl {
+    background: url("/images/bg-bl.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 0;
+    width: 497px;
+    height: 255px;
+}
+
+#bg-tr {
+    background: url("/images/bg-tr.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    width: 251px;
+    height: 363px;
+}
+
+#bg-br {
+    background: url("/images/bg-br.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    right: 0;
+    width: 251px;
+    height: 126px;
 }
 
 #login-page {

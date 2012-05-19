@@ -20,7 +20,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     
     tools: [{
         type: 'expand',
-        tooltip: 'Раскрыть все строки',
+        tooltip: 'Раскрыть/закрыть все строки',
         action: 'expandrows'
     }, {
         type: 'plus',

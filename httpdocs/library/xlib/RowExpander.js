@@ -161,7 +161,7 @@ Ext.define('xlib.RowExpander', {
             viewEl = view.getEl();
             if (this.expandOnEnter) {
                 this.keyNav = Ext.create('Ext.KeyNav', viewEl, {
-                    'enter' : this.onEnter,
+                    'enter': this.onEnter,
                     scope: this
                 });
             }
@@ -206,11 +206,13 @@ Ext.define('xlib.RowExpander', {
             this.view.fireEvent('collapsebody', rowNode, record, nextBd.dom);
         }
 
-        // If Grid is auto-heighting itself, then perform a component layhout to accommodate the new height
+        // If Grid is auto-heighting itself, then perform a component layhout 
+        // to accommodate the new height
         if (!grid.isFixedHeight()) {
             grid.doComponentLayout();
         }
         this.view.up('gridpanel').invalidateScroller();
+        grid.determineScrollbars();
     },
 
     onDblClick: function(view, cell, rowIdx, cellIndex, e) {

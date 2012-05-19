@@ -62,8 +62,6 @@ Ext.define('xlib.RowExpander', {
     rowBodyHiddenCls: 'x-grid-row-body-hidden',
     rowCollapsedCls: 'x-grid-row-collapsed',
 
-
-
     renderer: function(value, metadata, record, rowIdx, colIdx) {
         if (colIdx === 0) {
             metadata.tdCls = 'x-grid-td-expander';
@@ -208,7 +206,6 @@ Ext.define('xlib.RowExpander', {
             this.view.fireEvent('collapsebody', rowNode, record, nextBd.dom);
         }
 
-
         // If Grid is auto-heighting itself, then perform a component layhout to accommodate the new height
         if (!grid.isFixedHeight()) {
             grid.doComponentLayout();
@@ -236,7 +233,6 @@ Ext.define('xlib.RowExpander', {
             cls: Ext.baseCSSPrefix + 'grid-header-special',
             renderer: function(value, metadata) {
                 metadata.tdCls = Ext.baseCSSPrefix + 'grid-cell-special';
-
                 return '<div class="' + Ext.baseCSSPrefix + 'grid-row-expander">&#160;</div>';
             },
             processEvent: function(type, view, cell, recordIndex, cellIndex, e) {

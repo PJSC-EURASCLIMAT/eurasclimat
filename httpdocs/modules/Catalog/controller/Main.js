@@ -92,6 +92,10 @@ Ext.define('EC.Catalog.controller.Main', {
                     button.up('ConditionersList').getStore().load();
                 }
             });
+            catalog.down('ConditionersList tool[action=expandrows]').on({
+                click: this.expandRows,
+                scope: this
+            });
             
             this.on({
                 'itemSaved': function() {
@@ -212,5 +216,19 @@ Ext.define('EC.Catalog.controller.Main', {
                 });
             }
         }, this);
+    },
+    
+    expandRows: function(button) {
+        var grid = button.up('ConditionersList'),
+            view = grid.getView(),
+            plugin = grid.getPlugin('rowexpander');
+            
+        if (!plugin) {
+            return;
+        }
+        
+        for (var i = 0; i < view.getNodes().length; i++) {
+            plugin.toggleRow(i);
+        }
     }
 });

@@ -19,6 +19,10 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     title: 'Результаты выборки',
     
     tools: [{
+        type: 'expand',
+        tooltip: 'Раскрыть все строки',
+        action: 'expandrows'
+    }, {
         type: 'plus',
         tooltip: 'Добавить',
         action: 'additem'
@@ -32,6 +36,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         
         this.plugins = [{
             ptype: 'rowexpander',
+            pluginId: 'rowexpander',
             rowBodyTpl: Ext.create('Ext.XTemplate', 
                 '<div style="padding: 10px;"><table width="100%" border="0">',
                 '<tr valign="top">',

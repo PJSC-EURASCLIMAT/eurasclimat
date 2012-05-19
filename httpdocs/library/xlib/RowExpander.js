@@ -217,7 +217,6 @@ Ext.define('xlib.RowExpander', {
     },
 
     onDblClick: function(view, cell, rowIdx, cellIndex, e) {
-
         this.toggleRow(rowIdx);
     },
 

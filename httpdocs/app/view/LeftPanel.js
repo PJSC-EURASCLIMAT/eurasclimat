@@ -38,8 +38,8 @@ Ext.define('App.view.LeftPanel', {
         },
         items: [{
             maxMode: true,
-            text: 'Каталог',
-            lunchModule: 'EC.Catalog.controller.Main'
+            text: 'Кондиционирование',
+            lunchModule: 'EC.Catalog.controller.Conditioners'
 //        }, {
 //            text: 'Виджет'
         }]

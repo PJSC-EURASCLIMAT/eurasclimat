@@ -6,12 +6,23 @@ Ext.define('EC.Catalog.view.Conditioners.Layout', {
     
     layout: 'border',
     
+    border: false,
+    
+    cls: 'x-portlet',
+    
+    defaults: {
+        frame: true,
+        border: true
+    },
+    
     items: [{
         xtype: 'ConditionersFiltersPanel',
-        region: 'north'
+        region: 'north',
+        margins: '5 5 5 5'
     }, {
         xtype: 'ConditionersList',
-        region: 'center'
+        region: 'center',
+        margins: '5 5 0 5'
     }]
     
 });

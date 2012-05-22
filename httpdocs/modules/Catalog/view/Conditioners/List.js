@@ -10,10 +10,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     
     layout: 'fit',
     
-    border: false,
-
-    cls: 'x-border-top',
-    
     forceFit: true,
     
     title: 'Результаты выборки',

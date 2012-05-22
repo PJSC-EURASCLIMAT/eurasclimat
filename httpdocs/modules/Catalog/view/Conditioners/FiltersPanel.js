@@ -12,15 +12,16 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     
     collapseFirst: false,
 
-    border: false,
-    
     collapseMode: 'header',
     
+    bodyBorder: true,
+    
     defaults: {
-        padding: 5,
+        margin: 5,
         border: false,
-        width: 160,
+        width: 145,
         defaults: {
+            width: 145,
             hideLabel: true
         }
     },
@@ -94,10 +95,11 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
                 xtype: 'ConditionersFilterWarranty'
             }]
         }, {
+            width: 140,
             defaults: {
                 margin: 2,
                 textAlign: 'left',
-                width: 140,
+                width: 135,
                 scope: this
             },
             items: [{

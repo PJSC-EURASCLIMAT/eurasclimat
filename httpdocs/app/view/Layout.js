@@ -15,7 +15,8 @@ Ext.define('App.view.Layout', {
         items: [{
             xtype: 'TopPanel'
         }, {
-            xtype: 'CenterPanel'
+            xtype: 'CenterPanel',
+            margins: '0 5 5 0'
         }]
     }]
 });

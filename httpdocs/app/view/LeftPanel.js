@@ -37,8 +37,8 @@ Ext.define('App.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
-            maxMode: true,
             text: 'Кондиционирование',
+            title: 'Каталог "Кондиционирование"',
             lunchModule: 'EC.Catalog.controller.Conditioners'
 //        }, {
 //            text: 'Виджет'

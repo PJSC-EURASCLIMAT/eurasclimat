@@ -20,11 +20,11 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         action: 'expandrows'
     }, {
         type: 'plus',
-        tooltip: 'Добавить',
+        tooltip: 'Добавить позицию',
         action: 'additem'
     }, {
         type: 'refresh',
-        tooltip: 'Обновить',
+        tooltip: 'Обновить список',
         action: 'refresh'
     }],
     

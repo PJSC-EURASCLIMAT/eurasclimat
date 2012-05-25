@@ -8,7 +8,7 @@ Ext.define('App.view.CenterPanel', {
 
     region: 'center',
     
-    border: false,
+    bodyPadding: 10,
     
     tabBar: {
         baseCls: 'xlib-bkg'
@@ -23,13 +23,9 @@ Ext.define('App.view.CenterPanel', {
         id: 'portal-tab-1',
         title: 'Мой портал',
         xtype: 'portalpanel',
+        border: false,
         closable: false,
         columns: 3,
-        defaults: {
-            defaults: {
-                height: 200
-            }
-        },
         items: [{
         }, {
         }, {

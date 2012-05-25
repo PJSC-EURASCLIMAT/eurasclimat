@@ -19,9 +19,9 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     defaults: {
         margin: 5,
         border: false,
-        width: 145,
+//        width: 145,
         defaults: {
-            width: 145,
+            width: 160,
             hideLabel: true
         }
     },
@@ -36,10 +36,6 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
             type: 'gear',
             tooltip: 'Настройки каталога',
             action: 'settings'
-        }, {
-            type: 'plus',
-            tooltip: 'Добавить',
-            action: 'additem'
         }];
         
         this.items = [{
@@ -94,30 +90,30 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
             }, {
                 xtype: 'ConditionersFilterWarranty'
             }]
-        }, {
-            width: 140,
-            defaults: {
-                margin: 2,
-                textAlign: 'left',
-                width: 135,
-                scope: this
-            },
-            items: [{
-                xtype: 'button',
-                iconCls: 'remove',
-                text: 'Сбросить фильтры',
-                action: 'resetfilters'
-            }, {
-                xtype: 'button',
-                iconCls: 'option',
-                text: 'Настройки каталога',
-                action: 'settings'
-            }, {
-                xtype: 'button',
-                iconCls: 'add',
-                text: 'Добавить позицию',
-                action: 'additem'
-            }]
+//        }, {
+//            width: 140,
+//            defaults: {
+//                margin: 2,
+//                textAlign: 'left',
+//                width: 135,
+//                scope: this
+//            },
+//            items: [{
+//                xtype: 'button',
+//                iconCls: 'remove',
+//                text: 'Сбросить фильтры',
+//                action: 'resetfilters'
+//            }, {
+//                xtype: 'button',
+//                iconCls: 'option',
+//                text: 'Настройки каталога',
+//                action: 'settings'
+//            }, {
+//                xtype: 'button',
+//                iconCls: 'add',
+//                text: 'Добавить позицию',
+//                action: 'additem'
+//            }]
         }];
 
         this.callParent(arguments);

@@ -112,6 +112,7 @@ body#login-page {
 
 .x-portal-body {
     padding: 0 0 0 8px;
+    border: none;
 }
 .x-portal .x-portal-column {
     /* columns must have vertical padding to avoid losing dimensions when empty */

@@ -40,6 +40,12 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         
         if ('portlet' == container.getXType()) {
             
+            var filtersPanel = container.add({
+                xtype: 'ConditionersFiltersPanel',
+                preventHeader: true,
+                border: false
+            });
+            
         } else {
             
             container.setLoading('Загрузка...', true);
@@ -55,27 +61,23 @@ Ext.define('EC.Catalog.controller.Conditioners', {
             catalog.down('ConditionersFiltersPanel tool[action=resetfilters]').on({
                 click: this.resetFilters
             });
-            catalog.down('ConditionersFiltersPanel button[action=resetfilters]').on({
-                click: this.resetFilters
-            });
+//            catalog.down('ConditionersFiltersPanel button[action=resetfilters]').on({
+//                click: this.resetFilters
+//            });
             
             catalog.down('ConditionersFiltersPanel tool[action=settings]').on({
                 click: this.editSettings,
                 scope: this
             });
-            catalog.down('ConditionersFiltersPanel button[action=settings]').on({
-                click: this.editSettings,
-                scope: this
-            });
-            
-            catalog.down('ConditionersFiltersPanel tool[action=additem]').on({
-                click: this.addItem,
-                scope: this
-            });
-            catalog.down('ConditionersFiltersPanel button[action=additem]').on({
-                click: this.addItem,
-                scope: this
-            });
+//            catalog.down('ConditionersFiltersPanel button[action=settings]').on({
+//                click: this.editSettings,
+//                scope: this
+//            });
+//            
+//            catalog.down('ConditionersFiltersPanel button[action=additem]').on({
+//                click: this.addItem,
+//                scope: this
+//            });
             
             catalog.down('ConditionersList').on({
                 edititem: this.editItem,

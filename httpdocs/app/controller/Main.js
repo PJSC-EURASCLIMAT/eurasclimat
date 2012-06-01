@@ -28,63 +28,126 @@ Ext.define('App.controller.Main', {
         
         this.control({
             'LeftPanel button': {
-                click: this.openModule,
+                click: this.openModulePortlet,
                 scope: this
             },
             'CenterPanel portlet': {
-                maximize: this.maximizeWidget,
+                restore: this.openModuleTab,
+                maximize: this.openModuleFullscreen,
                 scope: this
             }
-        })
+        });
     },
     
-    openModule: function(button, e, options) {
+    openModulePortlet: function(button, e, options) {
 
         var container = Ext.create('xlib.portal.Portlet', {
-            title: button.title || button.text, 
-            cls: 'x-portlet',
-            lunchModule: button.lunchModule
-        });
-        
-        var tab = this.getCenterPanel().getComponent('portal-tab-1');
-        tab.down().insert(0, container);
-        tab.show().doLayout();
+                title: button.title || button.text, 
+                cls: 'x-portlet',
+                lunchModule: button.lunchModule
+            }),
+            parentContainer = this.getCenterPanel().down('tabpanel'), 
+            tab = parentContainer.getComponent('portal-tab-1');
+            
+        parentContainer.show();
+        tab.show();
+        tab.down().insert(0, container).show();
             
         if (button.lunchModule) {
             this.getController(button.lunchModule).init(container);
         }
+        tab.doLayout();
     },
     
-    maximizeWidget: function(portlet) {
+    openModuleTab: function(module) {
 
-        var tab = this.getCenterPanel().getComponent('portal-tab-1');
+        var parentContainer = this.getCenterPanel().down('tabpanel'), 
+            tab = parentContainer.add({
+                closable: false,
+                border: false,
+                layout: 'fit',
+                title: module.title
+            }).show();
         
         var win = Ext.create('Ext.window.Window', {
             renderTo: tab.getEl(),
-            autoShow: true,
-            constrain: true,
             maximized: true,
+            autoShow: true,
             shadow: false,
             resizable: false,
             layout: 'fit',
-            title: portlet.title,
+            title: module.title,
+            lunchModule: module.lunchModule,
             tools: [{
                 type: 'minimize',
                 tooltip: 'Свернуть в окошко',
-                action: 'minimize'
+                action: 'minimize',
+                handler: function() {
+                    this.openModulePortlet(win);
+                    win.close();
+                },
+                scope: this
             }, {
                 type: 'maximize',
                 tooltip: 'Раскрыть на весь экран',
-                action: 'maximize'
+                action: 'maximize',
+                handler: function() {
+                    this.openModuleFullscreen(win);
+                },
+                scope: this
+            }],
+            listeners: {
+                close: function() {
+                    tab.close(); 
+                }
+            }
+        });
+            
+        if (module.lunchModule) {
+            this.getController(module.lunchModule).init(win);
+        } else {
+            win.add(module.cloneConfig().child() || {});
+        }
+        
+        module.close();
+    },
+    
+    openModuleFullscreen: function(module) {
+        
+        var win = Ext.create('Ext.window.Window', {
+            maximized: true,
+            autoShow: true,
+            shadow: false,
+            resizable: false,
+            layout: 'fit',
+            title: module.title,
+            lunchModule: module.lunchModule,
+            tools: [{
+                type: 'minimize',
+                tooltip: 'Свернуть в окошко',
+                action: 'minimize',
+                handler: function() {
+                    this.openModulePortlet(win);
+                    win.close();
+                },
+                scope: this
+            }, {
+                type: 'restore',
+                tooltip: 'Восстановить размер',
+                action: 'restore',
+                handler: function() {
+                    this.openModuleTab(win);
+                },
+                scope: this
             }]
         });
             
-        if (portlet.lunchModule) {
-            this.getController(portlet.lunchModule).init(win);
+        if (module.lunchModule) {
+            this.getController(module.lunchModule).init(win);
         } else {
-            win.add(portlet.cloneConfig().child() || {});
+            win.add(module.cloneConfig().child() || {});
         }
         
-        portlet.close();
+        module.close();
     }
 });

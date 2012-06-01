@@ -24,6 +24,12 @@ Ext.define('xlib.portal.Portlet', {
     },
     
     tools: [{
+        type: 'restore',
+        handler: function(event, toolEl, parent, tool) {
+            var portlet = parent.findParentByType('portlet');
+            portlet.fireEvent('restore', portlet);
+        }
+    }, {
         type: 'maximize',
         handler: function(event, toolEl, parent, tool) {
             var portlet = parent.findParentByType('portlet');

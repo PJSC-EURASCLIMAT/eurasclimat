@@ -5,7 +5,6 @@ Ext.define('EC.Catalog.model.Conditioners', {
     fields: [
         'id',
         'group_id',
-        'name_id',
         'mark_id',
         'marking',
         'product_type_id',

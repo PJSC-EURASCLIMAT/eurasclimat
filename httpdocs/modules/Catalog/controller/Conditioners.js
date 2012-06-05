@@ -30,7 +30,6 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Filter.Warranty',
         'EC.Catalog.view.Conditioners.Filter.Country',
         'EC.Catalog.view.Conditioners.Filter.Group',
-        'EC.Catalog.view.Conditioners.Filter.Name',
         'EC.Catalog.view.Conditioners.Filter.Mark',
         'EC.Catalog.view.Conditioners.Filter.ProductType',
         'EC.Catalog.view.Conditioners.Filter.ImplementationType'
@@ -61,23 +60,11 @@ Ext.define('EC.Catalog.controller.Conditioners', {
             catalog.down('ConditionersFiltersPanel tool[action=resetfilters]').on({
                 click: this.resetFilters
             });
-//            catalog.down('ConditionersFiltersPanel button[action=resetfilters]').on({
-//                click: this.resetFilters
-//            });
             
             catalog.down('ConditionersFiltersPanel tool[action=settings]').on({
                 click: this.editSettings,
                 scope: this
             });
-//            catalog.down('ConditionersFiltersPanel button[action=settings]').on({
-//                click: this.editSettings,
-//                scope: this
-//            });
-//            
-//            catalog.down('ConditionersFiltersPanel button[action=additem]').on({
-//                click: this.addItem,
-//                scope: this
-//            });
             
             catalog.down('ConditionersList').on({
                 edititem: this.editItem,

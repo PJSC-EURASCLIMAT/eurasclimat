@@ -34,9 +34,6 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
                     xtype: 'ConditionersFilterGroup',
                     name: 'group_id'
                 }, {
-                    xtype: 'ConditionersFilterName',
-                    name: 'name_id'
-                }, {
                     xtype: 'ConditionersFilterMark',
                     name: 'mark_id'
                 }, {
@@ -52,9 +49,6 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
                 }, {
                     xtype: 'ConditionersFilterCountry',
                     name: 'country'
-                }, {
-                    xtype: 'ConditionersFilterCondition',
-                    name: 'condition'
                 }, {
                     xtype: 'ConditionersFilterPurpose',
                     name: 'purpose'

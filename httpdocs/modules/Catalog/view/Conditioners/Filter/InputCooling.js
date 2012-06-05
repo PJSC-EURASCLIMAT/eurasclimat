@@ -16,6 +16,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.InputCooling', {
     
     store: { 
         
+        storeId: ['ConditionersFilterInputCooling'],
+    
         fields: ['id', 'name'], 
         
         data: [{

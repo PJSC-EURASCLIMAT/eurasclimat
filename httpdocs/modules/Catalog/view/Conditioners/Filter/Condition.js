@@ -16,6 +16,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Condition', {
     
     store: { 
         
+        storeId: ['ConditionersFilterCondition'],
+        
         fields: ['id', 'name'], 
         
         data: [{

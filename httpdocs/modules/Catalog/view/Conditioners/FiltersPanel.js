@@ -42,9 +42,9 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
             items: [{ 
                 xtype: 'ConditionersFilterGroup'
             }, {
-                xtype: 'ConditionersFilterName'
-            }, {
                 xtype: 'ConditionersFilterMark'
+            }, {
+                xtype: 'ConditionersFilterPurpose'
             }]
         }, {
             items: [{ 
@@ -53,14 +53,6 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
                 xtype: 'ConditionersFilterImplementationType'
             }, {
                 xtype: 'ConditionersFilterCountry'
-            }]
-        }, {
-            items: [{
-                xtype: 'ConditionersFilterPurpose'
-            }, {
-                xtype: 'ConditionersFilterCondition'
-            }, {
-                xtype: 'ConditionersFilterAvailability'
             }]
         }, {
             items: [{
@@ -90,30 +82,6 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
             }, {
                 xtype: 'ConditionersFilterWarranty'
             }]
-//        }, {
-//            width: 140,
-//            defaults: {
-//                margin: 2,
-//                textAlign: 'left',
-//                width: 135,
-//                scope: this
-//            },
-//            items: [{
-//                xtype: 'button',
-//                iconCls: 'remove',
-//                text: 'Сбросить фильтры',
-//                action: 'resetfilters'
-//            }, {
-//                xtype: 'button',
-//                iconCls: 'option',
-//                text: 'Настройки каталога',
-//                action: 'settings'
-//            }, {
-//                xtype: 'button',
-//                iconCls: 'add',
-//                text: 'Добавить позицию',
-//                action: 'additem'
-//            }]
         }];
 
         this.callParent(arguments);

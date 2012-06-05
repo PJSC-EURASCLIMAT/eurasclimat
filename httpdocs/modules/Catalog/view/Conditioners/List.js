@@ -38,12 +38,15 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<tr valign="top">',
                 '<td rowspan="3" width="320"><img src="http://placehold.it/300x220"/></td>',
                 '<td colspan="3" height="40"><h1><p>',
-                '{[this.r("ConditionersFilterName", values.name_id)]} ',
+//                '{[this.r("ConditionersFilterName", values.name_id)]} ',
                 '{[this.r("ConditionersFilterMark", values.mark_id)]} ',
                 '{marking}</p></h1></td>',
                 '</tr><tr valign="top"><td>',
                 '<p>Группа оборудования: <b>',
                 '{[this.r("ConditionersFilterGroup", values.group_id)]}',
+                '</b></p>',
+                '<p>Назначение продукции: <b>',
+                '{[this.r("ConditionersFilterPurpose", values.purpose)]}',
                 '</b></p>',
                 '<p>Тип продукции: <b>',
                 '{[this.r("ConditionersFilterProductType", values.product_type_id)]}',
@@ -51,12 +54,9 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<p>Тип исполнения: <b>',
                 '{[this.r("ConditionersFilterImplementationType", values.implementation_type_id)]}',
                 '</b></p>',
-                '<p>Назначение продукции: <b>',
-                '{[this.r("ConditionersFilterPurpose", values.purpose)]}',
-                '</b></p>',
-                '<p>Состояние продукции: <b>',
-                '{[this.r("ConditionersFilterCondition", values.condition)]}',
-                '</b></p>',
+//                '<p>Состояние продукции: <b>',
+//                '{[this.r("ConditionersFilterCondition", values.condition)]}',
+//                '</b></p>',
                 '<p>Страна изготовления: <b>',
                 '{[this.r("ConditionersFilterCountry", values.country)]}',
                 '</b></p>',
@@ -99,16 +99,14 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 return this.comboRenderer('ConditionersFilterGroup', value);
             }
         }, {
-            header: 'Наименование',
-            dataIndex: 'name_id',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterName', value);
-            }
-        }, {
             header: 'Марка',
             dataIndex: 'mark_id',
             renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterMark', value);
+                var store = Ext.getStore('ConditionersFilterMark');
+                var idx = store.find('id', value);
+                if (idx == -1) return value;
+                var rec = store.getAt(idx);
+                return rec.get('name');
             }
         }, {
             header: 'Маркировка',
@@ -132,20 +130,20 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterCountry', value);
             }
-        }, {
-            header: 'Состояние продукции',
-            hidden: true,
-            dataIndex: 'condition',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterCondition', value);
-            }
-        }, {
-            header: 'Назначение продукции',
-            hidden: true,
-            dataIndex: 'purpose',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterPurpose', value);
-            }
+//        }, {
+//            header: 'Состояние продукции',
+//            hidden: true,
+//            dataIndex: 'condition',
+//            renderer: function(value) {
+//                return this.comboRenderer('ConditionersFilterCondition', value);
+//            }
+//        }, {
+//            header: 'Назначение продукции',
+//            hidden: true,
+//            dataIndex: 'purpose',
+//            renderer: function(value) {
+//                return this.comboRenderer('ConditionersFilterPurpose', value);
+//            }
         }, {
             header: 'Охлаждение',
             hidden: true,
@@ -229,11 +227,11 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         }, 1000, this);
     },
     
-    comboRenderer: function(comboName, value) {
-        var combo = this.up('ConditionersLayout').down(comboName);
-        var idx = combo.getStore().find(combo.valueField, value);
+    comboRenderer: function(storeName, value) {
+        var store = Ext.getStore(storeName);
+        var idx = store.find('id', value);
         if (idx == -1) return value;
-        var rec = combo.getStore().getAt(idx);
-        return rec.get(combo.displayField);
+        var rec = store.getAt(idx);
+        return rec.get('name');
     }
 });

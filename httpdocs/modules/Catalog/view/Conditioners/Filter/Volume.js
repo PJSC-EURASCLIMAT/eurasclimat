@@ -16,6 +16,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Volume', {
     
     store: { 
         
+        storeId: ['ConditionersFilterVolume'],
+    
         fields: ['id', 'name'], 
         
         data: [{

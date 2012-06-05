@@ -16,6 +16,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Warranty', {
     
     store: { 
         
+        storeId: ['ConditionersFilterWarranty'],
+    
         fields: ['id', 'name'], 
         
         data: [{

@@ -18,6 +18,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Mark', {
     
     store: { 
         
+        storeId: 'ConditionersFilterMark',
+        
         autoLoad: true,
         
         fields: ['id', 'name'], 

@@ -18,8 +18,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Group', {
     
     store: { 
         
-        autoLoad: true,
+        storeId: ['ConditionersFilterGroup'],
         
+        autoLoad: true,
+    
         fields: ['id', 'name'], 
         
         proxy: {

@@ -30,9 +30,6 @@ Ext.define('EC.Catalog.view.Conditioners.SettingsLayout', {
                 title: 'Группы оборудования',
                 entity: 'groups'
             }, {
-                title: 'Наименования',
-                entity: 'names'
-            }, {
                 title: 'Марки',
                 entity: 'marks'
             }, {

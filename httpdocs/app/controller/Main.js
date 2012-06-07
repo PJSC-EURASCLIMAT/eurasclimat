@@ -27,6 +27,14 @@ Ext.define('App.controller.Main', {
         });
         
         this.control({
+            'TopPanel menuitem': {
+                click: function(button, e, options) {
+                    if (!Ext.isEmpty(button.lunchModule)) {
+                        this.openModulePortlet(button, e, options);
+                    }
+                },
+                scope: this
+            },
             'LeftPanel button': {
                 click: this.openModulePortlet,
                 scope: this

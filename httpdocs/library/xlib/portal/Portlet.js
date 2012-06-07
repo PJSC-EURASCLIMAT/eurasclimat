@@ -3,6 +3,7 @@ Ext.define('xlib.portal.Portlet', {
     alias: 'widget.portlet',
     layout: 'fit',
     anchor: '100%',
+    height: 300,
     frame: true,
     closable: true,
     collapsible: true,

@@ -14,6 +14,21 @@ Ext.define('App.view.TopPanel', {
     
     items: ['->', {
         xtype: 'button',
+        text: 'Администрирование',
+        pressed: true,
+        menu: [{
+            text: 'Роли',
+            iconCls: 'user-suit',
+            lunchModule: 'EC.Admin.controller.Roles'
+        }, {
+            text: 'Пользователи',
+            iconCls: 'user'
+        }, {
+            text: 'Права',
+            iconCls: 'connect'
+        }]
+    }, ' ', {
+        xtype: 'button',
         text: 'Выход',
         pressed: true,
         handler: function() {

@@ -15,6 +15,25 @@ class Xend_Acl_Roles
     }
 
     /**
+     * Fetch all roles tree
+     *
+     * @return Xend_Response <code>
+     *  rows: array(
+     *      id: int
+     *      name: string
+     *      parent_id: int
+     *  );
+     * </code>
+     */
+    public function fetchRolesTree()
+    {
+        $response = new Xend_Response();
+        $rowset = $this->_getChildren(0);
+        $response->setRowset($rowset);
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
+    }
+
+    /**
      * Fetch all roles
      *
      * @return Xend_Response <code>
@@ -128,16 +147,15 @@ class Xend_Acl_Roles
      *
      * @return Xend_Response
      */
-    public function update($id, array $data = array())
+    public function update($data)
     {
         $response = new Xend_Response();
-        $data['id'] = $id;
         $f = new Xend_Filter_Input(array(
             '*' => 'StringTrim'
         ), array(
-            'name'  => array('presence' => 'required'),
-            'alias' => array('allowEmpty' => true),
-            'id'    => array('id', 'presence' => 'required')
+            'name'      => array('presence' => 'required'),
+            'id'        => array('id', 'presence' => 'required'),
+            'parent_id' => array('presence' => 'required', 'allowEmpty' => true)
         ), $data);
 
         $response->addInputStatus($f);
@@ -145,10 +163,37 @@ class Xend_Acl_Roles
             return $response;
         }
 
-        unset($data['id']);
+        $id = $data['id'];
+
+        $parent = intval($f->parent_id);
+        if ($parent > 0) {
+            $changes['parent_id'] = $parent;
+        }
+        $changes['name'] = $f->name;
 
         $affectedRows = $this->_tableRoles->updateByPk($data, $id);
         $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;
+    }
+
+    /**
+     * Fetch childrens of tree node
+     *
+     * @return Xend_Response <code>
+     *  rows: array(
+     *      id: int
+     *      name: string
+     *      parent_id: int
+     *  );
+     * </code>
+     */
+    private function _getChildren($id)
+    {
+        $where = $id > 0 ? array('parent_id = ?' => $id) : array('parent_id is NULL');
+        $rowset = $this->_tableRoles->fetchAll($where)->toArray();
+        foreach ($rowset as &$row) {
+            $row['children'] = $this->_getChildren($row['id']);
+        }
+        return $rowset;
     }
 }

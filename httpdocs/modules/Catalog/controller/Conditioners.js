@@ -164,7 +164,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 id: view.recordId
             },
             success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
+               Ext.Msg.alert('Сообщение', 'Сохранение прошло успешно');
                view.close();
                this.fireEvent('itemSaved');
             },

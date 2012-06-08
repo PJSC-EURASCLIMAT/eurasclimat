@@ -16,15 +16,7 @@ Ext.define('EC.Admin.view.Roles.List', {
     
     initComponent: function() {
         
-        this.Editing = Ext.create('Ext.grid.plugin.CellEditing', {
-            listeners: {
-                edit: function() {
-                    this.getStore().sync();
-                    console.log('synchronization');
-                },
-                scope: this
-            }
-        });
+        this.Editing = Ext.create('Ext.grid.plugin.CellEditing');
         
         this.plugins = [this.Editing];
         
@@ -67,7 +59,6 @@ Ext.define('EC.Admin.view.Roles.List', {
             text: 'Обновить',
             iconCls: 'x-tbar-loading',
             handler: function() {
-                //this.getRootNode().removeAll()
                 this.getStore().load();
             },
             scope: this
@@ -90,10 +81,8 @@ Ext.define('EC.Admin.view.Roles.List', {
     onDeleteItem: function(tree, rowIndex, colIndex) {
         Ext.MessageBox.confirm('Подтверждение', 'Удалить роль?', function(b) {
             if ('yes' === b) {
-                //this.getStore().removeAt(rowIndex);
                 var record = tree.getRecord(tree.getNode(rowIndex));
-                tree.getTreeStore().remove(record);
-                //tree.getTreeStore().sync();
+                tree.getTreeStore().getNodeById(record.getId()).remove();
             }
         }, this);
     },

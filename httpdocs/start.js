@@ -30,3 +30,14 @@ Ext.onReady(function() {
     Ext.MessageBox.initComponent();
     
 });
+
+/* Fucking bug fixing for Ext 4.1 TODO: check this in future releases  */
+
+Ext.override(Ext.panel.Panel, {
+    getDockedItems: function (selector, beforeBody) {
+        if (this.getComponentLayout().getDockedItems)
+            return this.callOverridden([selector, beforeBody]);
+        else
+            return [];
+    }
+});

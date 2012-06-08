@@ -8,52 +8,37 @@ Ext.define('EC.Admin.store.Roles', {
     
     autoSync: true,
     
-    url: null,
-    
     proxy: {
         type: 'ajax',
         api: {
             read:   '/json/admin/roles/get-list',
-            update: '/json/admin/roles/update-role'
+            update: '/json/admin/roles/update-role',
+            destroy: '/json/admin/roles/remove-role'
         },
         writer: {
             root: 'data',
             encode: true
         }
     },
-
-    indexOf: Ext.emptyFn,
     
-    load: function(options) {
-        options = options || {};
-        options.params = options.params || {};
- 
-        var me = this,
-            node = options.node || me.tree.getRootNode(),
-            root;
- 
-        // If there is not a node it means the user hasnt defined a rootnode yet. In this case lets just
-        // create one for them.
-        if (!node) {
-            node = me.setRootNode({
-                expanded: true
-            });
-        }
- 
-        if (me.clearOnLoad) {
-            // this is what we changed.  added false
-            node.removeAll(false);
-        }
- 
-        Ext.applyIf(options, {
-            node: node
-        });
-        options.params[me.nodeParam] = node ? node.getId() : 'root';
- 
-        if (node) {
-            node.set('loading', true);
-        }
- 
-        return me.callParent([options]);
+    constructor: function() {
+
+        this.callParent(arguments);
+        
+        this.getProxy().on('exception', function(proxy, response, operation, eOpts) {
+            
+            if (operation.action === 'destroy') {
+                var records = operation.getRecords();
+                for (i=0; i< records.length; i++) {
+                    var record = records[i];
+                    Ext.Array.remove(this.removed, record);
+                    var parentNode = this.getNodeById(record.get('parentId')) 
+                        || this.getRootNode();
+                    parentNode.insertChild(record.get('index'), record);
+                }
+                Ext.Msg.alert('Ошибка', 'Роль не удалена.');
+            }
+            
+        }, this);
     }
 });

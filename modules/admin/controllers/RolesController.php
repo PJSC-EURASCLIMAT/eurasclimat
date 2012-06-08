@@ -55,15 +55,14 @@ class Admin_RolesController extends Xend_Controller_Action
 
     public function removeRoleAction()
     {
-        $id = $this->_getParam('id');
         $roles = new Xend_Acl_Roles();
-        $response = $roles->delete($id);
-        if ($response->isError()) {
+        $data = Zend_Json::decode($this->_getParam('data'));
+        $response = $roles->delete($data['id']);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
             $this->_collectErrors($response);
-            return;
         }
-
-        $this->view->success = true;
     }
 
     public function fetchRoleAction()
@@ -87,7 +86,6 @@ class Admin_RolesController extends Xend_Controller_Action
     {
         $roles = new Xend_Acl_Roles();
         $data = Zend_Json::decode($this->_getParam('data'));
-        //var_dump($data); die;
         $response = $roles->update($data);
         if ($response->isSuccess()) {
             $this->view->success = true;

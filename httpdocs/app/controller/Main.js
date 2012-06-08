@@ -11,7 +11,8 @@ Ext.define('App.controller.Main', {
     
     init: function() {
         
-        var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}).show();
+        var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'});
+        vpMask.show();
         
         this.getView('Layout').create({
             listeners: {
@@ -50,12 +51,12 @@ Ext.define('App.controller.Main', {
     openModulePortlet: function(button, e, options) {
 
         var container = Ext.create('xlib.portal.Portlet', {
-                title: button.title || button.text, 
-                cls: 'x-portlet',
-                lunchModule: button.lunchModule
-            }),
-            parentContainer = this.getCenterPanel().down('tabpanel'), 
-            tab = parentContainer.getComponent('portal-tab-1');
+            title: button.title || button.text, 
+            cls: 'x-portlet',
+            lunchModule: button.lunchModule
+        });
+        var parentContainer = this.getCenterPanel().down('tabpanel'); 
+        var tab = parentContainer.getComponent('portal-tab-1');
             
         parentContainer.show();
         tab.show();

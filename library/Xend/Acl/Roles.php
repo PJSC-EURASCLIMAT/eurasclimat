@@ -133,7 +133,6 @@ class Xend_Acl_Roles
             $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
             return $response;
         }
-
         $affectedRows = $this->_tableRoles->deleteByPk($id);
         $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;

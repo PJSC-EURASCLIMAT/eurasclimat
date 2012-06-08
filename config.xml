@@ -13,8 +13,8 @@
     </accounts>
     <db>
       <host>localhost</host>
-      <username>pms</username>
-      <password>Hope123</password>
+      <username>ec</username>
+      <password>0TurnGod</password>
       <dbname>e-head_ec</dbname>
       <prefix></prefix>
     </db>

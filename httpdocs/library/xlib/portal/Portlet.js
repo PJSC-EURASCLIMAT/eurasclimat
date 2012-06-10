@@ -8,6 +8,7 @@ Ext.define('xlib.portal.Portlet', {
     alias: 'widget.portlet',
     layout: 'fit',
     anchor: '100%',
+    height: 300,
     frame: true,
     closable: true,
     collapsible: true,
@@ -31,5 +32,19 @@ Ext.define('xlib.portal.Portlet', {
                 scope: this
             });
         }
-    }
+    },
+    
+    tools: [{
+        type: 'restore',
+        handler: function(event, toolEl, parent, tool) {
+            var portlet = parent.findParentByType('portlet');
+            portlet.fireEvent('restore', portlet);
+        }
+    }, {
+        type: 'maximize',
+        handler: function(event, toolEl, parent, tool) {
+            var portlet = parent.findParentByType('portlet');
+            portlet.fireEvent('maximize', portlet);
+        }
+    }]
 });

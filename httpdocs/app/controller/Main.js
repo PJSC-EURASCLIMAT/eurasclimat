@@ -74,6 +74,7 @@ Ext.define('App.controller.Main', {
             tab = parentContainer.add({
                 closable: false,
                 border: false,
+                margin: 10,
                 layout: 'fit',
                 title: module.title
             }).show();
@@ -84,6 +85,7 @@ Ext.define('App.controller.Main', {
             autoShow: true,
             shadow: false,
             resizable: false,
+            draggable: false,
             layout: 'fit',
             title: module.title,
             lunchModule: module.lunchModule,
@@ -128,6 +130,7 @@ Ext.define('App.controller.Main', {
             autoShow: true,
             shadow: false,
             resizable: false,
+            draggable: false,
             layout: 'fit',
             title: module.title,
             lunchModule: module.lunchModule,

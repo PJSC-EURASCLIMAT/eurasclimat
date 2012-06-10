@@ -1,16 +1,25 @@
+/**
+ * @class xlib.portal.PortalPanel
+ * @extends Ext.panel.Panel
+ * A {@link Ext.panel.Panel Panel} class used for providing drag-drop-enabled portal layouts.
+ */
 Ext.define('xlib.portal.PortalPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.portalpanel',
+
     requires: [
-        'Ext.layout.component.Body',
+        'Ext.layout.container.Column',
+
+        'xlib.portal.PortalDropZone',
         'xlib.portal.PortalColumn'
     ],
 
     cls: 'x-portal',
     bodyCls: 'x-portal-body',
     defaultType: 'portalcolumn',
-    componentLayout: 'body',
     autoScroll: true,
+
+    manageHeight: false,
 
     initComponent : function() {
         var me = this;
@@ -28,35 +37,46 @@ Ext.define('xlib.portal.PortalPanel', {
             beforedrop: true,
             drop: true
         });
-        
-        this.on('drop', this.doLayout, this);
     },
 
     // Set columnWidth, and set first and last column classes to allow exact CSS targeting.
     beforeLayout: function() {
         var items = this.layout.getLayoutItems(),
             len = items.length,
-            i = 0,
-            item;
+            firstAndLast = ['x-portal-column-first', 'x-portal-column-last'],
+            i, item, last;
 
-        for (; i < len; i++) {
+        for (i = 0; i < len; i++) {
             item = items[i];
             item.columnWidth = 1 / len;
-            item.removeCls(['x-portal-column-first', 'x-portal-column-last']);
+            last = (i == len-1);
+
+            if (!i) { // if (first)
+                if (last) {
+                    item.addCls(firstAndLast);
+                } else {
+                    item.addCls('x-portal-column-first');
+                    item.removeCls('x-portal-column-last');
+                }
+            } else if (last) {
+                item.addCls('x-portal-column-last');
+                item.removeCls('x-portal-column-first');
+            } else {
+                item.removeCls(firstAndLast);
+            }
         }
-        items[0].addCls('x-portal-column-first');
-        items[len - 1].addCls('x-portal-column-last');
+
         return this.callParent(arguments);
     },
 
     // private
-    initEvents: function(){
+    initEvents : function(){
         this.callParent();
         this.dd = Ext.create('xlib.portal.PortalDropZone', this, this.dropConfig);
     },
 
     // private
-    beforeDestroy: function() {
+    beforeDestroy : function() {
         if (this.dd) {
             this.dd.unreg();
         }

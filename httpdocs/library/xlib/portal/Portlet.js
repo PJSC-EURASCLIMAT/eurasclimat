@@ -21,17 +21,14 @@ Ext.define('xlib.portal.Portlet', {
     // Override Panel's default doClose to provide a custom fade out effect
     // when a portlet is removed from the portal
     doClose: function() {
-        if (!this.closing) {
-            this.closing = true;
-            this.el.animate({
-                opacity: 0,
-                callback: function(){
-                    this.fireEvent('close', this);
-                    this[this.closeAction]();
-                },
-                scope: this
-            });
-        }
+        this.el.animate({
+            opacity: 0,
+            callback: function(){
+                this.fireEvent('close', this);
+                this[this.closeAction]();
+            },
+            scope: this
+        });
     },
     
     tools: [{

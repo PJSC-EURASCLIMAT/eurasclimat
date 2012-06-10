@@ -14,9 +14,11 @@ Ext.application({
     controllers: ['Main']
 });
 
-/* Overrides translation */ 
+/* Overrides */
 
 Ext.onReady(function() {
+    
+    /* Translation */
     
     if (Ext.grid.RowEditor) {
         Ext.apply(Ext.grid.RowEditor.prototype, {
@@ -29,15 +31,18 @@ Ext.onReady(function() {
 
     Ext.MessageBox.initComponent();
     
-});
 
-/* Fucking bug fixing for Ext 4.1 TODO: check this in future releases  */
+    /* 
+     * Fucking bug fixing for Ext 4.1 
+     * TODO: check this in future releases
+     *   
+     */
+    
+    Ext.override(Ext.panel.Panel, {
+        getDockedItems: function (selector, beforeBody) {
+            return this.getComponentLayout().getDockedItems ?  
+                this.callOverridden([selector, beforeBody]) : [];
+        }
+    });
 
-Ext.override(Ext.panel.Panel, {
-    getDockedItems: function (selector, beforeBody) {
-        if (this.getComponentLayout().getDockedItems)
-            return this.callOverridden([selector, beforeBody]);
-        else
-            return [];
-    }
 });

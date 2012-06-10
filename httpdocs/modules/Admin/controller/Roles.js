@@ -18,7 +18,7 @@ Ext.define('EC.Admin.controller.Roles', {
         
         container.setLoading('Загрузка...', true);
         
-        container.add({
+        var treepanel = container.add({
             xtype: 'AdminRolesList',
             preventHeader: true,
             border: false,
@@ -28,104 +28,74 @@ Ext.define('EC.Admin.controller.Roles', {
                 }
             }
         });
-    },
-    
-    addItem: function() {
-        var view = Ext.widget('AdminRolesEdit');
-        view.down('button[action=save]').on({
-            click: function() {
-                this.createItem(view);
-            },
-            scope: this
-        });
-    },
-    
-    editItem: function(grid, record) {
-        var view = Ext.widget('AdminRolesEdit', {
-            recordId: record.get('id'),
-            title: 'Редактирование роли №' + record.get('id')
-        });
-        view.down('form').loadRecord(record);
-        view.down('button[action=save]').on({
-            click: function() {
-                this.updateItem(view);
-            },
-            scope: this
-        });
-    },
-    
-    createItem: function(view) {
-        var form = view.down('form');
-        form.submit({
-            url: '/json/admin/roles/add',
-            success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранение прошло успешно');
-               view.close();
-               this.fireEvent('itemSaved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
-            },
-            scope: this
-        });
-    },
-    
-    updateItem: function(view) {
-        var form = view.down('form');
-        form.submit({
-            url: '/json/admin/roles/update',
-            params: {
-                id: view.recordId
-            },
-            success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
-               view.close();
-               this.fireEvent('itemSaved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
-            },
-            scope: this
-        });
-    },
-    
-    deleteItem: function(grid, record) {
         
+        this.control({
+            'AdminRolesList button[action=add]': {
+                click: this.onAddItem 
+            },
+            'AdminRolesList button[action=refresh]': {
+                click: function() {
+                    treepanel.getStore().load();
+                }
+            },
+            'AdminRolesList actioncolumn': {
+                click: this.onActionClick 
+            }       
+        });
+        
+    },
+
+    onAddItem: function() {
+        
+        console.log('Добавление');
+        return;
+        
+        var editor = this.RowEditing.getEditor();
+        if (editor.isVisible() && !editor.autoCancel) {
+            return;
+        }
+        editor.cancelEdit();
+        var r = Ext.create('EC.Admin.model.Roles', {id: '', name: ''});
+        this.getStore().insert(0, r);
+        this.RowEditing.startEdit(r, this.columns[1]);
+        this.RowEditing.on('canceledit', function(grid, eOpts) {
+            grid.store.remove(r);
+        }, this, {single: true});
+    },
+    
+    onActionClick: function(view, cell, rowIndex, colIndex, e, record, row, options) {
+        var t = e.getTarget().className.match(/\icon-(\w+)\b/);
+        if (!t) {
+            return;
+        }
+        var action = t[1];
+        
+        switch (action) {
+            case 'edit': 
+                this.onEditItem.apply(this, arguments);
+                break;
+            case 'delete':
+                this.onDeleteItem.apply(this, arguments);
+                break;
+        }
+    },
+    
+    onEditItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
+        Ext.each(view.getGridColumns(), function(o) {
+            if (o.dataIndex == 'name') {
+                column = o;
+                return false;
+            }
+        });
+        // options.scope = treepanel
+        options.scope.Editing.startEdit(record, column);
+    },
+    
+    onDeleteItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
         Ext.MessageBox.confirm('Подтверждение', 'Удалить роль?', function(b) {
             if ('yes' === b) {
-                Ext.Ajax.request({
-                    params: {
-                        id: record.get('id')
-                    },
-                    url: '/json/admin/roles/delete',
-                    success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.fireEvent('itemSaved');
-                    },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
-                    scope: this
-                });
+                view.getTreeStore().getNodeById(record.getId()).remove();
             }
-        }, this);
-    }
+        });
+    }    
 });

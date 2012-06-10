@@ -19,7 +19,6 @@ Ext.define('App.view.CenterPanel', {
         tabPosition: 'bottom',
         closable: false,
         border: false,
-        bodyPadding: 10,
         defaults: {
             layout: 'fit',
             closable: true

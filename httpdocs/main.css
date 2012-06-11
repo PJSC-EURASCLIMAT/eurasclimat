@@ -17,6 +17,15 @@ body#login-page {
     overflow: auto;
 }
 
+#login-table-layout {
+    height: 550px;
+    width: 800px;
+    position: absolute;
+    margin: -275px -400px;
+    left: 50%;
+    top: 50%;
+}
+
 #bg-top {
     background: url("/images/body-bg-top.png") repeat-x scroll 0 0;
 	position: absolute;

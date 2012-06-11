@@ -46,6 +46,8 @@ body#login-page {
     left: 0;
     width: 463px;
     height: 287px;
+    color: #f00; 
+    text-align: left;
 }
 
 #bg-bl {
@@ -68,6 +70,8 @@ body#login-page {
     right: 0;
     width: 251px;
     height: 363px;
+    color: #f00; 
+    text-align: right;
 }
 
 #bg-br {

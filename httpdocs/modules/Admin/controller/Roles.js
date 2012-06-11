@@ -45,9 +45,26 @@ Ext.define('EC.Admin.controller.Roles', {
         
     },
 
-    onAddItem: function() {
+    onAddItem: function(button, e, options) {
         
-        console.log('Добавление');
+        var tree = button.up('AdminRolesList'),
+            view = tree.getView(),
+            store = tree.getStore(),
+            record = Ext.create('EC.Admin.model.Roles', {}),
+            column;
+            
+        Ext.each(view.getGridColumns(), function(o) {
+            if (o.dataIndex == 'name') {
+                column = o;
+                return false;
+            }
+        });;
+        
+        console.log(store);
+        
+        tree.getRootNode().appendChild({});
+        //tree.Editing.startEdit(record, column);
+        
         return;
         
         var editor = this.RowEditing.getEditor();
@@ -81,6 +98,7 @@ Ext.define('EC.Admin.controller.Roles', {
     },
     
     onEditItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
+        var column;
         Ext.each(view.getGridColumns(), function(o) {
             if (o.dataIndex == 'name') {
                 column = o;

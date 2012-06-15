@@ -78,29 +78,6 @@ class Xend_Acl_Roles
     }
 
     /**
-     * Rename role
-     *
-     * @param int $id       The role id
-     * @param string $name  New role name
-     * @return Xend_Response
-     */
-    public function rename($id, $name)
-    {
-        $response = new Xend_Response();
-        $validate = new Xend_Validate_Id();
-        if (!$validate->isValid($id)) {
-            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
-            return $response;
-        }
-
-        $affectedRows = $this->_tableRoles->updateByPk(array(
-            'name'  => $name
-        ), $id);
-        $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
-        return $response;
-    }
-
-    /**
      * Create new role
      *
      * @param string $name      The role name
@@ -108,12 +85,28 @@ class Xend_Acl_Roles
      *  id: int
      * </code>
      */
-    public function createRole($name)
+    public function createRole($data)
     {
         $response = new Xend_Response();
-        $id = $this->_tableRoles->insert(array(
-            'name'  => $name
-        ));
+        $f = new Xend_Filter_Input(array(
+            '*' => 'StringTrim'
+        ), array(
+            'name'      => array('presence' => 'required'),
+            'parent_id' => array('presence' => 'required', 'allowEmpty' => true)
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $parent = intval($f->parent_id);
+        if ($parent > 0) {
+            $changes['parent_id'] = $parent;
+        }
+        $changes['name'] = $f->name;
+
+        $id = $this->_tableRoles->insert($changes);
         $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
         $response->id = $id;
         return $response;
@@ -162,15 +155,13 @@ class Xend_Acl_Roles
             return $response;
         }
 
-        $id = $data['id'];
-
+        $id = $f->id;
         $parent = intval($f->parent_id);
-        if ($parent > 0) {
-            $changes['parent_id'] = $parent;
-        }
+
+        $changes['parent_id'] = ($parent > 0) ? $parent : new Zend_Db_Expr('NULL');
         $changes['name'] = $f->name;
 
-        $affectedRows = $this->_tableRoles->updateByPk($data, $id);
+        $affectedRows = $this->_tableRoles->updateByPk($changes, $id);
         $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
         return $response;
     }

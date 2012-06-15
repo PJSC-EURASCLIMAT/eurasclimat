@@ -14,6 +14,12 @@ Ext.define('EC.Admin.view.Roles.List', {
     
     useArrows: true,
     
+    viewConfig: {
+        plugins: {
+            ptype: 'treeviewdragdrop'
+        }
+    },
+    
     initComponent: function() {
         
         this.Editing = Ext.create('Ext.grid.plugin.CellEditing');
@@ -55,6 +61,12 @@ Ext.define('EC.Admin.view.Roles.List', {
             text: 'Обновить',
             tooltip: 'Обновить',
             action: 'refresh'
+        }, {
+            xtype: 'button',
+            iconCls: 'expand-all',
+            text: 'Раскрыть всё',
+            tooltip: 'Раскрыть всё',
+            action: 'expandall'
         }]
         
         this.callParent(arguments);

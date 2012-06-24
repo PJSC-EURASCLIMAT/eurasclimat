@@ -60,9 +60,9 @@ Ext.define('EC.Admin.store.Accounts', {
     
     onCreateSuccess: function(store, operation, eOpts) {
         
-        var resp = Ext.decode(operation.response.responseText);
+        var resp = Ext.decode(operation.response.responseText, true);
         
-        if (resp.success && resp.id) {
+        if (resp && resp.success && resp.id) {
             Ext.each(operation.getRecords(), function(record) {
                 record.set('id', resp.id);
                 record.commit();

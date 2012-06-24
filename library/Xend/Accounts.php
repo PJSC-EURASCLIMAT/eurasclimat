@@ -300,8 +300,8 @@ class Xend_Accounts
             'active'    => 'boolean'
         ), array(
             'id'        => array('id', 'presense' => 'required'),
-            'name'      => array('stringlength', 'presense' => 'required'),
-            'email'     => array('emailaddress', 'presense' => 'required'),
+            'name'      => array('StringLength', 'presense' => 'required'),
+            'email'     => array('EmailAddress', 'presense' => 'required'),
             'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
@@ -345,9 +345,9 @@ class Xend_Accounts
             'email'     => array('StringTrim'),
             'active'    => array('boolean')
         ), array(
-            'login'     => array('login', 'presense' => 'required'),
-            'name'      => array('stringlength', 'presense' => 'required'),
-            'email'     => array('emailaddress', 'presense' => 'required'),
+            'login'     => array('Login', 'presense' => 'required'),
+            'name'      => array('StringLength', 'presense' => 'required'),
+            'email'     => array('EmailAddress', 'presense' => 'required'),
             'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 

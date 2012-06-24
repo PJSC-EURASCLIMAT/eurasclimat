@@ -25,10 +25,10 @@ class Xend_Acl_Roles
      *  );
      * </code>
      */
-    public function fetchRolesTree()
+    public function fetchRolesTree($checked = false)
     {
         $response = new Xend_Response();
-        $rowset = $this->_getChildren(0);
+        $rowset = $this->_getChildren(0, $checked);
         $response->setRowset($rowset);
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
@@ -177,12 +177,17 @@ class Xend_Acl_Roles
      *  );
      * </code>
      */
-    private function _getChildren($id)
+    private function _getChildren($id, $checked = false)
     {
         $where = $id > 0 ? array('parent_id = ?' => $id) : array('parent_id is NULL');
         $rowset = $this->_tableRoles->fetchAll($where)->toArray();
         foreach ($rowset as &$row) {
-            $row['children'] = $this->_getChildren($row['id']);
+            if ($checked) {
+                $row['checked'] = false;
+            }
+            $row['expanded'] = true;
+            $row['leaf'] = false;
+            $row['children'] = $this->_getChildren($row['id'], $checked);
         }
         return $rowset;
     }

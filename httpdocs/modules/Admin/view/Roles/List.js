@@ -61,12 +61,6 @@ Ext.define('EC.Admin.view.Roles.List', {
             text: 'Обновить',
             tooltip: 'Обновить',
             action: 'refresh'
-        }, {
-            xtype: 'button',
-            iconCls: 'expand-all',
-            text: 'Раскрыть всё',
-            tooltip: 'Раскрыть всё',
-            action: 'expandall'
         }]
         
         this.callParent(arguments);

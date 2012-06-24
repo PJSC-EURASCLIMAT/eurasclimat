@@ -154,7 +154,7 @@ abstract class Xend_Db_Table_Abstract extends Zend_Db_Table_Abstract
      *
      * All fields with values equals to null
      * or not present in column structure will be unset
-     * If primary key is present in data and pk is autoincrement then drip pk
+     * If primary key is present in data and pk is autoincrement then drop pk
      *
      * @param array $data
      * @return  int|false         SQL last inserted id

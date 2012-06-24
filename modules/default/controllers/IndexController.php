@@ -67,6 +67,9 @@ class IndexController extends Xend_Controller_Action
 
         // instance of stdClass
         $data = $authAdapter->getResultRowObject(null, 'password');
+
+        $RolesAccounts = new Xend_Acl_Table_RolesAccounts();
+        $data->role_id = $RolesAccounts->getRole($data->id);
         $roleId = $data->role_id;
 
         // try to create acl object and assign the permissions

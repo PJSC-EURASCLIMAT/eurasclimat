@@ -22,7 +22,8 @@ Ext.define('App.view.TopPanel', {
             lunchModule: 'EC.Admin.controller.Roles'
         }, {
             text: 'Пользователи',
-            iconCls: 'user'
+            iconCls: 'user',
+            lunchModule: 'EC.Admin.controller.Accounts'
         }, {
             text: 'Права',
             iconCls: 'connect'
@@ -32,7 +33,11 @@ Ext.define('App.view.TopPanel', {
         text: 'Выход',
         pressed: true,
         handler: function() {
-            window.location.href = '/index/logout';
+            Ext.MessageBox.confirm('Подтверждение', 'Выйти из системы?', function(b) {
+                if ('yes' === b) {
+                    window.location.href = '/index/logout';
+                }
+            });
         }
     }]
     

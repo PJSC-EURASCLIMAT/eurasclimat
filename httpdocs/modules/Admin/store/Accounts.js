@@ -1,24 +1,25 @@
-Ext.define('EC.Admin.store.Roles', {
+Ext.define('EC.Admin.store.Accounts', {
 
-    extend: 'Ext.data.TreeStore',
+    extend: 'Ext.data.Store',
    
-    model: 'EC.Admin.model.Roles',
-    
-    defaultRootId: null,
-    
-    //autoSync: true,
+    model: 'EC.Admin.model.Accounts',
     
     autoLoad: true,
     
-    storeId: 'EC.Admin.store.Roles',
+    //autoSync: true,
     
     proxy: {
         type: 'ajax',
         api: {
-            create:     '/json/admin/roles/create-role',
-            read:       '/json/admin/roles/get-list',
-            update:     '/json/admin/roles/update-role',
-            destroy:    '/json/admin/roles/remove-role'
+            create:     '/json/admin/accounts/create-account',
+            read:       '/json/admin/accounts/get-list',
+            update:     '/json/admin/accounts/update-account',
+            destroy:    '/json/admin/accounts/delete-account'
+        },
+        reader: {
+            type: 'json',
+            root: 'rows',
+            successProperty: 'success'
         },
         writer: {
             root: 'data',
@@ -64,6 +65,7 @@ Ext.define('EC.Admin.store.Roles', {
         if (resp.success && resp.id) {
             Ext.each(operation.getRecords(), function(record) {
                 record.set('id', resp.id);
+                record.commit();
                 return false;
             }, this);
         }
@@ -71,13 +73,7 @@ Ext.define('EC.Admin.store.Roles', {
     
     onCreateException: function(proxy, response, operation, eOpts) {
         
-        Ext.each(operation.getRecords(), function(record) {
-            Ext.Array.remove(this.removed, record);
-            var parentNode = this.getNodeById(record.get('parentId')) 
-                || this.getRootNode();
-            parentNode.removeChild(record);
-        }, this);
-        
+        this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка создания.');
     },
     
@@ -88,22 +84,13 @@ Ext.define('EC.Admin.store.Roles', {
     
     onUpdateException: function(proxy, response, operation, eOpts) {
         
-        Ext.each(operation.getRecords(), function(record) {
-            record.reject();
-        }, this);
-        
+        this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка сохранения.');
     },
     
     onDestroyException: function(proxy, response, operation, eOpts) {
         
-        Ext.each(operation.getRecords(), function(record) {
-            Ext.Array.remove(this.removed, record);
-            var parentNode = this.getNodeById(record.get('parentId')) 
-                || this.getRootNode();
-            parentNode.insertChild(record.get('index'), record);
-        }, this);
-        
+        this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка удаления.');
     }
 });

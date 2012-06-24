@@ -218,7 +218,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             store: this.store,
             displayInfo: true,
             plugins: Ext.create('xlib.ProgressBarPager', {})
-        })
+        });
         
         this.callParent(arguments);
         

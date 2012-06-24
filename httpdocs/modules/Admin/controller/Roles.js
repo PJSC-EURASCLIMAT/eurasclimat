@@ -34,29 +34,13 @@ Ext.define('EC.Admin.controller.Roles', {
             e.grid.getStore().sync();
         });
         
-        this.control({
-            'AdminRolesList button[action=add]': {
-                click: this.onAddItem 
-            },
-            'AdminRolesList button[action=refresh]': {
-                click: function() {
-                    treepanel.getSelectionModel().deselectAll(true);
-                    treepanel.getStore().load();
-                }
-            },
-            'AdminRolesList button[action=expandall]': {
-                click: function() {
-                    treepanel.getRootNode().expand(true);
-                }
-            },
-            'AdminRolesList actioncolumn': {
-                click: this.onActionClick 
-            },
-            'AdminRolesList treeview': {
-                drop: this.onDropItem 
-            }
+        treepanel.down('button[action=add]').on('click', this.onAddItem);
+        treepanel.down('button[action=refresh]').on('click', function() {
+            treepanel.getSelectionModel().deselectAll(true);
+            treepanel.getStore().load();
         });
-        
+        treepanel.down('actioncolumn').on('click', this.onActionClick, this);
+        treepanel.down('treeview').on('drop', this.onDropItem);
     },
 
     onDropItem: function(node, data, overModel, dropPosition, eOpts) {

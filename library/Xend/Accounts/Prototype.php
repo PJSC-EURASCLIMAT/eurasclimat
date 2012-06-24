@@ -56,7 +56,8 @@ class Xend_Accounts_Prototype
      */
     public static function getRoleId()
     {
-        return (int) self::getProperty(self::ROLE);
+        $RolesAccounts = new Xend_Acl_Table_RolesAccounts();
+        return (int) $RolesAccounts->getRole(self::getId());
     }
 
     /**

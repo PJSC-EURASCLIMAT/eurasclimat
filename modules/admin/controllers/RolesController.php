@@ -7,6 +7,7 @@ class Admin_RolesController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create-role');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list-checked');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-role');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'remove-role');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'fetch-role');
@@ -35,7 +36,25 @@ class Admin_RolesController extends Xend_Controller_Action
         }
 
         $rows = $response->getRowset();
-        $this->view->assign(array('text' => '.', 'children' => $rows));
+        $this->view->assign(array('children' => $rows));
+    }
+
+    public function getListCheckedAction()
+    {
+        $roles = new Xend_Acl_Roles();
+        $response = $roles->fetchRolesTree(true);
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $rows = $response->getRowset();
+        $this->view->assign(array(
+            'checked' => false,
+            'expanded' => true,
+            'leaf' => false,
+            'children' => $rows
+        ));
     }
 
     public function removeRoleAction()

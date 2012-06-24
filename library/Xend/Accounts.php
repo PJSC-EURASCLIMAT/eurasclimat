@@ -113,7 +113,6 @@ class Xend_Accounts
         return $this->_fetchAll($clause, $params);
     }
 
-
     /**
      * Fetches all rows
      *
@@ -184,44 +183,99 @@ class Xend_Accounts
     }
 
     /**
+     * Fetches all rows with roles
+     *
+     * @param array $params
+     * The param examples<code>
+     *      sort    => 'name'
+     *      dir     => 'ASC'
+     *      limit   => 20
+     *      start   => 1
+     *      ...
+     *      filter[0][data][type]   string
+     *      filter[0][data][value]  1
+     *      filter[0][field]        alias
+     * </code>
+     * @param array $where      The array of where clauses<code>
+     *  array(
+     *      array('name = ?' => test),
+     *      array('company_id = ?' => 1)
+     *  );</code>
+     *
+     * @return Xend_Response
+     * Details of contain data <code>
+     *      rows array          The modules collection
+     *      total int           The total count of rows
+     * </code>
+     */
+    public function fetchAllWithRoles($params = array())
+    {
+        $response = new Xend_Response();
+        $select = $this->_tableAccounts->getAdapter()->select();
+        $select->from(array('a' => $this->_tableAccounts->getTableName()));
+
+        $plugin = new Xend_Db_Plugin_Select($this->_tableAccounts, $select);
+        $plugin->parse($params);
+
+        try {
+            $rowset = $select->query()->fetchAll();
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+
+            return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::DATABASE_ERROR));
+        }
+
+        $rolesAccountsTable = new Xend_Acl_Table_RolesAccounts();
+        foreach ($rowset as &$row) {
+            $row['roles'] = $rolesAccountsTable->getRoles($row['id']);
+        }
+
+        $response->setRowset($rowset);
+        $response->total = $plugin->getTotalCount();
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
+    }
+
+    /**
      * Change account role
      *
      * @param int|array $accountId        The account id
      * @param int $roleId                 The role id
      * @return Xend_Response
      */
-    public function changeRole($accountIds, $roleId)
+    public function setRoles($id, $roles)
     {
         $response = new Xend_Response();
 
-
-        $validateRole = new Xend_Validate_Id(true);
-        if (!$validateRole->isValid($roleId)) {
+        $validate = new Xend_Validate_Id();
+        if (!$validate->isValid($id)) {
             return $response->addStatus(new Xend_Acl_Status(
-                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
+                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
-        if (!is_array($accountIds)) {
-            $accountIds = array($accountIds);
+        if ($id == Xend_Accounts_Prototype::getId()) {
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $validateAccount = new Xend_Validate_Id();
-        foreach ($accountIds as $accountId) {
-            if (!$validateAccount->isValid($accountId)) {
-                return $response->addStatus(new Xend_Acl_Status(
-                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
-            }
+        if (!is_array($roles)) {
+            $roles = array($roles);
+        }
 
-            if ($this->isRemoteauthEnabled() && $this->isAdmin($accountId)) {
+        $rolesAccounts = new Xend_Acl_Table_RolesAccounts();
+
+        $rolesAccounts->delete(array('account_id = ?' => $id));
+
+        foreach ($roles as $role) {
+            if (!$validate->isValid($role['id'])) {
                 continue;
             }
-
-            $affectedRows = $this->_tableAccounts->updateByPk(array(
-                'role_id'   => $roleId
-            ), $accountId);
-
-            if (false === $affectedRows) {
-                return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::DATABASE_ERROR));
+            $res = $rolesAccounts->insert(
+                array('account_id' => $id, 'role_id' => $role['id'])
+            );
+            if (false === $res) {
+                return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::ADD_FAILED));
             }
         }
 
@@ -234,22 +288,21 @@ class Xend_Accounts
      * @param int $id       The account id
      * @param array $data   Update data
      */
-    public function update($id, array $data = array())
+    public function update(array $data)
     {
         $response = new Xend_Response();
 
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
-
-        $data['id'] = $id;
         $f = new Xend_Filter_Input(array(
-            'id'        => 'int'
+            'id'        => 'int',
+            'login'     => 'StringTrim',
+            'name'      => 'StringTrim',
+            'email'     => 'StringTrim',
+            'active'    => 'boolean'
         ), array(
             'id'        => array('id', 'presense' => 'required'),
-            'email'     => array('EmailAddress', 'presense' => 'required'),
-            'active'    => array('boolean')
+            'name'      => array('stringlength', 'presense' => 'required'),
+            'email'     => array('emailaddress', 'presense' => 'required'),
+            'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -257,130 +310,16 @@ class Xend_Accounts
             return $response;
         }
 
-        $affectedRows = $this->_tableAccounts->updateByPk(array(
-            'email'     => $f->email,
-            'phone'     => $f->phone,
-            'name'      => $f->name,
-            'active'    => $f->active
-        ), $f->id);
-
-        $response->affectedRows = $affectedRows;
-        return $response->addStatus(new Xend_Accounts_Status(
-            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
-    }
-
-    /**
-     * Update personal information account
-     *
-     * @param int $id       The account id
-     * @param array $data   Updated personal data
-     * @return Xend_Response
-     * <data>
-     * array(
-     *  affectedRows: int
-     * )
-     * </data>
-     */
-    public function updatePersonalInformation($id, array $data = array())
-    {
-        $response = new Xend_Response();
-
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
+        if ($f->id == Xend_Accounts_Prototype::getId() && !$f->active) {
             return $response->addStatus(new Xend_Accounts_Status(
                 Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $data['id'] = $id;
-        $f = new Xend_Filter_Input(array(
-            'id'    => 'int'
-        ), array(
-            'id'    => array('id', 'presense' => 'required'),
-            'email' => array('EmailAddress', 'presense' => 'required')
-        ), $data);
-
-        $response->addInputStatus($f);
-        if ($response->hasNotSuccess()) {
-            return $response;
-        }
-
-        $affectedRows = $this->_tableAccounts->updateByPk(array(
-            'email' => $f->email,
-            'phone' => $f->phone,
-            'name'  => $f->name
-        ), $f->id);
+        $affectedRows = $this->_tableAccounts->updateByPk($f->getData(), $f->id);
 
         $response->affectedRows = $affectedRows;
         return $response->addStatus(new Xend_Accounts_Status(
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
-    }
-
-    /**
-     * Update account field by name
-     *
-     * @param int $id           The account id
-     * @param string $field     Available field in database
-     * @param mixed $value      Field value
-     * @return Xend_Response
-     */
-    public function updateByField($id, $field, $value)
-    {
-        $response = new Xend_Response();
-
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
-
-        $validate = new Xend_Validate_Id();
-        if (!$validate->isValid($id)) {
-            return $response->addStatus(new Xend_Acl_Status(
-                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        $fieldValidate = null;
-        $field = strtolower($field);
-
-        switch ($field) {
-            case 'name':
-                $fieldValidate = new Zend_Validate_NotEmpty();
-                break;
-
-            case 'email':
-                $fieldValidate = new Zend_Validate_EmailAddress();
-                break;
-
-            case 'active':
-                $fieldValidate = new Xend_Validate_Boolean();
-                break;
-
-            case 'phone':
-                break;
-
-            default:
-                return $response->addStatus(new Xend_Acl_Status(
-                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        if ($fieldValidate instanceof Zend_Validate_Interface) {
-            if (!$fieldValidate->isValid($value) || !$this->_tableAccounts->isAllowedField($field)) {
-                return $response->addStatus(new Xend_Acl_Status(
-                    Xend_Acl_Status::INPUT_PARAMS_INCORRECT, $field));
-            }
-        }
-        $affectedRows = false;
-
-        // try to set method catcher before common method
-        $method = '_set' . ucfirst($field) . 'Account';
-        if (method_exists($this, $method)) {
-            $affectedRows = $this->{$method}($id);
-        } else {
-            $affectedRows = $this->_tableAccounts->updateByPk(array(
-                $field  => $value
-            ), $id);
-        }
-
-        return $response->addStatus(new Xend_Acl_Status(
-            Xend_Acl_Status::retrieveAffectedRowStatus($affectedRows)));
     }
 
     /**
@@ -400,18 +339,16 @@ class Xend_Accounts
     {
         $response = new Xend_Response();
 
-        $max_accounts = Zend_Registry::get('config')->accounts->max;
-        if ($this->getCount() >= $max_accounts) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_MAX_REACHED));
-        }
-
         $f = new Xend_Filter_Input(array(
-            '*'     => array('StringTrim')
+            'login'     => array('StringTrim'),
+            'name'      => array('StringTrim'),
+            'email'     => array('StringTrim'),
+            'active'    => array('boolean')
         ), array(
             'login'     => array('login', 'presense' => 'required'),
-            'password'  => array('password', 'presense' => 'required'),
-            'roleId'    => array(array('Id', array(true)))
+            'name'      => array('stringlength', 'presense' => 'required'),
+            'email'     => array('emailaddress', 'presense' => 'required'),
+            'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -419,19 +356,12 @@ class Xend_Accounts
             return $response;
         }
 
-        $login = $f->login;
-        $password = $f->password;
-        $roleId = $f->roleId;
-        $existsResponse = $this->accoutExists($login);
+        $existsResponse = $this->accoutExists($f->login);
         if ($existsResponse->isError()) {
             return $existsResponse;
         }
 
-        $id = $this->_tableAccounts->insert(array(
-            'login'     => $login,
-            'password'  => md5($password),
-            'role_id'   => $roleId
-        ));
+        $id = $this->_tableAccounts->insert($f->getData());
 
         $status = Xend_Accounts_Status::FAILURE;
         if ($id > 0) {
@@ -491,15 +421,15 @@ class Xend_Accounts
     {
         $response = new Xend_Response();
 
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
-
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
             return $response->addStatus(new Xend_Accounts_Status(
                 Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        if ($id == Xend_Accounts_Prototype::getId()) {
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
         try {
@@ -516,7 +446,7 @@ class Xend_Accounts
     }
 
     /**
-     * Change account password
+     * Change account password by admin
      *
      * @param int $id           The account id
      * @param string $password  The account password
@@ -525,11 +455,6 @@ class Xend_Accounts
     public function changePassword($id, $password)
     {
         $response = new Xend_Response();
-
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
 
         $f = new Xend_Filter_Input(array(
             'id'    => 'int'
@@ -555,7 +480,7 @@ class Xend_Accounts
     }
 
     /**
-     * Change password
+     * Change own password by user
      *
      * @param int $id       The account id
      * @param array $data   contains old password and new one (old_password, new_password1, new_password2)

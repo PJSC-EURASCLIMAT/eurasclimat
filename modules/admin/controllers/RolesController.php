@@ -80,21 +80,4 @@ class Admin_RolesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
-
-    public function fetchRoleAction()
-    {
-        $id = $this->_getParam('id');
-        $roles = new Xend_Acl_Roles();
-        $response = $roles->fetchRole($id);
-        $rowset = array();
-
-        $this->view->success = $success = $response->isSuccess();
-        if ($success) {
-            $rowset = array($response->getRow());
-        } else {
-            $this->_collectErrors($response);
-        }
-
-        $this->view->rowset = $rowset;
-    }
 }

@@ -8,6 +8,7 @@ Ext.define('EC.Admin.model.Accounts', {
         'name',
         'email',
         'active',
+        'password_set',
         'roles'
     ]
 });

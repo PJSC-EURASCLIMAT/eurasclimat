@@ -121,7 +121,7 @@ Ext.define('EC.Admin.controller.Accounts', {
     onChangePassword: function(view, cell, rowIndex, colIndex, e, record, row, options) {
         
         var win = Ext.create('EC.Admin.view.Accounts.Password', {
-            recordId: record.get('id'),
+            record: record,
             title: 'Установка пароля учётной записи "' + record.get('login') + '"'
         });
         win.down('button[action=save]').on({
@@ -137,19 +137,21 @@ Ext.define('EC.Admin.controller.Accounts', {
         form.submit({
             url: '/json/admin/accounts/change-password',
             params: {
-                id: win.recordId
+                id: win.record.get('id')
             },
             success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Новый пароль установлен');
-               win.close();
+                win.record.set('password_set', 1);
+                win.record.commit();
+                win.close();
+                Ext.Msg.alert('Сообщение', 'Новый пароль установлен.');
             },
             failure: function(form, action) {
                 switch (action.failureType) {
                     case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно!');
                         break;
                     case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером!');
                         break;
                     case Ext.form.action.Action.SERVER_INVALID:
                         Ext.Msg.alert('Ошибка', action.result.errors[0].msg);

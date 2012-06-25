@@ -25,8 +25,9 @@ Ext.define('App.view.TopPanel', {
             iconCls: 'user',
             lunchModule: 'EC.Admin.controller.Accounts'
         }, {
-            text: 'Права',
-            iconCls: 'connect'
+            text: 'Права доступа',
+            iconCls: 'connect',
+            lunchModule: 'EC.Admin.controller.Acl'
         }]
     }, ' ', {
         xtype: 'button',

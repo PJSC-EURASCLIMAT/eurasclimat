@@ -57,6 +57,14 @@ Ext.define('EC.Admin.view.Accounts.List', {
                 }
             }
         }, {
+            header: 'Пароль установлен',
+            dataIndex: 'password_set',
+            align: 'center',
+            width: 120,
+            renderer: function(value) {
+                return 1 == value ? 'Да' : 'Нет';
+            }
+        }, {
             header: 'Активный',
             dataIndex: 'active',
             align: 'center',

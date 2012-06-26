@@ -12,8 +12,6 @@ Ext.define('EC.Admin.view.Roles.List', {
     
     rootVisible: false,
     
-    hideHeaders: true,
-    
     useArrows: true,
     
     allowEditing: true,

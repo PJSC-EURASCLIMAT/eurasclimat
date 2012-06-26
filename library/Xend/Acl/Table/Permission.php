@@ -30,34 +30,37 @@ class Xend_Acl_Table_Permission extends Xend_Db_Table_Abstract
         }
 
         $select = $this->_db->select()
-            ->from(
-                array('resources' => Xend_Db_Table_Abstract::getDefaultPrefix() . 'acl_resources'),
-                array('id', 'text' => 'title')
-           )
-           ->joinLeft(
+            ->from(array('resources' => Xend_Db_Table_Abstract::getDefaultPrefix() . 'acl_resources'))
+            ->joinLeft(
                 array('permissions' => $this->getTableName()),
                 $this->_db->quoteInto(
                     '`resources`.`id` = `permissions`.`resource_id` '
                     . 'AND `permissions`.`role_id` = ?', $roleId, 'int'
                 ),
                 $cols
-           )
-           ->group('resources.id');
+            )
+            ->group('resources.id');
 
-        if (!$resourceId) {
-            $select->where(new Zend_Db_Expr('`resources`.`parent_id` IS NULL'));
-        } else {
+        if ($resourceId > 0) {
             $select->where('`resources`.`parent_id` = ?', $resourceId);
+        } else {
+            $select->where(new Zend_Db_Expr('`resources`.`parent_id` IS NULL'));
         }
 
         try {
-            $rowset = $select->query()->fetchAll();
+            $rows = $select->query()->fetchAll();
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            return false;
+            return array();
         }
-        return $rowset;
+
+        foreach($rows as &$row) {
+            $row['roleId'] = $roleId;
+            $row['expanded'] = true;
+            $row['children'] = $this->fetchPermissions($roleId, $row['id']);
+        }
+        return $rows;
     }
 }

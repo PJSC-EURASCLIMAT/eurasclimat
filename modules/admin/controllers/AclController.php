@@ -10,30 +10,19 @@ class Admin_AclController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-resource');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'insert-resource');
     }
-    
+
     public function getListAction()
     {
-        $parentId = $this->_getParam('node');
         $permissions = new Xend_Acl_Permission();
-        $roleId = $this->_getParam('roleId');
-        
-        $response = $permissions->fetchPermission($roleId, $parentId);
+
+        $response = $permissions->fetchPermission($this->_getParam('roleId'));
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
-        $rows = $response->rows;
-        $resource = new Xend_Acl_Resource();
-        foreach ($rows as & $row) {
-            $countResponse = $resource->fetchCountByParentId($row['id']);
-            $row['leaf'] = $countResponse->isSuccess() && 0 == $countResponse->count;
-        }
-        
-        $response->rows = $rows;
         $this->view->assign($response->rows);
     }
-    
+
     public function allowAction()
     {
         $resourceId = $this->_getParam('resourceId');
@@ -48,7 +37,7 @@ class Admin_AclController extends Xend_Controller_Action
 		}
         $this->view->success = true;
     }
-    
+
     public function deleteResourceAction()
     {
         $resourceId = $this->_getParam('resourceId');
@@ -60,7 +49,7 @@ class Admin_AclController extends Xend_Controller_Action
         }
         $this->view->success = true;
     }
-    
+
     public function insertResourceAction()
     {
         $resourceChain = explode(',', $this->_getParam('resource', ''));
@@ -73,7 +62,7 @@ class Admin_AclController extends Xend_Controller_Action
             if (empty($resource)) {
                 break;
             }
-            
+
             $generator->$resource;
         }
         $this->view->success = true;

@@ -50,13 +50,12 @@ class Xend_Acl_Permission
     }
 
     /**
-     * Retrive the permissions by resource id and role id
+     * Retrive the permissions by role id
      *
      * @param int $roleId       The role id
-     * @param int $resourceId   The resource id
      * @return Xend_Response
      */
-    public function fetchPermission($roleId, $resourceId)
+    public function fetchPermission($roleId)
     {
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
@@ -65,13 +64,8 @@ class Xend_Acl_Permission
                 Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
-        $validateResource = new Xend_Validate_Id(true);
-        if (!$validateResource->isValid($resourceId)) {
-            return $response->addStatus(new Xend_Acl_Status(
-                Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'resource_id'));
-        }
+        $rows = $this->_tablePermission->fetchPermissions($roleId, 0);
 
-        $rows = $this->_tablePermission->fetchPermissions($roleId, $resourceId);
         if (false !== $rows) {
             $status = Xend_Acl_Status::OK;
             $response->rows = $rows;

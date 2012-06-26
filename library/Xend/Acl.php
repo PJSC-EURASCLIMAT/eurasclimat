@@ -23,7 +23,9 @@ class Xend_Acl
     {
         $resource = (string) $resource;
         $this->addResource($resource);
-        $this->_rules[$resource][] = $privilege;
+        if (!in_array($privilege, $this->_rules[$resource])) {
+            $this->_rules[$resource][] = $privilege;
+        }
         return $this;
     }
 

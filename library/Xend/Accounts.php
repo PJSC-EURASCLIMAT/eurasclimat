@@ -257,10 +257,10 @@ class Xend_Accounts
                 Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
-        if ($id == Xend_Accounts_Prototype::getId()) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
+//        if ($id == Xend_Accounts_Prototype::getId()) {
+//            return $response->addStatus(new Xend_Accounts_Status(
+//                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
+//        }
 
         if (!is_array($roles)) {
             $roles = array($roles);

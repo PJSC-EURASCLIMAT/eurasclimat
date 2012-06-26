@@ -27,6 +27,40 @@ class Xend_Acl_Permission
      *     rows : array
      * }</code>
      */
+    public function fetchAccountPermissions($accountId)
+    {
+        $response = new Xend_Response();
+        $validate = new Xend_Validate_Id();
+        if (!$validate->isValid($accountId)) {
+            $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
+            return $response;
+        }
+
+        $RolesAccounts = new Xend_Acl_Table_RolesAccounts();
+        $roles = $RolesAccounts->getRolesByAccountId($accountId);
+
+        try {
+            $rowset = $this->_tablePermission->fetchAll(array('role_id IN (?)' => $roles));
+            $response->setRowset($rowset->toArray());
+            $status = Xend_Acl_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Acl_Status::DATABASE_ERROR;
+        }
+        return $response->addStatus(new Xend_Acl_Status($status));
+    }
+
+    /**
+     * Retrieve permissions by role id
+     *
+     * @param int $roleId
+     * @return Xend_Response
+     * <code>contain data {
+     *     rows : array
+     * }</code>
+     */
     public function fetchByRoleId($roleId)
     {
         $response = new Xend_Response();

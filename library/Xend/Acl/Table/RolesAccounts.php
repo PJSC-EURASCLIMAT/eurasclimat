@@ -31,4 +31,11 @@ class Xend_Acl_Table_RolesAccounts extends Xend_Db_Table_Abstract
 
         return $select->query()->fetchAll();
     }
+
+    public function getRolesByAccountId($accountId)
+    {
+        return (array) $this->fetchAllColumn(
+            array('account_id = ?' => $accountId), null, 'role_id'
+        );
+    }
 }

@@ -1209,6 +1209,8 @@ abstract class Zend_Db_Table_Abstract
             $select = $where;
         }
 
+        var_dump($select->assemble());
+
         $rows = $this->_fetch($select);
 
         $data  = array(

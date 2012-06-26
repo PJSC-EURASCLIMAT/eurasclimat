@@ -68,20 +68,13 @@ class IndexController extends Xend_Controller_Action
         // instance of stdClass
         $data = $authAdapter->getResultRowObject(null, 'password');
 
-        $RolesAccounts = new Xend_Acl_Table_RolesAccounts();
-        $data->role_id = $RolesAccounts->getRole($data->id);
-        $roleId = $data->role_id;
-
         // try to create acl object and assign the permissions
         $acl = new Xend_Acl();
         $permissions = new Xend_Acl_Permission();
-        $response = $permissions->fetchByRoleId($roleId);
+        $response = $permissions->fetchAccountPermissions($data->id);
         if ($response->isSuccess()) {
-            $rowset = $response->getRowset();
-            foreach ($rowset as $row) {
-                $resourceId = $row['resource_id'];
-                $acl->addResource($resourceId);
-                $acl->allow($resourceId, $row['privilege_id']);
+            foreach ($response->getRowset() as $row) {
+                $acl->allow($row['resource_id'], $row['privilege_id']);
             }
         }
 

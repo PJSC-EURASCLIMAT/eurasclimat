@@ -4,10 +4,6 @@ Ext.define('EC.Admin.store.Accounts', {
    
     model: 'EC.Admin.model.Accounts',
     
-    autoLoad: true,
-    
-    //autoSync: true,
-    
     proxy: {
         type: 'ajax',
         api: {

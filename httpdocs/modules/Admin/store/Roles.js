@@ -6,9 +6,12 @@ Ext.define('EC.Admin.store.Roles', {
     
     defaultRootId: null,
     
-    //autoSync: true,
+    autoLoad: false,
     
-    autoLoad: true,
+    root: {
+        children: [],
+        expanded: true
+    },
     
     storeId: 'EC.Admin.store.Roles',
     

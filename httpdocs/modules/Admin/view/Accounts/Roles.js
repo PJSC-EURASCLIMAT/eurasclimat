@@ -36,5 +36,12 @@ Ext.define('EC.Admin.view.Accounts.Roles', {
         
         displayField: 'name'
         
-    }]
+    }],
+    
+    initComponent: function () {
+    
+        this.callParent(arguments);
+        
+        this.down('treepanel').getStore().load();
+    }
 });

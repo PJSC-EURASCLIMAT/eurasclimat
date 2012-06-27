@@ -70,6 +70,9 @@ Ext.define('EC.Admin.controller.Acl', {
             Ext.each(aclPanel.query('checkcolumn'), function(item) {
                 item.on('checkchange', this.onCheckChange);
             }, this);
+            
+            rolesPanel.getStore().load();
+            aclPanel.getRootNode().removeAll();
         }
     },
     

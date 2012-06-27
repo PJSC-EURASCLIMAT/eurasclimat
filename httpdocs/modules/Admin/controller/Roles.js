@@ -41,6 +41,8 @@ Ext.define('EC.Admin.controller.Roles', {
         });
         treepanel.down('actioncolumn').on('click', this.onActionClick, this);
         treepanel.down('treeview').on('drop', this.onDropItem);
+        
+        treepanel.getStore().load();
     },
 
     onDropItem: function(node, data, overModel, dropPosition, eOpts) {

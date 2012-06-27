@@ -55,6 +55,8 @@ Ext.define('EC.Admin.controller.Accounts', {
             }); 
             gridpanel.down('actioncolumn').on('click', this.onActionClick, this); 
         }
+        
+        gridpanel.getStore().load();
     },
     
     onAddItem: function(button, e, options) {

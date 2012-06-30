@@ -1,12 +1,6 @@
-if ('object' != typeof Admin) {
-    Admin = {};
-}
+Ext.ns('xlib.Acl');
 
-if ('object' != typeof Admin.Acl) {
-    Admin.Acl = {};
-}
-
-Admin.Acl.Storage = function() {
+xlib.Acl.Storage = function() {
 
     var permissions = <?=Zend_Json::encode($this->acl); ?> || [];
     var resources = <?=Zend_Json::encode($this->resources); ?> || {};

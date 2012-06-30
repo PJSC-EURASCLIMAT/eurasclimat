@@ -126,6 +126,7 @@ class IndexController extends Xend_Controller_Action
             }
         }
 
+        $this->view->identity = Xend_Accounts_Prototype::getInformation();
         $this->view->resources = $resourceCollection;
         $privilege = Xend_Acl_Privilege::fetchAll();
         $this->view->privileges = (object) $privilege;

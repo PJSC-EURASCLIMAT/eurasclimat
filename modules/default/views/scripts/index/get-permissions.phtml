@@ -5,6 +5,7 @@ xlib.Acl.Storage = function() {
     var permissions = <?=Zend_Json::encode($this->acl); ?> || [];
     var resources = <?=Zend_Json::encode($this->resources); ?> || {};
     var privileges = <?=Zend_Json::encode($this->privileges); ?> || {};
+    var identity = <?=Zend_Json::encode($this->identity); ?> || {};
 
     return {
         getPermissions: function() {
@@ -17,6 +18,10 @@ xlib.Acl.Storage = function() {
 
         getPrivileges: function() {
             return privileges;
+        },
+
+        getIdentity: function() {
+            return identity;
         }
     };
 }();

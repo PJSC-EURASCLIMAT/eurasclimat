@@ -18,49 +18,62 @@ Ext.define('EC.Admin.view.Roles.List', {
     
     initComponent: function() {
         
-        this.Editing = Ext.create('Ext.grid.plugin.CellEditing');
-        
-        this.plugins = [this.Editing];
-        
         this.columns = [{
             xtype: 'treecolumn',
             header: 'Роль',
             dataIndex: 'name',
             flex: 1,
-            editor: !this.allowEditing ? null : {
+            editor: this.allowEditing && acl.isUpdate('admin') ? {
                 xtype: 'textfield',
                 allowBlank: false
-            }
+            } : null
         }]; 
         
         if (this.allowEditing) {
             
-            this.columns.push({
-                xtype: 'actioncolumn',
-                width: 40,
-                items: [{
+            var actions = [];
+            
+            if (acl.isUpdate('admin')) {
+                
+                this.Editing = Ext.create('Ext.grid.plugin.CellEditing');
+                
+                this.plugins = [this.Editing];
+                
+                this.viewConfig = {
+                    plugins: {
+                        ptype: 'treeviewdragdrop'
+                    }
+                };
+                
+                actions.push({
                     iconCls: 'icon-edit',
                     icon: '/images/icons/fam/plugin.gif',
                     tooltip: 'Редактировать'
-                }, {
+                });
+            }
+            
+            if (acl.isDelete('admin')) {
+                
+                actions.push({
                     iconCls: 'icon-delete',
                     icon: '/images/icons/fam/delete.gif',
                     tooltip: 'Удалить'
-                }]
+                });
+            }
+                        
+            this.columns.push({
+                xtype: 'actioncolumn',
+                width: 40,
+                items: [actions]
             });
             
-            this.viewConfig = {
-                plugins: {
-                    ptype: 'treeviewdragdrop'
-                }
-            };
-    
             this.tbar = [{
                 xtype: 'button',
                 iconCls: 'add',
                 text: 'Добавить',
                 tooltip: 'Добавить',
-                action: 'add'
+                action: 'add',
+                disabled: !acl.isAdd('admin')
             }, '->', {
                 xtype: 'button',
                 iconCls: 'x-tbar-loading',

@@ -13,9 +13,17 @@ Ext.define('App.view.TopPanel', {
     border: false,
     
     items: ['->', {
+        xtype: 'label',
+        flex: 1,
+        style: 'color: white; text-align: right; padding-right: 20px;',
+        text: 'Вы вошли как ' 
+            + xlib.Acl.Storage.getIdentity().name 
+            + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
+    }, {
         xtype: 'button',
         text: 'Администрирование',
         pressed: true,
+        hidden: !acl.isView('admin'),
         menu: [{
             text: 'Роли',
             iconCls: 'user-suit',
@@ -41,5 +49,4 @@ Ext.define('App.view.TopPanel', {
             });
         }
     }]
-    
 });

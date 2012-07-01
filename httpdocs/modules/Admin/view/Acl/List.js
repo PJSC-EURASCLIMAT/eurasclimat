@@ -45,10 +45,10 @@ Ext.define('EC.Admin.view.Acl.List', {
             } 
         }, {
             xtype: 'checkcolumn',
-            header: 'Чтение',
+            header: 'Просмотр',
             align: 'center',
             dataIndex: 'view',
-            width: 80
+            width: 120
         }, {
             xtype: 'checkcolumn',
             header: 'Редактирование',

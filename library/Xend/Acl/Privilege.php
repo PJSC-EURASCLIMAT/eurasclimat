@@ -7,11 +7,7 @@ class Xend_Acl_Privilege
 {
     const VIEW = 1;
 
-    const ADD = 2;
-
-    const UPDATE = 3;
-
-    const DELETE = 4;
+    const UPDATE = 2;
 
     /**
      * Fetch all privilege

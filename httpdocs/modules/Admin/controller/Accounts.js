@@ -21,6 +21,10 @@ Ext.define('EC.Admin.controller.Accounts', {
     
     init: function(container) {
         
+        if (!acl.isView('admin')) {
+            return;
+        }
+        
         if ('portlet' == container.getXType()) {
             
             var gridpanel = container.add({
@@ -44,16 +48,19 @@ Ext.define('EC.Admin.controller.Accounts', {
                 }
             });
             
-            // For update sync 
-            gridpanel.Editing.on('edit', function(editor, e, eOpts) {
-                e.grid.getStore().sync();
-            });
-            
-            gridpanel.down('button[action=add]').on('click', this.onAddItem); 
             gridpanel.down('button[action=refresh]').on('click', function() {
                 gridpanel.getStore().load();
             }); 
-            gridpanel.down('actioncolumn').on('click', this.onActionClick, this); 
+            
+            if (acl.isUpdate('admin')) {
+                // For update sync 
+                gridpanel.Editing.on('edit', function(editor, e, eOpts) {
+                    e.grid.getStore().sync();
+                });
+                
+                gridpanel.down('button[action=add]').on('click', this.onAddItem);
+                gridpanel.down('actioncolumn').on('click', this.onActionClick, this); 
+            }
         }
         
         gridpanel.getStore().load();
@@ -107,6 +114,10 @@ Ext.define('EC.Admin.controller.Accounts', {
     },
     
     onEditItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
+        
+        if (!acl.isUpdate('admin')) {
+            return;
+        }
         
         var column;
         Ext.each(view.getGridColumns(), function(o) {

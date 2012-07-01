@@ -12,9 +12,38 @@ Ext.define('EC.Admin.view.Accounts.List', {
     
     initComponent: function() {
         
-        this.Editing = Ext.create('Ext.grid.plugin.RowEditing', {errorSummary: false});
+        var actions = [];
+            
+        if (acl.isUpdate('admin')) {
         
-        this.plugins = [this.Editing];
+            this.Editing = Ext.create('Ext.grid.plugin.RowEditing', {errorSummary: false});
+            
+            this.plugins = [this.Editing];
+            
+            actions.push({
+                iconCls: 'x-btn icon-edit',
+                icon: '/images/icons/fam/plugin.gif',
+                tooltip: 'Редактировать'
+            });
+            
+            actions.push({
+                iconCls: 'x-btn icon-password',
+                icon: '/images/icons/fam/connect.gif',
+                tooltip: 'Сменить пароль'
+            });
+            
+            actions.push({
+                iconCls: 'x-btn icon-roles',
+                icon: '/images/icons/fam/user_suit.gif',
+                tooltip: 'Установить роли'
+            });
+            
+            actions.push({
+                iconCls: 'x-btn icon-delete',
+                icon: '/images/icons/fam/delete.gif',
+                tooltip: 'Удалить'
+            });
+        }
         
         this.columns = [{
             header: 'Логин',
@@ -79,23 +108,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
         }, {
             xtype: 'actioncolumn',
             width: 80,
-            items: [{
-                iconCls: 'x-btn icon-edit',
-                icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать'
-            }, {
-                iconCls: 'x-btn icon-password',
-                icon: '/images/icons/fam/connect.gif',
-                tooltip: 'Сменить пароль'
-            }, {
-                iconCls: 'x-btn icon-roles',
-                icon: '/images/icons/fam/user_suit.gif',
-                tooltip: 'Установить роли'
-            }, {
-                iconCls: 'x-btn icon-delete',
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить'
-            }]
+            items: [actions]
         }];
         
         this.tbar = [{
@@ -103,7 +116,8 @@ Ext.define('EC.Admin.view.Accounts.List', {
             iconCls: 'add',
             text: 'Добавить',
             tooltip: 'Добавить',
-            action: 'add'
+            action: 'add',
+            disabled: !acl.isUpdate('admin')
         }, '->', {
             xtype: 'button',
             iconCls: 'x-tbar-loading',

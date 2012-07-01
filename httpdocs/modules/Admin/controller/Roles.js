@@ -16,11 +16,11 @@ Ext.define('EC.Admin.controller.Roles', {
     
     init: function(container) {
         
-        container.setLoading('Загрузка...', true);
-        
         if (!acl.isView('admin')) {
             return;
         }
+        
+        container.setLoading('Загрузка...', true);
         
         var treepanel = container.add({
             xtype: 'AdminRolesList',
@@ -38,21 +38,18 @@ Ext.define('EC.Admin.controller.Roles', {
             treepanel.getStore().load();
         });
         
-        if (acl.isAdd('admin')) {
-            treepanel.down('button[action=add]').on('click', this.onAddItem);
-        }
-        
         if (acl.isUpdate('admin')) {
-            
-            treepanel.down('actioncolumn').on('click', this.onActionClick, this);
+
+            treepanel.down('button[action=add]').on('click', this.onAddItem);
             treepanel.down('treeview').on('drop', this.onDropItem);
+            treepanel.down('actioncolumn').on('click', this.onActionClick, this);
         
             // For update sync 
             treepanel.Editing.on('edit', function(editor, e, eOpts) {
                 e.grid.getStore().sync();
             });
         }
-        
+
         treepanel.getStore().load();
     },
 
@@ -118,10 +115,6 @@ Ext.define('EC.Admin.controller.Roles', {
     
     onEditItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
         
-        if (!acl.isUpdate('admin')) {
-            return;
-        }
-        
         var column;
         Ext.each(view.getGridColumns(), function(o) {
             if (o.dataIndex == 'name') {
@@ -135,11 +128,7 @@ Ext.define('EC.Admin.controller.Roles', {
     },
     
     onDeleteItem: function(view, cell, rowIndex, colIndex, e, record, row, options) {
-        
-        if (!acl.isDelete('admin')) {
-            return;
-        }
-        
+
         Ext.MessageBox.confirm('Подтверждение', 'Удалить роль?', function(b) {
             
             if ('yes' === b) {

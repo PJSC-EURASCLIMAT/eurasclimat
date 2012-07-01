@@ -19,6 +19,10 @@ Ext.define('EC.Admin.controller.Acl', {
     
     init: function(container) {
         
+        if (!acl.isView('admin')) {
+            return;
+        }
+        
         if ('portlet' == container.getXType()) {
 
             container.setHeight(80);
@@ -67,9 +71,21 @@ Ext.define('EC.Admin.controller.Acl', {
                 aclPanel.getStore().load({params: {roleId: record.get('id')}})
             });
             
-            Ext.each(aclPanel.query('checkcolumn'), function(item) {
-                item.on('checkchange', this.onCheckChange);
-            }, this);
+            
+            if (acl.isUpdate('admin')) {
+                
+                Ext.each(aclPanel.query('checkcolumn'), function(item) {
+                    item.on('checkchange', this.onCheckChange);
+                }, this);
+                
+            } else {
+                
+                Ext.each(aclPanel.query('checkcolumn'), function(item) {
+                    item.on('beforecheckchange', function() {
+                        return false;
+                    });
+                }, this);
+            }
             
             rolesPanel.getStore().load();
             aclPanel.getRootNode().removeAll();

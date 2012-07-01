@@ -48,25 +48,13 @@ Ext.define('EC.Admin.view.Acl.List', {
             header: 'Чтение',
             align: 'center',
             dataIndex: 'view',
-            width: 100
-        }, {
-            xtype: 'checkcolumn',
-            header: 'Создание',
-            align: 'center',
-            dataIndex: 'add',
-            width: 100
+            width: 80
         }, {
             xtype: 'checkcolumn',
             header: 'Редактирование',
             align: 'center',
             dataIndex: 'update',
-            width: 100
-        }, {
-            xtype: 'checkcolumn',
-            header: 'Удаление',
-            align: 'center',
-            dataIndex: 'delete',
-            width: 100
+            width: 120
         }]; 
         
         this.callParent(arguments);

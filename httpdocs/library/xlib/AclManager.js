@@ -20,19 +20,9 @@ xlib.Acl.Manager = function() {
             return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().view);
         },
         
-        isAdd: function() {
-            var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().add);
-        },
-        
         isUpdate: function() {
             var resourceId = this.fetchResource.apply(this, arguments);
             return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges().update);
-        },
-        
-        isDelete: function() {
-            var resourceId = this.fetchResource.apply(this, arguments);
-            return this.isAllowedPrivilege(resourceId, xlib.Acl.Storage.getPrivileges()['delete']);
         },
         
         isAllowedPrivilege: function(resourceId, privilege) {

@@ -23,10 +23,10 @@ Ext.define('EC.Admin.view.Roles.List', {
             header: 'Роль',
             dataIndex: 'name',
             flex: 1,
-            editor: this.allowEditing && acl.isUpdate('admin') ? {
+            editor: {
                 xtype: 'textfield',
                 allowBlank: false
-            } : null
+            }
         }]; 
         
         if (this.allowEditing) {
@@ -50,9 +50,6 @@ Ext.define('EC.Admin.view.Roles.List', {
                     icon: '/images/icons/fam/plugin.gif',
                     tooltip: 'Редактировать'
                 });
-            }
-            
-            if (acl.isDelete('admin')) {
                 
                 actions.push({
                     iconCls: 'icon-delete',
@@ -73,7 +70,7 @@ Ext.define('EC.Admin.view.Roles.List', {
                 text: 'Добавить',
                 tooltip: 'Добавить',
                 action: 'add',
-                disabled: !acl.isAdd('admin')
+                disabled: !acl.isUpdate('admin')
             }, '->', {
                 xtype: 'button',
                 iconCls: 'x-tbar-loading',

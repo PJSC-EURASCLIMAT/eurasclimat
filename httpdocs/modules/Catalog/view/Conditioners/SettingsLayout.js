@@ -28,16 +28,16 @@ Ext.define('EC.Catalog.view.Conditioners.SettingsLayout', {
             },
             items: [{
                 title: 'Группы оборудования',
-                entity: 'groups'
+                entity: 'conditioners_groups'
             }, {
                 title: 'Марки',
-                entity: 'marks'
+                entity: 'conditioners_marks'
             }, {
                 title: 'Типы продукции',
-                entity: 'product_types'
+                entity: 'conditioners_product_types'
             }, {
                 title: 'Типы исполнения',
-                entity: 'implementation_types'
+                entity: 'conditioners_implementation_types'
             }]
         }];
 

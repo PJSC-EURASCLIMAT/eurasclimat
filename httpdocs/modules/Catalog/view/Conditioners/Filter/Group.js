@@ -27,7 +27,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Group', {
         proxy: {
             type: 'ajax',
             url: '/json/catalog/settings/get-list',
-            extraParams: {entity: 'groups'},
+            extraParams: {entity: 'conditioners_groups'},
             reader: {
                 type: 'json',
                 root: 'data',

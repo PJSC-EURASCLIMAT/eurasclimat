@@ -27,7 +27,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Mark', {
         proxy: {
             type: 'ajax',
             url: '/json/catalog/settings/get-list',
-            extraParams: {entity: 'marks'},
+            extraParams: {entity: 'conditioners_marks'},
             reader: {
                 type: 'json',
                 root: 'data',

@@ -27,7 +27,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
         proxy: {
             type: 'ajax',
             url: '/json/catalog/settings/get-list',
-            extraParams: {entity: 'product_types'},
+            extraParams: {entity: 'conditioners_product_types'},
             reader: {
                 type: 'json',
                 root: 'data',

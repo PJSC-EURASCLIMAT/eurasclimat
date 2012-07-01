@@ -1,9 +1,0 @@
-<xml>
-    <data>
-        <script src="/js/Items/List.js"/>
-        <script src="/js/Items/Form.js"/>
-        <script src="/js/Settings/List.js"/>
-        <script src="/js/Settings/Form.js"/>
-        <script src="/js/Settings/ComboBox.js"/>
-    </data>
-</xml>

@@ -37,6 +37,10 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     init: function(container) {
         
+        if (!acl.isView('catalog', 'conditioners')) {
+            return;
+        }
+        
         if ('portlet' == container.getXType()) {
             
             var filtersPanel = container.add({
@@ -66,15 +70,19 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 scope: this
             });
             
-            catalog.down('ConditionersList').on({
-                edititem: this.editItem,
-                deleteitem: this.deleteItem,
-                scope: this
-            });
-            catalog.down('ConditionersList tool[action=additem]').on({
-                click: this.addItem,
-                scope: this
-            });
+            if (acl.isUpdate('catalog', 'conditioners')) {
+            
+                catalog.down('ConditionersList').on({
+                    edititem: this.editItem,
+                    deleteitem: this.deleteItem,
+                    scope: this
+                });
+                catalog.down('ConditionersList tool[action=additem]').on({
+                    click: this.addItem,
+                    scope: this
+                });
+            }
+            
             catalog.down('ConditionersList tool[action=refresh]').on({
                 click: function(button) {
                     button.up('ConditionersList').getStore().load();

@@ -1,12 +1,12 @@
 <?php
 
-class Catalog_Items
+class Catalog_Conditioners_Model
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new Catalog_Items_Table();
+        $this->_table = new Catalog_Conditioners_Table();
     }
 
     public function getList($params)

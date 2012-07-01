@@ -21,7 +21,8 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     }, {
         type: 'plus',
         tooltip: 'Добавить позицию',
-        action: 'additem'
+        action: 'additem',
+        hidden: !acl.isUpdate('catalog', 'conditioners')
     }, {
         type: 'refresh',
         tooltip: 'Обновить список',
@@ -38,7 +39,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<tr valign="top">',
                 '<td rowspan="3" width="320"><img src="http://placehold.it/300x220"/></td>',
                 '<td colspan="3" height="40"><h1><p>',
-//                '{[this.r("ConditionersFilterName", values.name_id)]} ',
                 '{[this.r("ConditionersFilterMark", values.mark_id)]} ',
                 '{marking}</p></h1></td>',
                 '</tr><tr valign="top"><td>',
@@ -54,9 +54,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<p>Тип исполнения: <b>',
                 '{[this.r("ConditionersFilterImplementationType", values.implementation_type_id)]}',
                 '</b></p>',
-//                '<p>Состояние продукции: <b>',
-//                '{[this.r("ConditionersFilterCondition", values.condition)]}',
-//                '</b></p>',
                 '<p>Страна изготовления: <b>',
                 '{[this.r("ConditionersFilterCountry", values.country)]}',
                 '</b></p>',
@@ -91,6 +88,30 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     
     initComponent: function() {
 
+        var actions = [];
+        
+        if (acl.isUpdate('catalog', 'conditioners')) {
+            
+            actions = [{
+                icon: '/images/icons/fam/plugin.gif',
+                tooltip: 'Редактировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            }, {
+                icon: '/images/icons/fam/delete.gif',
+                tooltip: 'Удалить',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+                
+            }];
+        }
+        
         this.columns = [{
             header: 'Группа оборудования',
             //flex: 1,
@@ -194,23 +215,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         }, {
             xtype:'actioncolumn',
             width: 40,
-            items: [{
-                icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            }, {
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            }]
+            items: [actions]
         }];
 
         this.bbar = Ext.create('Ext.PagingToolbar', {

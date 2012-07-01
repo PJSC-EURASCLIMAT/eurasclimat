@@ -1,17 +1,3 @@
-/*
-
-This file is part of Ext JS 4
-
-Copyright (c) 2011 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as published by the Free Software Foundation and appearing in the file LICENSE included in the packaging of this file.  Please review the following information to ensure the GNU General Public License version 3.0 requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department at http://www.sencha.com/contact.
-
-*/
 // feature idea to enable Ajax loading and then the content
 // cache would actually make sense. Should we dictate that they use
 // data or support raw html as well?
@@ -62,6 +48,8 @@ Ext.define('xlib.RowExpander', {
     rowBodyHiddenCls: 'x-grid-row-body-hidden',
     rowCollapsedCls: 'x-grid-row-collapsed',
 
+
+
     renderer: function(value, metadata, record, rowIdx, colIdx) {
         if (colIdx === 0) {
             metadata.tdCls = 'x-grid-td-expander';
@@ -72,44 +60,42 @@ Ext.define('xlib.RowExpander', {
     /**
      * @event expandbody
      * <b<Fired through the grid's View</b>
-     * @param {HtmlElement} rowNode The &lt;tr> element which owns the expanded row.
+     * @param {HTMLElement} rowNode The &lt;tr> element which owns the expanded row.
      * @param {Ext.data.Model} record The record providing the data.
-     * @param {HtmlElement} expandRow The &lt;tr> element containing the expanded data.
+     * @param {HTMLElement} expandRow The &lt;tr> element containing the expanded data.
      */
     /**
      * @event collapsebody
      * <b<Fired through the grid's View.</b>
-     * @param {HtmlElement} rowNode The &lt;tr> element which owns the expanded row.
+     * @param {HTMLElement} rowNode The &lt;tr> element which owns the expanded row.
      * @param {Ext.data.Model} record The record providing the data.
-     * @param {HtmlElement} expandRow The &lt;tr> element containing the expanded data.
+     * @param {HTMLElement} expandRow The &lt;tr> element containing the expanded data.
      */
 
     constructor: function() {
         this.callParent(arguments);
         var grid = this.getCmp();
         this.recordsExpanded = {};
-        // <debug>
         if (!this.rowBodyTpl) {
             Ext.Error.raise("The 'rowBodyTpl' config is required and is not defined.");
         }
-        // </debug>
         var rowBodyTpl = 
             (Ext.isObject(this.rowBodyTpl) && (this.rowBodyTpl instanceof Ext.XTemplate)) ?
             this.rowBodyTpl : Ext.create('Ext.XTemplate', this.rowBodyTpl);
             
         var features = [{
-                ftype: 'rowbody',
-                columnId: this.getHeaderId(),
-                recordsExpanded: this.recordsExpanded,
-                rowBodyHiddenCls: this.rowBodyHiddenCls,
-                rowCollapsedCls: this.rowCollapsedCls,
-                getAdditionalData: this.getRowBodyFeatureData,
-                getRowBodyContents: function(data) {
-                    return rowBodyTpl.applyTemplate(data);
-                }
-            },{
-                ftype: 'rowwrap'
-            }];
+            ftype: 'rowbody',
+            columnId: this.getHeaderId(),
+            recordsExpanded: this.recordsExpanded,
+            rowBodyHiddenCls: this.rowBodyHiddenCls,
+            rowCollapsedCls: this.rowCollapsedCls,
+            getAdditionalData: this.getRowBodyFeatureData,
+            getRowBodyContents: function(data) {
+                return rowBodyTpl.applyTemplate(data);
+            }
+        },{
+            ftype: 'rowwrap'
+        }];
 
         if (grid.features) {
             grid.features = features.concat(grid.features);
@@ -161,7 +147,7 @@ Ext.define('xlib.RowExpander', {
             viewEl = view.getEl();
             if (this.expandOnEnter) {
                 this.keyNav = Ext.create('Ext.KeyNav', viewEl, {
-                    'enter': this.onEnter,
+                    'enter' : this.onEnter,
                     scope: this
                 });
             }
@@ -205,17 +191,11 @@ Ext.define('xlib.RowExpander', {
             this.recordsExpanded[record.internalId] = false;
             this.view.fireEvent('collapsebody', rowNode, record, nextBd.dom);
         }
-
-        // If Grid is auto-heighting itself, then perform a component layhout 
-        // to accommodate the new height
-        if (!grid.isFixedHeight()) {
-            grid.doComponentLayout();
-        }
-        this.view.up('gridpanel').invalidateScroller();
-        grid.determineScrollbars();
+        grid.doComponentLayout();
     },
 
     onDblClick: function(view, cell, rowIdx, cellIndex, e) {
+
         this.toggleRow(rowIdx);
     },
 
@@ -235,6 +215,7 @@ Ext.define('xlib.RowExpander', {
             cls: Ext.baseCSSPrefix + 'grid-header-special',
             renderer: function(value, metadata) {
                 metadata.tdCls = Ext.baseCSSPrefix + 'grid-cell-special';
+
                 return '<div class="' + Ext.baseCSSPrefix + 'grid-row-expander">&#160;</div>';
             },
             processEvent: function(type, view, cell, recordIndex, cellIndex, e) {
@@ -247,4 +228,3 @@ Ext.define('xlib.RowExpander', {
         };
     }
 });
-

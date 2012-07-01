@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Items_Table extends Xend_Db_Table_Abstract
+class Catalog_Conditioners_Table extends Xend_Db_Table_Abstract
 {
     /**
      * Table name

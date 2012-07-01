@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ItemsController extends Xend_Controller_Action
+class Catalog_ConditionersController extends Xend_Controller_Action
 {
 
     /**
@@ -10,13 +10,13 @@ class Catalog_ItemsController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Catalog_Items();
+        $this->_model = new Catalog_Conditioners_Model();
         parent::init();
     }
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->conditioners);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
@@ -60,8 +60,6 @@ class Catalog_ItemsController extends Xend_Controller_Action
 
     public function updateAction()
     {
-//        die(var_dump($this->_getAllParams()));
-
         $response = $this->_model->update($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;

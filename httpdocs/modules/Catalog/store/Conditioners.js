@@ -9,7 +9,7 @@ Ext.define('EC.Catalog.store.Conditioners', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/catalog/items/get-list'
+            read:   '/json/catalog/conditioners/get-list'
         },
         reader: {
             type: 'json',

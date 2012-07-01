@@ -151,20 +151,13 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterCountry', value);
             }
-//        }, {
-//            header: 'Состояние продукции',
-//            hidden: true,
-//            dataIndex: 'condition',
-//            renderer: function(value) {
-//                return this.comboRenderer('ConditionersFilterCondition', value);
-//            }
-//        }, {
-//            header: 'Назначение продукции',
-//            hidden: true,
-//            dataIndex: 'purpose',
-//            renderer: function(value) {
-//                return this.comboRenderer('ConditionersFilterPurpose', value);
-//            }
+        }, {
+            header: 'Назначение продукции',
+            hidden: true,
+            dataIndex: 'purpose',
+            renderer: function(value) {
+                return this.comboRenderer('ConditionersFilterPurpose', value);
+            }
         }, {
             header: 'Охлаждение',
             hidden: true,
@@ -215,7 +208,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         }, {
             xtype:'actioncolumn',
             width: 40,
-            items: [actions]
+            items: actions
         }];
 
         this.bbar = Ext.create('Ext.PagingToolbar', {

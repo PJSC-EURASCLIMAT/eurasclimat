@@ -8,11 +8,11 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Volume', {
     
     displayField: 'name', 
     
-    emptyText: 'Объём',
-    
     fieldLabel: 'Объём',
     
     editable: false,
+    
+    value: '',
     
     store: { 
         
@@ -21,7 +21,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Volume', {
         fields: ['id', 'name'], 
         
         data: [{
-            id:     '0',
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
+            id:     '1',
             name:   '0-50'
         }, {
             id:     '2',

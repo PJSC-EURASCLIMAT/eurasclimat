@@ -42,9 +42,20 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         }
         
         if ('portlet' == container.getXType()) {
-            
+            /*
             var filtersPanel = container.add({
                 xtype: 'ConditionersFiltersPanel',
+                preventHeader: true,
+                border: false
+            });
+            */
+            container.setHeight(80);
+            
+            container.add({
+                xtype: 'panel',
+                layout: 'fit',
+                padding: 10,
+                html: 'Разверите для просмотра',
                 preventHeader: true,
                 border: false
             });
@@ -61,17 +72,22 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 }
             });
             
-            catalog.down('ConditionersFiltersPanel tool[action=resetfilters]').on({
-                click: this.resetFilters
-            });
+            Ext.each(catalog.down('ConditionersFiltersPanel').query('combo'), function(item) {
+                item.on('change', this.onFilter, catalog);
+            }, this);
             
-            catalog.down('ConditionersFiltersPanel tool[action=settings]').on({
-                click: this.editSettings,
-                scope: this
+            catalog.down('ConditionersFiltersPanel tool[action=resetfilters]').on({
+                click: this.resetFilters,
+                scope: catalog
             });
             
             if (acl.isUpdate('catalog', 'conditioners')) {
             
+                catalog.down('ConditionersFiltersPanel tool[action=settings]').on({
+                    click: this.editSettings,
+                    scope: this
+                });
+                
                 catalog.down('ConditionersList').on({
                     edititem: this.editItem,
                     deleteitem: this.deleteItem,
@@ -101,12 +117,34 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         }
     },
     
-    resetFilters: function(button) {
-        button.up('ConditionersFiltersPanel').cascade(function(cmp) {
-            if (cmp.isFormField) {
-                cmp.reset();
+    onFilter: function(combo, newValue, oldValue, eOpts) {
+        var grid = this.down('ConditionersList'),
+            store = grid.getStore()
+            field = combo.fieldName;
+        
+        store.filters.each(function(f) {
+            if (f.property == field) {
+                store.filters.remove(f);
             }
         });
+        
+        if (Ext.isEmpty(newValue)) {
+            store.load();
+        } else {
+            store.filter(field, newValue);
+        }
+        console.log(store.filters.items);
+    },
+    
+    resetFilters: function() {
+        this.down('ConditionersFiltersPanel').cascade(function(cmp) {
+            if (cmp.isFormField) {
+                cmp.suspendEvents();
+                cmp.reset();
+                cmp.resumeEvents();
+            }
+        });
+        this.down('ConditionersList').getStore().clearFilter();
     },
     
     editSettings: function() {
@@ -142,7 +180,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     createItem: function(view) {
         var form = view.down('form');
         form.submit({
-            url: '/json/catalog/items/add',
+            url: '/json/catalog/conditioners/add',
             success: function(form, action) {
                Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
                view.close();
@@ -167,7 +205,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     updateItem: function(view) {
         var form = view.down('form');
         form.submit({
-            url: '/json/catalog/items/update',
+            url: '/json/catalog/conditioners/update',
             params: {
                 id: view.recordId
             },
@@ -200,7 +238,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                     params: {
                         id: record.get('id')
                     },
-                    url: '/json/catalog/items/delete',
+                    url: '/json/catalog/conditioners/delete',
                     success: function(response, opts) {
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');

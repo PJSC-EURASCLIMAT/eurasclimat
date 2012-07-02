@@ -8,13 +8,15 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
     
     displayField: 'name', 
     
-    emptyText: 'Тип продукции',
-    
     fieldLabel: 'Тип продукции',
     
     editable: false,
     
     queryMode: 'local',
+    
+    fieldName: 'product_type_id',
+    
+    value: '',
     
     store: { 
         
@@ -33,6 +35,18 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
                 root: 'data',
                 successProperty: 'success'
             }
-        } 
+        }
+    },
+    
+    initComponent: function() {
+        
+        this.callParent(arguments);
+        
+        this.getStore().on('load', function(store, records, success, eOpts) {
+            store.insert(0, {id: '', name: '- Не выбрано -'});
+            this.suspendEvents();
+            this.setValue('');
+            this.resumeEvents();
+        }, this);
     }
 });

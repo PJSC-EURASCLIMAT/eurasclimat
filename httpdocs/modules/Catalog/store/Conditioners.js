@@ -6,6 +6,8 @@ Ext.define('EC.Catalog.store.Conditioners', {
     
     remoteSort: true,
     
+    remoteFilter: true,
+    
     proxy: {
         type: 'ajax',
         api: {

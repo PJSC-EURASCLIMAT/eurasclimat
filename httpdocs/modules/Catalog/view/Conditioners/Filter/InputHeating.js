@@ -8,12 +8,14 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.InputHeating', {
     
     displayField: 'name', 
     
-    emptyText: 'Охлаждение',
-    
-    fieldLabel: 'Охлаждение',
+    fieldLabel: 'Нагрев <br/>(потребление)',
     
     editable: false,
     
+    fieldName: 'input_heating',
+    
+    value: '',
+
     store: { 
         
         storeId: ['ConditionersFilterInputHeating'],
@@ -21,7 +23,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.InputHeating', {
         fields: ['id', 'name'], 
         
         data: [{
-            id:     '0',
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
+            id:     '1',
             name:   '0-2'
         }, {
             id:     '2',

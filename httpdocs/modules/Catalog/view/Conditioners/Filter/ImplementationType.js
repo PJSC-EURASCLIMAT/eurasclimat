@@ -8,13 +8,15 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ImplementationType', {
     
     displayField: 'name', 
     
-    emptyText: 'Тип исполнения',
-    
     fieldLabel: 'Тип исполнения',
     
     editable: false,
     
     queryMode: 'local',
+    
+    fieldName: 'implementation_type_id',
+    
+    value: '',
     
     store: { 
         
@@ -33,6 +35,18 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ImplementationType', {
                 root: 'data',
                 successProperty: 'success'
             }
-        } 
+        }
+    },
+    
+    initComponent: function() {
+        
+        this.callParent(arguments);
+        
+        this.getStore().on('load', function(store, records, success, eOpts) {
+            store.insert(0, {id: '', name: '- Не выбрано -'});
+            this.suspendEvents();
+            this.setValue('');
+            this.resumeEvents();
+        }, this);
     }
 });

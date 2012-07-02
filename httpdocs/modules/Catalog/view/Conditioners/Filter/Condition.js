@@ -8,11 +8,11 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Condition', {
     
     displayField: 'name', 
     
-    emptyText: 'Состояние',
-    
     fieldLabel: 'Состояние',
     
     editable: false,
+    
+    value: '',
     
     store: { 
         
@@ -21,6 +21,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Condition', {
         fields: ['id', 'name'], 
         
         data: [{
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
             id:     'NEW',
             name:   'Новое'
         }, {

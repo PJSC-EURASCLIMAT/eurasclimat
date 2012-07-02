@@ -290,21 +290,28 @@ class Xend_Db_Plugin_Select
             $params = $this->_params;
         }
 
-        if (!array_key_exists(self::FILTER, $params) || !is_array($params[self::FILTER])) {
+        if (!array_key_exists(self::FILTER, $params)) {
             return $this->_selectStatement;
         }
 
-        foreach ($params[self::FILTER] as $filter) {
+        $filters = Zend_Json::decode($params[self::FILTER]);
 
-            if (empty($filter['data'])) {
+        foreach ($filters as $filter) {
+
+//            if (empty($filter['data'])) {
+//                continue;
+//            }
+//            $data = $filter['data'];
+
+            if (empty($filter['property']) || empty($filter['value'])) {
                 continue;
             }
-            $data = $filter['data'];
 
-            if (empty($filter['field']) || empty($data['type']) || !isset($data['value'])) {
-                continue;
-            }
+            $this->_selectStatement->where(
+                $filter['property'] . $this->_adapter->quoteInto(' = ?', $filter['value'])
+            );
 
+            /*
             $field = $filter['field'];
             $value = $data['value'];
 
@@ -414,8 +421,8 @@ class Xend_Db_Plugin_Select
                     break;
 
             }
+        */
         }
-
         return $this->_selectStatement;
     }
 

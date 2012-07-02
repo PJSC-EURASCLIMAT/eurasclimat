@@ -8,11 +8,11 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Warranty', {
     
     displayField: 'name', 
     
-    emptyText: 'Гарантия',
-    
     fieldLabel: 'Гарантия',
     
     editable: false,
+    
+    value: '',
     
     store: { 
         
@@ -21,7 +21,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Warranty', {
         fields: ['id', 'name'], 
         
         data: [{
-            id:     '0',
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
+            id:     '1',
             name:   '0-2'
         }, {
             id:     '2',

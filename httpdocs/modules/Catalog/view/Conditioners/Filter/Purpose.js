@@ -8,11 +8,13 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Purpose', {
     
     displayField: 'name', 
     
-    emptyText: 'Назначение',
-    
     fieldLabel: 'Назначение',
     
     editable: false,
+    
+    fieldName: 'purpose',
+    
+    value: '',
     
     store: { 
         
@@ -21,6 +23,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Purpose', {
         fields: ['id', 'name'], 
         
         data: [{
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
             id:     'COMMON',
             name:   'Бытовое'
         }, {

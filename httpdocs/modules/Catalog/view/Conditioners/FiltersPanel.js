@@ -19,10 +19,9 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     defaults: {
         margin: 5,
         border: false,
-//        width: 145,
         defaults: {
             width: 160,
-            hideLabel: true
+            labelAlign: 'top'
         }
     },
     
@@ -35,7 +34,8 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
         }, {
             type: 'gear',
             tooltip: 'Настройки каталога',
-            action: 'settings'
+            action: 'settings',
+            hidden: !acl.isUpdate('catalog', 'conditioners')
         }];
         
         this.items = [{
@@ -56,20 +56,12 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
             }]
         }, {
             items: [{
-                xtype: 'displayfield',
-                value: 'Производительность:',
-                height: 22
-            }, {
                 xtype: 'ConditionersFilterInputCooling'
             }, {
                 xtype: 'ConditionersFilterInputHeating'
             }]
         }, {
             items: [{
-                xtype: 'displayfield',
-                value: 'Потребление:',
-                height: 22
-            }, {
                 xtype: 'ConditionersFilterOutputCooling'
             }, {
                 xtype: 'ConditionersFilterOutputHeating'

@@ -8,11 +8,11 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Square', {
     
     displayField: 'name', 
     
-    emptyText: 'Площадь',
-    
     fieldLabel: 'Площадь',
     
     editable: false,
+    
+    value: '',
     
     store: { 
         
@@ -21,7 +21,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Square', {
         fields: ['id', 'name'], 
         
         data: [{
-            id:     '0',
+            id:     '',
+            name:   '- Не выбрано -'
+        }, {
+            id:     '1',
             name:   '0-50'
         }, {
             id:     '2',

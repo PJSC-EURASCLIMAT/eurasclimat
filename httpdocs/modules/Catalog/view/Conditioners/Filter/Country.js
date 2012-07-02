@@ -8,11 +8,13 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
     
     displayField: 'name', 
     
-    emptyText: 'Страна',
-    
     fieldLabel: 'Страна',
     
     editable: false,
+    
+    fieldName: 'country',
+    
+    value: '',
     
     store: { 
         
@@ -21,6 +23,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
         fields: ['id', 'name'], 
         
         data: [
+            {id: '', name: '- Не выбрано -'},
             {id: 'AD', name: 'Андорра'},
             {id: 'AE', name: 'Объединенные Арабские Эмираты'},
             {id: 'AF', name: 'Афганистан'},

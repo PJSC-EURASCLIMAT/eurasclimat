@@ -163,7 +163,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             hidden: true,
             dataIndex: 'input_cooling'
         }, {
-            header: 'Обогрев',
+            header: 'Нагрев',
             hidden: true,
             dataIndex: 'input_heating'
         }, {
@@ -179,7 +179,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             hidden: true,
             dataIndex: 'output_cooling'
         }, {
-            header: 'Обогрев',
+            header: 'Нагрев',
             hidden: true,
             dataIndex: 'output_heating'
         }, {

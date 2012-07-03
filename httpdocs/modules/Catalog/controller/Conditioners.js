@@ -42,6 +42,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         }
         
         if ('portlet' == container.getXType()) {
+            
             /*
             var filtersPanel = container.add({
                 xtype: 'ConditionersFiltersPanel',
@@ -49,6 +50,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 border: false
             });
             */
+            
             container.setHeight(80);
             
             container.add({

@@ -13,7 +13,9 @@ Ext.define('EC.Admin.view.Accounts.List', {
     initComponent: function() {
         
         var actions = [];
-            
+        
+        console.log(acl.isUpdate('admin'));
+        
         if (acl.isUpdate('admin')) {
         
             this.Editing = Ext.create('Ext.grid.plugin.RowEditing', {errorSummary: false});
@@ -108,7 +110,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
         }, {
             xtype: 'actioncolumn',
             width: 80,
-            items: [actions]
+            items: actions
         }];
         
         this.tbar = [{

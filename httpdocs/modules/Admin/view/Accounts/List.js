@@ -14,8 +14,6 @@ Ext.define('EC.Admin.view.Accounts.List', {
         
         var actions = [];
         
-        console.log(acl.isUpdate('admin'));
-        
         if (acl.isUpdate('admin')) {
         
             this.Editing = Ext.create('Ext.grid.plugin.RowEditing', {errorSummary: false});

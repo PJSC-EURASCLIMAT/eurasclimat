@@ -61,7 +61,7 @@ Ext.define('EC.Admin.view.Roles.List', {
             this.columns.push({
                 xtype: 'actioncolumn',
                 width: 40,
-                items: [actions]
+                items: actions
             });
             
             this.tbar = [{

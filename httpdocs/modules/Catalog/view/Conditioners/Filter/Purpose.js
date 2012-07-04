@@ -35,5 +35,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Purpose', {
             id:     'INDUSTRIAL',
             name:   'Промышленное'
         }] 
+    },
+    
+    getFilter: function() {
+        return this.getValue();
     }
 });

@@ -36,5 +36,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Condition', {
             id:     'USED',
             name:   'Бывшее в употреблении'
         }] 
+    },
+    
+    getFilter: function() {
+        return this.getValue(); 
     }
 });

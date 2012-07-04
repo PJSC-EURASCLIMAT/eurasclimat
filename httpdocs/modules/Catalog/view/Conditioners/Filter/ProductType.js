@@ -33,7 +33,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
             reader: {
                 type: 'json',
                 root: 'data',
-                successProperty: 'success'
+                successfield: 'success'
             }
         }
     },
@@ -48,5 +48,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ProductType', {
             this.setValue('');
             this.resumeEvents();
         }, this);
+    },
+    
+    getFilter: function() {
+        return this.getValue() == '' ? '' : {eq: parseInt(this.getValue())};
     }
 });

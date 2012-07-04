@@ -173,3 +173,37 @@ body#login-page {
 .x-grid-checkheader-editor .x-form-cb-wrap {
     text-align: center;
 }
+
+/*
+ * GridFilters Styles
+ */
+
+.ux-filtered-column {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ux-gridfilter-text-icon {
+    background-image: url(../images/find.png) !important;
+}
+
+/*
+ * RangeMenu Styles
+ */
+
+.ux-rangemenu-icon {
+    margin-top: 0;
+}
+
+.ux-rangemenu-gt {
+    background-image: url(../images/greater_than.png) !important;
+}
+
+.ux-rangemenu-lt {
+    background-image: url(../images/less_than.png) !important;
+}
+
+.ux-rangemenu-eq {
+    background-image: url(../images/equals.png) !important;
+} 
+

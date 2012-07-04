@@ -12,6 +12,8 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Square', {
     
     editable: false,
     
+    fieldName: 'square',
+    
     value: '',
     
     store: { 
@@ -33,5 +35,19 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Square', {
             id:     '3',
             name:   '100+'
         }] 
+    },
+    
+    getFilter: function() {
+        
+        switch(this.getValue()) {
+            case '': 
+                return '';
+            case '1': 
+                return {lt: 50};
+            case '2': 
+                return {gt: 50, lt: 100};
+            case '3': 
+                return {gt: 100};
+        }
     }
 });

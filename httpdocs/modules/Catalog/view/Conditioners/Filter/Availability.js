@@ -33,5 +33,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Availability', {
             id:     'ORDER',
             name:   'Заказ'
         }] 
+    },
+    
+    getFilter: function() {
+        return this.getValue(); 
     }
 });

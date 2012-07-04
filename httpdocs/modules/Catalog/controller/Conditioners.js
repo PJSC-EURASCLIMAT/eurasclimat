@@ -116,26 +116,23 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                     catalog.down('ConditionersList').getStore().load();
                 }
             });
+            
+            // To enable filters panel let initialize grid to create filters
+            catalog.down('ConditionersList').filters.createFilters();
         }
     },
     
     onFilter: function(combo, newValue, oldValue, eOpts) {
-        var grid = this.down('ConditionersList'),
-            store = grid.getStore()
-            field = combo.fieldName;
-        
-        store.filters.each(function(f) {
-            if (f.property == field) {
-                store.filters.remove(f);
-            }
-        });
-        
-        if (Ext.isEmpty(newValue)) {
-            store.load();
+
+        var filter = this.down('ConditionersList').filters.getFilter(combo.fieldName)
+            value = combo.getFilter();
+            
+        if (value === '') {
+            filter.setActive(false);
         } else {
-            store.filter(field, newValue);
+            filter.setValue(value);
+            filter.setActive(true);
         }
-        console.log(store.filters.items);
     },
     
     resetFilters: function() {
@@ -146,7 +143,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 cmp.resumeEvents();
             }
         });
-        this.down('ConditionersList').getStore().clearFilter();
+        this.down('ConditionersList').filters.clearFilters();
     },
     
     editSettings: function() {

@@ -272,5 +272,9 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
             {id: 'ZM', name: 'Замбия'},
             {id: 'ZW', name: 'Зимбабве'}
         ] 
+    },
+    
+    getFilter: function() {
+        return this.getValue(); 
     }
 });

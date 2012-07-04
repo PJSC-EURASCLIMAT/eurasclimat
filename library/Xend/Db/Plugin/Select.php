@@ -298,42 +298,34 @@ class Xend_Db_Plugin_Select
 
         foreach ($filters as $filter) {
 
-//            if (empty($filter['data'])) {
-//                continue;
-//            }
-//            $data = $filter['data'];
-
-            if (empty($filter['property']) || empty($filter['value'])) {
+            if (empty($filter['field'])
+            || empty($filter['type'])
+            || empty($filter['value'])) {
                 continue;
             }
 
-            $this->_selectStatement->where(
-                $filter['property'] . $this->_adapter->quoteInto(' = ?', $filter['value'])
-            );
+            $value = $filter['value'];
 
-            /*
-            $field = $filter['field'];
-            $value = $data['value'];
-
-            if ('search' != $data['type']) {
-                if (!in_array($field, $this->_fields)) {
+            if ('search' != $filter['type']) {
+                if (!in_array($filter['field'], $this->_fields)) {
                     continue;
                 }
-                $field = $this->getAlias($field);
+                $filter['field'] = $this->getAlias($filter['field']);
             }
 
-            switch($data['type']) {
+            switch($filter['type']) {
+
                 case 'string':
-                    $this->_selectStatement->where($field
-                        . $this->_adapter->quoteInto(' LIKE ?', '%' . $value. '%'));
+                    $this->_selectStatement->where($filter['field']
+                        . $this->_adapter->quoteInto(' LIKE ?', '%' . $filter['value']. '%'));
                     break;
 
                 case 'stringstrict':
-                    $this->_selectStatement->where($field . ' = ?', $value);
+                    $this->_selectStatement->where($filter['field'] . ' = ?', $filter['value']);
                     break;
 
                 case 'search':
-                    $fields = explode(',', $field);
+                    $fields = explode(',', $filter['field']);
                     if (empty($fields)) {
                         continue;
                     }
@@ -346,7 +338,7 @@ class Xend_Db_Plugin_Select
                         }
 
                         $field = $this->getAlias($field);
-						if (preg_match('!^(\d{2})[.\/-](\d{2})[.\/-](\d{2,4})$!', $value, $matches)) {
+						if (preg_match('!^(\d{2})[.\/-](\d{2})[.\/-](\d{2,4})$!', $filter['value'], $matches)) {
                             $value = $matches[3] . '-' . $matches[2] . '-' . $matches[1];
 						}
 
@@ -359,69 +351,67 @@ class Xend_Db_Plugin_Select
                     break;
 
                 case 'list' :
-                    if (false !== strpos($value, ',')) {
-                        $value = explode(',', $value);
+                    if (false !== strpos($filter['value'], ',')) {
+                        $value = explode(',', $filter['value']);
                     } else {
-                        $value = (array) $value;
+                        $value = (array) $filter['value'];
                     }
 
-                    $this->_selectStatement->where($field
+                    $this->_selectStatement->where($filter['field']
                         . ' IN (' . $this->_adapter->quote($value) . ')');
                     break;
 
                 case 'boolean':
-                    $this->_selectStatement->where($filter . ' = ?', $value);
+                    $this->_selectStatement->where($filter['field'] . ' = ?', $filter['value']);
                     break;
 
                 case 'numeric' :
-                    if (empty($data['comparison'])) {
+                    if (empty($filter['comparison'])) {
                         continue;
                     }
 
-                    switch ($data['comparison']) {
+                    switch ($filter['comparison']) {
                         case 'eq':
-                            $this->_selectStatement->where($field . ' = ?', $value);
+                            $this->_selectStatement->where($filter['field'] . ' = ?', $filter['value']);
                             break;
 
                         case 'lt':
-                            $this->_selectStatement->where($field . ' < ?', $value);
+                            $this->_selectStatement->where($filter['field'] . ' < ?', $filter['value']);
                             break;
 
                         case 'gt':
-                            $this->_selectStatement->where($field . ' > ?', $value);
+                            $this->_selectStatement->where($filter['field'] . ' > ?', $filter['value']);
                             break;
 
                         case 'neq':
-                            $this->_selectStatement->where($field . ' != ?', $value);
+                            $this->_selectStatement->where($filter['field'] . ' != ?', $filter['value']);
                             break;
                     }
                     break;
 
                 case 'date':
-                    if (empty($data['comparison'])) {
+                    if (empty($filter['comparison'])) {
                         continue;
                     }
 
-                    switch ($data['comparison']) {
+                    switch ($filter['comparison']) {
                         case 'eq':
-                            $this->_selectStatement->where($field . ' = ?', date('Y-m-d', strtotime($value)));
+                            $this->_selectStatement->where($filter['field'] . ' = ?', date('Y-m-d', strtotime($filter['value'])));
                             break;
 
                         case 'lt':
-                            $this->_selectStatement->where($field . ' < ?', date('Y-m-d', strtotime($value)));
+                            $this->_selectStatement->where($filter['field'] . ' < ?', date('Y-m-d', strtotime($filter['value'])));
                             break;
 
                         case 'gt':
-                            $this->_selectStatement->where($field . ' > ?', date('Y-m-d', strtotime($value)));
+                            $this->_selectStatement->where($filter['field'] . ' > ?', date('Y-m-d', strtotime($filter['value'])));
                             break;
                     }
                     break;
 
                 default:
                     break;
-
             }
-        */
         }
         return $this->_selectStatement;
     }

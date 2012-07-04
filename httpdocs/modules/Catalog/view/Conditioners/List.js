@@ -2,7 +2,10 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
 
     extend: 'Ext.grid.Panel',
     
-    requires: ['xlib.RowExpander'],
+    requires: [
+        'xlib.RowExpander',
+        'xlib.grid.FiltersFeature'
+    ],
    
     alias: ['widget.ConditionersList'],
     
@@ -28,6 +31,8 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         tooltip: 'Обновить список',
         action: 'refresh'
     }],
+    
+    features: [{ftype: 'filters', encode: true}],
     
     constructor: function() {
         
@@ -118,6 +123,9 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'group_id',
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterGroup', value);
+            },
+            filter: {
+                type: 'numeric'
             }
         }, {
             header: 'Марка',
@@ -128,21 +136,33 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 if (idx == -1) return value;
                 var rec = store.getAt(idx);
                 return rec.get('name');
+            },
+            filter: {
+                type: 'numeric'
             }
         }, {
             header: 'Маркировка',
-            dataIndex: 'marking'
+            dataIndex: 'marking',
+            filter: {
+                type: 'string'
+            }
         }, {
             header: 'Тип продукции',
             dataIndex: 'product_type_id',
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterProductType', value);
+            },
+            filter: {
+                type: 'numeric'
             }
         }, {
             header: 'Тип исполнения',
             dataIndex: 'implementation_type_id',
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterImplementationType', value);
+            },
+            filter: {
+                type: 'numeric'
             }
         }, {
             header: 'Страна',
@@ -150,6 +170,9 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'country',
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterCountry', value);
+            },
+            filter: {
+                type: 'string'
             }
         }, {
             header: 'Назначение продукции',
@@ -157,35 +180,59 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'purpose',
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterPurpose', value);
+            },
+            filter: {
+                type: 'string'
             }
         }, {
             header: 'Охлаждение',
             hidden: true,
-            dataIndex: 'input_cooling'
+            dataIndex: 'input_cooling',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Нагрев',
             hidden: true,
-            dataIndex: 'input_heating'
+            dataIndex: 'input_heating',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Площадь м²',
             hidden: true,
-            dataIndex: 'square'
+            dataIndex: 'square',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Объём м³',
             hidden: true,
-            dataIndex: 'volume'
+            dataIndex: 'volume',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Охлаждение',
             hidden: true,
-            dataIndex: 'output_cooling'
+            dataIndex: 'output_cooling',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Нагрев',
             hidden: true,
-            dataIndex: 'output_heating'
+            dataIndex: 'output_heating',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Гарантия',
             hidden: true,
-            dataIndex: 'warranty'
+            dataIndex: 'warranty',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Склад',
             hidden: true,
@@ -204,7 +251,10 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'measure'
         }, {
             header: 'Цена',
-            dataIndex: 'price'
+            dataIndex: 'price',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             xtype:'actioncolumn',
             width: 40,
@@ -221,7 +271,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         this.callParent(arguments);
         
         Ext.defer(function() {
-            this.getStore().load() 
+            this.getStore().load();
         }, 1000, this);
     },
     

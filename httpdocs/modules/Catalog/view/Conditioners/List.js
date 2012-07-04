@@ -32,7 +32,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         action: 'refresh'
     }],
     
-    features: [{ftype: 'filters', encode: true}],
+    features: [{ftype: 'filters', encode: true, showMenu: false}],
     
     constructor: function() {
         

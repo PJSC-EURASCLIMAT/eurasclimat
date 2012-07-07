@@ -44,9 +44,11 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Mark', {
         
         this.getStore().on('load', function(store, records, success, eOpts) {
             store.insert(0, {id: '', name: '- Не выбрано -'});
-            this.suspendEvents();
-            this.setValue('');
-            this.resumeEvents();
+            if (Ext.isEmpty(this.getValue())) {
+                this.suspendEvents();
+                this.setValue('');
+                this.resumeEvents();
+            }
         }, this);        
     },
     

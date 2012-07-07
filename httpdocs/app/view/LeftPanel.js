@@ -37,11 +37,39 @@ Ext.define('App.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
+            xtype: 'label',
+            text: 'Каталоги:',
+            style: 'font-size: large;'
+        }, {
             text: 'Кондиционирование',
             title: 'Каталог "Кондиционирование"',
-            lunchModule: 'EC.Catalog.controller.Conditioners'
-//        }, {
-//            text: 'Виджет'
+            lunchModule: 'EC.Catalog.controller.Conditioners',
+            hidden: !acl.isView('catalog', 'conditioners')
+        }, {
+            text: 'Водоснабжение',
+            title: 'Каталог "Водоснабжение"',
+            lunchModule: 'EC.Catalog.controller.Watersupply',
+            hidden: !acl.isView('catalog', 'watersupply')
+        }, {
+            text: 'Вентиляция',
+            title: 'Каталог "Вентиляция"',
+            hidden: !acl.isView('catalog', 'airing')
+        }, {
+            text: 'Автоматика',
+            title: 'Каталог "Автоматика"',
+            hidden: !acl.isView('catalog', 'automation')
+        }, {
+            text: 'Электрика',
+            title: 'Каталог "Электрика"',
+            hidden: !acl.isView('catalog', 'electricity')
+        }, {
+            text: 'Отопление',
+            title: 'Каталог "Отопление"',
+            hidden: !acl.isView('catalog', 'heating')
+        }, {
+            text: 'Пылеудаление',
+            title: 'Каталог "Пылеудаление"',
+            hidden: !acl.isView('catalog', 'dustextraction')
         }]
     }]
 });

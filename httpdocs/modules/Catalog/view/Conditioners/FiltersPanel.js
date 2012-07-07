@@ -19,10 +19,8 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     defaults: {
         margin: 5,
         border: false,
-        defaults: {
-            width: 160,
-            labelAlign: 'top'
-        }
+        width: 160,
+        labelAlign: 'top'
     },
     
     initComponent: function() {
@@ -39,43 +37,27 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
         }];
         
         this.items = [{
-            items: [{ 
-                xtype: 'ConditionersFilterGroup'
-            }, {
-                xtype: 'ConditionersFilterMark'
-            }, {
-                xtype: 'ConditionersFilterPurpose'
-            }]
+            xtype: 'ConditionersFilterMark'
         }, {
-            items: [{ 
-                xtype: 'ConditionersFilterProductType'
-            }, {
-                xtype: 'ConditionersFilterImplementationType'
-            }, {
-                xtype: 'ConditionersFilterCountry'
-            }]
+            xtype: 'ConditionersFilterGroup'
         }, {
-            items: [{
-                xtype: 'ConditionersFilterInputCooling'
-            }, {
-                xtype: 'ConditionersFilterInputHeating'
-            }]
+            xtype: 'ConditionersFilterProductType'
         }, {
-            items: [{
-                xtype: 'ConditionersFilterOutputCooling'
-            }, {
-                xtype: 'ConditionersFilterOutputHeating'
-            }]
+            xtype: 'ConditionersFilterImplementationType'
         }, {
-            items: [{
-                xtype: 'ConditionersFilterSquare'
-            }, {
-                xtype: 'ConditionersFilterVolume'
-            }, {
-                xtype: 'ConditionersFilterWarranty'
-            }]
+            xtype: 'ConditionersFilterConnectionType'
+        }, {
+            xtype: 'ConditionersFilterProtectionType'
+        }, {
+            xtype: 'ConditionersFilterPowerSource'
+        }, {
+            xtype: 'ConditionersFilterMaterial'
+        }, {
+            xtype: 'ConditionersFilterControlType'
+        }, {
+            xtype: 'ConditionersFilterCountry'
         }];
-
+        
         this.callParent(arguments);
     }
 });

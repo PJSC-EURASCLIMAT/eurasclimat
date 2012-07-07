@@ -1,38 +1,30 @@
-Ext.define('EC.Catalog.controller.Conditioners', {
+Ext.define('EC.Catalog.controller.Watersupply', {
     
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Conditioners'
+        'EC.Catalog.store.Watersupply'
     ],
     
     models: [
-        'EC.Catalog.model.Conditioners'
+        'EC.Catalog.model.Watersupply'
     ],
 
     views: [
-        'EC.Catalog.view.Conditioners.Layout',
-        'EC.Catalog.view.Conditioners.FiltersPanel',
-        'EC.Catalog.view.Conditioners.List',
-        'EC.Catalog.view.Conditioners.Edit'
+        'EC.Catalog.view.Watersupply.Layout',
+        'EC.Catalog.view.Watersupply.FiltersPanel',
+        'EC.Catalog.view.Watersupply.List',
+        'EC.Catalog.view.Watersupply.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Conditioners.Filter.Mark',
-        'EC.Catalog.view.Conditioners.Filter.Group',
-        'EC.Catalog.view.Conditioners.Filter.ProductType',
-        'EC.Catalog.view.Conditioners.Filter.ImplementationType',
-        'EC.Catalog.view.Conditioners.Filter.ControlType',
-        'EC.Catalog.view.Conditioners.Filter.ConnectionType',
-        'EC.Catalog.view.Conditioners.Filter.ProtectionType',
-        'EC.Catalog.view.Conditioners.Filter.PowerSource',
-        'EC.Catalog.view.Conditioners.Filter.Material',
-        'EC.Catalog.view.Conditioners.Filter.Country'
+        'EC.Catalog.view.Watersupply.Filter.Group',
+        'EC.Catalog.view.Watersupply.Filter.Mark'
     ],
     
     init: function(container) {
         
-        if (!acl.isView('catalog', 'conditioners')) {
+        if (!acl.isView('catalog', 'watersupply')) {
             return;
         }
         
@@ -61,7 +53,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
             
             container.setLoading('Загрузка...', true);
             var catalog = container.add({
-                xtype: 'ConditionersLayout',
+                xtype: 'WatersupplyLayout',
                 listeners: {
                     afterLayout: function() {
                         container.setLoading(false);
@@ -69,57 +61,57 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                 }
             });
             
-            Ext.each(catalog.down('ConditionersFiltersPanel').query('combo'), function(item) {
+            Ext.each(catalog.down('WatersupplyFiltersPanel').query('combo'), function(item) {
                 item.on('change', this.onFilter, catalog);
             }, this);
             
-            catalog.down('ConditionersFiltersPanel tool[action=resetfilters]').on({
+            catalog.down('WatersupplyFiltersPanel tool[action=resetfilters]').on({
                 click: this.resetFilters,
                 scope: catalog
             });
             
-            if (acl.isUpdate('catalog', 'conditioners')) {
+            if (acl.isUpdate('catalog', 'watersupply')) {
             
-                catalog.down('ConditionersFiltersPanel tool[action=settings]').on({
+                catalog.down('WatersupplyFiltersPanel tool[action=settings]').on({
                     click: this.editSettings,
                     scope: this
                 });
                 
-                catalog.down('ConditionersList').on({
+                catalog.down('WatersupplyList').on({
                     edititem: this.editItem,
                     deleteitem: this.deleteItem,
                     scope: this
                 });
-                catalog.down('ConditionersList tool[action=additem]').on({
+                catalog.down('WatersupplyList tool[action=additem]').on({
                     click: this.addItem,
                     scope: this
                 });
             }
             
-            catalog.down('ConditionersList tool[action=refresh]').on({
+            catalog.down('WatersupplyList tool[action=refresh]').on({
                 click: function(button) {
-                    button.up('ConditionersList').getStore().load();
+                    button.up('WatersupplyList').getStore().load();
                 }
             });
-            catalog.down('ConditionersList tool[action=expandrows]').on({
+            catalog.down('WatersupplyList tool[action=expandrows]').on({
                 click: this.expandRows,
                 scope: this
             });
             
             this.on({
                 'itemSaved': function() {
-                    catalog.down('ConditionersList').getStore().load();
+                    catalog.down('WatersupplyList').getStore().load();
                 }
             });
             
             // To enable filters panel let initialize grid to create filters
-            catalog.down('ConditionersList').filters.createFilters();
+            catalog.down('WatersupplyList').filters.createFilters();
         }
     },
     
     onFilter: function(combo, newValue, oldValue, eOpts) {
 
-        var filter = this.down('ConditionersList').filters.getFilter(combo.fieldName)
+        var filter = this.down('WatersupplyList').filters.getFilter(combo.fieldName)
             value = combo.getFilter();
             
         if (value === '') {
@@ -131,24 +123,24 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     },
     
     resetFilters: function() {
-        this.down('ConditionersFiltersPanel').cascade(function(cmp) {
+        this.down('WatersupplyFiltersPanel').cascade(function(cmp) {
             if (cmp.isFormField) {
                 cmp.suspendEvents();
                 cmp.reset();
                 cmp.resumeEvents();
             }
         });
-        this.down('ConditionersList').filters.clearFilters();
+        this.down('WatersupplyList').filters.clearFilters();
     },
     
     editSettings: function() {
         var controller = 'EC.Catalog.controller.Settings',
-            view = 'EC.Catalog.view.Conditioners.SettingsLayout';
+            view = 'EC.Catalog.view.Watersupply.SettingsLayout';
         this.getController(controller).init(view);
     }, 
     
     addItem: function() {
-        var view = Ext.widget('ConditionersEdit');
+        var view = Ext.widget('WatersupplyEdit');
         view.down('button[action=save]').on({
             click: function() {
                 this.createItem(view);
@@ -158,7 +150,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     },
     
     editItem: function(grid, record) {
-        var view = Ext.widget('ConditionersEdit', {
+        var view = Ext.widget('WatersupplyEdit', {
             recordId: record.get('id'),
             title: 'Редактирование позиции №' + record.get('id')
         });
@@ -174,7 +166,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     createItem: function(view) {
         var form = view.down('form');
         form.submit({
-            url: '/json/catalog/conditioners/add',
+            url: '/json/catalog/watersupply/add',
             success: function(form, action) {
                Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
                view.close();
@@ -199,7 +191,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     updateItem: function(view) {
         var form = view.down('form');
         form.submit({
-            url: '/json/catalog/conditioners/update',
+            url: '/json/catalog/watersupply/update',
             params: {
                 id: view.recordId
             },
@@ -232,7 +224,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
                     params: {
                         id: record.get('id')
                     },
-                    url: '/json/catalog/conditioners/delete',
+                    url: '/json/catalog/watersupply/delete',
                     success: function(response, opts) {
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');
@@ -247,7 +239,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     },
     
     expandRows: function(button) {
-        var grid = button.up('ConditionersList'),
+        var grid = button.up('WatersupplyList'),
             view = grid.getView(),
             plugin = grid.getPlugin('rowexpander');
             

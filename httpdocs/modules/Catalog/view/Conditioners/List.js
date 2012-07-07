@@ -158,11 +158,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'mark_id',
             width: 100,
             renderer: function(value) {
-                var store = Ext.getStore('ConditionersFilterMark');
-                var idx = store.find('id', value);
-                if (idx == -1) return value;
-                var rec = store.getAt(idx);
-                return rec.get('name');
+                return this.comboRenderer('ConditionersFilterMark', value);
             },
             filter: {
                 type: 'numeric'

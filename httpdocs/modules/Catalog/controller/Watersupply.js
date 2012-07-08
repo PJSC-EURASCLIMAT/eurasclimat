@@ -18,8 +18,16 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     ],
     
     uses: [
+        'EC.Catalog.view.Watersupply.Filter.Mark',
         'EC.Catalog.view.Watersupply.Filter.Group',
-        'EC.Catalog.view.Watersupply.Filter.Mark'
+        'EC.Catalog.view.Watersupply.Filter.ProductType',
+        'EC.Catalog.view.Watersupply.Filter.ImplementationType',
+        'EC.Catalog.view.Watersupply.Filter.ControlType',
+        'EC.Catalog.view.Watersupply.Filter.ConnectionType',
+        'EC.Catalog.view.Watersupply.Filter.ProtectionType',
+        'EC.Catalog.view.Watersupply.Filter.PowerSource',
+        'EC.Catalog.view.Watersupply.Filter.Material',
+        'EC.Catalog.view.Watersupply.Filter.Country'
     ],
     
     init: function(container) {

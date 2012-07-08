@@ -53,22 +53,27 @@ Ext.define('App.view.LeftPanel', {
         }, {
             text: 'Вентиляция',
             title: 'Каталог "Вентиляция"',
+            lunchModule: 'EC.Catalog.controller.Airing',
             hidden: !acl.isView('catalog', 'airing')
         }, {
             text: 'Автоматика',
             title: 'Каталог "Автоматика"',
+            lunchModule: 'EC.Catalog.controller.Automation',
             hidden: !acl.isView('catalog', 'automation')
         }, {
             text: 'Электрика',
             title: 'Каталог "Электрика"',
+            lunchModule: 'EC.Catalog.controller.Electricity',
             hidden: !acl.isView('catalog', 'electricity')
         }, {
             text: 'Отопление',
             title: 'Каталог "Отопление"',
+            lunchModule: 'EC.Catalog.controller.Heating',
             hidden: !acl.isView('catalog', 'heating')
         }, {
             text: 'Пылеудаление',
             title: 'Каталог "Пылеудаление"',
+            lunchModule: 'EC.Catalog.controller.Dustextraction',
             hidden: !acl.isView('catalog', 'dustextraction')
         }]
     }]

@@ -4,62 +4,30 @@ class Catalog_Watersupply_Model
 {
     protected $_table;
 
+    protected $_marksResource;
+
     public function __construct()
     {
         $this->_table = new Catalog_Watersupply_Table();
+        $this->_marksResource =
+            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->watersupply->marks;
     }
 
     public function getList($params)
     {
         $response = new Xend_Response();
 
-        /*
-
-        $select = $this->_table->getAdapter()->select()
-            ->from(array('i' => $this->_table->getTableName()))
-            ->joinLeft(array('titles' => 'catalog_titles'),
-                'i.title_id=titles.id',
-                array('title_name' => 'titles.name')
-            )
-            ->joinLeft(array('m' => 'catalog_marks'),
-                'i.mark_id=m.id',
-                array('mark_name' => 'm.name')
-            )
-            ->joinLeft(array('pt' => 'catalog_product_types'),
-                'i.product_type_id=pt.id',
-                array('product_type_name' => 'pt.name')
-            )
-            ->joinLeft(array('ct' => 'catalog_construction_types'),
-                'i.construction_type_id=ct.id',
-                array('construction_type_name' => 'ct.name')
-            )
-            ->joinLeft(array('t' => 'catalog_territorialities'),
-                'i.territoriality_id=t.id',
-                array('territoriality_name' => 't.name')
-            )
-            ->joinLeft(array('c' => 'catalog_conditions'),
-                'i.condition_id=c.id',
-                array('condition_name' => 'c.name')
-            )
-            ->joinLeft(array('p' => 'catalog_purposes'),
-                'i.purpose_id=p.id',
-                array('purpose_name' => 'p.name')
-            )
-            ->joinLeft(array('a' => 'catalog_availabilities'),
-                'i.availability_id=a.id',
-                array('availability_name' => 'a.name')
-            )
-            ->joinLeft(array('st' => 'catalog_system_types'),
-                'i.system_type_id=st.id',
-                array('system_type_name' => 'st.name')
-            )
-        ;
-        */
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()));
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
+
+        if ($this->_isMarksEnabled()) {
+            $marks = $this->_getAllowedMarks();
+            $select->where('mark_id IN (?)', $marks);
+        }
+
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
@@ -99,6 +67,38 @@ class Catalog_Watersupply_Model
             'group_id'              => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'product_type_id'       => array('Id', 'allowEmpty' => true),
+            'implementation_type_id' => array('Id', 'allowEmpty' => true),
+            'control_type_id'       => array('Id', 'allowEmpty' => true),
+            'connection_type_id'    => array('Id', 'allowEmpty' => true),
+            'protection_type_id'    => array('Id', 'allowEmpty' => true),
+            'material_id'           => array('Id', 'allowEmpty' => true),
+            'power_source_id'       => array('Id', 'allowEmpty' => true),
+            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
+            'temp'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'power_supply'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'heating_power_consumption' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'amperage'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'sensor_inputs'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pressure'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'noise_level_min'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'filters_performance'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'performance'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pollution_size'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'eer'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'weight'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'dimensions'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'cable_length'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pipe_diameter'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'delivery_height'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'immersion_depth'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();
@@ -126,6 +126,38 @@ class Catalog_Watersupply_Model
             'group_id'              => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'product_type_id'       => array('Id', 'allowEmpty' => true),
+            'implementation_type_id' => array('Id', 'allowEmpty' => true),
+            'control_type_id'       => array('Id', 'allowEmpty' => true),
+            'connection_type_id'    => array('Id', 'allowEmpty' => true),
+            'protection_type_id'    => array('Id', 'allowEmpty' => true),
+            'material_id'           => array('Id', 'allowEmpty' => true),
+            'power_source_id'       => array('Id', 'allowEmpty' => true),
+            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
+            'temp'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'power_supply'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'heating_power_consumption' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'amperage'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'sensor_inputs'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pressure'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'noise_level_min'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'filters_performance'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'performance'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pollution_size'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'eer'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'weight'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'dimensions'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'cable_length'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'pipe_diameter'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'delivery_height'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'immersion_depth'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();
@@ -156,4 +188,37 @@ class Catalog_Watersupply_Model
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
+
+
+    /*
+     *  Private functions
+     */
+
+    private function _isMarksEnabled()
+    {
+        $acl = Xend_Accounts_Prototype::getAcl();
+        return $acl->isAllowed($this->_marksResource, Xend_Acl_Privilege::VIEW);
+    }
+
+    /**
+     * Marks wich allowed for current user
+     *
+     * @return array()
+     */
+    private function _getAllowedMarks()
+    {
+        $resourcesModel = new Xend_Acl_Resource();
+        $acl = Xend_Accounts_Prototype::getAcl();
+
+        $resources = $resourcesModel->fetchByParentId($this->_marksResource);
+
+        $marks = array();
+        foreach($resources->rows as $res) {
+            if ($acl->isAllowed($res['id'], Xend_Acl_Privilege::VIEW)) {
+                $marks[] = intval($res['name']);
+            }
+        }
+
+        return $marks;
+   }
 }

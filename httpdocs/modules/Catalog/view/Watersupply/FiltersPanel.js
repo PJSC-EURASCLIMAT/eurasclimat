@@ -19,10 +19,8 @@ Ext.define('EC.Catalog.view.Watersupply.FiltersPanel', {
     defaults: {
         margin: 5,
         border: false,
-        defaults: {
-            width: 160,
-            labelAlign: 'top'
-        }
+        width: 160,
+        labelAlign: 'top'
     },
     
     initComponent: function() {
@@ -39,13 +37,27 @@ Ext.define('EC.Catalog.view.Watersupply.FiltersPanel', {
         }];
         
         this.items = [{
-            items: [{ 
-                xtype: 'WatersupplyFilterGroup'
-            }, {
-                xtype: 'WatersupplyFilterMark'
-            }]
+            xtype: 'WatersupplyFilterMark'
+        }, {
+            xtype: 'WatersupplyFilterGroup'
+        }, {
+            xtype: 'WatersupplyFilterProductType'
+        }, {
+            xtype: 'WatersupplyFilterImplementationType'
+        }, {
+            xtype: 'WatersupplyFilterConnectionType'
+        }, {
+            xtype: 'WatersupplyFilterProtectionType'
+        }, {
+            xtype: 'WatersupplyFilterPowerSource'
+        }, {
+            xtype: 'WatersupplyFilterMaterial'
+        }, {
+            xtype: 'WatersupplyFilterControlType'
+        }, {
+            xtype: 'WatersupplyFilterCountry'
         }];
-
+        
         this.callParent(arguments);
     }
 });

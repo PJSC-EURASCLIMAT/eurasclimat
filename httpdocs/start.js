@@ -15,7 +15,6 @@ Ext.application({
 });
 
 /* Overrides */
-
 Ext.onReady(function() {
     
     /* Translation */
@@ -35,7 +34,6 @@ Ext.onReady(function() {
     /* 
      * Fucking bug fixing for Ext 4.1 
      * TODO: check this in future releases
-     *   
      */
     
     Ext.override(Ext.panel.Panel, {
@@ -44,5 +42,4 @@ Ext.onReady(function() {
                 this.callOverridden([selector, beforeBody]) : [];
         }
     });
-
 });

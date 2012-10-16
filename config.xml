@@ -23,7 +23,7 @@
         <address>robot@eurasclimat.ru</address>
         <caption>FEEDBACK SUPPORT</caption>
       </from>
-      <SMTP>e-head.ru</SMTP>
+      <SMTP>eurasclimat.ru</SMTP>
       <authentificate>
         <auth>login</auth>
         <username>1</username>

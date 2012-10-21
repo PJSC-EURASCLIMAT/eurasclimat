@@ -17,6 +17,8 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
     width: 1000,
     
     height: 600,
+    
+    allowEdit: false,
 
     initComponent: function() {
         
@@ -200,12 +202,14 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'conditioners',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',
                 formBind: true,
-                disabled: true,
+                //disabled: true,
                 action: 'save'
             }, {
                 text: 'Отменить',

@@ -36,7 +36,7 @@ Ext.define('App.controller.Main', {
                 },
                 scope: this
             },
-            'LeftPanel button': {
+            'CenterPanel tabpanel[id=Catalogs-tab] toolbar button': {
                 click: this.openModulePortlet,
                 scope: this
             },
@@ -55,7 +55,7 @@ Ext.define('App.controller.Main', {
             cls: 'x-portlet',
             lunchModule: button.lunchModule
         });
-        var parentContainer = this.getCenterPanel().down('tabpanel'); 
+        var parentContainer = this.getCenterPanel().down('tabpanel[id=Catalogs-tab]'); 
         var tab = parentContainer.getComponent('portal-tab-1');
             
         parentContainer.show();
@@ -70,22 +70,10 @@ Ext.define('App.controller.Main', {
     
     openModuleTab: function(module) {
 
-        var parentContainer = this.getCenterPanel().down('tabpanel'), 
-            tab = parentContainer.add({
-                closable: false,
-                border: false,
-                margin: 10,
-                layout: 'fit',
-                title: module.title
-            }).show();
+        var parentContainer = this.getCenterPanel().down('tabpanel[id=Catalogs-tab]');
         
-        var win = Ext.create('Ext.window.Window', {
-            renderTo: tab.getEl(),
-            maximized: true,
-            autoShow: true,
-            shadow: false,
-            resizable: false,
-            draggable: false,
+        var panel = Ext.create('Ext.Panel', {
+            frame: true,
             layout: 'fit',
             title: module.title,
             lunchModule: module.lunchModule,
@@ -94,8 +82,8 @@ Ext.define('App.controller.Main', {
                 tooltip: 'Свернуть в окошко',
                 action: 'minimize',
                 handler: function() {
-                    this.openModulePortlet(win);
-                    win.close();
+                    this.openModulePortlet(panel);
+                    tab.close();
                 },
                 scope: this
             }, {
@@ -103,21 +91,34 @@ Ext.define('App.controller.Main', {
                 tooltip: 'Раскрыть на весь экран',
                 action: 'maximize',
                 handler: function() {
-                    this.openModuleFullscreen(win);
+                    this.openModuleFullscreen(panel);
+                    tab.close();
                 },
                 scope: this
-            }],
-            listeners: {
-                close: function() {
-                    tab.close(); 
-                }
-            }
+            }, {
+                type: 'close',
+                tooltip: 'Закрыть',
+                action: 'close',
+                handler: function() {
+                    tab.close();
+                },
+                scope: this
+            }]
         });
             
+        var tab = parentContainer.add({
+                closable: false,
+                border: false,
+                margin: 10,
+                layout: 'fit',
+                title: module.title,
+                items: [panel]
+            }).show();
+            
         if (module.lunchModule) {
-            this.getController(module.lunchModule).init(win);
+            this.getController(module.lunchModule).init(panel);
         } else {
-            win.add(module.cloneConfig().child() || {});
+            panel.add(module.cloneConfig().child() || {});
         }
         
         module.close();

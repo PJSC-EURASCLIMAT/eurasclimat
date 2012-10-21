@@ -1,6 +1,6 @@
 Ext.define('EC.Catalog.controller.Automation', {
     
-    extend: 'Ext.app.Controller',
+    extend: 'EC.Catalog.controller.Abstract',
     
     stores: [
         'EC.Catalog.store.Automation'
@@ -31,233 +31,24 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Filter.Country'
     ],
     
-    init: function(container) {
-        
-        if (!acl.isView('catalog', 'automation')) {
-            return;
-        }
-        
-        if ('portlet' == container.getXType()) {
-            
-            /*
-            var filtersPanel = container.add({
-                xtype: 'ConditionersFiltersPanel',
-                preventHeader: true,
-                border: false
-            });
-            */
-            
-            container.setHeight(80);
-            
-            container.add({
-                xtype: 'panel',
-                layout: 'fit',
-                padding: 10,
-                html: 'Разверите для просмотра',
-                preventHeader: true,
-                border: false
-            });
-            
-        } else {
-            
-            container.setLoading('Загрузка...', true);
-            var catalog = container.add({
-                xtype: 'AutomationLayout',
-                listeners: {
-                    afterLayout: function() {
-                        container.setLoading(false);
-                    }
-                }
-            });
-            
-            Ext.each(catalog.down('AutomationFiltersPanel').query('combo'), function(item) {
-                item.on('change', this.onFilter, catalog);
-            }, this);
-            
-            catalog.down('AutomationFiltersPanel tool[action=resetfilters]').on({
-                click: this.resetFilters,
-                scope: catalog
-            });
-            
-            if (acl.isUpdate('catalog', 'automation')) {
-            
-                catalog.down('AutomationFiltersPanel tool[action=settings]').on({
-                    click: this.editSettings,
-                    scope: this
-                });
-                
-                catalog.down('AutomationList').on({
-                    edititem: this.editItem,
-                    deleteitem: this.deleteItem,
-                    scope: this
-                });
-                catalog.down('AutomationList tool[action=additem]').on({
-                    click: this.addItem,
-                    scope: this
-                });
-            }
-            
-            catalog.down('AutomationList tool[action=refresh]').on({
-                click: function(button) {
-                    button.up('AutomationList').getStore().load();
-                }
-            });
-            catalog.down('AutomationList tool[action=expandrows]').on({
-                click: this.expandRows,
-                scope: this
-            });
-            
-            this.on({
-                'itemSaved': function() {
-                    catalog.down('AutomationList').getStore().load();
-                }
-            });
-            
-            // To enable filters panel let initialize grid to create filters
-            catalog.down('AutomationList').filters.createFilters();
-        }
-    },
+    viewPermition: acl.isView('catalog', 'automation'),
     
-    onFilter: function(combo, newValue, oldValue, eOpts) {
-
-        var filter = this.down('AutomationList').filters.getFilter(combo.fieldName)
-            value = combo.getFilter();
-            
-        if (value === '') {
-            filter.setActive(false);
-        } else {
-            filter.setValue(value);
-            filter.setActive(true);
-        }
-    },
+    editPermition: acl.isUpdate('catalog', 'automation'),
     
-    resetFilters: function() {
-        this.down('AutomationFiltersPanel').cascade(function(cmp) {
-            if (cmp.isFormField) {
-                cmp.suspendEvents();
-                cmp.reset();
-                cmp.resumeEvents();
-            }
-        });
-        this.down('AutomationList').filters.clearFilters();
-    },
+    settingsView: 'EC.Catalog.view.Automation.SettingsLayout',
     
-    editSettings: function() {
-        var controller = 'EC.Catalog.controller.Settings',
-            view = 'EC.Catalog.view.Automation.SettingsLayout';
-        this.getController(controller).init(view);
-    }, 
+    catalogLayoutXType: 'AutomationLayout', 
     
-    addItem: function() {
-        var view = Ext.widget('AutomationEdit');
-        view.down('button[action=save]').on({
-            click: function() {
-                this.createItem(view);
-            },
-            scope: this
-        });
-    },
+    filtersPanelXType: 'AutomationFiltersPanel', 
     
-    editItem: function(grid, record) {
-        var view = Ext.widget('AutomationEdit', {
-            recordId: record.get('id'),
-            title: 'Редактирование позиции №' + record.get('id')
-        });
-        view.down('form').loadRecord(record);
-        view.down('button[action=save]').on({
-            click: function() {
-                this.updateItem(view);
-            },
-            scope: this
-        });
-    },
+    listXType: 'AutomationList',
     
-    createItem: function(view) {
-        var form = view.down('form');
-        form.submit({
-            url: '/json/catalog/automation/add',
-            success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
-               view.close();
-               this.fireEvent('itemSaved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
-            },
-            scope: this
-        });
-    },
+    editXType: 'AutomationEdit',
     
-    updateItem: function(view) {
-        var form = view.down('form');
-        form.submit({
-            url: '/json/catalog/automation/update',
-            params: {
-                id: view.recordId
-            },
-            success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранение прошло успешно');
-               view.close();
-               this.fireEvent('itemSaved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
-            },
-            scope: this
-        });
-    },
+    addURL: '/json/catalog/automation/add',
     
-    deleteItem: function(grid, record) {
-        
-        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
-            if ('yes' === b) {
-                Ext.Ajax.request({
-                    params: {
-                        id: record.get('id')
-                    },
-                    url: '/json/catalog/automation/delete',
-                    success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.fireEvent('itemSaved');
-                    },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
-                    scope: this
-                });
-            }
-        }, this);
-    },
+    updateURL: '/json/catalog/automation/update',
     
-    expandRows: function(button) {
-        var grid = button.up('AutomationList'),
-            view = grid.getView(),
-            plugin = grid.getPlugin('rowexpander');
-            
-        if (!plugin) {
-            return;
-        }
-        
-        for (var i = 0; i < view.getNodes().length; i++) {
-            plugin.toggleRow(i);
-        }
-    }
+    deleteURL: '/json/catalog/automation/delete'
+    
 });

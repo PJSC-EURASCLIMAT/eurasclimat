@@ -8,25 +8,40 @@ Ext.define('EC.Main.view.Layout', {
     
     id: 'Main-tab',
     
-    title: 'Компания',
+    title: 'О системе',
 
     closable: false,
     
     border: false,
     
     tbar: [{
-        text: 'Ссылка 1',
-        title: 'Ссылка 1'
+        text: 'Компания',
+        title: 'Компания'
         //lunchModule: 'EC.Main.controller.Article',
         //hidden: !acl.isView()
     }, {
-        text: 'Ссылка 2',
-        title: 'Ссылка 2'
+        text: 'Область оказания услуг',
+        title: 'Область оказания услуг'
         //lunchModule: 'EC.Main.controller.Article',
         //hidden: !acl.isView()
     }, {
-        text: 'Ссылка 3',
-        title: 'Ссылка 3'
+        text: 'Партнеры',
+        title: 'Партнеры'
+        //lunchModule: 'EC.Main.controller.Article',
+        //hidden: !acl.isView()
+    }, {
+        text: 'Заказчики',
+        title: 'Заказчики'
+        //lunchModule: 'EC.Main.controller.Article',
+        //hidden: !acl.isView()
+    }, {
+        text: 'Реализованные объекты',
+        title: 'Реализованные объекты'
+        //lunchModule: 'EC.Main.controller.Article',
+        //hidden: !acl.isView()
+    }, {
+        text: 'Контакты',
+        title: 'Контакты'
         //lunchModule: 'EC.Main.controller.Article',
         //hidden: !acl.isView()
     }]

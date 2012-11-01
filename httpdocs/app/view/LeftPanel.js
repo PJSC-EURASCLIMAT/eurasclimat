@@ -45,6 +45,21 @@ Ext.define('App.view.LeftPanel', {
             title: 'Пункт 1' //,
 //            lunchModule: 'EC.Catalog.controller.Conditioners',
 //            hidden: !acl.isView('catalog', 'conditioners')
+        }, {
+            text: 'Пункт 2',
+            title: 'Пункт 2' //,
+//            lunchModule: 'EC.Catalog.controller.Conditioners',
+//            hidden: !acl.isView('catalog', 'conditioners')
+        }, {
+            text: 'Пункт 3',
+            title: 'Пункт 3' //,
+//            lunchModule: 'EC.Catalog.controller.Conditioners',
+//            hidden: !acl.isView('catalog', 'conditioners')
+        }, {
+            text: 'Пункт 4',
+            title: 'Пункт 4' //,
+//            lunchModule: 'EC.Catalog.controller.Conditioners',
+//            hidden: !acl.isView('catalog', 'conditioners')
         }]
     }]
 });

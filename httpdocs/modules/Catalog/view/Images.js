@@ -65,7 +65,6 @@ Ext.define('EC.Catalog.view.Images', {
                     text: 'Добавить',
                     iconCls: 'add',
                     action: 'add',
-                    //handler: this.onUpload,
                     scope: this
                 }]
             });
@@ -125,43 +124,6 @@ Ext.define('EC.Catalog.view.Images', {
     loadData: function(data) {
         this.viewPanel.store.loadData(data);
         this.catalogId = data['id'];
-    },
-    
-    onUpload: function(button) {
-        var uploadWin = new Ext.Window({
-        	title: 'Передача файлов на сервер',
-            modal: true,
-            width: 400,
-            height: 200,
-            autoScroll: true,
-            layout: 'fit',
-            items:[new Ext.ux.UploadDialog.Dialog({
-                url: this.uploadURL,
-                base_params: {catalogId: this.catalogId},
-                closeAction: 'hide',
-                listeners: {
-                    hide: function() {
-                        uploadWin.hide();
-                        this.viewPanel.store.load({params: {catalogId: this.catalogId}});
-                    },
-                    scope: this
-                },
-                scope: this
-            })]
-        });
-        uploadWin.show(button.getEl());
-    },
-    
-    onUpdate: function(store, record) {
-        var loadingMask = new Ext.LoadMask(this.el, {msg: 'Загрузка...'});
-        loadingMask.show();
-        Ext.Ajax.request({
-            url: this.updateURL,
-            params: {id: record.get('id'), description: record.get('description')},
-            callback: function() {
-                loadingMask.hide();
-            }
-        });
     },
     
     onDelete: function(id) {

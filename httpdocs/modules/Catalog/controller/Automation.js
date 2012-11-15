@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Layout',
         'EC.Catalog.view.Automation.FiltersPanel',
         'EC.Catalog.view.Automation.List',
+        'EC.Catalog.view.Automation.Add',
         'EC.Catalog.view.Automation.Edit'
     ],
     
@@ -43,12 +44,16 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     listXType: 'AutomationList',
     
+    addXType: 'AutomationAdd',
+    
     editXType: 'AutomationEdit',
     
     addURL: '/json/catalog/automation/add',
     
     updateURL: '/json/catalog/automation/update',
     
-    deleteURL: '/json/catalog/automation/delete'
+    deleteURL: '/json/catalog/automation/delete',
+    
+    uploadURL: '/json/catalog/automation/upload'
     
 });

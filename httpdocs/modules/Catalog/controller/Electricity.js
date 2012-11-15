@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Electricity', {
         'EC.Catalog.view.Electricity.Layout',
         'EC.Catalog.view.Electricity.FiltersPanel',
         'EC.Catalog.view.Electricity.List',
+        'EC.Catalog.view.Electricity.Add',
         'EC.Catalog.view.Electricity.Edit'
     ],
     
@@ -43,12 +44,16 @@ Ext.define('EC.Catalog.controller.Electricity', {
     
     listXType: 'ElectricityList',
     
+    addXType: 'ElectricityAdd',
+    
     editXType: 'ElectricityEdit',
     
     addURL: '/json/catalog/electricity/add',
     
     updateURL: '/json/catalog/electricity/update',
     
-    deleteURL: '/json/catalog/electricity/delete'
+    deleteURL: '/json/catalog/electricity/delete',
+    
+    uploadURL: '/json/catalog/electricity/upload'
     
 });

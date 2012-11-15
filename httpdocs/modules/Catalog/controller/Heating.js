@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Heating', {
         'EC.Catalog.view.Heating.Layout',
         'EC.Catalog.view.Heating.FiltersPanel',
         'EC.Catalog.view.Heating.List',
+        'EC.Catalog.view.Heating.Add',
         'EC.Catalog.view.Heating.Edit'
     ],
     
@@ -42,12 +43,16 @@ Ext.define('EC.Catalog.controller.Heating', {
     
     listXType: 'HeatingList',
     
+    addXType: 'HeatingAdd',
+    
     editXType: 'HeatingEdit',
     
     addURL: '/json/catalog/heating/add',
     
     updateURL: '/json/catalog/heating/update',
     
-    deleteURL: '/json/catalog/heating/delete'
+    deleteURL: '/json/catalog/heating/delete',
+    
+    uploadURL: '/json/catalog/heating/upload'
     
 });

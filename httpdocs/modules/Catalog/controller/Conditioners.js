@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Layout',
         'EC.Catalog.view.Conditioners.FiltersPanel',
         'EC.Catalog.view.Conditioners.List',
+        'EC.Catalog.view.Conditioners.Add',
         'EC.Catalog.view.Conditioners.Edit'
     ],
     
@@ -42,12 +43,18 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     listXType: 'ConditionersList',
     
+    addXType: 'ConditionersAdd',
+    
     editXType: 'ConditionersEdit',
     
+    getURL: '/json/catalog/conditioners/get',
+
     addURL: '/json/catalog/conditioners/add',
     
     updateURL: '/json/catalog/conditioners/update',
     
-    deleteURL: '/json/catalog/conditioners/delete'
+    deleteURL: '/json/catalog/conditioners/delete',
+    
+    uploadURL: '/json/catalog/conditioners/upload'
 
 });

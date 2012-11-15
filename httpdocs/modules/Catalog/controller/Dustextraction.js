@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
         'EC.Catalog.view.Dustextraction.Layout',
         'EC.Catalog.view.Dustextraction.FiltersPanel',
         'EC.Catalog.view.Dustextraction.List',
+        'EC.Catalog.view.Dustextraction.Add',
         'EC.Catalog.view.Dustextraction.Edit'
     ],
     
@@ -37,12 +38,16 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     listXType: 'DustextractionList',
     
+    addXType: 'DustextractionAdd',
+    
     editXType: 'DustextractionEdit',
     
     addURL: '/json/catalog/dustextraction/add',
     
     updateURL: '/json/catalog/dustextraction/update',
     
-    deleteURL: '/json/catalog/dustextraction/delete'
+    deleteURL: '/json/catalog/dustextraction/delete',
+    
+    uploadURL: '/json/catalog/dustextraction/upload'
     
 });

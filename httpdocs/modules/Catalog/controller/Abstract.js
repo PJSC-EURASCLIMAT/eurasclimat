@@ -18,13 +18,19 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     listXType: null,
     
+    addXType: null,
+    
     editXType: null,
+    
+    getURL: null,
     
     addURL: null,
     
     updateURL: null,
     
     deleteURL: null,
+    
+    uploadUrl: null,
     
     init: function(container) {
         
@@ -75,13 +81,14 @@ Ext.define('EC.Catalog.controller.Abstract', {
                     scope: this
                 });
                 
+                catalog.down(this.listXType + ' tool[action=additem]').on({
+                    click: this.addItem,
+                    scope: this
+                });
+                
                 catalog.down(this.listXType).on({
                     edititem: this.editItem,
                     deleteitem: this.deleteItem,
-                    scope: this
-                });
-                catalog.down(this.listXType + ' tool[action=additem]').on({
-                    click: this.addItem,
                     scope: this
                 });
             }
@@ -139,16 +146,10 @@ Ext.define('EC.Catalog.controller.Abstract', {
     }, 
     
     addItem: function() {
-        var view = Ext.widget(this.editXType);
+        var view = Ext.widget(this.addXType);
         view.down('button[action=save]').on({
             click: function() {
                 this.createItem(view);
-            },
-            scope: this
-        });
-        view.down('CatalogImages button[action=add]').on({
-            click: function() {
-                alert('Add image');
             },
             scope: this
         });
@@ -156,13 +157,18 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     editItem: function(grid, record) {
         
+        var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id; 
+        
         var view = Ext.widget(this.editXType, {
-            recordId: record.get('id'),
-            title: 'Редактирование позиции №' + record.get('id'),
+            recordId: recordId,
+            title: 'Редактирование позиции №' + recordId,
             allowEdit: this.editPermition
         });
         
-        view.down('form').loadRecord(record);
+        view.down('form').load({
+            url: this.getURL,
+            params: {id: recordId}
+        });
         
         view.down('CatalogImages').on({
             activate: function(panel) {
@@ -182,19 +188,23 @@ Ext.define('EC.Catalog.controller.Abstract', {
             
             var catalogImagesPanel = view.down('CatalogImages');
             catalogImagesPanel.down('button[action=add]').on({
-                click: catalogImagesPanel.onUpload
+                click: this.onUpload
             });
         }
     },
     
     createItem: function(view) {
+        
         var form = view.down('form');
+        
         form.submit({
             url: this.addURL,
             success: function(form, action) {
-               Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно');
-               view.close();
-               this.fireEvent('itemSaved');
+                view.close();
+                this.fireEvent('itemSaved');
+                Ext.Msg.alert('Сообщение', 'Сохранено прошло успешно', function() {
+                    this.editItem(null, action.result);
+                }, this);
             },
             failure: function(form, action) {
                 switch (action.failureType) {
@@ -213,7 +223,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
     },
     
     updateItem: function(view) {
+        
         var form = view.down('form');
+        
         form.submit({
             url: this.updateURL,
             params: {
@@ -263,6 +275,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     },
     
     expandRows: function(button) {
+        
         var grid = button.up(this.listXType),
             view = grid.getView(),
             plugin = grid.getPlugin('rowexpander');
@@ -274,6 +287,25 @@ Ext.define('EC.Catalog.controller.Abstract', {
         for (var i = 0; i < view.getNodes().length; i++) {
             plugin.toggleRow(i);
         }
-    }
+    },
     
+    onUpload: function() {
+        
+        var uploadDialog = Ext.create('xlib.upload.Dialog', {
+            dialogTitle: 'Передача файлов на сервер',
+            uploadUrl: this.uploadUrl,
+            listeners: {
+                'uploadcomplete' : {
+                    fn: function(upDialog, manager, items, errorCount) {
+                        if (!errorCount) {
+                            upDialog.close();
+                        }
+                    },
+                    scope: this
+                }
+            }
+        });
+
+        uploadDialog.show(); 
+    }
 });

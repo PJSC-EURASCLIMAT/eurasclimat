@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Watersupply', {
         'EC.Catalog.view.Watersupply.Layout',
         'EC.Catalog.view.Watersupply.FiltersPanel',
         'EC.Catalog.view.Watersupply.List',
+        'EC.Catalog.view.Watersupply.Add',
         'EC.Catalog.view.Watersupply.Edit'
     ],
     
@@ -42,12 +43,16 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     
     listXType: 'WatersupplyList',
     
+    addXType: 'WatersupplyAdd',
+    
     editXType: 'WatersupplyEdit',
     
     addURL: '/json/catalog/watersupply/add',
     
     updateURL: '/json/catalog/watersupply/update',
     
-    deleteURL: '/json/catalog/watersupply/delete'
+    deleteURL: '/json/catalog/watersupply/delete',
+    
+    uploadURL: '/json/catalog/watersupply/upload'
     
 });

@@ -36,28 +36,6 @@ class Catalog_ImagesController extends Xend_Controller_Action
         }
     }
 
-    public function getAction()
-    {
-        $response = $this->_model->get($this->_getParam('id'));
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->data = $response->getRow();
-        } else {
-           $this->_collectErrors($response);
-        }
-    }
-
-    public function addAction()
-    {
-        $response = $this->_model->add($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->id = $response->id;
-        } else {
-           $this->_collectErrors($response);
-        }
-    }
-
     public function updateAction()
     {
         $response = $this->_model->update($this->_getAllParams());

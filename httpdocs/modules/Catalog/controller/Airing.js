@@ -14,6 +14,7 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Layout',
         'EC.Catalog.view.Airing.FiltersPanel',
         'EC.Catalog.view.Airing.List',
+        'EC.Catalog.view.Airing.Add',
         'EC.Catalog.view.Airing.Edit'
     ],
     
@@ -43,12 +44,16 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     listXType: 'AiringList',
     
+    addXType: 'AiringAdd',
+    
     editXType: 'AiringEdit',
     
     addURL: '/json/catalog/airing/add',
     
     updateURL: '/json/catalog/airing/update',
     
-    deleteURL: '/json/catalog/airing/delete'
+    deleteURL: '/json/catalog/airing/delete',
+    
+    uploadURL: '/json/catalog/airing/upload'
     
 });

@@ -96,7 +96,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
             catalog.down(this.listXType + ' tool[action=refresh]').on({
                 click: function(button) {
                     button.up(this.listXType).getStore().load();
-                }
+                },
+                scope: this
             });
             catalog.down(this.listXType + ' tool[action=expandrows]').on({
                 click: this.expandRows,

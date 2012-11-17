@@ -36,7 +36,7 @@ Ext.define('App.controller.Main', {
                 },
                 scope: this
             },
-            'CenterPanel tabpanel[id=Catalogs-tab] toolbar button': {
+            'CenterPanel tabpanel[id=Catalogs-tab] > toolbar button': {
                 click: this.openModulePortlet,
                 scope: this
             },

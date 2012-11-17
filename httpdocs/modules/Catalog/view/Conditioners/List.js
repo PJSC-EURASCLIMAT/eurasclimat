@@ -13,8 +13,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
     
     layout: 'fit',
     
-    //forceFit: true,
-    
     title: 'Результаты выборки',
     
     tools: [{

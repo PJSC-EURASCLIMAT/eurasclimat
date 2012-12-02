@@ -8,6 +8,8 @@ Ext.define('EC.Catalog.store.Watersupply', {
     
     remoteFilter: true,
     
+    pageSize: 10,
+    
     proxy: {
         type: 'ajax',
         api: {

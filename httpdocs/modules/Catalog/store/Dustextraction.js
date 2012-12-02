@@ -8,6 +8,8 @@ Ext.define('EC.Catalog.store.Dustextraction', {
     
     remoteFilter: true,
     
+    pageSize: 10,
+    
     proxy: {
         type: 'ajax',
         api: {

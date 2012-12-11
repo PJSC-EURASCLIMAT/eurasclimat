@@ -37,29 +37,14 @@ Ext.define('App.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
-            xtype: 'label',
-            text: 'Меню...',
-            style: 'font-size: large;'
+            text: 'Каталоги',
+            title: 'Каталоги продукции и услуг',
+            launchModule: 'EC.Catalog.controller.Main',
+            hidden: !acl.isView('catalog')
         }, {
-            text: 'Пункт 1',
-            title: 'Пункт 1' //,
-//            lunchModule: 'EC.Catalog.controller.Conditioners',
-//            hidden: !acl.isView('catalog', 'conditioners')
-        }, {
-            text: 'Пункт 2',
-            title: 'Пункт 2' //,
-//            lunchModule: 'EC.Catalog.controller.Conditioners',
-//            hidden: !acl.isView('catalog', 'conditioners')
-        }, {
-            text: 'Пункт 3',
-            title: 'Пункт 3' //,
-//            lunchModule: 'EC.Catalog.controller.Conditioners',
-//            hidden: !acl.isView('catalog', 'conditioners')
-        }, {
-            text: 'Пункт 4',
-            title: 'Пункт 4' //,
-//            lunchModule: 'EC.Catalog.controller.Conditioners',
-//            hidden: !acl.isView('catalog', 'conditioners')
+            text: 'Администрирование',
+            hidden: !acl.isView('admin'),
+            launchModule: 'EC.Admin.controller.Main'
         }]
     }]
 });

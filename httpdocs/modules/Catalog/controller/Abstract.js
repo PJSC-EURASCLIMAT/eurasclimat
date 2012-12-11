@@ -30,7 +30,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     deleteURL: null,
     
-    uploadUrl: null,
+    uploadURL: null,
     
     init: function(container) {
         
@@ -186,10 +186,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 },
                 scope: this
             });
-            
+            console.log(this.uploadURL);
             var catalogImagesPanel = view.down('CatalogImages');
             catalogImagesPanel.down('button[action=add]').on({
-                click: this.onUpload
+                click: this.onUpload,
+                scope: this
             });
         }
     },
@@ -291,10 +292,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
     },
     
     onUpload: function() {
-        
-        var uploadDialog = Ext.create('xlib.upload.Dialog', {
+        console.log(this.uploadURL);
+        Ext.create('xlib.upload.Dialog', {
+            autoShow: true,
             dialogTitle: 'Передача файлов на сервер',
-            uploadUrl: this.uploadUrl,
+            uploadUrl: this.uploadURL,
             listeners: {
                 'uploadcomplete' : {
                     fn: function(upDialog, manager, items, errorCount) {
@@ -306,7 +308,5 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }
             }
         });
-
-        uploadDialog.show(); 
     }
 });

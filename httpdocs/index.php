@@ -100,9 +100,9 @@ $options = array(
     'locale'        => 'ru'
 );
 
-if (!Xend_Accounts_Prototype::isAuthenticated()) {
-    $options['layout'] = 'auth';
-}
+//if (!Xend_Accounts_Prototype::isAuthenticated()) {
+//    $options['layout'] = 'auth';
+//}
 
 $fc->registerPlugin(new Xend_Controller_Plugin_ViewEngine($options));
 $fc->registerPlugin(new Xend_Controller_Plugin_Authorization());

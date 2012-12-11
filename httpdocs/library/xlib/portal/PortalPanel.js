@@ -48,7 +48,7 @@ Ext.define('xlib.portal.PortalPanel', {
 
         for (i = 0; i < len; i++) {
             item = items[i];
-            item.columnWidth = 1 / len;
+            item.columnWidth = item.columnWidth || 1 / len;
             last = (i == len-1);
 
             if (!i) { // if (first)

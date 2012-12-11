@@ -42,4 +42,15 @@ Ext.onReady(function() {
                 this.callOverridden([selector, beforeBody]) : [];
         }
     });
+    
+    Ext.override(Ext.view.AbstractView, {
+      onRender: function() {
+        var me = this;
+        this.callOverridden();
+        if (me.mask && Ext.isObject(me.store)) {
+            me.setMaskBind(me.store);
+        }
+      }
+    });
+    
 });

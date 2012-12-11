@@ -17,8 +17,6 @@ Ext.define('App.view.CenterPanel', {
     
     items: [{
         xtype: 'MainPanel'
-    }, {
-        xtype: 'CatalogPanel'
     }]
     
 });

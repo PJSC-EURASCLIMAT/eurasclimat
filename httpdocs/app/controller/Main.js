@@ -14,7 +14,7 @@ Ext.define('App.controller.Main', {
         var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'});
         vpMask.show();
         
-        this.getView('Layout').create({
+        var MainLayout = this.getView('Layout').create({
             listeners: {
                 render: function() {
                     vpMask.destroy();
@@ -36,6 +36,8 @@ Ext.define('App.controller.Main', {
                 }
             }
         });
+        
+        this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
     }
     
 });

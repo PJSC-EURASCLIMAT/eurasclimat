@@ -13,10 +13,5 @@ Ext.define('App.view.CenterPanel', {
     
     tabBar: {
         baseCls: 'xlib-bkg'
-    },
-    
-    items: [{
-        xtype: 'MainPanel'
-    }]
-    
+    }    
 });

@@ -4,13 +4,18 @@ Ext.define('App.controller.PortalAbstract', {
 
     openModulePortlet: function(button, e, options) {
 
+        var tab = this.mainPanel.down('portalpanel');
+        
+        if (tab.down('[launchModule=' + button.launchModule + ']')) {
+            return;
+        }
+        
         var container = Ext.create('xlib.portal.Portlet', {
             title: button.title || button.text, 
             cls: 'x-portlet',
             position: button.position,
             launchModule: button.launchModule
         });
-        var tab = this.mainPanel.down('portalpanel');
         var column = tab.down(container.position ? '[id=' + container.position + ']' : '') || tab.down();
         tab.show();
         column.insert(0, container).show();

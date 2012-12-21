@@ -12,7 +12,7 @@ Ext.define('EC.Pa.view.Layout', {
 
     tabPosition: 'bottom',
     
-    closable: false,
+    closable: true,
     
     border: false,
         

@@ -5,6 +5,7 @@ Ext.define('EC.Catalog.controller.Main', {
     init: function(container) {
         
         if (container.down('CatalogPanel')) {
+            container.down('CatalogPanel').show();
             return;
         }
         

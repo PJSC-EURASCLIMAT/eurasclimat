@@ -5,6 +5,7 @@ Ext.define('EC.Main.controller.Main', {
     init: function(container) {
         
         if (container.down('MainPanel')) {
+            container.down('MainPanel').show();
             return;
         }
         this.mainPanel = container.add({xtype: 'MainPanel'});

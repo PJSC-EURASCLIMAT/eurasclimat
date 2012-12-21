@@ -11,6 +11,10 @@ Ext.define('App.view.CenterPanel', {
 
     region: 'center',
     
+    bodyBorder: false,
+    
+    border: false,
+    
     tabBar: {
         baseCls: 'xlib-bkg'
     }    

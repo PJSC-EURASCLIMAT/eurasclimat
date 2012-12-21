@@ -21,7 +21,9 @@ Ext.define('App.view.TopPanel', {
             + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
     }, {
         xtype: 'label',
-        html: '<a href="/index/login" style="color: white;">[Войти]</a>'
+        html: xlib.Acl.Storage.getIdentity().login == 'guest' 
+            ? '<a href="/index/login" style="color: white;">[Войти]</a>'
+            : '<a href="/index/logout" style="color: white;">[Выйти]</a>'
 //    }, ' ', {
 //        xtype: 'button',
 //        text: 'Выход',

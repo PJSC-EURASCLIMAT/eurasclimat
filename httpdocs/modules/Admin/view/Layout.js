@@ -20,16 +20,19 @@ Ext.define('EC.Admin.view.Layout', {
         text: 'Роли',
         iconCls: 'user-suit',
         hidden: !acl.isView('admin'),
+        position: 'AdminPanel-column-1',
         launchModule: 'EC.Admin.controller.Roles'
     }, {
         text: 'Пользователи',
         iconCls: 'user',
         hidden: !acl.isView('admin'),
+        position: 'AdminPanel-column-2',
         launchModule: 'EC.Admin.controller.Accounts'
     }, {
         text: 'Права доступа',
         iconCls: 'connect',
         hidden: !acl.isView('admin'),
+        position: 'AdminPanel-column-3',
         launchModule: 'EC.Admin.controller.Acl'
     }],
     
@@ -45,8 +48,11 @@ Ext.define('EC.Admin.view.Layout', {
         closable: false,
         columns: 3,
         items: [{
+            id: 'AdminPanel-column-1'
         }, {
+            id: 'AdminPanel-column-2'
         }, {
+            id: 'AdminPanel-column-3'
         }]
     }]
 });

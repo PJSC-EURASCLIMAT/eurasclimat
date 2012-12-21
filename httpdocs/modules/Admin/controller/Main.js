@@ -7,6 +7,7 @@ Ext.define('EC.Admin.controller.Main', {
     init: function(container) {
         
         if (container.down('AdminPanel')) {
+            container.down('AdminPanel').show();
             return;
         }
         this.mainPanel = container.add({xtype: 'AdminPanel'});
@@ -22,6 +23,27 @@ Ext.define('EC.Admin.controller.Main', {
                 maximize: this.openModuleFullscreen,
                 scope: this
             }
+        });
+        
+        this.openModulePortlet({
+            title: 'Роли',
+            height: 600,
+            position: 'AdminPanel-column-1',
+            launchModule: 'EC.Admin.controller.Roles' 
+        });
+        
+        this.openModulePortlet({
+            title: 'Пользователи',
+            height: 600,
+            position: 'AdminPanel-column-2',
+            launchModule: 'EC.Admin.controller.Accounts' 
+        });
+        
+        this.openModulePortlet({
+            title: 'Права доступа',
+            height: 600,
+            position: 'AdminPanel-column-3',
+            launchModule: 'EC.Admin.controller.Acl' 
         });
     }
 });

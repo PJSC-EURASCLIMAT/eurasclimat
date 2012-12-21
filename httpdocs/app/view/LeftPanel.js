@@ -45,6 +45,17 @@ Ext.define('App.view.LeftPanel', {
             text: 'Администрирование',
             hidden: !acl.isView('admin'),
             launchModule: 'EC.Admin.controller.Main'
+        }, {
+            text: 'Личный кабинет',
+            hidden: xlib.Acl.Storage.getIdentity().login == 'guest', 
+            launchModule: 'EC.Pa.controller.Main'    
+        }, {
+            text: xlib.Acl.Storage.getIdentity().login == 'guest' 
+                ? 'Войти в систему' : 'Выйти из системы',
+            handler: function() {
+                window.location.href = xlib.Acl.Storage.getIdentity().login == 'guest'
+                    ? '/index/login' : '/index/logout';
+            }
         }]
     }]
 });

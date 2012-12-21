@@ -62,6 +62,7 @@ class IndexController extends Xend_Controller_Action
         $result = $authAdapter->authenticate();
 
         if (!$result->isValid()) {
+            $this->view->message = $errMes;
             return;
         }
 

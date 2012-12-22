@@ -2,8 +2,6 @@ Ext.define('EC.Main.view.About', {
 
     extend: 'Ext.panel.Panel',
 
-    // title: 'О системе',
-
     autoScroll: true,
     
     layout: 'fit',

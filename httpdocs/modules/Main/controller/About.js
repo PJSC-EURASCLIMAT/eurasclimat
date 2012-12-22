@@ -1,6 +1,6 @@
 Ext.define('EC.Main.controller.About', {
     
-    extend: 'App.controller.PortalAbstract',
+    extend: 'Ext.app.Controller',
 
     views: ['EC.Main.view.About'],
     

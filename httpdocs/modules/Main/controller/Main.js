@@ -35,5 +35,12 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.News' 
         });
+        
+        this.openModulePortlet({
+            title: 'Курсы валют',
+            height: 600,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Currency' 
+        });
     }
 });

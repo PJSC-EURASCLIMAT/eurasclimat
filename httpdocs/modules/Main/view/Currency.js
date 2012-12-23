@@ -32,8 +32,9 @@ Ext.define('EC.Main.view.Currency', {
             renderer: function() { return '=';}
         }, {
             header: 'Курс',
-            width: 60,
-            dataIndex: 'Value'
+            width: 70,
+            dataIndex: 'Value',
+            renderer: function(v) { return v + ' р.';}
         }]
         
         this.callParent(arguments);

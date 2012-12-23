@@ -12,8 +12,10 @@ class CurrencyController extends Xend_Controller_Action
         $xml = new SimpleXMLIterator(join('', $data));
         $arr = $xml->xpath('Valute');
         $out = array();
+        $index = 10;
         foreach ($arr as $a) {
             $in = (array)$a;
+            if (960 == $in['NumCode']) continue;
             $res = array();
             $res['ID']          = $in['@attributes']['ID'];
             $res['NumCode']     = $in['NumCode'];
@@ -21,9 +23,17 @@ class CurrencyController extends Xend_Controller_Action
             $res['Nominal']     = $in['Nominal'];
             $res['Name']        = $in['Name'];
             $res['Value']       = $in['Value'];
-            $out[] = $res;
+
+            switch ($in['CharCode']) {
+                case 'USD': $out[0] = $res; break;
+                case 'EUR': $out[1] = $res; break;
+                case 'BYR': $out[2] = $res; break;
+                case 'UAH': $out[3] = $res; break;
+                default: $out[$index] = $res; $index++; break;
+            }
         }
-        echo Zend_Json::encode($out);
+        ksort($out);
+        echo Zend_Json::encode(array_values($out));
     }
 
 }

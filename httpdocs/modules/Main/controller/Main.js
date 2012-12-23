@@ -42,5 +42,12 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency' 
         });
+        
+        this.openModulePortlet({
+            title: 'C новым годом!',
+            height: 650,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Newyear' 
+        });
     }
 });

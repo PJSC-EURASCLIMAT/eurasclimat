@@ -24,16 +24,16 @@ Ext.define('EC.Main.controller.Main', {
         });
         
         this.openModulePortlet({
-            title: 'О системе',
+            title: 'Новости',
             height: 600,
-            launchModule: 'EC.Main.controller.About' 
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.News' 
         });
         
         this.openModulePortlet({
-            title: 'Новости',
+            title: 'О системе',
             height: 600,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.News' 
+            launchModule: 'EC.Main.controller.About' 
         });
         
         this.openModulePortlet({

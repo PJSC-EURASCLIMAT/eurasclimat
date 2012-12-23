@@ -23,7 +23,7 @@ Ext.define('EC.Main.view.Layout', {
     }, {
         text: 'Новости',
         title: 'Новости',
-        position: 'MainPanel-column-2',
+        position: 'MainPanel-column-1',
         launchModule: 'EC.Main.controller.News'
     }, {
         text: 'Курсы валют',

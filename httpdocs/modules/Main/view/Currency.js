@@ -20,6 +20,12 @@ Ext.define('EC.Main.view.Currency', {
             hidden: true,
             width: 50
         }, {
+            xtype: 'templatecolumn',
+            tpl: '<img src="/images/flags/{CharCode}.gif" />',
+            header: '',
+            dataIndex: 'CharCode',
+            width: 20
+        }, {
             header: 'Название',
             dataIndex: 'Name',
             flex: 1
@@ -27,10 +33,6 @@ Ext.define('EC.Main.view.Currency', {
             header: 'Номинал',
             dataIndex: 'Nominal',
             width: 70
-        }, {
-            header: 'Код',
-            width: 40,
-            dataIndex: 'CharCode'
         }, {
             header: 'Курс',
             width: 70,

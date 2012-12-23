@@ -15,19 +15,10 @@ Ext.define('EC.Main.view.Currency', {
     initComponent: function() {
         
         this.columns = [{
-            header: 'NumCode',
-            dataIndex: 'NumCode',
-            hidden: true,
-            width: 50
-        }, {
             xtype: 'templatecolumn',
-            tpl: '<img src="/images/flags/{CharCode}.gif" />',
-            header: '',
-            dataIndex: 'CharCode',
-            width: 25
-        }, {
+            tpl: '<img src="/images/flags/{CharCode}.gif" /> {Name}',
             header: 'Название',
-            dataIndex: 'Name',
+            dataIndex: 'CharCode',
             flex: 1
         }, {
             header: 'Номинал',

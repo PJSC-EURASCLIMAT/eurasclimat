@@ -12,6 +12,8 @@ Ext.define('EC.Main.view.Currency', {
         scrollOffset: 28
     },
     
+    hideHeaders: true,
+    
     initComponent: function() {
         
         this.columns = [{
@@ -23,10 +25,14 @@ Ext.define('EC.Main.view.Currency', {
         }, {
             header: 'Номинал',
             dataIndex: 'Nominal',
+            align: 'right',
             width: 70
         }, {
+            width: 20,
+            renderer: function() { return '=';}
+        }, {
             header: 'Курс',
-            width: 70,
+            width: 60,
             dataIndex: 'Value'
         }]
         

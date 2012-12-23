@@ -24,7 +24,7 @@ Ext.define('EC.Main.view.Currency', {
             tpl: '<img src="/images/flags/{CharCode}.gif" />',
             header: '',
             dataIndex: 'CharCode',
-            width: 20
+            width: 25
         }, {
             header: 'Название',
             dataIndex: 'Name',

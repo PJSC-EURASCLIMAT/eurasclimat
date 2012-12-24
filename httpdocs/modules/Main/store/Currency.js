@@ -10,7 +10,7 @@ Ext.define('EC.Main.store.Currency', {
     
     proxy: {
         type: 'ajax',
-        url: '/xml/default/currency/index/',
+        url: '/json/default/currency/index/',
         reader: {
             type: 'json'
         }

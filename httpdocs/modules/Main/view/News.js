@@ -1,29 +1,100 @@
 Ext.define('EC.Main.view.News', {
 
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
 
-    autoScroll: true,
+    store: 'EC.Main.store.News',
     
     layout: 'fit',
     
-    html: '<div style="text-align: justify; padding: 10px;">' +
+    hideHeaders: true,
     
-        '<h1>12.12.2012 - Заголовок</h1><br/>' + 
-        '<p style="text-indent: 2em;">Lorem ipsum dolor sit amet, ' +
-        'consectetur adipiscing elit. Nam risus arcu, lobortis sit ' +
-        'amet aliquam vitae, mollis id lacus. Sed eget nibh nulla. </p><br/><br/>' +
+    disableSelection: true,
+    
+    viewConfig: {
         
-        '<h1>12.12.2012 - Заголовок</h1><br/>' +
-        '<p style="text-indent: 2em;">Vivamus vulputate, sem id pharetra porta, ' +
-        'turpis nunc elementum ipsum, quis varius elit felis id nisl. ' +
-        'Quisque interdum purus ut eros sodales egestas. Suspendisse suscipit ' +
-        'urna rutrum est sagittis quis tempor metus consequat.</p><br/><br/>' +
+        trackOver: false,
         
-        '<h1>12.12.2012 - Заголовок</h1><br/>' +
-        '<p style="text-indent: 2em;">Nullam mi lectus, laoreet eget fermentum quis, ' +
-        'adipiscing et purus. Suspendisse nec condimentum leo. Ut ultrices malesuada ' +
-        'eros, vel imperdiet nunc elementum vel. Donec vitae orci arcu. ' +
-        'Etiam at turpis a ipsum pellentesque placerat. </p><br/><br/>'
+        stripeRows: false
         
-        + '</div>'
+    },
+
+    columns: [{
+        xtype: 'templatecolumn',
+        flex: 1,
+        tpl:'<h1>{title}</h1><p style="color: grey; padding: 10px 0;">{date}</p>' +
+            'Автор: <a href="#">{author}</a> ' +
+            'Категория: <a href="#">{category}</a>' +
+            '<br/><br/><p>{short_text}</p>' +
+            '<br/><div align="right"><a href="#">Читать далее</a>'
+    }],
+    
+    initComponent: function() {
+        
+        this.tbar = [{
+            xtype: 'tbtext',
+            style: 'color: #04408C; font-weight: bold;',
+            text: 'Фильтр:'
+        }, {
+            xtype: 'tbtext',
+            text: 'Категория'
+        }, {
+            xtype: 'combo',
+            valueField: 'id',
+            displayField: 'name', 
+            editable: false,
+            value: '',
+            store: { 
+                fields: ['id', 'name'], 
+                data: [{
+                    id:     '',
+                    name:   'Все категории'
+                }, {
+                    id:     '1',
+                    name:   'Общие новости'
+                }]
+            }
+        }, ' ', {
+            xtype: 'tbtext',
+            text: 'Актуальность'
+        }, {
+            xtype: 'combo',
+            valueField: 'id',
+            displayField: 'name', 
+            editable: false,
+            value: '',
+            store: { 
+                fields: ['id', 'name'], 
+                data: [{
+                    id:     '',
+                    name:   'Все новости'
+                }, {
+                    id:     'today',
+                    name:   'Сегодняшние новости'
+                }, {
+                    id:     'yesterday',
+                    name:   'Вчерашние новости'
+                }, {
+                    id:     'last3days',
+                    name:   'За последние три дня'
+                }, {
+                    id:     'lastweek',
+                    name:   'За последнюю неделю'
+                }, {
+                    id:     'lastmonth',
+                    name:   'За последний месяц'
+                }]
+            }
+        }, '->', {
+            icon: '/images/icons/fam/feed_add.png',
+            tooltip: 'RSS подписка'
+        }];
+        
+        this.bbar = Ext.create('Ext.PagingToolbar', {
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        });
+        
+        this.callParent(arguments);
+    }
 });

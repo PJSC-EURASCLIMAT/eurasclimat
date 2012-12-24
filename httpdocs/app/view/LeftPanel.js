@@ -39,6 +39,7 @@ Ext.define('App.view.LeftPanel', {
         items: [{
             text: 'Каталоги',
             title: 'Каталоги продукции и услуг',
+            icon: '/images/icons/catalogue.png',
             launchModule: 'EC.Catalog.controller.Main',
             hidden: !acl.isView('catalog')
         }, {

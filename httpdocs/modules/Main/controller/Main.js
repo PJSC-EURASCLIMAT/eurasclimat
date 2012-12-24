@@ -8,7 +8,41 @@ Ext.define('EC.Main.controller.Main', {
             container.down('MainPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'MainPanel'});
+        
+        var menu = [{
+            text: 'Новости',
+            title: 'Новости',
+            icon: '/images/icons/about.png',
+            portletHeight: 400,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.News'
+        }, {
+            text: 'О системе',
+            title: 'О системе',
+            icon: '/images/icons/news_list.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.About'
+        }, {
+            text: 'Курсы валют',
+            title: 'Курсы валют',
+            icon: '/images/icons/cur_exch.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Currency'
+        }, {
+            text: 'C новым годом!',
+            title: 'C новым годом!',
+            icon: '/images/icons/happy_ny.png',
+            portletHeight: 400,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Newyear'
+        }];
+        
+        this.mainPanel = container.add({
+            xtype: 'MainPanel',
+            tbar: menu
+        });
         this.mainPanel.show();
         
         this.control({
@@ -23,31 +57,8 @@ Ext.define('EC.Main.controller.Main', {
             }
         });
         
-        this.openModulePortlet({
-            title: 'Новости',
-            height: 400,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.News' 
-        });
-        
-        this.openModulePortlet({
-            title: 'О системе',
-            height: 200,
-            launchModule: 'EC.Main.controller.About' 
-        });
-        
-        this.openModulePortlet({
-            title: 'Курсы валют',
-            height: 200,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.Currency' 
-        });
-        
-        this.openModulePortlet({
-            title: 'C новым годом!',
-            height: 300,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.Newyear' 
-        });
+        Ext.each(menu, function(item) {
+            this.openModulePortlet(item);
+        }, this);
     }
 });

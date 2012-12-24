@@ -9,6 +9,8 @@ Ext.define('EC.Catalog.view.Layout', {
     id: 'Catalogs-tab',
     
     title: 'Каталоги',
+    
+    icon: '/images/icons/catalogue.png',
 
     tabPosition: 'bottom',
     

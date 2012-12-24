@@ -10,13 +10,8 @@ Ext.define('App.controller.PortalAbstract', {
             return;
         }
         
-        var container = Ext.create('xlib.portal.Portlet', {
-            title: button.title || button.text, 
-            cls: 'x-portlet',
-            height: button.height || 300,
-            position: button.position,
-            launchModule: button.launchModule
-        });
+        var container = Ext.create('xlib.portal.Portlet', button);
+        container.setHeight(button.portletHeight || 300);
         var column = tab.down(container.position ? '[id=' + container.position + ']' : '') || tab.down();
         tab.show();
         column.insert(0, container).show();
@@ -35,6 +30,8 @@ Ext.define('App.controller.PortalAbstract', {
             title: module.title,
             launchModule: module.launchModule,
             position: module.position,
+            portletHeight: module.portletHeight,
+            icon: module.icon,
             tools: [{
                 type: 'minimize',
                 tooltip: 'Свернуть в окошко',
@@ -70,6 +67,8 @@ Ext.define('App.controller.PortalAbstract', {
             margin: 10,
             layout: 'fit',
             title: module.title,
+            icon: module.icon,
+            portletHeight: module.portletHeight,
             items: [panel]
         }).show();
             
@@ -83,8 +82,6 @@ Ext.define('App.controller.PortalAbstract', {
         
         var win = Ext.create('Ext.window.Window', {
             maximized: true,
-            width: 300,
-            height: 300,
             autoShow: true,
             shadow: false,
             resizable: false,
@@ -92,7 +89,9 @@ Ext.define('App.controller.PortalAbstract', {
             layout: 'fit',
             title: module.title,
             launchModule: module.launchModule,
+            icon: module.icon,
             position: module.position,
+            portletHeight: module.portletHeight,
             tools: [{
                 type: 'minimize',
                 tooltip: 'Свернуть в окошко',

@@ -9,6 +9,8 @@ Ext.define('EC.Main.view.Layout', {
     id: 'Main-tab',
     
     title: 'Главная',
+    
+    icon: '/images/icons/about.png',
 
     tabPosition: 'bottom',
     
@@ -16,42 +18,6 @@ Ext.define('EC.Main.view.Layout', {
     
     border: false,
         
-    tbar: [{
-        text: 'О системе',
-        title: 'О системе',
-        launchModule: 'EC.Main.controller.About'
-    }, {
-        text: 'Новости',
-        title: 'Новости',
-        position: 'MainPanel-column-1',
-        launchModule: 'EC.Main.controller.News'
-    }, {
-        text: 'Курсы валют',
-        title: 'Курсы валют',
-        position: 'MainPanel-column-2',
-        launchModule: 'EC.Main.controller.Currency'
-//    }, {
-//        text: 'Партнеры',
-//        title: 'Партнеры'
-//        //launchModule: 'EC.Main.controller.Article',
-//        //hidden: !acl.isView()
-//    }, {
-//        text: 'Заказчики',
-//        title: 'Заказчики'
-//        //launchModule: 'EC.Main.controller.Article',
-//        //hidden: !acl.isView()
-//    }, {
-//        text: 'Реализованные объекты',
-//        title: 'Реализованные объекты'
-//        //launchModule: 'EC.Main.controller.Article',
-//        //hidden: !acl.isView()
-//    }, {
-//        text: 'Контакты',
-//        title: 'Контакты'
-//        //launchModule: 'EC.Main.controller.Article',
-//        //hidden: !acl.isView()
-    }],
-    
     defaults: {
         layout: 'fit',
         closable: true

@@ -6,6 +6,8 @@ Ext.define('EC.Main.store.News', {
     
     autoLoad: true,
     
+    pageSize: 10,
+    
     proxy: {
         type: 'ajax',
         url: '/json/default/news/index',

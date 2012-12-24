@@ -13,6 +13,7 @@ Ext.define('App.controller.PortalAbstract', {
         var container = Ext.create('xlib.portal.Portlet', {
             title: button.title || button.text, 
             cls: 'x-portlet',
+            height: button.height || 300,
             position: button.position,
             launchModule: button.launchModule
         });

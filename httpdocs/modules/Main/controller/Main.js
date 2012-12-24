@@ -25,27 +25,27 @@ Ext.define('EC.Main.controller.Main', {
         
         this.openModulePortlet({
             title: 'Новости',
-            height: 600,
+            height: 400,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.News' 
         });
         
         this.openModulePortlet({
             title: 'О системе',
-            height: 600,
+            height: 200,
             launchModule: 'EC.Main.controller.About' 
         });
         
         this.openModulePortlet({
             title: 'Курсы валют',
-            height: 600,
+            height: 200,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency' 
         });
         
         this.openModulePortlet({
             title: 'C новым годом!',
-            height: 650,
+            height: 300,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Newyear' 
         });

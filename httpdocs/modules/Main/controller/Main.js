@@ -27,14 +27,14 @@ Ext.define('EC.Main.controller.Main', {
             text: 'Курсы валют',
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
+            portletHeight: 300,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
         }, {
             text: 'C новым годом!',
             title: 'C новым годом!',
             icon: '/images/icons/happy_ny.png',
-            portletHeight: 400,
+            portletHeight: 300,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Newyear'
         }];

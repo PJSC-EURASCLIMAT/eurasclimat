@@ -33,7 +33,7 @@ Ext.define('EC.Main.controller.Main', {
         }, {
             text: 'C новым годом!',
             title: 'C новым годом!',
-            icon: '/images/icons/happy_ny.png',
+            icon: '/images/icons/new_tree.png',
             portletHeight: 300,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Newyear'

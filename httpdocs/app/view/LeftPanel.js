@@ -44,15 +44,18 @@ Ext.define('App.view.LeftPanel', {
             hidden: !acl.isView('catalog')
         }, {
             text: 'Администрирование',
+            iconCls: 'expand-all',
             hidden: !acl.isView('admin'),
             launchModule: 'EC.Admin.controller.Main'
         }, {
             text: 'Личный кабинет',
+            icon: '/images/icons/worker.png',
             hidden: xlib.Acl.Storage.getIdentity().login == 'guest', 
             launchModule: 'EC.Pa.controller.Main'    
         }, {
             text: xlib.Acl.Storage.getIdentity().login == 'guest' 
                 ? 'Войти в систему' : 'Выйти из системы',
+            icon: '/images/icons/login.png',
             handler: function() {
                 window.location.href = xlib.Acl.Storage.getIdentity().login == 'guest'
                     ? '/index/login' : '/index/logout';

@@ -10,6 +10,8 @@ Ext.define('EC.Pa.view.Layout', {
     
     title: 'Личный кабинет',
 
+    icon: '/images/icons/worker.png',
+    
     tabPosition: 'bottom',
     
     closable: true,

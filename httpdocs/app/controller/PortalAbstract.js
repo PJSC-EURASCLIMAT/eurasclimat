@@ -32,6 +32,7 @@ Ext.define('App.controller.PortalAbstract', {
             position: module.position,
             portletHeight: module.portletHeight,
             icon: module.icon,
+            iconCls: module.iconCls,
             tools: [{
                 type: 'minimize',
                 tooltip: 'Свернуть в окошко',
@@ -68,6 +69,7 @@ Ext.define('App.controller.PortalAbstract', {
             layout: 'fit',
             title: module.title,
             icon: module.icon,
+            iconCls: module.iconCls,
             portletHeight: module.portletHeight,
             items: [panel]
         }).show();
@@ -90,6 +92,7 @@ Ext.define('App.controller.PortalAbstract', {
             title: module.title,
             launchModule: module.launchModule,
             icon: module.icon,
+            iconCls: module.iconCls,
             position: module.position,
             portletHeight: module.portletHeight,
             tools: [{

@@ -28,6 +28,7 @@ Ext.define('EC.Admin.controller.Main', {
         this.openModulePortlet({
             title: 'Роли',
             height: 600,
+            iconCls: 'user-suit',
             position: 'AdminPanel-column-1',
             launchModule: 'EC.Admin.controller.Roles' 
         });
@@ -35,6 +36,7 @@ Ext.define('EC.Admin.controller.Main', {
         this.openModulePortlet({
             title: 'Пользователи',
             height: 600,
+            iconCls: 'user',
             position: 'AdminPanel-column-2',
             launchModule: 'EC.Admin.controller.Accounts' 
         });
@@ -42,6 +44,7 @@ Ext.define('EC.Admin.controller.Main', {
         this.openModulePortlet({
             title: 'Права доступа',
             height: 600,
+            iconCls: 'connect',
             position: 'AdminPanel-column-3',
             launchModule: 'EC.Admin.controller.Acl' 
         });

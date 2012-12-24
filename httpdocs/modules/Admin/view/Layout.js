@@ -12,24 +12,29 @@ Ext.define('EC.Admin.view.Layout', {
 
     tabPosition: 'bottom',
     
+    iconCls: 'expand-all',
+    
     closable: true,
     
     border: false,
     
     tbar: [{
         text: 'Роли',
+        title: 'Роли',
         iconCls: 'user-suit',
         hidden: !acl.isView('admin'),
         position: 'AdminPanel-column-1',
         launchModule: 'EC.Admin.controller.Roles'
     }, {
         text: 'Пользователи',
+        title: 'Пользователи',
         iconCls: 'user',
         hidden: !acl.isView('admin'),
         position: 'AdminPanel-column-2',
         launchModule: 'EC.Admin.controller.Accounts'
     }, {
         text: 'Права доступа',
+        title: 'Права доступа',
         iconCls: 'connect',
         hidden: !acl.isView('admin'),
         position: 'AdminPanel-column-3',

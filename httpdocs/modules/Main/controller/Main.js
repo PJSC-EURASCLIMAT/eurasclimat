@@ -13,7 +13,7 @@ Ext.define('EC.Main.controller.Main', {
             text: 'Новости',
             title: 'Новости',
             icon: '/images/icons/news_list.png',
-            portletHeight: 400,
+            portletHeight: 300,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.News'
         }, {
@@ -24,10 +24,17 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.About'
         }, {
+            text: 'Производители',
+            title: 'Производители',
+            icon: '/images/icons/partners.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Manufacturers'
+        }, {
             text: 'Курсы валют',
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 300,
+            portletHeight: 200,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
         }, {

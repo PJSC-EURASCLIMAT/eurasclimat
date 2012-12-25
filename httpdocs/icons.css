@@ -1,3 +1,7 @@
+.noicon {
+	background-image:none !important;
+}
+
 .add {
     background-image:url(/images/icons/fam/add.gif) !important;
 }

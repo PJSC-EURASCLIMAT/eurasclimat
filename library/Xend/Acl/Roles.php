@@ -33,6 +33,14 @@ class Xend_Acl_Roles
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
+    public function fetchRolesBranch($node)
+    {
+        $response = new Xend_Response();
+        $rowset = $this->_getChildren($node, false);
+        $response->setRowset($rowset);
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
+    }
+
     /**
      * Fetch all roles
      *
@@ -185,8 +193,9 @@ class Xend_Acl_Roles
             if ($checked) {
                 $row['checked'] = false;
             }
-            $row['expanded'] = true;
+//            $row['expanded'] = true;
             $row['leaf'] = false;
+            $row['iconCls'] = 'noicon';
             $row['children'] = $this->_getChildren($row['id'], $checked);
         }
         return $rowset;

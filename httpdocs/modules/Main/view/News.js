@@ -18,20 +18,21 @@ Ext.define('EC.Main.view.News', {
         
     },
 
-    columns: [{
-        xtype: 'templatecolumn',
-        flex: 1,
-        tpl:'<div style="padding: 10px 0;">' +
-            '<h1><a href="#" action="readmore" newsid="{id}">{title}</a></h1>' +
-            '<p style="color: grey; padding: 10px 0;">{date}</p>' +
-            'Автор: <a href="#">{author}</a> ' +
-            'Категория: <a href="#">{category}</a>' +
-            '<br/><br/>{short_text}' +
-            '<div align="right" style="padding-top: 10px;">' +
-            '<a href="#" action="readmore" newsid="{id}">Читать далее</a></div></div>'
-    }],
+    forceFit: true,
     
     initComponent: function() {
+        
+        this.columns = [{
+            xtype: 'templatecolumn',
+            tpl:'<div style="padding: 10px 0; white-space: normal;">' +
+                '<h1><a href="#" action="readmore" newsid="{id}">{title}</a></h1>' +
+                '<p style="color: grey; padding: 10px 0;">{date}</p>' +
+                'Автор: <a href="#">{author}</a> ' +
+                'Категория: <a href="#">{category}</a>' +
+                '<br/><br/>{short_text}' +
+                '<div align="right" style="padding-top: 10px;">' +
+                '<a href="#" action="readmore" newsid="{id}">Читать далее</a></div></div>'
+        }],
         
         this.tbar = [{
             xtype: 'tbtext',

@@ -77,7 +77,7 @@ Ext.define('App.controller.PortalAbstract', {
         if (module.launchModule) {
             this.getController(module.launchModule).init(panel);
         }
-        module.close();
+        if (module.close) module.close();
     },
     
     openModuleFullscreen: function(module) {
@@ -119,6 +119,6 @@ Ext.define('App.controller.PortalAbstract', {
         if (module.launchModule) {
             this.getController(module.launchModule).init(win);
         }
-        module.close();
+        if (module.close) module.close();
     }
 });

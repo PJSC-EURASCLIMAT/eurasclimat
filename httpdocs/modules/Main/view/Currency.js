@@ -9,7 +9,8 @@ Ext.define('EC.Main.view.Currency', {
     layout: 'fit',
     
     viewConfig: {
-        scrollOffset: 28
+        scrollOffset: 28,
+        enableTextSelection: true
     },
     
     hideHeaders: true,
@@ -21,6 +22,7 @@ Ext.define('EC.Main.view.Currency', {
             tpl: '<img src="/images/flags/{CharCode}.gif" /> {Name}',
             header: 'Название',
             dataIndex: 'CharCode',
+            maxWidth: 300,
             flex: 1
         }, {
             header: 'Номинал',

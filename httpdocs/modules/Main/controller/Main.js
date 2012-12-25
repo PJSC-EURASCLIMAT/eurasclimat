@@ -12,24 +12,17 @@ Ext.define('EC.Main.controller.Main', {
         var menu = [{
             text: 'Новости',
             title: 'Новости',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/news_list.png',
             portletHeight: 400,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.News'
         }, {
             text: 'О системе',
             title: 'О системе',
-            icon: '/images/icons/news_list.png',
+            icon: '/images/icons/about.png',
             portletHeight: 200,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.About'
-//        }, {
-//            text: 'Погода',
-//            title: 'Погода',
-//            icon: '/images/icons/weather.png',
-//            portletHeight: 300,
-//            position: 'MainPanel-column-2',
-//            launchModule: 'EC.Main.controller.Weather'
         }, {
             text: 'Курсы валют',
             title: 'Курсы валют',

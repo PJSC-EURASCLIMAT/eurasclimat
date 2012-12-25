@@ -47,7 +47,6 @@ class News_Main
         return $response->addStatus(new Xend_Status($status));
     }
 
-    /*
     public function get($id)
     {
         $id = intval($id);
@@ -57,13 +56,35 @@ class News_Main
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $row = $this->_table->findOne($id);
-        if (!$row) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('n' => $this->_table->getTableName()),
+                array('id', 'date', 'category_id', 'account_id', 'title', 'long_text')
+            )
+            ->join(
+                array('a' => 'accounts'),
+                'n.account_id=a.id',
+                array('author' => 'name')
+            )
+            ->join(
+                array('c' => 'news_main_category'),
+                'n.category_id=c.id',
+                array('category' => 'name')
+            )
+            ->where('n.id = ?', $id)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
         }
-        $response->setRow($row->toArray());
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        return $response->addStatus(new Xend_Status($status));
     }
-    */
 
 }

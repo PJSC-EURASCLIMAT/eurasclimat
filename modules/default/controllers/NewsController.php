@@ -24,4 +24,15 @@ class NewsController extends Xend_Controller_Action
         }
     }
 
+    public function getAction()
+    {
+        $response = $this->_model->get($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
 }

@@ -10,6 +10,8 @@ Ext.define('EC.Main.view.News', {
     
     disableSelection: true,
     
+    enableRow
+    
     viewConfig: {
         
         trackOver: false,
@@ -21,11 +23,14 @@ Ext.define('EC.Main.view.News', {
     columns: [{
         xtype: 'templatecolumn',
         flex: 1,
-        tpl:'<h1>{title}</h1><p style="color: grey; padding: 10px 0;">{date}</p>' +
+        tpl:'<div style="padding: 10px 0;">' +
+            '<h1><a href="#" action="readmore" newsid="{id}">{title}</a></h1>' +
+            '<p style="color: grey; padding: 10px 0;">{date}</p>' +
             'Автор: <a href="#">{author}</a> ' +
             'Категория: <a href="#">{category}</a>' +
-            '<br/><br/><p>{short_text}</p>' +
-            '<br/><div align="right"><a href="#">Читать далее</a>'
+            '<br/><br/>{short_text}' +
+            '<div align="right" style="padding-top: 10px;">' +
+            '<a href="#" action="readmore" newsid="{id}">Читать далее</a></div></div>'
     }],
     
     initComponent: function() {

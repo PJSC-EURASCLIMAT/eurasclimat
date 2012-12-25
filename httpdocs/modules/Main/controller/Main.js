@@ -10,6 +10,13 @@ Ext.define('EC.Main.controller.Main', {
         }
         
         var menu = [{
+            text: 'Специалисты',
+            title: 'Специалисты',
+            icon: '/images/icons/worker.png',
+            portletHeight: 300,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.Workers'
+        }, {
             text: 'Новости',
             title: 'Новости',
             icon: '/images/icons/news_list.png',
@@ -42,6 +49,7 @@ Ext.define('EC.Main.controller.Main', {
             title: 'C новым годом!',
             icon: '/images/icons/new_tree.png',
             portletHeight: 300,
+            hidden: true,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Newyear'
         }];

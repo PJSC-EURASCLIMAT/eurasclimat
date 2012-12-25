@@ -23,6 +23,13 @@ Ext.define('EC.Main.controller.Main', {
             portletHeight: 200,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.About'
+//        }, {
+//            text: 'Погода',
+//            title: 'Погода',
+//            icon: '/images/icons/weather.png',
+//            portletHeight: 300,
+//            position: 'MainPanel-column-2',
+//            launchModule: 'EC.Main.controller.Weather'
         }, {
             text: 'Курсы валют',
             title: 'Курсы валют',

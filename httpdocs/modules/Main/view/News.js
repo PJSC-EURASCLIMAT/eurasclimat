@@ -10,8 +10,6 @@ Ext.define('EC.Main.view.News', {
     
     disableSelection: true,
     
-    enableRow
-    
     viewConfig: {
         
         trackOver: false,

@@ -30,11 +30,14 @@ Ext.define('EC.Main.view.Layout', {
         closable: false,
         columns: 2,
         items: [{
-            columnWidth: 0.65,
+//            columnWidth: 0.65,
             id: 'MainPanel-column-1'
         }, {
-            columnWidth: 0.35,
+//            columnWidth: 0.35,
             id: 'MainPanel-column-2'
+        }, {
+//            columnWidth: 0.35,
+            id: 'MainPanel-column-3'
         }]
     }]
 });

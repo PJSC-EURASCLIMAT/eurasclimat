@@ -2,22 +2,31 @@ Ext.define('App.controller.PortalAbstract', {
     
     extend: 'Ext.app.Controller',
 
-    openModulePortlet: function(button, e, options) {
+    openModulePortlet: function(module) {
 
         var tab = this.mainPanel.down('portalpanel');
         
-        if (tab.down('[launchModule=' + button.launchModule + ']')) {
+        if (!module.allowMultiple 
+        && tab.down('[launchModule=' + module.launchModule + ']')) {
             return;
         }
         
-        var container = Ext.create('xlib.portal.Portlet', button);
-        container.setHeight(button.portletHeight || 300);
+        var container = Ext.create('xlib.portal.Portlet', {
+            title: module.title,
+            launchModule: module.launchModule,
+            position: module.position,
+            portletHeight: module.portletHeight,
+            allowMultiple: module.allowMultiple,
+            icon: module.icon,
+            iconCls: module.iconCls
+        });
+        container.setHeight(module.portletHeight || 300);
         var column = tab.down(container.position ? '[id=' + container.position + ']' : '') || tab.down();
         tab.show();
         column.insert(0, container).show();
             
-        if (button.launchModule) {
-            this.getController(button.launchModule).init(container);
+        if (module.launchModule) {
+            this.getController(module.launchModule).init(container);
         }
         tab.doLayout();
     },
@@ -31,6 +40,7 @@ Ext.define('App.controller.PortalAbstract', {
             launchModule: module.launchModule,
             position: module.position,
             portletHeight: module.portletHeight,
+            allowMultiple: module.allowMultiple, 
             icon: module.icon,
             iconCls: module.iconCls,
             tools: [{
@@ -95,6 +105,7 @@ Ext.define('App.controller.PortalAbstract', {
             iconCls: module.iconCls,
             position: module.position,
             portletHeight: module.portletHeight,
+            allowMultiple: module.allowMultiple,
             tools: [{
                 type: 'minimize',
                 tooltip: 'Свернуть в окошко',

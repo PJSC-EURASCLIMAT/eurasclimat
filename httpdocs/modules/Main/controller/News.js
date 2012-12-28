@@ -20,9 +20,11 @@ Ext.define('EC.Main.controller.News', {
         if (link.action && link.action.value == 'readmore') {
             var MC = this.getController('EC.Main.controller.Main'); 
             MC.openModuleTab({
-                launchModule: 'EC.Main.controller.NewsCard',
                 title: record.get('title'),
-                icon: '/images/icons/news_current.png'
+                allowMultiple: true,
+                icon: '/images/icons/news_current.png',
+                closable: false,
+                launchModule: 'EC.Main.controller.NewsCard'
             });
             
             MC.getStore('EC.Main.store.NewsCard').load({params: {id: link.newsid.value}});

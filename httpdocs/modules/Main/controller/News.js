@@ -12,22 +12,37 @@ Ext.define('EC.Main.controller.News', {
         
         var grid = container.add(this.getView('EC.Main.view.News').create());
         
-        grid.on('itemclick', this.openNewsCard, this);
+        grid.on('itemclick', this.openCard, this);
     },
     
-    openNewsCard: function(grid, record, item, index, e, eOpts) {
-        var link = e.target.attributes; 
-        if (link.action && link.action.value == 'readmore') {
-            var MC = this.getController('EC.Main.controller.Main'); 
+    openCard: function(grid, record, item, index, e, eOpts) {
+        var link = e.target.attributes,
+            MC = this.getController('EC.Main.controller.Main'); 
+
+        if (!link.action) {
+            return;
+        }
+        
+        if (link.action.value == 'readmore') {
             MC.openModuleTab({
                 title: record.get('title'),
                 allowMultiple: true,
                 icon: '/images/icons/news_current.png',
-                closable: false,
                 launchModule: 'EC.Main.controller.NewsCard'
             });
             
             MC.getStore('EC.Main.store.NewsCard').load({params: {id: link.newsid.value}});
+        }
+        
+        if (link.action.value == 'showperson') {
+            MC.openModuleTab({
+                title: 'Персональная информация',
+                allowMultiple: true,
+                icon: '/images/icons/worker.png',
+                launchModule: 'EC.Main.controller.PersonCard'
+            });
+            
+            MC.getStore('EC.Main.store.PersonCard').load({params: {id: link.personid.value}});
         }
     }
 });

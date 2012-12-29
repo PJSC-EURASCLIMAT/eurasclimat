@@ -46,6 +46,10 @@ class Xend_Accounts
         } elseif (empty($rowset)) {
             $rowset = array();
         }
+
+        $rolesAccountsTable = new Xend_Acl_Table_RolesAccounts();
+        $rowset['roles'] = $rolesAccountsTable->getRoles($accountId);
+
         $response->rowset = $rowset;
         $response->setRowset($rowset);
         return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));

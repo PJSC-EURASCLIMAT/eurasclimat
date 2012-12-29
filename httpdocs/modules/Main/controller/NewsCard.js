@@ -11,9 +11,6 @@ Ext.define('EC.Main.controller.NewsCard', {
     newsID: null,
     
     init: function(container) {
-        
         container.add(this.getView('EC.Main.view.NewsCard').create());
-        
-//        this.getStore('EC.Main.store.NewsCard').load({params: {id: container.newsID}});
     }
 });

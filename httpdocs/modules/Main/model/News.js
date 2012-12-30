@@ -4,7 +4,7 @@ Ext.define('EC.Main.model.News', {
    
     fields: [
         'id',
-        'date',
+        {name: 'date', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         'category_id',
         'category',
         'account_id',

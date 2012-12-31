@@ -56,10 +56,7 @@ Ext.define('App.view.LeftPanel', {
             text: xlib.Acl.Storage.getIdentity().login == 'guest' 
                 ? 'Войти в систему' : 'Выйти из системы',
             icon: '/images/icons/login.png',
-            handler: function() {
-                window.location.href = xlib.Acl.Storage.getIdentity().login == 'guest'
-                    ? '/index/login' : '/index/logout';
-            }
+            launchModule: 'App.controller.Auth'
         }, {
             xtype: 'label',
             style: 'padding-top: 20px;',

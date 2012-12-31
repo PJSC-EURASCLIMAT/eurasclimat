@@ -99,14 +99,6 @@ body#login-page {
     font-size: small;
 }
 
-#login-page input[type="text"], input[type="password"] {
-    background: url(/images/input-bkg.png) no-repeat transparent;
-    padding: 0 10px;
-    border: none;
-    height: 35px;
-    width: 183px;
-}
-
 .x-border-top {
     border-top: 1px solid #99BBE8 !important;
 }

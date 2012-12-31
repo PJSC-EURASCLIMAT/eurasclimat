@@ -20,20 +20,11 @@ Ext.define('App.view.TopPanel', {
             + xlib.Acl.Storage.getIdentity().name 
             + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
     }, {
-        xtype: 'label',
-        html: xlib.Acl.Storage.getIdentity().login == 'guest' 
-            ? '<a href="/index/login" style="color: white;">[Войти]</a>'
-            : '<a href="/index/logout" style="color: white;">[Выйти]</a>'
-//    }, ' ', {
-//        xtype: 'button',
-//        text: 'Выход',
-//        pressed: true,
-//        handler: function() {
-//            Ext.MessageBox.confirm('Подтверждение', 'Выйти из системы?', function(b) {
-//                if ('yes' === b) {
-//                    window.location.href = '/index/login';
-//                }
-//            });
-//        }
+        xtype: 'button',
+        action: 'auth',
+        text: xlib.Acl.Storage.getIdentity().login == 'guest' 
+            ? 'Войти в систему' : 'Выйти из системы',
+        pressed: true,
+        launchModule: 'App.controller.Auth'
     }]
 });

@@ -14,6 +14,16 @@ Ext.define('App.controller.Main', {
         var vpMask = new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'});
         vpMask.show();
         
+        this.control({
+            'LeftPanel button, TopPanel button[action=auth]': {
+                click: function(button, e, options) {
+                    if (!Ext.isEmpty(button.launchModule)) {
+                        this.getController(button.launchModule).init(this.getCenterPanel());
+                    }
+                }
+            }
+        });
+        
         var MainLayout = this.getView('Layout').create({
             listeners: {
                 render: function() {
@@ -23,16 +33,6 @@ Ext.define('App.controller.Main', {
                 },
                 afterLayout: function() {
                     vpMask.destroy();
-                }
-            }
-        });
-        
-        this.control({
-            'LeftPanel button': {
-                click: function(button, e, options) {
-                    if (!Ext.isEmpty(button.launchModule)) {
-                        this.getController(button.launchModule).init(this.getCenterPanel());
-                    }
                 }
             }
         });

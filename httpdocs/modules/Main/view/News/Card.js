@@ -1,4 +1,4 @@
-Ext.define('EC.Main.view.NewsCard', {
+Ext.define('EC.Main.view.News.Card', {
 
     extend: 'Ext.view.View',
 
@@ -6,7 +6,7 @@ Ext.define('EC.Main.view.NewsCard', {
     
     layout: 'fit',
     
-    store: 'EC.Main.store.NewsCard',
+    store: 'EC.Main.store.News.Card',
     
     padding: 10, 
     

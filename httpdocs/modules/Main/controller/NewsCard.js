@@ -2,15 +2,15 @@ Ext.define('EC.Main.controller.NewsCard', {
     
     extend: 'Ext.app.Controller',
 
-    stores: ['EC.Main.store.NewsCard'],
+    stores: ['EC.Main.store.News.Card'],
     
-    models: ['EC.Main.model.NewsCard'],
+    models: ['EC.Main.model.News.Card'],
     
-    views: ['EC.Main.view.NewsCard'],
+    views: ['EC.Main.view.News.Card'],
     
     newsID: null,
     
     init: function(container) {
-        container.add(this.getView('EC.Main.view.NewsCard').create());
+        container.add(this.getView('EC.Main.view.News.Card').create());
     }
 });

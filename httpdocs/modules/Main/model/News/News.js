@@ -1,4 +1,4 @@
-Ext.define('EC.Main.model.News', {
+Ext.define('EC.Main.model.News.News', {
 
     extend: 'Ext.data.Model',
    

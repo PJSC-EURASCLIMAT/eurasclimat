@@ -35,4 +35,10 @@ class NewsController extends Xend_Controller_Action
         }
     }
 
+    public function getCategoriesAction()
+    {
+        $model = new News_MainCategoriesTable();
+        $this->view->data = $model->fetchAll()->toArray();
+    }
+
 }

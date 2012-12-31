@@ -1,4 +1,4 @@
-Ext.define('EC.Main.model.NewsCard', {
+Ext.define('EC.Main.model.News.Card', {
 
     extend: 'Ext.data.Model',
    

@@ -139,6 +139,8 @@ Ext.define('xlib.grid.filter.DateFilter', {
             //me.add(item);
             me.menu.add(item);
         }
+        
+        me.on('update', me.updateValues);
     },
 
     onCheckChange : function () {
@@ -310,5 +312,15 @@ Ext.define('xlib.grid.filter.DateFilter', {
             }
         }
         return true;
+    },
+    
+    updateValues: function() {
+        var me = this, key, picker;
+        for (key in me.fields) {
+            if (me.fields[key].checked) {
+                picker = me.getPicker(key);
+                me.values[key] = picker.getValue();
+            }
+        }
     }
 });

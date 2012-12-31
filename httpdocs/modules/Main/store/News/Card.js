@@ -1,16 +1,12 @@
-Ext.define('EC.Main.store.News', {
+Ext.define('EC.Main.store.News.Card', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.Main.model.News',
-    
-    autoLoad: true,
-    
-    pageSize: 10,
+    model: 'EC.Main.model.News.Card',
     
     proxy: {
         type: 'ajax',
-        url: '/json/default/news/index',
+        url: '/json/default/news/get',
         reader: {
             type: 'json',
             root: 'data'

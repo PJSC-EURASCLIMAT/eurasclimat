@@ -17,7 +17,7 @@ Ext.define('EC.Main.view.News.List', {
     features: [{
         ftype: 'filters', 
         encode: true, 
-        showMenu: true,
+        showMenu: false,
         filters: [{
             type: 'numeric',
             dataIndex: 'category_id'

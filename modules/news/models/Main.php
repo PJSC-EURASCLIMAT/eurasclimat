@@ -30,6 +30,13 @@ class News_Main
             )
             ;
 
+        if (isset($params['actuality']) && !empty($params['actuality'])) {
+            $where = $this->_getActualityFilter($params['actuality']);
+            if (!empty($where)) {
+                $select->where($where);
+            }
+        }
+
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
 
@@ -85,6 +92,26 @@ class News_Main
             $status = Xend_Status::DATABASE_ERROR;
         }
         return $response->addStatus(new Xend_Status($status));
+    }
+
+    private function _getActualityFilter($type)
+    {
+        $type = trim($type);
+
+        switch($type) {
+            case 'today':
+                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -1 DAY)');
+            case 'yesterday':
+                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -2 DAY)');
+            case 'lastthreedays':
+                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -4 DAY)');
+            case 'lastweek':
+                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -8 DAY)');
+            case 'lastmonth':
+                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -1 MONTH)');
+            default:
+                return '';
+        }
     }
 
 }

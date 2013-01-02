@@ -21,7 +21,7 @@ Ext.define('App.controller.Auth', {
         
         var authWin = this.getView('App.view.Auth').create();
         
-        authWin.down('button[action=doLogin]').on('click', function() {
+        var submitForm = function() {
             
             var form = authWin.down('form');
         
@@ -36,6 +36,10 @@ Ext.define('App.controller.Auth', {
                 },
                 scope: this
             });
-        }, this);
+        }
+        
+        
+        authWin.down('button[action=doLogin]').on('click', submitForm, this);
+        authWin.on('enterPressed', submitForm, this);
     }
 });

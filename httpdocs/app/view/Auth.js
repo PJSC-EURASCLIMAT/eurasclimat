@@ -53,6 +53,14 @@ Ext.define('App.view.Auth', {
             }]
         }];
 
+        this.keys = {
+            fn: function(key, e) {
+                this.fireEvent('enterPressed');
+            },
+            key: Ext.EventObject.ENTER,
+            scope: this
+        }
+        
         this.callParent(arguments);
     }
 });

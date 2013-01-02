@@ -21,37 +21,29 @@ Ext.define('EC.Main.controller.Main', {
             title: 'Производители',
             icon: '/images/icons/partners.png',
             portletHeight: 200,
-            position: 'MainPanel-column-1',
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Manufacturers'
         }, {
             text: 'О системе',
             title: 'О системе',
             icon: '/images/icons/about.png',
-            portletHeight: 200,
+            portletHeight: 400,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.About'
         }, {
             text: 'Курсы валют',
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
+            portletHeight: 190,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
         }, {
             text: 'Новости',
             title: 'Новости',
             icon: '/images/icons/news_list.png',
-            portletHeight: 300,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.News'
-        }, {
-            text: 'C новым годом!',
-            title: 'C новым годом!',
-            icon: '/images/icons/new_tree.png',
-            portletHeight: 300,
-            hidden: true,
+            portletHeight: 400,
             position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Newyear'
+            launchModule: 'EC.Main.controller.News'
         }];
         
         this.mainPanel = container.add({

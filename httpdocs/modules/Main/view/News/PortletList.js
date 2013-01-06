@@ -65,12 +65,6 @@ Ext.define('EC.Main.view.News.PortletList', {
             tooltip: 'RSS подписка'
         }];
         
-//        this.bbar = Ext.create('Ext.PagingToolbar', {
-//            store: this.store,
-//            displayInfo: true,
-//            plugins: Ext.create('xlib.ProgressBarPager', {})
-//        });
-        
         this.callParent(arguments);
     }
 });

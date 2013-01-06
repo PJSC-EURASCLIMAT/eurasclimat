@@ -4,6 +4,7 @@ class Catalog_HeatingController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'heating';
         $this->_model = new Catalog_Heating_Model();
         parent::init();
     }

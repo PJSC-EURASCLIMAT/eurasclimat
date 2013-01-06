@@ -8,6 +8,8 @@ class Catalog_AbstractController extends Xend_Controller_Action
      */
     protected $_model;
 
+    protected $_entity;
+
     public function getListAction()
     {
         $response = $this->_model->getList($this->_getAllParams());
@@ -64,11 +66,25 @@ class Catalog_AbstractController extends Xend_Controller_Action
 
     public function uploadAction()
     {
-        $response = $this->_model->upload($this->_getParam('id'));
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-        } else {
-           $this->_collectErrors($response);
+        $id = intval($this->_getParam('id'));
+        if ($id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $this->_collectErrors($response);
         }
+
+        $response = Xend_File::upload('catalog');
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        }
+
+        $model = new Catalog_Images($this->_entity);
+        $response = $model->add($response->fileName, $id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+
     }
 }

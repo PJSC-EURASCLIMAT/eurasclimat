@@ -6,11 +6,21 @@ Ext.define('EC.Main.controller.News', {
     
     models: ['EC.Main.model.News.News'],
     
-    views: ['EC.Main.view.News.List'],
+    views: [
+        'EC.Main.view.News.List',
+        'EC.Main.view.News.PortletList'
+    ],
     
     init: function(container) {
         
-        var grid = container.add(this.getView('EC.Main.view.News.List').create());
+        var grid;
+        
+        if ('portlet' == container.getXType()) {
+            grid = container.add(this.getView('EC.Main.view.News.PortletList').create());
+        } else {
+            grid = container.add(this.getView('EC.Main.view.News.List').create());
+        }
+        
         
         grid.on('itemclick', this.openCard, this);
         
@@ -68,6 +78,6 @@ Ext.define('EC.Main.controller.News', {
     
     onActualityFilter: function(combo, newValue, oldValue, eOpts) {
         this.getStore().getProxy().extraParams = {actuality: combo.getValue()};
-        this.getStore().load();
+        this.getStore().guaranteeRange(0, 10);
     }
 });

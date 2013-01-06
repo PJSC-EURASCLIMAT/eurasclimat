@@ -4,6 +4,7 @@ class Catalog_ConditionersController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'conditioners';
         $this->_model = new Catalog_Conditioners_Model();
         parent::init();
     }

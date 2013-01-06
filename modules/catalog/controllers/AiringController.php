@@ -4,6 +4,7 @@ class Catalog_AiringController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'airing';
         $this->_model = new Catalog_Airing_Model();
         parent::init();
     }

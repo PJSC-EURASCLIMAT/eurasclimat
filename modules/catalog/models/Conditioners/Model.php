@@ -165,10 +165,7 @@ class Catalog_Conditioners_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-
-    /*
-     *  Private functions
-     */
+    /* Private functions */
 
     private function _isMarksEnabled()
     {

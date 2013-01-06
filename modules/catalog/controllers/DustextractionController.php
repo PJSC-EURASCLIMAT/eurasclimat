@@ -4,6 +4,7 @@ class Catalog_DustextractionController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'dustextraction';
         $this->_model = new Catalog_Dustextraction_Model();
         parent::init();
     }

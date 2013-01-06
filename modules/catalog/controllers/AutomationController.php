@@ -4,6 +4,7 @@ class Catalog_AutomationController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'automation';
         $this->_model = new Catalog_Automation_Model();
         parent::init();
     }

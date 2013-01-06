@@ -6,7 +6,11 @@ Ext.define('EC.Main.store.News.News', {
     
     autoLoad: true,
     
-    pageSize: 10,
+    buffered: true,
+    
+    leadingBufferZone: 15,
+    
+    pageSize: 15,
     
     proxy: {
         type: 'ajax',

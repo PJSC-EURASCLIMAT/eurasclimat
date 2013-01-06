@@ -4,6 +4,7 @@ class Catalog_WatersupplyController extends Catalog_AbstractController
 {
     public function init()
     {
+        $this->_entity = 'watersupply';
         $this->_model = new Catalog_Watersupply_Model();
         parent::init();
     }

@@ -30,7 +30,7 @@ Ext.define('EC.Main.view.News.ActualityCombo', {
         
         data: [{
             id:     '',
-            name:   '- Не выбрано -'
+            name:   '- Все новости -'
         }, {
             id:     'today',
             name:   'Сегодняшние новости'

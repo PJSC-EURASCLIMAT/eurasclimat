@@ -10,7 +10,7 @@ class Catalog_ImagesController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Catalog_Images_Model();
+        $this->_model = new Catalog_Images();
         parent::init();
     }
 

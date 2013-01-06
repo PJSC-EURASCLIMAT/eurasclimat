@@ -186,10 +186,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 },
                 scope: this
             });
-            console.log(this.uploadURL);
             var catalogImagesPanel = view.down('CatalogImages');
             catalogImagesPanel.down('button[action=add]').on({
-                click: this.onUpload,
+                click: function() {
+                    this.onUpload(recordId);
+                },
                 scope: this
             });
         }
@@ -291,12 +292,13 @@ Ext.define('EC.Catalog.controller.Abstract', {
         }
     },
     
-    onUpload: function() {
-        console.log(this.uploadURL);
+    onUpload: function(id) {
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             dialogTitle: 'Передача файлов на сервер',
             uploadUrl: this.uploadURL,
+            uploadParams: {id: id},
+            uploadExtraHeaders: {'Content-Type': 'multipart/form-data'},
             listeners: {
                 'uploadcomplete' : {
                     fn: function(upDialog, manager, items, errorCount) {

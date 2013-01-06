@@ -23,7 +23,7 @@ Ext.define('xlib.upload.uploader.AbstractUploader', {
          * 
          * The HTTP method to be used.
          */
-        method : 'PUT',
+        method : 'POST',
 
         /**
          * @cfg {String} url (required)

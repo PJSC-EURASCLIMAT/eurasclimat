@@ -35,12 +35,18 @@ Ext.define('App.view.Auth', {
             }, {
                 xtype: 'textfield',
                 name: 'login',
-                fieldLabel: 'Логин'
+                fieldLabel: 'Логин',
+                inputAttrTpl: [
+                    'autocomplete="on"'
+                ]
             }, {
                 xtype: 'textfield',
                 inputType: 'password',
                 fieldLabel: 'Пароль',
-                name: 'password'
+                name: 'password',
+                inputAttrTpl: [
+                    'autocomplete="on"'
+                ]
             }],
             buttons: [{
                 text: 'Войти',

@@ -58,9 +58,9 @@ Ext.define('EC.Main.view.News.List', {
             xtype: 'NewsCategoriesCombo'
         }, ' ', {
             xtype: 'NewsActualityCombo'
-        }, '->', {
-            icon: '/images/icons/fam/feed_add.png',
-            tooltip: 'RSS подписка'
+//        }, '->', {
+//            icon: '/images/icons/fam/feed_add.png',
+//            tooltip: 'RSS подписка'
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

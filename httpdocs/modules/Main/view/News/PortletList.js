@@ -60,9 +60,9 @@ Ext.define('EC.Main.view.News.PortletList', {
         }, ' ', {
             xtype: 'NewsActualityCombo',
             hideLabel: true
-        }, '->', {
-            icon: '/images/icons/fam/feed_add.png',
-            tooltip: 'RSS подписка'
+//        }, '->', {
+//            icon: '/images/icons/fam/feed_add.png',
+//            tooltip: 'RSS подписка'
         }];
         
         this.callParent(arguments);

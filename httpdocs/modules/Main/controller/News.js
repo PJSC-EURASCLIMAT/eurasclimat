@@ -21,7 +21,6 @@ Ext.define('EC.Main.controller.News', {
             grid = container.add(this.getView('EC.Main.view.News.List').create());
         }
         
-        
         grid.on('itemclick', this.openCard, this);
         
         grid.down('toolbar NewsCategoriesCombo').on('change', this.onFilter, grid);

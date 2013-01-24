@@ -11,7 +11,7 @@ Ext.define('xlib.portal.Portlet', {
     height: 300,
     frame: true,
     closable: true,
-    collapsible: true,
+    //collapsible: true,
     animCollapse: true,
     draggable: {
         moveOnDrag: false    
@@ -32,6 +32,9 @@ Ext.define('xlib.portal.Portlet', {
     },
     
     tools: [{
+        type: 'plus',
+        disabled: true
+    }, {
         type: 'restore',
         handler: function(event, toolEl, parent, tool) {
             var portlet = parent.findParentByType('portlet');

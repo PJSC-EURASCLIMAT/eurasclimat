@@ -39,13 +39,21 @@ Ext.define('App.controller.Main', {
         
         this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
         this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
+        
+        this.getCenterPanel().add({
+            title: 'Производители',
+            disabled: true
+        });
+        this.getCenterPanel().add({
+            title: 'Заказчики',
+            disabled: true
+        });
+        this.getCenterPanel().add({
+            title: 'Специалисты',
+            disabled: true
+        });
 
         // Make first tab active
         this.getCenterPanel().down('MainPanel').show();
-        this.getCenterPanel().add({
-            title: 'TEST',
-            closable: true,
-            disabled: true
-        });
     }
 });

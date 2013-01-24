@@ -42,6 +42,10 @@ Ext.define('App.controller.Main', {
 
         // Make first tab active
         this.getCenterPanel().down('MainPanel').show();
+        this.getCenterPanel().add({
+            title: 'TEST',
+            closable: true,
+            disabled: true
+        });
     }
-    
 });

@@ -18,50 +18,6 @@ Ext.define('EC.Catalog.view.Layout', {
     
     border: false,
     
-    tbar: [{
-        text: 'Кондиционирование',
-        title: 'Каталог "Кондиционирование"',
-        icon: '/images/icons/conditioning.png',
-        launchModule: 'EC.Catalog.controller.Conditioners',
-        hidden: !acl.isView('catalog', 'conditioners')
-    }, {
-        text: 'Водоснабжение',
-        title: 'Каталог "Водоснабжение"',
-        icon: '/images/icons/water.png',
-        launchModule: 'EC.Catalog.controller.Watersupply',
-        hidden: !acl.isView('catalog', 'watersupply')
-    }, {
-        text: 'Вентиляция',
-        title: 'Каталог "Вентиляция"',
-        icon: '/images/icons/cooling.png',
-        launchModule: 'EC.Catalog.controller.Airing',
-        hidden: !acl.isView('catalog', 'airing')
-    }, {
-        text: 'Автоматика',
-        title: 'Каталог "Автоматика"',
-        icon: '/images/icons/automatic.png',
-        launchModule: 'EC.Catalog.controller.Automation',
-        hidden: !acl.isView('catalog', 'automation')
-    }, {
-        text: 'Электрика',
-        title: 'Каталог "Электрика"',
-        icon: '/images/icons/electricity.png',
-        launchModule: 'EC.Catalog.controller.Electricity',
-        hidden: !acl.isView('catalog', 'electricity')
-    }, {
-        text: 'Отопление',
-        title: 'Каталог "Отопление"',
-        icon: '/images/icons/heating.png',
-        launchModule: 'EC.Catalog.controller.Heating',
-        hidden: !acl.isView('catalog', 'heating')
-    }, {
-        text: 'Пылеудаление',
-        title: 'Каталог "Пылеудаление"',
-        icon: '/images/icons/dust_filtering.png',
-        launchModule: 'EC.Catalog.controller.Dustextraction',
-        hidden: !acl.isView('catalog', 'dustextraction')
-    }],
-    
     defaults: {
         layout: 'fit',
         closable: true
@@ -74,8 +30,11 @@ Ext.define('EC.Catalog.view.Layout', {
         closable: false,
         columns: 3,
         items: [{
+            id: 'CatalogPanel-column-1'
         }, {
+            id: 'CatalogPanel-column-2'
         }, {
+            id: 'CatalogPanel-column-3'
         }]
     }]
 });

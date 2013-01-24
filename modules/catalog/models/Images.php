@@ -15,22 +15,8 @@ class Catalog_Images
     public function getAll($entity, $entity_id)
     {
         $response = new Xend_Response();
-        /*
-        $tableName = $this->_table->getTableName();
-        $tableInfo = explode('_', $tableName);
 
-        $where = array();
-
-        if ($tableInfo[0] == 'catalog' && $tableInfo[2] == 'marks') {
-
-            $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->$tableInfo[1]->marks;
-
-            if ($this->_isMarksEnabled()) {
-                $marks = $this->_getAllowedMarks();
-                $where = array('id IN (?)' => $marks);
-            }
-        }
+        $where = array('entity = (?)' => $entity, 'entity_id = (?)' => $entity_id);
 
         try {
             $rows = $this->_table->fetchAll($where)->toArray();
@@ -44,7 +30,6 @@ class Catalog_Images
         }
 
         return $response->addStatus(new Xend_Status($status));
-        */
     }
 
     public function add($fileName, $entity_id)

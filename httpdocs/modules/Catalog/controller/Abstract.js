@@ -32,23 +32,39 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     uploadURL: null,
     
+    getImagesURL: null,
+    
     init: function(container) {
         
         if (!this.viewPermition) {
             return;
         }
         
+        this.Container = container; 
+        
         if ('portlet' == container.getXType()) {
             
-            container.setHeight(80);
+            container.setLoading('Загрузка...', true);
             
-            container.add({
-                xtype: 'panel',
-                layout: 'fit',
-                padding: 10,
-                html: 'Разверите для просмотра',
-                preventHeader: true,
-                border: false
+            var catalog = container.add({
+                xtype: this.filtersPanelXType,
+                bodyBorder: false,
+                header: false,
+                listeners: {
+                    afterLayout: function() {
+                        container.setLoading(false);
+                    }
+                },
+                bbar: ['->', {
+                    text: 'Фильтровать',
+                    pressed: true,
+                    action: 'filter'
+                }]
+            });
+            
+            catalog.down('button[action=filter]').on({
+                click: this.openFiltered, 
+                scope: this
             });
             
         } else {
@@ -63,8 +79,23 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }
             });
             
-            Ext.each(catalog.down(this.filtersPanelXType).query('combo'), function(item) {
+            // To enable filters panel let initialize grid to create filters
+            catalog.down(this.listXType).filters.createFilters();
+            
+            var filterCombos = catalog.down(this.filtersPanelXType).query('combo'), 
+                filterValues = this.Container.initConfig.filters;
+            
+            Ext.each(filterCombos, function(item) {
                 item.on('change', this.onFilter, this);
+            
+                if (!Ext.isEmpty(filterValues)) {
+                    Ext.each(filterValues, function(f) {
+                        if (item.getXType() == f.name) {
+                            item.setValue(f.value);
+                            return false;
+                        }
+                    }, this);
+                }
             }, this);
             
             catalog.down(this.filtersPanelXType + ' tool[action=resetfilters]').on({
@@ -110,8 +141,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }
             });
             
-            // To enable filters panel let initialize grid to create filters
-            catalog.down(this.listXType).filters.createFilters();
         }
     },
     
@@ -173,7 +202,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         view.down('CatalogImages').on({
             activate: function(panel) {
-                //panel.loadData(record.get('images'));
+                var store = panel.viewPanel.getStore();
+                store.load({url: this.getImagesURL, id: recordId});
             },
             scope: this
         });
@@ -310,5 +340,19 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }
             }
         });
+    },
+    
+    openFiltered: function(button) {
+        
+        var MC = this.getController('EC.Catalog.controller.Main'), 
+            values = [];
+        Ext.each(button.up(this.filtersPanelXType).query('combo'), function(item) {
+            var value = {name: item.getXType(), value: item.getValue()};
+            values.push(value);
+        }, this);
+        
+        this.Container.initConfig.filters = values; 
+        
+        MC.openModuleTab(this.Container);
     }
 });

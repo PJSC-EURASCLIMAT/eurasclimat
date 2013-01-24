@@ -85,6 +85,24 @@ class Catalog_AbstractController extends Xend_Controller_Action
         } else {
             $this->view->success = true;
         }
+    }
 
+    public function getImagesAction()
+    {
+        $id = intval($this->_getParam('id'));
+        if ($id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $this->_collectErrors($response);
+        }
+
+        $model = new Catalog_Images($this->_entity);
+        $response = $model->getAll($this->_entity, $id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+            $this->view->rows = $response->getRowset();
+        }
     }
 }

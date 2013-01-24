@@ -22,8 +22,6 @@ Ext.define('EC.Catalog.view.Images', {
     
     catalog: '',
     
-    loadURL: '/json/catalog/images/get-list/',
-    
     initComponent: function() {
 
         if (Ext.isEmpty(this.catalog)) {
@@ -37,19 +35,25 @@ Ext.define('EC.Catalog.view.Images', {
             style: 'overflow: auto',
             layout: 'fit',
             multiSelect: false,
-            store: new Ext.data.JsonStore({
-                url: this.loadURL,
-                root: 'data',
-                fields: ['id', 'filename']
+            store: new Ext.data.Store({
+                proxy: {
+                    type: 'ajax',
+                    reader: {
+                        type: 'json',
+                        root: 'rows',
+                        successProperty: 'success'
+                    }
+                },
+                fields: ['id', 'name']
             }),
             tpl: new Ext.XTemplate(
                 '<tpl for=".">',
-	                '<div class="thumb-wrap" id="{filename}">',
+	                '<div class="thumb-wrap" id="{name}">',
 		                '<div class="thumb">',
-		                	'<img src="/files/{filename}" class="thumb-img">',
+		                	'<img src="/images/catalog/{name}" class="thumb-img">',
 		                '</div>',
 		                '<span class="x-editable">',
-		                	'{filename}',
+		                	'{name}',
 	                	'</span>',
 	            	'</div>',
             	'</tpl>',

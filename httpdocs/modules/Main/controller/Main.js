@@ -46,6 +46,10 @@ Ext.define('EC.Main.controller.Main', {
             launchModule: 'EC.Main.controller.News'
         }];
         
+        Ext.each(menu, function(item) {
+            item.initConfig = item;
+        }, this);
+        
         this.mainPanel = container.add({
             xtype: 'MainPanel',
             tbar: menu

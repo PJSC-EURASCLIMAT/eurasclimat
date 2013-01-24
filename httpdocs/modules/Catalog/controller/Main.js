@@ -73,6 +73,7 @@ Ext.define('EC.Catalog.controller.Main', {
         
         this.mainPanel = container.add({
             xtype: 'CatalogPanel',
+            closable: false,
             tbar: menu
         });
         this.mainPanel.show();

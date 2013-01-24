@@ -12,13 +12,35 @@ Ext.define('App.view.TopPanel', {
     
     border: false,
     
-    items: ['->', {
+    style: 'color: white;',
+    
+    items: ['->', function() {
+        return xlib.Acl.Storage.getIdentity().login == 'guest' ? {
+            xtype: 'label',
+            flex: 1,
+            style: 'text-align: right; padding-right: 10px; text-decoration: underline;',
+            text: 'Регистрация'
+        } : {
+            xtype: 'label',
+            flex: 1,
+            style: 'text-align: right; padding-right: 10px;',
+            text: xlib.Acl.Storage.getIdentity().name 
+                + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
+        }
+    }(), function() {
+        return xlib.Acl.Storage.getIdentity().login == 'guest' ? {
+            xtype: 'label',
+            text: ' '
+        } : {
+            xtype: 'label',
+            style: 'text-align: right; padding-right: 10px;',
+            text: '|'        
+        }
+    }(), {
         xtype: 'label',
-        flex: 1,
-        style: 'color: white; text-align: right; padding-right: 10px;',
-        text: 'Вы вошли как ' 
-            + xlib.Acl.Storage.getIdentity().name 
-            + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
+        style: 'text-align: right; padding-right: 10px; text-decoration: underline;',
+        text: 'Мой профиль',
+        hidden: xlib.Acl.Storage.getIdentity().login == 'guest'
     }, {
         xtype: 'button',
         action: 'auth',

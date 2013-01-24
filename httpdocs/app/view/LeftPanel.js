@@ -59,6 +59,9 @@ Ext.define('App.view.LeftPanel', {
 //            launchModule: 'App.controller.Auth'
             
         }, {
+            xtype: 'label',
+            text: 'Проектные виджеты:'
+        }, {
             text: 'Проекты',
             icon: '/images/icons/catalogue.png',
             disabled: true

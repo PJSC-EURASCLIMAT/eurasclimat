@@ -34,7 +34,8 @@ Ext.define('App.view.LeftPanel', {
         defaultType: 'button',
         defaults: {
             margins: 5,
-            textAlign: 'left'
+            textAlign: 'left',
+            hidden: !acl.isView('admin')
         },
         items: [{
 //            text: 'Каталоги',
@@ -42,11 +43,6 @@ Ext.define('App.view.LeftPanel', {
 //            icon: '/images/icons/catalogue.png',
 //            launchModule: 'EC.Catalog.controller.Main',
 //            hidden: !acl.isView('catalog')
-//        }, {
-            text: 'Администрирование',
-            iconCls: 'expand-all',
-            hidden: !acl.isView('admin'),
-            launchModule: 'EC.Admin.controller.Main'
 //        }, {
 //            text: 'Личный кабинет',
 //            icon: '/images/icons/worker.png',
@@ -57,8 +53,7 @@ Ext.define('App.view.LeftPanel', {
 //                ? 'Войти в систему' : 'Выйти из системы',
 //            icon: '/images/icons/login.png',
 //            launchModule: 'App.controller.Auth'
-            
-        }, {
+//        }, {
             xtype: 'label',
             text: 'Проектные виджеты:'
         }, {
@@ -96,6 +91,14 @@ Ext.define('App.view.LeftPanel', {
             text: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
             disabled: true
+        }, {
+            xtype: 'label',
+            text: 'Системные виджеты:'
+        }, {
+            text: 'Администрирование',
+            iconCls: 'expand-all',
+            hidden: !acl.isView('admin'),
+            launchModule: 'EC.Admin.controller.Main'
         }]
     }]
 });

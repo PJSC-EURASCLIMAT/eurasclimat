@@ -89,6 +89,13 @@ Ext.define('App.view.LeftPanel', {
             text: 'Обучение',
             icon: '/images/icons/catalogue.png',
             disabled: true
+        }, {
+            xtype: 'label',
+            text: 'Избранные виджеты:'
+        }, {
+            text: 'Курсы валют',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
         }]
     }]
 });

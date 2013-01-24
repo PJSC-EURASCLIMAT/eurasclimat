@@ -31,6 +31,21 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.About'
         }, {
+            text: 'Производителям',
+            title: 'Производителям',
+            icon: '/images/icons/about.png',
+            disabled: true
+        }, {
+            text: 'Заказчикам',
+            title: 'Заказчикам',
+            icon: '/images/icons/about.png',
+            disabled: true
+        }, {
+            text: 'Специалистам',
+            title: 'Специалистам',
+            icon: '/images/icons/about.png',
+            disabled: true
+        }, {
             text: 'Курсы валют',
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',

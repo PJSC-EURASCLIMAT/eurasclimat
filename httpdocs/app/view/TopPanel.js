@@ -24,8 +24,8 @@ Ext.define('App.view.TopPanel', {
             xtype: 'label',
             flex: 1,
             style: 'text-align: right; padding-right: 10px;',
-            text: xlib.Acl.Storage.getIdentity().name 
-                + ' (' + xlib.Acl.Storage.getIdentity().login + ') '
+            text: xlib.Acl.Storage.getIdentity().name, 
+            qtip: xlib.Acl.Storage.getIdentity().login
         }
     }(), function() {
         return xlib.Acl.Storage.getIdentity().login == 'guest' ? {

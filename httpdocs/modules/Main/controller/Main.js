@@ -21,7 +21,7 @@ Ext.define('EC.Main.controller.Main', {
             title: 'Производители',
             icon: '/images/icons/partners.png',
             portletHeight: 200,
-            position: 'MainPanel-column-2',
+            position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Manufacturers'
         }, {
             text: 'О системе',
@@ -34,23 +34,32 @@ Ext.define('EC.Main.controller.Main', {
             text: 'Производителям',
             title: 'Производителям',
             icon: '/images/icons/about.png',
-            disabled: true
+            position: 'MainPanel-column-2',
+            portletHeight: 200,
+            allowMultiple: true,
+            launchModule: 'EC.Main.controller.Article'
         }, {
             text: 'Заказчикам',
             title: 'Заказчикам',
             icon: '/images/icons/about.png',
-            disabled: true
+            position: 'MainPanel-column-2',
+            portletHeight: 200,
+            allowMultiple: true,
+            launchModule: 'EC.Main.controller.Article'
         }, {
             text: 'Специалистам',
             title: 'Специалистам',
             icon: '/images/icons/about.png',
-            disabled: true
+            position: 'MainPanel-column-2',
+            portletHeight: 200,
+            allowMultiple: true,
+            launchModule: 'EC.Main.controller.Article'
         }, {
             text: 'Курсы валют',
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
             portletHeight: 190,
-            position: 'MainPanel-column-2',
+            position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Currency'
         }, {
             text: 'Новости',

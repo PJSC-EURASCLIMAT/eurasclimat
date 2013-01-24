@@ -58,7 +58,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 bbar: ['->', {
                     text: 'Фильтровать',
                     pressed: true,
-                    action: 'filter'
+                    action: 'readmore'
                 }]
             });
             

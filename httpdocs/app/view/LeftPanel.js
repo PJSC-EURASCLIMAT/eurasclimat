@@ -37,26 +37,55 @@ Ext.define('App.view.LeftPanel', {
             textAlign: 'left'
         },
         items: [{
-            text: 'Каталоги',
-            title: 'Каталоги продукции и услуг',
-            icon: '/images/icons/catalogue.png',
-            launchModule: 'EC.Catalog.controller.Main',
-            hidden: !acl.isView('catalog')
-        }, {
+//            text: 'Каталоги',
+//            title: 'Каталоги продукции и услуг',
+//            icon: '/images/icons/catalogue.png',
+//            launchModule: 'EC.Catalog.controller.Main',
+//            hidden: !acl.isView('catalog')
+//        }, {
             text: 'Администрирование',
             iconCls: 'expand-all',
             hidden: !acl.isView('admin'),
             launchModule: 'EC.Admin.controller.Main'
+//        }, {
+//            text: 'Личный кабинет',
+//            icon: '/images/icons/worker.png',
+//            hidden: xlib.Acl.Storage.getIdentity().login == 'guest', 
+//            launchModule: 'EC.Pa.controller.Main'    
+//        }, {
+//            text: xlib.Acl.Storage.getIdentity().login == 'guest' 
+//                ? 'Войти в систему' : 'Выйти из системы',
+//            icon: '/images/icons/login.png',
+//            launchModule: 'App.controller.Auth'
+            
         }, {
-            text: 'Личный кабинет',
-            icon: '/images/icons/worker.png',
-            hidden: xlib.Acl.Storage.getIdentity().login == 'guest', 
-            launchModule: 'EC.Pa.controller.Main'    
+            text: 'Проекты',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
         }, {
-            text: xlib.Acl.Storage.getIdentity().login == 'guest' 
-                ? 'Войти в систему' : 'Выйти из системы',
-            icon: '/images/icons/login.png',
-            launchModule: 'App.controller.Auth'
+            text: 'Группы',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
+        }, {
+            text: 'Рейтинги',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
+        }, {
+            text: 'Документы',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
+        }, {
+            text: 'Платежи',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
+        }, {
+            text: 'Статистика',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
+        }, {
+            text: 'Обучение',
+            icon: '/images/icons/catalogue.png',
+            disabled: true
         }]
     }]
 });

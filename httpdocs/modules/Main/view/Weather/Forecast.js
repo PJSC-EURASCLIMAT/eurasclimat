@@ -94,7 +94,6 @@ Ext.define('EC.Main.view.Weather.Forecast', {
     ),
     
     renderData: function(data) {
-        console.log(data);
         this.tpl.overwrite(this.body, data);
     }
 });

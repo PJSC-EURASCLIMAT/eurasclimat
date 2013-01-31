@@ -58,13 +58,10 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 bbar: ['->', {
                     text: 'Фильтровать',
                     pressed: true,
-                    action: 'readmore'
+                    action: 'readmore',
+                    handler: this.openFiltered,
+                    scope: this
                 }]
-            });
-            
-            catalog.down('button[action=filter]').on({
-                click: this.openFiltered, 
-                scope: this
             });
             
         } else {

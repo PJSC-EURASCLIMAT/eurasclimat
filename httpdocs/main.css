@@ -199,3 +199,23 @@ body#login-page {
     background-image: url(../images/equals.png) !important;
 } 
 
+/*
+ * Forecast style
+ */
+
+.forecast-day-block {
+    display: inline-table;
+    width: 210;
+    overflow: hidden;
+    margin: 5px 5px 10px 5px;
+}
+
+.forecast-daypart-block {
+    display: inline-table;
+    position: relative;
+    width: 50;
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}

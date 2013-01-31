@@ -65,9 +65,16 @@ Ext.define('EC.Main.controller.Main', {
             text: 'Новости',
             title: 'Новости',
             icon: '/images/icons/news_list.png',
-            portletHeight: 410,
+            portletHeight: 210,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.News'
+        }, {
+            text: 'Прогноз погоды',
+            title: 'Прогноз погоды',
+            icon: '/images/icons/about.png',
+            portletHeight: 300,
+            position: 'MainPanel-column-3',
+            launchModule: 'EC.Main.controller.Weather'
         }];
         
         Ext.each(menu, function(item) {

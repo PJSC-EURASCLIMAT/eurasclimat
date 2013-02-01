@@ -8,6 +8,7 @@ Ext.Loader.setConfig({
     }
 });
 
+
 Ext.application({
     name: 'App',
     appFolder: 'app',
@@ -16,6 +17,8 @@ Ext.application({
 
 /* Overrides */
 Ext.onReady(function() {
+    
+    new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}).show();
     
     /* Translation */
     

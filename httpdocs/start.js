@@ -18,6 +18,7 @@ Ext.application({
 /* Overrides */
 Ext.onReady(function() {
     
+    console.log('show mask', (new Date()).getTime());
     new Ext.LoadMask(Ext.getBody(), {msg:'Загрузка...'}).show();
     
     /* Translation */

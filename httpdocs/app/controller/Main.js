@@ -25,6 +25,7 @@ Ext.define('App.controller.Main', {
             listeners: {
                 afterLayout: function() {
                     new Ext.LoadMask(Ext.getBody(), {msg:'Инициализация...'}).destroy();
+                    console.log('mask hide', (new Date()).getTime());
                 }
             }
         });

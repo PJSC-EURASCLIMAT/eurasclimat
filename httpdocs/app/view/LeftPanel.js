@@ -35,7 +35,7 @@ Ext.define('App.view.LeftPanel', {
         defaults: {
             margins: 5,
             textAlign: 'left',
-            hidden: !acl.isView('admin')
+//            hidden: !acl.isView('admin')
         },
         items: [{
 //            text: 'Каталоги',
@@ -93,7 +93,8 @@ Ext.define('App.view.LeftPanel', {
             disabled: true
         }, {
             xtype: 'label',
-            text: 'Системные виджеты:'
+            text: 'Системные виджеты:',
+            hidden: !acl.isView('admin')
         }, {
             text: 'Администрирование',
             iconCls: 'expand-all',

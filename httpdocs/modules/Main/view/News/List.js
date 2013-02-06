@@ -3,6 +3,7 @@ Ext.define('EC.Main.view.News.List', {
     extend: 'Ext.grid.Panel',
 
     requires: [
+        'Ext.ux.PreviewPlugin',
         'xlib.grid.FiltersFeature',
         'EC.Main.view.News.CategoriesCombo',
         'EC.Main.view.News.ActualityCombo'
@@ -23,6 +24,13 @@ Ext.define('EC.Main.view.News.List', {
             dataIndex: 'category_id'
         }]
     }],
+    
+    viewConfig: {
+        plugins: [{
+            ptype: 'preview',
+            bodyField: 'short_text'
+        }]
+    },
     
     initComponent: function() {
         

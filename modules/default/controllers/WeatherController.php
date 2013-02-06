@@ -78,6 +78,7 @@ class WeatherController extends Xend_Controller_Action
         $arr = $xml->xpath('forecast');
         $arr = (array)$arr[0];
         $arr = (array)$arr['day'];
+        $todayDate = '';
         $days = array();
         $today = array();
         foreach ($arr as $a) {

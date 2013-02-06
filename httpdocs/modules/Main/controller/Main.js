@@ -39,8 +39,8 @@ Ext.define('EC.Main.controller.Main', {
             allowMultiple: true,
             launchModule: 'EC.Main.controller.Article'
         }, {
-            text: 'Заказчикам',
-            title: 'Заказчикам',
+            text: 'CRM',
+            title: 'CRM',
             icon: '/images/icons/about.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,

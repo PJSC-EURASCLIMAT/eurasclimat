@@ -41,6 +41,7 @@ class WeatherController extends Xend_Controller_Action
         $xml = new SimpleXMLIterator(join('', $data));
         $arr = $xml->xpath('city');
         $out = array();
+        $banList = array('10977', '2413', '669', '9304', '795', '618', '9725', '1037', '928', '13261');
         foreach ($arr as $a) {
             $in = (array)$a;
             $res = array();
@@ -51,6 +52,9 @@ class WeatherController extends Xend_Controller_Action
             $res['country_id']  = (string)$in['country_id'];
             $res['country']     = (string)$in['country'];
 
+            if (in_array($res['id'], $banList)) {
+                continue;
+            }
             $out[] = $res;
         }
         echo Zend_Json::encode(array_values($out));

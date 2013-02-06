@@ -16,7 +16,7 @@ Ext.define('EC.Main.view.Weather.List', {
         
         autoLoad: false,
         
-        fields: ['id', 'name'], 
+        fields: ['id', 'name', 'region'], 
         
         proxy: {
             type: 'ajax',
@@ -31,6 +31,8 @@ Ext.define('EC.Main.view.Weather.List', {
     
     columns: [{
         xtype: 'templatecolumn',
-        tpl: '<a href="#" action="go" cityID="{id}">{name}</a>'
+        tpl: '<a href="#" action="go" cityID="{id}">{name}' +
+             '<tpl if="region"> ({region})</tpl>' +
+             '</a>'
     }]
 });

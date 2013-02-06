@@ -29,6 +29,13 @@ Ext.define('App.controller.Main', {
             }
         });
         
+        Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=register]'), function(item) {
+            Ext.get(item).on('click', function(e, node, options) {
+                var module = node.attributes.launchModule.value;
+                this.getController(module).init(this.getCenterPanel());
+            }, this);
+        }, this);
+        
         this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
         this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
         
@@ -37,7 +44,7 @@ Ext.define('App.controller.Main', {
             disabled: true
         });
         this.getCenterPanel().add({
-            title: 'Заказчики',
+            title: 'CRM',
             disabled: true
         });
         this.getCenterPanel().add({

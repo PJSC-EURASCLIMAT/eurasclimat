@@ -17,7 +17,7 @@ Ext.define('EC.Main.view.Weather.Layout', {
         hideLabel: true
     }, ' ', {
         xtype: 'textfield',
-        width: '100%',
+        width: 200,
         name: 'search'
     }],
    

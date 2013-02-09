@@ -103,6 +103,7 @@ Ext.define('App.controller.PortalAbstract', {
         
         var win = Ext.create('Ext.window.Window', {
             maximized: true,
+            closable: false,
             autoShow: true,
             shadow: false,
             resizable: false,
@@ -131,6 +132,12 @@ Ext.define('App.controller.PortalAbstract', {
                     win.close();
                 },
                 scope: this
+            }, {
+                type: 'close',
+                tooltip: 'Закрыть',
+                handler: function() {
+                    win.close();
+                }
             }]
         });
             

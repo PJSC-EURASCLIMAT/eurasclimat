@@ -10,9 +10,6 @@ Ext.define('xlib.portal.Portlet', {
     anchor: '100%',
     height: 300,
     frame: true,
-    closable: true,
-    //collapsible: true,
-    animCollapse: true,
     draggable: {
         moveOnDrag: false    
     },
@@ -48,21 +45,31 @@ Ext.define('xlib.portal.Portlet', {
                     html: '<p>Справка по данному елементу недоступна...</p>'
                 }]
             }).show();
-        }
+        },
+        tooltip: 'Справка'
     }, {
         type: 'plus',
         disabled: true
     }, {
         type: 'restore',
+        tooltip: 'Развернуть',
         handler: function(event, toolEl, parent, tool) {
             var portlet = parent.findParentByType('portlet');
             portlet.fireEvent('restore', portlet);
         }
     }, {
         type: 'maximize',
+        tooltip: 'Развернуть на весь экран',
         handler: function(event, toolEl, parent, tool) {
             var portlet = parent.findParentByType('portlet');
             portlet.fireEvent('maximize', portlet);
+        }
+    }, {
+        type: 'close',
+        tooltip: 'Закрыть',
+        handler: function(event, toolEl, parent, tool) {
+            var portlet = parent.findParentByType('portlet');
+            portlet.close();
         }
     }]
 });

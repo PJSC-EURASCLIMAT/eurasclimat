@@ -217,7 +217,7 @@ class Xend_Accounts
         $response = new Xend_Response();
         $select = $this->_tableAccounts->getAdapter()->select();
         $select->from(array('a' => $this->_tableAccounts->getTableName()), array(
-            'id', 'login', 'name', 'email', 'active',
+            'id', 'login', 'name', 'email', 'country', 'city', 'active',
             'password_set' => 'IF(LENGTH(password)>0,1,0)'
         ));
 
@@ -267,7 +267,7 @@ class Xend_Accounts
 //        }
 
         if (!is_array($roles)) {
-            $roles = array($roles);
+            $roles = array(array('id' => $roles));
         }
 
         $rolesAccounts = new Xend_Acl_Table_RolesAccounts();
@@ -346,15 +346,19 @@ class Xend_Accounts
     {
         $response = new Xend_Response();
 
+        if (!empty($data['password'])) {
+            $data['password'] = md5($data['password']);
+        }
+
         $f = new Xend_Filter_Input(array(
-            'login'     => array('StringTrim'),
-            'name'      => array('StringTrim'),
-            'email'     => array('StringTrim'),
-            'active'    => array('boolean')
+            'active'    => array('boolean'),
+            '*'         => array('StringTrim')
         ), array(
             'login'     => array('Login', 'presense' => 'required'),
             'name'      => array('StringLength', 'presense' => 'required'),
             'email'     => array('EmailAddress', 'presense' => 'required'),
+            'country'   => array('StringLength'),
+            'city'      => array('StringLength'),
             'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 

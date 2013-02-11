@@ -4,11 +4,16 @@ Ext.define('EC.PA.controller.Profile', {
 
     views: ['EC.PA.view.Profile'],
     
-    URL: '/json/default/persons/profile',
+    URL: '/json/pa/profile/get-profile',
     
     init: function(container) {
         
-        var win = this.getView('EC.PA.view.Profile').create();
+        var win = this.getView('EC.PA.view.Profile').create(),
+            form = win.down('form');
+            
+        form.load({
+            url: this.URL
+        });
         
 //        var submitForm = function() {
 //            
@@ -28,7 +33,6 @@ Ext.define('EC.PA.controller.Profile', {
 //                scope: this
 //            });
 //        }
-//        
 //        
 //        win.down('button[action=submit]').on('click', submitForm, this);
 //        win.on('enterPressed', submitForm, this);

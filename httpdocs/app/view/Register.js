@@ -1,8 +1,10 @@
-Ext.define('App.view.Auth', {
+Ext.define('App.view.Register', {
     
     extend: 'Ext.window.Window',
     
-    title: 'Вход в систему',
+    uses: ['xlib.CountryCombo'],
+    
+    title: 'Регистрация пользователя системы',
     
     layout: 'fit',
     
@@ -12,38 +14,51 @@ Ext.define('App.view.Auth', {
     
     modal: true,
     
-    width: 200,
+    width: 400,
     
     initComponent: function() {
         
         this.items = [{
             xtype: 'form',
             bodyPadding: 5,
+            fieldDefaults: {
+                labelWidth: 100,
+                allowBlank: false,
+                anchor: '-5'
+            },
             items: [{
-                xtype: 'hidden',
-                name: 'do',
-                value: 1
-            }, {
                 xtype: 'textfield',
-                labelWidth: 50,
-                allowBlank: false,
                 name: 'login',
-                fieldLabel: 'Логин',
-                inputAttrTpl: [
-                    'autocomplete="on"'
-                ]
+                minLength: 3,
+                maxLength: 15,
+                fieldLabel: 'Логин'
             }, {
                 xtype: 'textfield',
-                labelWidth: 50,
-                allowBlank: false,
                 inputType: 'password',
                 fieldLabel: 'Пароль',
+                minLength: 3,
+                maxLength: 15,
                 name: 'password'
+            }, {
+                xtype: 'textfield',
+                name: 'name',
+                fieldLabel: 'ФИО'
+            }, {
+                xtype: 'textfield',
+                name: 'email',
+                fieldLabel: 'Email'
+            }, {
+                xtype: 'CountryCombo',
+                name: 'country'
+            }, {
+                xtype: 'textfield',
+                name: 'city',
+                fieldLabel: 'Город'
             }],
             buttons: [{
-                text: 'Войти',
+                text: 'Сохранить',
                 formBind: true,
-                action: 'doLogin'
+                action: 'submit'
             }, {
                 text: 'Отменить',
                 scope: this,

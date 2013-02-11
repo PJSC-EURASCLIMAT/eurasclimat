@@ -3,6 +3,8 @@ Ext.define('EC.Admin.view.Accounts.List', {
     extend: 'Ext.grid.Panel',
     
     alias: ['widget.AdminAccountsList'],
+
+    uses: ['xlib.CountryCombo'],
     
     store: 'EC.Admin.store.Accounts',
     
@@ -48,6 +50,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
         this.columns = [{
             header: 'Логин',
             dataIndex: 'login',
+            width: 100,
             editor: {
                 xtype: 'textfield',
                 minLength: 3,
@@ -56,7 +59,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
         }, {
             header: 'Имя',
             dataIndex: 'name',
-            flex: .5,
+            width: 200,
             editor: {
                 xtype: 'textfield',
                 allowBlank: false
@@ -64,16 +67,32 @@ Ext.define('EC.Admin.view.Accounts.List', {
         }, {
             header: 'Email',
             dataIndex: 'email',
-            flex: .2,
+            width: 200,
             editor: {
                 xtype: 'textfield',
                 vtype: 'email',
                 allowBlank: false
             }
         }, {
+            header: 'Страна',
+            dataIndex: 'country',
+            width: 100,
+            renderer: xlib.CountryCombo.getDisplayValue,
+            editor: {
+                xtype: 'CountryCombo',
+                hideLabel: true 
+            }
+        }, {
+            header: 'Город',
+            dataIndex: 'city',
+            width: 100,
+            editor: {
+                xtype: 'textfield'
+            }
+        }, {
             header: 'Роли',
             dataIndex: 'roles',
-            flex: .5,
+            flex: 1,
             renderer: function(value) {
                 if (Ext.isArray(value)) {
                     var roles = [];

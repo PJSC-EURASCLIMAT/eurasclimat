@@ -1,3 +1,5 @@
+var isAuth = (xlib.Acl.Storage.getIdentity().login !== 'guest');
+
 Ext.define('App.view.TopPanel', {
 
     extend: 'Ext.toolbar.Toolbar',
@@ -14,38 +16,44 @@ Ext.define('App.view.TopPanel', {
     
     style: 'color: white;',
     
-    items: ['->', function() {
-        return xlib.Acl.Storage.getIdentity().login == 'guest' ? {
-            xtype: 'label',
-            flex: 1,
-            style: 'text-align: right; padding-right: 10px; text-decoration: underline;',
-            text: 'Регистрация'
-        } : {
-            xtype: 'label',
-            flex: 1,
-            style: 'text-align: right; padding-right: 10px;',
-            text: xlib.Acl.Storage.getIdentity().name, 
-            qtip: xlib.Acl.Storage.getIdentity().login
-        }
-    }(), function() {
-        return xlib.Acl.Storage.getIdentity().login == 'guest' ? {
-            xtype: 'label',
-            text: ' '
-        } : {
-            xtype: 'label',
-            style: 'text-align: right; padding-right: 10px;',
-            text: '|'        
-        }
-    }(), {
-        xtype: 'label',
-        style: 'text-align: right; padding-right: 10px; text-decoration: underline;',
-        text: 'Мой профиль',
-        hidden: xlib.Acl.Storage.getIdentity().login == 'guest'
+    items: ['->', {
+        xtype: 'component',
+        autoEl: {
+            tag: 'a',
+            href: '#',
+            style: 'text-align: right; padding-right: 10px; color: white;',
+            html: 'Регистрация',
+            action: 'run',
+            onClick: 'return false;',
+            launchModule: 'App.controller.Register'
+        },
+        hidden: isAuth
+    }, {
+        xtype: 'tbtext',
+        style: 'text-align: right; padding-right: 10px;',
+        text: xlib.Acl.Storage.getIdentity().name, 
+        qtip: xlib.Acl.Storage.getIdentity().login,
+        hidden: !isAuth
+    }, {
+        xtype: 'tbtext',
+        style: 'text-align: right; padding-right: 10px;',
+        text: isAuth ? '|' : ''
+    }, {
+        xtype: 'component',
+        autoEl: {
+            tag: 'a',
+            href: '#',
+            style: 'text-align: right; padding-right: 10px; color: white;',
+            html: 'Мой профиль',
+            action: 'run',
+            onClick: 'return false;',
+            launchModule: 'EC.PA.controller.Profile'
+        },
+        hidden: !isAuth
     }, {
         xtype: 'button',
         action: 'auth',
-        text: xlib.Acl.Storage.getIdentity().login == 'guest' 
-            ? 'Войти в систему' : 'Выйти из системы',
+        text: isAuth ? 'Выйти из системы' : 'Войти в систему',
         pressed: true,
         launchModule: 'App.controller.Auth'
     }]

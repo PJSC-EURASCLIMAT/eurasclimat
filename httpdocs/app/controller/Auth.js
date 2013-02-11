@@ -31,6 +31,7 @@ Ext.define('App.controller.Auth', {
                     window.location.href = '/';
                 },
                 failure: function(form, action) {
+                    authWin.down('textfield[name=password]').reset();
                     Ext.Msg.alert('Ответ системы', 
                         '<span style="color:red;">ОШИБКА АВТОРИЗАЦИИ!</span>');
                 },

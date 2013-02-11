@@ -1,12 +1,12 @@
-Ext.define('EC.Pa.view.Layout', {
+Ext.define('EC.PA.view.Layout', {
 
     extend: 'Ext.tab.Panel',
 
     requires: ['xlib.portal.PortalPanel'],
     
-    alias: 'widget.PaPanel',
+    alias: 'widget.PAPanel',
     
-    id: 'Pa-tab',
+    id: 'PA-tab',
     
     title: 'Личный кабинет',
 
@@ -36,11 +36,11 @@ Ext.define('EC.Pa.view.Layout', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'PaPanel-column-1'
+            id: 'PAPanel-column-1'
         }, {
-            id: 'PaPanel-column-2'
+            id: 'PAPanel-column-2'
         }, {
-            id: 'PaPanel-column-3'
+            id: 'PAPanel-column-3'
         }]
     }]
 });

@@ -85,73 +85,6 @@ class IndexController extends Xend_Controller_Action
     }
 
     /**
-     * User authentification.
-     * Destroy current session and create new if authentification has been success.
-     */
-    public function loginAction()
-    {
-        $this->_helper->layout->setLayout('auth');
-        Zend_Auth::getInstance()->clearIdentity();
-
-        $do = trim($this->_getParam('do'));
-        $login = trim($this->_getParam('login'));
-        $password = trim($this->_getParam('password'));
-        $errMes = 'ОШИБКА АВТОРИЗАЦИИ!';
-
-        if (empty($do)) {
-            $this->view->message = '';
-            return;
-        }
-
-        if (empty($login) || empty($password)) {
-            $this->view->message = $errMes;
-            return;
-        }
-
-        $dbAdapter = Xend_Db_Table_Abstract::getDefaultAdapter();
-        $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);
-
-        $authAdapter->setTableName(Xend_Db_Table_Abstract::getDefaultPrefix() . 'accounts');
-        $authAdapter->setIdentityColumn('login');
-        $authAdapter->setCredentialColumn('password');
-
-        $authAdapter->setIdentity($login);
-        $authAdapter->setCredential(md5($password));
-
-        $result = $authAdapter->authenticate();
-
-        if (!$result->isValid()) {
-            $this->view->message = $errMes;
-            return;
-        }
-
-        // instance of stdClass
-        $data = $authAdapter->getResultRowObject(null, 'password');
-
-        // try to create acl object and assign the permissions
-        $acl = new Xend_Acl();
-        $permissions = new Xend_Acl_Permission();
-        $response = $permissions->fetchAccountPermissions($data->id);
-        if ($response->isSuccess()) {
-            foreach ($response->getRowset() as $row) {
-                $acl->allow($row['resource_id'], $row['privilege_id']);
-            }
-        }
-
-        /**
-         * Store acl object into the standart auth storage
-         * When user go to logout or session time is out
-         * then acl will be destroyed with user's authentification settings
-         */
-        $data->acl = $acl;
-
-        $auth = Zend_Auth::getInstance();
-        $auth->getStorage()->write($data);
-
-        header('Location: /');
-    }
-
-    /**
      * Destroy account session and redirect on base site url.
      */
     public function logoutAction()
@@ -164,6 +97,23 @@ class IndexController extends Xend_Controller_Action
 
         $this->view->success = true;
         header('Location: /');
+    }
+
+    public function registerAction()
+    {
+        $model = new Xend_Accounts();
+        $response = $model->createAccount($this->_getAllParams());
+
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        $resp = $model->setRoles(intval($response->id), USER_ROLE);
+        if ($resp->isError()) {
+            $this->_collectErrors($resp);
+            return;
+        }
+        $this->view->success = true;
     }
 
     public function getPermissionsAction()

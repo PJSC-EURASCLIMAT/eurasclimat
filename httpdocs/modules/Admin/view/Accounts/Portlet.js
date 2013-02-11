@@ -4,6 +4,8 @@ Ext.define('EC.Admin.view.Accounts.Portlet', {
     
     alias: ['widget.AdminAccountsPortlet'],
     
+    uses: ['xlib.CountryCombo'],
+    
     store: 'EC.Admin.store.Accounts',
     
     layout: 'fit',
@@ -13,16 +15,17 @@ Ext.define('EC.Admin.view.Accounts.Portlet', {
     initComponent: function() {
         
         this.columns = [{
-            header: 'Логин',
-            dataIndex: 'login',
-            width: 80
-        }, {
             header: 'Имя',
             dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Email',
-            dataIndex: 'email',
+            header: 'Страна',
+            dataIndex: 'country',
+            width: 100,
+            renderer: xlib.CountryCombo.getDisplayValue
+        }, {
+            header: 'Город',
+            dataIndex: 'city',
             width: 100
         }];
         

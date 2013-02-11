@@ -29,10 +29,12 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=register]'), function(item) {
+        Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=run]'), function(item) {
             Ext.get(item).on('click', function(e, node, options) {
                 var module = node.attributes.launchModule.value;
-                this.getController(module).init(this.getCenterPanel());
+                if (module) {
+                    this.getController(module).init(this.getCenterPanel());
+                }
             }, this);
         }, this);
         

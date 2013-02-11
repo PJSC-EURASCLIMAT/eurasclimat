@@ -51,6 +51,8 @@ date_default_timezone_set($config->ui->timezone);
 Zend_Registry::set('config', $config);
 
 define('ADMIN_ROLE', 1);
+define('GUEST_ROLE', 2);
+define('USER_ROLE', 3);
 define('DEBUG', (boolean) $config->debug);
 define('MYSQL_DATE_TIME_FORMAT', 'Y-m-d H:i:s');
 define('MYSQL_DATE_FORMAT', 'Y-m-d');
@@ -100,10 +102,6 @@ $options = array(
     'debug'         => DEBUG,
     'locale'        => 'ru'
 );
-
-//if (!Xend_Accounts_Prototype::isAuthenticated()) {
-//    $options['layout'] = 'auth';
-//}
 
 $fc->registerPlugin(new Xend_Controller_Plugin_ViewEngine($options));
 $fc->registerPlugin(new Xend_Controller_Plugin_Authorization());

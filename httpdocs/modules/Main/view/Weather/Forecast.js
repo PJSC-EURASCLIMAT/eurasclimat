@@ -10,6 +10,12 @@ Ext.define('EC.Main.view.Weather.Forecast', {
     
     autoScroll: true,
     
+    tbar: [{
+        xtype: 'textfield',
+        name: 'search',
+        flex: 1
+    }],
+    
     tpl: new Ext.XTemplate(
         '<tpl for=".">',
             '<tpl for="location">',

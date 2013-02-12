@@ -29,6 +29,12 @@ Ext.define('EC.Main.view.Weather.List', {
         }
     },
     
+    tbar: [{
+        xtype: 'WeatherCountriesCombo',
+        hideLabel: true,
+        flex: 1
+    }],
+    
     columns: [{
         xtype: 'templatecolumn',
         tpl: '<a href="#" action="go" cityID="{id}">{name}' +

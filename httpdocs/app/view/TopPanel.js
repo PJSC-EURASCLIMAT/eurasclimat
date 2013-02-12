@@ -16,7 +16,11 @@ Ext.define('App.view.TopPanel', {
     
     style: 'color: white;',
     
-    items: ['->', {
+    items: [{
+        xtype: 'tbtext',
+        style: 'font-weight: 900;',
+        text: 'Корпоративный портал планирования и реализации инженерных проектов ОАО "Евразклимат"'
+    }, '->', {
         xtype: 'component',
         autoEl: {
             tag: 'a',
@@ -30,14 +34,9 @@ Ext.define('App.view.TopPanel', {
         hidden: isAuth
     }, {
         xtype: 'tbtext',
-        style: 'text-align: right; padding-right: 10px;',
-        text: xlib.Acl.Storage.getIdentity().name, 
+        text: xlib.Acl.Storage.getIdentity().name + '&nbsp;|&nbsp;', 
         qtip: xlib.Acl.Storage.getIdentity().login,
         hidden: !isAuth
-    }, {
-        xtype: 'tbtext',
-        style: 'text-align: right; padding-right: 10px;',
-        text: isAuth ? '|' : ''
     }, {
         xtype: 'component',
         autoEl: {

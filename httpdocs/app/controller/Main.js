@@ -42,7 +42,7 @@ Ext.define('App.controller.Main', {
         this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
         
         this.getCenterPanel().add({
-            title: 'Производители',
+            title: 'Специалисты',
             disabled: true
         });
         this.getCenterPanel().add({
@@ -50,7 +50,11 @@ Ext.define('App.controller.Main', {
             disabled: true
         });
         this.getCenterPanel().add({
-            title: 'Специалисты',
+            title: 'Почта',
+            disabled: true
+        });
+        this.getCenterPanel().add({
+            title: 'Зона отдыха',
             disabled: true
         });
 

@@ -74,7 +74,7 @@ Ext.define('EC.Main.controller.Main', {
             icon: '/images/icons/about.png',
             portletHeight: 300,
             position: 'MainPanel-column-3',
-            //launchModule: 'EC.Main.controller.Weather'
+            launchModule: 'EC.Main.controller.Weather'
         }, {
             text: 'Проекты',
             title: 'Проекты',

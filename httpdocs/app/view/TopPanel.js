@@ -18,7 +18,7 @@ Ext.define('App.view.TopPanel', {
     
     items: [{
         xtype: 'tbtext',
-        style: 'font-weight: 900;',
+        style: 'font-weight: 900; font-size: 1.25em; line-height: 1em; color: rgb(181, 96, 65);',
         text: 'Корпоративный портал планирования и реализации инженерных проектов ОАО "Евразклимат"'
     }, '->', {
         xtype: 'component',

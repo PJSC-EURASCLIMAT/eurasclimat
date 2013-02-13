@@ -69,12 +69,31 @@ Ext.define('EC.Catalog.controller.Main', {
         
         Ext.each(menu, function(item) {
             item.initConfig = item;
+            item.handler = this.openModulePortlet
+            item.scope = this
         }, this);
         
         this.mainPanel = container.add({
             xtype: 'CatalogPanel',
             closable: false,
-            tbar: menu
+            tbar: [{
+                text: 'Каталог товаров',
+                title: 'Каталог товаров',
+                icon: '/images/icons/about.png',
+                menu: menu
+            }, {
+                text: 'Каталог услуг',
+                title: 'Каталог услуг',
+                icon: '/images/icons/about.png'
+            }, {
+                text: 'Производители',
+                title: 'Производители',
+                icon: '/images/icons/about.png'
+            }, {
+                text: 'Создать свой подраздел',
+                title: 'Создать свой подраздел',
+                icon: '/images/icons/about.png'
+            }]
         });
         this.mainPanel.show();
         

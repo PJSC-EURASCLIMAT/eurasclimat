@@ -43,19 +43,98 @@ Ext.define('App.controller.Main', {
         
         this.getCenterPanel().add({
             title: 'Специалисты',
-            disabled: true
-        });
+            icon: '/images/icons/about.png',
+            border: false,
+            tbar: Ext.create('widget.toolbar', {
+                defaults: {
+                    icon: '/images/icons/about.png'
+                },
+                items: [{
+                    text: 'Каталог специалистов'
+                }, {
+                    text: 'Рабочие группы'
+                }, {
+                    text: 'Форум'
+                }, {
+                    text: 'Обучение'
+                }, {
+                    text: 'Создать свой подраздел'
+                }]
+            })
+        }),
+        
         this.getCenterPanel().add({
             title: 'CRM',
-            disabled: true
+            icon: '/images/icons/about.png',
+            border: false,
+            tbar: Ext.create('widget.toolbar', {
+                defaults: {
+                    icon: '/images/icons/about.png'
+                },
+                items: [{
+                    text: 'Проекты в работе'
+                }, {
+                    text: 'Участники проектов'
+                }, {
+                    text: 'Документы проектов'
+                }, {
+                    text: 'Платежи'
+                }, {
+                    text: 'Методики'
+                }, {
+                    text: 'Справочники'
+                }, {
+                    text: 'Создать свой подраздел'
+                }]
+            })
         });
+        
         this.getCenterPanel().add({
             title: 'Почта',
-            disabled: true
+            icon: '/images/icons/about.png',
+            border: false,
+            tbar: Ext.create('widget.toolbar', {
+                defaults: {
+                    icon: '/images/icons/about.png'
+                },
+                items: [{
+                    text: 'Системная почта'
+                }, {
+                    text: 'Корп. сотовая связь'
+                }, {
+                    text: 'Корп. стационарная связь'
+                }, {
+                    text: 'Чат'
+                }, {
+                    text: 'Видеочат'
+                }, {
+                    text: 'Создать свой подраздел'
+                }]
+            })
         });
+        
         this.getCenterPanel().add({
             title: 'Зона отдыха',
-            disabled: true
+            icon: '/images/icons/about.png',
+            border: false,
+            tbar: Ext.create('widget.toolbar', {
+                defaults: {
+                    icon: '/images/icons/about.png'
+                },
+                items: [{
+                    text: 'ТВ'
+                }, {
+                    text: 'Радио'
+                }, {
+                    text: 'Видео база данных'
+                }, {
+                    text: 'Музыка база данных'
+                }, {
+                    text: 'Игры'
+                }, {
+                    text: 'Создать свой подраздел'
+                }]
+            })
         });
 
         // Make first tab active

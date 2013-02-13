@@ -74,7 +74,19 @@ Ext.define('EC.Main.controller.Main', {
             icon: '/images/icons/about.png',
             portletHeight: 300,
             position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Weather'
+            //launchModule: 'EC.Main.controller.Weather'
+        }, {
+            text: 'Проекты',
+            title: 'Проекты',
+            icon: '/images/icons/about.png'
+        }, {
+            text: 'Конкурсы',
+            title: 'Конкурсы',
+            icon: '/images/icons/about.png'
+        }, {
+            text: 'Создать свой подраздел',
+            title: 'Создать свой подраздел',
+            icon: '/images/icons/about.png'
         }];
         
         Ext.each(menu, function(item) {

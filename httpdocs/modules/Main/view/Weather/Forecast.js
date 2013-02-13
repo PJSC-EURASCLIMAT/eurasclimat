@@ -19,15 +19,16 @@ Ext.define('EC.Main.view.Weather.Forecast', {
     tpl: new Ext.XTemplate(
         '<tpl for=".">',
             '<tpl for="location">',
-                '<div style="margin-bottom: 10px;">',
-                    '<h1>{name}, {country_name}</h1>',
-                '</div>',
+                    '<h1>&nbsp;{name}, {country_name}</h1>',
             '</tpl>',
             '<tpl for="today">',
-                '<div class="forecast-day-block">',
-                    '<b>Сегодня, {[this.dateFormat(values.date)]}</b> <br/><br/>',
+                '<div class="forecast-day-block" style="text-align: right;">',
+                    '<div class="forecast-day-block-header">',
+                        '<b>Сегодня, {[this.dateFormat(values.date)]}</b>',
+                    '</div>',
                     '<tpl for="data">',
-                        '<div class="forecast-daypart-block">',
+                        '<div class="forecast-daypart-block ',
+                            'forecast-daypart-{[this.getPartOfDayClass(values.hour)]}">',
                             '{[this.getPartOfDay(values.hour)]} <br/><br/>',
                             '{ppcp}% <br/>',
                             '<img src="/images/forecast/{pict}" /> <br/>', 
@@ -41,9 +42,12 @@ Ext.define('EC.Main.view.Weather.Forecast', {
             '</tpl>',
             '<tpl for="forecast">',
                 '<div class="forecast-day-block">',
-                    '<b>{[this.dateFormat(values.date)]}</b> <br/><br/>',
+                    '<div class="forecast-day-block-header">',
+                        '<b>{[this.dateFormat(values.date)]}</b>',
+                    '</div>',
                     '<tpl for="data">',
-                        '<div class="forecast-daypart-block">',
+                        '<div class="forecast-daypart-block ',
+                            'forecast-daypart-{[this.getPartOfDayClass(values.hour)]}">',
                             '{[this.getPartOfDay(values.hour)]} <br/><br/>',
                             '{ppcp}% <br/>',
                             '<img src="/images/forecast/{pict}" /> <br/>', 
@@ -86,6 +90,15 @@ Ext.define('EC.Main.view.Weather.Forecast', {
                     case '9':  return 'утро';
                     case '15': return 'день';
                     case '21': return 'вечер';
+                }
+            },
+            
+            getPartOfDayClass: function(value) {
+                switch (value) {
+                    case '3':  return 'night';
+                    case '9':  return 'morning';
+                    case '15': return 'day';
+                    case '21': return 'evening';
                 }
             },
             

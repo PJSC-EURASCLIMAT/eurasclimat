@@ -8,6 +8,6 @@ Ext.define('EC.Main.view.Weather.PortletLayout', {
     }, {
         region: 'east',
         xtype: 'WeatherForecast',
-        width: 220
+        width: 230
     }]
 });

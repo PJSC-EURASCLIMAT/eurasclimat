@@ -205,17 +205,40 @@ body#login-page {
 
 .forecast-day-block {
     display: inline-table;
-    width: 210;
+    width: 200px;
     overflow: hidden;
-    margin: 5px 5px 10px 5px;
+    margin: 10px 3px 5px 3px;
+}
+
+.forecast-day-block-header {
+	text-align: left;
+    padding: 5px;
+    color: white;
+    background-color: rgb(4, 55, 102);
 }
 
 .forecast-daypart-block {
     display: inline-table;
     position: relative;
-    width: 50;
+    width: 50px;
     overflow: hidden;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 3px 0;
+}
+
+.forecast-daypart-night {
+	background-color: rgb(77, 127, 155);
+}
+
+.forecast-daypart-morning {
+	background-color: rgb(95, 157, 192);
+}
+
+.forecast-daypart-day {
+	background-color: rgb(212, 231, 241);
+}
+
+.forecast-daypart-evening {
+	background-color: rgb(170, 155, 162);
 }

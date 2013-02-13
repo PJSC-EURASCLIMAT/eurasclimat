@@ -49,8 +49,8 @@ Ext.define('App.controller.PortalAbstract', {
             iconCls: config.iconCls,
             initConfig: config,
             tools: [{
-                type: 'minimize',
-                tooltip: 'Свернуть в окошко',
+                type: 'save',
+                tooltip: 'Свернуть на рабочий стол',
                 action: 'minimize',
                 handler: function() {
                     this.openModulePortlet(panel);
@@ -115,8 +115,8 @@ Ext.define('App.controller.PortalAbstract', {
             iconCls: config.iconCls,
             initConfig: config,
             tools: [{
-                type: 'minimize',
-                tooltip: 'Свернуть в окошко',
+                type: 'save',
+                tooltip: 'Свернуть на рабочий стол',
                 action: 'minimize',
                 handler: function() {
                     this.openModulePortlet(win);
@@ -125,7 +125,7 @@ Ext.define('App.controller.PortalAbstract', {
                 scope: this
             }, {
                 type: 'restore',
-                tooltip: 'Восстановить размер',
+                tooltip: 'Свернуть во вкладку',
                 action: 'restore',
                 handler: function() {
                     this.openModuleTab(win);

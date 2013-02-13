@@ -17,19 +17,26 @@ Ext.define('EC.Main.controller.Main', {
 //            position: 'MainPanel-column-1',
 //            launchModule: 'EC.Main.controller.Workers'
 //        }, {
-            text: 'Производители',
-            title: 'Производители',
-            icon: '/images/icons/partners.png',
-            portletHeight: 200,
+//            text: 'Производители',
+//            title: 'Производители',
+//            icon: '/images/icons/partners.png',
+//            portletHeight: 200,
+//            position: 'MainPanel-column-1',
+//            launchModule: 'EC.Main.controller.Manufacturers'
+//        }, {
+            text: 'Новости',
+            title: 'Новости',
+            icon: '/images/icons/news_list.png',
+            portletHeight: 210,
             position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.Manufacturers'
+            launchModule: 'EC.Main.controller.News'
         }, {
-            text: 'О системе',
-            title: 'О системе',
+            text: 'Разработка системы',
+            title: 'Разработка системы',
             icon: '/images/icons/about.png',
             portletHeight: 410,
             position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.About'
+            launchModule: 'EC.Main.controller.Sysdev'
         }, {
             text: 'Производителям',
             title: 'Производителям',
@@ -61,13 +68,6 @@ Ext.define('EC.Main.controller.Main', {
             portletHeight: 200,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Currency'
-        }, {
-            text: 'Новости',
-            title: 'Новости',
-            icon: '/images/icons/news_list.png',
-            portletHeight: 210,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.News'
         }, {
             text: 'Прогноз погоды',
             title: 'Прогноз погоды',

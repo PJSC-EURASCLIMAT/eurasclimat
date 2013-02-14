@@ -64,6 +64,28 @@ Ext.define('App.controller.Main', {
         }),
         
         this.getCenterPanel().add({
+            title: 'Торговая площадка',
+            icon: '/images/icons/about.png',
+            border: false,
+            tbar: Ext.create('widget.toolbar', {
+                defaults: {
+                    icon: '/images/icons/about.png'
+                },
+                items: [{
+//                    text: 'Каталог специалистов'
+//                }, {
+//                    text: 'Рабочие группы'
+//                }, {
+//                    text: 'Форум'
+//                }, {
+//                    text: 'Обучение'
+//                }, {
+                    text: 'Создать свой подраздел'
+                }]
+            })
+        }),
+        
+        this.getCenterPanel().add({
             title: 'CRM',
             icon: '/images/icons/about.png',
             border: false,

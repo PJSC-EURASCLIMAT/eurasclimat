@@ -228,17 +228,17 @@ body#login-page {
 }
 
 .forecast-daypart-night {
-	background-color: rgb(77, 127, 155);
+	background-color: rgb(150, 173, 185);
 }
 
 .forecast-daypart-morning {
-	background-color: rgb(95, 157, 192);
+	background-color: rgb(153, 212, 245);
 }
 
 .forecast-daypart-day {
-	background-color: rgb(212, 231, 241);
+	background-color: rgb(248, 251, 252);
 }
 
 .forecast-daypart-evening {
-	background-color: rgb(170, 155, 162);
+	background-color: rgb(224, 217, 217);
 }

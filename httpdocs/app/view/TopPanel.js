@@ -25,6 +25,23 @@ Ext.define('App.view.TopPanel', {
 //    }, 
     
     items: ['->', {
+        xtype: 'button',
+        text: 'Все виджеты',
+        pressed: true,
+        menu: [{
+            text: 'Разработка системы',
+            icon: '/images/icons/about.png'
+        },{
+            text: 'Новости',
+            icon: '/images/icons/news_list.png'
+        },{
+            text: 'Курсы валют',
+            icon: '/images/icons/cur_exch.png'
+        },{
+            text: 'Прогноз погоды',
+            icon: '/images/icons/kweather.png'
+        }]
+    }, ' ', ' ', ' ', ' ', ' ', ' ', ' ', {
         xtype: 'component',
         autoEl: {
             tag: 'a',
@@ -53,23 +70,6 @@ Ext.define('App.view.TopPanel', {
             launchModule: 'EC.PA.controller.Profile'
         },
         hidden: !isAuth
-    }, {
-        xtype: 'button',
-        text: 'eВиджеты',
-        pressed: true,
-        menu: [{
-            text: 'Разработка системы',
-            icon: '/images/icons/about.png'
-        },{
-            text: 'Новости',
-            icon: '/images/icons/news_list.png'
-        },{
-            text: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png'
-        },{
-            text: 'Прогноз погоды',
-            icon: '/images/icons/about.png'
-        }]
     }, ' ', {
         xtype: 'button',
         action: 'auth',

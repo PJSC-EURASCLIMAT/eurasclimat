@@ -69,29 +69,22 @@ Ext.define('App.view.LeftPanel', {
             xtype: 'label',
             text: 'Статичное меню:'
         }, {
-            text: 'Функции раздела',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Функции раздела'
         }, {
-            text: 'Сервисы раздела',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Сервисы раздела'
         }, {
-            text: 'Документы раздела',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Документы раздела'
         }, {
-            text: 'Конструктор раздела',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Конструктор раздела'
         }, {
-            text: 'Настройки раздела',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Настройки раздела'
         }, {
             xtype: 'label',
             text: 'Динамичное меню:'
         }, {
-            text: 'Меню (подраздел №...)',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Меню (подраздел №...)'
         }, {
-            text: 'Меню (подраздел №...)',
-            icon: '/images/icons/cur_exch.png'
+            text: 'Меню (подраздел №...)'
         }, {
             xtype: 'label',
             text: 'Системные виджеты:',

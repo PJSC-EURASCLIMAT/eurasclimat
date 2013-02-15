@@ -42,5 +42,12 @@ Ext.define('EC.Main.controller.Sysdev', {
         } else {
             treePanel.getSelectionModel().select(this.theme);
         }
-    }   
+        
+        if (acl.isUpdate('sysdev')) {
+            previewPanel.down('toolbar button[action=edit]').on('click', function() {
+                var htmlContent = previewPanel.html;
+                console.log(htmlContent);
+            }, this);
+        }
+    }
 });

@@ -71,7 +71,7 @@ Ext.define('EC.Main.controller.Main', {
         }, {
             text: 'Прогноз погоды',
             title: 'Прогноз погоды',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/kweather.png',
             portletHeight: 300,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'

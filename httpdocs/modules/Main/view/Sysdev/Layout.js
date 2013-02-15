@@ -21,6 +21,15 @@ Ext.define('EC.Main.view.Sysdev.Layout', {
             url: '/sysdev/description/get-description-content',
             loadMask: true
         },
-        region: 'center'
+        region: 'center',
+        dockedItems: [{
+            xtype: 'toolbar',
+            dock: 'bottom', 
+            hidden: !acl.isUpdate('sysdev'),
+            items: [{
+                text: 'Редактировать',
+                action: 'edit'
+            }]
+        }]
     }]
 });

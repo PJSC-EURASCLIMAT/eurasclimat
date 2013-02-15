@@ -55,40 +55,51 @@ Ext.define('App.view.LeftPanel', {
 //            launchModule: 'App.controller.Auth'
 //        }, {
             xtype: 'label',
-            text: 'Проектные виджеты:'
+            text: 'Глобальное меню:'
         }, {
-            text: 'Проекты',
+            text: 'Меню №1',
             icon: '/images/icons/catalogue.png',
             disabled: true
         }, {
-            text: 'Группы',
+            text: 'Меню №2',
             icon: '/images/icons/catalogue.png',
             disabled: true
         }, {
-            text: 'Рейтинги',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
-        }, {
-            text: 'Документы',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
-        }, {
-            text: 'Платежи',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
-        }, {
-            text: 'Статистика',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
-        }, {
-            text: 'Обучение',
+            text: 'Меню №3',
             icon: '/images/icons/catalogue.png',
             disabled: true
         }, {
             xtype: 'label',
-            text: 'Избранные виджеты:'
+            text: 'Статичное меню:'
         }, {
-            text: 'Курсы валют',
+            text: 'Функции раздела',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            text: 'Сервисы раздела',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            text: 'Документы раздела',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            text: 'Конструктор раздела',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            text: 'Настройки раздела',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            xtype: 'label',
+            text: 'Динамичное меню:'
+        }, {
+            text: 'Меню (подраздел №...)',
+            icon: '/images/icons/cur_exch.png',
+            disabled: true
+        }, {
+            text: 'Меню (подраздел №...)',
             icon: '/images/icons/cur_exch.png',
             disabled: true
         }, {

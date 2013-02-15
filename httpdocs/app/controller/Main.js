@@ -86,29 +86,37 @@ Ext.define('App.controller.Main', {
         }),
         
         this.getCenterPanel().add({
+            xtype: 'tabpanel',
             title: 'CRM',
             icon: '/images/icons/about.png',
             border: false,
-            tbar: Ext.create('widget.toolbar', {
-                defaults: {
-                    icon: '/images/icons/about.png'
-                },
-                items: [{
-                    text: 'Проекты в работе'
-                }, {
-                    text: 'Участники проектов'
-                }, {
-                    text: 'Документы проектов'
-                }, {
-                    text: 'Платежи'
-                }, {
-                    text: 'Методики'
-                }, {
-                    text: 'Справочники'
-                }, {
-                    text: 'Создать свой подраздел'
-                }]
-            })
+            layout: 'fit',
+            defaults: {
+                icon: '/images/icons/about.png',
+                border: false,
+                tbar: Ext.create('widget.toolbar', {
+                    border: false,
+                    items: [{
+                        text: 'Кнопка',
+                        icon: '/images/icons/about.png'
+                    }]
+                })
+            },
+            items: [{
+                title: 'Проекты в работе'
+            }, {
+                title: 'Участники проектов'
+            }, {
+                title: 'Документы проектов'
+            }, {
+                title: 'Платежи'
+            }, {
+                title: 'Методики'
+            }, {
+                title: 'Справочники'
+            }, {
+                title: 'Создать свой подраздел'
+            }]
         });
         
         this.getCenterPanel().add({

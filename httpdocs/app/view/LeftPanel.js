@@ -58,50 +58,40 @@ Ext.define('App.view.LeftPanel', {
             text: 'Глобальное меню:'
         }, {
             text: 'Меню №1',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
+            icon: '/images/icons/catalogue.png'
         }, {
             text: 'Меню №2',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
+            icon: '/images/icons/catalogue.png'
         }, {
             text: 'Меню №3',
-            icon: '/images/icons/catalogue.png',
-            disabled: true
+            icon: '/images/icons/catalogue.png'
         }, {
             xtype: 'label',
             text: 'Статичное меню:'
         }, {
             text: 'Функции раздела',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             text: 'Сервисы раздела',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             text: 'Документы раздела',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             text: 'Конструктор раздела',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             text: 'Настройки раздела',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             xtype: 'label',
             text: 'Динамичное меню:'
         }, {
             text: 'Меню (подраздел №...)',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             text: 'Меню (подраздел №...)',
-            icon: '/images/icons/cur_exch.png',
-            disabled: true
+            icon: '/images/icons/cur_exch.png'
         }, {
             xtype: 'label',
             text: 'Системные виджеты:',

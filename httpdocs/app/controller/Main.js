@@ -93,14 +93,7 @@ Ext.define('App.controller.Main', {
             layout: 'fit',
             defaults: {
                 icon: '/images/icons/about.png',
-                border: false,
-                tbar: Ext.create('widget.toolbar', {
-                    border: false,
-                    items: [{
-                        text: 'Кнопка',
-                        icon: '/images/icons/about.png'
-                    }]
-                })
+                border: false
             },
             items: [{
                 title: 'Проекты в работе'

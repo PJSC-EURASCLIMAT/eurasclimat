@@ -108,7 +108,7 @@ class WeatherController extends Xend_Controller_Action
             if ($thisDate->isToday()) {
                 $todayDate = $res['date'];
                 $today[] = $res['data'];
-            } else {
+            } else if(!$thisDate->isYesterday()) {
                 $days[$res['date']]['date'] = $res['date'];
                 $days[$res['date']]['data'][] = $res['data'];
             }

@@ -55,6 +55,23 @@ Ext.define('App.view.TopPanel', {
         hidden: !isAuth
     }, {
         xtype: 'button',
+        text: 'eВиджеты',
+        pressed: true,
+        menu: [{
+            text: 'Разработка системы',
+            icon: '/images/icons/about.png'
+        },{
+            text: 'Новости',
+            icon: '/images/icons/news_list.png'
+        },{
+            text: 'Курсы валют',
+            icon: '/images/icons/cur_exch.png'
+        },{
+            text: 'Прогноз погоды',
+            icon: '/images/icons/about.png'
+        }]
+    }, ' ', {
+        xtype: 'button',
         action: 'auth',
         text: isAuth ? 'Выйти из системы' : 'Войти в систему',
         pressed: true,

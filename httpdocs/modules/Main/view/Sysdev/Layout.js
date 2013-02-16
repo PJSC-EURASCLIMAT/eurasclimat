@@ -21,6 +21,7 @@ Ext.define('EC.Main.view.Sysdev.Layout', {
             url: '/sysdev/description/get-description-content',
             loadMask: true
         },
+        layout: 'fit',
         region: 'center',
         dockedItems: [{
             xtype: 'toolbar',

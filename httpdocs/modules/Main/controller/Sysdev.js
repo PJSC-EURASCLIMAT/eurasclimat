@@ -45,8 +45,35 @@ Ext.define('EC.Main.controller.Sysdev', {
         
         if (acl.isUpdate('sysdev')) {
             previewPanel.down('toolbar button[action=edit]').on('click', function() {
-                var htmlContent = previewPanel.html;
-                console.log(htmlContent);
+                var editor = Ext.widget('htmleditor');
+                var win = Ext.create('Ext.window.Window', {
+                    width: 800,
+                    height: 500,
+                    modal: true,
+                    autoShow: true,
+                    maximizable: true,
+                    title: this.theme.get('name'),
+                    layout: 'fit',
+                    items: [editor],
+                    buttons: [{
+                        text: 'Сохранить',
+                        handler: function() {
+                            Ext.Ajax.request({
+                                url: '/json/sysdev/description/update-description-content',
+                                params: {
+                                    theme_id: this.theme.get('id'),
+                                    content: editor.getValue()
+                                },
+                                success: function() {
+                                    previewPanel.update(editor.getValue());
+                                    win.close();
+                                }
+                            });
+                        },
+                        scope: this
+                    }]
+                });
+                editor.setValue(previewPanel.html);
             }, this);
         }
     }

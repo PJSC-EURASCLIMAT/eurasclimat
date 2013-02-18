@@ -171,8 +171,6 @@ Ext.define('App.controller.Main', {
     
     openWidget: function(button) {
 
-        console.log('Hi from all widgets');
-        
         var tab = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0];
         if (!tab) {
             return;

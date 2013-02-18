@@ -24,7 +24,7 @@ Ext.define('EC.Main.view.Layout', {
     },
     
     items: [{
-        title: 'Рабочий стол',
+        title: 'Панель виджетов',
         xtype: 'portalpanel',
         border: false,
         closable: false,

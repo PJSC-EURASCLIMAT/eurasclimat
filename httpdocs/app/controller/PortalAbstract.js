@@ -13,16 +13,9 @@ Ext.define('App.controller.PortalAbstract', {
             return;
         }
         
-        var container = Ext.create('xlib.portal.Portlet', {
-            title: config.title,
-            launchModule: config.launchModule,
-            position: config.position,
-            portletHeight: config.portletHeight,
-            allowMultiple: config.allowMultiple,
-            icon: config.icon,
-            iconCls: config.iconCls,
-            initConfig: config
-        });
+        config.initConfig = config;
+        
+        var container = Ext.create('xlib.portal.Portlet', config);
         container.setHeight(config.portletHeight || 300);
         
         var pos = config.position ? '[id=' + config.position + ']' : '',

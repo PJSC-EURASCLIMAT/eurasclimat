@@ -24,20 +24,6 @@ Ext.define('EC.Main.controller.Main', {
 //            position: 'MainPanel-column-1',
 //            launchModule: 'EC.Main.controller.Manufacturers'
 //        }, {
-            text: 'Новости',
-            title: 'Новости',
-            icon: '/images/icons/news_list.png',
-            portletHeight: 210,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.News'
-        }, {
-            text: 'Разработка системы',
-            title: 'Разработка системы',
-            icon: '/images/icons/about.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.Sysdev'
-        }, {
             text: 'Производителям',
             title: 'Производителям',
             icon: '/images/icons/about.png',
@@ -61,20 +47,6 @@ Ext.define('EC.Main.controller.Main', {
             portletHeight: 200,
             allowMultiple: true,
             launchModule: 'EC.Main.controller.Article'
-        }, {
-            text: 'Курсы валют',
-            title: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Currency'
-        }, {
-            text: 'Прогноз погоды',
-            title: 'Прогноз погоды',
-            icon: '/images/icons/kweather.png',
-            portletHeight: 300,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Weather'
         }, {
             text: 'Проекты',
             title: 'Проекты',
@@ -112,6 +84,10 @@ Ext.define('EC.Main.controller.Main', {
         });
         
         Ext.each(menu, function(item) {
+            this.openModulePortlet(item);
+        }, this);
+        
+        Ext.each(Ext.ComponentQuery.query('TopPanel button[action=allwidgets] menuitem'), function(item) {
             this.openModulePortlet(item);
         }, this);
     }

@@ -9,6 +9,8 @@ Ext.define('App.view.CenterPanel', {
     
     alias: 'widget.CenterPanel',
 
+    id: 'CenterPanel',
+    
     region: 'center',
     
     bodyBorder: false,

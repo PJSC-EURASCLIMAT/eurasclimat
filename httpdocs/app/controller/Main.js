@@ -41,6 +41,11 @@ Ext.define('App.controller.Main', {
         this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
         this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
         
+        this.control({'TopPanel button[action=allwidgets] menuitem': {
+                click: this.openWidget
+            }
+        });
+        
         this.getCenterPanel().add({
             title: 'Специалисты',
             icon: '/images/icons/about.png',
@@ -162,5 +167,35 @@ Ext.define('App.controller.Main', {
 
         // Make first tab active
         this.getCenterPanel().down('MainPanel').show();
+    },
+    
+    openWidget: function(button) {
+
+        console.log('Hi from all widgets');
+        
+        var tab = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0];
+        if (!tab) {
+            return;
+        }
+        
+        var config = button.initConfig || button;
+        if (!config.allowMultiple && tab.down('[launchModule=' + config.launchModule + ']')) {
+            return;
+        }
+        
+        config.initConfig = config;
+        
+        var container = Ext.create('xlib.portal.Portlet', config);
+        container.setHeight(config.portletHeight || 300);
+        
+        var pos = config.position ? '[id=' + config.position + ']' : '',
+            column = tab.down(pos) || tab.down();
+        tab.show();
+        column.insert(0, container).show();
+            
+        if (config.launchModule) {
+            this.getController(config.launchModule).init(container);
+        }
+        tab.doLayout();
     }
 });

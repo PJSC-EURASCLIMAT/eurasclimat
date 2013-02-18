@@ -1,5 +1,6 @@
 .noicon {
 	background-image:none !important;
+	width: 0px !important;
 }
 
 .add {

@@ -57,13 +57,16 @@ Ext.define('App.view.LeftPanel', {
             xtype: 'label',
             text: 'Глобальное меню:'
         }, {
-            text: 'Меню №1',
+            text: 'Проекты',
             icon: '/images/icons/catalogue.png'
         }, {
-            text: 'Меню №2',
+            text: 'Инструментарий',
             icon: '/images/icons/catalogue.png'
         }, {
-            text: 'Меню №3',
+            text: 'Алгоритмы',
+            icon: '/images/icons/catalogue.png'
+        }, {
+            text: 'Навигация',
             icon: '/images/icons/catalogue.png'
         }, {
             xtype: 'label',

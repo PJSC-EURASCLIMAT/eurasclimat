@@ -30,7 +30,7 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
-            launchModule: 'EC.Main.controller.Article'
+            launchModule: 'EC.Main.controller.ForManufacturers'
         }, {
             text: 'Заказчикам',
             title: 'Заказчикам',
@@ -38,7 +38,7 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
-            launchModule: 'EC.Main.controller.Article'
+            launchModule: 'EC.Main.controller.ForCustomers'
         }, {
             text: 'Специалистам',
             title: 'Специалистам',
@@ -46,7 +46,7 @@ Ext.define('EC.Main.controller.Main', {
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
-            launchModule: 'EC.Main.controller.Article'
+            launchModule: 'EC.Main.controller.ForSpecialists'
         }, {
             text: 'Проекты',
             title: 'Проекты',

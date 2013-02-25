@@ -38,132 +38,18 @@ Ext.define('App.controller.Main', {
             }, this);
         }, this);
         
-        this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
-        
         this.control({'TopPanel button[action=allwidgets] menuitem': {
                 click: this.openWidget
             }
         });
         
-        this.getCenterPanel().add({
-            title: 'Специалисты',
-            icon: '/images/icons/about.png',
-            border: false,
-            tbar: Ext.create('widget.toolbar', {
-                defaults: {
-                    icon: '/images/icons/about.png'
-                },
-                items: [{
-                    text: 'Каталог специалистов'
-                }, {
-                    text: 'Рабочие группы'
-                }, {
-                    text: 'Форум'
-                }, {
-                    text: 'Обучение'
-                }, {
-                    text: 'Создать свой подраздел'
-                }]
-            })
-        }),
-        
-        this.getCenterPanel().add({
-            title: 'Торговая площадка',
-            icon: '/images/icons/about.png',
-            border: false,
-            tbar: Ext.create('widget.toolbar', {
-                defaults: {
-                    icon: '/images/icons/about.png'
-                },
-                items: [{
-                    text: 'Новые проекты'
-                }, {
-                    text: 'Проекты в работе'
-                }, {
-                    text: 'Статистика'
-                }, {
-                    text: 'Рейтинги'
-                }, {
-                    text: 'Создать свой подраздел'
-                }]
-            })
-        }),
-        
-        this.getCenterPanel().add({
-            xtype: 'tabpanel',
-            title: 'CRM',
-            icon: '/images/icons/about.png',
-            border: false,
-            layout: 'fit',
-            defaults: {
-                icon: '/images/icons/about.png',
-                border: false
-            },
-            items: [{
-                title: 'Проекты в работе'
-            }, {
-                title: 'Участники проектов'
-            }, {
-                title: 'Документы проектов'
-            }, {
-                title: 'Платежи'
-            }, {
-                title: 'Методики'
-            }, {
-                title: 'Справочники'
-            }, {
-                title: 'Создать свой подраздел'
-            }]
-        });
-        
-        this.getCenterPanel().add({
-            title: 'Почта',
-            icon: '/images/icons/about.png',
-            border: false,
-            tbar: Ext.create('widget.toolbar', {
-                defaults: {
-                    icon: '/images/icons/about.png'
-                },
-                items: [{
-                    text: 'Системная почта'
-                }, {
-                    text: 'Корп. сотовая связь'
-                }, {
-                    text: 'Корп. стационарная связь'
-                }, {
-                    text: 'Чат'
-                }, {
-                    text: 'Видеочат'
-                }, {
-                    text: 'Создать свой подраздел'
-                }]
-            })
-        });
-        
-        this.getCenterPanel().add({
-            title: 'Зона отдыха',
-            icon: '/images/icons/about.png',
-            border: false,
-            tbar: Ext.create('widget.toolbar', {
-                defaults: {
-                    icon: '/images/icons/about.png'
-                },
-                items: [{
-                    text: 'ТВ'
-                }, {
-                    text: 'Радио'
-                }, {
-                    text: 'Видео база данных'
-                }, {
-                    text: 'Музыка база данных'
-                }, {
-                    text: 'Игры'
-                }, {
-                    text: 'Создать свой подраздел'
-                }]
-            })
-        });
+        this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.Specialists.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.Market.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.CRM.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.Mail.controller.Main').init(this.getCenterPanel());
+        this.getController('EC.Recreation.controller.Main').init(this.getCenterPanel());
 
         // Make first tab active
         this.getCenterPanel().down('MainPanel').show();

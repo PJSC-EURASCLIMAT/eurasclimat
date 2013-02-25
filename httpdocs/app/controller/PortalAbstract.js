@@ -4,29 +4,31 @@ Ext.define('App.controller.PortalAbstract', {
 
     openModulePortlet: function(module) {
 
-        var config = module.initConfig || module;
+        var config = module.initConfig || module,
+            portalPanel;
+            
+        config.initConfig = config;
         
-        var tab = this.mainPanel.down('portalpanel');
+        portalPanel = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0]
+                   || module.up('tabpanel').down('portalpanel');
         
-        if (!config.allowMultiple 
-        && tab.down('[launchModule=' + config.launchModule + ']')) {
+        if (portalPanel && !config.allowMultiple 
+        && portalPanel.down('[launchModule=' + config.launchModule + ']')) {
             return;
         }
-        
-        config.initConfig = config;
         
         var container = Ext.create('xlib.portal.Portlet', config);
         container.setHeight(config.portletHeight || 300);
         
         var pos = config.position ? '[id=' + config.position + ']' : '',
-            column = tab.down(pos) || tab.down();
-        tab.show();
+            column = portalPanel.down(pos) || portalPanel.down();
+        portalPanel.show();
         column.insert(0, container).show();
             
         if (config.launchModule) {
             this.getController(config.launchModule).init(container);
         }
-        tab.doLayout();
+        portalPanel.doLayout();
     },
     
     openModuleTab: function(module) {
@@ -71,8 +73,11 @@ Ext.define('App.controller.PortalAbstract', {
                 tab.close();
             }
         });
-            
-        var tab = this.mainPanel.add({
+        
+        var parent = module.up('tabpanel')
+            || Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0].up();
+        
+        var tab = parent.add({
             closable: false,
             border: false,
             margin: 10,

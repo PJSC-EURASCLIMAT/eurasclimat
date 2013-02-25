@@ -74,9 +74,9 @@ Ext.define('App.controller.PortalAbstract', {
             }
         });
         
-        var parent = module.up('tabpanel')
-            || Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0].up();
-        
+        var parent = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0].up()
+                  || module.up('tabpanel');
+                  
         var tab = parent.add({
             closable: false,
             border: false,

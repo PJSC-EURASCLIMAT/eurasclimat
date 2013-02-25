@@ -39,7 +39,7 @@ Ext.define('App.controller.Main', {
         }, this);
         
         this.control({'TopPanel button[action=allwidgets] menuitem': {
-                click: this.openWidget
+                click: this.getController('EC.Main.controller.Main').openModulePortlet
             }
         });
         
@@ -53,33 +53,5 @@ Ext.define('App.controller.Main', {
 
         // Make first tab active
         this.getCenterPanel().down('MainPanel').show();
-    },
-    
-    openWidget: function(button) {
-
-        var tab = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0];
-        if (!tab) {
-            return;
-        }
-        
-        var config = button.initConfig || button;
-        if (!config.allowMultiple && tab.down('[launchModule=' + config.launchModule + ']')) {
-            return;
-        }
-        
-        config.initConfig = config;
-        
-        var container = Ext.create('xlib.portal.Portlet', config);
-        container.setHeight(config.portletHeight || 300);
-        
-        var pos = config.position ? '[id=' + config.position + ']' : '',
-            column = tab.down(pos) || tab.down();
-        tab.show();
-        column.insert(0, container).show();
-            
-        if (config.launchModule) {
-            this.getController(config.launchModule).init(container);
-        }
-        tab.doLayout();
     }
 });

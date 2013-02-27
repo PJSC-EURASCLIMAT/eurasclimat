@@ -4,7 +4,7 @@ Ext.define('EC.Mail.view.Layout', {
 
     alias: 'widget.MailPanel',
     
-    title: 'Корпаративная связь',
+    title: 'Корпоративная связь',
     
     icon: '/images/icons/about.png',
 

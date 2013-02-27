@@ -3,8 +3,7 @@ Ext.define('App.view.CenterPanel', {
     extend: 'Ext.tab.Panel',
 
     requires: [
-        'EC.Main.view.Layout',
-        'EC.Catalog.view.Layout'
+        'EC.Main.view.Layout'
     ],
     
     alias: 'widget.CenterPanel',
@@ -18,6 +17,7 @@ Ext.define('App.view.CenterPanel', {
     border: false,
     
     tabBar: {
-        baseCls: 'xlib-bkg'
+        baseCls: 'xlib-bkg',
+        style: 'margin-left: -3px;'
     }    
 });

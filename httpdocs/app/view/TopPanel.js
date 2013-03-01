@@ -75,7 +75,7 @@ Ext.define('App.view.TopPanel', {
         autoEl: {
             tag: 'a',
             href: '#',
-            style: 'text-align: right; padding-right: 10px; color: white;',
+            style: 'text-align: right; padding-right: 10px; color: white; margin-top: -1px !important;',
             html: 'Регистрация',
             action: 'run',
             onClick: 'return false;',
@@ -84,6 +84,7 @@ Ext.define('App.view.TopPanel', {
         hidden: isAuth
     }, {
         xtype: 'tbtext',
+        style: 'text-align: right; color: white; margin-top: -1px !important;',
         text: xlib.Acl.Storage.getIdentity().name + '&nbsp;|&nbsp;', 
         qtip: xlib.Acl.Storage.getIdentity().login,
         hidden: !isAuth
@@ -92,7 +93,7 @@ Ext.define('App.view.TopPanel', {
         autoEl: {
             tag: 'a',
             href: '#',
-            style: 'text-align: right; padding-right: 10px; color: white;',
+            style: 'text-align: right; padding-right: 10px; color: white; margin-top: -1px !important;',
             html: 'Мой профиль',
             action: 'run',
             onClick: 'return false;',

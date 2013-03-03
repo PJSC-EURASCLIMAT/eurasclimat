@@ -2,7 +2,11 @@ Ext.define('EC.Catalog.controller.Main', {
     
     extend: 'App.controller.PortalAbstract',
 
+    views: ['EC.Catalog.view.Layout'],
+    
     init: function(container) {
+        
+        var MC = this.getController('App.controller.Main');
         
         if (container.down('CatalogPanel')) {
             container.down('CatalogPanel').show();
@@ -69,8 +73,8 @@ Ext.define('EC.Catalog.controller.Main', {
         
         Ext.each(menu, function(item) {
             item.initConfig = item;
-            item.handler = this.openModulePortlet
-            item.scope = this
+            item.handler = MC.openModulePortlet;
+            item.scope = MC;
         }, this);
         
         this.mainPanel = container.add({
@@ -93,20 +97,22 @@ Ext.define('EC.Catalog.controller.Main', {
                 text: 'Создать свой подраздел',
                 title: 'Создать свой подраздел',
                 icon: '/images/icons/about.png'
-            }]
-        });
-        this.mainPanel.show();
-        
-        this.control({
-            'CatalogPanel > toolbar button': {
-                click: this.openModulePortlet,
-                scope: this
-            },
-            'CatalogPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+            }],
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Каталоги 1'
+        }, {
+            text: 'Каталоги 2'
+        }];
     }
 });

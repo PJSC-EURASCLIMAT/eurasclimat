@@ -10,30 +10,29 @@ Ext.define('EC.Admin.controller.Main', {
             container.down('AdminPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'AdminPanel'});
-        this.mainPanel.show();
+        
+        var MC = this.getController('App.controller.Main');
+        
+        var panel = container.add({xtype: 'AdminPanel'});
+        panel.show();
         
         this.control({
             'AdminPanel > toolbar button': {
-                click: this.openModulePortlet,
-                scope: this
-            },
-            'AdminPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
-                scope: this
+                click: MC.openModulePortlet,
+                scope: MC
             }
         });
         
-        this.openModulePortlet({
+        MC.openModulePortlet({
             title: 'Роли',
             height: 600,
             iconCls: 'user-suit',
             position: 'AdminPanel-column-1',
+            closable: false,
             launchModule: 'EC.Admin.controller.Roles' 
         });
         
-        this.openModulePortlet({
+        MC.openModulePortlet({
             title: 'Пользователи',
             height: 600,
             iconCls: 'user',
@@ -41,7 +40,7 @@ Ext.define('EC.Admin.controller.Main', {
             launchModule: 'EC.Admin.controller.Accounts' 
         });
         
-        this.openModulePortlet({
+        MC.openModulePortlet({
             title: 'Права доступа',
             height: 600,
             iconCls: 'connect',

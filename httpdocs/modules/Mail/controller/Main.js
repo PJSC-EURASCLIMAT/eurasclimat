@@ -12,15 +12,23 @@ Ext.define('EC.Mail.controller.Main', {
             container.down('MailPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'MailPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'MailPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+        container.add({
+            xtype: 'MailPanel',
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Корпоративная связь 1'
+        }, {
+            text: 'Корпоративная связь 2'
+        }];
     }
 });

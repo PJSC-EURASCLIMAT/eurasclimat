@@ -341,7 +341,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     openFiltered: function(button) {
         
-        var MC = this.getController('EC.Catalog.controller.Main'), 
+        var MC = this.getController('App.controller.Main'), 
             values = [];
         Ext.each(button.up(this.filtersPanelXType).query('combo'), function(item) {
             var value = {name: item.getXType(), value: item.getValue()};

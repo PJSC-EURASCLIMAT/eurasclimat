@@ -10,19 +10,6 @@ Ext.define('EC.PA.controller.Main', {
             container.down('PAPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'PAPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'PAPanel > toolbar button': {
-                click: this.openModulePortlet,
-                scope: this
-            },
-            'PAPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
-                scope: this
-            }
-        });
+        container.add({xtype: 'PAPanel'});
     }
 });

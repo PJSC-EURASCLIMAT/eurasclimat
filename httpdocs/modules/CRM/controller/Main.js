@@ -12,15 +12,23 @@ Ext.define('EC.CRM.controller.Main', {
             container.down('CRMPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'CRMPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'CRMPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+        container.add({
+            xtype: 'CRMPanel',
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'CRM 1'
+        }, {
+            text: 'CRM 2'
+        }];
     }
 });

@@ -12,15 +12,23 @@ Ext.define('EC.Recreation.controller.Main', {
             container.down('RecreationPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'RecreationPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'RecreationPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+        container.add({
+            xtype: 'RecreationPanel',
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Зона отдыха 1'
+        }, {
+            text: 'Зона отдыха 2'
+        }];
     }
 });

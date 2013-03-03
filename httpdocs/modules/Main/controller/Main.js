@@ -2,7 +2,13 @@ Ext.define('EC.Main.controller.Main', {
     
     extend: 'App.controller.PortalAbstract',
 
+    views: [
+        'EC.Main.view.Layout'
+    ],
+    
     init: function(container) {
+        
+        var MC = this.getController('App.controller.Main');
         
         if (container.down('MainPanel')) {
             container.down('MainPanel').show();
@@ -65,30 +71,42 @@ Ext.define('EC.Main.controller.Main', {
             item.initConfig = item;
         }, this);
         
-        this.mainPanel = container.add({
+        container.add({
             xtype: 'MainPanel',
-            tbar: menu
+            tbar: menu,
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
+                scope: this
+            }
         });
-        this.mainPanel.show();
-        
+
         this.control({
             'MainPanel > toolbar button': {
-                click: this.openModulePortlet,
-                scope: this
-            },
-            'MainPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
-                scope: this
+                click: MC.openModulePortlet
             }
         });
         
         Ext.each(menu, function(item) {
-            this.openModulePortlet(item);
-        }, this);
+            MC.openModulePortlet(item);
+        });
         
         Ext.each(Ext.ComponentQuery.query('TopPanel button[action=allwidgets] menuitem'), function(item) {
-            this.openModulePortlet(item);
-        }, this);
+            MC.openModulePortlet(item);
+        });
+        
+        MC.populateStaticMenu(this.getMenu());
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Главная 1'
+        }, {
+            text: 'Главная 2'
+        }, {
+            text: 'Главная 3'
+        }];
     }
 });

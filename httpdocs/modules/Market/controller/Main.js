@@ -12,15 +12,24 @@ Ext.define('EC.Market.controller.Main', {
             container.down('MarketPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'MarketPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'MarketPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+        
+        container.add({
+            xtype: 'MarketPanel',
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Торговая площадка 1'
+        }, {
+            text: 'Торговая площадка 2'
+        }];
     }
 });

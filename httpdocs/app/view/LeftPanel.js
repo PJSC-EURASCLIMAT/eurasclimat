@@ -26,16 +26,26 @@ Ext.define('App.view.LeftPanel', {
     }, {
         region: 'center',
         baseCls: 'xlib-bkg',
+        autoScroll: true,
         layout: {
             type: 'vbox',
             align: 'stretch'
         },
         padding: 5,
-        defaultType: 'button',
         defaults: {
-            margins: 5,
-            textAlign: 'left',
-//            hidden: !acl.isView('admin')
+            xtype: 'toolbar',
+            style: 'margin-bottom: 10px;',
+            baseCls: 'xlib-bkg',
+            defaults: {
+                width: 'auto',
+                pressed: true,
+                style: 'margin-top: 5px;',
+                textAlign: 'left'
+            },
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            }
         },
         items: [{
 //            text: 'Каталоги',
@@ -54,49 +64,60 @@ Ext.define('App.view.LeftPanel', {
 //            icon: '/images/icons/login.png',
 //            launchModule: 'App.controller.Auth'
 //        }, {
+            text: 'Глобальное меню',
             xtype: 'label',
-            text: 'Глобальное меню:'
+            style: 'margin-top: 0;',
+            cls: 'x-panel-header-text-default'
         }, {
-            text: 'Проекты',
-            icon: '/images/icons/catalogue.png'
+            id: 'EC-global-menu',
+            items: [{
+                text: 'Проекты',
+                icon: '/images/icons/catalogue.png'
+            }, {
+                text: 'Инструментарий',
+                icon: '/images/icons/catalogue.png'
+            }, {
+                text: 'Алгоритмы',
+                icon: '/images/icons/catalogue.png'
+            }, {
+                text: 'Навигация',
+                icon: '/images/icons/catalogue.png'
+            }]
         }, {
-            text: 'Инструментарий',
-            icon: '/images/icons/catalogue.png'
-        }, {
-            text: 'Алгоритмы',
-            icon: '/images/icons/catalogue.png'
-        }, {
-            text: 'Навигация',
-            icon: '/images/icons/catalogue.png'
-        }, {
+            text: 'Статичное меню',
             xtype: 'label',
-            text: 'Статичное меню:'
+            style: 'margin-top: 10px;',
+            cls: 'x-panel-header-text-default'
         }, {
-            text: 'Функции раздела'
+            id: 'EC-static-menu',
+            items: []
         }, {
-            text: 'Сервисы раздела'
-        }, {
-            text: 'Документы раздела'
-        }, {
-            text: 'Конструктор раздела'
-        }, {
-            text: 'Настройки раздела'
-        }, {
+            text: 'Динамичное меню',
             xtype: 'label',
-            text: 'Динамичное меню:'
+            style: 'margin-top: 10px;',
+            cls: 'x-panel-header-text-default'
         }, {
-            text: 'Меню (подраздел №...)'
+            id: 'EC-dynamic-menu',
+            items: [{
+                text: 'Меню (подраздел №...)'
+            }, {
+                text: 'Меню (подраздел №...)'
+            }]
         }, {
-            text: 'Меню (подраздел №...)'
-        }, {
+            text: 'Служебное меню',
             xtype: 'label',
-            text: 'Системные виджеты:',
-            hidden: !acl.isView('admin')
-        }, {
-            text: 'Администрирование',
-            iconCls: 'expand-all',
             hidden: !acl.isView('admin'),
-            launchModule: 'EC.Admin.controller.Main'
+            style: 'margin-top: 10px;',
+            cls: 'x-panel-header-text-default'
+        }, {
+            id: 'EC-support-menu',
+            hidden: !acl.isView('admin'),
+            items: [{
+                text: 'Администрирование',
+                iconCls: 'expand-all',
+                hidden: !acl.isView('admin'),
+                launchModule: 'EC.Admin.controller.Main'
+            }]
         }]
     }]
 });

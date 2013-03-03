@@ -12,15 +12,24 @@ Ext.define('EC.Specialists.controller.Main', {
             container.down('SpecialistsPanel').show();
             return;
         }
-        this.mainPanel = container.add({xtype: 'SpecialistsPanel'});
-        this.mainPanel.show();
-       
-        this.control({
-            'SpecialistsPanel portlet': {
-                restore: this.openModuleTab,
-                maximize: this.openModuleFullscreen,
+        
+        container.add({
+            xtype: 'SpecialistsPanel',
+            listeners: {
+                show: function() {
+                    var MC = this.getController('App.controller.Main');
+                    MC.populateStaticMenu(this.getMenu());
+                },
                 scope: this
             }
         });
+    },
+    
+    getMenu: function() {
+        return [{
+            text: 'Специалисты 1'
+        }, {
+            text: 'Специалисты 2'
+        }];
     }
 });

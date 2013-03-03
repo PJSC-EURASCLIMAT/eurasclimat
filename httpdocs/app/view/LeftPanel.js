@@ -84,7 +84,7 @@ Ext.define('App.view.LeftPanel', {
                 icon: '/images/icons/catalogue.png'
             }]
         }, {
-            text: 'Статичное меню',
+            text: 'Меню раздела',
             xtype: 'label',
             style: 'margin-top: 10px;',
             cls: 'x-panel-header-text-default'
@@ -92,7 +92,7 @@ Ext.define('App.view.LeftPanel', {
             id: 'EC-static-menu',
             items: []
         }, {
-            text: 'Динамичное меню',
+            text: 'Меню подраздела',
             xtype: 'label',
             style: 'margin-top: 10px;',
             cls: 'x-panel-header-text-default'

@@ -1,28 +1,12 @@
 Ext.define('EC.Recreation.controller.Main', {
     
-    extend: 'App.controller.PortalAbstract',
+    extend: 'App.controller.ChapterAbstract',
 
     views: [
         'EC.Recreation.view.Layout'
     ],
     
-    init: function(container) {
-        
-        if (container.down('RecreationPanel')) {
-            container.down('RecreationPanel').show();
-            return;
-        }
-        container.add({
-            xtype: 'RecreationPanel',
-            listeners: {
-                show: function() {
-                    var MC = this.getController('App.controller.Main');
-                    MC.populateStaticMenu(this.getMenu());
-                },
-                scope: this
-            }
-        });
-    },
+    viewLayout: 'RecreationPanel',
     
     getMenu: function() {
         return [{

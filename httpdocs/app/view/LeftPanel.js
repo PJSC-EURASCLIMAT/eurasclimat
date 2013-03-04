@@ -98,11 +98,7 @@ Ext.define('App.view.LeftPanel', {
             cls: 'x-panel-header-text-default'
         }, {
             id: 'EC-dynamic-menu',
-            items: [{
-                text: 'Меню (подраздел №...)'
-            }, {
-                text: 'Меню (подраздел №...)'
-            }]
+            items: []
         }, {
             text: 'Служебное меню',
             xtype: 'label',

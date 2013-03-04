@@ -59,8 +59,6 @@ Ext.define('App.controller.Main', {
         this.getController('EC.Recreation.controller.Main').init(this.getCenterPanel());
 
         // Make first tab active
-//        this.getCenterPanel().down('MainPanel').show();
-//        this.getCenterPanel().down('MainPanel').setActive(true);
         this.getCenterPanel().setActiveTab(0);
     },
     

@@ -8,6 +8,18 @@ Ext.define('EC.Mail.controller.Main', {
     
     viewLayout: 'MailPanel',
     
+    init: function() {
+        
+        var container = this.callParent(arguments);
+        
+        this.getController('EC.Mail.controller.SysMail').init(container);
+        this.getController('EC.Mail.controller.CorpCellNet').init(container);
+        this.getController('EC.Mail.controller.CorpBaseNet').init(container);
+        this.getController('EC.Mail.controller.Chat').init(container);
+        this.getController('EC.Mail.controller.VideoChat').init(container);
+        this.getController('EC.Mail.controller.NewChapter').init(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Корпоративная связь 1'

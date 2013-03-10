@@ -1,103 +1,26 @@
 Ext.define('EC.Main.controller.Main', {
     
-    extend: 'App.controller.PortalAbstract',
+    extend: 'App.controller.ChapterAbstract',
 
     views: [
         'EC.Main.view.Layout'
     ],
     
+    viewLayout: 'MainPanel',
+    
     init: function(container) {
         
-        var MC = this.getController('App.controller.Main');
+        var container = this.callParent(arguments);
         
-        if (container.down('MainPanel')) {
-            container.down('MainPanel').show();
-            return;
-        }
+        container.fireEvent('activate');
+        container.setActiveTab(0);
         
-        var menu = [{
-//            text: 'Специалисты',
-//            title: 'Специалисты',
-//            icon: '/images/icons/worker.png',
-//            portletHeight: 300,
-//            position: 'MainPanel-column-1',
-//            launchModule: 'EC.Main.controller.Workers'
-//        }, {
-//            text: 'Производители',
-//            title: 'Производители',
-//            icon: '/images/icons/partners.png',
-//            portletHeight: 200,
-//            position: 'MainPanel-column-1',
-//            launchModule: 'EC.Main.controller.Manufacturers'
-//        }, {
-            text: 'Производителям',
-            title: 'Производителям',
-            icon: '/images/icons/about.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForManufacturers'
-        }, {
-            text: 'Заказчикам',
-            title: 'Заказчикам',
-            icon: '/images/icons/about.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForCustomers'
-        }, {
-            text: 'Специалистам',
-            title: 'Специалистам',
-            icon: '/images/icons/about.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForSpecialists'
-        }, {
-            text: 'Проекты',
-            title: 'Проекты',
-            icon: '/images/icons/about.png'
-        }, {
-            text: 'Конкурсы',
-            title: 'Конкурсы',
-            icon: '/images/icons/about.png'
-        }, {
-            text: 'Создать свой подраздел',
-            title: 'Создать свой подраздел',
-            icon: '/images/icons/about.png'
-        }];
-        
-        Ext.each(menu, function(item) {
-            item.initConfig = item;
-        }, this);
-        
-        container.add({
-            xtype: 'MainPanel',
-            tbar: menu,
-            listeners: {
-                show: function() {
-                    var MC = this.getController('App.controller.Main');
-                    MC.populateStaticMenu(this.getMenu());
-                },
-                scope: this
-            }
-        });
-
-        this.control({
-            'MainPanel > toolbar button': {
-                click: MC.openModulePortlet
-            }
-        });
-        
-        Ext.each(menu, function(item) {
-            MC.openModulePortlet(item);
-        });
-        
-        Ext.each(Ext.ComponentQuery.query('TopPanel button[action=allwidgets] menuitem'), function(item) {
-            MC.openModulePortlet(item);
-        });
-        
-        MC.populateStaticMenu(this.getMenu());
+        this.getController('EC.Main.controller.About').init(container);
+        this.getController('EC.Main.controller.Development').init(container);
+        this.getController('EC.Main.controller.Projects').init(container);
+        this.getController('EC.Main.controller.NewsSubChapter').init(container);
+        this.getController('EC.Main.controller.Competitions').init(container);
+        this.getController('EC.Main.controller.NewChapter').init(container);
     },
     
     getMenu: function() {

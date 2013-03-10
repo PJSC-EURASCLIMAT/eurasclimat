@@ -1,21 +1,10 @@
 Ext.define('EC.Market.view.NewProjects.Layout', {
 
-    extend: 'Ext.tab.Panel',
+    extend: 'App.view.PortalLayoutAbstarct',
 
     title: 'Новые проекты',
     
     icon: '/images/icons/about.png',
-
-    tabPosition: 'bottom',
-    
-    closable: false,
-    
-    border: false,
-        
-    defaults: {
-        layout: 'fit',
-        closable: true
-    },
     
     items: [{
         title: 'Панель виджетов',
@@ -23,6 +12,12 @@ Ext.define('EC.Market.view.NewProjects.Layout', {
         border: false,
         closable: false,
         columns: 3,
-        items: [{}, {}, {}]
+        items: [{
+            id: 'Market-NewProjects-column-1'
+        }, {
+            id: 'Market-NewProjects-column-2'
+        }, {
+            id: 'Market-NewProjects-column-3'
+        }]
     }]
 });

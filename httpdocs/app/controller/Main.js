@@ -9,6 +9,8 @@ Ext.define('App.controller.Main', {
         selector: 'CenterPanel'
     }], 
     
+    requires: ['xlib.portal.PortalPanel'],
+    
     init: function() {
         
         var MainLayout = this.getView('Layout').create({
@@ -20,7 +22,7 @@ Ext.define('App.controller.Main', {
         });
         
         this.control({
-            'LeftPanel button, TopPanel button[action=auth]': {
+            'LeftPanel button[action=admin], TopPanel button[action=auth]': {
                 click: function(button, e, options) {
                     if (!Ext.isEmpty(button.launchModule)) {
                         this.getController(button.launchModule).init(this.getCenterPanel());
@@ -64,7 +66,7 @@ Ext.define('App.controller.Main', {
     
     openModulePortlet: function(module) {
 
-        var config = module.initConfig || module,
+        var config = module.initConfig || module.initialConfig || module,
             portalPanel;
             
         config.initConfig = config;
@@ -76,7 +78,7 @@ Ext.define('App.controller.Main', {
         && portalPanel.down('[launchModule=' + config.launchModule + ']')) {
             return;
         }
-        
+
         var container = Ext.create('xlib.portal.Portlet', config);
         container.setHeight(config.portletHeight || 300);
         
@@ -205,9 +207,19 @@ Ext.define('App.controller.Main', {
         if (module.close) module.close();
     },
     
-    populateStaticMenu: function(items) {
-        var menu = Ext.getCmp('EC-static-menu');
-        menu.removeAll(true);
-        menu.add(items);
+    populateChapterMenu: function(items) {
+        Ext.defer(function() {
+            var menu = Ext.getCmp('EC-chapter-menu');
+            menu.removeAll(true);
+            menu.add(items);
+        }, 1);
+    },
+    
+    populateSubchapterMenu: function(items) {
+        Ext.defer(function() {
+            var menu = Ext.getCmp('EC-subchapter-menu');
+            menu.removeAll(true);
+            menu.add(items);
+        }, 1);
     }
 });

@@ -1,8 +1,6 @@
 Ext.define('EC.Main.view.Layout', {
 
-    extend: 'Ext.tab.Panel',
-
-    requires: ['xlib.portal.PortalPanel'],
+    extend: 'App.view.ChapterLayoutAbstarct',
     
     alias: 'widget.MainPanel',
     
@@ -10,34 +8,6 @@ Ext.define('EC.Main.view.Layout', {
     
     title: 'Главная',
     
-    icon: '/images/icons/about.png',
+    icon: '/images/icons/about.png'
 
-    tabPosition: 'bottom',
-    
-    closable: false,
-    
-    border: false,
-        
-    defaults: {
-        layout: 'fit',
-        closable: true
-    },
-    
-    items: [{
-        title: 'Панель виджетов',
-        xtype: 'portalpanel',
-        border: false,
-        closable: false,
-        columns: 2,
-        items: [{
-//            columnWidth: 0.65,
-            id: 'MainPanel-column-1'
-        }, {
-//            columnWidth: 0.35,
-            id: 'MainPanel-column-2'
-        }, {
-//            columnWidth: 0.35,
-            id: 'MainPanel-column-3'
-        }]
-    }]
 });

@@ -1,4 +1,4 @@
-Ext.define('EC.Speialists.view.NewChapter.Layout', {
+Ext.define('EC.Specialists.view.NewChapter.Layout', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 

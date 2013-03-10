@@ -9,7 +9,6 @@ Ext.define('EC.Main.controller.About', {
         this.callParent(arguments);
         
         var MC = this.getController('App.controller.Main');
-        MC.populateSubchapterMenu(this.getMenu());
         
         var modulesToOpen = [{
 //            title: 'Специалисты',

@@ -62,6 +62,8 @@ Ext.define('App.controller.Main', {
 
         // Make first tab active
         this.getCenterPanel().setActiveTab(0);
+        this.getCenterPanel().getActiveTab().setActiveTab(0);
+        this.getCenterPanel().getActiveTab().fireEvent('activate');
     },
     
     openModulePortlet: function(module) {

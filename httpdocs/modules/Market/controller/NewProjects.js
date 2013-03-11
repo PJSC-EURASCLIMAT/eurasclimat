@@ -71,6 +71,16 @@ Ext.define('EC.Market.controller.NewProjects', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
+        }, {
+            text: 'Мини браузер',
+            title: 'Мини браузер',
+//            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-1',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.MiniBrowser',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
         }];
     }
 });

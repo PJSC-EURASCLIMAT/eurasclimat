@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Host: eurasclimat.ru
+Allow: /sitemap.xml
+Sitemap: http://eurasclimat.ru/sitemap.xml

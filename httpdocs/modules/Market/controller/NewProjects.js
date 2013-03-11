@@ -6,13 +6,13 @@ Ext.define('EC.Market.controller.NewProjects', {
         'EC.Market.view.NewProjects.Layout'
     ],
     
-    init: function() {
-        
-        var panel = this.callParent(arguments),
-            menu = this.getMenu();
-            
-        this.openModulePortlet(menu[0], panel);
-    },
+//    init: function() {
+//        
+//        var panel = this.callParent(arguments),
+//            menu = this.getMenu();
+//            
+//        this.openModulePortlet(menu[0], panel);
+//    },
     
     openModulePortlet: function(module, panel) {
 
@@ -42,8 +42,8 @@ Ext.define('EC.Market.controller.NewProjects', {
         var MC = this.getController('App.controller.Main');
         
         return [{
-            text: 'Сайт в виджете 1',
-            title: 'Сайт в виджете 1',
+            text: 'Сайт ЭТП ММББ',
+            title: 'ЭТП ММББ',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-1',
             allowMultiple: true,
@@ -52,8 +52,8 @@ Ext.define('EC.Market.controller.NewProjects', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }, {
-            text: 'Сайт в виджете 2',
-            title: 'Сайт в виджете 2',
+            text: 'Сайт Сбербанк-АСТ',
+            title: 'Сбербанк-АСТ',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-2',
             allowMultiple: true,
@@ -62,8 +62,8 @@ Ext.define('EC.Market.controller.NewProjects', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }, {
-            text: 'Сайт в виджете 3',
-            title: 'Сайт в виджете 3',
+            text: 'Сайт ЕЭТП (Росэлторг)',
+            title: 'ЕЭТП (Росэлторг)',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-3',
             allowMultiple: true,

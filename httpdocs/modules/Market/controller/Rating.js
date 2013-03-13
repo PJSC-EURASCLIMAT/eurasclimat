@@ -8,9 +8,7 @@ Ext.define('EC.Market.controller.Rating', {
     
     getMenu: function() {
         return [{
-            text: 'Рейтинги 1'
-        }, {
-            text: 'Рейтинги 2'
+            text: 'Выборки по рейтингам'
         }];
     }
 });

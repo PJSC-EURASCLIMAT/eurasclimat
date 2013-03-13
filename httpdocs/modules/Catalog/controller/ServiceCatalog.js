@@ -6,9 +6,7 @@ Ext.define('EC.Catalog.controller.ServiceCatalog', {
     
     getMenu: function() {
         return [{
-            text: 'Каталог услуг 1'
-        }, {
-            text: 'Каталог услуг 2'
+            text: 'Производители'
         }];
     }
 });

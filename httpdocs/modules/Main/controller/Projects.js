@@ -6,9 +6,13 @@ Ext.define('EC.Main.controller.Projects', {
     
     getMenu: function() {
         return [{
-            text: 'Проекты 1'
+            text: 'Статистика ПП'
         }, {
-            text: 'Проекты 2'
+            text: 'Рейтинги ПП'
+        }, {
+            text: 'Участие в ПП'
+        }, {    
+            text: 'Архив ПП'
         }];
     }
 });

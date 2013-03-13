@@ -8,9 +8,15 @@ Ext.define('EC.CRM.controller.CurrentProjects', {
     
     getMenu: function() {
         return [{
-            text: 'Проекты в работе 1'
+            text: 'Товары в наличии'
         }, {
-            text: 'Проекты в работе 2'
+        text: 'Инструментарий'
+        }, {
+        text: 'Справочники'
+        }, {
+        text: 'Платежи'
+        }, {    
+            text: 'Депозитирование ставок'
         }];
     }
 });

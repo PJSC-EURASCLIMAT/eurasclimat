@@ -8,9 +8,11 @@ Ext.define('EC.CRM.controller.ProjectsParticipants', {
     
     getMenu: function() {
         return [{
-            text: 'Участники проектов 1'
+            text: 'Поступившие предложения'
         }, {
-            text: 'Участники проектов 2'
+            text: 'Инструментарий'
+        , {
+            text: 'Справочники'    
         }];
     }
 });

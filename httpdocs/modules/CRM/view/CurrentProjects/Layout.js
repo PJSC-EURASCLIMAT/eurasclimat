@@ -2,7 +2,7 @@ Ext.define('EC.CRM.view.CurrentProjects.Layout', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'Проекты в работе',
+    title: 'Личные инженерные проекты',
     
     icon: '/images/icons/about.png'
 });

@@ -6,9 +6,13 @@ Ext.define('EC.Main.controller.Development', {
     
     getMenu: function() {
         return [{
-            text: 'Разработка системы 1'
+            text: 'Статистика ПР'
         }, {
-            text: 'Разработка системы 2'
+            text: 'Рейтинги ПР'
+        }, {
+            text: 'Участие в ПР'
+        }, {    
+            text: 'Архив ПР'
         }];
     }
 });

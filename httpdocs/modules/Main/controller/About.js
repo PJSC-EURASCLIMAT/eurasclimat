@@ -84,7 +84,7 @@ Ext.define('EC.Main.controller.About', {
             icon: '/images/icons/about.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
-            allowMultiple: true,
+            allowMultiple: false,
             launchModule: 'EC.Main.controller.ForManufacturers',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
@@ -95,7 +95,7 @@ Ext.define('EC.Main.controller.About', {
             icon: '/images/icons/about.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
-            allowMultiple: true,
+            allowMultiple: false,
             launchModule: 'EC.Main.controller.ForCustomers',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
@@ -106,11 +106,25 @@ Ext.define('EC.Main.controller.About', {
             icon: '/images/icons/about.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
-            allowMultiple: true,
+            allowMultiple: false,
             launchModule: 'EC.Main.controller.ForSpecialists',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
+        }, {
+            text: 'Новости',
+            title: 'Новости',
+            icon: '/images/icons/news_list.png',
+            position: 'MainPanel-column-1',
+            portletHeight: 210,
+            launchModule: 'EC.Main.controller.News',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'Сообщения',
+            title: 'Сообщения',
+            icon: '/images/icons/about.png',
         }];
     }
 });

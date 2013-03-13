@@ -81,6 +81,12 @@ Ext.define('EC.Market.controller.NewProjects', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
+         }, {
+            text: 'Технологич. конкурсы',
+            title: 'Технологич. конкурсы',
+         }, {
+            text: 'Технологич. аукционы',
+            title: 'Технологич. аукционы',
         }];
     }
 });

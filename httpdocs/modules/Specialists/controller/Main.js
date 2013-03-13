@@ -20,9 +20,15 @@ Ext.define('EC.Specialists.controller.Main', {
     
     getMenu: function() {
         return [{
-            text: 'Специалисты 1'
+            text: 'Функции раздела'
         }, {
-            text: 'Специалисты 2'
+            text: 'Сервисы раздела'
+        }, {
+            text: 'Документы раздела'
+        }, {
+            text: 'Конструктор раздела'
+        }, {
+            text: 'Настройки раздела'    
         }];
     }
 });

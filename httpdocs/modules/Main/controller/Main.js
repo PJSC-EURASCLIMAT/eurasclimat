@@ -18,18 +18,22 @@ Ext.define('EC.Main.controller.Main', {
         this.getController('EC.Main.controller.About').init(container);
         this.getController('EC.Main.controller.Development').init(container);
         this.getController('EC.Main.controller.Projects').init(container);
-        this.getController('EC.Main.controller.NewsSubChapter').init(container);
+        /*this.getController('EC.Main.controller.NewsSubChapter').init(container);*/
         this.getController('EC.Main.controller.Competitions').init(container);
         this.getController('EC.Main.controller.NewChapter').init(container);
     },
     
     getMenu: function() {
         return [{
-            text: 'Главная 1'
+            text: 'Функции раздела'
         }, {
-            text: 'Главная 2'
+            text: 'Сервисы раздела'
         }, {
-            text: 'Главная 3'
+            text: 'Документы раздела'
+        }, {
+            text: 'Конструктор раздела'
+        }, {
+            text: 'Настройки раздела'    
         }];
     }
 });

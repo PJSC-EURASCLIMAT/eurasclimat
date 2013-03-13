@@ -2,7 +2,7 @@ Ext.define('EC.Market.view.NewProjects.Layout', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'Новые проекты',
+    title: 'Новые проекты развития системы',
     
     icon: '/images/icons/about.png',
     

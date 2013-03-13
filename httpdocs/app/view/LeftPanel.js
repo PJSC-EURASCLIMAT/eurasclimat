@@ -74,13 +74,13 @@ Ext.define('App.view.LeftPanel', {
                 text: 'Проекты',
                 icon: '/images/icons/catalogue.png'
             }, {
-                text: 'Инструментарий',
-                icon: '/images/icons/catalogue.png'
-            }, {
-                text: 'Алгоритмы',
-                icon: '/images/icons/catalogue.png'
-            }, {
                 text: 'Навигация',
+                icon: '/images/icons/catalogue.png'
+            }, {
+                text: 'Оповещения',
+                icon: '/images/icons/catalogue.png'
+            }, {
+                text: 'Переписка с админ-ей',
                 icon: '/images/icons/catalogue.png'
             }]
         }, {

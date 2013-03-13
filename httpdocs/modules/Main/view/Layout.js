@@ -6,7 +6,7 @@ Ext.define('EC.Main.view.Layout', {
     
     id: 'Main-tab',
     
-    title: 'Главная',
+    title: 'Главная страница',
     
     icon: '/images/icons/about.png'
 

@@ -8,9 +8,7 @@ Ext.define('EC.Market.controller.Statistic', {
     
     getMenu: function() {
         return [{
-            text: 'Статистика 1'
-        }, {
-            text: 'Статистика 2'
+            text: 'Статистич. выборки'
         }];
     }
 });

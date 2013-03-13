@@ -18,9 +18,15 @@ Ext.define('EC.Catalog.controller.Main', {
     
     getMenu: function() {
         return [{
-            text: 'Каталоги 1'
+            text: 'Функции раздела'
         }, {
-            text: 'Каталоги 2'
+            text: 'Сервисы раздела'
+        }, {
+            text: 'Документы раздела'
+        }, {
+            text: 'Конструктор раздела'
+        }, {
+            text: 'Настройки раздела'    
         }];
     }
 });

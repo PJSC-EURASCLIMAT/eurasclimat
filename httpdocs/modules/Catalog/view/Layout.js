@@ -4,7 +4,7 @@ Ext.define('EC.Catalog.view.Layout', {
 
     alias: 'widget.CatalogPanel',
     
-    title: 'Каталоги',
+    title: 'Товары и услуги',
     
     icon: '/images/icons/catalogue.png'
 });

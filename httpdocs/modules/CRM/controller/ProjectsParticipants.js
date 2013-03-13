@@ -11,7 +11,7 @@ Ext.define('EC.CRM.controller.ProjectsParticipants', {
             text: 'Поступившие предложения'
         }, {
             text: 'Инструментарий'
-        , {
+        }, {
             text: 'Справочники'    
         }];
     }

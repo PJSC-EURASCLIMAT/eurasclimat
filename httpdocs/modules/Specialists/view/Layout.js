@@ -6,5 +6,5 @@ Ext.define('EC.Specialists.view.Layout', {
     
     title: 'Специалисты',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/specialist.png'
 });

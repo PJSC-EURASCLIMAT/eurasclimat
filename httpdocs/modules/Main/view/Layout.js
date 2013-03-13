@@ -8,6 +8,6 @@ Ext.define('EC.Main.view.Layout', {
     
     title: 'Главная страница',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/main.png'
 
 });

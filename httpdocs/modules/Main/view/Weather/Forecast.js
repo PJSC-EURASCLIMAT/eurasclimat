@@ -19,7 +19,7 @@ Ext.define('EC.Main.view.Weather.Forecast', {
     tpl: new Ext.XTemplate(
         '<tpl for=".">',
             '<tpl for="location">',
-                    '<h1>&nbsp;{name}, {country_name}</h1>',
+                    '<h3>&nbsp;{name}, {country_name}</h3>',
             '</tpl>',
             '<tpl for="today">',
                 '<div class="forecast-day-block" style="text-align: right;">',

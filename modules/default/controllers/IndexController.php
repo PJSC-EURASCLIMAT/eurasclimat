@@ -144,17 +144,23 @@ class IndexController extends Xend_Controller_Action
 
     public function getCountriesAction()
     {
-        $countries = Zend_Locale::getCountryTranslationList();
-        echo '<pre>';
-        var_export($countries);
-        exit;
+        $locales = Zend_Locale::getLocaleList();
 
-        if (is_array($countries)) {
-            sort($countries);
-            foreach ($countries as $v) {
-                array_push($output, array('name' => $v));
+        if (is_array($locales)) {
+            foreach ($locales as $k => $v) {
+                $locale = new Zend_Locale($k);
+                $lang = $locale->getLanguage();
+                try {
+                    $out[$lang] = Zend_Locale::getLanguageTranslation($locale->getLanguage(), $locale)
+                                . ' (' . Zend_Locale::getLanguageTranslation($locale->getLanguage(), 'ru') . ')';
+                } catch (Exception $e) {}
             }
         }
+
+        echo '<pre>';
+        var_export($out);
+        exit;
+
         if ($callback) {
             $this->disableRender(true);
             echo $callback.'('.Zend_Json::encode($output).')';

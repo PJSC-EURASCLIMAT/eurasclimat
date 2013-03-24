@@ -1,6 +1,4 @@
 /**
- * @class xlib.grid.filter.NumericFilter
- * @extends xlib.grid.filter.Filter
  * Filters using an xlib.grid.menu.RangeMenu.
  * <p><b><u>Example Usage:</u></b></p>
  * <pre><code>
@@ -39,7 +37,7 @@ Ext.define('xlib.grid.filter.NumericFilter', {
      * Template method that is to get and return the value of the filter.
      * @return {String} The value of this filter
      */
-    getValue: function() {
+    getValue : function () {
         return this.menu.getValue();
     },
 
@@ -48,17 +46,16 @@ Ext.define('xlib.grid.filter.NumericFilter', {
      * Template method that is to set the value of the filter.
      * @param {Object} value The value to set the filter
      */
-    setValue: function(value) {
+    setValue : function (value) {
         this.menu.setValue(value);
     },
 
     /**
-     * @private
      * Template method that is to return <tt>true</tt> if the filter
      * has enough configuration information to be activated.
      * @return {Boolean}
      */
-    isActivatable: function() {
+    isActivatable : function () {
         var values = this.getValue(),
             key;
         for (key in values) {
@@ -76,7 +73,7 @@ Ext.define('xlib.grid.filter.NumericFilter', {
      * @return {Object/Array} An object or collection of objects containing
      * key value pairs representing the current configuration of the filter.
      */
-    getSerialArgs: function() {
+    getSerialArgs : function () {
         var key,
             args = [],
             values = this.menu.getValue();
@@ -97,7 +94,7 @@ Ext.define('xlib.grid.filter.NumericFilter', {
      * @return {Boolean} true if the record is valid within the bounds
      * of the filter, false otherwise.
      */
-    validateRecord: function(record) {
+    validateRecord : function (record) {
         var val = record.get(this.dataIndex),
             values = this.getValue(),
             isNumber = Ext.isNumber;

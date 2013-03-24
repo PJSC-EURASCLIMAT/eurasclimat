@@ -4,6 +4,10 @@ Ext.define('EC.Catalog.controller.VendorCatalog', {
 
     views: ['EC.Catalog.view.VendorCatalogLayout'],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Производители 1'

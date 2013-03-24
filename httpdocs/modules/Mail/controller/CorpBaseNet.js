@@ -6,6 +6,10 @@ Ext.define('EC.Mail.controller.CorpBaseNet', {
         'EC.Mail.view.CorpBaseNet.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Корп. стационарная связь 1'

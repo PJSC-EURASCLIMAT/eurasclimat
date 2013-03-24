@@ -2,7 +2,9 @@ Ext.define('App.controller.ChapterAbstract', {
     
     extend: 'Ext.app.Controller',
 
-    init: function(container) {
+    getContainer: function() {
+        
+        var container = Ext.getCmp('CenterPanel');
         
         if (container.down(this.viewLayout)) {
             container.down(this.viewLayout).show();
@@ -24,8 +26,6 @@ Ext.define('App.controller.ChapterAbstract', {
                 scope: this
             }
         });
-        
-        this.callParent(arguments);
         
         return tab;
     },

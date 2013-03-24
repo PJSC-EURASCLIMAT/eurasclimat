@@ -1,3 +1,23 @@
+/*
+This file is part of Ext JS 4.2
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-03-11 22:33:40 (aed16176e68b5e8aa1433452b12805c0ad913836)
+*/
 /**
  * A subclass of Ext.dd.DragTracker which handles dragging any Component.
  *
@@ -51,7 +71,7 @@ Ext.define('Ext.util.ComponentDragger', {
             comp = me.comp;
 
         // Cache the start [X, Y] array
-        this.startPosition = comp.el.getXY();
+        this.startPosition = comp.getXY();
 
         // If client Component has a ghost method to show a lightweight version of itself
         // then use that as a drag proxy unless configured to liveDrag.
@@ -74,18 +94,24 @@ Ext.define('Ext.util.ComponentDragger', {
         var me = this,
             comp = me.comp,
             c = me.initialConstrainTo,
+            constrainEl,
             delegateRegion,
             elRegion,
-            shadowSize = comp.el.shadow ? comp.el.shadow.offset : 0;
+            dragEl = me.proxy ? me.proxy.el : comp.el,
+            shadowSize = (!me.constrainDelegate && dragEl.shadow && !dragEl.shadowDisabled) ? dragEl.shadow.getShadowSize() : 0;
 
         // The configured constrainTo might be a Region or an element
         if (!(c instanceof Ext.util.Region)) {
-            c =  Ext.fly(c).getViewRegion();
+            constrainEl = Ext.fly(c);
+            c =  constrainEl.getViewRegion();
+
+            // Do not allow to move into vertical scrollbar
+            c.right = c.left + constrainEl.dom.clientWidth;
         }
 
         // Reduce the constrain region to allow for shadow
         if (shadowSize) {
-            c.adjust(0, -shadowSize, -shadowSize, shadowSize);
+            c.adjust(shadowSize[0], -shadowSize[1], -shadowSize[2], shadowSize[3]);
         }
 
         // If they only want to constrain the *delegate* to within the constrain region,
@@ -93,7 +119,7 @@ Ext.define('Ext.util.ComponentDragger', {
         // edges of the Component.
         if (!me.constrainDelegate) {
             delegateRegion = Ext.fly(me.dragTarget).getRegion();
-            elRegion = me.proxy ? me.proxy.el.getRegion() : comp.el.getRegion();
+            elRegion = dragEl.getRegion();
 
             c.adjust(
                 delegateRegion.top - elRegion.top,
@@ -116,6 +142,10 @@ Ext.define('Ext.util.ComponentDragger', {
 
     onEnd: function(e) {
         var comp = this.comp;
+        if (comp.isDestroyed || comp.destroying) {
+            return;
+        }
+        
         if (this.proxy && !comp.liveDrag) {
             comp.unghost();
         }

@@ -8,7 +8,7 @@ Ext.define('EC.Main.controller.Workers', {
 
     views: ['EC.Main.view.Workers'],
     
-    init: function(container) {
+    run: function(container) {
         
         container.setLoading('Загрузка...', true);
         

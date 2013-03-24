@@ -13,6 +13,7 @@ Ext.define('EC.Main.view.News.PortletList', {
     layout: 'fit',
     
     features: [{
+        id: 'filter_feature',
         ftype: 'filters', 
         encode: true, 
         showMenu: false,

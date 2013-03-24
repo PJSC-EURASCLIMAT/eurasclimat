@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.Directories', {
         'EC.CRM.view.Directories.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Справочники 1'

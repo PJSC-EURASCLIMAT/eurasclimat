@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.ProjectsDocuments', {
         'EC.CRM.view.ProjectsDocuments.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Документы проектов 1'

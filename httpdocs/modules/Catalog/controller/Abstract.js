@@ -34,7 +34,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     getImagesURL: null,
     
-    init: function(container) {
+    run: function(container) {
         
         if (!this.viewPermition) {
             return;
@@ -169,7 +169,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     },
     
     editSettings: function() {
-        this.getController('EC.Catalog.controller.Settings').init(this.settingsView);
+        this.getController('EC.Catalog.controller.Settings').run(this.settingsView);
     }, 
     
     addItem: function() {

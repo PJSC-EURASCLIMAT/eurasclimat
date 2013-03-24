@@ -4,6 +4,10 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
 
     views: ['EC.Catalog.view.GoodsCatalogLayout'],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         var MC = this.getController('App.controller.Main');
         return [{

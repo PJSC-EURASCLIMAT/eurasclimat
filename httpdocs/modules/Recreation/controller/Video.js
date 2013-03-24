@@ -6,6 +6,10 @@ Ext.define('EC.Recreation.controller.Video', {
         'EC.Recreation.view.Video.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Видео 1'

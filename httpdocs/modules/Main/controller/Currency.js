@@ -8,7 +8,7 @@ Ext.define('EC.Main.controller.Currency', {
     
     views: ['EC.Main.view.Currency'],
     
-    init: function(container) {
+    run: function(container) {
         var panel = container.add(this.getView('EC.Main.view.Currency').create());
     }
 });

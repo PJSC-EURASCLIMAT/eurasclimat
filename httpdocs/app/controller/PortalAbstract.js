@@ -2,7 +2,7 @@ Ext.define('App.controller.PortalAbstract', {
     
     extend: 'Ext.app.Controller',
 
-    init: function(container) {
+    getContainer: function(container) {
         
         var MC = this.getController('App.controller.Main');
         var panel = container.add(Ext.create(this.views[0], {
@@ -13,8 +13,6 @@ Ext.define('App.controller.PortalAbstract', {
                 scope: this
             }
         }));
-        
-        this.callParent(arguments);
         
         return panel;
     },

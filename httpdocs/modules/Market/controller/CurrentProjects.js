@@ -6,6 +6,10 @@ Ext.define('EC.Market.controller.CurrentProjects', {
         'EC.Market.view.CurrentProjects.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Проекты в работе 1'

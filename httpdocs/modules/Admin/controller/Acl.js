@@ -17,7 +17,7 @@ Ext.define('EC.Admin.controller.Acl', {
         'EC.Admin.view.Acl.List'
     ],
     
-    init: function(container) {
+    run: function(container) {
         
         if (!acl.isView('admin')) {
             return;

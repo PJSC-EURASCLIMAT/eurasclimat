@@ -11,29 +11,30 @@ Ext.define('EC.Main.controller.News', {
         'EC.Main.view.News.PortletList'
     ],
     
-    init: function(container) {
+    run: function(container) {
         
-        var grid;
-        
-        if ('portlet' == container.getXType()) {
-            grid = container.add(this.getView('EC.Main.view.News.PortletList').create());
-        } else {
-            grid = container.add(this.getView('EC.Main.view.News.List').create());
-        }
-        
-        grid.on('itemclick', this.openCard, this);
+        var viewName = ('portlet' == container.getXType()) 
+            ? 'EC.Main.view.News.PortletList' : 'EC.Main.view.News.List',
+            
+            grid = container.add(this.getView(viewName).create({
+                listeners: {
+                    itemclick: this.openCard,
+                    afterrender: function(g) {
+                        // To enable filters let initialize grid to create filters
+                        g.getView().getFeature('filter_feature').createFilters();
+                    },
+                    scope: this
+                }
+            }));
         
         grid.down('toolbar NewsCategoriesCombo').on('change', this.onFilter, grid);
         grid.down('toolbar NewsActualityCombo').on('change', this.onActualityFilter, grid);
-        
-        // To enable filters let initialize grid to create filters
-        grid.filters.createFilters();
     },
     
     openCard: function(grid, record, item, index, e, eOpts) {
         
         var link = e.target.attributes,
-            MC = this.getController('EC.Main.controller.Main'); 
+            MC = this.getController('App.controller.Main'); 
 
         if (!link.action) {
             return;
@@ -64,14 +65,14 @@ Ext.define('EC.Main.controller.News', {
     
     onFilter: function(combo, newValue, oldValue, eOpts) {
 
-        var filter = this.filters.getFilter(combo.fieldName),
+        var filter = this.getView().getFeature('filter_feature').getFilter(combo.fieldName),
             value = combo.getFilter();
         
         if (value === '') {
             filter.setActive(false);
         } else {
-            filter.setValue(value);
             filter.setActive(true);
+            filter.setValue(value);
         }
     },
     

@@ -10,14 +10,14 @@ Ext.define('EC.Mail.controller.Main', {
     
     init: function() {
         
-        var container = this.callParent(arguments);
+        var container = this.getContainer();
         
-        this.getController('EC.Mail.controller.SysMail').init(container);
-        this.getController('EC.Mail.controller.CorpCellNet').init(container);
-        this.getController('EC.Mail.controller.CorpBaseNet').init(container);
-        this.getController('EC.Mail.controller.Chat').init(container);
-        this.getController('EC.Mail.controller.VideoChat').init(container);
-        this.getController('EC.Mail.controller.NewChapter').init(container);
+        this.getController('EC.Mail.controller.SysMail').run(container);
+        this.getController('EC.Mail.controller.CorpCellNet').run(container);
+        this.getController('EC.Mail.controller.CorpBaseNet').run(container);
+        this.getController('EC.Mail.controller.Chat').run(container);
+        this.getController('EC.Mail.controller.VideoChat').run(container);
+        this.getController('EC.Mail.controller.NewChapter').run(container);
     },
     
     getMenu: function() {

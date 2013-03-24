@@ -1,29 +1,27 @@
 /**
- * @class xlib.grid.filter.DateFilter
- * @extends xlib.grid.filter.Filter
  * Filter by a configurable Ext.picker.DatePicker menu
- * <p><b><u>Example Usage:</u></b></p>
- * <pre><code>
-var filters = Ext.create('xlib.grid.GridFilters', {
-    ...
-    filters: [{
-        // required configs
-        type: 'date',
-        dataIndex: 'dateAdded',
-
-        // optional configs
-        dateFormat: 'm/d/Y',  // default
-        beforeText: 'Before', // default
-        afterText: 'After',   // default
-        onText: 'On',         // default
-        pickerOpts: {
-            // any DatePicker configs
-        },
-
-        active: true // default is false
-    }]
-});
- * </code></pre>
+ *
+ * Example Usage:
+ *
+ *     var filters = Ext.create('xlib.grid.GridFilters', {
+ *         ...
+ *         filters: [{
+ *             // required configs
+ *             type: 'date',
+ *             dataIndex: 'dateAdded',
+ *      
+ *             // optional configs
+ *             dateFormat: 'm/d/Y',  // default
+ *             beforeText: 'Before', // default
+ *             afterText: 'After',   // default
+ *             onText: 'On',         // default
+ *             pickerOpts: {
+ *                 // any DatePicker configs
+ *             },
+ *      
+ *             active: true // default is false
+ *         }]
+ *     });
  */
 Ext.define('xlib.grid.filter.DateFilter', {
     extend: 'xlib.grid.filter.Filter',
@@ -123,9 +121,14 @@ Ext.define('xlib.grid.filter.DateFilter', {
                     itemId: 'range-' + item,
                     text: me[item + 'Text'],
                     menu: Ext.create('Ext.menu.Menu', {
+                        plain: true,
                         items: [
                             Ext.apply(pickerCfg, {
-                                itemId: item
+                                itemId: item,
+                                listeners: {
+                                    select: me.onPickerSelect,
+                                    scope: me
+                                }
                             })
                         ]
                     }),
@@ -139,13 +142,22 @@ Ext.define('xlib.grid.filter.DateFilter', {
             //me.add(item);
             me.menu.add(item);
         }
-        
-        me.on('update', me.updateValues);
+        me.values = {};
     },
 
-    onCheckChange : function () {
-        this.setActive(this.isActivatable());
-        this.fireEvent('update', this);
+    onCheckChange : function (item, checked) {
+        var me = this,
+            picker = item.menu.items.first(),
+            itemId = picker.itemId,
+            values = me.values;
+
+        if (checked) {
+            values[itemId] = picker.getValue();
+        } else {
+            delete values[itemId]
+        }
+        me.setActive(me.isActivatable());
+        me.fireEvent('update', me);
     },
 
     /**
@@ -225,7 +237,6 @@ Ext.define('xlib.grid.filter.DateFilter', {
     },
 
     /**
-     * @private
      * Template method that is to return <tt>true</tt> if the filter
      * has enough configuration information to be activated.
      * @return {Boolean}
@@ -267,7 +278,7 @@ Ext.define('xlib.grid.filter.DateFilter', {
      * @return {Date} Gets the current selected value of the date field
      */
     getFieldValue : function(item){
-        return this.getPicker(item).getValue();
+        return this.values[item];
     },
 
     /**
@@ -313,14 +324,12 @@ Ext.define('xlib.grid.filter.DateFilter', {
         }
         return true;
     },
-    
-    updateValues: function() {
-        var me = this, key, picker;
-        for (key in me.fields) {
-            if (me.fields[key].checked) {
-                picker = me.getPicker(key);
-                me.values[key] = picker.getValue();
-            }
-        }
+
+    onPickerSelect: function(picker, date) {
+        // keep track of the picker value separately because the menu gets destroyed
+        // when columns order changes.  We return this value from getValue() instead
+        // of picker.getValue()
+        this.values[picker.itemId] = date;
+        this.fireEvent('update', this);
     }
 });

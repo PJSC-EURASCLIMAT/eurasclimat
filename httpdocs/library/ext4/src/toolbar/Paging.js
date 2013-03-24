@@ -1,3 +1,23 @@
+/*
+This file is part of Ext JS 4.2
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-03-11 22:33:40 (aed16176e68b5e8aa1433452b12805c0ad913836)
+*/
 /**
  * As the number of records increases, the time required for the browser to render them increases. Paging is used to
  * reduce the amount of data exchanged with the client. Note: if there are more records/rows than can be viewed in the
@@ -60,7 +80,8 @@
  *         renderTo: Ext.getBody()
  *     });
  *
- * To use paging, pass the paging requirements to the server when the store is first loaded.
+ * To use paging, you need to set a pageSize configuration on the Store, and pass the paging requirements to
+ * the server when the store is first loaded.
  *
  *     store.load({
  *         params: {
@@ -126,84 +147,84 @@ Ext.define('Ext.toolbar.Paging', {
      */
     prependButtons: false,
 
+    //<locale>
     /**
      * @cfg {String} displayMsg
      * The paging status message to display. Note that this string is
      * formatted using the braced numbers {0}-{2} as tokens that are replaced by the values for start, end and total
      * respectively. These tokens should be preserved when overriding this string if showing those values is desired.
      */
-    //<locale>
     displayMsg : 'Displaying {0} - {1} of {2}',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} emptyMsg
      * The message to display when no records are found.
      */
-    //<locale>
     emptyMsg : 'No data to display',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} beforePageText
      * The text displayed before the input item.
      */
-    //<locale>
     beforePageText : 'Page',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} afterPageText
      * Customizable piece of the default paging text. Note that this string is formatted using
      * {0} as a token that is replaced by the number of total pages. This token should be preserved when overriding this
      * string if showing the total page count is desired.
      */
-    //<locale>
     afterPageText : 'of {0}',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} firstText
      * The quicktip text displayed for the first page button.
      * **Note**: quick tips must be initialized for the quicktip to show.
      */
-    //<locale>
     firstText : 'First Page',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} prevText
      * The quicktip text displayed for the previous page button.
      * **Note**: quick tips must be initialized for the quicktip to show.
      */
-    //<locale>
     prevText : 'Previous Page',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} nextText
      * The quicktip text displayed for the next page button.
      * **Note**: quick tips must be initialized for the quicktip to show.
      */
-    //<locale>
     nextText : 'Next Page',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} lastText
      * The quicktip text displayed for the last page button.
      * **Note**: quick tips must be initialized for the quicktip to show.
      */
-    //<locale>
     lastText : 'Last Page',
     //</locale>
 
+    //<locale>
     /**
      * @cfg {String} refreshText
      * The quicktip text displayed for the Refresh button.
      * **Note**: quick tips must be initialized for the quicktip to show.
      */
-    //<locale>
     refreshText : 'Refresh',
     //</locale>
 
@@ -355,7 +376,7 @@ Ext.define('Ext.toolbar.Paging', {
 
         me.bindStore(me.store || 'ext-empty-store', true);
     },
-    // private
+    // @private
     updateInfo : function(){
         var me = this,
             displayItem = me.child('#displayItem'),
@@ -379,7 +400,7 @@ Ext.define('Ext.toolbar.Paging', {
         }
     },
 
-    // private
+    // @private
     onLoad : function(){
         var me = this,
             pageData,
@@ -418,7 +439,7 @@ Ext.define('Ext.toolbar.Paging', {
         }
     },
 
-    // private
+    // @private
     getPageData : function(){
         var store = this.store,
             totalCount = store.getTotalCount();
@@ -433,7 +454,7 @@ Ext.define('Ext.toolbar.Paging', {
         };
     },
 
-    // private
+    // @private
     onLoadError : function(){
         if (!this.rendered) {
             return;
@@ -441,7 +462,7 @@ Ext.define('Ext.toolbar.Paging', {
         this.child('#refresh').enable();
     },
 
-    // private
+    // @private
     readPageFromInput : function(pageData){
         var v = this.child('#inputItem').getValue(),
             pageNum = parseInt(v, 10);
@@ -457,13 +478,13 @@ Ext.define('Ext.toolbar.Paging', {
         this.child('#inputItem').select();
     },
 
-    //private
+    // @private
     onPagingBlur : function(e){
         var curPage = this.getPageData().currentPage;
         this.child('#inputItem').setValue(curPage);
     },
 
-    // private
+    // @private
     onPagingKeyDown : function(field, e){
         var me = this,
             k = e.getKey(),
@@ -499,7 +520,7 @@ Ext.define('Ext.toolbar.Paging', {
         }
     },
 
-    // private
+    // @private
     beforeLoad : function(){
         if(this.rendered && this.refresh){
             this.refresh.disable();
@@ -592,7 +613,7 @@ Ext.define('Ext.toolbar.Paging', {
         this.bindStore(store);
     },
 
-    // private
+    // @private
     onDestroy : function(){
         this.unbind();
         this.callParent();

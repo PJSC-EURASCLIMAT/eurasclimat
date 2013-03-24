@@ -4,7 +4,7 @@ Ext.define('EC.Admin.controller.Main', {
 
     views: ['EC.Admin.view.Layout'],
     
-    init: function(container) {
+    run: function(container) {
         
         if (container.down('AdminPanel')) {
             container.down('AdminPanel').show();

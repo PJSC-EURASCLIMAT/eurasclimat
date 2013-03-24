@@ -6,6 +6,10 @@ Ext.define('EC.Specialists.controller.NewChapter', {
         'EC.Specialists.view.NewChapter.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Меню подраздела 1'

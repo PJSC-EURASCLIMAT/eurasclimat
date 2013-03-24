@@ -6,7 +6,7 @@ Ext.define('App.controller.Auth', {
     
     URL: '/json/default/index/auth',
     
-    init: function(container) {
+    run: function(container) {
         
         if (xlib.Acl.Storage.getIdentity().login !== 'guest') {
             

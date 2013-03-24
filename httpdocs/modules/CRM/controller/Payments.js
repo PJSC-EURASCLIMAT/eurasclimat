@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.Payments', {
         'EC.CRM.view.Payments.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Платежи 1'

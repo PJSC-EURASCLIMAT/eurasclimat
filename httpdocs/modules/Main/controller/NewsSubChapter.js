@@ -4,6 +4,10 @@ Ext.define('EC.Main.controller.NewsSubChapter', {
 
     views: ['EC.Main.view.NewsSubChapter.Layout'],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Новости 1'

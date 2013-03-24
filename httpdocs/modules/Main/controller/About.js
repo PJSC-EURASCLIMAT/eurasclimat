@@ -4,12 +4,12 @@ Ext.define('EC.Main.controller.About', {
 
     views: ['EC.Main.view.About.Layout'],
     
-    init: function() {
-    
-        this.callParent(arguments);
+    run: function(container) {
+
+        this.getContainer(container);
         
         var MC = this.getController('App.controller.Main');
-        
+
         var modulesToOpen = [{
 //            title: 'Специалисты',
 //            icon: '/images/icons/worker.png',

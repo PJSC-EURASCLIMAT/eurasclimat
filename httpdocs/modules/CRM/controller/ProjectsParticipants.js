@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.ProjectsParticipants', {
         'EC.CRM.view.ProjectsParticipants.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Поступившие предложения'

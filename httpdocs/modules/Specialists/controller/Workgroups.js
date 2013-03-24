@@ -6,6 +6,10 @@ Ext.define('EC.Specialists.controller.Workgroups', {
         'EC.Specialists.view.Workgroups.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Рабочие группы 1'

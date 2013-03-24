@@ -10,7 +10,7 @@ Ext.define('EC.Main.controller.NewsCard', {
     
     newsID: null,
     
-    init: function(container) {
+    run: function(container) {
         container.add(this.getView('EC.Main.view.News.Card').create());
     }
 });

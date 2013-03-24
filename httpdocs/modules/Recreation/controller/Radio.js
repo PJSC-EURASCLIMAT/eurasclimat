@@ -6,6 +6,10 @@ Ext.define('EC.Recreation.controller.Radio', {
         'EC.Recreation.view.Radio.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Радио 1'

@@ -10,15 +10,17 @@ Ext.define('EC.CRM.controller.Main', {
     
     init: function() {
         
-        var container = this.callParent(arguments);
+        var container = this.getContainer();
         
-        this.getController('EC.CRM.controller.CurrentProjects').init(container);
-        this.getController('EC.CRM.controller.ProjectsParticipants').init(container);
-       /*this.getController('EC.CRM.controller.ProjectsDocuments').init(container);
-        this.getController('EC.CRM.controller.Payments').init(container);
-        this.getController('EC.CRM.controller.Methods').init(container);
-        this.getController('EC.CRM.controller.Directories').init(container);*/
-        this.getController('EC.CRM.controller.NewChapter').init(container);
+        this.getController('EC.CRM.controller.CurrentProjects').run(container);
+        this.getController('EC.CRM.controller.ProjectsParticipants').run(container);
+       /*
+        this.getController('EC.CRM.controller.ProjectsDocuments').run(container);
+        this.getController('EC.CRM.controller.Payments').run(container);
+        this.getController('EC.CRM.controller.Methods').run(container);
+        this.getController('EC.CRM.controller.Directories').run(container);
+        */
+        this.getController('EC.CRM.controller.NewChapter').run(container);
     },
     
     getMenu: function() {

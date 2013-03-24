@@ -11,7 +11,7 @@ Ext.define('EC.Catalog.controller.Settings', {
         'EC.Catalog.view.Conditioners.SettingsLayout'
     ],
     
-    init: function(classname) {
+    run: function(classname) {
         Ext.create(classname);
     }
 });

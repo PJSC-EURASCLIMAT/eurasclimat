@@ -4,28 +4,18 @@ Ext.define('App.controller.Main', {
 
     views: ['Layout', 'TopPanel', 'LeftPanel', 'CenterPanel'],
     
-    refs: [{
-        ref: 'CenterPanel',
-        selector: 'CenterPanel'
-    }], 
-    
     requires: ['xlib.portal.PortalPanel'],
     
-    init: function() {
+    run: function() {
         
-        var MainLayout = this.getView('Layout').create({
-            listeners: {
-                afterLayout: function() {
-                    new Ext.LoadMask(Ext.getBody(), {msg:'Инициализация...'}).destroy();
-                }
-            }
-        });
+        var MainLayout = this.getView('Layout').create();
+        var centerPanel = Ext.getCmp('CenterPanel');
         
         this.control({
             'LeftPanel button[action=admin], TopPanel button[action=auth]': {
                 click: function(button, e, options) {
                     if (!Ext.isEmpty(button.launchModule)) {
-                        this.getController(button.launchModule).init(this.getCenterPanel());
+                        this.getController(button.launchModule).run(centerPanel);
                     }
                 }
             }
@@ -35,7 +25,7 @@ Ext.define('App.controller.Main', {
             Ext.get(item).on('click', function(e, node, options) {
                 var module = node.attributes.launchModule.value;
                 if (module) {
-                    this.getController(module).init(this.getCenterPanel());
+                    this.getController(module).run(centerPanel);
                 }
             }, this);
         }, this);
@@ -52,18 +42,19 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        this.getController('EC.Main.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Catalog.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Specialists.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Market.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.CRM.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Mail.controller.Main').init(this.getCenterPanel());
-        this.getController('EC.Recreation.controller.Main').init(this.getCenterPanel());
-
+        this.getController('EC.Main.controller.Main');
+        this.getController('EC.Catalog.controller.Main');
+        this.getController('EC.Specialists.controller.Main');
+        this.getController('EC.Market.controller.Main');
+        this.getController('EC.CRM.controller.Main');
+        this.getController('EC.Mail.controller.Main');
+        this.getController('EC.Recreation.controller.Main');
+        
         // Make first tab active
-        this.getCenterPanel().setActiveTab(0);
-        this.getCenterPanel().getActiveTab().setActiveTab(0);
-        this.getCenterPanel().getActiveTab().fireEvent('activate');
+        centerPanel.setActiveTab(0);
+        centerPanel.getActiveTab().setActiveTab(0);
+        centerPanel.getActiveTab().fireEvent('activate');
+        
     },
     
     openModulePortlet: function(module) {
@@ -90,7 +81,7 @@ Ext.define('App.controller.Main', {
         column.insert(0, container).show();
             
         if (config.launchModule) {
-            this.getController(config.launchModule).init(container);
+            this.getController(config.launchModule).run(container);
         }
         portalPanel.doLayout();
     },
@@ -154,7 +145,7 @@ Ext.define('App.controller.Main', {
         }).show();
             
         if (config.launchModule) {
-            this.getController(config.launchModule).init(panel);
+            this.getController(config.launchModule).run(panel);
         }
         if (module.close) module.close();
     },
@@ -204,7 +195,7 @@ Ext.define('App.controller.Main', {
         });
             
         if (config.launchModule) {
-            this.getController(config.launchModule).init(win);
+            this.getController(config.launchModule).run(win);
         }
         if (module.close) module.close();
     },

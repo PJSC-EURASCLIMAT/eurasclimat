@@ -6,14 +6,14 @@ Ext.define('EC.Catalog.controller.Main', {
     
     viewLayout: 'CatalogPanel',
     
-    init: function(container) {
+    init: function() {
         
-        var container = this.callParent(arguments);
+        var container = this.getContainer();
         
-        this.getController('EC.Catalog.controller.GoodsCatalog').init(container);
-        this.getController('EC.Catalog.controller.ServiceCatalog').init(container);
-        this.getController('EC.Catalog.controller.VendorCatalog').init(container);
-        this.getController('EC.Catalog.controller.NewChapter').init(container);
+        this.getController('EC.Catalog.controller.GoodsCatalog').run(container);
+        this.getController('EC.Catalog.controller.ServiceCatalog').run(container);
+        this.getController('EC.Catalog.controller.VendorCatalog').run(container);
+        this.getController('EC.Catalog.controller.NewChapter').run(container);
     },
     
     getMenu: function() {

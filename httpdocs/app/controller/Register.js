@@ -6,7 +6,7 @@ Ext.define('App.controller.Register', {
     
     URL: '/json/default/index/register',
     
-    init: function(container) {
+    run: function(container) {
         
         var win = this.getView('App.view.Register').create();
         

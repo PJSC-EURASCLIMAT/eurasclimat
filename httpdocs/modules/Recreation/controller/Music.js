@@ -6,6 +6,10 @@ Ext.define('EC.Recreation.controller.Music', {
         'EC.Recreation.view.Music.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Музыка 1'

@@ -1,3 +1,23 @@
+/*
+This file is part of Ext JS 4.2
+
+Copyright (c) 2011-2013 Sencha Inc
+
+Contact:  http://www.sencha.com/contact
+
+GNU General Public License Usage
+This file may be used under the terms of the GNU General Public License version 3.0 as
+published by the Free Software Foundation and appearing in the file LICENSE included in the
+packaging of this file.
+
+Please review the following information to ensure the GNU General Public License version 3.0
+requirements will be met: http://www.gnu.org/copyleft/gpl.html.
+
+If you are unsure which license is appropriate for your use, please contact the sales department
+at http://www.sencha.com/contact.
+
+Build date: 2013-03-11 22:33:40 (aed16176e68b5e8aa1433452b12805c0ad913836)
+*/
 /**
  * The AbstractPlugin class is the base class from which user-implemented plugins should inherit.
  *
@@ -20,18 +40,45 @@
 Ext.define('Ext.AbstractPlugin', {
     disabled: false,
 
+    /**
+     * @property {Boolean} isPlugin
+     * `true` in this class to identify an object as an instantiated Plugin, or subclass thereof.
+     */
+    isPlugin: true,
+
     constructor: function(config) {
-        //<debug>
-        if (!config.cmp && Ext.global.console) {
-            Ext.global.console.warn("Attempted to attach a plugin ");
-        }
-        //</debug>
+        this.pluginConfig = config;
         Ext.apply(this, config);
+    },
+
+    clonePlugin: function(overrideCfg) {
+        return new this.self(Ext.apply({}, overrideCfg, this.pluginConfig));
+    },
+    
+    setCmp: function(cmp) {
+        this.cmp = cmp;
     },
 
     getCmp: function() {
         return this.cmp;
     },
+
+    /**
+     * @cfg {String} pluginId
+     * A name for the plugin that can be set at creation time to then retrieve the plugin
+     * through {@link Ext.AbstractComponent#getPlugin getPlugin} method.  For example:
+     *
+     *     var grid = Ext.create('Ext.grid.Panel', {
+     *         plugins: [{
+     *             ptype: 'cellediting',
+     *             clicksToEdit: 2,
+     *             pluginId: 'cellplugin'
+     *         }]
+     *     });
+     *
+     *     // later on:
+     *     var plugin = grid.getPlugin('cellplugin');
+     */
 
     /**
      * @method

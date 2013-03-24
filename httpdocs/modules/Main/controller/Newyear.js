@@ -4,7 +4,7 @@ Ext.define('EC.Main.controller.Newyear', {
 
     views: ['EC.Main.view.Newyear'],
     
-    init: function(container) {
+    run: function(container) {
         container.add(this.getView('EC.Main.view.Newyear').create());
     }
     

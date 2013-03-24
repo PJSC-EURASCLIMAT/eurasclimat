@@ -6,6 +6,10 @@ Ext.define('EC.Specialists.controller.Forum', {
         'EC.Specialists.view.Forum.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Форум 1'

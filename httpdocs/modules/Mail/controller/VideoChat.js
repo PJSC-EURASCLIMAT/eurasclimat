@@ -6,6 +6,10 @@ Ext.define('EC.Mail.controller.VideoChat', {
         'EC.Mail.view.VideoChat.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Видеочат 1'

@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.CurrentProjects', {
         'EC.CRM.view.CurrentProjects.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         
         var MC = this.getController('App.controller.Main');

@@ -4,7 +4,7 @@ Ext.define('EC.Market.controller.NewProjects.MiniBrowser', {
 
     views: ['EC.Market.view.NewProjects.MiniBrowser'],
     
-    init: function(container) {
+    run:function(container) {
         
         container.add(this.getView(this.views[0]).create());
             

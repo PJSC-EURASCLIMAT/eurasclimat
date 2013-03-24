@@ -6,6 +6,10 @@ Ext.define('EC.CRM.controller.Methods', {
         'EC.CRM.view.Methods.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Методики 1'

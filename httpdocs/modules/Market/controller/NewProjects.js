@@ -6,35 +6,8 @@ Ext.define('EC.Market.controller.NewProjects', {
         'EC.Market.view.NewProjects.Layout'
     ],
     
-//    init: function() {
-//        
-//        var panel = this.callParent(arguments),
-//            menu = this.getMenu();
-//            
-//        this.openModulePortlet(menu[0], panel);
-//    },
-    
-    openModulePortlet: function(module, panel) {
-
-        var config = module.initConfig || module.initialConfig || module;
-            
-        config.initConfig = config;
-        
-        if (panel && !config.allowMultiple 
-        && panel.down('[launchModule=' + config.launchModule + ']')) {
-            return;
-        }
-
-        var container = Ext.create('xlib.portal.Portlet', config);
-        container.setHeight(config.portletHeight || 300);
-        
-        var pos = config.position ? '[id=' + config.position + ']' : '',
-            column = panel.down(pos) || panel.down();
-        column.insert(0, container);
-            
-        if (config.launchModule) {
-            this.getController(config.launchModule).init(container);
-        }
+    run: function(container) {
+        this.getContainer(container);
     },
     
     getMenu: function() {
@@ -83,10 +56,10 @@ Ext.define('EC.Market.controller.NewProjects', {
             }
          }, {
             text: 'Технологич. конкурсы',
-            title: 'Технологич. конкурсы',
+            title: 'Технологич. конкурсы'
          }, {
             text: 'Технологич. аукционы',
-            title: 'Технологич. аукционы',
+            title: 'Технологич. аукционы'
         }];
     }
 });

@@ -4,8 +4,7 @@ Ext.define('EC.CRM.controller.1C', {
 
     views: ['EC.CRM.view.CurrentProjects.1C'],
     
-    init: function(container, module) {
-        
+    run: function(container, module) {
         container.add(this.getView(this.views[0]).create());
     }
     

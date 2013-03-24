@@ -10,12 +10,12 @@ Ext.define('EC.Specialists.controller.Main', {
 
     init: function() {
         
-        var container = this.callParent(arguments);
+        var container = this.getContainer();
         
-        this.getController('EC.Specialists.controller.SpecialistsCatalog').init(container);
-        this.getController('EC.Specialists.controller.Workgroups').init(container);
-        this.getController('EC.Specialists.controller.Forum').init(container);
-        this.getController('EC.Specialists.controller.NewChapter').init(container);
+        this.getController('EC.Specialists.controller.SpecialistsCatalog').run(container);
+        this.getController('EC.Specialists.controller.Workgroups').run(container);
+        this.getController('EC.Specialists.controller.Forum').run(container);
+        this.getController('EC.Specialists.controller.NewChapter').run(container);
     },
     
     getMenu: function() {

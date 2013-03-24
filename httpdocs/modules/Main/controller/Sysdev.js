@@ -19,7 +19,7 @@ Ext.define('EC.Main.controller.Sysdev', {
     
     theme: 0,
     
-    init: function(container) {
+    run: function(container) {
 
         var content = container.add({
             xtype: 'SysdevLayout'

@@ -8,19 +8,19 @@ Ext.define('EC.Main.controller.Main', {
     
     viewLayout: 'MainPanel',
     
-    init: function(container) {
+    init: function() {
         
-        var container = this.callParent(arguments);
+        var container = this.getContainer();
         
         container.fireEvent('activate');
         container.setActiveTab(0);
         
-        this.getController('EC.Main.controller.About').init(container);
-        this.getController('EC.Main.controller.Development').init(container);
-        this.getController('EC.Main.controller.Projects').init(container);
-        /*this.getController('EC.Main.controller.NewsSubChapter').init(container);*/
-        this.getController('EC.Main.controller.Competitions').init(container);
-        this.getController('EC.Main.controller.NewChapter').init(container);
+        this.getController('EC.Main.controller.About').run(container);
+        this.getController('EC.Main.controller.Development').run(container);
+        this.getController('EC.Main.controller.Projects').run(container);
+        this.getController('EC.Main.controller.Competitions').run(container);
+        this.getController('EC.Main.controller.NewChapter').run(container);
+        this.getController('EC.Main.controller.NewsSubChapter').run(container);
     },
     
     getMenu: function() {

@@ -14,7 +14,7 @@ Ext.define('EC.Main.controller.Manufacturers', {
         'EC.Main.view.Manufacturers'
     ],
     
-    init: function(container) {
+    run: function(container) {
 
         container.setLoading('Загрузка...', true);
         

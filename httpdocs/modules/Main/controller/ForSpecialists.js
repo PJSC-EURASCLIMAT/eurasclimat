@@ -7,7 +7,7 @@ Ext.define('EC.Main.controller.ForSpecialists', {
         'EC.Main.view.ForSpecialistsPortlet'
     ],
     
-    init: function(container) {
+    run: function(container) {
         
         this.Container = container; 
         
@@ -26,7 +26,7 @@ Ext.define('EC.Main.controller.ForSpecialists', {
     
     openCard: function(grid, record, item, index, e, eOpts) {
         
-        var MC = this.getController('EC.Main.controller.Main'); 
+        var MC = this.getController('App.controller.Main'); 
         MC.openModuleTab(this.Container);
     }
     

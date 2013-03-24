@@ -6,6 +6,10 @@ Ext.define('EC.Market.controller.Rating', {
         'EC.Market.view.Rating.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Выборки по рейтингам'

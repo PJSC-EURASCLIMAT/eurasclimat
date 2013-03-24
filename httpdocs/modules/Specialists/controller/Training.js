@@ -6,6 +6,10 @@ Ext.define('EC.Specialists.controller.Training', {
         'EC.Specialists.view.Training.Layout'
     ],
     
+    run: function(container) {
+        this.getContainer(container);
+    },
+    
     getMenu: function() {
         return [{
             text: 'Обучение 1'

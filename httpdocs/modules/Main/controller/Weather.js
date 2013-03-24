@@ -7,7 +7,7 @@ Ext.define('EC.Main.controller.Weather', {
         'EC.Main.view.Weather.Layout'
     ],
     
-    init: function(container) {
+    run: function(container) {
         
         if ('portlet' == container.getXType()) {
             this.Layout = container.add(this.getView('EC.Main.view.Weather.PortletLayout').create());

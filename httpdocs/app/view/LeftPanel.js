@@ -72,16 +72,16 @@ Ext.define('App.view.LeftPanel', {
             id: 'EC-global-menu',
             items: [{
                 text: 'Проекты',
-                icon: '/images/icons/catalogue.png'
+                icon: '/images/icons/projects.png'
             }, {
                 text: 'Навигация',
-                icon: '/images/icons/catalogue.png'
+                icon: '/images/icons/navigation.png'
             }, {
                 text: 'Оповещения',
-                icon: '/images/icons/catalogue.png'
+                icon: '/images/icons/messages.png'
             }, {
                 text: 'Переписка с админ-ей',
-                icon: '/images/icons/catalogue.png'
+                icon: '/images/icons/correspondence.png'
             }]
         }, {
             text: 'Меню раздела',

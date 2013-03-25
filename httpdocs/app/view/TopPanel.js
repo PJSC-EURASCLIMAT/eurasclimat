@@ -28,6 +28,7 @@ Ext.define('App.view.TopPanel', {
         xtype: 'button',
         text: 'Все виджеты',
         action: 'allwidgets',
+        icon: '/images/icons/widgets_all.png',
         pressed: true,
         menu: [{
             text: 'Новости',
@@ -104,6 +105,7 @@ Ext.define('App.view.TopPanel', {
         xtype: 'button',
         action: 'auth',
         text: isAuth ? 'Выйти из системы' : 'Войти в систему',
+        icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',
         pressed: true,
         launchModule: 'App.controller.Auth'
     }]

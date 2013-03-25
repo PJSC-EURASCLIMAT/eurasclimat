@@ -6,5 +6,5 @@ Ext.define('EC.Market.view.Layout', {
     
     title: 'Торговая площадка',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/trade_platform.png'
 });

@@ -4,5 +4,5 @@ Ext.define('EC.CRM.view.ProjectsDocuments.Layout', {
 
     title: 'Документы проектов',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/documents.png'
 });

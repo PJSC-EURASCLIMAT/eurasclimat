@@ -4,5 +4,5 @@ Ext.define('EC.Mail.view.VideoChat.Layout', {
 
     title: 'Видеочат',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/forum.png'
 });

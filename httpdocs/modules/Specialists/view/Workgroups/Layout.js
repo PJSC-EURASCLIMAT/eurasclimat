@@ -4,6 +4,6 @@ Ext.define('EC.Specialists.view.Workgroups.Layout', {
 
     title: 'Рабочие группы',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/spec_groups.png'
 
 });

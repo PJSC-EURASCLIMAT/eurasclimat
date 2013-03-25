@@ -4,6 +4,6 @@ Ext.define('EC.Main.view.NewsSubChapter.Layout', {
 
     title: 'Новости',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/news.png'
 
 });

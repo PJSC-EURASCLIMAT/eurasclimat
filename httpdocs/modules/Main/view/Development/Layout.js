@@ -4,6 +4,6 @@ Ext.define('EC.Main.view.Development.Layout', {
 
     title: 'Разработка системы',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/sys_dev.png'
 
 });

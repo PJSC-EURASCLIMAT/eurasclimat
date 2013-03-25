@@ -6,5 +6,5 @@ Ext.define('EC.Mail.view.Layout', {
     
     title: 'Инф. коммуникации',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/communications.png'
 });

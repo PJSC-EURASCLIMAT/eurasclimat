@@ -4,5 +4,5 @@ Ext.define('EC.CRM.view.CurrentProjects.Layout', {
 
     title: 'Личные производственные проекты',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/manufac_projects.png'
 });

@@ -22,9 +22,20 @@ Ext.define('EC.Recreation.controller.Main', {
     
     getMenu: function() {
         return [{
-            text: 'Зона отдыха 1'
+            text: 'Функции',
+            icon: '/images/icons/features.png',
         }, {
-            text: 'Зона отдыха 2'
+            text: 'Сервисы',
+            icon: '/images/icons/services.png',
+        }, {
+            text: 'Документы',
+            icon: '/images/icons/documents.png',
+        }, {
+            text: 'Конструктор',
+            icon: '/images/icons/constructor.png',
+        }, {
+            text: 'Настройки',
+            icon: '/images/icons/settings.png',
         }];
     }
 });

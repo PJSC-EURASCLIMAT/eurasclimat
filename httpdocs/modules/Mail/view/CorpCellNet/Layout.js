@@ -4,5 +4,5 @@ Ext.define('EC.Mail.view.CorpCellNet.Layout', {
 
     title: 'Корп. сотовая связь',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/messages.png'
 });

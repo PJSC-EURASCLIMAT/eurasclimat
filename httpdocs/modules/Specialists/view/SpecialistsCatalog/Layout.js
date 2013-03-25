@@ -4,6 +4,6 @@ Ext.define('EC.Specialists.view.SpecialistsCatalog.Layout', {
 
     title: 'Каталог специалистов',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/4specialists.png'
 
 });

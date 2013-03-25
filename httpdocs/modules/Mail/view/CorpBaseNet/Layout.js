@@ -4,5 +4,5 @@ Ext.define('EC.Mail.view.CorpBaseNet.Layout', {
 
     title: 'Корп. стационарная связь',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/messages.png'
 });

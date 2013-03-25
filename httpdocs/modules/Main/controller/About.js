@@ -24,34 +24,34 @@ Ext.define('EC.Main.controller.About', {
 //            launchModule: 'EC.Main.controller.Manufacturers'
 //        }, {
             title: 'Производителям',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4manufacturers.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
             launchModule: 'EC.Main.controller.ForManufacturers'
         }, {
             title: 'Заказчикам',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4clients.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
             launchModule: 'EC.Main.controller.ForCustomers'
         }, {
             title: 'Специалистам',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4specialists.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: true,
             launchModule: 'EC.Main.controller.ForSpecialists'
         }, {
             title: 'Новости',
-            icon: '/images/icons/news_list.png',
+            icon: '/images/icons/news.png',
             portletHeight: 210,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.News'
         },{
             title: 'Разработка системы',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/sys_dev.png',
             portletHeight: 410,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Sysdev'
@@ -81,7 +81,7 @@ Ext.define('EC.Main.controller.About', {
         return [{
             text: 'Производителям',
             title: 'Производителям',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4manufacturers.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: false,
@@ -92,7 +92,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             text: 'Заказчикам',
             title: 'Заказчикам',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4clients.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: false,
@@ -103,7 +103,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             text: 'Специалистам',
             title: 'Специалистам',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/4specialists.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: false,
@@ -114,7 +114,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             text: 'Новости',
             title: 'Новости',
-            icon: '/images/icons/news_list.png',
+            icon: '/images/icons/news.png',
             position: 'MainPanel-column-1',
             portletHeight: 210,
             launchModule: 'EC.Main.controller.News',
@@ -124,7 +124,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             text: 'Сообщения',
             title: 'Сообщения',
-            icon: '/images/icons/about.png',
+            icon: '/images/icons/messages.png',
         }];
     }
 });

@@ -4,6 +4,6 @@ Ext.define('EC.Main.view.Projects.Layout', {
 
     title: 'Производственные проекты',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/manufac_projects.png'
 
 });

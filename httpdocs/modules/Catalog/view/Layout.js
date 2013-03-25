@@ -6,5 +6,5 @@ Ext.define('EC.Catalog.view.Layout', {
     
     title: 'Товары и услуги',
     
-    icon: '/images/icons/catalogue.png'
+    icon: '/images/icons/catalog.png'
 });

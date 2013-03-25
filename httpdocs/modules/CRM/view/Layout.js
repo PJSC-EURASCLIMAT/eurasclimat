@@ -6,5 +6,5 @@ Ext.define('EC.CRM.view.Layout', {
     
     title: 'CRM',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/crm.png'
 });

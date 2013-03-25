@@ -4,6 +4,6 @@ Ext.define('EC.Specialists.view.Forum.Layout', {
 
     title: 'Форум',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/forum.png'
 
 });

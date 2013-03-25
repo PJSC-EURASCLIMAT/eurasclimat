@@ -4,6 +4,6 @@ Ext.define('EC.Main.view.Competitions.Layout', {
 
     title: 'Конкурсы',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/contests.png'
 
 });

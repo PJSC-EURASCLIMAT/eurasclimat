@@ -18,17 +18,22 @@ Ext.define('EC.Specialists.controller.Main', {
         this.getController('EC.Specialists.controller.NewChapter').run(container);
     },
     
-    getMenu: function() {
+     getMenu: function() {
         return [{
-            text: 'Функции раздела'
+            text: 'Функции',
+            icon: '/images/icons/features.png',
         }, {
-            text: 'Сервисы раздела'
+            text: 'Сервисы',
+            icon: '/images/icons/services.png',
         }, {
-            text: 'Документы раздела'
+            text: 'Документы',
+            icon: '/images/icons/documents.png',
         }, {
-            text: 'Конструктор раздела'
+            text: 'Конструктор',
+            icon: '/images/icons/constructor.png',
         }, {
-            text: 'Настройки раздела'    
+            text: 'Настройки',
+            icon: '/images/icons/settings.png',
         }];
     }
 });

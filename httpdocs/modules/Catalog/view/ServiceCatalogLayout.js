@@ -4,6 +4,6 @@ Ext.define('EC.Catalog.view.ServiceCatalogLayout', {
 
     title: 'Каталог услуг',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/catalog.png'
 
 });

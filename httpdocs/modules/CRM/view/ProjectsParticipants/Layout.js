@@ -4,5 +4,5 @@ Ext.define('EC.CRM.view.ProjectsParticipants.Layout', {
 
     title: 'Личные проекты по развитию Портала',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/projects.png'
 });

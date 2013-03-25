@@ -6,5 +6,5 @@ Ext.define('EC.Recreation.view.Layout', {
     
     title: 'Зона отдыха',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/relax_zone.png'
 });

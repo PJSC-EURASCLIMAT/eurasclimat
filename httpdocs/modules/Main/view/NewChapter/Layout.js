@@ -4,6 +4,6 @@ Ext.define('EC.Main.view.NewChapter.Layout', {
 
     title: 'Создать свой подраздел',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/new_subsec.png'
 
 });

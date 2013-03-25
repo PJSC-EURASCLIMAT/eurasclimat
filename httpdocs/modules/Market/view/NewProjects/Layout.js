@@ -4,7 +4,7 @@ Ext.define('EC.Market.view.NewProjects.Layout', {
 
     title: 'Новые проекты развития системы',
     
-    icon: '/images/icons/about.png',
+    icon: '/images/icons/projects.png',
     
     items: [{
         title: 'Панель виджетов',

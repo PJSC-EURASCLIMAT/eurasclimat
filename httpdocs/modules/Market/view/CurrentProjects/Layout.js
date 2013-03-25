@@ -4,5 +4,5 @@ Ext.define('EC.Market.view.CurrentProjects.Layout', {
 
     title: 'Новые производственные проекты',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/projects.png'
 });

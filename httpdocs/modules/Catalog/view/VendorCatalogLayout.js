@@ -4,6 +4,6 @@ Ext.define('EC.Catalog.view.VendorCatalogLayout', {
 
     title: 'Производители',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/4manufacturers.png'
 
 });

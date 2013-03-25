@@ -4,5 +4,5 @@ Ext.define('EC.Mail.view.Chat.Layout', {
 
     title: 'Чат',
     
-    icon: '/images/icons/about.png'
+    icon: '/images/icons/forum.png'
 });

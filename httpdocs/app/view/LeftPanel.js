@@ -80,8 +80,11 @@ Ext.define('App.view.LeftPanel', {
                 text: 'Оповещения',
                 icon: '/images/icons/messages.png'
             }, {
-                text: 'Переписка с админ-ей',
+                text: 'Администрация',
                 icon: '/images/icons/correspondence.png'
+            }, {
+                text: 'Новости',
+                icon: '/images/icons/news.png'
             }]
         }, {
             text: 'Меню раздела',

@@ -50,7 +50,7 @@ Ext.define('EC.Main.controller.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.News'
         },{
-            title: 'Разработка системы',
+            title: 'О системе',
             icon: '/images/icons/sys_dev.png',
             portletHeight: 410,
             position: 'MainPanel-column-1',

@@ -20,7 +20,7 @@ Ext.define('EC.Main.controller.Main', {
         this.getController('EC.Main.controller.Projects').run(container);
         this.getController('EC.Main.controller.Competitions').run(container);
         this.getController('EC.Main.controller.NewChapter').run(container);
-        this.getController('EC.Main.controller.NewsSubChapter').run(container);
+        /*this.getController('EC.Main.controller.NewsSubChapter').run(container);*/
     },
     
     getMenu: function() {

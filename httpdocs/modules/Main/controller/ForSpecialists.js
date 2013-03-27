@@ -25,7 +25,6 @@ Ext.define('EC.Main.controller.ForSpecialists', {
     },
     
     openCard: function(grid, record, item, index, e, eOpts) {
-        
         var MC = this.getController('App.controller.Main'); 
         MC.openModuleTab(this.Container);
     }

@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Watersupply.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'WatersupplyFiltersPanel',
         region: 'north'

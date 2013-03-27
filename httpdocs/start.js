@@ -8,21 +8,18 @@ Ext.Loader.setConfig({
     }
 });
 
+Ext.require('xlib.Acl.Manager');
 
 Ext.application({
     name: 'App',
     appFolder: 'app',
     controllers: ['Main'],
     launch: function() {
-        this.getController('Main').run();
-    }
-});
 
-/* Overrides */
-Ext.onReady(function() {
-    
-    /* Translation */
-    
+        
+    /* Overrides */
+
+    // Translation
     if (Ext.grid.RowEditor) {
         Ext.apply(Ext.grid.RowEditor.prototype, {
             saveBtnText  : 'Сохранить',
@@ -32,21 +29,16 @@ Ext.onReady(function() {
         });
     }
 
-    Ext.MessageBox.initComponent();
-    
-
-    /* 
-     * Fucking bug fixing for Ext 4.1 
-     * TODO: check this in future releases
-     */
-    
+/*
+ * Bug fixing for Ext 4.1 
+ * TODO: check this in future releases
+ */
     Ext.override(Ext.panel.Panel, {
         getDockedItems: function (selector, beforeBody) {
             return this.getComponentLayout().getDockedItems ?  
                 this.callOverridden([selector, beforeBody]) : [];
         }
     });
-    
     Ext.override(Ext.view.AbstractView, {
       onRender: function() {
         var me = this;
@@ -56,9 +48,11 @@ Ext.onReady(function() {
         }
       }
     });
-    
+
+
     // Add the additional 'advanced' VTypes
     Ext.apply(Ext.form.field.VTypes, {
+        
         daterange: function(val, field) {
             var date = field.parseDate(val);
             if (!date) {
@@ -100,5 +94,6 @@ Ext.onReady(function() {
         phoneMask: /[\d-+]/,
         phoneText: 'Неверный формат: +#-###-###-####'
     });
-    
+        this.getController('Main').run();
+    }
 });

@@ -2,10 +2,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
 
     extend: 'Ext.grid.Panel',
     
-    requires: [
-        'xlib.RowExpander',
-        'xlib.grid.FiltersFeature'
-    ],
+    requires: ['xlib.grid.FiltersFeature'],
    
     alias: ['widget.ConditionersList'],
     
@@ -36,7 +33,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         
         this.plugins = [{
             ptype: 'rowexpander',
-            pluginId: 'rowexpander',
             rowBodyTpl: Ext.create('Ext.XTemplate', 
                 '<div style="padding: 10px;"><table width="100%" border="0">',
                 '<tr valign="top">',
@@ -114,7 +110,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<p>Склад: <b>{storage}&nbsp;ед.</b></p>',
                 '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>',
                 '<p>Заказ: <b>{order}&nbsp;ед.</b></p>',
-                
                 
                 '</td></tr></table></div>', 
                 {r: Ext.bind(this.comboRenderer, this)}

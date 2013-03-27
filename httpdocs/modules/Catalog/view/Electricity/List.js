@@ -2,18 +2,13 @@ Ext.define('EC.Catalog.view.Electricity.List', {
 
     extend: 'Ext.grid.Panel',
     
-    requires: [
-        'xlib.RowExpander',
-        'xlib.grid.FiltersFeature'
-    ],
+    requires: ['xlib.grid.FiltersFeature'],
    
     alias: ['widget.ElectricityList'],
     
     store: 'EC.Catalog.store.Electricity',
     
     layout: 'fit',
-    
-    //forceFit: true,
     
     title: 'Результаты выборки',
     
@@ -38,7 +33,6 @@ Ext.define('EC.Catalog.view.Electricity.List', {
         
         this.plugins = [{
             ptype: 'rowexpander',
-            pluginId: 'rowexpander',
             rowBodyTpl: Ext.create('Ext.XTemplate', 
                 '<div style="padding: 10px;"><table width="100%" border="0">',
                 '<tr valign="top">',

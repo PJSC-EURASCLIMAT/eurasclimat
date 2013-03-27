@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Dustextraction.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'DustextractionFiltersPanel',
         region: 'north'

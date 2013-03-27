@@ -6,7 +6,7 @@ Ext.define('EC.PA.controller.Profile', {
     
     URL: '/json/pa/profile/get-profile',
     
-    init: function(container) {
+    run: function(container) {
         
         var win = this.getView('EC.PA.view.Profile').create(),
             form = win.down('form');

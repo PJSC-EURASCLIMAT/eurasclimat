@@ -2,18 +2,13 @@ Ext.define('EC.Catalog.view.Airing.List', {
 
     extend: 'Ext.grid.Panel',
     
-    requires: [
-        'xlib.RowExpander',
-        'xlib.grid.FiltersFeature'
-    ],
+    requires: ['xlib.grid.FiltersFeature'],
    
     alias: ['widget.AiringList'],
     
     store: 'EC.Catalog.store.Airing',
     
     layout: 'fit',
-    
-    //forceFit: true,
     
     title: 'Результаты выборки',
     
@@ -38,7 +33,6 @@ Ext.define('EC.Catalog.view.Airing.List', {
         
         this.plugins = [{
             ptype: 'rowexpander',
-            pluginId: 'rowexpander',
             rowBodyTpl: Ext.create('Ext.XTemplate', 
                 '<div style="padding: 10px;"><table width="100%" border="0">',
                 '<tr valign="top">',

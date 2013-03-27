@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Electricity.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'ElectricityFiltersPanel',
         region: 'north'

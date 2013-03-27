@@ -99,23 +99,6 @@ class IndexController extends Xend_Controller_Action
         header('Location: /');
     }
 
-    public function registerAction()
-    {
-        $model = new Xend_Accounts();
-        $response = $model->createAccount($this->_getAllParams());
-
-        if ($response->isError()) {
-            $this->_collectErrors($response);
-            return;
-        }
-        $resp = $model->setRoles(intval($response->id), USER_ROLE);
-        if ($resp->isError()) {
-            $this->_collectErrors($resp);
-            return;
-        }
-        $this->view->success = true;
-    }
-
     public function getPermissionsAction()
     {
         $this->disableLayout(true);

@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Conditioners.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'ConditionersFiltersPanel',
         region: 'north'

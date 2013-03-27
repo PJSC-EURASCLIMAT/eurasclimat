@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Heating.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'HeatingFiltersPanel',
         region: 'north'

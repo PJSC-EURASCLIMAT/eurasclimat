@@ -26,19 +26,19 @@ Ext.define('EC.Main.controller.Main', {
     getMenu: function() {
         return [{
             text: 'Функции',
-            icon: '/images/icons/features.png',
+            icon: '/images/icons/features.png'
         }, {
             text: 'Сервисы',
-            icon: '/images/icons/services.png',
+            icon: '/images/icons/services.png'
         }, {
             text: 'Документы',
-            icon: '/images/icons/documents.png',
+            icon: '/images/icons/documents.png'
         }, {
             text: 'Конструктор',
-            icon: '/images/icons/constructor.png',
+            icon: '/images/icons/constructor.png'
         }, {
             text: 'Настройки',
-            icon: '/images/icons/settings.png',
+            icon: '/images/icons/settings.png'
         }];
     }
 });

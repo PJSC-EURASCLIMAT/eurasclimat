@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Airing.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'AiringFiltersPanel',
         region: 'north'

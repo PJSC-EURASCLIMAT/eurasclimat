@@ -8,10 +8,6 @@ Ext.define('EC.Catalog.view.Automation.Layout', {
     
     border: false,
     
-    defaults: {
-        border: false
-    },
-    
     items: [{
         xtype: 'AutomationFiltersPanel',
         region: 'north'

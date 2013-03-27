@@ -4,7 +4,7 @@ Ext.define('App.controller.Register', {
 
     views: ['App.view.Register'],
     
-    URL: '/json/default/index/register',
+    URL: '/json/default/registration/register',
     
     run: function(container) {
         

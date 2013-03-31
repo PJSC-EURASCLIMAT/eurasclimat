@@ -256,29 +256,29 @@ Ext.define('App.view.Register', {
                     xtype: 'label',
                     text: ' '
                 }, {
-                    name: 'role1',
-                    boxLabel: 'Специалист компании'
-                }, {
-                    name: 'role2',
-                    boxLabel: 'Представитель производителя'
-                }, {
-                    name: 'role3',
+                    name: 'role_4',
                     boxLabel: 'Сотрудник администрации'
                 }, {
-                    name: 'role4',
+                    name: 'role_5',
+                    boxLabel: 'Специалист компании'
+                }, {
+                    name: 'role_6',
+                    boxLabel: 'Представитель производителя'
+                }, {
+                    name: 'role_7',
                     boxLabel: 'Представитель филиала'
                 }, {
-                    name: 'role5',
+                    name: 'role_8',
+                    boxLabel: 'Представитель партнёра'
+                }, {
+                    name: 'role_9',
                     boxLabel: 'Эксперт'
                 }, {
-                    name: 'role6',
+                    name: 'role_10',
                     boxLabel: 'Журналист'
                 }, {
-                    name: 'role7',
+                    name: 'role_11',
                     boxLabel: 'Заказчик'
-                }, {
-                    name: 'role8',
-                    boxLabel: 'Представитель партнёра'
                 }]
             }, {
                 xtype: 'label',
@@ -297,7 +297,9 @@ Ext.define('App.view.Register', {
                 },
                 items: [{
                     xtype: 'checkbox',
-                    allowBlank: false
+                    isValid: function() {
+                        return this.getValue();
+                    }
                 }, {
                     xtype: 'label',    
                     html: 'Нажимая кнопку "Зарегистрироваться", я принимаю условия ' +

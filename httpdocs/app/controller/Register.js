@@ -29,7 +29,6 @@ Ext.define('App.controller.Register', {
             });
         }
         
-        
         win.down('button[action=submit]').on('click', submitForm, this);
         win.on('enterPressed', submitForm, this);
     }

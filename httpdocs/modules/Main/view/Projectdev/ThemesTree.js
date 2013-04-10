@@ -15,7 +15,7 @@ Ext.define('EC.Main.view.Projectdev.ThemesTree', {
     useArrows: true,
     
     scroll: 'vertical',
-    hidden: !acl.isUpdate('projects'),
+    hidden: !acl.isView('projectdev'),
     initComponent: function() {
         
         this.columns = [{

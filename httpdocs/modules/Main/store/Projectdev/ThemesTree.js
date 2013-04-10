@@ -1,8 +1,8 @@
-Ext.define('EC.Main.store.Sysdev.ThemesTree', {
+Ext.define('EC.Main.store.Projectdev.ThemesTree', {
 
     extend: 'Ext.data.TreeStore',
    
-    model: 'EC.Main.model.Sysdev.ThemesTree',
+    model: 'EC.Main.model.Projectdev.ThemesTree',
     
     defaultRootId: null,
     

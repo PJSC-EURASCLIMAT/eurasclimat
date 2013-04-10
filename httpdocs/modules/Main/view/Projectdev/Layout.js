@@ -1,13 +1,17 @@
 Ext.define('EC.Main.view.Projectdev.Layout', {
     
     extend: 'Ext.panel.Panel',
-    
+    split: true,
     alias: 'widget.ProjectdevLayout',
     hidden: !acl.isView('projectdev'),
-    layout: 'border',
+    layout: {
+      type: 'border',
+      split:true
+    },
     border: false,
     items: [{
         xtype: 'ProjectdevThemesTree',
+        split: true,  
         region: 'west',
         width: '34%'
     }, {
@@ -17,7 +21,8 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
         layout: 'border',
         region: 'center',
         border: false,
-        width: '66%',
+        split: true,  
+        width: '34%',
         items : [{
             xtype: 'panel',
             bodyPadding: 5,  
@@ -35,10 +40,11 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
             layout: 'border',
             region: 'north',
             layout:'fit',
-            height: '34%',
+            height: '66%',
             items: [{
                 xtype: 'ProjectdevDetail'
-            }]
+            }],
+            split: true
         }
       ]
     }]

@@ -17,7 +17,7 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
     }, {
         xtype: 'panel',
         bodyPadding: 0,
-        autoScroll: true,
+//        autoScroll: true,
         layout: 'border',
         region: 'center',
         border: false,

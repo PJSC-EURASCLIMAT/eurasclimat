@@ -32,14 +32,23 @@ Ext.define('EC.Main.controller.Projectdev', {
     project: 0,
     
     projectInfo: null,
+    
     projectStages: null,
+    
     projectComments: null,
+    
     projectCommentsPanel: null,
+    
     projectCommentsStore: null,
+    
     projectDocs:null,
+    
     projectChart: null,
+    
     detailTab: null,
+    
     gridProjectStages: null,
+    
     gridProjectDocs: null,
     
     initProjectComponents: function(content) {
@@ -127,7 +136,7 @@ Ext.define('EC.Main.controller.Projectdev', {
           this.projectVotesStore.add({mark_id:1, project_id: this.project.get('id')});
           this.projectVotesStore.sync();
           this.projectVotesStore.load({params:{project_id: this.project.get('id')}});
-        },this);
+        }, this);
         this.projectCommentsPanel.down('#markButtonAgainst').on('click', function(button, e, eOpts){
           this.projectVotesStore.add({mark_id:2, project_id: this.project.get('id')});
           this.projectVotesStore.sync();
@@ -166,7 +175,7 @@ Ext.define('EC.Main.controller.Projectdev', {
     },
     
     
-    clearProjectComponents: function () {
+    clearProjectComponents: function() {
       this.projectInfo.update('');
       this.projectInfo.loaded = false;
       
@@ -180,18 +189,20 @@ Ext.define('EC.Main.controller.Projectdev', {
       this.projectComments.loaded = false;
     },
     
-    loadProjectDetail: function (record){
+    loadProjectDetail: function(record) {
+        
       if (!acl.isView('projectdev')) {
         return;
       }
-      if (record.get('leaf')==true) {
+      
+      if (record.get('leaf') == true) {
           var activeTabName = this.detailTab.getActiveTab().itemId;
           switch (activeTabName) {
             case 'info':
               if (!this.projectInfo.loaded) {
                 this.projectInfo.getLoader().load({
-                  params:{
-                    id : record.get('id')
+                  params: {
+                    id: record.get('id')
                   }
                 });
               this.projectInfo.loaded = true;
@@ -219,7 +230,6 @@ Ext.define('EC.Main.controller.Projectdev', {
           }
           this.projectChart.getStore().load({params:{project_id: record.get('id')}});
           this.detailTab.show();
-          
           
       } else {
         this.detailTab.hide();

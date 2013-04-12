@@ -14,22 +14,23 @@ class Sysdev_ProjectVotes_Model
         $this->_table = new Sysdev_ProjectVotes_Table();
     }
 
-        
     public function getByProject ($projectId)
     {
         $response = new Xend_Response();
         $projectId = intval($projectId);
+
         if ($projectId == 0) {
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
         }
+
         $select = $this->_table->getAdapter()->select()
             ->from(
-                array('d'=>$this->_table->getTableName()), 
+                array('d'=>$this->_table->getTableName()),
                 array('id', 'mark_id','date_create', 'project_id')
             )
             ->where('d.project_id=?', $projectId);
-        
+
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
@@ -42,10 +43,12 @@ class Sysdev_ProjectVotes_Model
         }
         return $response->addStatus(new Xend_Status($status));
     }
+
     public function add(array $params)
     {
         $params['date_create'] = date('Y-m-d H:i:s', time());
         $params['account_id']  = Xend_Accounts_Prototype::getId();
+
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(

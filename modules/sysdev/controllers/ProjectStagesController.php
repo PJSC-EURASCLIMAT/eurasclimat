@@ -30,6 +30,7 @@ class Sysdev_ProjectStagesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
+
     public function getChartByProjectAction()
     {
         $response = $this->_model->getChartByProject($this->_getParam('project_id'));

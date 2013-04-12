@@ -19,16 +19,17 @@ class Sysdev_ProjectDocs_Model
      *
      * @return Xend_Response <code>
      *  rows: array(
-     *      
+     *
      *  );
      * </code>
      */
     public function getByProject($params)
     {
         $response = new Xend_Response();
+
         $select = $this->_table->getAdapter()->select()
             ->from(
-                array('d'=>$this->_table->getTableName()), 
+                array('d'=>$this->_table->getTableName()),
                 array('id', 'name', 'project_id', 'date_create', 'account_id', 'url')
             )
             ->join(
@@ -37,9 +38,10 @@ class Sysdev_ProjectDocs_Model
                 array('author' => 'name')
             )
             ->order('d.date_create ASC');
-        
+
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
+
         if (isset($params['project_id']) && !empty($params['project_id'])) {
             $params['project_id'] = intval($params['project_id']);
             if ($params['project_id']==0) {
@@ -48,6 +50,7 @@ class Sysdev_ProjectDocs_Model
             }
             $select->where('d.project_id=?',$params['project_id']);
         }
+
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);

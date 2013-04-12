@@ -1,10 +1,6 @@
 Ext.define('EC.Main.view.Projectdev.DocsList', {
 
     extend: 'Ext.grid.Panel',
-
-    requires: [
-        'Ext.ux.PreviewPlugin'
-    ],
     
     store: 'EC.Main.store.Projectdev.Docs',
     
@@ -32,15 +28,14 @@ Ext.define('EC.Main.view.Projectdev.DocsList', {
             header: 'project_id',
             dataIndex: 'project_id',
             hidden: true
-        }
-      ],
+        }],
        
-      this.bbar = Ext.create('Ext.PagingToolbar', {
-          store: this.store,
-          displayInfo: true,
-          plugins: Ext.create('xlib.ProgressBarPager', {})
-      });
+        this.bbar = Ext.create('Ext.PagingToolbar', {
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        });
 
-      this.callParent(arguments);
+        this.callParent(arguments);
     }
 });

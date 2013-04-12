@@ -1,10 +1,6 @@
 Ext.define('EC.Main.view.Projectdev.StagesList', {
 
     extend: 'Ext.grid.Panel',
-
-    requires: [
-        'Ext.ux.PreviewPlugin'
-    ],
     
     store: 'EC.Main.store.Projectdev.Stages',
     

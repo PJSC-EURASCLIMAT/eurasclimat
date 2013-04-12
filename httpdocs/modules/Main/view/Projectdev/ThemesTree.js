@@ -15,14 +15,16 @@ Ext.define('EC.Main.view.Projectdev.ThemesTree', {
     useArrows: true,
     
     scroll: 'vertical',
+    
     hidden: !acl.isView('projectdev'),
+    
     initComponent: function() {
         
         this.columns = [{
             xtype: 'treecolumn',
             dataIndex: 'name',
             flex: 1,
-            renderer : function(value, metadata) {
+            renderer: function(value, metadata) {
                 metadata.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }

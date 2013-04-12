@@ -18,7 +18,7 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
     
     items: [{
         title: 'Информация о проекте',
-        hidden: !acl.isView('info'),
+        hidden: !acl.isView('projectdev', 'info'),
         itemId: 'info',
         data: '',
         autoScroll: true,
@@ -41,10 +41,10 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
                 + '{date_discuss_end:date("d.m.Y")} <br/><br/>'
             + '<b>Описание:</b>  <br/>{description}' 
             + '</div>')
-        }, {
+    }, {
         title: 'Обсуждение и голосование',
         layout: 'fit',
-        hidden: !acl.isView('comments'),
+        hidden: !acl.isView('projectdev', 'comments'),
         itemId: 'projectComments',
         items: [{
             xtype: 'panel',
@@ -65,12 +65,12 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
                 items: [{
                     xtype: 'label',
                     itemId: 'markLabel',
-                    hidden: !acl.isView('votes'),
+                    hidden: !acl.isView('projectdev', 'votes'),
                     width: '100',
                     margin: 5
-                },{
+                }, {
                     width: '100',
-                    hidden: !acl.isUpdate('votes'),
+                    hidden: !acl.isUpdate('projectdev', 'votes'),
                     xtype: 'button',
                     itemId: 'markMenu',
                     text: 'Голосовать',
@@ -85,11 +85,10 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
                     }, {
                         text: 'Доработать',
                         itemId: 'markButtonRemake'
-                    }
-                    ]
+                    }]
                 }, {
                     xtype: 'textareafield',
-                    hidden: !acl.isUpdate('comments'),
+                    hidden: !acl.isUpdate('projectdev', 'comments'),
                     grow: true,
                     itemId: 'commentContent',
                     name: 'message',
@@ -98,29 +97,25 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
                     allowBlank: false
                 }, {
                     xtype: 'button',
-                    hidden: !acl.isUpdate('comments'),
+                    hidden: !acl.isUpdate('projectdev', 'comments'),
                     scale: 'large',
                     itemId: 'commentSubmit',
                     text: 'Коментировать',
                     margin: '1 0 0 1',
                     width: '100',
                     height: '100%'
-                }
-                ]
-            }
-            ]
-        }
-        ]
+                }]
+            }]
+        }]
     }, {
         title: 'Сведения об исполнении проекта',
-        hidden: !acl.isView('stages'),
+        hidden: !acl.isView('projectdev', 'stages'),
         itemId: 'stages',
         layout: 'fit'
     }, {
         title: 'Документация проекта',
-        hidden: !acl.isView('docs'),
+        hidden: !acl.isView('projectdev', 'docs'),
         itemId: 'docs',
         layout: 'fit'
-    }
-    ]
+    }]
 });

@@ -11,6 +11,9 @@ Ext.define('EC.Main.view.Projectdev.StagesList', {
     layout: 'fit',
     
     forceFit: true,
+    
+    border: false,
+    
     initComponent: function() {
         
         this.columns = [{

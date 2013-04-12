@@ -1,13 +1,18 @@
 Ext.define('EC.Main.view.Projectdev.StagesChart', {
     extend: 'Ext.chart.Chart',
+    
     title:'График выполнения проекта',
-    border: true,
+    
+    border: false,
+    
     itemId: 'stagesChart',
-    frame:true,
-    padding:5,
+    
     alias: 'widget.ProjectdevStagesChart',
+    
     store: 'EC.Main.store.Projectdev.StagesChart',
+    
     layout: 'fit',
+    
     legend: {
       position: 'bottom'
     },
@@ -34,9 +39,18 @@ Ext.define('EC.Main.view.Projectdev.StagesChart', {
       }],
     series: [{
         type: 'line',
+        highlight:true,
         title:'Плановый график и сроки выполения этапов',
         xField: 'date_plan_end',
         yField: 'name',
+        tips: {
+            trackMouse: true,
+            width: 200,
+            height: 28,
+            renderer: function(storeItem, item) {
+              this.setTitle(storeItem.get('name'));
+            }
+        },
         style: {
           stroke: '#20A020',
           'stroke-width': 2,
@@ -44,6 +58,7 @@ Ext.define('EC.Main.view.Projectdev.StagesChart', {
         }
       },{
           type: 'line',
+          highlight:true,
           title:'Фактический график и сроки выполения этапов',
           xField: 'date_fact_end',
           yField: 'name',
@@ -51,9 +66,18 @@ Ext.define('EC.Main.view.Projectdev.StagesChart', {
             stroke: '#F8F808',
             'stroke-width': 2,
             opacity: 1
+         },
+         tips: {
+            trackMouse: true,
+            width: 200,
+            height: 28,
+            renderer: function(storeItem, item) {
+              this.setTitle(storeItem.get('name'));
+            }
         }
       }, {
         type: 'line',
+        highlight:true,
         title:'Финиш плановый',
         xField: 'date_plan_finish',
         yField: 'finish_display',
@@ -65,6 +89,7 @@ Ext.define('EC.Main.view.Projectdev.StagesChart', {
         }
       }, {
         type: 'line',
+        highlight:true,
         title:'Финиш фактический',
         xField: 'date_fact_finish',
         yField: 'finish_display',

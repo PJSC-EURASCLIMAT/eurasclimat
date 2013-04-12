@@ -11,6 +11,8 @@ Ext.define('EC.Main.view.Projectdev.DocsList', {
     layout: 'fit',
     
     forceFit: true,
+    
+    border: false,
 
     initComponent: function() {
         

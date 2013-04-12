@@ -82,7 +82,7 @@ class Sysdev_Projects_Model
             ->from(
                 array('p'=>$this->_table->getTableName()), 
                 array('name','description', 'date_plan_begin', 'date_plan_end', 'date_fact_end', 'budget', 
-                    'date_create')
+                    'date_create', 'date_discuss_begin', 'date_discuss_end', 'date_vote_begin', 'date_vote_end')
             )
             ->join(
                 array('a' => 'accounts'),

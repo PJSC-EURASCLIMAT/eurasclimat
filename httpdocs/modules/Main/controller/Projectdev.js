@@ -61,6 +61,14 @@ Ext.define('EC.Main.controller.Projectdev', {
       this.projectInfo.getLoader().on('load', function(response, options, eOpts) {
           var result = Ext.JSON.decode(options.responseText);
           if (result.success) {
+            result.data['date_plan_begin'] = Ext.Date.parse(result.data['date_plan_begin'],'Y-m-d H:i:s');
+            result.data['date_fact_begin'] = Ext.Date.parse(result.data['date_fact_begin'],'Y-m-d H:i:s');
+            result.data['date_plan_end'] = Ext.Date.parse(result.data['date_plan_end'],'Y-m-d H:i:s');
+            result.data['date_fact_end'] = Ext.Date.parse(result.data['date_fact_end'],'Y-m-d H:i:s');
+            result.data['date_vote_begin'] = Ext.Date.parse(result.data['date_vote_begin'],'Y-m-d H:i:s');
+            result.data['date_vote_end'] = Ext.Date.parse(result.data['date_vote_end'],'Y-m-d H:i:s');
+            result.data['date_discuss_begin'] = Ext.Date.parse(result.data['date_discuss_begin'],'Y-m-d H:i:s');
+            result.data['date_discuss_end'] = Ext.Date.parse(result.data['date_discuss_end'],'Y-m-d H:i:s');
             this.projectInfo.update(result.data); 
           } 
       }, this);
@@ -229,8 +237,7 @@ Ext.define('EC.Main.controller.Projectdev', {
             break;
           }
           this.projectChart.getStore().load({params:{project_id: record.get('id')}});
-          this.detailTab.show();
-          
+          this.detailTab.show();    
       } else {
         this.detailTab.hide();
         this.projectChart.hide();

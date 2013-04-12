@@ -1,3 +1,13 @@
+--
+-- Переименование таблиц на префикс main_
+--
+RENAME TABLE sysdev_projects TO main_sysdev_projects,
+  sysdev_project_discussions TO main_sysdev_project_discussions,
+  sysdev_project_docs TO main_sysdev_project_docs,
+  sysdev_project_stages TO main_sysdev_project_stages,
+  sysdev_project_votes TO main_sysdev_project_votes;
+   
+
 -- phpMyAdmin SQL Dump
 -- version 3.4.5
 -- http://www.phpmyadmin.net

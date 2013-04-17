@@ -92,6 +92,16 @@ Ext.onReady(function() {
             alphanumText: 'Это поле должно содержать только латинские буквы, цифры и символ подчеркивания "_"'
         });
     }
+    
+    if (Ext.grid.RowEditor) {
+        Ext.apply(Ext.grid.RowEditor.prototype, {
+            saveBtnText  : 'Сохранить',
+            cancelBtnText: 'Отменить',
+            errorsText: 'Ошибки',
+            dirtyText: 'Вы должны сохранить или отменить ваши изменения'
+        });
+    }
+    
 });
 
 Ext.define("Ext.locale.ru.view.View", {

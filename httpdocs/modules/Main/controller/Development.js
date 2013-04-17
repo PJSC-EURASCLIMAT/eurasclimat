@@ -23,7 +23,7 @@ Ext.define('EC.Main.controller.Development', {
        var viewDevelopment = this.getContainer(container);
        
        var modulesToOpen = [{
-            title: 'Сведения о проекте по разработке системы',
+            title: 'Разработка системы',
             icon: '/images/icons/projects.png',
             portletHeight: 410,
             position: 'MainPanel-development-column-1',
@@ -40,8 +40,8 @@ Ext.define('EC.Main.controller.Development', {
         var MC = this.getController('App.controller.Main');
         
         return [{
-            title: 'Сведения о проекте по разработке системы',
-            text: 'Сведения о проекте по разработке системы',
+            title: 'Разработка системы',
+            text: 'Разработка системы',
             icon: '/images/icons/projects.png',
             portletHeight: 410,
             position: 'MainPanel-development-column-1',

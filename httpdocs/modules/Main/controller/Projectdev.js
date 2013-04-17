@@ -51,6 +51,8 @@ Ext.define('EC.Main.controller.Projectdev', {
     
     gridProjectDocs: null,
     
+    commentsText: null,
+    
     initProjectComponents: function(content) {
         
         this.detailTab = content.down('#detailTabs');
@@ -84,7 +86,7 @@ Ext.define('EC.Main.controller.Projectdev', {
         this.projectDocs.add(this.gridProjectDocs);
   
         this.projectChart = content.down('#stagesChart');
-      
+        
         this.projectChart.getStore().on('load', function(store, records, successful, eOpts) {
             
             if (records.length == 0) {
@@ -135,15 +137,20 @@ Ext.define('EC.Main.controller.Projectdev', {
         }, this);
       
         this.projectCommentsPanel.down('#commentSubmit').on('click', function() {
-        
-            var textArea = this.projectCommentsPanel.down('#commentContent');
             
-            if (textArea.isValid()) {
+            this.commentsText = this.projectCommentsPanel.down('#commentContent');
+            
+            this.commentsText.on('blur', function(component, the, eOpts ) {
+                component.clearInvalid();
+            }, this);
+            
+            if (this.commentsText.isValid()) {
                 
-                this.projectCommentsStore.add({content: textArea.getValue(), project_id: this.project.get('id')});
+                this.projectCommentsStore.add({content: this.commentsText.getValue(), 
+                    project_id: this.project.get('id')});
                 this.projectCommentsStore.sync();
                 this.projectCommentsStore.load({params:{project_id: this.project.get('id')}});
-                textArea.setValue('');
+                this.commentsText.setValue('');
             }
         }, this);
       
@@ -198,6 +205,11 @@ Ext.define('EC.Main.controller.Projectdev', {
                 this.projectCommentsPanel.down('#markMenu').hide();
             }
         }, this);
+        
+        if ('portlet' == this.container.getXType()) {
+            this.detailTab.tabBar.hide();
+            this.container.down('ProjectdevDetail').setSize(20, 380);
+        }
     },
     
     clearProjectComponents: function() {
@@ -213,6 +225,23 @@ Ext.define('EC.Main.controller.Projectdev', {
       
         this.projectChart.getStore().loadRecords([], {addRecords: false});
         this.projectComments.loaded = false;
+        
+        if (!this.commentsText) {
+            this.commentsText = this.projectCommentsPanel.down('#commentContent');
+        }
+        this.commentsText.setValue('');
+        this.commentsText.clearInvalid();
+        
+    },
+    
+    showProjectDetailTab: function() {
+        
+        this.detailTab.show();
+        if ('portlet' == this.container.getXType()) {
+            this.detailTab.tabBar.hide();
+            this.container.down('ProjectdevDetail').setSize(20, 380);
+        }
+        
     },
     
     loadProjectDetail: function(record) {
@@ -273,10 +302,13 @@ Ext.define('EC.Main.controller.Projectdev', {
                     break;
               }
               
-              this.projectChart.getStore().load({
-                    params:{project_id: record.get('id')}
-              });
-              this.detailTab.show();
+              if ('portlet' != this.container.getXType()) {
+                  this.projectChart.getStore().load({
+                      params:{project_id: record.get('id')}
+                  });
+              }
+              
+              this.showProjectDetailTab();
               
         } else {
             this.detailTab.hide();
@@ -285,11 +317,13 @@ Ext.define('EC.Main.controller.Projectdev', {
     },
     
     run: function(container) {
-
+        
+        this.container = container;
+        
         var content = container.add({
             xtype: 'ProjectdevLayout'
         });
-        
+
         this.initProjectComponents(content);
         var treePanel = content.down('ProjectdevThemesTree');
         

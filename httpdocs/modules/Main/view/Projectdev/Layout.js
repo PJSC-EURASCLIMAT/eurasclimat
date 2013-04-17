@@ -19,7 +19,7 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
         xtype: 'ProjectdevThemesTree',
         split: true,  
         region: 'west',
-        width: '34%'
+        width: 170
     }, {
         layout: 'border',
         region: 'center',
@@ -36,9 +36,9 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
         }, {
             region: 'center',
             items: [{
-                xtype: 'ProjectdevStagesChart',
-                autoScroll: true,
-                bodyPadding: 5
+                xtype: 'ProjectdevStagesChart',  
+                //autoScroll: true,
+                bodyPadding: 5                
             }]
         }]
     }]

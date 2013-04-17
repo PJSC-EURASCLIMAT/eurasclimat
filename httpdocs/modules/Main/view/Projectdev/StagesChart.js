@@ -15,7 +15,48 @@ Ext.define('EC.Main.view.Projectdev.StagesChart', {
     layout: 'fit',
     
     legend: {
-        position: 'bottom'
+        position: 'bottom',
+        calcPosition: function() {
+            var me = this,
+                x, y,
+                legendWidth = me.width,
+                legendHeight = me.height,
+                padding = me.padding,
+                chart = me.chart,
+                chartBBox = chart.chartBBox,
+                insets = chart.insetPadding,
+                chartWidth = chartBBox.width - (insets * 2),
+                chartHeight = chartBBox.height - (insets * 2),
+                chartX = chartBBox.x + insets,
+                chartY = chartBBox.y + insets,
+                surface = chart.surface,
+                mfloor = Math.floor;
+
+            // Find the position based on the dimensions
+            switch(me.position) {
+                case "left":
+                    x = insets;
+                    y = mfloor(chartY + chartHeight / 2 - legendHeight / 2);
+                    break;
+                case "right":
+                    x = mfloor(surface.width - legendWidth) - insets;
+                    y = mfloor(chartY + chartHeight / 2 - legendHeight / 2);
+                    break;
+                case "top":
+                    x = mfloor(chartX + chartWidth / 2 - legendWidth / 2);
+                    y = insets;
+                    break;
+                case "bottom":
+                    x = 10;//;mfloor(chartX + chartWidth / 2 - legendWidth / 2);
+                    y = mfloor(surface.height - legendHeight) - insets;
+                    break;
+                default:
+                    x = mfloor(me.origX) + insets;
+                    y = mfloor(me.origY) + insets;
+            }
+
+            return { x: x, y: y };
+    }
     },
     
     axes: [{

@@ -94,7 +94,9 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
                     name: 'message',
                     margin: '1 0 0 1',
                     width: '60%',
-                    allowBlank: false
+                    allowBlank: false,
+                    validateOnBlur: false,
+                    validateOnChange: false
                 }, {
                     xtype: 'button',
                     hidden: !acl.isUpdate('projectdev', 'comments'),

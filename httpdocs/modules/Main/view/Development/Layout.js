@@ -9,7 +9,7 @@ Ext.define('EC.Main.view.Development.Layout', {
     loaded: false,
         
     items: [{
-        title: 'Панель виджетов 1',
+        title: 'Панель виджетов',
         xtype: 'portalpanel',
         id: 'mypanel',
         border: false,

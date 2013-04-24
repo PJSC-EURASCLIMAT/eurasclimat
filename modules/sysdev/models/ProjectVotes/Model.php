@@ -29,7 +29,8 @@ class Sysdev_ProjectVotes_Model
                 array('d'=>$this->_table->getTableName()),
                 array('id', 'mark_id','date_create', 'project_id')
             )
-            ->where('d.project_id=?', $projectId);
+            ->where('d.project_id=?', $projectId)
+            ->where('d.account_id=?', Xend_Accounts_Prototype::getId());
 
         try {
             $rows = $select->query()->fetchAll();
@@ -43,7 +44,38 @@ class Sysdev_ProjectVotes_Model
         }
         return $response->addStatus(new Xend_Status($status));
     }
+    
+    public function getCountByProject ($projectId)
+    {
+        $response = new Xend_Response();
+        $projectId = intval($projectId);
 
+        if (0 == $projectId) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('d'=>$this->_table->getTableName()),
+                array('mark_id', 'vote_count' => 'count(mark_id)')
+            )
+            ->group('d.mark_id')
+            ->where('d.project_id=?', $projectId);
+
+        try {
+            $rows = $this->_table->getAdapter()->fetchPairs($select);
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+        return $response->addStatus(new Xend_Status($status));
+    }
+    
     public function add(array $params)
     {
         $params['date_create'] = date('Y-m-d H:i:s', time());

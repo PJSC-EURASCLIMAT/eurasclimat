@@ -17,6 +17,23 @@ class Sysdev_ProjectVotesController extends Sysdev_AbstractController
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projectdev->votes);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-by-project');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-count-by-project');
+    }
+    
+    public function getCountByProjectAction() 
+    {
+        $response = $this->_model->getCountByProject($this->_getParam('project_id'));
+        
+        if ($response->isSuccess()) {
+            
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+            
+        } else {
+            
+            $this->_collectErrors($response);
+            
+        }
     }
 
 }

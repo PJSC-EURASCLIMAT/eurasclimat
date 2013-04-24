@@ -38,7 +38,8 @@ Ext.define('EC.Main.view.Projectdev.Layout', {
             items: [{
                 xtype: 'ProjectdevStagesChart',  
                 //autoScroll: true,
-                bodyPadding: 5                
+                bodyPadding: 5,
+                oveflowX: 'scroll'
             }]
         }]
     }]

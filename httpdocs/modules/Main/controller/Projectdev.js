@@ -39,6 +39,10 @@ Ext.define('EC.Main.controller.Projectdev', {
     
     projectCommentsPanel: null,
     
+    projectVotes: null,
+    
+    projectVoteResults: null,
+    
     projectCommentsStore: null,
     
     projectDocs:null,
@@ -52,6 +56,40 @@ Ext.define('EC.Main.controller.Projectdev', {
     gridProjectDocs: null,
     
     commentsText: null,
+    
+    votesResult : null,
+    
+    updateVoteResult: function() {
+        
+        if (!this.votesResult) {
+            
+            this.votesResult = Ext.create('Ext.data.Connection');
+            
+        } 
+        var self = this;
+        if (acl.isView('projectdev', 'votes')) {
+            this.votesResult.request({
+                url: '/json/sysdev/project-votes/get-count-by-project',
+                params: {
+                    'project_id': this.project.get('id')
+                },
+                success: function(response, opts) {
+                    var res = Ext.decode(response.responseText);
+                    if (res.success) {
+                        self.projectVoteResults.items.getAt(1).setText('За голосов: ' + (res.data[1] ? res.data[1] 
+                            : '0'));
+                        self.projectVoteResults.items.getAt(2).setText('Против голосов: ' + (res.data[2] ? res.data[2] 
+                            : '0'));
+                        self.projectVoteResults.items.getAt(3).setText('Предложений доработать: ' + (res.data[3] ? res.data[3] 
+                            : '0'));
+                    }
+                },
+                failure: function(response, opts) {
+                    console.log('Error updating votes');
+                }
+            });
+        }
+    },
     
     initProjectComponents: function(content) {
         
@@ -131,14 +169,20 @@ Ext.define('EC.Main.controller.Projectdev', {
                     }
                     this.projectCommentsPanel.update(updRecords);
                 }
+                
             } else {
+                
                 this.projectCommentsPanel.update('');
+                
             }
-        }, this);
-      
-        this.projectCommentsPanel.down('#commentSubmit').on('click', function() {
             
+            this.showProjectDiscussion();
+        }, this);
+        
+        if (acl.isUpdate('projectdev', 'comments')) { 
             this.commentsText = this.projectCommentsPanel.down('#commentContent');
+            this.commentSubmit = this.projectCommentsPanel.down('#commentSubmit');
+            this.commentSubmit.on('click', function() {
             
             this.commentsText.on('blur', function(component, the, eOpts ) {
                 component.clearInvalid();
@@ -146,14 +190,16 @@ Ext.define('EC.Main.controller.Projectdev', {
             
             if (this.commentsText.isValid()) {
                 
-                this.projectCommentsStore.add({content: this.commentsText.getValue(), 
-                    project_id: this.project.get('id')});
-                this.projectCommentsStore.sync();
-                this.projectCommentsStore.load({params:{project_id: this.project.get('id')}});
-                this.commentsText.setValue('');
-            }
-        }, this);
-      
+                    this.projectCommentsStore.add({content: this.commentsText.getValue(), 
+                        project_id: this.project.get('id')});
+                    this.projectCommentsStore.sync();
+                    this.projectCommentsStore.load({params:{project_id: this.project.get('id')}});
+                    this.commentsText.setValue('');
+
+                }
+            }, this);
+        }
+        
         this.projectVotesStore = Ext.create('EC.Main.store.Projectdev.Votes');
         
         if (acl.isUpdate('projectdev', 'comments')) {
@@ -177,35 +223,53 @@ Ext.define('EC.Main.controller.Projectdev', {
             }, this);
         }
       
+        this.projectVoteResults = this.detailTab.down('#voteResults');
+        this.projectVotes = this.detailTab.down('#markMenu');
+      
         this.projectVotesStore.on('load', function(stor, records, successful, eOpts) {
             
             if (records.length == 0) {
                 
-                if (isUpdate('projectdev', 'comments')) {
-                    this.projectCommentsPanel.down('#markMenu').show();
-                    this.projectCommentsPanel.down('#markLabel').hide();
+                var isProjectVote = this.isProjectVote();
+                
+                if (acl.isUpdate('projectdev', 'votes')) {
+                    
+                    if (isProjectVote) {
+                        this.projectVotes.show();
+                        this.projectVoteResults.hide();
+                    } else {
+                        if (acl.isView('projectdev', 'votes')) {
+                            this.projectVotes.hide();
+                            this.projectVoteResults.show();
+                            this.updateVoteResult();
+                        } else {
+                            this.projectVotes.hide();
+                            this.projectVoteResults.hide();
+                        }
+                    }
+                    
+                } else {
+                    if (acl.isView('projectdev', 'votes')) {
+                        this.projectVotes.hide();
+                        this.projectVoteResults.show();
+                    } else {
+                        this.projectVotes.hide();
+                        this.projectVoteResults.hide();
+                    }
                 }
                 
             } else {
-                
-                var markName = '';
-                
-                if (records[0].get('mark_id')==1) {
-                    markName = 'Ваш голос: За';
+                if (acl.isView('projectdev', 'votes')) {
+                    this.projectVotes.hide();
+                    this.projectVoteResults.show();
+                    this.updateVoteResult();
                 }
-                if (records[0].get('mark_id')==2) {
-                    markName = 'Ваш голос: Против';
-                }
-                if (records[0].get('mark_id')==3) {
-                    markName = 'Ваш голос: Доработать';
-                }
-                
-                this.projectCommentsPanel.down('#markLabel').setText(markName);
-                this.projectCommentsPanel.down('#markLabel').show();
-                this.projectCommentsPanel.down('#markMenu').hide();
             }
+            
+            this.showProjectDiscussion();
+            
         }, this);
-        
+               
         if ('portlet' == this.container.getXType()) {
             this.detailTab.tabBar.hide();
             this.container.down('ProjectdevDetail').setSize(20, 380);
@@ -226,12 +290,11 @@ Ext.define('EC.Main.controller.Projectdev', {
         this.projectChart.getStore().loadRecords([], {addRecords: false});
         this.projectComments.loaded = false;
         
-        if (!this.commentsText) {
-            this.commentsText = this.projectCommentsPanel.down('#commentContent');
+        if (acl.isUpdate('projectdev', 'comments')) {
+            this.commentsText.setValue('');
+            this.commentsText.clearInvalid(); 
         }
-        this.commentsText.setValue('');
-        this.commentsText.clearInvalid();
-        
+                
     },
     
     showProjectDetailTab: function() {
@@ -240,6 +303,83 @@ Ext.define('EC.Main.controller.Projectdev', {
         if ('portlet' == this.container.getXType()) {
             this.detailTab.tabBar.hide();
             this.container.down('ProjectdevDetail').setSize(20, 380);
+        }
+        
+    },
+    
+    showProjectDiscussion: function() {
+        
+        var isDiscussion = false,
+            isVote = false,
+            currentDate = new Date();
+        
+        
+        if (null == this.project.get('date_discuss_begin') || null == this.project.get('date_discuss_end')) {
+            //alert('1');
+            isDiscussion = false;
+            
+        } else  if (currentDate.getTime() >= this.project.get('date_discuss_begin').getTime() 
+            && currentDate.getTime() <= this.project.get('date_discuss_end').getTime()) {
+            
+            isDiscussion = true;
+            
+        }
+        if (null == this.project.get('date_vote_begin') || null == this.project.get('date_vote_end')) {
+            //alert('12');
+            isVote = false;
+            
+        } else if  (currentDate.getTime() >= this.project.get('date_vote_begin').getTime() 
+            && currentDate.getTime() <= this.project.get('date_vote_end').getTime()) {
+            
+            isVote = true;
+            
+        }
+        
+        if (!isDiscussion && !isVote) {
+            
+            this.detailTab.child('#projectComments').tab.hide();
+            this.detailTab.setActiveTab('info');
+            return;
+            
+        } else {
+            
+            this.detailTab.child('#projectComments').tab.show();
+            
+        }
+        
+        if (isDiscussion) {
+            
+            this.commentSubmit.show();
+            this.commentsText.show(); 
+            
+        } else {
+            
+            this.commentSubmit.hide();
+            this.commentsText.hide(); 
+            
+        }
+                
+        /*if (isVote) {
+            
+            this.projectComments.down('#markMenu').show();
+            
+        } else {
+            
+            this.projectComments.down('#markMenu').hide();
+            
+        }*/
+        
+    },
+    
+    isProjectVote: function() {
+        
+        if (null == this.project.get('date_vote_begin') || null == this.project.get('date_vote_end')) {
+            return false;
+        }
+        var date = new Date();
+        if (date.getTime() >= this.project.get('date_vote_begin').getTime() && date.getTime() <= 
+                this.project.get('date_vote_end').getTime()) {
+            return true;
         }
         
     },
@@ -256,56 +396,81 @@ Ext.define('EC.Main.controller.Projectdev', {
             
             switch (activeTabName) {
                 case 'info':
-                    if (!this.projectInfo.loaded) {
+                    if (acl.isView('projectdev', 'info')) {
+                       if (!this.projectInfo.loaded) {
                         
-                        this.projectInfo.getLoader().load({
-                            params: {
-                                id: record.get('id')
-                            }
-                        });
-                        
-                        this.projectInfo.loaded = true;
+                            this.projectInfo.getLoader().load({
+                                params: {
+                                    id: record.get('id')
+                                }
+                            });
+
+                            this.projectInfo.loaded = true;
+                            
+                        }
                     }
+                    
                     break;
                 
                 case 'stages':
-                    if (!this.projectStages.loaded) {
+                    if (acl.isView('projectdev', 'stages')) {
                         
-                        this.gridProjectStages.getStore().load({
-                            params:{project_id: record.get('id')}
-                        });
-                        this.projectStages.loaded = true;
+                        if (!this.projectStages.loaded) {
+
+                            this.gridProjectStages.getStore().load({
+                                params:{project_id: record.get('id')}
+                            });
+                            this.projectStages.loaded = true;
+                        }
+                        
                     }
                     break;
                 
                 case 'docs':
                     if (!this.projectDocs.loaded) {
                         
-                        this.gridProjectDocs.getStore().load({
-                            params:{project_id: record.get('id')}
-                        });
-                        this.projectDocs.loaded = true;
+                        if (acl.isView('projectdev', 'docs')) {
+                            
+                            this.gridProjectDocs.getStore().load({
+                                params:{project_id: record.get('id')}
+                            });
+                            
+                            this.projectDocs.loaded = true;
+                        }
+                        
                     }
                     break;
                     
                 case 'projectComments':
                     if (!this.projectComments.loaded) {
                         
-                        this.projectCommentsStore.load({
-                            params:{project_id: record.get('id')}
-                        });
-                        this.projectVotesStore.load({
-                            params:{project_id: record.get('id')}
-                        });
-                        this.projectComments.loaded = true;
+                        if (acl.isView('projectdev', 'comments')) {
+                            
+                            this.projectCommentsStore.load({
+                                params:{project_id: record.get('id')}
+                            });
+                            
+                            this.projectComments.loaded = true;
+                        }
+                        
+                        if (acl.isView('projectdev', 'votes')) {
+                            
+                            this.projectVotesStore.load({
+                                params:{project_id: record.get('id')}
+                            });
+                            
+                        }
+                                                 
                     }
                     break;
               }
               
               if ('portlet' != this.container.getXType()) {
-                  this.projectChart.getStore().load({
-                      params:{project_id: record.get('id')}
-                  });
+                  if (acl.isView('projectdev', 'chart')) {
+                    this.projectChart.getStore().load({
+                        params:{project_id: record.get('id')}
+                    });
+                  }
               }
               
               this.showProjectDetailTab();
@@ -330,8 +495,14 @@ Ext.define('EC.Main.controller.Projectdev', {
         treePanel.on('select', function(tree, record, index, eOpts) {
             
             this.project = record;
-            this.clearProjectComponents();
-            this.loadProjectDetail(this.project);
+            
+            if (record.get('leaf') == true) {
+                
+                this.clearProjectComponents();
+                this.loadProjectDetail(this.project);
+                this.showProjectDiscussion();
+                
+            }
             
         }, this);
         

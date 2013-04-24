@@ -28,18 +28,15 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
             loadMask: true
         },
         tpl: new Ext.XTemplate( '<div style="padding:5px;">'
-            + '<h2 style="margin-bottom: 0 !important;">Сведения о проекте по разработке "{name}"</h2>'
-            + '<span style="color: #999999">Создан пользвателем <i>{author} {date_create}</i></span><br/><br/>' 
+            + '<h2>Cведения о проекте разработки системы</h2>'
+            + '<b>Наименование проекта: </b> {name}<br/><br/>'
+            + '<b>Описание проекта: </b> {description}<br/><br/>'
+            + '<b>Инициатор проекта: </b> {author}<br/><br/>'
             + '<b>Бюджет:</b> {budget} р. <br/><br/>'
-            + '<b>Сроки:</b><br/>'
-            + '&nbsp;&nbsp;&nbsp;По плану: с {date_plan_begin:date("d.m.Y")} по {date_plan_end:date("d.m.Y")} <br/>' 
-            + '&nbsp;&nbsp;&nbsp;Дата фактического выполнения: {date_fact_end:date("d.m.Y")} <br/><br/>'
-            + '<b>Голосование и обсуждение:</b><br/>'
-            + '&nbsp;&nbsp;&nbsp; Разрешено голосовать с: {date_vote_begin:date("d.m.Y")} по '
-                + '{date_vote_end:date("d.m.Y")} <br/>'
-            + '&nbsp;&nbsp;&nbsp; Разрешено обсуждать с: {date_discuss_begin:date("d.m.Y")} по ' 
-                + '{date_discuss_end:date("d.m.Y")} <br/><br/>'
-            + '<b>Описание:</b>  <br/>{description}' 
+            + '<b>Особые условия проекта: </b> <br/><br/>'
+            + '<b>Планируемые сроки проекта: </b> с {date_plan_begin:date("d.m.Y")} по {date_plan_end:date("d.m.Y")}' 
+                +'<br/><br/>'
+            + '<b>Дата фактического выполнения: </b>{date_fact_end:date("d.m.Y")} <br/><br/>'
             + '</div>')
     }, {
         title: 'Обсуждение и голосование',
@@ -59,41 +56,81 @@ Ext.define('EC.Main.view.Projectdev.Detail', {
             dockedItems: [{
                 xtype: 'panel',
                 padding: 5,
+                
                 dock: 'bottom',
                 layout: 'hbox',
                 border: false,
                 items: [{
-                    xtype: 'label',
-                    itemId: 'markLabel',
-                    hidden: !acl.isView('projectdev', 'votes'),
-                    width: '100',
-                    margin: 5
-                }, {
-                    width: '100',
-                    hidden: !acl.isUpdate('projectdev', 'votes'),
-                    xtype: 'button',
-                    itemId: 'markMenu',
-                    text: 'Голосовать',
-                    margin: '1 0 0 1',
-                    arrowAlign: 'right',
-                    menu: [{
-                        text: 'За',
-                        itemId: 'markButtonFor'
-                    }, {
-                        text: 'Против',
-                        itemId: 'markButtonAgainst'
-                    }, {
-                        text: 'Доработать',
-                        itemId: 'markButtonRemake'
+                    itemId: 'voteResults',
+                    layout: 'vbox',
+                    hidden: true,
+                    border: false,
+                    width: 190,
+                    items: [{
+                        xtype: 'label',
+                        text: 'Результаты голосования: '
+                    },{
+                        xtype: 'label',
+                        itemId: 'countFor', 
+                        margin: '11 0 0 10',
+                        text: 'За глосов: '
+                    },{
+                        xtype: 'label',
+                        itemId: 'countAgainst', 
+                        margin: '11 0 0 10',
+                        text: 'Против голосов: '
+                    },{
+                        xtype: 'label',
+                        itemId: 'countRemake',
+                        margin: '11 0 0 10',
+                        text: 'Предложений доработать: '
                     }]
+                }, {
+                    border: false,
+                    width: 190,
+                    hidden: true,
+                    itemId: 'markMenu',
+                    layout: 'vbox',
+                    margin: '1 0 0 1',
+                    items: [{
+                            xtype:'label',
+                            text:'Голосовать'
+                        },
+                        {
+                            xtype:'button',
+                            text: 'За',
+                            border: 1,
+                            margin: '3 0 0 40',
+                            width: 100,
+                            textAlign: 'left',
+                            itemId: 'markButtonFor'
+                        }, {
+                            xtype:'button',
+                            text: 'Против',
+                            border: 1,
+                            margin: '3 0 0 40',
+                            width: 100,
+                            textAlign: 'left',
+                            itemId: 'markButtonAgainst'
+                        }, {
+                            xtype:'button',
+                            text: 'Доработать',
+                            border: 1,
+                            width: 100,
+                            margin: '3 0 0 40',
+                            textAlign: 'left',
+                            itemId: 'markButtonRemake'
+                        }
+                    ]
                 }, {
                     xtype: 'textareafield',
                     hidden: !acl.isUpdate('projectdev', 'comments'),
                     grow: true,
                     itemId: 'commentContent',
-                    name: 'message',
+                    //name: 'message',
                     margin: '1 0 0 1',
                     width: '60%',
+                    height: '100%',
                     allowBlank: false,
                     validateOnBlur: false,
                     validateOnChange: false

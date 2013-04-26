@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Dustextraction.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'dustextraction'),
         
     items: [{
-        xtype: 'DustextractionFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'DustextractionFilterGroup'
     }, {

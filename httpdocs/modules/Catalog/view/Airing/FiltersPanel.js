@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Airing.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'airing'),
         
     items: [{
-        xtype: 'AiringFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'AiringFilterGroup'
     }, {

@@ -44,7 +44,7 @@ Ext.define('EC.Catalog.view.Heating.List', {
                 '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
                 
                 '</td><td colspan="3" height="40"><h1><p>',
-                '{[this.r("HeatingFilterMark", values.mark_id)]} ',
+                '{[this.r("FilterMark", values.mark_id)]} ',
                 '{marking}</p></h1>',
                 '<p>Группа оборудования: <b>',
                 '{[this.r("HeatingFilterGroup", values.group_id)]}',
@@ -145,7 +145,7 @@ Ext.define('EC.Catalog.view.Heating.List', {
             dataIndex: 'mark_id',
             width: 100,
             renderer: function(value) {
-                return this.comboRenderer('HeatingFilterMark', value);
+                return this.comboRenderer('FilterMark', value);
             },
             filter: {
                 type: 'numeric'

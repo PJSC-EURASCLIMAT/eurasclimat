@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Electricity', {
         'EC.Catalog.view.Electricity.Layout',
         'EC.Catalog.view.Electricity.FiltersPanel',
         'EC.Catalog.view.Electricity.List',
-        'EC.Catalog.view.Electricity.Add',
         'EC.Catalog.view.Electricity.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Electricity.Filter.Mark',
         'EC.Catalog.view.Electricity.Filter.Group',
         'EC.Catalog.view.Electricity.Filter.ProductType',
         'EC.Catalog.view.Electricity.Filter.ImplementationType',
@@ -44,9 +42,9 @@ Ext.define('EC.Catalog.controller.Electricity', {
     
     listXType: 'ElectricityList',
     
-    addXType: 'ElectricityAdd',
-    
     editXType: 'ElectricityEdit',
+    
+    getURL: '/json/catalog/electricity/get',
     
     addURL: '/json/catalog/electricity/add',
     
@@ -54,6 +52,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
     
     deleteURL: '/json/catalog/electricity/delete',
     
-    uploadURL: '/json/catalog/electricity/upload'
+    uploadURL: '/json/catalog/electricity/upload',
+    
+    getImagesURL: '/json/catalog/electricity/get-images'
     
 });

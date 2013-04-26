@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Airing.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'AiringFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'AiringFilterGroup',
@@ -159,7 +159,9 @@ Ext.define('EC.Catalog.view.Airing.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'airing',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

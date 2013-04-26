@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Electricity.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'electricity'),
         
     items: [{
-        xtype: 'ElectricityFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'ElectricityFilterGroup'
     }, {

@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Watersupply.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'WatersupplyFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'WatersupplyFilterGroup',
@@ -168,7 +168,9 @@ Ext.define('EC.Catalog.view.Watersupply.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'watersupply',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

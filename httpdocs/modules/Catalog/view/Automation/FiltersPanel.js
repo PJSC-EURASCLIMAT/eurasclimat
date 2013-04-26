@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Automation.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'automation'),
         
     items: [{
-        xtype: 'AutomationFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'AutomationFilterGroup'
     }, {

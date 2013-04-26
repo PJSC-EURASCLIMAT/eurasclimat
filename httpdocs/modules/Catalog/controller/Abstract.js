@@ -3,7 +3,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
     extend: 'Ext.app.Controller',
     
     uses: [
-        'EC.Catalog.view.Images'
+        'EC.Catalog.view.Images',
+        'EC.Catalog.view.FilterMark',
+        'EC.Catalog.view.AddAbstract'
     ],
     
     viewPermition: false,
@@ -17,8 +19,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
     filtersPanelXType: null, 
     
     listXType: null,
-    
-    addXType: null,
     
     editXType: null,
     
@@ -173,7 +173,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     }, 
     
     addItem: function() {
-        var view = Ext.widget(this.addXType);
+        var view = Ext.create('EC.Catalog.view.AddAbstract');
         view.down('button[action=save]').on({
             click: function() {
                 this.createItem(view);

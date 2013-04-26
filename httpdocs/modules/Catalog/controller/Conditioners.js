@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Layout',
         'EC.Catalog.view.Conditioners.FiltersPanel',
         'EC.Catalog.view.Conditioners.List',
-        'EC.Catalog.view.Conditioners.Add',
         'EC.Catalog.view.Conditioners.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Conditioners.Filter.Mark',
         'EC.Catalog.view.Conditioners.Filter.Group',
         'EC.Catalog.view.Conditioners.Filter.ProductType',
         'EC.Catalog.view.Conditioners.Filter.ImplementationType',
@@ -42,8 +40,6 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     filtersPanelXType: 'ConditionersFiltersPanel', 
     
     listXType: 'ConditionersList',
-    
-    addXType: 'ConditionersAdd',
     
     editXType: 'ConditionersEdit',
     

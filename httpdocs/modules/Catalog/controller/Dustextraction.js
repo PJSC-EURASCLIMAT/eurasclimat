@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
         'EC.Catalog.view.Dustextraction.Layout',
         'EC.Catalog.view.Dustextraction.FiltersPanel',
         'EC.Catalog.view.Dustextraction.List',
-        'EC.Catalog.view.Dustextraction.Add',
         'EC.Catalog.view.Dustextraction.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Dustextraction.Filter.Mark',
         'EC.Catalog.view.Dustextraction.Filter.Group',
         'EC.Catalog.view.Dustextraction.Filter.Motor',
         'EC.Catalog.view.Dustextraction.Filter.Filtration',
@@ -38,9 +36,9 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     listXType: 'DustextractionList',
     
-    addXType: 'DustextractionAdd',
-    
     editXType: 'DustextractionEdit',
+    
+    getURL: '/json/catalog/dustextraction/get',
     
     addURL: '/json/catalog/dustextraction/add',
     
@@ -48,6 +46,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     deleteURL: '/json/catalog/dustextraction/delete',
     
-    uploadURL: '/json/catalog/dustextraction/upload'
+    uploadURL: '/json/catalog/dustextraction/upload',
+    
+    getImagesURL: '/json/catalog/dustextraction/get-images'
     
 });

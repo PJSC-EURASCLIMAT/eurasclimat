@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Airing.Filter.Mark', {
+Ext.define('EC.Catalog.view.FilterMark', {
     
     extend: 'Ext.form.ComboBox',
     
-    alias: ['widget.AiringFilterMark'],
+    alias: ['widget.FilterMark'],
     
     valueField: 'id',
     
@@ -20,7 +20,7 @@ Ext.define('EC.Catalog.view.Airing.Filter.Mark', {
     
     store: { 
         
-        storeId: 'AiringFilterMark',
+        storeId: 'FilterMark',
         
         autoLoad: true,
         
@@ -29,7 +29,7 @@ Ext.define('EC.Catalog.view.Airing.Filter.Mark', {
         proxy: {
             type: 'ajax',
             url: '/json/catalog/settings/get-list',
-            extraParams: {entity: 'airing_marks'},
+            extraParams: {entity: 'marks'},
             reader: {
                 type: 'json',
                 root: 'data',

@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Watersupply', {
         'EC.Catalog.view.Watersupply.Layout',
         'EC.Catalog.view.Watersupply.FiltersPanel',
         'EC.Catalog.view.Watersupply.List',
-        'EC.Catalog.view.Watersupply.Add',
         'EC.Catalog.view.Watersupply.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Watersupply.Filter.Mark',
         'EC.Catalog.view.Watersupply.Filter.Group',
         'EC.Catalog.view.Watersupply.Filter.ProductType',
         'EC.Catalog.view.Watersupply.Filter.ImplementationType',
@@ -43,9 +41,9 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     
     listXType: 'WatersupplyList',
     
-    addXType: 'WatersupplyAdd',
-    
     editXType: 'WatersupplyEdit',
+    
+    getURL: '/json/catalog/watersupply/get',
     
     addURL: '/json/catalog/watersupply/add',
     
@@ -53,6 +51,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     
     deleteURL: '/json/catalog/watersupply/delete',
     
-    uploadURL: '/json/catalog/watersupply/upload'
+    uploadURL: '/json/catalog/watersupply/upload',
+    
+    getImagesURL: '/json/catalog/watersupply/get-images'
     
 });

@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Dustextraction.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'DustextractionFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'DustextractionFilterGroup',
@@ -185,7 +185,9 @@ Ext.define('EC.Catalog.view.Dustextraction.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'dustextraction',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

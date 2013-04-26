@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Watersupply.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'watersupply'),
         
     items: [{
-        xtype: 'WatersupplyFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'WatersupplyFilterGroup'
     }, {

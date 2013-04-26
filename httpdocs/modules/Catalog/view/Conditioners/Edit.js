@@ -39,7 +39,7 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
                 layout: 'column',
                 columns: 4,
                 items: [{
-                    xtype: 'ConditionersFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'ConditionersFilterGroup',

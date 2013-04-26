@@ -1,9 +1,7 @@
-Ext.define('EC.Catalog.view.Dustextraction.Add', {
+Ext.define('EC.Catalog.view.AddAbstract', {
     
     extend: 'Ext.window.Window',
     
-    alias: 'widget.DustextractionAdd',
-
     title: 'Новая позиция',
     
     layout: 'fit',
@@ -31,11 +29,8 @@ Ext.define('EC.Catalog.view.Dustextraction.Add', {
                 anchor: '-5'
             },
             items: [{
-                xtype: 'DustextractionFilterMark',
+                xtype: 'FilterMark',
                 name: 'mark_id'
-            }, {
-                xtype: 'DustextractionFilterGroup',
-                name: 'group_id'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Маркировка',

@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Layout',
         'EC.Catalog.view.Automation.FiltersPanel',
         'EC.Catalog.view.Automation.List',
-        'EC.Catalog.view.Automation.Add',
         'EC.Catalog.view.Automation.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Automation.Filter.Mark',
         'EC.Catalog.view.Automation.Filter.Group',
         'EC.Catalog.view.Automation.Filter.ProductType',
         'EC.Catalog.view.Automation.Filter.ImplementationType',
@@ -44,9 +42,9 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     listXType: 'AutomationList',
     
-    addXType: 'AutomationAdd',
-    
     editXType: 'AutomationEdit',
+    
+    getURL: '/json/catalog/automation/get',
     
     addURL: '/json/catalog/automation/add',
     
@@ -54,6 +52,8 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     deleteURL: '/json/catalog/automation/delete',
     
-    uploadURL: '/json/catalog/automation/upload'
+    uploadURL: '/json/catalog/automation/upload',
+    
+    getImagesURL: '/json/catalog/automation/get-images'
     
 });

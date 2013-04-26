@@ -14,12 +14,10 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Layout',
         'EC.Catalog.view.Airing.FiltersPanel',
         'EC.Catalog.view.Airing.List',
-        'EC.Catalog.view.Airing.Add',
         'EC.Catalog.view.Airing.Edit'
     ],
     
     uses: [
-        'EC.Catalog.view.Airing.Filter.Mark',
         'EC.Catalog.view.Airing.Filter.Group',
         'EC.Catalog.view.Airing.Filter.ProductType',
         'EC.Catalog.view.Airing.Filter.ImplementationType',
@@ -44,9 +42,9 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     listXType: 'AiringList',
     
-    addXType: 'AiringAdd',
-    
     editXType: 'AiringEdit',
+    
+    getURL: '/json/catalog/airing/get',
     
     addURL: '/json/catalog/airing/add',
     
@@ -54,6 +52,8 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     deleteURL: '/json/catalog/airing/delete',
     
-    uploadURL: '/json/catalog/airing/upload'
+    uploadURL: '/json/catalog/airing/upload',
+    
+    getImagesURL: '/json/catalog/airing/get-images'
     
 });

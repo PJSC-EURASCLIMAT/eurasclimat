@@ -13,10 +13,12 @@ class Catalog_WatersupplyController extends Catalog_AbstractController
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->watersupply);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-images');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload');
     }
 
 }

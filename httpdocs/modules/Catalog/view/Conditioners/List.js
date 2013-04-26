@@ -44,7 +44,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
                 
                 '</td><td colspan="3" height="40"><h1><p>',
-                '{[this.r("ConditionersFilterMark", values.mark_id)]} ',
+                '{[this.r("FilterMark", values.mark_id)]} ',
                 '{marking}</p></h1>',
                 '<p>Группа оборудования: <b>',
                 '{[this.r("ConditionersFilterGroup", values.group_id)]}',
@@ -151,7 +151,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             dataIndex: 'mark_id',
             width: 100,
             renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterMark', value);
+                return this.comboRenderer('FilterMark', value);
             },
             filter: {
                 type: 'numeric'

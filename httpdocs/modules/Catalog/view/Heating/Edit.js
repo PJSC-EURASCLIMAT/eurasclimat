@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Heating.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'HeatingFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'HeatingFilterGroup',
@@ -176,7 +176,9 @@ Ext.define('EC.Catalog.view.Heating.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'heating',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

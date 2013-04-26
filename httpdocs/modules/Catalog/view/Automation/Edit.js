@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Automation.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'AutomationFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'AutomationFilterGroup',
@@ -155,7 +155,9 @@ Ext.define('EC.Catalog.view.Automation.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'automation',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

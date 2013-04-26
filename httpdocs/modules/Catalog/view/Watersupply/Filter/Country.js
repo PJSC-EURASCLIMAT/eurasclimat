@@ -18,6 +18,8 @@ Ext.define('EC.Catalog.view.Watersupply.Filter.Country', {
     
     store: { 
         
+        url: 'zz',
+        
         storeId: ['WatersupplyFilterCountry'],
     
         fields: ['id', 'name'], 

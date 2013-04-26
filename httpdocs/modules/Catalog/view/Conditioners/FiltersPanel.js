@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'conditioners'),
     
     items: [{
-        xtype: 'ConditionersFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'ConditionersFilterGroup'
     }, {

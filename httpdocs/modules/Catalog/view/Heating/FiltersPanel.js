@@ -7,7 +7,7 @@ Ext.define('EC.Catalog.view.Heating.FiltersPanel', {
     permissions: !acl.isUpdate('catalog', 'heating'),
         
     items: [{
-        xtype: 'HeatingFilterMark'
+        xtype: 'FilterMark'
     }, {
         xtype: 'HeatingFilterGroup'
     }, {

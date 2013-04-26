@@ -37,7 +37,7 @@ Ext.define('EC.Catalog.view.Electricity.Edit', {
                     anchor: '-5'
                 },
                 items: [{
-                    xtype: 'ElectricityFilterMark',
+                    xtype: 'FilterMark',
                     name: 'mark_id'
                 }, {
                     xtype: 'ElectricityFilterGroup',
@@ -151,7 +151,9 @@ Ext.define('EC.Catalog.view.Electricity.Edit', {
                     name: 'mount_price'
                 }]
             }, {
-                title: 'Изображения'
+                xtype: 'CatalogImages',
+                catalog: 'electricity',
+                allowEdit: this.allowEdit
             }],
             buttons: [{
                 text: 'Сохранить',

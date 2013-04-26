@@ -20,16 +20,16 @@ class Catalog_Settings
 
         $where = array();
 
-        if ($tableInfo[0] == 'catalog' && $tableInfo[2] == 'marks') {
-
-            $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->$tableInfo[1]->marks;
-
-            if ($this->_isMarksEnabled()) {
-                $marks = $this->_getAllowedMarks();
-                $where = array('id IN (?)' => $marks);
-            }
-        }
+//        if ($tableInfo[0] == 'catalog' && $tableInfo[2] == 'marks') {
+//
+//            $this->_marksResource =
+//            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->$tableInfo[1]->marks;
+//
+//            if ($this->_isMarksEnabled()) {
+//                $marks = $this->_getAllowedMarks();
+//                $where = array('id IN (?)' => $marks);
+//            }
+//        }
 
         try {
             $rows = $this->_table->fetchAll($where)->toArray();

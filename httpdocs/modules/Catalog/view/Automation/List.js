@@ -44,7 +44,7 @@ Ext.define('EC.Catalog.view.Automation.List', {
                 '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
                 
                 '</td><td colspan="3" height="40"><h1><p>',
-                '{[this.r("AutomationFilterMark", values.mark_id)]} ',
+                '{[this.r("FilterMark", values.mark_id)]} ',
                 '{marking}</p></h1>',
                 '<p>Группа оборудования: <b>',
                 '{[this.r("AutomationFilterGroup", values.group_id)]}',
@@ -142,7 +142,7 @@ Ext.define('EC.Catalog.view.Automation.List', {
             dataIndex: 'mark_id',
             width: 100,
             renderer: function(value) {
-                return this.comboRenderer('AutomationFilterMark', value);
+                return this.comboRenderer('FilterMark', value);
             },
             filter: {
                 type: 'numeric'

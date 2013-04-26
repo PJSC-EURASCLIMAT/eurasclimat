@@ -161,8 +161,6 @@ Ext.define('EC.Catalog.view.Automation.Edit', {
             }],
             buttons: [{
                 text: 'Сохранить',
-                formBind: true,
-                disabled: true,
                 action: 'save'
             }, {
                 text: 'Отменить',

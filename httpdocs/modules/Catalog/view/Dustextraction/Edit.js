@@ -191,8 +191,6 @@ Ext.define('EC.Catalog.view.Dustextraction.Edit', {
             }],
             buttons: [{
                 text: 'Сохранить',
-                formBind: true,
-                disabled: true,
                 action: 'save'
             }, {
                 text: 'Отменить',

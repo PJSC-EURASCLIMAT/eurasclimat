@@ -208,8 +208,6 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
             }],
             buttons: [{
                 text: 'Сохранить',
-                formBind: true,
-                //disabled: true,
                 action: 'save'
             }, {
                 text: 'Отменить',

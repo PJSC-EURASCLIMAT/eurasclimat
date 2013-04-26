@@ -157,8 +157,6 @@ Ext.define('EC.Catalog.view.Electricity.Edit', {
             }],
             buttons: [{
                 text: 'Сохранить',
-                formBind: true,
-                disabled: true,
                 action: 'save'
             }, {
                 text: 'Отменить',

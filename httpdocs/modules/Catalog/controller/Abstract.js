@@ -5,7 +5,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
     uses: [
         'EC.Catalog.view.Images',
         'EC.Catalog.view.FilterMark',
-        'EC.Catalog.view.AddAbstract'
+        'EC.Catalog.view.AddAbstract',
+        'EC.Catalog.view.SettingsLayoutAbstract',
+        'EC.Catalog.view.FiltersPanelAbstarct'
     ],
     
     viewPermition: false,

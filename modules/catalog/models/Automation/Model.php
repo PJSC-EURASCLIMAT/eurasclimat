@@ -122,7 +122,8 @@ class Catalog_Automation_Model
             'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();

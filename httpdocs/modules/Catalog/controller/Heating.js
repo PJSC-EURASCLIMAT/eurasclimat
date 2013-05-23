@@ -53,6 +53,8 @@ Ext.define('EC.Catalog.controller.Heating', {
     
     uploadURL: '/json/catalog/heating/upload',
     
-    getImagesURL: '/json/catalog/heating/get-images'
+    getImagesURL: '/json/catalog/heating/get-images',
+    
+    deleteImageURL: '/json/catalog/heating/delete-image'
     
 });

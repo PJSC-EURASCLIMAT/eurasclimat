@@ -51,6 +51,7 @@ class Catalog_Conditioners_Table extends Xend_Db_Table_Abstract
         'order',
         'url',
         'price',
-        'mount_price'
+        'mount_price',
+        'description'
     );
 }

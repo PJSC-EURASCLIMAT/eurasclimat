@@ -81,9 +81,80 @@ class Catalog_Images
                 Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
+        try {
+            $row = $this->_table->findOne($id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        $fname = IMAGES_DIR . DIRECTORY_SEPARATOR
+               . 'catalog' . DIRECTORY_SEPARATOR . $row['name'];
+
+        if (file_exists($fname) && is_file($fname)) {
+            if (!unlink($fname)) {
+                return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
+            }
+        }
+
         $result = $this->_table->deleteByPk($id);
 
         return $response->addStatus(new Xend_Status(
             Xend_Status::retrieveAffectedRowStatus($result)));
+    }
+
+    public function deleteAllImages($entity_id)
+    {
+        $entity_id = intval($entity_id);
+
+        $response = new Xend_Response();
+
+        if (!$entity_id) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT));
+        }
+
+        $where = array('entity = (?)' => $this->_entity, 'entity_id = (?)' => $entity_id);
+
+        try {
+            $rows = $this->_table->fetchAll($where)->toArray();
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        foreach ($rows as $r) {
+            $resp = $this->delete($r['id']);
+        }
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function get($id)
+    {
+        $id = intval($id);
+
+        $response = new Xend_Response();
+
+        if (!$id) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT));
+        }
+
+        try {
+            $result = $this->_table->findOne($id);
+            $response->setRow($result);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status($status));
     }
 }

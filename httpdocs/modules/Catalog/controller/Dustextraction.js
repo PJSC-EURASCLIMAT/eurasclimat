@@ -48,6 +48,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     uploadURL: '/json/catalog/dustextraction/upload',
     
-    getImagesURL: '/json/catalog/dustextraction/get-images'
+    getImagesURL: '/json/catalog/dustextraction/get-images',
+    
+    deleteImageURL: '/json/catalog/dustextraction/delete-image'
     
 });

@@ -36,6 +36,7 @@ Ext.define('EC.Catalog.model.Airing', {
         'order',
         'url',
         'price',
-        'mount_price'
+        'mount_price',
+        'description'
     ]
 });

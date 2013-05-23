@@ -53,6 +53,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     
     uploadURL: '/json/catalog/watersupply/upload',
     
-    getImagesURL: '/json/catalog/watersupply/get-images'
+    getImagesURL: '/json/catalog/watersupply/get-images',
+    
+    deleteImageURL: '/json/catalog/watersupply/delete-image'
     
 });

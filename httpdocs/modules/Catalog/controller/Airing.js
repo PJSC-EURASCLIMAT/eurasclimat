@@ -54,6 +54,8 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     uploadURL: '/json/catalog/airing/upload',
     
-    getImagesURL: '/json/catalog/airing/get-images'
+    getImagesURL: '/json/catalog/airing/get-images',
+    
+    deleteImageURL: '/json/catalog/airing/delete-image'
     
 });

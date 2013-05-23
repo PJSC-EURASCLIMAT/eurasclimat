@@ -53,6 +53,8 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     uploadURL: '/json/catalog/conditioners/upload',
     
-    getImagesURL: '/json/catalog/conditioners/get-images'
+    getImagesURL: '/json/catalog/conditioners/get-images',
+    
+    deleteImageURL: '/json/catalog/conditioners/delete-image'
 
 });

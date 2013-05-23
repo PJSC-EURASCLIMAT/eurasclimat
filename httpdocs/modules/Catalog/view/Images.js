@@ -20,10 +20,12 @@ Ext.define('EC.Catalog.view.Images', {
     
     catalogId: null,
     
-    catalog: '',
+    catalog: null,
     
     initComponent: function() {
 
+        this.addEvents('deleteImage');
+        
         if (Ext.isEmpty(this.catalog)) {
             throw 'catalog must not be empty!';
         }
@@ -50,108 +52,65 @@ Ext.define('EC.Catalog.view.Images', {
                 '<tpl for=".">',
 	                '<div class="thumb-wrap" id="{name}">',
 		                '<div class="thumb">',
-		                	'<img src="/images/catalog/{name}" class="thumb-img">',
+		                	'<img src="/images/catalog/{name}" title="{name}" class="thumb-img">',
 		                '</div>',
 		                '<span class="x-editable">',
-		                	'{name}',
+		                	'<a href="#" title="Удалить">' +
+                            '<img src="/images/icons/fam/delete.gif" ' +
+                            'action="delete" ' +
+                            'img_id="{id}"></a>',
 	                	'</span>',
 	            	'</div>',
             	'</tpl>',
             	'<div class="x-clear"></div>'
             ),
-            listeners: {click: {fn: this.showFile, scope: this, buffer: 200}}
+            listeners: {itemclick: {fn: this.onItemClick, scope: this, buffer: 200}}
         });
         
-        if (this.allowEdit) {
-            
-            this.tbar = new Ext.Toolbar({
-                items: [{
-                    text: 'Добавить',
-                    iconCls: 'add',
-                    action: 'add',
-                    scope: this
-                }]
-            });
-            
-//            menu = new Ext.menu.Menu({
-//                items: [{
-//                    text: 'Удалить',
-//                    iconCls: 'delete',
-//                    handler: function() {
-//                        var record = menu.view.store.getAt(menu.index);
-//                        this.onDelete(record.get('id'));
-//                    },
-//                    scope: this
-//                }]
-//            });
-//            
-//            this.viewPanel.on('contextmenu', function(view, index, node, e) {
-//                e.stopEvent();
-//                Ext.apply(menu, {view: view, index:index, node: node, e: e});
-//                menu.showAt(e.getXY());
-//            });
-            
-        }
+        this.tbar = new Ext.Toolbar({
+            items: [{
+                text: 'Добавить',
+                iconCls: 'add',
+                action: 'add',
+                hidden: !this.allowEdit,
+                scope: this
+            }]
+        });
         
         this.items = [this.viewPanel];
         
         this.callParent(arguments);
     },
     
-    showFile: function(view, index, node, e) {
-    	
-        var record = view.store.getAt(index);
-
-        if (record.get('is_photo') == 0) {
-        	return;
+    onItemClick: function(view, record, item, index, e, eOtps) {
+        var tel = Ext.fly(e.getTarget());
+        if (tel.getAttribute('action') == 'delete') {
+            this.fireEvent('deleteImage', this, record);
+        } else {
+            this.showFile(record);
         }
-        
+    },
+    
+    showFile: function(record) {
+    	
         var img = new Ext.ComponentMgr.create({
             xtype: 'box',
-            html: '<a href="/files/' + record.get('filename') + '" '
+            html: '<a href="/images/catalog/' + record.get('name') + '" '
         		+ 'style="border: none;" target="_blank">'
-            	+ '<img src="/files/' + record.get('filename') + '" '
+            	+ '<img src="/images/catalog/' + record.get('name') + '" '
             	+ 'style="max-height: 400px; max-width: 600px;" /></a>'
         });
         
         var wind = new Ext.Window({
-            title: record.get('description'),
+            title: record.get('name'),
             modal: true,
+            minWidth: 300,
+            minHeight: 300,
             autoWidth: true,
             resizable: false,
             autoHeight: true,
             items:[img]
         });
-        wind.show(record.get('filename'));
-    },
-        
-    loadData: function(data) {
-        this.viewPanel.store.loadData(data);
-        this.catalogId = data['id'];
-    },
-    
-    onDelete: function(id) {
-        Ext.Msg.show({
-            title: 'Подтверждение',
-            msg: 'Вы уверены?',
-            buttons: Ext.Msg.YESNO,
-            fn: function(b) {
-                if ('yes' == b) {
-                    var loadingMask = new Ext.LoadMask(this.el, {msg: 'Загрузка...'});
-                    loadingMask.show();
-                    Ext.Ajax.request({
-                        url: this.deleteURL,
-                        params: {id: id},
-                        callback: function() {
-                            loadingMask.hide();
-                            this.viewPanel.store.load({params: {catalogId: this.catalogId}});
-                        },
-                        scope: this
-                    });
-                }
-            },
-            icon: Ext.MessageBox.QUESTION,
-            scope: this
-        });
+        wind.show();
     }
 });

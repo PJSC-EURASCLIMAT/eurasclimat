@@ -6,6 +6,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.Images',
         'EC.Catalog.view.FilterMark',
         'EC.Catalog.view.AddAbstract',
+        'EC.Catalog.view.EditAbstract',
         'EC.Catalog.view.SettingsLayoutAbstract',
         'EC.Catalog.view.FiltersPanelAbstarct'
     ],
@@ -35,6 +36,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
     uploadURL: null,
     
     getImagesURL: null,
+    
+    deleteImageURL: null,
     
     run: function(container) {
         
@@ -199,7 +202,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
             params: {id: recordId}
         });
         
-        view.down('CatalogImages').on({
+        var catalogImagesPanel = view.down('CatalogImages');
+        
+        catalogImagesPanel.on({
             activate: function(panel) {
                 var store = panel.viewPanel.getStore();
                 store.load({url: this.getImagesURL, id: recordId});
@@ -215,11 +220,15 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 },
                 scope: this
             });
-            var catalogImagesPanel = view.down('CatalogImages');
             catalogImagesPanel.down('button[action=add]').on({
                 click: function() {
-                    this.onUpload(recordId);
+                    this.onUpload(recordId, catalogImagesPanel);
                 },
+                scope: this
+            });
+            
+            catalogImagesPanel.on({
+                deleteImage: this.onDeleteImage,
                 scope: this
             });
         }
@@ -306,6 +315,31 @@ Ext.define('EC.Catalog.controller.Abstract', {
         }, this);
     },
     
+    onDeleteImage: function(view, record) {
+        
+        Ext.Msg.show({
+            title: 'Подтверждение',
+            msg: 'Вы уверены?',
+            buttons: Ext.Msg.YESNO,
+            fn: function(b) {
+                if ('yes' == b) {
+                    view.setLoading({msg: 'Загрузка...'});
+                    Ext.Ajax.request({
+                        url: this.deleteImageURL,
+                        params: {id: record.get('id')},
+                        callback: function() {
+                            view.setLoading(false);
+                            view.setActive(true);
+                        },
+                        scope: this
+                    });
+                }
+            },
+            icon: Ext.MessageBox.QUESTION,
+            scope: this
+        });
+    },
+    
     expandRows: function(button) {
         
         var grid = button.up(this.listXType),
@@ -321,7 +355,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         }
     },
     
-    onUpload: function(id) {
+    onUpload: function(id, panel) {
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             dialogTitle: 'Передача файлов на сервер',
@@ -333,6 +367,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
                     fn: function(upDialog, manager, items, errorCount) {
                         if (!errorCount) {
                             upDialog.close();
+                            panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
                         }
                     },
                     scope: this

@@ -54,6 +54,8 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     uploadURL: '/json/catalog/automation/upload',
     
-    getImagesURL: '/json/catalog/automation/get-images'
+    getImagesURL: '/json/catalog/automation/get-images',
+    
+    deleteImageURL: '/json/catalog/automation/delete-image'
     
 });

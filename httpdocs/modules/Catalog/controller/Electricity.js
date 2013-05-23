@@ -54,6 +54,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
     
     uploadURL: '/json/catalog/electricity/upload',
     
-    getImagesURL: '/json/catalog/electricity/get-images'
+    getImagesURL: '/json/catalog/electricity/get-images',
+    
+    deleteImageURL: '/json/catalog/electricity/delete-image'
     
 });

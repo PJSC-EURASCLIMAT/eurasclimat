@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Layout',
         'EC.Catalog.view.Automation.FiltersPanel',
         'EC.Catalog.view.Automation.List',
-        'EC.Catalog.view.Automation.Edit'
+        'EC.Catalog.view.Automation.Edit',
+        'EC.Catalog.view.Automation.Show'
     ],
     
     uses: [
@@ -41,6 +42,8 @@ Ext.define('EC.Catalog.controller.Automation', {
     filtersPanelXType: 'AutomationFiltersPanel', 
     
     listXType: 'AutomationList',
+    
+    showXType: 'AutomationShow',
     
     editXType: 'AutomationEdit',
     

@@ -1,143 +1,87 @@
 Ext.define('EC.Catalog.view.Watersupply.List', {
 
-    extend: 'Ext.grid.Panel',
-    
-    requires: ['xlib.grid.FiltersFeature'],
+    extend: 'EC.Catalog.view.ListAbstract',
    
     alias: ['widget.WatersupplyList'],
     
     store: 'EC.Catalog.store.Watersupply',
     
-    layout: 'fit',
+    updatePermission: acl.isUpdate('catalog', 'watersupply'),
     
-    title: 'Результаты выборки',
-    
-    tools: [{
-        type: 'expand',
-        tooltip: 'Раскрыть/закрыть все строки',
-        action: 'expandrows'
-    }, {
-        type: 'plus',
-        tooltip: 'Добавить позицию',
-        action: 'additem',
-        hidden: !acl.isUpdate('catalog', 'watersupply')
-    }, {
-        type: 'refresh',
-        tooltip: 'Обновить список',
-        action: 'refresh'
-    }],
-    
-    features: [{ftype: 'filters', encode: true, showMenu: false}],
-    
-    constructor: function() {
+    rowBodyTpl:  
+        '<div style="padding: 10px;"><table width="100%" border="0">' + 
+        '<tr valign="top">' + 
         
-        this.plugins = [{
-            ptype: 'rowexpander',
-            rowBodyTpl: Ext.create('Ext.XTemplate', 
-                '<div style="padding: 10px;"><table width="100%" border="0">',
-                '<tr valign="top">',
-                
-                '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>',
-                
-                '<p>Ссылка: <b>{url}</b></p><br/>',
-                '<p>Цена: <b>{price}&nbsp;р.</b></p>',
-                '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
-                
-                '</td><td colspan="3" height="40"><h1><p>',
-                '{[this.r("FilterMark", values.mark_id)]} ',
-                '{marking}</p></h1>',
-                '<p>Группа оборудования: <b>',
-                '{[this.r("WatersupplyFilterGroup", values.group_id)]}',
-                '</b></p>',
-                
-                '</td></tr><tr valign="top"><td>',
-                '<p>Тип продукции: <b>',
-                '{[this.r("WatersupplyFilterProductType", values.product_type_id)]}',
-                '</b></p>',
-                '<p>Тип исполнения: <b>',
-                '{[this.r("WatersupplyFilterImplementationType", values.implementation_type_id)]}',
-                '</b></p>',
-                '<p>Способ управления системой: <b>',
-                '{[this.r("WatersupplyFilterControlType", values.control_type_id)]}',
-                '</b></p>',
-                '<p>Тип присоединения: <b>',
-                '{[this.r("WatersupplyFilterConnectionType", values.connection_type_id)]}',
-                '</b></p>',
-                '<p>Тип защиты: <b>',
-                '{[this.r("WatersupplyFilterProtectionType", values.protection_type_id)]}',
-                '</b></p>',
-                '<p>Источник питания: <b>',
-                '{[this.r("WatersupplyFilterPowerSource", values.power_source_id)]}',
-                '</b></p>',
-                '<p>Материал: <b>',
-                '{[this.r("WatersupplyFilterMaterial", values.material_id)]}',
-                '</b></p>',
-                '<p>Страна изготовления: <b>',
-                '{[this.r("WatersupplyFilterCountry", values.country)]}',
-                '</b></p>',
-                '<p>Гарантированный диапазон наружных температур (обогрев): <b>{temp}&nbsp;°C</b></p>',
-                '<p>Напряжение питания: <b>{power_supply}&nbsp;В</b></p>',
-                
-                '</td><td>',
-                
-                '<p>Потребляемая мощность (обогрев): <b>{heating_power_consumption}&nbsp;кВт</b></p>',
-                '<p>Рабочий ток: <b>{amperage}&nbsp;ампер</b></p>',
-                '<p>Входов для подключаемых датчиков: <b>{sensor_inputs}&nbsp;ед.</b></p>',
-                '<p>Давление: <b>{pressure}&nbsp;бар</b></p>',
-                '<p>Уровень шума (мин): <b>{noise_level_min}&nbsp;дБ(А)</b></p>',
-                '<p>Производительность фильтров: <b>{filters_performance}&nbsp;м³/ч</b></p>',
-                '<p>Производительность: <b>{performance}&nbsp;м³/ч</b></p>',
-                '<p>Крупность выделения загрязнений: <b>{pollution_size}&nbsp;мкм</b></p>',
-                '<p>Энергоэффективность: <b>{eer}&nbsp;EER</b></p>',
-                '<p>Вес: <b>{weight}&nbsp;кг</b></p>',
-                '<p>Габариты (ШхДхВ): <b>{dimensions}&nbsp;мм</b></p>',
-                '<p>Длина кабеля: <b>{cable_length}&nbsp;мм</b></p>',
-                
-                '</td><td>',
-                
-                '<p>Диаметр трубы: <b>{pipe_diameter}&nbsp;мм</b></p>',
-                '<p>Высота подачи: <b>{delivery_height}&nbsp;м</b></p>',
-                '<p>Глубина погружения: <b>{immersion_depth}&nbsp;м</b></p>',
-                '<p>Гарантия: <b>{warranty}&nbsp;лет</b></p>',
-                '<p>Склад: <b>{storage}&nbsp;ед.</b></p>',
-                '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>',
-                '<p>Заказ: <b>{order}&nbsp;ед.</b></p>',
-                
-                '</td></tr></table></div>', 
-                {r: Ext.bind(this.comboRenderer, this)}
-            )
-        }]
+        '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>' + 
         
-        this.callParent(arguments);
-    
-    },
+        '<p>Ссылка: <b>{url}</b></p><br/>' + 
+        '<p>Цена: <b>{price}&nbsp;р.</b></p>' + 
+        '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>' + 
+        
+        '</td><td colspan="3" height="40"><h1><p>' + 
+        '{[this.r("FilterMark", values.mark_id)]} ' + 
+        '{marking}</p></h1>' + 
+        '<p>Группа оборудования: <b>' + 
+        '{[this.r("WatersupplyFilterGroup", values.group_id)]}' + 
+        '</b></p>' + 
+        
+        '</td></tr><tr valign="top"><td>' + 
+        '<p>Тип продукции: <b>' + 
+        '{[this.r("WatersupplyFilterProductType", values.product_type_id)]}' + 
+        '</b></p>' + 
+        '<p>Тип исполнения: <b>' + 
+        '{[this.r("WatersupplyFilterImplementationType", values.implementation_type_id)]}' + 
+        '</b></p>' + 
+        '<p>Способ управления системой: <b>' + 
+        '{[this.r("WatersupplyFilterControlType", values.control_type_id)]}' + 
+        '</b></p>' + 
+        '<p>Тип присоединения: <b>' + 
+        '{[this.r("WatersupplyFilterConnectionType", values.connection_type_id)]}' + 
+        '</b></p>' + 
+        '<p>Тип защиты: <b>' + 
+        '{[this.r("WatersupplyFilterProtectionType", values.protection_type_id)]}' + 
+        '</b></p>' + 
+        '<p>Источник питания: <b>' + 
+        '{[this.r("WatersupplyFilterPowerSource", values.power_source_id)]}' + 
+        '</b></p>' + 
+        '<p>Материал: <b>' + 
+        '{[this.r("WatersupplyFilterMaterial", values.material_id)]}' + 
+        '</b></p>' + 
+        '<p>Страна изготовления: <b>' + 
+        '{[this.r("WatersupplyFilterCountry", values.country)]}' + 
+        '</b></p>' + 
+        '<p>Гарантированный диапазон наружных температур (обогрев): <b>{temp}&nbsp;°C</b></p>' + 
+        '<p>Напряжение питания: <b>{power_supply}&nbsp;В</b></p>' + 
+        
+        '</td><td>' + 
+        
+        '<p>Потребляемая мощность (обогрев): <b>{heating_power_consumption}&nbsp;кВт</b></p>' + 
+        '<p>Рабочий ток: <b>{amperage}&nbsp;ампер</b></p>' + 
+        '<p>Входов для подключаемых датчиков: <b>{sensor_inputs}&nbsp;ед.</b></p>' + 
+        '<p>Давление: <b>{pressure}&nbsp;бар</b></p>' + 
+        '<p>Уровень шума (мин): <b>{noise_level_min}&nbsp;дБ(А)</b></p>' + 
+        '<p>Производительность фильтров: <b>{filters_performance}&nbsp;м³/ч</b></p>' + 
+        '<p>Производительность: <b>{performance}&nbsp;м³/ч</b></p>' + 
+        '<p>Крупность выделения загрязнений: <b>{pollution_size}&nbsp;мкм</b></p>' + 
+        '<p>Энергоэффективность: <b>{eer}&nbsp;EER</b></p>' + 
+        '<p>Вес: <b>{weight}&nbsp;кг</b></p>' + 
+        '<p>Габариты (ШхДхВ): <b>{dimensions}&nbsp;мм</b></p>' + 
+        '<p>Длина кабеля: <b>{cable_length}&nbsp;мм</b></p>' + 
+        
+        '</td><td>' + 
+        
+        '<p>Диаметр трубы: <b>{pipe_diameter}&nbsp;мм</b></p>' + 
+        '<p>Высота подачи: <b>{delivery_height}&nbsp;м</b></p>' + 
+        '<p>Глубина погружения: <b>{immersion_depth}&nbsp;м</b></p>' + 
+        '<p>Гарантия: <b>{warranty}&nbsp;лет</b></p>' + 
+        '<p>Склад: <b>{storage}&nbsp;ед.</b></p>' + 
+        '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>' + 
+        '<p>Заказ: <b>{order}&nbsp;ед.</b></p>' + 
+        
+        '</td></tr></table></div>',
     
     initComponent: function() {
 
-        var actions = [];
-        
-        if (acl.isUpdate('catalog', 'watersupply')) {
-            
-            actions = [{
-                icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            }, {
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-                
-            }];
-        }
-        
         this.columns = [{
             header: 'Марка',
             dataIndex: 'mark_id',
@@ -407,34 +351,8 @@ Ext.define('EC.Catalog.view.Watersupply.List', {
             filter: {
                 type: 'numeric'
             }
-        }, {
-            xtype: 'actioncolumn',
-            sortable: false,
-            hideable: false,
-            menuDisabled: true,
-            width: 40,
-            items: actions
         }];
 
-        this.bbar = Ext.create('Ext.PagingToolbar', {
-            pageSize: 10,
-            store: this.store,
-            displayInfo: true,
-            plugins: Ext.create('xlib.ProgressBarPager', {})
-        });
-        
         this.callParent(arguments);
-        
-        Ext.defer(function() {
-            this.getStore().load();
-        }, 1000, this);
-    },
-    
-    comboRenderer: function(storeName, value) {
-        var store = Ext.getStore(storeName);
-        var idx = store.find('id', value);
-        if (idx == -1) return value;
-        var rec = store.getAt(idx);
-        return rec.get('name');
     }
 });

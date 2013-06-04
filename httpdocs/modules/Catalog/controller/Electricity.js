@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
         'EC.Catalog.view.Electricity.Layout',
         'EC.Catalog.view.Electricity.FiltersPanel',
         'EC.Catalog.view.Electricity.List',
-        'EC.Catalog.view.Electricity.Edit'
+        'EC.Catalog.view.Electricity.Edit',
+        'EC.Catalog.view.Electricity.Show'
     ],
     
     uses: [
@@ -41,6 +42,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
     filtersPanelXType: 'ElectricityFiltersPanel', 
     
     listXType: 'ElectricityList',
+    
+    showXType: 'ElectricityShow',
     
     editXType: 'ElectricityEdit',
     

@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Heating', {
         'EC.Catalog.view.Heating.Layout',
         'EC.Catalog.view.Heating.FiltersPanel',
         'EC.Catalog.view.Heating.List',
-        'EC.Catalog.view.Heating.Edit'
+        'EC.Catalog.view.Heating.Edit',
+        'EC.Catalog.view.Heating.Show'
     ],
     
     uses: [
@@ -40,6 +41,8 @@ Ext.define('EC.Catalog.controller.Heating', {
     filtersPanelXType: 'HeatingFiltersPanel', 
     
     listXType: 'HeatingList',
+    
+    showXType: 'HeatingShow',
     
     editXType: 'HeatingEdit',
     

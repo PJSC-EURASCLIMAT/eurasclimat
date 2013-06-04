@@ -2,9 +2,7 @@ Ext.define('EC.Main.controller.Main', {
     
     extend: 'App.controller.ChapterAbstract',
 
-    views: [
-        'EC.Main.view.Layout'
-    ],
+    views: ['EC.Main.view.Layout'],
     
     viewLayout: 'MainPanel',
     

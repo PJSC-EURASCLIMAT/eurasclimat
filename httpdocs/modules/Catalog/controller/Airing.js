@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Layout',
         'EC.Catalog.view.Airing.FiltersPanel',
         'EC.Catalog.view.Airing.List',
-        'EC.Catalog.view.Airing.Edit'
+        'EC.Catalog.view.Airing.Edit',
+        'EC.Catalog.view.Airing.Show'
     ],
     
     uses: [
@@ -41,6 +42,8 @@ Ext.define('EC.Catalog.controller.Airing', {
     filtersPanelXType: 'AiringFiltersPanel', 
     
     listXType: 'AiringList',
+    
+    showXType: 'AiringShow',
     
     editXType: 'AiringEdit',
     

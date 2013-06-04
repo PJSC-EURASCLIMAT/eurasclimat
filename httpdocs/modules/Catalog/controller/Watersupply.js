@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
         'EC.Catalog.view.Watersupply.Layout',
         'EC.Catalog.view.Watersupply.FiltersPanel',
         'EC.Catalog.view.Watersupply.List',
-        'EC.Catalog.view.Watersupply.Edit'
+        'EC.Catalog.view.Watersupply.Edit',
+        'EC.Catalog.view.Watersupply.Show'
     ],
     
     uses: [
@@ -40,6 +41,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     filtersPanelXType: 'WatersupplyFiltersPanel', 
     
     listXType: 'WatersupplyList',
+    
+    showXType: 'WatersupplyShow',
     
     editXType: 'WatersupplyEdit',
     

@@ -1,136 +1,80 @@
 Ext.define('EC.Catalog.view.Dustextraction.List', {
 
-    extend: 'Ext.grid.Panel',
+    extend: 'EC.Catalog.view.ListAbstract',
     
-    requires: ['xlib.grid.FiltersFeature'],
-   
     alias: ['widget.DustextractionList'],
     
     store: 'EC.Catalog.store.Dustextraction',
     
-    layout: 'fit',
+    updatePermission: acl.isUpdate('catalog', 'dustextraction'),
     
-    title: 'Результаты выборки',
-    
-    tools: [{
-        type: 'expand',
-        tooltip: 'Раскрыть/закрыть все строки',
-        action: 'expandrows'
-    }, {
-        type: 'plus',
-        tooltip: 'Добавить позицию',
-        action: 'additem',
-        hidden: !acl.isUpdate('catalog', 'dustextraction')
-    }, {
-        type: 'refresh',
-        tooltip: 'Обновить список',
-        action: 'refresh'
-    }],
-    
-    features: [{ftype: 'filters', encode: true, showMenu: false}],
-    
-    constructor: function() {
+    rowBodyTpl:  
+        '<div style="padding: 10px;"><table width="100%" border="0">' + 
+        '<tr valign="top">' + 
         
-        this.plugins = [{
-            ptype: 'rowexpander',
-            rowBodyTpl: Ext.create('Ext.XTemplate', 
-                '<div style="padding: 10px;"><table width="100%" border="0">',
-                '<tr valign="top">',
-                
-                '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>',
-                
-                '<p>Ссылка: <b>{url}</b></p><br/>',
-                '<p>Цена: <b>{price}&nbsp;р.</b></p>',
-                '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
-                
-                '</td><td colspan="3" height="40"><h1><p>',
-                '{[this.r("FilterMark", values.mark_id)]} ',
-                '{marking}</p></h1>',
-                '<p>Группа оборудования: <b>',
-                '{[this.r("DustextractionFilterGroup", values.group_id)]}',
-                '</b></p>',
-                
-                '</td></tr><tr valign="top"><td>',
-                '<p>Фильтрация: <b>',
-                '{[this.r("DustextractionFilterFiltration", values.filtration_id)]}',
-                '</b></p>',
-                '<p>Тип мотора: <b>',
-                '{[this.r("DustextractionFilterMotor", values.motor_id)]}',
-                '</b></p>',
-                '<p>Страна изготовления: <b>',
-                '{[this.r("DustextractionFilterCountry", values.country)]}',
-                '</b></p>',
-                '<p>Потребляемая мощность: <b>{power_consumption}&nbsp;кВт</b></p>',
-                '<p>Мощность всасывания: <b>{vacuum_power}&nbsp;АэроВатт</b></p>',
-                '<p>Поток воздуха: <b>{air_flow}&nbsp;м³/ч</b></p>',
-                '<p>Уровень вакуума: <b>{vacuum_pressure}&nbsp;кПа</b></p>',
-                '<p>Уровень шума: <b>{noise_level}&nbsp;дБ</b></p>',
-                
-                '</td><td>',
-                
-                '<p>Предохранитель: <b>{amperage}&nbsp;ампер</b></p>',
-                '<p>Габариты (ШхДхВ): <b>{dimensions}&nbsp;мм</b></p>',
-                '<p>Максимальная площадь уборки: <b>{cleaning_square}&nbsp;м²</b></p>',
-                '<p>Площадь фильтра: <b>{filter_square}&nbsp;м²</b></p>',
-                '<p>Максимально удаленный пневмоклапан: <b>{max_remote_pneumo_valve}&nbsp;м</b></p>',
-                '<p>Максимальная высота стояка: <b>{max_riser_height}&nbsp;м</b></p>',
-                '<p>Максимальная длина горизонтальной разводки: <b>{max_cabling_length}&nbsp;м</b></p>',
-                '<p>Диаметр стояка: <b>{riser_diameter}&nbsp;мм</b></p>',
-                '<p>Диаметр горизонтальной разводки: <b>{cabling_diameter}&nbsp;мм</b></p>',
-                '<p>Резервуар для пыли: <b>{dust_tank}&nbsp;л</b></p>',
-                '<p>Ресурс гарантированной работы мотора: <b>{motor_resource}&nbsp;ч</b></p>',
-                '<p>Наибольшее количество одновременных пользователей: <b>{max_users}&nbsp;ед.</b></p>',
-                
-                '</td><td>',
-                
-                '<p>Дополнительный клапан на корпусе: <b>{extra_case_valve}&nbsp;есть/нет</b></p>',
-                '<p>Soft-start: <b>{soft_start}&nbsp;есть/нет</b></p>',
-                '<p>Clean-pipe: <b>{clean_pipe}&nbsp;есть/нет</b></p>',
-                '<p>Регулировка мощности всасывания: <b>{vacuum_power_adj}&nbsp;есть/нет</b></p>',
-                '<p>LCD дисплей на корпусе: <b>{case_lcd}&nbsp;есть/нет</b></p>',
-                '<p>Регулировочный клапан: <b>{regulating_valve}&nbsp;есть/нет</b></p>',
-                '<p>Продувной клапан: <b>{downy_valve}&nbsp;есть/нет</b></p>',
-                '<p>Автоматическая чистка фильтра: <b>{auto_clean}&nbsp;есть/нет</b></p>',
-                '<p>Гарантия: <b>{warranty}&nbsp;лет</b></p>',
-                '<p>Склад: <b>{storage}&nbsp;ед.</b></p>',
-                '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>',
-                '<p>Заказ: <b>{order}&nbsp;ед.</b></p>',
-                
-                '</td></tr></table></div>', 
-                {r: Ext.bind(this.comboRenderer, this)}
-            )
-        }]
+        '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>' + 
         
-        this.callParent(arguments);
-    
-    },
-    
+        '<p>Ссылка: <b>{url}</b></p><br/>' + 
+        '<p>Цена: <b>{price}&nbsp;р.</b></p>' + 
+        '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>' + 
+        
+        '</td><td colspan="3" height="40"><h1><p>' + 
+        '{[this.r("FilterMark", values.mark_id)]} ' + 
+        '{marking}</p></h1>' + 
+        '<p>Группа оборудования: <b>' + 
+        '{[this.r("DustextractionFilterGroup", values.group_id)]}' + 
+        '</b></p>' + 
+        
+        '</td></tr><tr valign="top"><td>' + 
+        '<p>Фильтрация: <b>' + 
+        '{[this.r("DustextractionFilterFiltration", values.filtration_id)]}' + 
+        '</b></p>' + 
+        '<p>Тип мотора: <b>' + 
+        '{[this.r("DustextractionFilterMotor", values.motor_id)]}' + 
+        '</b></p>' + 
+        '<p>Страна изготовления: <b>' + 
+        '{[this.r("DustextractionFilterCountry", values.country)]}' + 
+        '</b></p>' + 
+        '<p>Потребляемая мощность: <b>{power_consumption}&nbsp;кВт</b></p>' + 
+        '<p>Мощность всасывания: <b>{vacuum_power}&nbsp;АэроВатт</b></p>' + 
+        '<p>Поток воздуха: <b>{air_flow}&nbsp;м³/ч</b></p>' + 
+        '<p>Уровень вакуума: <b>{vacuum_pressure}&nbsp;кПа</b></p>' + 
+        '<p>Уровень шума: <b>{noise_level}&nbsp;дБ</b></p>' + 
+        
+        '</td><td>' + 
+        
+        '<p>Предохранитель: <b>{amperage}&nbsp;ампер</b></p>' + 
+        '<p>Габариты (ШхДхВ): <b>{dimensions}&nbsp;мм</b></p>' + 
+        '<p>Максимальная площадь уборки: <b>{cleaning_square}&nbsp;м²</b></p>' + 
+        '<p>Площадь фильтра: <b>{filter_square}&nbsp;м²</b></p>' + 
+        '<p>Максимально удаленный пневмоклапан: <b>{max_remote_pneumo_valve}&nbsp;м</b></p>' + 
+        '<p>Максимальная высота стояка: <b>{max_riser_height}&nbsp;м</b></p>' + 
+        '<p>Максимальная длина горизонтальной разводки: <b>{max_cabling_length}&nbsp;м</b></p>' + 
+        '<p>Диаметр стояка: <b>{riser_diameter}&nbsp;мм</b></p>' + 
+        '<p>Диаметр горизонтальной разводки: <b>{cabling_diameter}&nbsp;мм</b></p>' + 
+        '<p>Резервуар для пыли: <b>{dust_tank}&nbsp;л</b></p>' + 
+        '<p>Ресурс гарантированной работы мотора: <b>{motor_resource}&nbsp;ч</b></p>' + 
+        '<p>Наибольшее количество одновременных пользователей: <b>{max_users}&nbsp;ед.</b></p>' + 
+        
+        '</td><td>' + 
+        
+        '<p>Дополнительный клапан на корпусе: <b>{extra_case_valve}&nbsp;есть/нет</b></p>' + 
+        '<p>Soft-start: <b>{soft_start}&nbsp;есть/нет</b></p>' + 
+        '<p>Clean-pipe: <b>{clean_pipe}&nbsp;есть/нет</b></p>' + 
+        '<p>Регулировка мощности всасывания: <b>{vacuum_power_adj}&nbsp;есть/нет</b></p>' + 
+        '<p>LCD дисплей на корпусе: <b>{case_lcd}&nbsp;есть/нет</b></p>' + 
+        '<p>Регулировочный клапан: <b>{regulating_valve}&nbsp;есть/нет</b></p>' + 
+        '<p>Продувной клапан: <b>{downy_valve}&nbsp;есть/нет</b></p>' + 
+        '<p>Автоматическая чистка фильтра: <b>{auto_clean}&nbsp;есть/нет</b></p>' + 
+        '<p>Гарантия: <b>{warranty}&nbsp;лет</b></p>' + 
+        '<p>Склад: <b>{storage}&nbsp;ед.</b></p>' + 
+        '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>' + 
+        '<p>Заказ: <b>{order}&nbsp;ед.</b></p>' + 
+        
+        '</td></tr></table></div>',  
+
     initComponent: function() {
 
-        var actions = [];
-        
-        if (acl.isUpdate('catalog', 'dustextraction')) {
-            
-            actions = [{
-                icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            }, {
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-                
-            }];
-        }
-        
         this.columns = [{
             header: 'Марка',
             dataIndex: 'mark_id',
@@ -382,34 +326,8 @@ Ext.define('EC.Catalog.view.Dustextraction.List', {
             filter: {
                 type: 'numeric'
             }
-        }, {
-            xtype: 'actioncolumn',
-            sortable: false,
-            hideable: false,
-            menuDisabled: true,
-            width: 40,
-            items: actions
         }];
 
-        this.bbar = Ext.create('Ext.PagingToolbar', {
-            pageSize: 10,
-            store: this.store,
-            displayInfo: true,
-            plugins: Ext.create('xlib.ProgressBarPager', {})
-        });
-        
         this.callParent(arguments);
-        
-        Ext.defer(function() {
-            this.getStore().load();
-        }, 1000, this);
-    },
-    
-    comboRenderer: function(storeName, value) {
-        var store = Ext.getStore(storeName);
-        var idx = store.find('id', value);
-        if (idx == -1) return value;
-        var rec = store.getAt(idx);
-        return rec.get('name');
     }
 });

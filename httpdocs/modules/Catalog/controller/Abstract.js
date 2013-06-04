@@ -23,6 +23,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     listXType: null,
     
+    showXType: null,
+    
     editXType: null,
     
     getURL: null,
@@ -107,6 +109,18 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 scope: this
             });
             
+            catalog.down(this.listXType).on({
+                showitem: this.showItem,
+                scope: this
+            });
+            
+            catalog.down(this.listXType + ' tool[action=refresh]').on({
+                click: function(button) {
+                    button.up(this.listXType).getStore().load();
+                },
+                scope: this
+            });
+            
             if (this.editPermition) {
             
                 catalog.down(this.filtersPanelXType + ' tool[action=settings]').on({
@@ -126,22 +140,13 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 });
             }
             
-            catalog.down(this.listXType + ' tool[action=refresh]').on({
-                click: function(button) {
-                    button.up(this.listXType).getStore().load();
-                },
-                scope: this
-            });
-            catalog.down(this.listXType + ' tool[action=expandrows]').on({
-                click: this.expandRows,
-                scope: this
-            });
-            
             this.on({
                 'itemSaved': function() {
+                    console.log(catalog, this.listXType);
                     catalog.down(this.listXType).getStore().load();
-                }
-            });
+                },
+                scope: this
+            }, this);
             
         }
     },
@@ -176,6 +181,26 @@ Ext.define('EC.Catalog.controller.Abstract', {
     editSettings: function() {
         this.getController('EC.Catalog.controller.Settings').run(this.settingsView);
     }, 
+    
+    showItem: function(grid, record) {
+        var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id;
+        var card = Ext.widget(this.showXType);
+        
+        Ext.Ajax.request({
+            params: {
+                id: recordId
+            },
+            url: this.getURL,
+            success: function(response, opts) {
+                var data = Ext.decode(response.responseText).data;
+                card.showTpl.overwrite(card.down('panel').body, data);
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку товара.');
+            },
+            scope: this
+        });
+    },
     
     addItem: function() {
         var view = Ext.create('EC.Catalog.view.AddAbstract');

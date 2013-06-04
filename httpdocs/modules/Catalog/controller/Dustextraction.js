@@ -14,7 +14,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
         'EC.Catalog.view.Dustextraction.Layout',
         'EC.Catalog.view.Dustextraction.FiltersPanel',
         'EC.Catalog.view.Dustextraction.List',
-        'EC.Catalog.view.Dustextraction.Edit'
+        'EC.Catalog.view.Dustextraction.Edit',
+        'EC.Catalog.view.Dustextraction.Show'
     ],
     
     uses: [
@@ -35,6 +36,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     filtersPanelXType: 'DustextractionFiltersPanel', 
     
     listXType: 'DustextractionList',
+    
+    showXType: 'DustextractionShow',
     
     editXType: 'DustextractionEdit',
     

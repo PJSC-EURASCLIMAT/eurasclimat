@@ -6,11 +6,37 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
     
     run: function(container) {
         this.getContainer(container);
+        var MC = this.getController('App.controller.Main');
+        container.on('show', function() {
+            MC.openModulePortlet({
+                text: 'КАТАЛОГ ТОВАРОВ',
+                title: 'Каталог товаров',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-1',
+                launchModule: 'EC.Catalog.controller.Catalog',
+                hidden: !acl.isView('catalog'),
+                handler: function(b) {
+                    MC.openModulePortlet(b.initialConfig);
+                }
+            });
+        }, this);
     },
     
     getMenu: function() {
         var MC = this.getController('App.controller.Main');
         return [{
+            text: 'КАТАЛОГ ТОВАРОВ',
+            title: 'Каталог товаров',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'CatalogPanel-column-1',
+            launchModule: 'EC.Catalog.controller.Catalog',
+            hidden: !acl.isView('catalog'),
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
             text: 'Кондиционирование',
             title: 'Каталог "Кондиционирование"',
             icon: '/images/icons/conditioning.png',

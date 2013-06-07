@@ -2,7 +2,7 @@ Ext.define('EC.Catalog.view.Dustextraction.List', {
 
     extend: 'EC.Catalog.view.ListAbstract',
     
-    alias: ['widget.DustextractionList'],
+    alias: 'widget.DustextractionList',
     
     store: 'EC.Catalog.store.Dustextraction',
     

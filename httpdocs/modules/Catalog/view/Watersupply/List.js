@@ -2,7 +2,7 @@ Ext.define('EC.Catalog.view.Watersupply.List', {
 
     extend: 'EC.Catalog.view.ListAbstract',
    
-    alias: ['widget.WatersupplyList'],
+    alias: 'widget.WatersupplyList',
     
     store: 'EC.Catalog.store.Watersupply',
     

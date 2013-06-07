@@ -140,10 +140,10 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 });
             }
             
+            var catalogGridStore = catalog.down(this.listXType).getStore(); 
             this.on({
                 'itemSaved': function() {
-                    console.log(catalog, this.listXType);
-                    catalog.down(this.listXType).getStore().load();
+                    catalogGridStore.load();
                 },
                 scope: this
             }, this);

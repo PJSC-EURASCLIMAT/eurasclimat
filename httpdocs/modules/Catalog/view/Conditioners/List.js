@@ -2,7 +2,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
 
     extend: 'EC.Catalog.view.ListAbstract',
     
-    alias: ['widget.ConditionersList'],
+    alias: 'widget.ConditionersList',
     
     store: 'EC.Catalog.store.Conditioners',
     

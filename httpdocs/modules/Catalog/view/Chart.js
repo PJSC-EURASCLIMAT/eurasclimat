@@ -5,7 +5,10 @@ Ext.define('EC.Catalog.view.Chart', {
     animate: false,
     
     store: Ext.create('Ext.data.JsonStore', {
-        fields: ['name', 'data1', 'data2', 'data3', 'data4', 'data5', 'data6', 'data7', 'data9', 'data9']
+        fields: [
+            'name', 'data1', 'data2', 'data3', 'data4', 
+            'data5', 'data6', 'data7', 'data9', 'data9'
+        ]
     }),
     
     insetPadding: 5,
@@ -40,9 +43,10 @@ Ext.define('EC.Catalog.view.Chart', {
         yField: 'name',
         xField: 'data1',
         listeners: {
-          itemmouseup: function(item) {
-              Ext.example.msg('Item Selected', item.value[1] + ' visits on ' + Ext.Date.monthNames[item.value[0]]);
-          }  
+            itemmouseup: function(item) {
+                Ext.example.msg('Item Selected', item.value[1] + 
+                ' visits on ' + Ext.Date.monthNames[item.value[0]]);
+            }  
         },
         tips: {
             trackMouse: true,

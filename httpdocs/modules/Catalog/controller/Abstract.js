@@ -8,7 +8,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
         'EC.Catalog.view.SettingsLayoutAbstract',
-        'EC.Catalog.view.FiltersPanelAbstarct'
+        'EC.Catalog.view.FiltersPanelAbstarct',
+        'EC.Catalog.view.Chart'
     ],
     
     viewPermition: false,
@@ -49,8 +50,33 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         this.Container = container; 
         
-        if ('portlet' == container.getXType()) {
+        if ('portlet' == container.getXType() || container.up('portlet')) {
             
+            var data = [],
+                p = (Math.random() *  11) + 1,
+                i;
+                
+            for (i = 0; i < 12; i++) {
+                data.push({
+                    name: Ext.Date.monthNames[i % 12],
+                    data1: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data2: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data3: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data4: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data5: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data6: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data7: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data8: Math.floor(Math.max((Math.random() * 100), 20)),
+                    data9: Math.floor(Math.max((Math.random() * 100), 20))
+                });
+            }
+            
+            var chart = Ext.create('EC.Catalog.view.Chart');
+            
+            container.add(chart);
+            chart.getStore().loadData(data);
+            
+            /*
             container.setLoading('Загрузка...', true);
             
             var catalog = container.add({
@@ -70,6 +96,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
                     scope: this
                 }]
             });
+            */
             
         } else {
             

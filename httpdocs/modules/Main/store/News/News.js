@@ -12,6 +12,11 @@ Ext.define('EC.Main.store.News.News', {
     
     pageSize: 15,
     
+    sorters: [{
+        property: 'date',
+        direction: 'DESC'
+    }],
+    
     proxy: {
         type: 'ajax',
         url: '/json/default/news/index',

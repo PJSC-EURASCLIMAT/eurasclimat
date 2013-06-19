@@ -42,12 +42,6 @@ Ext.define('EC.Catalog.view.Chart', {
         axis: 'left',
         yField: 'name',
         xField: 'data1',
-        listeners: {
-            itemmouseup: function(item) {
-                Ext.example.msg('Item Selected', item.value[1] + 
-                ' visits on ' + Ext.Date.monthNames[item.value[0]]);
-            }  
-        },
         tips: {
             trackMouse: true,
             width: 80,

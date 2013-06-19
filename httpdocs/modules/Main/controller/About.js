@@ -37,7 +37,7 @@ Ext.define('EC.Main.controller.About', {
             allowMultiple: true,
             launchModule: 'EC.Main.controller.ForCustomers'
         }, {
-            title: 'Специалистам',
+            title: 'Контрагентам',
             icon: '/images/icons/4specialists.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,
@@ -101,8 +101,8 @@ Ext.define('EC.Main.controller.About', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }, {
-            text: 'Специалистам',
-            title: 'Специалистам',
+            text: 'Контрагентам',
+            title: 'Контрагентам',
             icon: '/images/icons/4specialists.png',
             position: 'MainPanel-column-2',
             portletHeight: 200,

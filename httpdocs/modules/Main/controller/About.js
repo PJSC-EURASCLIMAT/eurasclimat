@@ -44,24 +44,31 @@ Ext.define('EC.Main.controller.About', {
             allowMultiple: true,
             launchModule: 'EC.Main.controller.ForSpecialists'
         }, {
-            title: 'Новости',
-            icon: '/images/icons/news.png',
-            portletHeight: 210,
+            title: 'О компании',
+            icon: '/images/icons/about.png',
             position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.News'
-        },{
+            portletHeight: 200,
+            allowMultiple: false,
+            launchModule: 'EC.Main.controller.AboutCompany'
+        }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
             portletHeight: 410,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Sysdev'
-        },{
+        }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
+            portletHeight: 150,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Currency'
-        },{
+        }, {
+            title: 'Новости',
+            icon: '/images/icons/news.png',
+            portletHeight: 150,
+            position: 'MainPanel-column-3',
+            launchModule: 'EC.Main.controller.News'
+        }, {
             title: 'Прогноз погоды',
             icon: '/images/icons/kweather.png',
             portletHeight: 300,
@@ -79,6 +86,17 @@ Ext.define('EC.Main.controller.About', {
         var MC = this.getController('App.controller.Main');
         
         return [{
+            text: 'О компании',
+            title: 'О компании',
+            icon: '/images/icons/about.png',
+            position: 'MainPanel-column-2',
+            portletHeight: 200,
+            allowMultiple: false,
+            launchModule: 'EC.Main.controller.AboutCompany',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
             text: 'Производителям',
             title: 'Производителям',
             icon: '/images/icons/4manufacturers.png',

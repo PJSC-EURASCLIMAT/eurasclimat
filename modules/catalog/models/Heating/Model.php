@@ -94,6 +94,7 @@ class Catalog_Heating_Model
             'group_id'              => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'code'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
             'implementation_type_id' => array('Id', 'allowEmpty' => true),
             'control_type_id'       => array('Id', 'allowEmpty' => true),

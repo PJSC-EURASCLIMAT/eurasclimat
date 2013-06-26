@@ -4,6 +4,7 @@ Ext.define('EC.Catalog.model.Automation', {
    
     fields: [
         'id',
+        'code',
         'group_id',
         'mark_id',
         'marking',

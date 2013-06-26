@@ -94,6 +94,7 @@ class Catalog_Dustextraction_Model
             'group_id'              => array('Id', 'allowEmpty' => true),
             'mark_id'               => array('Id', 'allowEmpty' => true),
             'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'code'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'filtration_id'         => array('Id', 'allowEmpty' => true),
             'motor_id'              => array('Id', 'allowEmpty' => true),
             'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),

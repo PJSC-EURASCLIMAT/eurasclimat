@@ -9,6 +9,7 @@ class Catalog_Airing_Table extends Xend_Db_Table_Abstract
     protected $_name = 'catalog_airing';
 
     protected $_nullableFields = array(
+        'code',
         'group_id',
         'mark_id',
         'marking',

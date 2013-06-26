@@ -20,6 +20,17 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
                     MC.openModulePortlet(b.initialConfig);
                 }
             });
+            MC.openModulePortlet({
+                text: 'КАТАЛОГ УСЛУГ',
+                title: 'Каталог услуг',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-2',
+                launchModule: 'EC.Catalog.controller.Services',
+                handler: function(b) {
+                    MC.openModulePortlet(b.initialConfig);
+                }
+            });
         }, this);
     },
     
@@ -33,6 +44,16 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
             position: 'CatalogPanel-column-1',
             launchModule: 'EC.Catalog.controller.Catalog',
             hidden: !acl.isView('catalog'),
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'КАТАЛОГ УСЛУГ',
+            title: 'Каталог услуг',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'CatalogPanel-column-2',
+            launchModule: 'EC.Catalog.controller.Services',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

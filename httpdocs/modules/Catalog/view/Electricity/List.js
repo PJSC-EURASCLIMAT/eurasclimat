@@ -20,7 +20,8 @@ Ext.define('EC.Catalog.view.Electricity.List', {
         
         '</td><td colspan="3" height="40"><h1><p>' + 
         '{[this.r("FilterMark", values.mark_id)]} ' + 
-        '{marking}</p></h1>' + 
+        '{marking}</p></h1>' +  
+        '<p>Артикул: <b>{code}</b></p>' +
         '<p>Группа оборудования: <b>' + 
         '{[this.r("ElectricityFilterGroup", values.group_id)]}' + 
         '</b></p>' + 
@@ -104,6 +105,13 @@ Ext.define('EC.Catalog.view.Electricity.List', {
             header: 'Маркировка',
             width: 150,
             dataIndex: 'marking',
+            filter: {
+                type: 'string'
+            }
+        }, {
+            header: 'Артикул',
+            width: 100,
+            dataIndex: 'code',
             filter: {
                 type: 'string'
             }

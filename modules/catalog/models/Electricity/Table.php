@@ -9,6 +9,7 @@ class Catalog_Electricity_Table extends Xend_Db_Table_Abstract
     protected $_name = 'catalog_electricity';
 
     protected $_nullableFields = array(
+        'code',
         'group_id',
         'mark_id',
         'marking',

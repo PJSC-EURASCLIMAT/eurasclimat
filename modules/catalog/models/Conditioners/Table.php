@@ -9,6 +9,7 @@ class Catalog_Conditioners_Table extends Xend_Db_Table_Abstract
     protected $_name = 'catalog_conditioners';
 
     protected $_nullableFields = array(
+        'code',
         'group_id',
         'mark_id',
         'marking',

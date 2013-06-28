@@ -59,6 +59,11 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                         name: 'description'
                     }]
                 }, {
+                    title: 'Сопутствующие услуги',
+                    catalog: this.catalog,
+                    catalogId: this.catalogId,
+                    allowEdit: this.allowEdit
+                }, {
                     xtype: 'CatalogImages',
                     catalog: this.catalog,
                     catalogId: this.catalogId,

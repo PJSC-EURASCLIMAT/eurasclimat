@@ -52,6 +52,27 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         if ('portlet' == container.getXType() || container.up('portlet')) {
             
+            var info = Ext.create('Ext.panel.Panel', {
+                region: 'north',
+                border: false,
+                title: false,
+                height: 200,
+                bodyPadding: 5,
+                padding: '0 0 5px 0',
+                autoScroll: true,
+                style: 'text-align: justify;',
+                html: 'При раз&shy;вер&shy;ты&shy;ва&shy;нии ви&shy;дже&shy;та ' +
+                    'и на&shy;жа&shy;тии в поле сле&shy;ва на ка&shy;кую-либо ' +
+                    'по&shy;зи&shy;цию из спис&shy;ка ка&shy;та&shy;ло&shy;гов ' +
+                    'то&shy;ва&shy;ров, в этом поле вы смо&shy;же&shy;те ' +
+                    'озна&shy;ко&shy;мить&shy;ся с рас&shy;кры&shy;ва&shy;ю&shy;щей ' +
+                    'или по&shy;яс&shy;ня&shy;ю&shy;щей ин&shy;фор&shy;ма&shy;ци&shy;ей ' +
+                    'о дан&shy;ном ка&shy;та&shy;ло&shy;ге то&shy;ва&shy;ров, ' +
+                    'а так&shy;же уви&shy;деть гра&shy;фик ак&shy;тив&shy;но&shy;сти ' +
+                    'поль&shy;зо&shy;ва&shy;те&shy;лей при ра&shy;бо&shy;те ' +
+                    'с дан&shy;ным ка&shy;та&shy;ло&shy;гом то&shy;ва&shy;ров.'
+            });
+            
             var data = [],
                 p = (Math.random() *  11) + 1,
                 i;
@@ -71,9 +92,17 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 });
             }
             
-            var chart = Ext.create('EC.Catalog.view.Chart');
+            var chart = Ext.create('EC.Catalog.view.Chart', {region: 'center'});
             
-            container.add(chart);
+            container.removeAll(true);
+            
+            container.add({
+                border: false,
+                title: false,
+                layout: 'border',
+                items: [info, chart]
+            });
+            
             chart.getStore().loadData(data);
             
             /*

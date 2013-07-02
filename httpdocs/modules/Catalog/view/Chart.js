@@ -16,7 +16,7 @@ Ext.define('EC.Catalog.view.Chart', {
     axes: [{
         type: 'Numeric',
         minimum: 0,
-        position: 'bottom',
+        position: 'left',
         fields: ['data1'],
         title: false,
         grid: true,
@@ -26,7 +26,7 @@ Ext.define('EC.Catalog.view.Chart', {
         }
     }, {
         type: 'Category',
-        position: 'left',
+        position: 'bottom',
         fields: ['name'],
         title: false,
         label: {
@@ -40,8 +40,8 @@ Ext.define('EC.Catalog.view.Chart', {
     series: [{
         type: 'line',
         axis: 'left',
-        yField: 'name',
-        xField: 'data1',
+        xField: 'name',
+        yField: 'data1',
         tips: {
             trackMouse: true,
             width: 80,

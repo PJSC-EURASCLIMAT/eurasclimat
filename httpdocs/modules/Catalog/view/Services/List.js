@@ -41,15 +41,23 @@ Ext.define('EC.Main.view.Services.List', {
         }
         
         this.columns = [{
-            header: 'Артикул',
+            header: 'Артикул работ',
             dataIndex: 'code',
-            width: 60
+            width: 100
         }, {
-            header: 'Название',
+            header: 'Наименование работ',
             dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Цена',
+            header: 'Ед. изм. работ',
+            dataIndex: 'measure',
+            width: 100
+        }, {
+            header: 'Сроки выполнения работ',
+            dataIndex: 'term',
+            width: 150
+        }, {
+            header: 'Цена работ',
             dataIndex: 'price',
             width: 100
         }, {

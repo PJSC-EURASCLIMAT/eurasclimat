@@ -1,0 +1,2 @@
+ALTER TABLE  `catalog_services` CHANGE  `entity`  `measure` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE  `catalog_services` CHANGE  `entity_id`  `term` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;

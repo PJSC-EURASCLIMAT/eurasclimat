@@ -12,7 +12,7 @@ Ext.define('EC.Catalog.view.Services.Add', {
     
     modal: true,
     
-    width: 400,
+    width: 800,
     
     groupID: null,
     
@@ -23,7 +23,7 @@ Ext.define('EC.Catalog.view.Services.Add', {
             bodyPadding: 5,
             fieldDefaults: {
                 labelAlign: 'left',
-                labelWidth: 80,
+                labelWidth: 180,
                 border: false,
                 allowBlank: false,
                 anchor: '100%'
@@ -34,17 +34,25 @@ Ext.define('EC.Catalog.view.Services.Add', {
                 value: this.groupID
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Название',
+                fieldLabel: 'Наименование работ',
                 allowBlank: true,
                 name: 'name'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Артикул',
+                fieldLabel: 'Артикул работ',
                 name: 'code'
+            }, {
+                xtype: 'textfield',
+                fieldLabel: 'Ед. изм. работ',
+                name: 'measure'
+            }, {
+                xtype: 'textfield',
+                fieldLabel: 'Сроки выполнения работ',
+                name: 'term'
             }, {
                 xtype: 'numberfield',
                 allowNegative: false,
-                fieldLabel: 'Цена',
+                fieldLabel: 'Цена работ',
                 name: 'price'
             }],
             buttons: [{

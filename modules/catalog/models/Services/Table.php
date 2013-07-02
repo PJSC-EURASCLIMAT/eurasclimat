@@ -10,7 +10,7 @@ class Catalog_Services_Table extends Xend_Db_Table_Abstract
 
     protected $_nullableFields = array(
         'code',
-        'entity',
-        'entity_id'
+        'measure',
+        'term'
     );
 }

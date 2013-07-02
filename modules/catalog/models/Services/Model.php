@@ -58,8 +58,8 @@ class Catalog_Services_Model
             'group_id'      => array('Id', 'allowEmpty' => false),
             'code'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'name'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'entity'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'entity_id'     => array('Id', 'allowEmpty' => true),
+            'measure'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
@@ -88,8 +88,8 @@ class Catalog_Services_Model
             'group_id'      => array('Id', 'allowEmpty' => false),
             'code'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'name'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'entity'        => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'entity_id'     => array('Id', 'allowEmpty' => true),
+            'measure'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 

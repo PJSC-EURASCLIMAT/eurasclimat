@@ -8,7 +8,7 @@ Ext.define('EC.Catalog.model.Services.List', {
         'group_id',
         'name',
         'price',
-        'entity',
-        'entity_id'
+        'measure',
+        'term'
     ]
 });

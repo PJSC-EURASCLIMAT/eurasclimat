@@ -63,19 +63,8 @@ Ext.define('EC.Catalog.controller.Services', {
             }, this);
         }
         
-        if (!Ext.isEmpty(this.groupID)) {
-            
-            if (groupsStore.getTotalCount() > 0) {
-                this.selectGroup(groupsStore, groupsPanel);
-            }
-            
-            groupsStore.on('load', function() {
-                this.selectGroup(groupsStore, groupsPanel);
-            }, this)
-        }
-        
         groupsPanel.on('select', function(selModel, record, index, eOpts) {
-            this.showList(record.get('id'));
+            this.showList(record.get('id'), servicesPanel);
         }, this);
             
         groupsPanel.down('button[action=refresh]').on({
@@ -143,6 +132,18 @@ Ext.define('EC.Catalog.controller.Services', {
             }
 
         }
+        
+        if (!Ext.isEmpty(this.groupID)) {
+            
+            if (groupsStore.getTotalCount() > 0) {
+                this.selectGroup(groupsStore, groupsPanel);
+            }
+            
+            groupsStore.on('load', function() {
+                this.selectGroup(groupsStore, groupsPanel);
+            }, this)
+        }
+        
     },
     
     /* Common section */

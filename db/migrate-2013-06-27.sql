@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `catalog_services` (
   `code` VARCHAR( 255 ) NULL,
   `name` text NOT NULL,
   `price` double(10,2) NOT NULL,
-  `entity` varchar(255) default NULL,
-  `entity_id` int(10) unsigned default NULL,
+  `measure` VARCHAR( 255 ) NULL,
+  `term` VARCHAR( 255 ) NULL,
   PRIMARY KEY  (`id`),
   KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

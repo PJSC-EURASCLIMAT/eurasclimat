@@ -37,6 +37,7 @@ Ext.define('EC.Catalog.model.Automation', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

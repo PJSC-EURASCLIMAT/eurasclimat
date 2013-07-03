@@ -42,6 +42,7 @@ Ext.define('EC.Catalog.model.Heating', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

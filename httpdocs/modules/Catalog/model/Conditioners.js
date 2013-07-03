@@ -48,6 +48,7 @@ Ext.define('EC.Catalog.model.Conditioners', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

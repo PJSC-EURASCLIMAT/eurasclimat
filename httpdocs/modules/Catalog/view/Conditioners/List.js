@@ -12,7 +12,12 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         '<div style="padding: 10px;"><table width="100%" border="0">' + 
         '<tr valign="top">' + 
         
-        '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>' + 
+        '<td rowspan="2" width="320">' +
+        '<tpl if="[values.images.length] &gt; 0">' +
+            '<img src="/images/catalog/{[values.images[0].name]}"/>' +
+        '<tpl else>' + 
+            '<img src="http://placehold.it/300x220"/>' +
+        '</tpl>' + 
         
         '<p>Ссылка: <b>{url}</b></p><br/>' + 
         '<p>Цена: <b>{price}&nbsp;р.</b></p>' + 

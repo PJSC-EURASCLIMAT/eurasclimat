@@ -41,6 +41,7 @@ Ext.define('EC.Catalog.model.Dustextraction', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

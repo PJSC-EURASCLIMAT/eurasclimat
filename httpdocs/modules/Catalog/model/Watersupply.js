@@ -40,6 +40,7 @@ Ext.define('EC.Catalog.model.Watersupply', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

@@ -12,11 +12,19 @@ Ext.define('EC.Catalog.view.Conditioners.Show', {
             '<div style="padding: 10px;"><table width="100%" border="0">',
             '<tr valign="top">',
             
-            '<td rowspan="2" width="320"><img src="http://placehold.it/300x220"/>',
+            '<td rowspan="2" width="320">',
+            '<tpl if="[values.images.length] &gt; 0">',
+                '<img src="/images/catalog/{[values.images[0].name]}"/>',
+            '<tpl else>',
+                '<img src="http://placehold.it/300x220"/>',
+            '</tpl>',
             
             '<p>Ссылка: <b>{url}</b></p><br/>',
             '<p>Цена: <b>{price}&nbsp;р.</b></p>',
             '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>',
+            '<p>Описание:</p>',
+            '<p style="text-align: justify; padding-right: 20px; text-indent: 20px;">' +
+            '{description}<p>',
             
             '</td><td colspan="3" height="40"><h1><p>',
             '{[this.r("FilterMark", values.mark_id)]} ',

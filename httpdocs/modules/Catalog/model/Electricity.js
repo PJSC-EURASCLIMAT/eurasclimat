@@ -36,6 +36,7 @@ Ext.define('EC.Catalog.model.Electricity', {
         'url',
         'price',
         'mount_price',
-        'description'
+        'description',
+        'images'
     ]
 });

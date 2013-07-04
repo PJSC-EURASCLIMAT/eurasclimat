@@ -80,7 +80,7 @@ Ext.define('EC.Catalog.view.ListAbstract', {
             sortable: false,
             hideable: false,
             menuDisabled: true,
-            width: 60,
+            width: parseInt(actions.length) * 20,
             items: actions
         });
         

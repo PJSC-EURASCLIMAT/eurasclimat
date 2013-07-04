@@ -74,6 +74,11 @@ Ext.define('EC.Catalog.view.Images', {
                 action: 'add',
                 hidden: !this.allowEdit,
                 scope: this
+            }, '->', {
+                xtype: 'button',
+                tooltip: 'Обновить',
+                iconCls: 'x-tbar-loading',
+                action: 'refresh'
             }]
         });
         

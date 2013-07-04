@@ -43,6 +43,10 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     deleteImageURL: null,
     
+    getRelatedServicesURL: null,
+    
+    deleteRelatedServicesURL: null,
+    
     run: function(container) {
         
         if (!this.viewPermition) {
@@ -284,11 +288,37 @@ Ext.define('EC.Catalog.controller.Abstract', {
             params: {id: recordId}
         });
         
+        var catalogRelatedServicesPanel = view.down('CatalogRelatedServices');
+        
+        catalogRelatedServicesPanel.on({
+            activate: function(panel) {
+                var store = panel.getStore();
+                store.load({url: this.getRelatedServicesURL, id: recordId});
+            },
+            scope: this
+        });
+        
+        catalogRelatedServicesPanel.down('button[action=refresh]').on({
+            click: function() {
+                var store = catalogRelatedServicesPanel.getStore();
+                store.load({url: this.getRelatedServicesURL, id: recordId});
+            },
+            scope: this
+        });
+        
         var catalogImagesPanel = view.down('CatalogImages');
         
         catalogImagesPanel.on({
             activate: function(panel) {
                 var store = panel.viewPanel.getStore();
+                store.load({url: this.getImagesURL, id: recordId});
+            },
+            scope: this
+        });
+        
+        catalogImagesPanel.down('button[action=refresh]').on({
+            click: function() {
+                var store = catalogImagesPanel.viewPanel.getStore();
                 store.load({url: this.getImagesURL, id: recordId});
             },
             scope: this
@@ -302,6 +332,19 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 },
                 scope: this
             });
+            
+            catalogRelatedServicesPanel.down('button[action=add]').on({
+                click: function() {
+                    this.onAddService(recordId, catalogRelatedServicesPanel);
+                },
+                scope: this
+            });
+            
+            catalogRelatedServicesPanel.on({
+                deleteImage: this.onDeleteService,
+                scope: this
+            });
+            
             catalogImagesPanel.down('button[action=add]').on({
                 click: function() {
                     this.onUpload(recordId, catalogImagesPanel);
@@ -422,6 +465,31 @@ Ext.define('EC.Catalog.controller.Abstract', {
         });
     },
     
+    onDeleteService: function(view, record) {
+        
+        Ext.Msg.show({
+            title: 'Подтверждение',
+            msg: 'Вы уверены?',
+            buttons: Ext.Msg.YESNO,
+            fn: function(b) {
+                if ('yes' == b) {
+                    view.setLoading({msg: 'Загрузка...'});
+                    Ext.Ajax.request({
+                        url: this.deleteRelatedServicesURL,
+                        params: {id: record.get('id')},
+                        callback: function() {
+                            view.setLoading(false);
+                            view.setActive(true);
+                        },
+                        scope: this
+                    });
+                }
+            },
+            icon: Ext.MessageBox.QUESTION,
+            scope: this
+        });
+    },
+    
     expandRows: function(button) {
         
         var grid = button.up(this.listXType),
@@ -456,6 +524,29 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }
             }
         });
+    },
+    
+    onAddService: function(id, panel) {
+        
+        alert('Adding Related Services');
+//        Ext.create('xlib.upload.Dialog', {
+//            autoShow: true,
+//            dialogTitle: 'Передача файлов на сервер',
+//            uploadUrl: this.uploadURL,
+//            uploadParams: {id: id},
+//            uploadExtraHeaders: {'Content-Type': 'multipart/form-data'},
+//            listeners: {
+//                'uploadcomplete' : {
+//                    fn: function(upDialog, manager, items, errorCount) {
+//                        if (!errorCount) {
+//                            upDialog.close();
+//                            panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
+//                        }
+//                    },
+//                    scope: this
+//                }
+//            }
+//        });
     },
     
     openFiltered: function(button) {

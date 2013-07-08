@@ -2,6 +2,14 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     extend: 'Ext.app.Controller',
     
+    stores: [
+        'EC.Catalog.store.RelatedServices'
+    ],
+    
+    models: [
+        'EC.Catalog.model.RelatedServices'
+    ],
+    
     uses: [
         'EC.Catalog.view.Images',
         'EC.Catalog.view.RelatedServices',
@@ -44,6 +52,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
     deleteImageURL: null,
     
     getRelatedServicesURL: null,
+    
+    addRelatedServicesURL: null,
     
     deleteRelatedServicesURL: null,
     
@@ -341,7 +351,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
             });
             
             catalogRelatedServicesPanel.on({
-                deleteImage: this.onDeleteService,
+                deleteservice: function(view, record) {
+                    this.onDeleteService(record.get('id'), catalogRelatedServicesPanel);
+                },
                 scope: this
             });
             
@@ -465,31 +477,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
         });
     },
     
-    onDeleteService: function(view, record) {
-        
-        Ext.Msg.show({
-            title: 'Подтверждение',
-            msg: 'Вы уверены?',
-            buttons: Ext.Msg.YESNO,
-            fn: function(b) {
-                if ('yes' == b) {
-                    view.setLoading({msg: 'Загрузка...'});
-                    Ext.Ajax.request({
-                        url: this.deleteRelatedServicesURL,
-                        params: {id: record.get('id')},
-                        callback: function() {
-                            view.setLoading(false);
-                            view.setActive(true);
-                        },
-                        scope: this
-                    });
-                }
-            },
-            icon: Ext.MessageBox.QUESTION,
-            scope: this
-        });
-    },
-    
     expandRows: function(button) {
         
         var grid = button.up(this.listXType),
@@ -528,25 +515,94 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     onAddService: function(id, panel) {
         
-        alert('Adding Related Services');
-//        Ext.create('xlib.upload.Dialog', {
-//            autoShow: true,
-//            dialogTitle: 'Передача файлов на сервер',
-//            uploadUrl: this.uploadURL,
-//            uploadParams: {id: id},
-//            uploadExtraHeaders: {'Content-Type': 'multipart/form-data'},
-//            listeners: {
-//                'uploadcomplete' : {
-//                    fn: function(upDialog, manager, items, errorCount) {
-//                        if (!errorCount) {
-//                            upDialog.close();
-//                            panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
-//                        }
-//                    },
-//                    scope: this
-//                }
-//            }
-//        });
+        var servicesWindow = Ext.create('Ext.window.Window', {
+            title: 'Добавление услуги к товару',
+            modal: true,
+            width: 1000,
+            height: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false,
+            buttons: [{
+                text: 'Добавить услугу',
+                action: 'addservice'
+            }, {
+                text: 'Отменить',
+                scope: this,
+                handler: function() {
+                    servicesWindow.close();
+                }
+            }]
+        });
+        
+        var servicesWidget = this.getController('EC.Catalog.controller.Services');
+        
+        servicesWidget.run(servicesWindow);
+        
+        var grid = servicesWindow.down('ServicesList');
+        
+        servicesWindow.down('button[action=addservice]').on({
+            click: function() {
+                var rows = grid.getSelectionModel().getSelection();
+                if (0 == rows.length) {
+                    return;
+                }
+                this.saveService(rows[0].get('id'), id, panel);
+                servicesWindow.close();
+            },
+            scope: this
+        });
+        
+        grid.on({
+            itemdblclick: function(g, record) {
+                this.saveService(record.get('id'), id, panel);
+                servicesWindow.close();
+            },
+            scope: this
+        });
+    },
+    
+    saveService: function(serviceId, itemId, panel) {
+        
+        Ext.Ajax.request({
+            params: {
+                serviceId: serviceId,
+                itemId: itemId
+            },
+            url: this.addRelatedServicesURL,
+            success: function(response, opts) {
+                panel.setActive(true);
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
+            },
+            scope: this
+        });
+    },
+    
+    onDeleteService: function(id, panel) {
+        
+        Ext.Msg.show({
+            title: 'Подтверждение',
+            msg: 'Вы уверены?',
+            buttons: Ext.Msg.YESNO,
+            fn: function(b) {
+                if ('yes' == b) {
+                    panel.setLoading({msg: 'Загрузка...'});
+                    Ext.Ajax.request({
+                        url: this.deleteRelatedServicesURL,
+                        params: {id: id},
+                        callback: function() {
+                            panel.setLoading(false);
+                            panel.setActive(true);
+                        },
+                        scope: this
+                    });
+                }
+            },
+            icon: Ext.MessageBox.QUESTION,
+            scope: this
+        });
     },
     
     openFiltered: function(button) {

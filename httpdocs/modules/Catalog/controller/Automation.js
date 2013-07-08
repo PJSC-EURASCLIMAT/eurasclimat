@@ -59,6 +59,12 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     getImagesURL: '/json/catalog/automation/get-images',
     
-    deleteImageURL: '/json/catalog/automation/delete-image'
+    deleteImageURL: '/json/catalog/automation/delete-image',
+    
+    getRelatedServicesURL: '/json/catalog/automation/get-related-services',
+    
+    addRelatedServicesURL: '/json/catalog/automation/add-related-services',
+    
+    deleteRelatedServicesURL: '/json/catalog/automation/delete-related-services'
     
 });

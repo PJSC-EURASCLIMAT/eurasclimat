@@ -145,4 +145,60 @@ class Catalog_AbstractController extends Xend_Controller_Action
             $this->view->success = true;
         }
     }
+
+    public function getRelatedServicesAction()
+    {
+        $id = intval($this->_getParam('id'));
+        if ($id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $this->_collectErrors($response);
+        }
+
+        $model = new Catalog_RelatedServices($this->_entity);
+        $response = $model->getAll($id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        }
+    }
+
+    public function addRelatedServicesAction()
+    {
+        $serviceId = intval($this->_getParam('serviceId'));
+        $itemId = intval($this->_getParam('itemId'));
+        if (0 == $serviceId || 0 == $itemId) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $this->_collectErrors($response);
+        }
+
+        $model = new Catalog_RelatedServices($this->_entity);
+        $response = $model->add($itemId, $serviceId);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+    }
+
+    public function deleteRelatedServicesAction()
+    {
+        $id = intval($this->_getParam('id'));
+        if ($id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+            $this->_collectErrors($response);
+        }
+
+        $model = new Catalog_RelatedServices($this->_entity);
+        $response = $model->delete($id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+    }
 }

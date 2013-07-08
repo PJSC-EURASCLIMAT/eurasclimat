@@ -58,6 +58,12 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     getImagesURL: '/json/catalog/conditioners/get-images',
     
-    deleteImageURL: '/json/catalog/conditioners/delete-image'
+    deleteImageURL: '/json/catalog/conditioners/delete-image',
+    
+    getRelatedServicesURL: '/json/catalog/conditioners/get-related-services',
+    
+    addRelatedServicesURL: '/json/catalog/conditioners/add-related-services',
+    
+    deleteRelatedServicesURL: '/json/catalog/conditioners/delete-related-services'
 
 });

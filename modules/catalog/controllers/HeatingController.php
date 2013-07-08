@@ -20,5 +20,8 @@ class Catalog_HeatingController extends Catalog_AbstractController
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-image');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-related-services');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-related-services');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-related-services');
     }
 }

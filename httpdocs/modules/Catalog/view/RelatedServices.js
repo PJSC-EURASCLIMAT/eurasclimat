@@ -5,6 +5,8 @@ Ext.define('EC.Catalog.view.RelatedServices', {
     alias: 'widget.CatalogRelatedServices',
 
     title: 'Сопутствующие услуги',
+    
+    store: 'EC.Catalog.store.RelatedServices',
 	
     autoScroll: true,
 
@@ -54,7 +56,6 @@ Ext.define('EC.Catalog.view.RelatedServices', {
                     this.fireEvent('deleteservice', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-                
             });
         }
         
@@ -79,7 +80,7 @@ Ext.define('EC.Catalog.view.RelatedServices', {
             dataIndex: 'price',
             width: 100
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             sortable: false,
             hideable: false,
             menuDisabled: true,

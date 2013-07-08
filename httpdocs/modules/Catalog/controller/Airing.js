@@ -59,6 +59,12 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     getImagesURL: '/json/catalog/airing/get-images',
     
-    deleteImageURL: '/json/catalog/airing/delete-image'
+    deleteImageURL: '/json/catalog/airing/delete-image',
+    
+    getRelatedServicesURL: '/json/catalog/airing/get-related-services',
+    
+    addRelatedServicesURL: '/json/catalog/airing/add-related-services',
+    
+    deleteRelatedServicesURL: '/json/catalog/airing/delete-related-services'
     
 });

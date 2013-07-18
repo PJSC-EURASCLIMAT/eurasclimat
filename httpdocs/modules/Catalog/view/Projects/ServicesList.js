@@ -1,16 +1,16 @@
-Ext.define('EC.Catalog.view.Services.List', {
+Ext.define('EC.Catalog.view.Projects.ServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    alias: 'widget.ServicesList',
+    title: 'Сопутствующие работы',
+    
+    alias: 'widget.ProjectsServicesList',
     
     layout: 'fit',
     
-    forceFit: true,
+    store: 'EC.Catalog.store.Projects.Services',
     
-    store: 'EC.Catalog.store.Services.List',
-    
-    permissions: acl.isUpdate('catalog', 'services'),
+    permissions: acl.isUpdate('catalog', 'projects'),
     
     initComponent: function() {
         
@@ -41,25 +41,32 @@ Ext.define('EC.Catalog.view.Services.List', {
         }
         
         this.columns = [{
-            header: 'Артикул работ',
+            header: 'Артикул',
             dataIndex: 'code',
-            width: 100
+            width: 60
         }, {
             header: 'Наименование работ',
             dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Ед. изм. работ',
+            header: 'Ед. изм.',
             dataIndex: 'measure',
-            width: 100
+            width: 60
         }, {
-            header: 'Сроки выполнения работ',
+            header: 'Сроки',
             dataIndex: 'term',
-            width: 150
+            width: 60
         }, {
-            header: 'Цена работ',
+            header: 'Цена',
             dataIndex: 'price',
-            width: 100
+            width: 60
+        }, {
+            header: 'Кол-во',
+            dataIndex: 'number',
+            width: 60
+        }, {
+            header: 'Сумма',
+            width: 60
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,
@@ -68,7 +75,7 @@ Ext.define('EC.Catalog.view.Services.List', {
         
         this.tbar = [{
             xtype: 'button',
-            text: 'Добавить услугу',
+            text: 'Добавить услугу в проект',
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'

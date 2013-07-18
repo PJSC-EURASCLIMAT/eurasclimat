@@ -1,4 +1,4 @@
-Ext.define('EC.Main.view.Services.Groups', {
+Ext.define('EC.Catalog.view.Services.Groups', {
 
     extend: 'Ext.grid.Panel',
 

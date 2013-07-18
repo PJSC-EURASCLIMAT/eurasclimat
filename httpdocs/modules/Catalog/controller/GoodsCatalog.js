@@ -14,11 +14,7 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
                 icon: '/images/icons/catalog.png',
                 portletHeight: 400,
                 position: 'CatalogPanel-column-1',
-                launchModule: 'EC.Catalog.controller.Catalog',
-                hidden: !acl.isView('catalog'),
-                handler: function(b) {
-                    MC.openModulePortlet(b.initialConfig);
-                }
+                launchModule: 'EC.Catalog.controller.Catalog'
             });
             MC.openModulePortlet({
                 text: 'КАТАЛОГ УСЛУГ',
@@ -26,10 +22,15 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
                 icon: '/images/icons/catalog.png',
                 portletHeight: 400,
                 position: 'CatalogPanel-column-2',
-                launchModule: 'EC.Catalog.controller.Services',
-                handler: function(b) {
-                    MC.openModulePortlet(b.initialConfig);
-                }
+                launchModule: 'EC.Catalog.controller.Services'
+            });
+            MC.openModulePortlet({
+                text: 'ПРОЕКТЫ',
+                title: 'Проекты',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-3',
+                launchModule: 'EC.Catalog.controller.Projects'
             });
         }, this);
     },
@@ -54,6 +55,16 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
             portletHeight: 400,
             position: 'CatalogPanel-column-2',
             launchModule: 'EC.Catalog.controller.Services',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'ПРОЕКТЫ',
+            title: 'Проекты',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'CatalogPanel-column-3',
+            launchModule: 'EC.Catalog.controller.Projects',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

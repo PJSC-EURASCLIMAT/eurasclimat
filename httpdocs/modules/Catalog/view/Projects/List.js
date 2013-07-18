@@ -1,16 +1,14 @@
-Ext.define('EC.Catalog.view.Services.List', {
+Ext.define('EC.Catalog.view.Projects.List', {
 
     extend: 'Ext.grid.Panel',
 
-    alias: 'widget.ServicesList',
+    alias: 'widget.ProjectsList',
     
     layout: 'fit',
     
-    forceFit: true,
+    store: 'EC.Catalog.store.Projects.List',
     
-    store: 'EC.Catalog.store.Services.List',
-    
-    permissions: acl.isUpdate('catalog', 'services'),
+    permissions: acl.isUpdate('catalog', 'projects'),
     
     initComponent: function() {
         
@@ -19,8 +17,18 @@ Ext.define('EC.Catalog.view.Services.List', {
         if (this.permissions) {
             
             actions.push({
+                icon: '/images/icons/fam/cog.gif',
+                tooltip: 'Конфигурировать проект',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('configure', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
                 icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать',
+                tooltip: 'Редактировать проект',
                 iconCls: 'x-btn',
                 handler: function(grid, rowIndex, colIndex) {
                     this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
@@ -30,7 +38,7 @@ Ext.define('EC.Catalog.view.Services.List', {
             
             actions.push({
                 icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
+                tooltip: 'Удалить проект',
                 iconCls: 'x-btn',
                 handler: function(grid, rowIndex, colIndex) {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
@@ -41,24 +49,18 @@ Ext.define('EC.Catalog.view.Services.List', {
         }
         
         this.columns = [{
-            header: 'Артикул работ',
-            dataIndex: 'code',
-            width: 100
-        }, {
-            header: 'Наименование работ',
+            header: 'Имя проекта',
             dataIndex: 'name',
-            flex: 1
+            flex: .5
         }, {
-            header: 'Ед. изм. работ',
-            dataIndex: 'measure',
-            width: 100
+            header: 'Инициатор',
+            dataIndex: 'creator_name',
+            flex: .5
         }, {
-            header: 'Сроки выполнения работ',
-            dataIndex: 'term',
-            width: 150
-        }, {
-            header: 'Цена работ',
-            dataIndex: 'price',
+            xtype: 'datecolumn',
+            header: 'Дата создания',
+            dataIndex: 'created_date',
+            format: 'd.m.Y H:i',
             width: 100
         }, {
             xtype:'actioncolumn',
@@ -68,7 +70,7 @@ Ext.define('EC.Catalog.view.Services.List', {
         
         this.tbar = [{
             xtype: 'button',
-            text: 'Добавить услугу',
+            text: 'Создать проект',
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'

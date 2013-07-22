@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.model.Projects.List', {
+Ext.define('EC.Catalog.model.Projects', {
 
     extend: 'Ext.data.Model',
    

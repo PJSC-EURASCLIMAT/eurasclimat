@@ -30,6 +30,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
         'EC.Catalog.view.Watersupply.Filter.Country'
     ],
     
+    entity: 'watersupply',
+    
     viewPermition: acl.isView('catalog', 'watersupply'),
     
     editPermition: acl.isUpdate('catalog', 'watersupply'),

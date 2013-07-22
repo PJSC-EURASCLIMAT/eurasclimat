@@ -31,6 +31,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
         'EC.Catalog.view.Electricity.Filter.Country'
     ],
     
+    entity: 'electricity',
+    
     viewPermition: acl.isView('catalog', 'electricity'),
     
     editPermition: acl.isUpdate('catalog', 'electricity'),

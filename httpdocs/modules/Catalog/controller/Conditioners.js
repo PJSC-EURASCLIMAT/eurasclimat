@@ -30,6 +30,8 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Filter.Country'
     ],
     
+    entity: 'conditioners',
+    
     viewPermition: acl.isView('catalog', 'conditioners'),
     
     editPermition: acl.isUpdate('catalog', 'conditioners'),

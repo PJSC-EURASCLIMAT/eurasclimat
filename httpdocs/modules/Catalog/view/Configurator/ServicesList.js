@@ -1,14 +1,14 @@
-Ext.define('EC.Catalog.view.Projects.EquipmentList', {
+Ext.define('EC.Catalog.view.Configurator.ServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Оборудование',
+    title: 'Сопутствующие работы',
     
-    alias: 'widget.ProjectsEquipmentList',
+    alias: 'widget.ConfiguratorServicesList',
     
     layout: 'fit',
     
-    store: 'EC.Catalog.store.Projects.Equipment',
+    store: 'EC.Catalog.store.Configurator.Services',
     
     permissions: acl.isUpdate('catalog', 'projects'),
     
@@ -18,22 +18,22 @@ Ext.define('EC.Catalog.view.Projects.EquipmentList', {
         
         if (this.permissions) {
             
-            actions.push({
-                icon: '/images/icons/fam/plugin.gif',
-                tooltip: 'Редактировать',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            });
+//            actions.push({
+//                icon: '/images/icons/fam/plugin.gif',
+//                tooltip: 'Редактировать',
+//                iconCls: 'x-btn',
+//                handler: function(grid, rowIndex, colIndex) {
+//                    this.fireEvent('editService', grid, grid.getStore().getAt(rowIndex));
+//                },
+//                scope: this
+//            });
             
             actions.push({
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить',
                 iconCls: 'x-btn',
                 handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
+                    this.fireEvent('deleteService', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
                 
@@ -45,12 +45,16 @@ Ext.define('EC.Catalog.view.Projects.EquipmentList', {
             dataIndex: 'code',
             width: 60
         }, {
-            header: 'Маркировка',
-            dataIndex: 'marking',
+            header: 'Наименование',
+            dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Марка',
-            dataIndex: 'mark',
+            header: 'Ед. изм.',
+            dataIndex: 'measure',
+            width: 60
+        }, {
+            header: 'Сроки',
+            dataIndex: 'term',
             width: 60
         }, {
             header: 'Цена',
@@ -71,7 +75,7 @@ Ext.define('EC.Catalog.view.Projects.EquipmentList', {
         
         this.tbar = [{
             xtype: 'button',
-            text: 'Добавить оборудование в проект',
+            text: 'Добавить услугу в проект',
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'

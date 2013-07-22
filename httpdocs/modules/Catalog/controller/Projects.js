@@ -3,11 +3,11 @@ Ext.define('EC.Catalog.controller.Projects', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Projects.List'
+        'EC.Catalog.store.Projects'
     ],
     
     models: [
-        'EC.Catalog.model.Projects.List'
+        'EC.Catalog.model.Projects'
     ],
     
     views: [

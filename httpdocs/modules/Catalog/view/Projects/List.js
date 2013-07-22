@@ -6,7 +6,7 @@ Ext.define('EC.Catalog.view.Projects.List', {
     
     layout: 'fit',
     
-    store: 'EC.Catalog.store.Projects.List',
+    store: 'EC.Catalog.store.Projects',
     
     permissions: acl.isUpdate('catalog', 'projects'),
     

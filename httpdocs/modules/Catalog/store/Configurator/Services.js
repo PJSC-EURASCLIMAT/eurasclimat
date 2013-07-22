@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.store.Projects.Services', {
+Ext.define('EC.Catalog.store.Configurator.Services', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.Catalog.model.Projects.Services',
+    model: 'EC.Catalog.model.Configurator.Services',
     
     remoteSort: true,
     

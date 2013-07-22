@@ -31,6 +31,8 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Filter.Country'
     ],
     
+    entity: 'automation',
+    
     viewPermition: acl.isView('catalog', 'automation'),
     
     editPermition: acl.isUpdate('catalog', 'automation'),

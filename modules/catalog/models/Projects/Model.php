@@ -181,7 +181,7 @@ class Catalog_Projects_Model
                 'mark'      => 'm.name'
             ))
             ->join(array('m' => $marksTable->getTableName()),
-                'm.id=e.mark_id', array());
+                'm.id=c.mark_id', array());
 
             try {
                 $data = $select->query()->fetch();
@@ -224,6 +224,10 @@ class Catalog_Projects_Model
         if (!$id) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
+
+        /**
+         * TODO: Automatically add services for given equipment
+         */
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
@@ -279,7 +283,8 @@ class Catalog_Projects_Model
         $catalogServicesTable = new Catalog_Services_Table();
 
         $select = $this->_servicesTable->getAdapter()->select()
-        ->from(array('s' => $table->getTableName()), array(
+        ->from(array('s' => $this->_servicesTable->getTableName()), array(
+            'id'            => 'cs.id',
             'code'          => 'cs.code',
             'name'          => 'cs.name',
             'price'         => 'cs.price',
@@ -289,7 +294,8 @@ class Catalog_Projects_Model
             'service_id'    => 's.service_id'
         ))
         ->join(array('cs' => $catalogServicesTable->getTableName()),
-            'cs.id=s.service_id', array());
+            'cs.id=s.service_id', array())
+        ->where('s.project_id = (?)', $id);
 
         try {
             $rows = $select->query()->fetchAll();

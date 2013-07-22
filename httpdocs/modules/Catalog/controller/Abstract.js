@@ -21,6 +21,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.Chart'
     ],
     
+    entity: null,
+    
     viewPermition: false,
     
     editPermition: false,

@@ -3,22 +3,19 @@ Ext.define('EC.Catalog.controller.Configurator', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Projects.Equipment',
-        'EC.Catalog.store.Projects.Services'
+        'EC.Catalog.store.Configurator.Equipment',
+        'EC.Catalog.store.Configurator.Services'
     ],
     
     models: [
-        'EC.Catalog.model.Projects.Equipment',
-        'EC.Catalog.model.Projects.Services'
+        'EC.Catalog.model.Configurator.Equipment',
+        'EC.Catalog.model.Configurator.Services'
     ],
     
     views: [
-//        'EC.Catalog.view.Projects.EquipmentAdd',
-//        'EC.Catalog.view.Projects.EquipmentEdit',
-        'EC.Catalog.view.Projects.EquipmentList',
-//        'EC.Catalog.view.Projects.ServicesAdd',
-//        'EC.Catalog.view.Projects.ServicesEdit'
-        'EC.Catalog.view.Projects.ServicesList'
+//        'EC.Catalog.view.Configurator.Edit',
+        'EC.Catalog.view.Configurator.EquipmentList',
+        'EC.Catalog.view.Configurator.ServicesList'
     ],
     
     projectID: null,
@@ -31,11 +28,11 @@ Ext.define('EC.Catalog.controller.Configurator', {
     
     deleteEquipmentURL: '/json/catalog/projects/delete-equipment',
     
-    addServiceURL: '/json/catalog/projects/add-services',
+    addServiceURL: '/json/catalog/projects/add-service',
     
-    editServiceURL: '/json/catalog/projects/update-services',
+    editServiceURL: '/json/catalog/projects/update-service',
     
-    deleteServiceURL: '/json/catalog/projects/delete-services',
+    deleteServiceURL: '/json/catalog/projects/delete-service',
     
     run: function(projectID, projectName) {
 
@@ -45,62 +42,111 @@ Ext.define('EC.Catalog.controller.Configurator', {
         
         this.projectID = projectID;
         
-        this.Container = Ext.create('EC.Catalog.view.Projects.ConfiguratorLayout', {
+        this.Container = Ext.create('EC.Catalog.view.Configurator.Layout', {
             projectID: projectID,
             projectName: projectName,
             permissions: this.permissions
         });
         
-        var equipmentPanel = this.Container.down('ProjectsEquipmentList'),
-            servicesPanel = this.Container.down('ProjectsServicesList');
+        var equipmentPanel = this.Container.down('ConfiguratorEquipmentList'),
+            servicesPanel = this.Container.down('ConfiguratorServicesList');
         
         equipmentPanel.down('button[action=refresh]').on('click', this.loadEquipment, this);
         servicesPanel.down('button[action=refresh]').on('click', this.loadServices, this);
             
         if (this.permissions) {
             
+            equipmentPanel.down('button[action=additem]').on('click', this.addEquipment, this);
+            equipmentPanel.on('editEquipment', this.editEquipment, this);
+            equipmentPanel.on('deleteEquipment', this.deleteEquipment, this);
+            
+            servicesPanel.down('button[action=additem]').on('click', this.addService, this);
+            servicesPanel.on('editService', this.editService, this);
+            servicesPanel.on('deleteService', this.deleteService, this);
         }
         
-        equipmentPanel.getStore().load({params: {id: this.projectID}});
-        servicesPanel.getStore().load({params: {id: this.projectID}});
+        this.loadEquipment();
+        this.loadServices();
     },
     
     loadEquipment: function() {
-        var panel = this.Container.down('ProjectsEquipmentList');
+        var panel = this.Container.down('ConfiguratorEquipmentList');
         panel.getStore().load({params: {id: this.projectID}});
     },
     
     loadServices: function() {
-        var panel = this.Container.down('ProjectsServicesList');
+        var panel = this.Container.down('ConfiguratorServicesList');
         panel.getStore().load({params: {id: this.projectID}});
     },
     
-    addItem: function() {
+    getWindow: function() {
         
-        var view = Ext.create('EC.Catalog.view.Projects.Add');
-        view.down('button[action=save]').on({
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Добавление в конфигурацию',
+            width: 1050,
+            height: 600,
+            modal: true,
+            autoShow: true,
+            border: false,
+            layout: 'fit',
+            buttons: [{
+                text: 'Добавить в конфигурацию',
+                formBind: true,
+                action: 'chose'
+            }, {
+                text: 'Закрыть',
+                handler: function() {
+                    win.close();
+                }
+            }]
+        });
+        
+        return win;
+    },
+    
+    addEquipment: function() {
+        
+        var win = this.getWindow(),
+            CC = this.getController('EC.Catalog.controller.Catalog');
+            
+        CC.run(win);
+        
+        win.down('button[action=chose]').on({
             click: function() {
-                this.updateItem(view, this.addURL);
+                var rows = win.down('gridpanel').getSelectionModel().getSelection();
+                if (0 == rows.length) {
+                    return;
+                }
+                this.saveEquipment(CC.catalogID, rows[0].get('id'));
+                win.close();
+            },
+            scope: this
+        });
+        
+    },
+    
+    saveEquipment: function(entity, entityID) {
+        
+        Ext.Ajax.request({
+            params: {
+                entity: entity.toLowerCase(),
+                entity_id: entityID,
+                project_id: this.projectID,
+                number: 1
+            },
+            url: this.addEquipmentURL,
+            success: function(response, opts) {
+                this.loadEquipment();
+                this.loadServices();
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
             },
             scope: this
         });
     },
     
-    editItem: function(grid, record) {
-        
-        var view = Ext.create('EC.Catalog.view.Projects.Edit');
-        view.down('button[action=save]').on({
-            click: function() {
-                this.updateItem(view, this.editURL);
-            },
-            scope: this
-        });
-        
-        var form = view.down('form');
-        form.loadRecord(record);
-    },
-    
-    deleteItem: function(grid, record) {
+    deleteEquipment: function(grid, record) {
         
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
@@ -108,10 +154,10 @@ Ext.define('EC.Catalog.controller.Configurator', {
                     params: {
                         id: record.get('id')
                     },
-                    url: this.deleteURL,
+                    url: this.deleteEquipmentURL,
                     success: function(response, opts) {
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.fireEvent('itemSaved');
+                        this.loadEquipment();
                     },
                     failure: function(response, opts) {
                         Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
@@ -122,30 +168,65 @@ Ext.define('EC.Catalog.controller.Configurator', {
         }, this);
     },
     
-    updateItem: function(view, URL) {
+    addService: function() {
         
-        var form = view.down('form');
+        var win = this.getWindow();
         
-        form.submit({
-            url: URL,
-            success: function(form, action) {
-                view.close();
-                this.fireEvent('itemSaved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
+        this.getController('EC.Catalog.controller.Services').run(win);
+        
+        var ServicesList = win.down('ServicesList');
+        
+        win.down('button[action=chose]').on({
+            click: function() {
+                var rows = ServicesList.getSelectionModel().getSelection();
+                if (0 == rows.length) {
+                    return;
+                }
+                this.saveService(rows[0].get('id'));
+                win.close();
             },
             scope: this
         });
-    }
+    },
     
+    saveService: function(serviceId) {
+        
+        Ext.Ajax.request({
+            params: {
+                service_id: serviceId,
+                project_id: this.projectID,
+                number: 1
+            },
+            url: this.addServiceURL,
+            success: function(response, opts) {
+                this.loadServices();
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
+            },
+            scope: this
+        });
+    },
+    
+    deleteService: function(grid, record) {
+        
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: {
+                        id: record.get('id')
+                    },
+                    url: this.deleteServiceURL,
+                    success: function(response, opts) {
+                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                        this.loadServices();
+                    },
+                    failure: function(response, opts) {
+                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                    },
+                    scope: this
+                });
+            }
+        }, this);
+    }
 });

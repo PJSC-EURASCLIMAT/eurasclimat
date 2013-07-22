@@ -30,6 +30,8 @@ Ext.define('EC.Catalog.controller.Heating', {
         'EC.Catalog.view.Heating.Filter.Country'
     ],
     
+    entity: 'heating',
+    
     viewPermition: acl.isView('catalog', 'heating'),
     
     editPermition: acl.isUpdate('catalog', 'heating'),

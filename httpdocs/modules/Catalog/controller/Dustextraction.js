@@ -25,6 +25,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
         'EC.Catalog.view.Dustextraction.Filter.Country'
     ],
     
+    entity: 'dustextraction',
+    
     viewPermition: acl.isView('catalog', 'dustextraction'),
     
     editPermition: acl.isUpdate('catalog', 'dustextraction'),

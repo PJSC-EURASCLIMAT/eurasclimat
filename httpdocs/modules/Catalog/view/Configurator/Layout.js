@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.Projects.ConfiguratorLayout', {
+Ext.define('EC.Catalog.view.Configurator.Layout', {
     
     extend: 'Ext.window.Window',
     
@@ -36,13 +36,13 @@ Ext.define('EC.Catalog.view.Projects.ConfiguratorLayout', {
             items: [{
                 region: 'center',
                 flex: 1,
-                xtype: 'ProjectsEquipmentList',
+                xtype: 'ConfiguratorEquipmentList',
                 projectID: this.projectID,
                 permissions: this.permissions
             }, {
                 region: 'east',
                 flex: 1,
-                xtype: 'ProjectsServicesList',
+                xtype: 'ConfiguratorServicesList',
                 projectID: this.projectID,
                 permissions: this.permissions
             }]
@@ -55,11 +55,11 @@ Ext.define('EC.Catalog.view.Projects.ConfiguratorLayout', {
             items: [{
                 region: 'center',
                 flex: 1,
-                title: 'Материалы'
+                title: 'Инструменты, механизмы и вспомогательные материалы'
             }, {
                 region: 'east',
                 flex: 1,
-                title: 'Дополнительные работы'
+                title: 'Специальные виды услуг'
             }]
         }];
 

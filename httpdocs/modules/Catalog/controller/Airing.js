@@ -31,6 +31,8 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Filter.Country'
     ],
     
+    entity: 'airing',
+    
     viewPermition: acl.isView('catalog', 'airing'),
     
     editPermition: acl.isUpdate('catalog', 'airing'),

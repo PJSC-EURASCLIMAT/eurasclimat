@@ -92,7 +92,7 @@ class Catalog_ProjectsController extends Xend_Controller_Action
         $response = $this->_model->getEquipment($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
-            $this->view->data = $response->getRow();
+            $this->view->data = $response->getRowset();
         } else {
            $this->_collectErrors($response);
         }
@@ -135,7 +135,7 @@ class Catalog_ProjectsController extends Xend_Controller_Action
         $response = $this->_model->getServices($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
-            $this->view->data = $response->getRow();
+            $this->view->data = $response->getRowset();
         } else {
            $this->_collectErrors($response);
         }

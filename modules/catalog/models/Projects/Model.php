@@ -284,7 +284,7 @@ class Catalog_Projects_Model
 
         $select = $this->_servicesTable->getAdapter()->select()
         ->from(array('s' => $this->_servicesTable->getTableName()), array(
-            'id'            => 'cs.id',
+            'id'            => 's.id',
             'code'          => 'cs.code',
             'name'          => 'cs.name',
             'price'         => 'cs.price',

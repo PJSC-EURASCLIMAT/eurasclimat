@@ -21,13 +21,13 @@ Ext.define('App.view.LeftPanel', {
         margin: 10,
         items: [{
             xtype: 'image',
-            width: 100,
-            height: 100,
-            margin: '10 0 0 20',
-            src: '/images/logo3d.png'
-        }, {
-            xtype: 'image',
-            src: '/images/logo_text.png'
+//            width: 100,
+//            height: 100,
+            margin: '20 0 0 0',
+            src: '/images/logo.png'
+//        }, {
+//            xtype: 'image',
+//            src: '/images/logo_text.png'
         }]
         
     }, {

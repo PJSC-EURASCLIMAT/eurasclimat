@@ -17,19 +17,19 @@ Ext.define('App.view.LeftPanel', {
     items: [{
         region: 'north',
         baseCls: 'xlib-bkg',
-        height: 120, 
+        height: 140, 
         margin: 10,
         items: [{
-            xtype: 'flash',
-            url: '/images/LOGO.133x133_out.swf',
-            margin: '0 0 0 15px;',
+            xtype: 'image',
             width: 100,
             height: 100,
-            wmode: 'transparent'
+            margin: '10 0 0 20',
+            src: '/images/logo3d.png'
         }, {
             xtype: 'image',
             src: '/images/logo_text.png'
         }]
+        
     }, {
         region: 'center',
         baseCls: 'xlib-bkg',

@@ -71,7 +71,7 @@ Ext.define('App.view.TopPanel', {
                 launchModule: 'EC.Main.controller.Weather'
             }
         }]
-    }, {
+    }, ' ', ' ', ' ', ' ', ' ', ' ', {
         xtype: 'button',
         tooltip: isAuth ? 'Выход' : 'Вход/Регистрация',
         icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',
@@ -96,5 +96,5 @@ Ext.define('App.view.TopPanel', {
             action: 'auth',
             launchModule: 'App.controller.Auth'
         }]
-    }]
+    }, ' ', ' ', ' ', ' ', ' ', ' ']
 });

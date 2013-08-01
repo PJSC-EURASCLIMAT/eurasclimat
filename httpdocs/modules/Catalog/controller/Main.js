@@ -11,12 +11,16 @@ Ext.define('EC.Catalog.controller.Main', {
         var container = this.getContainer();
         
         this.getController('EC.Catalog.controller.GoodsCatalog').run(container);
+        /*
         this.getController('EC.Catalog.controller.VendorCatalog').run(container);
         this.getController('EC.Catalog.controller.NewChapter').run(container);
+        */
     },
     
     getMenu: function() {
-        return [{
+        return [
+        /*
+            {
             text: 'Функции',
             icon: '/images/icons/features.png'
         }, {
@@ -31,6 +35,8 @@ Ext.define('EC.Catalog.controller.Main', {
         }, {
             text: 'Настройки',
             icon: '/images/icons/settings.png'
-        }];
+        }
+        */
+        ];
     }
 });

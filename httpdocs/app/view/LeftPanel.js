@@ -71,13 +71,15 @@ Ext.define('App.view.LeftPanel', {
 //            icon: '/images/icons/login.png',
 //            launchModule: 'App.controller.Auth'
 //        }, {
+/*
             text: 'Глобальное меню',
             xtype: 'label',
             style: 'margin-top: 0;',
             cls: 'x-panel-header-text-default'
         }, {
             id: 'EC-global-menu',
-            items: [{
+            items: [
+                    {
                 text: 'Проекты',
                 icon: '/images/icons/projects.png'
             }, {
@@ -92,7 +94,8 @@ Ext.define('App.view.LeftPanel', {
             }, {
                 text: 'Новости', 
                 icon: '/images/icons/news.png'
-            }]
+            }
+            ]
         }, {
             text: 'Меню раздела',
             xtype: 'label',
@@ -106,6 +109,7 @@ Ext.define('App.view.LeftPanel', {
             xtype: 'label',
             style: 'margin-top: 10px;',
             cls: 'x-panel-header-text-default'
+*/
         }, {
             id: 'EC-subchapter-menu',
             items: []

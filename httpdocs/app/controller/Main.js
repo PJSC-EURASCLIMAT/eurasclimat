@@ -12,7 +12,7 @@ Ext.define('App.controller.Main', {
         var centerPanel = Ext.getCmp('CenterPanel');
         
         this.control({
-            'LeftPanel button[action=admin], TopPanel button[action=auth]': {
+            'LeftPanel button[action=admin], TopPanel button[action=auth] menuitem': {
                 click: function(button, e, options) {
                     if (!Ext.isEmpty(button.launchModule)) {
                         this.getController(button.launchModule).run(centerPanel);
@@ -20,7 +20,7 @@ Ext.define('App.controller.Main', {
                 }
             }
         });
-        
+        /*
         Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=run]'), function(item) {
             Ext.get(item).on('click', function(e, node, options) {
                 var module = node.attributes.launchModule.value;
@@ -29,7 +29,7 @@ Ext.define('App.controller.Main', {
                 }
             }, this);
         }, this);
-        
+        */
         this.control({'TopPanel button[action=allwidgets] menuitem': {
                 click: this.openModulePortlet
             }

@@ -26,10 +26,10 @@ Ext.define('App.view.TopPanel', {
     
     items: ['->', {
         xtype: 'button',
-        text: 'Все виджеты',
-        action: 'allwidgets',
+        tooltip: 'Все виджеты',
         icon: '/images/icons/widgets_all.png',
-        pressed: true,
+        arrowCls: '',
+        action: 'allwidgets',
         menu: [{
             text: 'Новости',
             icon: '/images/icons/news_list.png',
@@ -71,42 +71,30 @@ Ext.define('App.view.TopPanel', {
                 launchModule: 'EC.Main.controller.Weather'
             }
         }]
-    }, ' ', ' ', ' ', ' ', ' ', ' ', ' ', {
-        xtype: 'component',
-        autoEl: {
-            tag: 'a',
-            href: '#',
-            style: 'text-align: right; padding-right: 10px; color: white; margin-top: -1px !important;',
-            html: 'Регистрация',
-            action: 'run',
-            onClick: 'return false;',
-            launchModule: 'App.controller.Register'
-        },
-        hidden: isAuth
     }, {
-        xtype: 'tbtext',
-        style: 'text-align: right; color: white; margin-top: -1px !important;',
-        text: xlib.Acl.Storage.getIdentity().name + '&nbsp;|&nbsp;', 
-        qtip: xlib.Acl.Storage.getIdentity().login,
-        hidden: !isAuth
-    }, {
-        xtype: 'component',
-        autoEl: {
-            tag: 'a',
-            href: '#',
-            style: 'text-align: right; padding-right: 10px; color: white; margin-top: -1px !important;',
-            html: 'Мой профиль',
-            action: 'run',
-            onClick: 'return false;',
-            launchModule: 'EC.PA.controller.Profile'
-        },
-        hidden: !isAuth
-    }, ' ', {
         xtype: 'button',
-        action: 'auth',
-        text: isAuth ? 'Выйти из системы' : 'Войти в систему',
+        tooltip: isAuth ? 'Выход' : 'Вход/Регистрация',
         icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',
-        pressed: true,
-        launchModule: 'App.controller.Auth'
+        arrowCls: '',
+        action: 'auth',
+        menu: [{
+            text: 'Мой профиль <br/>' + xlib.Acl.Storage.getIdentity().name +
+                ' (' + xlib.Acl.Storage.getIdentity().login + ') ',
+            icon: '/images/icons/about.png',
+            hidden: !isAuth,
+            action: 'run',
+            launchModule: 'EC.PA.controller.Profile'
+        },{
+            text: 'Регистрация',
+            icon: '/images/icons/about.png',
+            hidden: isAuth,
+            action: 'run',
+            launchModule: 'App.controller.Register'
+        },{
+            text: isAuth ? 'Выйти из системы' : 'Войти в систему',
+            icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',
+            action: 'auth',
+            launchModule: 'App.controller.Auth'
+        }]
     }]
 });

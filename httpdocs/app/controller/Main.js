@@ -52,6 +52,10 @@ Ext.define('App.controller.Main', {
         this.getController('EC.Recreation.controller.Main');
         */
         
+        if (acl.isView('admin')) {
+            this.getController('EC.Main.controller.1C');
+        }
+        
         // Make first tab active
         centerPanel.setActiveTab(0);
         centerPanel.getActiveTab().setActiveTab(0);
@@ -205,16 +209,20 @@ Ext.define('App.controller.Main', {
     populateChapterMenu: function(items) {
         Ext.defer(function() {
             var menu = Ext.getCmp('EC-chapter-menu');
-            menu.removeAll(true);
-            menu.add(items);
+            if (menu) {
+                menu.removeAll(true);
+                menu.add(items);
+            }
         }, 1);
     },
     
     populateSubchapterMenu: function(items) {
         Ext.defer(function() {
             var menu = Ext.getCmp('EC-subchapter-menu');
-            menu.removeAll(true);
-            menu.add(items);
+            if (menu) {
+                menu.removeAll(true);
+                menu.add(items);
+            }
         }, 1);
     }
 });

@@ -17,6 +17,9 @@ Ext.define('App.controller.ChapterAbstract', {
             listeners: {
                 activate: function() {
                     MC.populateChapterMenu(this.getMenu());
+                    
+                    if (!tab.is('tabpanel')) return;
+                    
                     if (!tab.getActiveTab()) {
                         tab.setActiveTab(tab.getActiveTab() || 0);
                     } else {

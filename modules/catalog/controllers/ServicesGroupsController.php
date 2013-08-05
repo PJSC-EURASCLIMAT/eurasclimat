@@ -6,7 +6,7 @@ class Catalog_ServicesGroupsController extends Xend_Controller_Action
     /**
      * @var model
      */
-    protected $_model;
+    protected $_model; 
 
     public function init()
     {

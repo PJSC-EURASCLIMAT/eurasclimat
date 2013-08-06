@@ -22,13 +22,22 @@ Ext.define('EC.Main.controller.Development', {
         
        var viewDevelopment = this.getContainer(container);
        
-       var modulesToOpen = [{
-            title: 'Разработка системы',
-            icon: '/images/icons/projects.png',
-            portletHeight: 410,
-            position: 'MainPanel-development-column-1',
-            launchModule: 'EC.Main.controller.Projectdev'
-        }];
+       var modulesToOpen = [
+            {
+                 title: 'Разработка системы',
+                 icon: '/images/icons/projects.png',
+                 portletHeight: 410,
+                 position: 'MainPanel-development-column-1',
+                 launchModule: 'EC.Main.controller.Projectdev'
+             }, 
+             {
+                 title: 'Разработка системы - ввод',
+                 icon: '/images/icons/projects.png',
+                 portletHeight: 410,
+                 position: 'MainPanel-development-column-2',
+                 launchModule: 'EC.Main.controller.ProjectdevEditor'
+             }
+         ];
        
        var MC = this.getController('App.controller.Main');
        viewDevelopment.on('show', function(){this.loadWidgets(modulesToOpen, MC)}, this);
@@ -46,6 +55,16 @@ Ext.define('EC.Main.controller.Development', {
             portletHeight: 410,
             position: 'MainPanel-development-column-1',
             launchModule: 'EC.Main.controller.Projectdev',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            title: 'Разработка системы - ввод',
+            text: 'Разработка системы - ввод',
+            icon: '/images/icons/projects.png',
+            portletHeight: 410,
+            position: 'MainPanel-development-column-2',
+            launchModule: 'EC.Main.controller.ProjectdevEditor',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

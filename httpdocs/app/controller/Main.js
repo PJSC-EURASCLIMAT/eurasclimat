@@ -85,7 +85,7 @@ Ext.define('App.controller.Main', {
             column = portalPanel.down(pos) || portalPanel.down();
         portalPanel.show();
         column.insert(0, container).show();
-            
+
         if (config.launchModule) {
             this.getController(config.launchModule).run(container);
         }

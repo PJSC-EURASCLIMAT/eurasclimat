@@ -1,26 +1,52 @@
 Ext.define('Project.view.Main', {
-    extend: 'Ext.container.Container',
-    requires:[
-        'Ext.tab.Panel',
-        'Ext.layout.container.Border'
-    ],
     
-    xtype: 'app-main',
-
+    extend: 'Ext.panel.Panel',
+    
+    alias: 'widget.project-main',
+    
+    split: true,
+    
+    hidden: !acl.isView('projectdev'),
+    
     layout: {
-        type: 'border'
+        type: 'border',
+        split: true
     },
-
-    items: [{
-        region: 'west',
-        xtype: 'panel',
-        title: 'west',
-        width: 150
-    },{
-        region: 'center',
-        xtype: 'tabpanel',
-        items:[{
-            title: 'Center Tab 1'
-        }]
-    }]
+    
+    border: false,
+    
+    items: [
+        {
+            xtype: 'project-theme-tree',
+            split: true,  
+            region: 'west',
+            width: 170
+        }, 
+        {
+            layout: 'border',
+            region: 'center',
+            border: false,
+            split: true,
+            defaults: {
+                layout: 'fit',
+                split: true
+            },
+            items : [
+                {
+                    xtype: 'project-detail',
+                    region: 'north',
+                    height: '66%'
+                }, 
+                {
+                    region: 'center',
+                    items: [{
+                        xtype: 'project-stage-chart',  
+                        //autoScroll: true,
+                        bodyPadding: 5,
+                        oveflowX: 'scroll'
+                    }]
+                }
+            ]
+        }
+    ]
 });

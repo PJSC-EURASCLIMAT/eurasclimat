@@ -142,7 +142,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             text: 'Сообщения',
             title: 'Сообщения',
-            icon: '/images/icons/messages.png',
+            icon: '/images/icons/messages.png'
         }];
     }
 });

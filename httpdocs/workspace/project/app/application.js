@@ -9,13 +9,20 @@ Ext.define('Project.Application', {
         'Project.view.Main',
         'Project.view.ThemeTree',
         'Project.view.Detail',
+        'Project.view.Info',
         'Project.view.StageList',
         'Project.view.DocList',
-        'Project.view.StageChart'
+        'Project.view.CommentPanel'
+        //'Project.view.StageChart'
     ],
 
     controllers: [
-        'Project.controller.OriginalController'
+        'Project.controller.ThemeTreeController',
+        'Project.controller.DetailController',
+        'Project.controller.InfoController',
+        'Project.controller.StageListController',
+        'Project.controller.DocListController',
+        'Project.controller.CommentPanelController'
     ],
     
     models: [

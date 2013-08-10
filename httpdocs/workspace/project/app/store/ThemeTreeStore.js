@@ -8,8 +8,6 @@ Ext.define('Project.store.ThemeTreeStore', {
     
     defaultRootId: null,
     
-    autoLoad: true,
-    
     proxy: {
         type: 'ajax',
         url: '/json/sysdev/projects/get-tree'

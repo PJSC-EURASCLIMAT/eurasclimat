@@ -6,10 +6,6 @@ Ext.define('Project.view.ThemeTree', {
     
     require: ['Ext.tree.plugin.TreeViewDragDrop', 'Ext.grid.plugin.CellEditing'],
     
-    store: {
-        type: 'project-theme-tree-store'
-    },
-    
     layout: 'fit',
     
     rootVisible: false,
@@ -22,18 +18,18 @@ Ext.define('Project.view.ThemeTree', {
     
     hidden: !acl.isView('projectdev'),
     
-//    viewConfig: {
-//        plugins: [{
-//            ptype: 'treeviewdragdrop', 
-//            pluginId: 'project-theme-treeDragDropPlugin', 
-//            containerScroll: true
-//        }]
-//    },
-//    
-//    plugins: [{
-//        ptype: 'cellediting', 
-//        pluginId: 'project-theme-treeCellEditingPlugin'
-//    }],
+    viewConfig: {
+        plugins: [{
+            ptype: 'treeviewdragdrop', 
+            pluginId: 'project-theme-treeDragDropPlugin', 
+            containerScroll: true
+        }]
+    },
+    
+    plugins: [{
+        ptype: 'cellediting', 
+        pluginId: 'project-theme-treeCellEditingPlugin'
+    }],
 
     selModel: {
         selection: 'treemodel',
@@ -41,6 +37,11 @@ Ext.define('Project.view.ThemeTree', {
     },
     
     initComponent: function() {
+        
+        this.store = Ext.getStore({
+            type: 'project-theme-tree-store',
+            autoload: true
+        });
         
         this.columns = [{
             xtype: 'treecolumn',

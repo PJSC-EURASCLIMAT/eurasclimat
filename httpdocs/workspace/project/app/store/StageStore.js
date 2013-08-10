@@ -5,9 +5,7 @@ Ext.define('Project.store.StageStore', {
     alias: 'store.project-stage-store',
    
     model: 'Project.model.StageModel',
-    
-    autoLoad: true,
-    
+
     buffered: true,
     
     leadingBufferZone: 15,

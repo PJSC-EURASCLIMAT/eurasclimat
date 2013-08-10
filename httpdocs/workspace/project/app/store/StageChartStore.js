@@ -5,8 +5,7 @@ Ext.define('Project.store.StageChartStore', {
     alias: 'store.project-stage-chart-store',
    
     model: 'Project.model.StageChartModel',
-    
-    
+
     proxy: {
         type: 'ajax',
         url: '/json/sysdev/project-stages/get-chart-by-project',

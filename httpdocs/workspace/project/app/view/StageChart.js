@@ -10,7 +10,10 @@ Ext.define('Project.view.StageChart', {
     
     itemId: 'stagesChart',
 
-    store: 'Project.store.StageChart',
+    store: {
+        type: 'project-stage-chart-store',
+        id: 'projectStageChartStore'
+    },
     
     layout: 'fit',
     

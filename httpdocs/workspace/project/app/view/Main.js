@@ -37,15 +37,15 @@ Ext.define('Project.view.Main', {
                     region: 'north',
                     height: '66%'
                 }, 
-//                {
-//                    region: 'center',
-//                    items: [{
-//                        xtype: 'project-stage-chart',  
-//                        //autoScroll: true,
-//                        bodyPadding: 5,
-//                        oveflowX: 'scroll'
-//                    }]
-//                }
+                {
+                    region: 'center',
+                    items: [{
+                        xtype: 'project-stage-chart',  
+                        //autoScroll: true,
+                        bodyPadding: 5,
+                        oveflowX: 'scroll'
+                    }]
+                }
             ]
         }
     ]

@@ -12,8 +12,8 @@ Ext.define('Project.Application', {
         'Project.view.Info',
         'Project.view.StageList',
         'Project.view.DocList',
-        'Project.view.CommentPanel'
-        //'Project.view.StageChart'
+        'Project.view.CommentPanel',
+        'Project.view.StageChart'
     ],
 
     controllers: [
@@ -22,7 +22,8 @@ Ext.define('Project.Application', {
         'Project.controller.InfoController',
         'Project.controller.StageListController',
         'Project.controller.DocListController',
-        'Project.controller.CommentPanelController'
+        'Project.controller.CommentPanelController',
+        'Project.controller.StageChartController'
     ],
     
     models: [

@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Project</title>
-    <script>
-        acl = {
-            isView: function() { return true; },
-            isUpdate: function() { return true; }
-        }
-    </script>
     <!-- <x-compile> -->
         <!-- <x-bootstrap> -->
             <link rel="stylesheet" href="bootstrap.css">
-            <script src="../ext/ext-dev.js"></script>
+            <!--script src="../ext/ext-dev.js"></script-->
+            <script src="../ext/ext-all-dev.js"></script>
             <script src="bootstrap.js"></script>
         <!-- </x-bootstrap> -->
+        <script src="/json/default/index/index/"></script> <!-- авторизация под пользователем guest -->
+        <script src="/default/index/get-permissions/"></script> <!-- получение прав на ресурсы -->
+        <script src="/library/xlib/Acl/Manager.js"></script> <!-- создание глобального объекта acl -->
         <script src="app.js"></script>
     <!-- </x-compile> -->
 </head>

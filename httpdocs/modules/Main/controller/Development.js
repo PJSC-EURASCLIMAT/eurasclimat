@@ -29,13 +29,13 @@ Ext.define('EC.Main.controller.Development', {
                  portletHeight: 410,
                  position: 'MainPanel-development-column-1',
                  launchModule: 'EC.Main.controller.Projectdev'
-             }, 
-             {
-                 title: 'Разработка системы - ввод',
-                 icon: '/images/icons/projects.png',
-                 portletHeight: 410,
-                 position: 'MainPanel-development-column-2',
-                 launchModule: 'EC.Main.controller.ProjectdevEditor'
+//             }, 
+//             {
+//                 title: 'Разработка системы - ввод',
+//                 icon: '/images/icons/projects.png',
+//                 portletHeight: 410,
+//                 position: 'MainPanel-development-column-2',
+//                 launchModule: 'EC.Main.controller.ProjectdevEditor'
              }
          ];
        

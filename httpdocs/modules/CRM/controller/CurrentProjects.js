@@ -8,6 +8,18 @@ Ext.define('EC.CRM.controller.CurrentProjects', {
     
     run: function(container) {
         this.getContainer(container);
+        var MC = this.getController('App.controller.Main');
+        container.on('show', function() {
+            MC.openModulePortlet({
+                text: '1C Предприятие',
+                title: '1C Предприятие',
+                icon: '/images/icons/about.png',
+                launchModule: 'EC.CRM.controller.1C',
+                handler: function(b) {
+                    MC.openModulePortlet(b.initialConfig);
+                }
+            });
+        }, this);
     },
     
     getMenu: function() {
@@ -22,16 +34,16 @@ Ext.define('EC.CRM.controller.CurrentProjects', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
-        }, {
-            text: 'Товары в наличии'
-        }, {
-            text: 'Инструментарий'
-        }, {
-            text: 'Справочники'
-        }, {
-            text: 'Платежи'
-        }, {    
-            text: 'Депозитирование ставок'
+//        }, {
+//            text: 'Товары в наличии'
+//        }, {
+//            text: 'Инструментарий'
+//        }, {
+//            text: 'Справочники'
+//        }, {
+//            text: 'Платежи'
+//        }, {    
+//            text: 'Депозитирование ставок'
         }];
     }
 });

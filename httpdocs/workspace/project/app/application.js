@@ -8,6 +8,7 @@ Ext.define('Project.Application', {
         'Project.view.Viewport',
         'Project.view.Main',
         'Project.view.ThemeTree',
+        'Project.view.ThemeTreeContextMenu',
         'Project.view.Detail',
         'Project.view.Info',
         'Project.view.StageList',

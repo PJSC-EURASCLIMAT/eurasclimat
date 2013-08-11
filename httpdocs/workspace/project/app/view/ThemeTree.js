@@ -15,20 +15,18 @@ Ext.define('Project.view.ThemeTree', {
     useArrows: true,
     
     scroll: 'vertical',
-    
-    hidden: !acl.isView('projectdev'),
-    
+
     viewConfig: {
         plugins: [{
             ptype: 'treeviewdragdrop', 
-            pluginId: 'project-theme-treeDragDropPlugin', 
+            pluginId: 'project-theme-tree-drag-and-drop-plugin', 
             containerScroll: true
         }]
     },
     
     plugins: [{
         ptype: 'cellediting', 
-        pluginId: 'project-theme-treeCellEditingPlugin'
+        pluginId: 'project-theme-tree-cell-editing-plugin'
     }],
 
     selModel: {
@@ -36,6 +34,20 @@ Ext.define('Project.view.ThemeTree', {
         mode: 'MULTI'
     },
     
+    columns: [{
+        xtype: 'treecolumn',
+        dataIndex: 'name',
+        flex: 1,
+        renderer: function(value, metadata) {
+            metadata.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
+        editor: {
+            xtype: 'textfield',
+            allowBlank: false
+        }
+    }],
+
     initComponent: function() {
         
         this.store = Ext.getStore({
@@ -43,20 +55,7 @@ Ext.define('Project.view.ThemeTree', {
             autoload: true
         });
         
-        this.columns = [{
-            xtype: 'treecolumn',
-            dataIndex: 'name',
-            flex: 1,
-            renderer: function(value, metadata) {
-                metadata.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            },
-            editor: {
-                xtype: 'textfield',
-                allowBlank: false
-            }
-        }]; 
-        
         this.callParent(arguments);
     }
+
 });

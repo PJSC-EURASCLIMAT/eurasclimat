@@ -20,9 +20,13 @@ Ext.define('Project.view.Main', {
             xtype: 'project-theme-tree',
             split: true,  
             region: 'west',
-            width: 170
-        }, 
-        {
+            width: 170,
+            hidden: !acl.isView('projectdev'),
+        }, {
+            xtype: 'project-theme-tree-context-menu',
+            floating: true,
+            hidden: true
+        }, {
             layout: 'border',
             region: 'center',
             border: false,

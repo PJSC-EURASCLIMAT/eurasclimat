@@ -95,4 +95,28 @@ class Sysdev_Projects_Model
         $response->setRow($row);
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
+    
+    public function rename($id, $name) {
+        
+        $response = new Xend_Response();
+        
+        $f = new Xend_Filter_Input(array(
+            'id'        => 'int',
+            'name'      => 'StringTrim'
+        ), array(
+            'id'        => array('id', 'presense' => 'required'),
+            'name'      => array('StringLength', 'presense' => 'required')
+        ), array(
+            'id' => $id,
+            'name' => $name
+        ));
+        
+        $affectedRow = $this->_table->updateByPk(array(
+            'name'  => $name,
+        ), $id);
+        
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+        
+    }
 }

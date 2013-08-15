@@ -152,7 +152,7 @@ Ext.define('Project.controller.ThemeTreeController', {
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
-                    text: '',
+                    name: '',
                     leaf: false
                 });
                 themeTree.getPlugin('project-theme-tree-cell-editing-plugin').startEdit(newNode, 0);
@@ -191,7 +191,7 @@ Ext.define('Project.controller.ThemeTreeController', {
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
-                    text: '',
+                    name: '',
                     leaf: true
                 });
                 themeTree.getPlugin('project-theme-tree-cell-editing-plugin').startEdit(newNode, 0);

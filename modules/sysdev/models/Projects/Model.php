@@ -119,4 +119,79 @@ class Sysdev_Projects_Model
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
         
     }
+    
+    public function getPlain() {
+        
+        $rows = $this->_table->fetchAll()->toArray();
+        
+        foreach ($rows as $index => $row) {
+            
+            $rows[$index]['leaf'] = ($row['leaf'] == 'true');
+            
+        }
+        
+        return $rows;
+        
+    }
+    
+    public function add($leaf)
+    {
+        $response = new Xend_Response();
+
+        try {
+            $id = $this->_table->insert(array(
+                'leaf' => (bool)$leaf
+            ));
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
+        }
+
+        $response->id = $id;
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        
+    }
+    
+    public function update($id, $parentId, $position, $name, $leaf) {
+        
+        $response = new Xend_Response();
+        
+        $leaf = ($leaf === true) ? 'true' : 'false';
+        
+        $f = new Xend_Filter_Input(array(
+            'id'        => 'int',
+            'parent_id' => 'int',
+            'position'  => 'int',
+            'name'      => 'StringTrim',
+            'leaf'      => 'int'
+        ), array(
+            'id'        => array('id', 'presense' => 'required'),
+            'parent_id' => array('id', 'presense' => 'required'),
+            'position'  => array('id', 'presense' => 'required'),
+            'name'      => array('StringLength', 'presense' => 'required'),
+            'leaf'      => array('int', 'presense' => 'required')
+        ), array(
+            'id' => $id,
+            'parent_id' => $parentId,
+            'position'  => $position,
+            'name'      => $name,
+            'leaf'      => $leaf
+        ));
+        
+        $affectedRow = $this->_table->updateByPk(array(
+            'name'  => $name,
+            'parent_id' => $parentId,
+            'position'  => $position,
+            'name'      => $name,
+            'leaf'      => $leaf
+        ), $id);
+
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+        
+    }
+    
 }

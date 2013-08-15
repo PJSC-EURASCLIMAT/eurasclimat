@@ -1,0 +1,1 @@
+ALTER TABLE `main_sysdev_projects` ADD `position` INT NULL COMMENT 'порядковый номер в ветке' AFTER `leaf`;

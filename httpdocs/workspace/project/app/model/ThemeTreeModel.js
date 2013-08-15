@@ -1,6 +1,6 @@
 Ext.define('Project.model.ThemeTreeModel', {
 
-    extend: 'Ext.data.Model',
+    extend: 'Ext.data.TreeModel',
     
     idProperty: 'id',
    

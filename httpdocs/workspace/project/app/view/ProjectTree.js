@@ -1,8 +1,8 @@
-Ext.define('Project.view.ThemeTree', {
+Ext.define('Project.view.ProjectTree', {
 
     extend: 'Ext.tree.Panel',
     
-    alias: 'widget.project-theme-tree',
+    alias: 'widget.project-tree',
     
     require: ['Ext.tree.plugin.TreeViewDragDrop', 'Ext.grid.plugin.CellEditing'],
     
@@ -19,14 +19,14 @@ Ext.define('Project.view.ThemeTree', {
     viewConfig: {
         plugins: [{
             ptype: 'treeviewdragdrop', 
-            pluginId: 'project-theme-tree-drag-and-drop-plugin', 
+            pluginId: 'project-tree-drag-and-drop-plugin', 
             containerScroll: true
         }]
     },
     
     plugins: [{
         ptype: 'cellediting', 
-        pluginId: 'project-theme-tree-cell-editing-plugin'
+        pluginId: 'project-tree-cell-editing-plugin'
     }],
 
     selModel: {
@@ -51,7 +51,7 @@ Ext.define('Project.view.ThemeTree', {
     initComponent: function() {
         
         this.store = Ext.getStore({
-            type: 'project-theme-tree-store',
+            type: 'project-tree-store',
             autoload: true
         });
         

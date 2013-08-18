@@ -1,37 +1,37 @@
-Ext.define('Project.controller.ThemeTreeController', {
+Ext.define('Project.controller.ProjectTreeController', {
     
     extend: 'Ext.app.Controller',
     
     refs: [
-        { ref: 'themeTree', selector: 'project-theme-tree' }, // this.getThemeTree()
-        { ref: 'contextMenu', selector: 'project-theme-tree-context-menu' }, // this.getContextMenu()
-        { ref: 'deleteButton', selector: 'project-theme-tree-context-menu [itemId="delete-button"]' }, // this.getDeleteButton()
-        { ref: 'renameButton', selector: 'project-theme-tree-context-menu [itemId="rename-button"]' }, // this.getRenameButton()
-        { ref: 'createFolderButton', selector: 'project-theme-tree-context-menu [itemId="create-folder-button"]' }, // this.getCreateFolderButton()
-        { ref: 'createReferenceButton', selector: 'project-theme-tree-context-menu [itemId="create-reference-button"]' } // this.getCreateReferenceButton()
+        { ref: 'projectTree', selector: 'project-tree' }, // this.getProjectTree()
+        { ref: 'contextMenu', selector: 'project-tree-context-menu' }, // this.getContextMenu()
+        { ref: 'deleteButton', selector: 'project-tree-context-menu [itemId="delete-button"]' }, // this.getDeleteButton()
+        { ref: 'renameButton', selector: 'project-tree-context-menu [itemId="rename-button"]' }, // this.getRenameButton()
+        { ref: 'createFolderButton', selector: 'project-tree-context-menu [itemId="create-folder-button"]' }, // this.getCreateFolderButton()
+        { ref: 'createReferenceButton', selector: 'project-tree-context-menu [itemId="create-reference-button"]' } // this.getCreateReferenceButton()
     ],
     
     init: function() {
         
         this.listen({
             component: {
-                'project-theme-tree': {
+                'project-tree': {
                     select: this.onSelect,
                     itemcontextmenu: this.onItemContextMenu
                 },
-                'project-theme-tree > treeview': {
+                'project-tree > treeview': {
                     drop: this.onDrop
                 },
-                'project-theme-tree-context-menu [itemId="rename-button"]': {
+                'project-tree-context-menu [itemId="rename-button"]': {
                     click: this.onRenameButtonClick
                 },
-                'project-theme-tree-context-menu [itemId="delete-button"]': {
+                'project-tree-context-menu [itemId="delete-button"]': {
                     click: this.onDeleteButtonClick
                 },
-                'project-theme-tree-context-menu [itemId="create-folder-button"]': {
+                'project-tree-context-menu [itemId="create-folder-button"]': {
                     click: this.onCreateFolderButtonClick
                 },
-                'project-theme-tree-context-menu [itemId="create-reference-button"]': {
+                'project-tree-context-menu [itemId="create-reference-button"]': {
                     click: this.onCreateReferenceButtonClick
                 }
             }
@@ -98,9 +98,9 @@ Ext.define('Project.controller.ThemeTreeController', {
             
     onRenameButtonClick: function(button, event) {
         
-        var themeTree = this.getThemeTree();
+        var projectTree = this.getProjectTree();
         
-        var selectionModel = themeTree.getSelectionModel();
+        var selectionModel = projectTree.getSelectionModel();
         
         if (!selectionModel.hasSelection()) {
             return;
@@ -109,13 +109,13 @@ Ext.define('Project.controller.ThemeTreeController', {
         var selectedNode = selectionModel.getLastSelected();
         selectionModel.deselectAll();
         
-        themeTree.getPlugin('project-theme-tree-cell-editing-plugin').startEdit(selectedNode, 0);
+        projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(selectedNode, 0);
 
     },
             
     onDeleteButtonClick: function(button, event) {
 
-        var selectionModel = this.getThemeTree().getSelectionModel();
+        var selectionModel = this.getProjectTree().getSelectionModel();
         
         if (!selectionModel.hasSelection()) {
             return;
@@ -125,7 +125,7 @@ Ext.define('Project.controller.ThemeTreeController', {
         selectionModel.deselectAll();
         
         selectionModel.select(selectedNode);
-        var message = 'Удалить "' + selectedNode.get('text') + '"?';
+        var message = 'Удалить "' + selectedNode.get('name') + '"?';
         Ext.MessageBox.confirm('Запрос подтверждения', message, function(buttonId) {
             if (buttonId === 'yes') {
                 selectionModel.deselect(selectedNode);
@@ -137,9 +137,9 @@ Ext.define('Project.controller.ThemeTreeController', {
             
     onCreateFolderButtonClick: function(button, event) {
         
-        var themeTree = this.getThemeTree();
+        var projectTree = this.getProjectTree();
         
-        var selectionModel = themeTree.getSelectionModel();
+        var selectionModel = projectTree.getSelectionModel();
         
         if (!selectionModel.hasSelection()) {
             return;
@@ -148,16 +148,16 @@ Ext.define('Project.controller.ThemeTreeController', {
         var selectedNode = selectionModel.getLastSelected();
         selectionModel.deselectAll();
         
-        var createBranch = (function(themeTree, selectedNode) { 
+        var createBranch = (function(projectTree, selectedNode) { 
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
                     name: '',
                     leaf: false
                 });
-                themeTree.getPlugin('project-theme-tree-cell-editing-plugin').startEdit(newNode, 0);
+                projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(newNode, 0);
             }
-        })(themeTree, selectedNode);
+        })(projectTree, selectedNode);
 
         if (selectedNode.isExpanded()) {
 
@@ -165,7 +165,7 @@ Ext.define('Project.controller.ThemeTreeController', {
 
         } else {
 
-            this.mon(themeTree.getView(), 'afteritemexpand', function(node, index, item, eOpts) {
+            this.mon(projectTree.getView(), 'afteritemexpand', function(node, index, item, eOpts) {
                 createBranch();
             }, this, {single: true});
             selectedNode.expand();
@@ -176,9 +176,9 @@ Ext.define('Project.controller.ThemeTreeController', {
             
     onCreateReferenceButtonClick: function(button, event) {
         
-        var themeTree = this.getThemeTree();
+        var projectTree = this.getProjectTree();
         
-        var selectionModel = themeTree.getSelectionModel();
+        var selectionModel = projectTree.getSelectionModel();
         
         if (!selectionModel.hasSelection()) {
             return;
@@ -187,16 +187,16 @@ Ext.define('Project.controller.ThemeTreeController', {
         var selectedNode = selectionModel.getLastSelected();
         selectionModel.deselectAll();
 
-        var createLeaf = (function(themeTree, selectedNode) { 
+        var createLeaf = (function(projectTree, selectedNode) { 
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
                     name: '',
                     leaf: true
                 });
-                themeTree.getPlugin('project-theme-tree-cell-editing-plugin').startEdit(newNode, 0);
+                projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(newNode, 0);
             }
-        })(themeTree, selectedNode);
+        })(projectTree, selectedNode);
 
         if (selectedNode.isExpanded()) {
 
@@ -204,7 +204,7 @@ Ext.define('Project.controller.ThemeTreeController', {
 
         } else {
 
-            this.mon(themeTree.getView(), 'afteritemexpand', function(node, index, item, eOpts) {
+            this.mon(projectTree.getView(), 'afteritemexpand', function(node, index, item, eOpts) {
                 createLeaf();
             }, this, {single: true});
             selectedNode.expand();
@@ -221,12 +221,15 @@ Ext.define('Project.controller.ThemeTreeController', {
         Ext.Array.each(data.records, function(record) {
             movedIds.push(record.get('id'));
         });
-
-//        Ext.remote.Menu.updatePositions(
-//            targetId,
-//            movedIds,
-//            dropPosition
-//        );
+        
+        Ext.Ajax.request({
+            url: '/json/sysdev/projects/move',
+            params: {
+                targetId: targetId,
+                movedIds: movedIds,
+                position: dropPosition
+            }
+        });
         
     }
     

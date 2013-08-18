@@ -1,4 +1,4 @@
-Ext.define('Project.model.ThemeTreeModel', {
+Ext.define('Project.model.ProjectTreeModel', {
 
     extend: 'Ext.data.TreeModel',
     

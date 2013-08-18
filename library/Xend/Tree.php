@@ -34,14 +34,24 @@ class Xend_Tree {
         
         $this->row = $myRow;
 
+        $positions = array();
+        
         foreach ($rows as $index => $row) {
 
             if ($row['parent_id'] == $myRow['id']) {
 
+                $positions[] = $row['position'];
                 $this->children[] = new self($rows, $row);
 
             }
 
+        }
+        
+        if (is_array($this->children)) {
+            
+            array_multisort($positions, SORT_NUMERIC, $this->children);
+            $this->orderChildren(); // на случай, если в нумерации есть пропуски
+            
         }
 
     }
@@ -56,8 +66,12 @@ class Xend_Tree {
 
             $array['children'] = array();
             
+            $positions = array();
+            
             foreach ($this->children as $child) {
+
                 $array['children'][] = $child->toArray();
+                
             }
             
         }
@@ -164,11 +178,20 @@ class Xend_Tree {
             throw new Doctor_Service_TreeMaker_Exception('Невозможно удалить корневой узел');
             
         }
+        
+        $removedNodeIds = array();
 
         if ($node === $this) { // находимся в удаляемом узле
 
             $this->row['parent_id'] = -1;
-            return true;
+            
+            $removedNodeIds = array();
+            $rows = $this->toFlatArray();
+            foreach ($rows as $row) {
+                $removedNodeIds[] = $row['id'];
+            }
+            
+            return $removedNodeIds;
             
         }
 
@@ -176,23 +199,23 @@ class Xend_Tree {
 
             foreach ($this->children as $index => $child) {
                 
-                $done = $child->removeNode($node);
+                $removedNodeIds = $child->removeNode($node);
                 
-                if ($done) {
+                if (!empty($removedNodeIds)) {
                     
                     if ($node === $child) { // находимся в родительском узле удаляемого узла
                         array_splice($this->children, $index, 1);
                         $this->orderChildren();
                     }
                     
-                    return true;
+                    return $removedNodeIds;
                 }
                 
             }
             
         }
 
-        return false;
+        return $removedNodeIds;
         
     }
     
@@ -233,18 +256,18 @@ class Xend_Tree {
         
     }
     
-    public function insertBefore(DXend_Tree $targetNode, array $nodes) {
+    public function insertBefore(Xend_Tree $targetNode, array $nodes) {
 
         if (is_array($this->children)) {
             
             foreach ($this->children as $index => $child) {
 
-                if ($targetNode === $child) {
+                if ($targetNode === $child) { // находимся в родительском узле
 
                     foreach ($nodes as $node) {
                         $this->checkType($node);
                     }
-                    
+
                     array_splice($this->children, $index, 0, $nodes);
 
                     $this->orderChildren();
@@ -304,14 +327,7 @@ class Xend_Tree {
         return false;
         
     }
-    
-    private function joinParent($parentId, $orderNumber) {
 
-        $this->row['parent_id'] = $parentId;
-        $this->row['position'] = $orderNumber;
-        
-    }
-    
     private function checkType(Xend_Tree $node) {}
     
     private function isRootNode() {
@@ -332,5 +348,11 @@ class Xend_Tree {
         
     }
     
-    
+    private function joinParent($parentId, $orderNumber) {
+
+        $this->row['parent_id'] = $parentId;
+        $this->row['position'] = $orderNumber;
+        
+    }
+
 }

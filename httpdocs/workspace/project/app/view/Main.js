@@ -17,13 +17,13 @@ Ext.define('Project.view.Main', {
     
     items: [
         {
-            xtype: 'project-theme-tree',
+            xtype: 'project-tree',
             split: true,  
             region: 'west',
             width: 170,
             hidden: !acl.isView('projectdev'),
         }, {
-            xtype: 'project-theme-tree-context-menu',
+            xtype: 'project-tree-context-menu',
             floating: true,
             hidden: true
         }, {

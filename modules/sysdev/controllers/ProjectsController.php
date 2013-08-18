@@ -22,92 +22,224 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projectdev);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-tree');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'rename');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'move');
     }
 
     public function getTreeAction()
     {
-        $response = $this->_model->fetchBranch(0);
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $rows = $response->getRowset();
-            $this->view->assign(array('children' => $rows));
-        } else {
-            $this->_collectErrors($response);
+        
+        // инициализация ответа
+        $response = new Xend_Response();
+        
+        try {
+            
+            // извлекаем ветвь дерева
+            $branch = $this->_model->fetchBranch();
+            
         }
+        catch(Exception $e) {
+
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
+        }
+
+        // определяем параметры представления
+        $this->view->success = true;
+        $this->view->children = $branch['children'];
+        
+        // возвращаем ответ
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
     }
     
     public function createAction()
     {
 
+        // инициализация ответа
+        $response = new Xend_Response();
+        
+        // получаем параметры запроса
         $data = Zend_Json::decode($this->_getParam('data'));
         
-        // если приходит массив, отказываемся выполнять операцию сразу на нескольких узлах
-        if (!array_key_exists('leaf', $data)) {
+        // проверяем параметры запроса на валидность
+        $filter = new Xend_Filter_Input(array(
+            'parentId' => 'int',
+            //'leaf'      => 'int'
+        ), array(
+            'parentId' => array('id', 'presense' => 'required'),
+            //'leaf'      => array('int', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
             $this->view->success = false;
-            return;
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких новых узлов
+        }
+        
+        $isLeaf = (bool)$data['leaf']; // определяется автоматически в ExtJs
+        $parentId = (int)$data['parentId']; // определяется автоматически в ExtJs
+
+        try {
+            
+            // создаём дочерний узел
+            $childNode = $this->_model->add($parentId, $isLeaf);
+            
+        }
+        catch(Exception $e) {
+
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
         }
 
-        $treeRows = $this->_model->getPlain();
 
-        $tree = new Xend_Tree($treeRows);
-
-        $parentNode = $tree->findNodeById($data['parentId']); // значение parentId устанавливается автоматически Ext.data.TreeStore
-
-        $addChildResponse = $this->_model->add($data['leaf']); // значение leaf устанавливается автоматически Ext.data.TreeStore
-
-        $childId = $addChildResponse->getDataCollection()->toArray();
-        $childId = $childId['id'];
-        
-        $rows = array(array(
-            'id' => $childId,
-            'parent_id' => null,
-            'position' => null,
-            'name' => $data['name'],
-            'leaf' => $data['leaf']
-        ));
-        $subTree = new Xend_Tree($rows);
-        $childNode = $subTree->findNodeById($childId);
-
-        $tree->append($parentNode, array($childNode));
-
-        $this->saveMenuTree($tree);
-
-        $this->view->children = $childNode->toFlatArray();
+        // определяем параметры представления
+        $this->view->children = $childNode;
         $this->view->success = true;
+        
+        // возвращаем ответ
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
     }
 
-    public function updateAction()
+    public function renameAction()
     {
         
+        // инициализация ответа
+        $response = new Xend_Response();
+        
+        // получаем параметры запроса
         $data = Zend_Json::decode($this->_getParam('data'));
         
-        $success = $this->_model->rename($data['id'], $data['name']);
+        // проверяем параметры запроса на валидность
+        $filter = new Xend_Filter_Input(array(
+            'id'    => 'int'
+        ), array(
+            'id' => array('id', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            $this->view->success = false;
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких узлов
+        }
         
+        $id = (int)$data['id'];
+        $name = (string)$data['name'];
+        
+        try {
+            
+            // переименовываем узел
+            $this->_model->rename($id, $name);
+            
+        }
+        catch (Exception $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
+        }
+        
+        // определяем параметры представления
         $this->view->success = true;
+        
+        // возвращаем ответ
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
     }
 
     public function deleteAction()
     {
         
-    }
-    
-    private function saveMenuTree(Xend_Tree $tree) 
-    {
+        // инициализация ответа
+        $response = new Xend_Response();
         
-        foreach ($tree->toFlatArray() as $row) {
-
-            $this->_model->update(
-                $row['id'], 
-                $row['parent_id'], 
-                $row['position'], 
-                $row['name'],
-                $row['leaf']
-            );
+        // получаем параметры запроса
+        $data = Zend_Json::decode($this->_getParam('data'));
+        
+        // проверяем параметры запроса на валидность
+        $filter = new Xend_Filter_Input(array(
+            'id'    => 'int'
+        ), array(
+            'id' => array('id', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            $this->view->success = false;
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких узлов
+        }
+        
+        $id = (int)$data['id'];
+        
+        try {
+            
+            // переименовываем узел
+            $this->_model->delete($id);
             
         }
+        catch (Exception $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
+        }
+        
+        // определяем параметры представления
+        $this->view->success = true;
+        
+        // возвращаем ответ
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        
+    }
+    
+    public function moveAction() {
+        
+        // инициализация ответа
+        $response = new Xend_Response();
+
+        // получаем параметры запроса
+        $targetId = (int)$this->_getParam('targetId');
+        $position = (string)$this->_getParam('position');
+        $movedIds = (array)$this->_getParam('movedIds');
+        foreach ($movedIds as $index => $movedId) {
+            $movedIds[$index] = (int)$movedId;
+        }
+
+        // проверяем параметры запроса на валидность
+        if (!in_array($position, array('before', 'after', 'append'))) {
+            
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
+            
+        }
+    
+        try {
+            
+            // перемещаем узлы
+            $this->_model->move($targetId, $movedIds, $position);
+
+        }
+        catch (Exception $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
+        }
+
+        // определяем параметры представления
+        $this->view->success = true;
+        
+        // возвращаем ответ
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
         
     }
 

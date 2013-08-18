@@ -7,8 +7,8 @@ Ext.define('Project.Application', {
     views: [
         'Project.view.Viewport',
         'Project.view.Main',
-        'Project.view.ThemeTree',
-        'Project.view.ThemeTreeContextMenu',
+        'Project.view.ProjectTree',
+        'Project.view.ProjectTreeContextMenu',
         'Project.view.Detail',
         'Project.view.Info',
         'Project.view.StageList',
@@ -18,7 +18,7 @@ Ext.define('Project.Application', {
     ],
 
     controllers: [
-        'Project.controller.ThemeTreeController',
+        'Project.controller.ProjectTreeController',
         'Project.controller.DetailController',
         'Project.controller.InfoController',
         'Project.controller.StageListController',
@@ -28,7 +28,7 @@ Ext.define('Project.Application', {
     ],
     
     models: [
-        'Project.model.ThemeTreeModel',
+        'Project.model.ProjectTreeModel',
         'Project.model.StageModel',
         'Project.model.DocModel',
         'Project.model.StageChartModel',
@@ -37,7 +37,7 @@ Ext.define('Project.Application', {
     ],
 
     stores: [
-        'Project.store.ThemeTreeStore',
+        'Project.store.ProjectTreeStore',
         'Project.store.StageStore',
         'Project.store.DocStore',
         'Project.store.StageChartStore',

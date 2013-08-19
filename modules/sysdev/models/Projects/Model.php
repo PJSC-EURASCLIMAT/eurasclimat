@@ -103,9 +103,18 @@ class Sysdev_Projects_Model
     public function delete($id) {
         
         $tree = $this->fetchTree();
-        
+
         $removedNode = $tree->findNodeById($id);
         
+        if ($removedNode->hasChildren()) {
+            throw new  ProjectsWithSubprojectsCanNotBeDeleted();
+        }
+
+        $depth = $tree->getDepth($removedNode);
+        if ($depth <= 1) {
+            throw new Sysdev_Projects_TopLevelProjectCanNotBeDeleted();
+        }
+
         $removedNodeIds = $tree->removeNode($removedNode);
 
         foreach ($removedNodeIds as $removedNodeId) {
@@ -135,6 +144,12 @@ class Sysdev_Projects_Model
         foreach ($movedIds as $movedId) {
             
             $movedNode = $tree->findNodeById($movedId);
+            
+            $depth = $tree->getDepth($movedNode);
+
+            if ($depth <= 1) {
+                throw new Sysdev_Projects_TopLevelProjectCanNotBeMoved();
+            }
 
             $movedNodes[] = $movedNode;
             

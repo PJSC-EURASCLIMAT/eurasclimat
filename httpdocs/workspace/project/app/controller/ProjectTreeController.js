@@ -17,10 +17,12 @@ Ext.define('Project.controller.ProjectTreeController', {
             component: {
                 'project-tree': {
                     select: this.onSelect,
-                    itemcontextmenu: this.onItemContextMenu
+                    itemcontextmenu: this.onItemContextMenu,
+                    containercontextmenu: this.onTreeClick
                 },
                 'project-tree > treeview': {
-                    drop: this.onDrop
+                    drop: this.onDrop,
+                    beforedrop: this.beforeDrop
                 },
                 'project-tree-context-menu [itemId="rename-button"]': {
                     click: this.onRenameButtonClick
@@ -72,23 +74,12 @@ Ext.define('Project.controller.ProjectTreeController', {
             createFolderButton.hide();
             createReferenceButton.hide();
             
-        } else {
-            
-            if (record.get('id') == 0) { // главная ветвь
+        } else { // ответвление
                 
-                renameButton.hide();
-                deleteButton.hide();
-                createFolderButton.show();
-                createReferenceButton.show();
-                
-            } else { // ответвление
-                
-                renameButton.show();
-                deleteButton.show();
-                createFolderButton.show();
-                createReferenceButton.show();
-                
-            }
+            renameButton.show();
+            deleteButton.show();
+            createFolderButton.show();
+            createReferenceButton.show();
             
         }
 
@@ -122,10 +113,39 @@ Ext.define('Project.controller.ProjectTreeController', {
         }
         
         var selectedNode = selectionModel.getLastSelected();
+        
+        // запрещаем удалять узлы верхнего уровня
+        if (selectedNode.getDepth() <= 1) {
+            Ext.Msg.show({
+                 title:'Внимание',
+                 msg: 'Удаление невозможно',
+                 buttons: Ext.Msg.OK,
+                 icon: Ext.Msg.WARNING
+            });
+            return;
+        }
+        
+        // запрещаем удалять узлы, у которых есть дочерние узлы
+        if (selectedNode.hasChildNodes()) {
+            Ext.Msg.show({
+                 title:'Внимание',
+                 msg: 'Удалите сначала дочерние узлы',
+                 buttons: Ext.Msg.OK,
+                 icon: Ext.Msg.WARNING
+            });
+            return;
+        }
+        
         selectionModel.deselectAll();
         
         selectionModel.select(selectedNode);
-        var message = 'Удалить "' + selectedNode.get('name') + '"?';
+        
+        var message = 'Удалить "' + selectedNode.get('name') + '"';
+        if (selectedNode.hasChildNodes()) {
+            message += ' и все вложенные элементы';
+        }
+        message += '?';
+        
         Ext.MessageBox.confirm('Запрос подтверждения', message, function(buttonId) {
             if (buttonId === 'yes') {
                 selectionModel.deselect(selectedNode);
@@ -141,11 +161,8 @@ Ext.define('Project.controller.ProjectTreeController', {
         
         var selectionModel = projectTree.getSelectionModel();
         
-        if (!selectionModel.hasSelection()) {
-            return;
-        }
-        
-        var selectedNode = selectionModel.getLastSelected();
+        var selectedNode = selectionModel.hasSelection() ? selectionModel.getLastSelected() : projectTree.getRootNode();
+
         selectionModel.deselectAll();
         
         var createBranch = (function(projectTree, selectedNode) { 
@@ -213,15 +230,43 @@ Ext.define('Project.controller.ProjectTreeController', {
         
     },
             
+    beforeDrop: function(node, data, overModel, dropPosition, dropHandlers) {
+
+        // запрещаем перемещать узлы верхнего уровня
+
+        var failed = false;
+        
+        Ext.Array.each(data.records, function(record) {
+
+            if (record.getDepth() <= 1) {
+                failed = true;
+            }
+            
+        });
+
+        if (failed) {
+            Ext.Msg.show({
+                 title:'Внимание',
+                 msg: 'Перемещение невозможно',
+                 buttons: Ext.Msg.OK,
+                 icon: Ext.Msg.WARNING
+            });
+            return false;
+        }
+
+    },
+            
     onDrop: function(node, data, overModel, dropPosition, dropHandler) {
         
         var targetId = overModel.get('id');
         
         var movedIds = [];
         Ext.Array.each(data.records, function(record) {
+
             movedIds.push(record.get('id'));
+            
         });
-        
+
         Ext.Ajax.request({
             url: '/json/sysdev/projects/move',
             params: {
@@ -230,6 +275,28 @@ Ext.define('Project.controller.ProjectTreeController', {
                 position: dropPosition
             }
         });
+        
+    },
+            
+    onTreeClick: function(treeview, e) {
+
+        e.stopEvent();
+        
+        this.getProjectTree().getSelectionModel().deselectAll();
+
+        var contextMenu = this.getContextMenu();
+        var renameButton = this.getRenameButton();
+        var deleteButton = this.getDeleteButton();
+        var createFolderButton = this.getCreateFolderButton();
+        var createReferenceButton = this.getCreateReferenceButton();
+
+        // главная ветвь
+        renameButton.hide();
+        deleteButton.hide();
+        createFolderButton.show();
+        createReferenceButton.show();
+
+        contextMenu.showAt(e.getXY());
         
     }
     

@@ -70,7 +70,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
             'parentId' => 'int',
             //'leaf'      => 'int'
         ), array(
-            'parentId' => array('id', 'presense' => 'required'),
+            'parentId' => array('int', 'presense' => 'required'),
             //'leaf'      => array('int', 'presense' => 'required')
         ), $data);
         $response->addInputStatus($filter);
@@ -81,7 +81,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         }
         
         $isLeaf = (bool)$data['leaf']; // определяется автоматически в ExtJs
-        $parentId = (int)$data['parentId']; // определяется автоматически в ExtJs
+        $parentId = (int)$data['parentId']; // определяется автоматически в ExtJs, для корневого узла - 0
 
         try {
             
@@ -156,7 +156,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
 
     public function deleteAction()
     {
-        
+
         // инициализация ответа
         $response = new Xend_Response();
         
@@ -179,9 +179,23 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $id = (int)$data['id'];
         
         try {
-            
+
             // переименовываем узел
             $this->_model->delete($id);
+            
+        }
+        catch (ProjectsWithSubprojectsCanNotBeDeleted $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
+        }
+        catch (Sysdev_Projects_TopLevelProjectCanNotBeDeleted $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             
         }
         catch (Exception $e) {
@@ -226,6 +240,13 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
             // перемещаем узлы
             $this->_model->move($targetId, $movedIds, $position);
 
+        }
+        catch (Sysdev_Projects_TopLevelProjectCanNotBeDeleted $e) {
+            
+            // сообщаем о проблеме в общем виде
+            $this->view->success = false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            
         }
         catch (Exception $e) {
             

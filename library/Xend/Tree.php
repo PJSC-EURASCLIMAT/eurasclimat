@@ -97,7 +97,7 @@ class Xend_Tree {
         return $flatArray;
         
     }
-    
+
     public function findNodeById($id = null) {
 
         if (empty($id) && $this->isRootNode()) {
@@ -127,6 +127,39 @@ class Xend_Tree {
         }
         
         return null;
+        
+    }
+    
+    public function getDepth(Xend_Tree $node, $depth = null) {
+
+        if ($this === $node) {
+
+            return $depth;
+            
+        }
+
+        if (is_array($this->children)) {
+
+            foreach ($this->children as $index => $child) {
+                
+                $childDepth = $child->getDepth($node, $depth + 1);
+
+                if (!is_null($childDepth)) {
+                    return $childDepth;
+                }
+                
+            }
+
+        }
+        
+        
+        return null;
+        
+    }
+    
+    public function hasChildren() {
+        
+        return is_array($this->children) && !empty($this->children);
         
     }
     

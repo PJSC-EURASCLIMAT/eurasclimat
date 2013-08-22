@@ -16,10 +16,10 @@ class Sysdev_Projects_Model
 
     /**
      *
-     * @param int $nodeId
+     * @param array $data
      * @return Xend_Response
      */
-    public function fetchBranch($nodeId = null)
+    public function fetchBranch(array $data = array())
     {
 
         $response = new Xend_Response();

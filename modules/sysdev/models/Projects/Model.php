@@ -23,6 +23,12 @@ class Sysdev_Projects_Model
     {
 
         $response = new Xend_Response();
+        
+        if (array_key_exists('id', $data)) {
+            $nodeId = $data['id'];
+        } else {
+            $nodeId = null;
+        }
 
         try {
 

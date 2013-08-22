@@ -18,7 +18,8 @@ Ext.define('Project.controller.ProjectTreeController', {
                 'project-tree': {
                     select: this.onSelect,
                     itemcontextmenu: this.onItemContextMenu,
-                    containercontextmenu: this.onTreeClick
+                    containercontextmenu: this.onTreeClick,
+                    'project-tree-context-menu-requested': this.showContextMenu
                 },
                 'project-tree > treeview': {
                     drop: this.onDrop,
@@ -61,6 +62,12 @@ Ext.define('Project.controller.ProjectTreeController', {
 
         e.stopEvent();
 
+        this.showContextMenu(record, e.getXY());
+        
+    },
+            
+    showContextMenu: function(record, position) {
+
         var contextMenu = this.getContextMenu();
         var renameButton = this.getRenameButton();
         var deleteButton = this.getDeleteButton();
@@ -82,9 +89,9 @@ Ext.define('Project.controller.ProjectTreeController', {
             createReferenceButton.show();
             
         }
-
-        contextMenu.showAt(e.getXY());
         
+        contextMenu.showAt(position);
+
     },
             
     onRenameButtonClick: function(button, event) {
@@ -98,7 +105,10 @@ Ext.define('Project.controller.ProjectTreeController', {
         }
         
         var selectedNode = selectionModel.getLastSelected();
-        selectionModel.deselectAll();
+        
+        if (selectionModel.getCount() > 1) {
+            selectionModel.deselectAll();
+        }
         
         projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(selectedNode, 0);
 

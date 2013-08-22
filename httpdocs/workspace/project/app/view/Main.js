@@ -20,7 +20,7 @@ Ext.define('Project.view.Main', {
             xtype: 'project-tree',
             split: true,  
             region: 'west',
-            width: 170,
+            width: 200,
             hidden: !acl.isView('projectdev'),
         }, {
             xtype: 'project-tree-context-menu',

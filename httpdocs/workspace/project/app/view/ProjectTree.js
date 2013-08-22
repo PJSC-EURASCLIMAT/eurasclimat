@@ -34,19 +34,36 @@ Ext.define('Project.view.ProjectTree', {
         mode: 'MULTI'
     },
     
-    columns: [{
-        xtype: 'treecolumn',
-        dataIndex: 'name',
-        flex: 1,
-        renderer: function(value, metadata) {
-            metadata.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-        editor: {
-            xtype: 'textfield',
-            allowBlank: false
+    columns: [
+        {
+            xtype: 'treecolumn',
+            dataIndex: 'name',
+            flex: 1,
+            renderer: function(value, metadata) {
+                metadata.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+            editor: {
+                xtype: 'textfield',
+                allowBlank: false
+            }
+        }, {
+            xtype:'actioncolumn',
+            width: 20,
+            items: [{     
+                text: 'Переименовать',
+                icon: '/images/icons/fam/cog.png',
+                handler: function(treeView, rowIndex, u, button, event, record, rowEl) {
+                    var tree = treeView.ownerCt;
+                    var selectionModel = tree.getSelectionModel();
+                    if (!selectionModel.isSelected(record)) {
+                        selectionModel.select(record);
+                    }
+                    tree.fireEvent('project-tree-context-menu-requested', record, event.getXY());
+                }
+            }]
         }
-    }],
+    ],
 
     initComponent: function() {
         

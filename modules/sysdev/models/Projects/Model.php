@@ -14,64 +14,67 @@ class Sysdev_Projects_Model
         $this->_table = new Sysdev_Projects_Table();
     }
 
-
-
     /**
      *
      * @param int $nodeId
-     * @return array
+     * @return Xend_Response
      */
     public function fetchBranch($nodeId = null)
     {
-        // инициализация ответа
+
         $response = new Xend_Response();
 
         try {
 
-            $tree = $this->fetchTree();
-            $data = $tree->findNodeById($nodeId)->toArray();
+            $data = $this->_fetchNodeBranch($nodeId);
             $response->setRowset($data['children']);
             return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
         } catch (Exception $e) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
+        
     }
 
     /**
      *
-     * @param int $parentId
-     * @param bool $isLeaf
-     * @return array
+     * @param array $data
+     * @return Xend_Response
      */
-    public function add($parentId, $isLeaf) {
+    public function add(array $data) 
+    {
 
-        $tree = $this->fetchTree();
+        $response = new Xend_Response();
+        
+        // проверяем параметры запроса на валидность
+        $filter = new Xend_Filter_Input(array(
+            'parentId' => 'int',
+            //'leaf'      => 'int'
+        ), array(
+            'parentId' => array('int', 'presense' => 'required'),
+            //'leaf'      => array('int', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких новых узлов
+        }
+        
+        $isLeaf = (bool)$data['leaf']; // определяется автоматически в ExtJs
+        $parentId = (int)$data['parentId']; // определяется автоматически в ExtJs, для корневого узла - 0
 
-        $parentNode = $tree->findNodeById($parentId);
 
-        $childId = $this->_table->insert(array(
-            'leaf' => $isLeaf
-        ));
+        try {
 
-        $rows = array(array(
-            'id' => $childId,
-            'parent_id' => null,
-            'position' => null,
-            'name' => '',
-            'leaf' => $isLeaf
-        ));
-        $subTree = new Xend_Tree($rows); // передача параметра по ссылке
-        $childNode = $subTree->findNodeById($childId);
+            $data = $this->_addNewNode($parentId, $isLeaf);
+            $response->setRowset($data);
+            return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
-        $tree->append($parentNode, array($childNode));
-
-        $this->saveMenuTree($tree);
-
-        return $childNode->toFlatArray();
+        } catch (Exception $e) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
 
     }
-
 
     public function getInfo($id)
     {
@@ -100,92 +103,105 @@ class Sysdev_Projects_Model
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
-    public function rename($id, $name) {
+    /**
+     *
+     * @param array $data
+     * @return Xend_Response
+     */
+    public function rename(array $data) {
 
-        $affectedRow = $this->_table->updateByPk(array(
-            'name'  => $name,
-        ), $id);
+        $response = new Xend_Response();
 
-    }
-
-    public function delete($id) {
-
-        $tree = $this->fetchTree();
-
-        $removedNode = $tree->findNodeById($id);
-
-        if ($removedNode->hasChildren()) {
-            throw new  ProjectsWithSubprojectsCanNotBeDeleted();
+        $filter = new Xend_Filter_Input(array(
+            'id'    => 'int'
+        ), array(
+            'id' => array('id', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких узлов
         }
+        
+        $id = (int)$data['id'];
+        $name = (string)$data['name'];
+        
+        try {
 
-        $depth = $tree->getDepth($removedNode);
-        if ($depth <= 1) {
-            throw new Sysdev_Projects_TopLevelProjectCanNotBeDeleted();
+            $this->_renameNode($id, $name);
+            return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
+        } catch (Exception $e) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-
-        $removedNodeIds = $tree->removeNode($removedNode);
-
-        foreach ($removedNodeIds as $removedNodeId) {
-
-            $this->_table->delete('id = '.$removedNodeId);
-
-        }
-
-        $this->saveMenuTree($tree);
 
     }
 
     /**
      *
-     * @param integer $targetId
-     * @param integer[] $movedIds
-     * @param string $position "before", "after" или "append"
+     * @param array $data
+     * @return Xend_Response
      */
-    public function move($targetId, array $movedIds, $position) {
+    public function delete(array $data) {
 
-        $tree = $this->fetchTree();
+        $response = new Xend_Response();
+        
+        $filter = new Xend_Filter_Input(array(
+            'id'    => 'int'
+        ), array(
+            'id' => array('id', 'presense' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких узлов
+        }
+        
+        $id = (int)$data['id'];
+        
+        try {
 
-        $targetNode = $tree->findNodeById($targetId);
+            $this->_deleteNode($id);
+            return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
-        $movedNodes = array();
-
-        foreach ($movedIds as $movedId) {
-
-            $movedNode = $tree->findNodeById($movedId);
-
-            $depth = $tree->getDepth($movedNode);
-
-            if ($depth <= 1) {
-                throw new Sysdev_Projects_TopLevelProjectCanNotBeMoved();
-            }
-
-            $movedNodes[] = $movedNode;
-
+        } catch (Exception $e) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
 
-        foreach ($movedNodes as $movedNode) {
+    }
 
-            $tree->removeNode($movedNode);
+    /**
+     *
+     * @param array $data
+     * @return Xend_Response
+     */
+    public function move(array $data) {
 
+        $response = new Xend_Response();
+        
+        $targetId = (int)$data['targetId'];
+        $position = (string)$data['position'];
+        $movedIds = (array)$data['movedIds'];
+        foreach ($movedIds as $index => $movedId) {
+            $movedIds[$index] = (int)$movedId;
         }
 
-        switch ($position) {
-            case 'before':
-                $tree->insertBefore($targetNode, $movedNodes);
-                break;
-            case 'after':
-                $tree->insertAfter($targetNode, $movedNodes);
-                break;
-            case 'append':
-                $tree->append($targetNode, $movedNodes);
-                break;
-            default:
-                throw new Exception('Неизвестное расположение: ' . $position);
-                break;
+        // проверяем параметры запроса на валидность
+        if (!in_array($position, array('before', 'after', 'append'))) {
+            
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
+            
         }
+        
+        try {
 
-        $this->saveMenuTree($tree);
+            $this->_moveNode($targetId, $movedIds, $position);
+            return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
+        } catch (Exception $e) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+        
     }
 
     private function update_OldVersion($id, $parentId, $position, $name, $leaf) {
@@ -227,12 +243,167 @@ class Sysdev_Projects_Model
 
     }
 
+
+    
+    
+    
+    
     /**
-     *
+     * извлекает ветку
+     * @param int $nodeId
+     * @return array
+     */
+    private function _fetchNodeBranch($nodeId = null)
+    {
+        
+        $tree = $this->_fetchTree();
+        
+        return $tree->findNodeById($nodeId)->toArray();
+
+    }
+    
+    /**
+     * добавляет новый узел
+     * @param int $parentId
+     * @param bool $isLeaf
+     * @return array
+     */
+    private function _addNewNode($parentId, $isLeaf) 
+    {
+        
+        $tree = $this->_fetchTree();
+
+        $parentNode = $tree->findNodeById($parentId);
+
+        $childId = $this->_table->insert(array(
+            'leaf' => $isLeaf
+        ));
+
+        $rows = array(array(
+            'id' => $childId,
+            'parent_id' => null,
+            'position' => null,
+            'name' => '',
+            'leaf' => $isLeaf
+        ));
+        $subTree = new Xend_Tree($rows); // передача параметра по ссылке
+        $childNode = $subTree->findNodeById($childId);
+
+        $tree->append($parentNode, array($childNode));
+
+        $this->_saveTree($tree);
+
+        return $childNode->toFlatArray();
+        
+    }
+    
+    /**
+     * переименовывает узел
+     * @param int $id
+     * @param str $name
+     */
+    public function _renameNode($id, $name) 
+    {
+
+        $affectedRow = $this->_table->updateByPk(array(
+            'name'  => $name,
+        ), $id);
+
+    }
+    
+    /**
+     * удаляет узел дерева
+     * @param int $id
+     * @return void
+     */
+    public function _deleteNode($id) 
+    {
+
+        $tree = $this->_fetchTree();
+
+        $removedNode = $tree->findNodeById($id);
+
+        if ($removedNode->hasChildren()) {
+            throw new  ProjectsWithSubprojectsCanNotBeDeleted();
+        }
+
+        $depth = $tree->getDepth($removedNode);
+        if ($depth <= 1) {
+            throw new Sysdev_Projects_TopLevelProjectCanNotBeDeleted();
+        }
+
+        $removedNodeIds = $tree->removeNode($removedNode);
+
+        foreach ($removedNodeIds as $removedNodeId) {
+
+            $this->_table->delete('id = '.$removedNodeId);
+
+        }
+
+        $this->_saveTree($tree);
+
+    }
+    
+    /**
+     * перемещает узлы по дереву
+     * @param integer $targetId
+     * @param integer[] $movedIds
+     * @param string $position "before", "after" или "append"
+     */
+    public function _moveNode($targetId, array $movedIds, $position) 
+    {
+
+        $tree = $this->_fetchTree();
+
+        $targetNode = $tree->findNodeById($targetId);
+
+        $movedNodes = array();
+
+        foreach ($movedIds as $movedId) {
+
+            $movedNode = $tree->findNodeById($movedId);
+
+            $depth = $tree->getDepth($movedNode);
+
+            if ($depth <= 1) {
+                throw new Sysdev_Projects_TopLevelProjectCanNotBeMoved();
+            }
+
+            $movedNodes[] = $movedNode;
+
+        }
+
+        foreach ($movedNodes as $movedNode) {
+
+            $tree->removeNode($movedNode);
+
+        }
+
+        switch ($position) {
+            case 'before':
+                $tree->insertBefore($targetNode, $movedNodes);
+                break;
+            case 'after':
+                $tree->insertAfter($targetNode, $movedNodes);
+                break;
+            case 'append':
+                $tree->append($targetNode, $movedNodes);
+                break;
+            default:
+                throw new Exception('Неизвестное расположение: ' . $position);
+                break;
+        }
+
+        $this->_saveTree($tree);
+
+    }
+
+    /**
+     * извлекает всё дерево или его часть
      * @param int $nodeId
      * @return \Xend_Tree
      */
-    private function fetchTree($nodeId = null)
+    private function _fetchTree($nodeId = null)
     {
 
         $rows = $this->_table->fetchAll()->toArray();
@@ -249,7 +420,11 @@ class Sysdev_Projects_Model
 
     }
 
-    private function saveMenuTree(Xend_Tree $tree)
+    /**
+     * сохраняет все узлы дерева
+     * @param Xend_Tree $tree
+     */
+    private function _saveTree(Xend_Tree $tree)
     {
 
         foreach ($tree->toFlatArray() as $row) {
@@ -264,5 +439,5 @@ class Sysdev_Projects_Model
         }
 
     }
-
+    
 }

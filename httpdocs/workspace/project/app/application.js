@@ -7,24 +7,40 @@ Ext.define('Project.Application', {
     views: [
         'Project.view.Viewport',
         'Project.view.Main',
-        'Project.view.ProjectTree',
-        'Project.view.ProjectTreeContextMenu',
-        'Project.view.Detail',
-        'Project.view.Info',
-        'Project.view.StageList',
-        'Project.view.DocList',
-        'Project.view.CommentPanel',
-        'Project.view.StageChart'
+        
+        'Project.view.abstract.Info',
+        'Project.view.abstract.ProjectTree',
+        'Project.view.abstract.ProjectTreeContextMenu',
+
+        'Project.view.preparation.Layout',
+        'Project.view.preparation.Info',
+        'Project.view.preparation.ProjectTree',
+        'Project.view.preparation.ProjectTreeContextMenu',
+        'Project.view.preparation.CommentPanel',
+        
+        'Project.view.execution.Layout',
+        'Project.view.execution.Info',
+        'Project.view.execution.ProjectTree',
+        'Project.view.execution.ProjectTreeContextMenu',
+        'Project.view.execution.StageList',
+        'Project.view.execution.DocList',
+        'Project.view.execution.StageChart'
+        
     ],
 
     controllers: [
-        'Project.controller.ProjectTreeController',
-        'Project.controller.DetailController',
-        'Project.controller.InfoController',
-        'Project.controller.StageListController',
-        'Project.controller.DocListController',
-        'Project.controller.CommentPanelController',
-        'Project.controller.StageChartController'
+        'Project.controller.abstract.ProjectTreeController',
+        'Project.controller.abstract.InfoController',
+
+        'Project.controller.preparation.ProjectTreeController',
+        'Project.controller.preparation.InfoController',
+        'Project.controller.preparation.CommentPanelController',
+
+        'Project.controller.execution.ProjectTreeController',
+        'Project.controller.execution.InfoController',
+        'Project.controller.execution.StageListController',
+        'Project.controller.execution.DocListController',
+        'Project.controller.execution.StageChartController'
     ],
     
     models: [
@@ -37,12 +53,16 @@ Ext.define('Project.Application', {
     ],
 
     stores: [
-        'Project.store.ProjectTreeStore',
-        'Project.store.StageStore',
-        'Project.store.DocStore',
-        'Project.store.StageChartStore',
-        'Project.store.CommentStore',
-        'Project.store.VoteStore'
+        'Project.store.abstract.ProjectTreeStore',
+        
+        'Project.store.preparation.ProjectTreeStore',
+        'Project.store.preparation.CommentStore',
+        'Project.store.preparation.VoteStore',
+        
+        'Project.store.execution.ProjectTreeStore',
+        'Project.store.execution.StageStore',
+        'Project.store.execution.DocStore',
+        'Project.store.execution.StageChartStore'
     ]
     
 });

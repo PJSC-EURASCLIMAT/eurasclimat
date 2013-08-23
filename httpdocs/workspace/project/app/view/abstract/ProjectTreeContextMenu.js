@@ -1,8 +1,8 @@
-Ext.define('Project.view.ProjectTreeContextMenu', {
+Ext.define('Project.view.abstract.ProjectTreeContextMenu', {
     
     extend: 'Ext.menu.Menu',
     
-    alias: 'widget.project-tree-context-menu',
+    //alias: 'widget.project-tree-context-menu',
     
     closeAction: 'hide',
     

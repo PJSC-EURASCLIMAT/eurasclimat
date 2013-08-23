@@ -1,8 +1,8 @@
-Ext.define('Project.view.ProjectTree', {
+Ext.define('Project.view.abstract.ProjectTree', {
 
     extend: 'Ext.tree.Panel',
     
-    alias: 'widget.project-tree',
+    //alias: 'widget.project-tree',
     
     require: ['Ext.tree.plugin.TreeViewDragDrop', 'Ext.grid.plugin.CellEditing'],
     
@@ -63,16 +63,6 @@ Ext.define('Project.view.ProjectTree', {
                 }
             }]
         }
-    ],
-
-    initComponent: function() {
-        
-        this.store = Ext.getStore({
-            type: 'project-tree-store',
-            autoload: true
-        });
-        
-        this.callParent(arguments);
-    }
-
+    ]
+    
 });

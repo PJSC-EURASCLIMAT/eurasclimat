@@ -30,7 +30,9 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     public function getTreeAction()
     {
 
-        $response = $this->_model->fetchBranch();
+        $data = $this->_getAllParams();
+        
+        $response = $this->_model->fetchBranch($data);
         
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -46,8 +48,9 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     {
 
         $data = Zend_Json::decode($this->_getParam('data'));
+        $stage = $this->_getParam('stage');
         
-        $response = $this->_model->add($data);
+        $response = $this->_model->add($stage, $data);
         
         if ($response->isError()) {
             $this->_collectErrors($response);

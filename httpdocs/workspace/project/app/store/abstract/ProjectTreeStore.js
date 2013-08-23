@@ -1,4 +1,4 @@
-Ext.define('Project.store.ProjectTreeStore', {
+Ext.define('Project.store.abstract.ProjectTreeStore', {
 
     extend: 'Ext.data.TreeStore',
     
@@ -16,32 +16,7 @@ Ext.define('Project.store.ProjectTreeStore', {
         position: 1,
         expanded: false // значение ИСТИНА запускает загрузку дочерних узлов с сервера, поскольку они не заданы. В ответе сервера корневой узел должен иметь признак loaded = true
     },
-    
-    proxy: {
         
-        type: 'ajax',
-        
-        api: {
-
-            create: '/json/sysdev/projects/create',
-            read: '/json/sysdev/projects/get-tree',
-            update: '/json/sysdev/projects/rename',
-            destroy : '/json/sysdev/projects/delete'
-            
-        },
-        
-        reader: {
-            type: 'json',
-            root: 'children' // ответ сервера должен содержать такой ключ, чтобы клиент смог прочитать его.
-        },
-        
-        writer: {
-            root: 'data',
-            encode: true
-        }
-        
-    },
-    
     sorters: [{
         property: 'position'
     }]

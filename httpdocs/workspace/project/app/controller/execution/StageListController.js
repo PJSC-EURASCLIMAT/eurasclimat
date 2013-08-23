@@ -1,4 +1,4 @@
-Ext.define('Project.controller.StageListController', {
+Ext.define('Project.controller.execution.StageListController', {
     
     extend: 'Ext.app.Controller',
     

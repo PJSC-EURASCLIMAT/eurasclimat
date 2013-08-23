@@ -1,4 +1,4 @@
-Ext.define('Project.controller.CommentPanelController', {
+Ext.define('Project.controller.preparation.CommentPanelController', {
     
     extend: 'Ext.app.Controller',
     

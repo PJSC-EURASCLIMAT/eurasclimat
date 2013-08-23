@@ -1,8 +1,8 @@
-Ext.define('Project.view.Info', {
+Ext.define('Project.view.abstract.Info', {
     
     extend: 'Ext.Component',
     
-    alias: 'widget.project-info-component',
+    //alias: 'widget.project-info-component',
 
     data: {},
     

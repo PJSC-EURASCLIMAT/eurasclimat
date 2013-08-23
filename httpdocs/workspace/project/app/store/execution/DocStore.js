@@ -1,11 +1,11 @@
-Ext.define('Project.store.StageStore', {
+Ext.define('Project.store.execution.DocStore', {
 
     extend: 'Ext.data.Store',
     
-    alias: 'store.project-stage-store',
+    alias: 'store.project-doc-store',
    
-    model: 'Project.model.StageModel',
-
+    model: 'Project.model.DocModel',
+  
     buffered: true,
     
     leadingBufferZone: 15,
@@ -14,7 +14,7 @@ Ext.define('Project.store.StageStore', {
     
     proxy: {
         type: 'ajax',
-        url: '/json/sysdev/project-stages/get-by-project',
+        url: '/json/sysdev/project-docs/get-by-project',
         reader: {
             type: 'json',
             root: 'data'

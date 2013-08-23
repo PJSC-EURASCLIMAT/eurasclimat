@@ -1,4 +1,4 @@
-Ext.define('Project.store.StageChartStore', {
+Ext.define('Project.store.execution.StageChartStore', {
 
     extend: 'Ext.data.Store',
     

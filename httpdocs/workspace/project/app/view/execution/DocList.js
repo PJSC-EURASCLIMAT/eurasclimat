@@ -1,4 +1,4 @@
-Ext.define('Project.view.DocList', {
+Ext.define('Project.view.execution.DocList', {
 
     extend: 'Ext.grid.Panel',
     

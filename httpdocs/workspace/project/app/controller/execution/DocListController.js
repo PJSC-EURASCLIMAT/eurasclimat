@@ -1,9 +1,9 @@
-Ext.define('Project.controller.InfoController', {
+Ext.define('Project.controller.execution.DocListController', {
     
     extend: 'Ext.app.Controller',
     
     refs: [
-        { ref: 'info', selector: 'project-info-component' } // this.getInfo()
+        { ref: 'docList', selector: 'project-doc-list' } // this.getDocList()
     ],
     
     init: function() {
@@ -24,13 +24,13 @@ Ext.define('Project.controller.InfoController', {
             return;
         }
         
-        if (!acl.isView('projectdev', 'info')) {
+        if (!acl.isView('projectdev', 'docs')) {
             return;
         }
-        
-        this.getInfo().getLoader().load({
+
+        this.getDocList().getStore().load({
             params: {
-                id: record.get('id')
+                project_id: record.get('id')
             }
         });
 

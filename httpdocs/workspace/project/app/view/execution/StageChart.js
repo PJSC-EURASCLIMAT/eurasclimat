@@ -1,12 +1,10 @@
-Ext.define('Project.view.StageChart', {
+Ext.define('Project.view.execution.StageChart', {
     
     extend: 'Ext.chart.Chart',
     
     alias: 'widget.project-stage-chart',
     
     title: 'График выполнения проекта',
-    
-    border: false,
     
     itemId: 'stagesChart',
 

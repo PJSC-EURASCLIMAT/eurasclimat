@@ -1,47 +1,7 @@
-Ext.define('Project.controller.ProjectTreeController', {
+Ext.define('Project.controller.abstract.ProjectTreeController', {
     
     extend: 'Ext.app.Controller',
-    
-    refs: [
-        { ref: 'projectTree', selector: 'project-tree' }, // this.getProjectTree()
-        { ref: 'contextMenu', selector: 'project-tree-context-menu' }, // this.getContextMenu()
-        { ref: 'deleteButton', selector: 'project-tree-context-menu [itemId="delete-button"]' }, // this.getDeleteButton()
-        { ref: 'renameButton', selector: 'project-tree-context-menu [itemId="rename-button"]' }, // this.getRenameButton()
-        { ref: 'createFolderButton', selector: 'project-tree-context-menu [itemId="create-folder-button"]' }, // this.getCreateFolderButton()
-        { ref: 'createReferenceButton', selector: 'project-tree-context-menu [itemId="create-reference-button"]' } // this.getCreateReferenceButton()
-    ],
-    
-    init: function() {
-        
-        this.listen({
-            component: {
-                'project-tree': {
-                    select: this.onSelect,
-                    itemcontextmenu: this.onItemContextMenu,
-                    containercontextmenu: this.onTreeClick,
-                    'project-tree-context-menu-requested': this.showContextMenu
-                },
-                'project-tree > treeview': {
-                    drop: this.onDrop,
-                    beforedrop: this.beforeDrop
-                },
-                'project-tree-context-menu [itemId="rename-button"]': {
-                    click: this.onRenameButtonClick
-                },
-                'project-tree-context-menu [itemId="delete-button"]': {
-                    click: this.onDeleteButtonClick
-                },
-                'project-tree-context-menu [itemId="create-folder-button"]': {
-                    click: this.onCreateFolderButtonClick
-                },
-                'project-tree-context-menu [itemId="create-reference-button"]': {
-                    click: this.onCreateReferenceButtonClick
-                }
-            }
-        });
-        
-    },
-            
+  
     onSelect: function(tree, record, index, eOpts) {
 
         this.fireEvent('project-selected', record);

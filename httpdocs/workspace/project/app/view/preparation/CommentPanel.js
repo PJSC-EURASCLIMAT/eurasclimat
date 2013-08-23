@@ -1,4 +1,4 @@
-Ext.define('Project.view.CommentPanel', {
+Ext.define('Project.view.preparation.CommentPanel', {
     
     extend: 'Ext.panel.Panel',
     

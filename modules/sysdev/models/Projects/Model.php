@@ -2,16 +2,26 @@
 
 class Sysdev_Projects_Model
 {
+    
+    const PREPARATION_STAGE = 1;
+    const EXECUTION_STAGE = 2;
+    
     /**
      * The role table object
      *
      * @var Xend_Acl_Table_Roles
      */
     protected $_table;
+    
+    private $_possibleStages;
 
     public function __construct()
     {
         $this->_table = new Sysdev_Projects_Table();
+        $this->_possibleStages = array(
+            self::PREPARATION_STAGE, 
+            self::EXECUTION_STAGE
+        );
     }
 
     /**
@@ -19,7 +29,7 @@ class Sysdev_Projects_Model
      * @param array $data
      * @return Xend_Response
      */
-    public function fetchBranch(array $data = array())
+    public function fetchBranch(array $data)
     {
 
         $response = new Xend_Response();
@@ -29,11 +39,22 @@ class Sysdev_Projects_Model
         } else {
             $nodeId = null;
         }
+        
+        if (!array_key_exists('stage', $data)) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+        
+        if (!in_array($data['stage'], $this->_possibleStages)) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+        
+        $stage = (int)$data['stage'];
 
         try {
 
-            $data = $this->_fetchNodeBranch($nodeId);
-            $response->setRowset($data['children']);
+            $result = $this->_fetchNodeBranch($stage, $nodeId);
+            $children = array_key_exists('children', $result) ? $result['children'] : array();
+            $response->setRowset($children);
             return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
         } catch (Exception $e) {
@@ -44,15 +65,21 @@ class Sysdev_Projects_Model
 
     /**
      *
+     * @param int $stage
      * @param array $data
      * @return Xend_Response
      */
-    public function add(array $data) 
+    public function add($stage, array $data) 
     {
 
         $response = new Xend_Response();
         
         // проверяем параметры запроса на валидность
+        
+        if (!in_array($stage, $this->_possibleStages)) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+        
         $filter = new Xend_Filter_Input(array(
             'parentId' => 'int',
             //'leaf'      => 'int'
@@ -72,8 +99,8 @@ class Sysdev_Projects_Model
 
         try {
 
-            $data = $this->_addNewNode($parentId, $isLeaf);
-            $response->setRowset($data);
+            $result = $this->_addNewNode($stage, $parentId, $isLeaf);
+            $response->setRowset($result);
             return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
         } catch (Exception $e) {
@@ -256,13 +283,14 @@ class Sysdev_Projects_Model
     
     /**
      * извлекает ветку
-     * @param int $nodeId
+     * @param int $stage
+     * @param int|null $nodeId
      * @return array
      */
-    private function _fetchNodeBranch($nodeId = null)
+    private function _fetchNodeBranch($stage, $nodeId = null)
     {
         
-        $tree = $this->_fetchTree();
+        $tree = $this->_fetchTree($stage);
         
         return $tree->findNodeById($nodeId)->toArray();
 
@@ -270,19 +298,21 @@ class Sysdev_Projects_Model
     
     /**
      * добавляет новый узел
+     * @param int $stage
      * @param int $parentId
      * @param bool $isLeaf
      * @return array
      */
-    private function _addNewNode($parentId, $isLeaf) 
+    private function _addNewNode($stage, $parentId, $isLeaf) 
     {
         
-        $tree = $this->_fetchTree();
+        $tree = $this->_fetchTree($stage);
 
         $parentNode = $tree->findNodeById($parentId);
 
         $childId = $this->_table->insert(array(
-            'leaf' => $isLeaf
+            'leaf' => $isLeaf,
+            'stage' => $stage
         ));
 
         $rows = array(array(
@@ -290,7 +320,8 @@ class Sysdev_Projects_Model
             'parent_id' => null,
             'position' => null,
             'name' => '',
-            'leaf' => $isLeaf
+            'leaf' => $isLeaf,
+            'stage' => $stage
         ));
         $subTree = new Xend_Tree($rows); // передача параметра по ссылке
         $childNode = $subTree->findNodeById($childId);
@@ -406,13 +437,14 @@ class Sysdev_Projects_Model
 
     /**
      * извлекает всё дерево или его часть
-     * @param int $nodeId
+     * @param int $stage
      * @return \Xend_Tree
      */
-    private function _fetchTree($nodeId = null)
+    private function _fetchTree($stage)
     {
 
-        $rows = $this->_table->fetchAll()->toArray();
+        $where = array('stage = (?)' => $stage);
+        $rows = $this->_table->fetchAll($where)->toArray();
 
         foreach ($rows as $index => $row) {
 

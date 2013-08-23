@@ -1,18 +1,18 @@
-Ext.define('Project.store.CommentStore', {
+Ext.define('Project.store.preparation.VoteStore', {
 
     extend: 'Ext.data.Store',
     
-    alias: 'store.project-comment-store',
+    alias: 'store.project-vote-store',
    
-    model: 'Project.model.CommentModel',
+    model: 'Project.model.VoteModel',
     
     entity: null,
 
     proxy: {
         type: 'ajax',
         api: {
-            create:     '/json/sysdev/project-discussions/add',
-            read:       '/json/sysdev/project-discussions/get-by-project'
+            create:     '/json/sysdev/project-votes/add',
+            read:       '/json/sysdev/project-votes/get-by-project'
         },
         reader: {
             type: 'json',

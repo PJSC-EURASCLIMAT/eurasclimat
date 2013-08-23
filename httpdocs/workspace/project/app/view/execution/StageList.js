@@ -1,4 +1,4 @@
-Ext.define('Project.view.StageList', {
+Ext.define('Project.view.execution.StageList', {
 
     extend: 'Ext.grid.Panel',
     

@@ -28,7 +28,8 @@ class Catalog_RelatedServices
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()), array(
-                    'id' => 'i.id', 's.name', 's.code', 's.measure', 's.term', 's.price'
+                    'id' => 'i.id', 's.name', 's.code', 's.measure',
+                    's.term', 's.price', 'i.service_id'
                 ))
             ->join(array('s' => $this->_servicesTable->getTableName()), 's.id=i.service_id', array())
             ->where('i.item_id = (?)', $id);

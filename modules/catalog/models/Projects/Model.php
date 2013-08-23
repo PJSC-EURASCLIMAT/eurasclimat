@@ -225,9 +225,8 @@ class Catalog_Projects_Model
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        /**
-         * TODO: Automatically add services for given equipment
-         */
+        // Automatically add related services for given equipment
+        $this->_addRelatedServices($f->project_id, $f->entity, $f->entity_id);
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
@@ -372,5 +371,42 @@ class Catalog_Projects_Model
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    // Private section
+
+    /**
+     * @param $project_id: project ID
+     * @param $entity: catalog
+     * @param $entity_id: equipment ID
+     * @return bool: true = success, false = failure
+     */
+    private function _addRelatedServices($project_id, $entity, $entity_id)
+    {
+        $entity_id = intval($entity_id);
+        if ($entity_id == 0) {
+            return false;
+        }
+
+        $relatedServices = new Catalog_RelatedServices($entity);
+
+        $response = $relatedServices->getAll($entity_id);
+        if ($response->hasNotSuccess()) {
+            return false;
+        }
+
+        $rows = $response->getRowset();
+
+        print_r($rows);
+
+        foreach ($rows as $row) {
+            $response = $this->addService(array(
+                'project_id'    => $project_id,
+                'service_id'    => $row['service_id'],
+                'number'        => 1
+            ));
+        }
+
+        return true;
     }
 }

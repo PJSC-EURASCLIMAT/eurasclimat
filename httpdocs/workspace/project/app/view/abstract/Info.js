@@ -1,8 +1,16 @@
 Ext.define('Project.view.abstract.Info', {
     
-    extend: 'Ext.Component',
+    extend: 'Ext.panel.Panel',
     
     //alias: 'widget.project-info-component',
+    
+    tbar: [
+        '->',
+        {
+            text: 'Редактировать',
+            itemId: 'edit-button'
+        }
+    ],
 
     data: {},
     

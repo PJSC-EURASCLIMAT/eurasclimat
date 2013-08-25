@@ -21,6 +21,8 @@ Ext.define('Project.view.execution.Layout', {
             hidden: true
         }, {
             xtype: 'tabpanel',
+            itemId: 'project-execution-detail-tabs',
+            hidden: true,
             region: 'center',
             border: false,
             split: true,
@@ -28,10 +30,19 @@ Ext.define('Project.view.execution.Layout', {
             items: [
                 {
                     title: 'Описание проекта',
-                    xtype: 'project-execution-info-component',
-                    hidden: !acl.isView('projectdev', 'info'),
-                    itemId: 'info',
-                    autoScroll: true
+                    xtype: 'panel',
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype: 'project-execution-info-component',
+                            hidden: false,//!acl.isView('projectdev', 'info'),
+                            itemId: 'info',
+                            autoScroll: true
+                        }, {
+                            xtype: 'project-execution-info-editor',
+                            itemId: 'info-editor'
+                        }
+                    ]
                 }, {
                     title: 'График исполнения',
                     xtype: 'project-stage-chart',  

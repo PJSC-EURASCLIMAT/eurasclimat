@@ -43,11 +43,6 @@ Ext.define('Project.controller.execution.StageChartController', {
             
     onStageChartStoreLoad: function(store, records, successful, eOpts) {
             
-        if (records.length == 0) {
-            this.getStageChart().hide();
-        } else {
-            this.getStageChart().show();
-        }
         var finishDatePlan = 0;
         var finishDateFact = 0;
 

@@ -23,19 +23,29 @@ Ext.define('Project.view.preparation.Layout', {
             hidden: true
         }, {
             xtype: 'tabpanel',
+            itemId: 'project-preparation-detail-tabs',
+            hidden: true,
             region: 'center',
             border: false,
             split: true,
             layout: 'fit',
             items: [
                 {
-                    title: 'Информация о проекте',
-                    xtype: 'project-preparation-info-component',
-                    hidden: !acl.isView('projectdev', 'info'),
-                    itemId: 'info',
-                    autoScroll: true
-                }, 
-                {
+                    title: 'Описание проекта',
+                    xtype: 'panel',
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype: 'project-preparation-info-component',
+                            hidden: false,//!acl.isView('projectdev', 'info'),
+                            itemId: 'info',
+                            autoScroll: true
+                        }, {
+                            xtype: 'project-preparation-info-editor',
+                            itemId: 'info-editor'
+                        }
+                    ]
+                }, {
                     title: 'Обсуждение и голосование',
                     xtype: 'project-comment-panel',
                     hidden: !acl.isView('projectdev', 'comments'),

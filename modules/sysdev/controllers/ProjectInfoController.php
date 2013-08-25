@@ -16,6 +16,7 @@ class Sysdev_ProjectInfoController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projectdev->info);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'save');
     }
     
     public function getAction()
@@ -27,5 +28,21 @@ class Sysdev_ProjectInfoController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+    }
+    
+    public function saveAction()
+    {
+        
+        $data = Zend_Json::decode($this->_getParam('data'));
+        
+        $response = $this->_model->saveInfo($data);
+        
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        
+        $this->view->success = true;
+        
     }
 }

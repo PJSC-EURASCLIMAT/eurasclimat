@@ -23,6 +23,67 @@ class Sysdev_Projects_Model
             self::EXECUTION_STAGE
         );
     }
+    
+    public function getInfo($id)
+    {
+        $response = new Xend_Response();
+
+        $id = intval($id);
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('p'=>$this->_table->getTableName()),
+                array('name',
+                    'description', 
+                    'date_plan_begin', 
+                    'date_plan_end', 
+                    'date_fact_end', 
+                    'budget',
+                    'date_create', 
+                    'date_discuss_begin', 
+                    'date_discuss_end', 
+                    'date_vote_begin', 
+                    'date_vote_end',
+                    'stage'
+                )
+            )
+            ->join(
+                array('a' => 'accounts'),
+                'p.account_id=a.id',
+                array('author' => 'name')
+            )
+            ->where('p.id=?', $id)
+            ->where('p.leaf = ?', 'true');
+        $row = $this->_table->getAdapter()->fetchRow($select);
+        $response->setRow($row);
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
+    }
+    
+    public function saveInfo(array $data) 
+    {
+        
+        $response = new Xend_Response();
+        
+        $f = new Xend_Filter_Input(array(
+            '*'             => 'StringTrim'
+        ), array(
+            'id'             => array('Id','allowEmpty' => false)
+        ), $data);
+        
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+        
+        $affectedRow = $this->_table->updateByPk($data, $data['id']);
+        
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+        
+    }
 
     /**
      *
@@ -107,33 +168,6 @@ class Sysdev_Projects_Model
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
 
-    }
-
-    public function getInfo($id)
-    {
-        $response = new Xend_Response();
-
-        $id = intval($id);
-        if ($id == 0) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-        $select = $this->_table->getAdapter()->select()
-            ->from(
-                array('p'=>$this->_table->getTableName()),
-                array('name','description', 'date_plan_begin', 'date_plan_end', 'date_fact_end', 'budget',
-                    'date_create', 'date_discuss_begin', 'date_discuss_end', 'date_vote_begin', 'date_vote_end')
-            )
-            ->join(
-                array('a' => 'accounts'),
-                'p.account_id=a.id',
-                array('author' => 'name')
-            )
-            ->where('p.id=?', $id)
-            ->where('p.leaf = ?', 'true');
-        $row = $this->_table->getAdapter()->fetchRow($select);
-        $response->setRow($row);
-        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
     /**

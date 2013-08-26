@@ -103,10 +103,10 @@ Ext.define('App.view.Register', {
                     name: 'password',
                     listeners: {
                         validitychange: function(field){
-                            field.next().validate();
+                            this.up('form').down('#passwordFieldRegisterConfirm').validate();
                         },
                         blur: function(field){
-                            field.next().validate();
+                            this.up('form').down('#passwordFieldRegisterConfirm').validate();
                         }
                     }
                 }, {
@@ -121,6 +121,7 @@ Ext.define('App.view.Register', {
                     minLength: 3,
                     maxLength: 15,
                     vtype: 'password',
+                    itemId: 'passwordFieldRegisterConfirm',
                     initialPassField: 'passwordFieldRegister'
                 }, {
                     xtype: 'label'
@@ -172,8 +173,8 @@ Ext.define('App.view.Register', {
                 }, {
                     fieldLabel: 'Часовой пояс',
                     xtype: 'combo',
-                    name: 'TZ',
-                    hiddenName: 'TZ',
+                    name: 'tz',
+                    hiddenName: 'tz',
                     valueField: 'id',
                     editable: false,
                     displayField: 'name',
@@ -232,8 +233,10 @@ Ext.define('App.view.Register', {
                     }
                 },
                 items: [{
+                    xtype: 'filefield',
                     name: 'photo',
-                    fieldLabel: 'Фотография'
+                    fieldLabel: 'Фотография',
+                    buttonText: 'Выбрать фото'
                 }, {
                     xtype: 'label',
                     text: 'Загруженная фотография для вашей карточки пользователя ' +

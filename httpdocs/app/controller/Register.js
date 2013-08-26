@@ -16,13 +16,13 @@ Ext.define('App.controller.Register', {
         
             form.submit({
                 url: this.URL,
-                success: function(form, action) {
+                success: function(curForm, action) {
                     Ext.Msg.alert('Ответ системы', 
                         '<span style="color:green;">Регистрация прошла успешно.</span>');
                     win.close();
                 },
-                failure: function(form, action) {
-                    Ext.Msg.alert('Ответ системы', 
+                failure: function(curForm, action) {
+                    Ext.Msg.alert('Ответ системы',
                         '<span style="color:red;">ОШИБКА РЕГИСТРАЦИИ!</span>');
                 },
                 scope: this

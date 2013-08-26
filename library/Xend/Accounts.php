@@ -325,6 +325,17 @@ class Xend_Accounts
         $affectedRows = $this->_tableAccounts->updateByPk($f->getData(), $f->id);
 
         $response->affectedRows = $affectedRows;
+
+        /*
+       * Заливка аватарки
+       * */
+//      валидация картинки
+        if($_FILES['photo']['size'] != 0){
+            $file = new Xend_File();
+            $avatar = $file->uploadThumbnail('users',$data['login'],'photo');
+        }
+
+
         return $response->addStatus(new Xend_Accounts_Status(
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
     }
@@ -345,7 +356,6 @@ class Xend_Accounts
     public function createAccount(array $data)
     {
         $response = new Xend_Response();
-
         if (!empty($data['password'])) {
             $data['password'] = md5($data['password']);
         }
@@ -359,6 +369,10 @@ class Xend_Accounts
             'email'     => array('EmailAddress', 'presense' => 'required'),
             'country'   => array('StringLength'),
             'city'      => array('StringLength'),
+            'lang'      => array('StringLength'),
+            'tz'        => array('StringLength'),
+            'photo'     => array('StringLength'),
+            'doc'       => array('StringLength'),
             'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
@@ -378,6 +392,16 @@ class Xend_Accounts
         if ($id > 0) {
             $status = Xend_Accounts_Status::OK;
             $response->id = $id;
+        }
+
+        /*
+        * Заливка аватарки
+        * */
+//      валидация картинки
+
+        if($_FILES['photo']['size'] != 0){
+            $file = new Xend_File();
+            $avatar = $file->uploadThumbnail('users',$data['login'],'photo');
         }
 
         return $response->addStatus(new Xend_Accounts_Status($status));

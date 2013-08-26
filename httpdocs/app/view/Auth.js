@@ -13,6 +13,12 @@ Ext.define('App.view.Auth', {
     modal: true,
     
     width: 200,
+
+    listeners: {
+        afterrender: function(field) {
+            this.down('[name=login]').focus(false,300);
+        }
+    },
     
     initComponent: function() {
         

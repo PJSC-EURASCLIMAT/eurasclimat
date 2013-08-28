@@ -6,10 +6,14 @@ class Catalog_Images
 
 	protected $_entity;
 
+	public $IMAGE_PATH;
+
     public function __construct($entity)
     {
         $this->_entity = $entity;
         $this->_table = new Catalog_ImagesTable();
+        $this->IMAGE_PATH = IMAGES_DIR . DIRECTORY_SEPARATOR
+               . 'catalog' . DIRECTORY_SEPARATOR;
     }
 
     public function getAll($entity, $entity_id)
@@ -90,8 +94,7 @@ class Catalog_Images
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        $fname = IMAGES_DIR . DIRECTORY_SEPARATOR
-               . 'catalog' . DIRECTORY_SEPARATOR . $row['name'];
+        $fname = $this->IMAGE_PATH . $row['name'];
 
         if (file_exists($fname) && is_file($fname)) {
             if (!unlink($fname)) {

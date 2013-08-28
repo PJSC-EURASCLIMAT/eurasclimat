@@ -15,7 +15,7 @@ class PA_ProfileController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Xend_Accounts();
+        $this->_model = new PA_Profile();
         parent::init();
     }
 

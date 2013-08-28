@@ -84,6 +84,17 @@ class IndexController extends Xend_Controller_Action
         $this->view->success = true;
     }
 
+    public function loginAction()
+    {
+        $this->disableLayout(true);
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+            Zend_Auth::getInstance()->clearIdentity();
+        }
+        Zend_Session::destroy();
+
+        //$this->renderScript('/index/login.phtml');
+    }
+
     /**
      * Destroy account session and redirect on base site url.
      */

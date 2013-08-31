@@ -8,7 +8,7 @@ Ext.define('Project.view.Main', {
 
     border: false,
     
-    activeTab: 'project-preparation',
+    activeTab: 'project-execution',
     
     items: [
         {

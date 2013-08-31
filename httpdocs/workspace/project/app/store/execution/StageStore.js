@@ -5,16 +5,13 @@ Ext.define('Project.store.execution.StageStore', {
     alias: 'store.project-stage-store',
    
     model: 'Project.model.StageModel',
-
-    buffered: true,
-    
-    leadingBufferZone: 15,
-    
-    pageSize: 15,
     
     proxy: {
+        
         type: 'ajax',
+        
         url: '/json/sysdev/project-stages/get-by-project',
+        
         reader: {
             type: 'json',
             root: 'data'

@@ -30,6 +30,7 @@ Ext.define('Project.Application', {
         'Project.view.execution.ProjectTree',
         'Project.view.execution.ProjectTreeContextMenu',
         'Project.view.execution.StageList',
+        'Project.view.execution.StageEditor',
         'Project.view.execution.DocList',
         'Project.view.execution.StageChart'
         
@@ -51,6 +52,7 @@ Ext.define('Project.Application', {
         'Project.controller.execution.InfoController',
         'Project.controller.execution.InfoEditController',
         'Project.controller.execution.StageListController',
+        'Project.controller.execution.StageEditorController',
         'Project.controller.execution.DocListController',
         'Project.controller.execution.StageChartController'
     ],

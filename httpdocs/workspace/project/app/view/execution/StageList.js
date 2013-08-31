@@ -48,12 +48,26 @@ Ext.define('Project.view.execution.StageList', {
         header: 'Дата </br>создания',
         format: 'd.m.Y H:i',
         dataIndex: 'date_create'
+    }, {
+        xtype: 'actioncolumn',
+        width: 40,
+        items: [{
+            icon: '/images/icons/fam/plugin.gif',
+            tooltip: 'Редактировать',
+            handler: function(gridView, rowIndex) {
+                var grid = gridView.up('grid');
+                var record = grid.getStore().getAt(rowIndex);
+                grid.fireEvent('edit-button-pressed', record);
+            }
+        }, {
+            icon: '/images/icons/fam/delete.gif',
+            tooltip: 'Удалить',
+            handler: function(gridView, rowIndex) {
+                var grid = gridView.up('grid');
+                var record = grid.getStore().getAt(rowIndex);
+                grid.fireEvent('delete-button-pressed', record);
+            }
+        }]
     }]
-       
-//      bbar: Ext.create('Ext.PagingToolbar', {
-//          store: this.store,
-//          displayInfo: true,
-//          plugins: Ext.create('xlib.ProgressBarPager', {})
-//      }
 
 });

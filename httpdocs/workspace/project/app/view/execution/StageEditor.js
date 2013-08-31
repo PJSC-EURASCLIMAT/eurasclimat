@@ -1,9 +1,9 @@
-Ext.define('Project.view.abstract.InfoEditor', {
+Ext.define('Project.view.execution.StageEditor', {
     
     extend: 'Ext.form.Panel',
     
-    //alias: 'widget.project-info-editor',
-
+    alias: 'widget.project-execution-stage-editor',
+    
     trackResetOnLoad: true, // позволяет следить за изменениями в полях формы через событие dirtychange
 
     border: false,
@@ -30,16 +30,13 @@ Ext.define('Project.view.abstract.InfoEditor', {
     
     items: [
         {
-            fieldLabel: 'Наименование проекта',
-            xtype: 'textfield',
-            name: 'name'
+            fieldLabel: '№',
+            xtype: 'numberfield',
+            name: 'index',
+            minValue: 1,
+            step: 1
         }, {
-            fieldLabel: 'Описание проекта',
-            xtype: 'htmleditor',
-            name: 'description',
-            maxWidth: null,
-        }, {
-            fieldLabel: 'Инициатор проекта',
+            fieldLabel: 'Автор',
             xtype: 'combobox',
             name: 'author',
             displayField: 'name',
@@ -52,13 +49,11 @@ Ext.define('Project.view.abstract.InfoEditor', {
                 sortOnLoad: true
             }
         }, {
-            fieldLabel: 'Бюджет',
-            xtype: 'numberfield',
-            name: 'budget',
-            minValue: 0,
-            step: 1000
+            fieldLabel: 'Наименование',
+            xtype: 'textfield',
+            name: 'name'
         }, {
-            fieldLabel: 'Планируемые сроки проекта',
+            fieldLabel: 'Планируемые сроки',
             xtype: 'fieldcontainer',
             layout: 'hbox',
             items: [
@@ -70,17 +65,39 @@ Ext.define('Project.view.abstract.InfoEditor', {
                 }, {
                     xtype: 'splitter'
                 }, {
+                    
                     xtype: 'datefield',
-                    name: 'date_plan_end',
                     format: 'd.m.Y H:i',
+                    name: 'date_plan_end',
                     flex: 1
                 }
             ]
         }, {
-            fieldLabel: 'Дата фактического выполнения',
+            fieldLabel: 'Фактические сроки',
+            xtype: 'fieldcontainer',
+            layout: 'hbox',
+            items: [
+                {
+                    xtype: 'datefield',
+                    name: 'date_fact_begin',
+                    format: 'd.m.Y H:i',
+                    flex: 1
+                }, {
+                    xtype: 'splitter'
+                }, {
+                    
+                    xtype: 'datefield',
+                    format: 'd.m.Y H:i',
+                    name: 'date_fact_end',
+                    flex: 1
+                }
+            ]
+        }, {
+            fieldLabel: 'Дата создания',
             xtype: 'datefield',
-            name: 'date_fact_end',
+            name: 'date_create',
             format: 'd.m.Y H:i',
+            flex: 1
         }
     ]
     

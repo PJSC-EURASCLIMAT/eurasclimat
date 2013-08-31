@@ -27,39 +27,49 @@ Ext.define('Project.view.execution.Layout', {
             border: false,
             split: true,
             layout: 'fit',
+            activeTab: 'stages',
             items: [
                 {
                     title: 'Описание проекта',
+                    itemId: 'description',
                     xtype: 'panel',
                     layout: 'fit',
+                    hidden: !acl.isView('projectdev', 'info'),
                     items: [
                         {
                             xtype: 'project-execution-info-component',
-                            hidden: false,//!acl.isView('projectdev', 'info'),
-                            itemId: 'info',
                             autoScroll: true
                         }, {
                             xtype: 'project-execution-info-editor',
-                            itemId: 'info-editor'
+                            hidden: true
                         }
                     ]
                 }, {
                     title: 'График исполнения',
+                    itemId: 'stageChart',
                     xtype: 'project-stage-chart',  
                     //autoScroll: true,
                     bodyPadding: 5,
-                    oveflowX: 'scroll',
-                    itemId: 'stageChart'
+                    oveflowX: 'scroll'
                 }, {
                     title: 'Сведения об исполнении проекта',
-                    xtype: 'project-stage-list',
+                    itemId: 'stages',
+                    xtype: 'panel',
+                    layout: 'fit',
                     hidden: !acl.isView('projectdev', 'stages'),
-                    itemId: 'stages'
+                    items: [
+                        {
+                            xtype: 'project-stage-list',
+                        }, {
+                            xtype: 'project-execution-stage-editor',
+                            hidden: true
+                        }
+                    ]
                 }, {
                     title: 'Документация проекта',
+                    itemId: 'docs',
                     xtype: 'project-doc-list',
-                    hidden: !acl.isView('projectdev', 'docs'),
-                    itemId: 'docs'
+                    hidden: !acl.isView('projectdev', 'docs')                    
                 }
             ]
         }

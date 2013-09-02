@@ -1,39 +1,39 @@
-Ext.define('EC.Catalog.controller.Services', {
+Ext.define('EC.Catalog.controller.SpecialServices', {
     
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Services.Groups',
-        'EC.Catalog.store.Services.List'
+        'EC.Catalog.store.SpecialServices.Groups',
+        'EC.Catalog.store.SpecialServices.List'
     ],
     
     models: [
-        'EC.Catalog.model.Services.Groups',
-        'EC.Catalog.model.Services.List'
+        'EC.Catalog.model.SpecialServices.Groups',
+        'EC.Catalog.model.SpecialServices.List'
     ],
     
     views: [
-        'EC.Catalog.view.Services.PortletLayout',
-        'EC.Catalog.view.Services.Layout',
-        'EC.Catalog.view.Services.Groups',
-        'EC.Catalog.view.Services.List'
+        'EC.Catalog.view.SpecialServices.PortletLayout',
+        'EC.Catalog.view.SpecialServices.Layout',
+        'EC.Catalog.view.SpecialServices.Groups',
+        'EC.Catalog.view.SpecialServices.List'
     ],
     
     groupID: null,
     
-    permissions: acl.isUpdate('catalog', 'services'),
+    permissions: acl.isUpdate('catalog', 'specialservices'),
     
-    addGroupURL: '/json/catalog/services-groups/add',
+    addGroupURL: '/json/catalog/special-services-groups/add',
     
-    editGroupURL: '/json/catalog/services-groups/update',
+    editGroupURL: '/json/catalog/special-services-groups/update',
     
-    deleteGroupURL: '/json/catalog/services-groups/delete',
+    deleteGroupURL: '/json/catalog/special-services-groups/delete',
     
-    addURL: '/json/catalog/services/add',
+    addURL: '/json/catalog/special-services/add',
     
-    editURL: '/json/catalog/services/update',
+    editURL: '/json/catalog/special-services/update',
     
-    deleteURL: '/json/catalog/services/delete',
+    deleteURL: '/json/catalog/special-services/delete',
     
     run: function(container) {
 
@@ -42,18 +42,18 @@ Ext.define('EC.Catalog.controller.Services', {
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
         if (isPortlet) {
-            var content = container.add(Ext.create('EC.Catalog.view.Services.PortletLayout', {
+            var content = container.add(Ext.create('EC.Catalog.view.SpecialServices.PortletLayout', {
                 permissions: this.permissions
             }));
         } else { 
-            var content = container.add(Ext.create('EC.Catalog.view.Services.Layout', {
+            var content = container.add(Ext.create('EC.Catalog.view.SpecialServices.Layout', {
                 permissions: this.permissions
             }));
         }
         
-        var groupsPanel = content.down('ServicesGroups'),
+        var groupsPanel = content.down('SpecialServicesGroups'),
             groupsStore = groupsPanel.getStore(),
-            servicesPanel = content.down('ServicesList');
+            servicesPanel = content.down('SpecialServicesList');
         
         if (isPortlet) {
             groupsPanel.on('itemdblclick', function(panel, record) {
@@ -174,7 +174,7 @@ Ext.define('EC.Catalog.controller.Services', {
     
     addGroup: function() {
         
-        var view = Ext.create('EC.Catalog.view.Services.AddGroup');
+        var view = Ext.create('EC.Catalog.view.SpecialServices.AddGroup');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateGroup(view, this.addGroupURL);
@@ -185,7 +185,7 @@ Ext.define('EC.Catalog.controller.Services', {
     
     editGroup: function(grid, record) {
         
-        var view = Ext.create('EC.Catalog.view.Services.EditGroup');
+        var view = Ext.create('EC.Catalog.view.SpecialServices.EditGroup');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateGroup(view, this.editGroupURL);
@@ -254,7 +254,7 @@ Ext.define('EC.Catalog.controller.Services', {
             return;
         }
         
-        var view = Ext.create('EC.Catalog.view.Services.Add', {groupID: this.groupID});
+        var view = Ext.create('EC.Catalog.view.SpecialServices.Add', {groupID: this.groupID});
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.addURL);
@@ -265,7 +265,7 @@ Ext.define('EC.Catalog.controller.Services', {
     
     editItem: function(grid, record) {
         
-        var view = Ext.create('EC.Catalog.view.Services.Edit');
+        var view = Ext.create('EC.Catalog.view.SpecialServices.Edit');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.editURL);

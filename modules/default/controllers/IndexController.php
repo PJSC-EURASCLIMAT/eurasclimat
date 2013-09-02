@@ -145,7 +145,7 @@ class IndexController extends Xend_Controller_Action
             $select = $accounts_table->select()
                 ->where('id = ?', $user_id);
 
-            $accountIsActive = $select->query()->fetch()['active'];
+            $accountIsActive = $select->query()->fetch('active');
             if($accountIsActive){
                 $this->view->message = "Аккаунт уже активирован";
                 $this->view->success = false;

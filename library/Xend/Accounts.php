@@ -13,12 +13,20 @@ class Xend_Accounts
     protected $_tableAccounts;
 
     /**
+     * The accounts table
+     *
+     * @var Xend_Accounts_Table_Keys
+     */
+    protected $_tableKeys;
+
+    /**
      * Constructor
      *
      */
     public function __construct()
     {
         $this->_tableAccounts = new Xend_Accounts_Table_Accounts();
+        $this->_tableKeys = new Xend_Accounts_Table_Keys();
     }
 
     /**
@@ -359,6 +367,7 @@ class Xend_Accounts
         if (!empty($data['password'])) {
             $data['password'] = md5($data['password']);
         }
+        $data['active'] = 0;
 
         $f = new Xend_Filter_Input(array(
             'active'    => array('boolean'),
@@ -373,7 +382,7 @@ class Xend_Accounts
             'tz'        => array('StringLength'),
             'photo'     => array('StringLength'),
             'doc'       => array('StringLength'),
-            'active'    => array('boolean', 'presense' => 'required')
+//            'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -386,23 +395,45 @@ class Xend_Accounts
             return $existsResponse;
         }
 
+
         $id = $this->_tableAccounts->insert($f->getData());
 
         $status = Xend_Accounts_Status::FAILURE;
         if ($id > 0) {
             $status = Xend_Accounts_Status::OK;
             $response->id = $id;
+
+
+            //генерим ключ
+            $key = md5(uniqid(rand(), true));
+
+            /*
+            * Отправка письма
+            * */
+            $mail = new Zend_Mail();
+            $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://eurazclimat:8888/index/activate/?hash='.$key.'">http://eurazclimat:8888/index/accountActivate/?hash='.$key.'</a>');
+            $mail->setFrom('info@eurazclimat.com', 'Евразклимат');
+            $mail->addTo('ansinyutin@yandex.com');
+            $mail->setSubject('Активация аккаунта');
+            $mail->send();
+
+
+            //записываем в табличку
+            $this->_tableKeys->insert(array('user_id' => $id, 'key' => $key));
+
         }
+
+
 
         /*
         * Заливка аватарки
         * */
 //      валидация картинки
 
-        if($_FILES['photo']['size'] != 0){
-            $file = new Xend_File();
-            $avatar = $file->uploadThumbnail('users',$data['login'],'photo');
-        }
+//        if($_FILES['photo']['size'] != 0){
+//            $file = new Xend_File();
+//            $avatar = $file->uploadThumbnail('users',$id,'photo');
+//        }
 
         return $response->addStatus(new Xend_Accounts_Status($status));
     }

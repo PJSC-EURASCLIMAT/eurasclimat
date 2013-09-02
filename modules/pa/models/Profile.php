@@ -67,7 +67,7 @@ class PA_Profile
 
         $f = new Xend_Filter_Input(array(
             'id'        => 'int',
-            'login'     => 'StringTrim',
+//            'login'     => 'StringTrim',
             'name'      => 'StringTrim',
             'email'     => 'StringTrim',
             'active'    => 'boolean'

@@ -1,6 +1,8 @@
 Ext.define('App.view.Auth', {
     
     extend: 'Ext.window.Window',
+
+    alias: 'widget.loginwindow',
     
     title: 'Вход в систему',
     
@@ -19,52 +21,61 @@ Ext.define('App.view.Auth', {
             this.down('[name=login]').focus(false,300);
         }
     },
-    
-    initComponent: function() {
-        
-        this.items = [{
-            xtype: 'form',
-            bodyPadding: 5,
-            items: [{
-                xtype: 'hidden',
-                name: 'do',
-                value: 1
-            }, {
-                xtype: 'textfield',
-                labelWidth: 50,
-                allowBlank: false,
-                name: 'login',
-                fieldLabel: 'Логин',
-                inputAttrTpl: [
-                    'autocomplete="on"'
-                ]
-            }, {
-                xtype: 'textfield',
-                labelWidth: 50,
-                allowBlank: false,
-                inputType: 'password',
-                fieldLabel: 'Пароль',
-                name: 'password'
-            }],
-            buttons: [{
-                text: 'Войти',
-                formBind: true,
-                action: 'doLogin'
-            }, {
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
-            }]
-        }];
+    items : [{
+        xtype: 'form',
+        bodyPadding: 5,
+        items: [{
+            xtype: 'hidden',
+            name: 'do',
+            value: 1
+        }, {
+            xtype: 'textfield',
+            labelWidth: 50,
+            allowBlank: false,
+            name: 'login',
+            fieldLabel: 'Логин',
+            inputAttrTpl: [
+                'autocomplete="on"'
+            ]
+        }, {
+            xtype: 'textfield',
+            labelWidth: 50,
+            allowBlank: false,
+            inputType: 'password',
+            fieldLabel: 'Пароль',
+            name: 'password'
+        }, {
+            xtype: 'label',
+            itemId: 'regBtn',
+//            style: 'padding-left: 10px; font-size: x-small;',
+            html: '<a href="#">Регистрация</a>',
+            listeners: {
+                afterrender: function(label) {
+                    // no delegate needed, since inputCmp.el is the <input>
+                    label.mon(label.el, 'click', function(){
+                        this.up('loginwindow').fireEvent("regBtnClicked");
+                    }, this);
+                }
+                ,single: true
+            }
+        }],
+        buttons: [{
+            text: 'Войти',
+            formBind: true,
+            action: 'doLogin'
+        }, {
+            text: 'Отменить',
+            scope: this,
+            handler: this.close
+        }]
+    }]
 
-        this.keys = {
-            fn: function(key, e) {
-                this.fireEvent('enterPressed');
-            },
-            key: Ext.EventObject.ENTER,
-            scope: this
-        }
-        
-        this.callParent(arguments);
+    ,keys : {
+        fn: function(key, e) {
+            this.fireEvent('enterPressed');
+        },
+        key: Ext.EventObject.ENTER,
+        scope: this
     }
+
 });

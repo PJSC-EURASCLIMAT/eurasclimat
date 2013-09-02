@@ -15,7 +15,16 @@ Ext.application({
     name: 'App',
     appFolder: 'app',
     controllers: ['Main'],
+
+    // Глобальные переменные
+    globals: {
+        avatarsDir: '/images/users/'
+    },
+
     launch: function() {
+
+        // чтобы был доступ к объекту приложения
+        App.app = this;
 
         // Fix quick tips width
         delete Ext.tip.Tip.prototype.minWidth;

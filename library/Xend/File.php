@@ -36,7 +36,7 @@ class Xend_File
          * Read data from the input stream and write them into the file.
          */
         if ($fp) {
-            while (! feof($fp)) {
+            while (!feof($fp)) {
                 $data = fread($fp, 1024);
                 $realSize += strlen($data);
                 fwrite($target, $data);
@@ -67,7 +67,7 @@ class Xend_File
         $tmpFilePath = $imageDir . $tmpFileName;
         $imagePath = $imageDir . $fileName . "." . $thumbFormat;
 
-        $target  = move_uploaded_file($_FILES[$formFileName]['tmp_name'], $tmpFilePath);
+        $target = move_uploaded_file($_FILES[$formFileName]['tmp_name'], $tmpFilePath);
         if (!$target) {
             return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
         }
@@ -78,12 +78,12 @@ class Xend_File
          * - заменяем им загруженную картинку
          * */
 
-        $im = $this->thumbnail($tmpFilePath, $thumbWidth);
+        $im = $this->_thumbnail($tmpFilePath, $thumbWidth);
         if (!$im) {
             return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
         }
 
-        $imToFile = $this->imageToFile($im, $imagePath, $replaceIfExist, 90);
+        $imToFile = $this->_imageToFile($im, $imagePath, $replaceIfExist, 90);
         if (!$imToFile) {
             return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
         }
@@ -95,20 +95,19 @@ class Xend_File
 
     }
 
-    public function thumbnail($inputFileName, $maxSize = 100)
+    private function _thumbnail($inputFileName, $maxSize = 100)
     {
         $info = getimagesize($inputFileName);
 
         $type = isset($info['type']) ? $info['type'] : $info[2];
 
         // Check support of file type
-        if ( !(imagetypes() & $type) )
-        {
+        if (!(imagetypes() & $type)) {
             // Server does not support file type
             return false;
         }
 
-        $width  = isset($info['width'])  ? $info['width']  : $info[0];
+        $width = isset($info['width']) ? $info['width'] : $info[0];
         $height = isset($info['height']) ? $info['height'] : $info[1];
 
         // Calculate aspect ratio
@@ -119,28 +118,22 @@ class Xend_File
         $sourceImage = imagecreatefromstring(file_get_contents($inputFileName));
 
         // Calculate a proportional width and height no larger than the max size.
-        if ( ($width <= $maxSize) && ($height <= $maxSize) )
-        {
+        if (($width <= $maxSize) && ($height <= $maxSize)) {
             // Input is smaller than thumbnail, do nothing
             return $sourceImage;
-        }
-        elseif ( ($wRatio * $height) < $maxSize )
-        {
+        } elseif (($wRatio * $height) < $maxSize) {
             // Image is horizontal
             $tHeight = ceil($wRatio * $height);
-            $tWidth  = $maxSize;
-        }
-        else
-        {
+            $tWidth = $maxSize;
+        } else {
             // Image is vertical
-            $tWidth  = ceil($hRatio * $width);
+            $tWidth = ceil($hRatio * $width);
             $tHeight = $maxSize;
         }
 
         $thumb = imagecreatetruecolor($tWidth, $tHeight);
 
-        if ( $sourceImage === false )
-        {
+        if ($sourceImage === false) {
             // Could not load image
             return false;
         }
@@ -157,11 +150,10 @@ class Xend_File
      * $quality is only used for jpegs.
      * Author: mthorn.net
      */
-    public function imageToFile($im, $fileName, $autoReplace = true, $quality = 80)
+    private function _imageToFile($im, $fileName, $autoReplace = true, $quality = 80)
     {
-        if(!$autoReplace){
-            if ( !$im || file_exists($fileName) )
-            {
+        if (!$autoReplace) {
+            if (!$im || file_exists($fileName)) {
                 return false;
             }
         }
@@ -169,8 +161,7 @@ class Xend_File
 
         $ext = strtolower(substr($fileName, strrpos($fileName, '.')));
 
-        switch ( $ext )
-        {
+        switch ($ext) {
             case '.gif':
                 imagegif($im, $fileName);
                 break;

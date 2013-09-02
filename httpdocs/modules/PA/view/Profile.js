@@ -8,9 +8,10 @@ Ext.define('EC.PA.view.Profile', {
         'xlib.form.ImageField'
     ],
 
-    title: 'Профиль пользователя',
+    title: 'Профиль пользователя ' + xlib.Acl.Storage.getIdentity().name +
+        ' (' + xlib.Acl.Storage.getIdentity().login + ') ',
 
-    alias: 'widget.profileView',
+    alias: 'widget.profilewin',
     
     layout: 'card',
 
@@ -53,21 +54,22 @@ Ext.define('EC.PA.view.Profile', {
                                         {
                                             xtype: 'button',
                                             text: 'Редактировать профиль',
-                                            margin: '0 0 10 0',
-                                            handler: function(){
-                                                var win = this.up('window');
-                                                var form = win.down('form');
-                                                win.getLayout().setActiveItem('editProfile');
-                                                win.down("#saveBtn").show();
-                                            }
+                                            itemId: 'showEditFormBtn',
+                                            margin: '0 0 10 0'
+//                                            handler: function(){
+////                                                var win = this.up('window');
+////                                                var form = win.down('form');
+////                                                win.getLayout().setActiveItem('editProfile');
+////                                                win.down("#saveBtn").show();
+//                                            }
                                         }, {
                                             xtype: 'button',
-                                            text: 'Сменить пароль',
-                                            disabled: true,
-                                            handler: function(){
-                                                var win = this.up('window');
-                                                win.fireEvent('openPassWindow');
-                                            }
+                                            itemId: 'changePassBtn',
+                                            text: 'Сменить пароль'
+//                                            handler: function(){
+////                                                var win = this.up('window');
+////                                                win.fireEvent('openPassWindow');
+//                                            }
                                         }
                                     ]
                                 }
@@ -75,10 +77,6 @@ Ext.define('EC.PA.view.Profile', {
 
                             ]
                         }, {
-                            xtype: 'displayfield',
-                            name: 'login',
-                            fieldLabel: 'Логин'
-                        },  {
                             xtype: 'displayfield',
                             name: 'name',
                             fieldLabel: 'ФИО'
@@ -113,11 +111,6 @@ Ext.define('EC.PA.view.Profile', {
                             name: 'photo',
                             fieldLabel: 'Фотография',
                             buttonText: 'Выбрать фото'
-                        },
-                        {
-                            xtype: 'textfield',
-                            name: 'login',
-                            fieldLabel: 'Логин'
                         },
                         {
                             xtype: 'textfield',

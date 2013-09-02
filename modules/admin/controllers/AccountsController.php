@@ -36,7 +36,7 @@ class Admin_AccountsController extends Xend_Controller_Action
         if ($response->isError()) {
             $this->_collectErrors($response);
         } else {
-            $this->view->id = $response->id;
+           $this->view->id = $response->id;
             $this->view->success = true;
         }
     }

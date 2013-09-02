@@ -27,7 +27,7 @@ class Xend_Accounts_Table_Accounts extends Xend_Db_Table_Abstract
             ->where("id = ? ", $id);
         return $select->query()->fetchColumn(0);
     }
-    
+
     /**
      * Support method for fetching rows.
      * Remove unallowed fields such as "password", etc.

@@ -26,6 +26,8 @@ class RegistrationController extends Xend_Controller_Action
             $this->_collectErrors($resp);
             return;
         }
+
+
         $this->view->success = true;
     }
 

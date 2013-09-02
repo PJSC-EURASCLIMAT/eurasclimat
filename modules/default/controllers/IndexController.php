@@ -86,15 +86,86 @@ class IndexController extends Xend_Controller_Action
 
     public function loginAction()
     {
+        //от
         $this->disableLayout(true);
         if (Zend_Auth::getInstance()->hasIdentity()) {
             Zend_Auth::getInstance()->clearIdentity();
         }
         Zend_Session::destroy();
 
+        // Отключает рендер дефолтного шаблона
+//        $this->disableRender();
+
+        // Ренрерит заданный шаблон
         //$this->renderScript('/index/login.phtml');
     }
 
+    public function activateAction()
+    {
+
+        $hash = $this->_getParam('hash');
+
+        if (empty($hash)) {
+            $this->view->success = false;
+            $this->view->message = "Ваш ключ активации недействителен";
+//            $this->disableRender();
+//            $this->render();
+            return;
+        }
+
+        $keys_table = new Xend_Accounts_Table_Keys();
+        $accounts_table = new Xend_Accounts_Table_Accounts();
+
+
+        $user_id = $keys_table->getUserIdByKey($hash);
+
+        if(!$user_id){
+            $this->view->success = false;
+            $this->view->message = "Ваш ключ активации недействителен";
+//            $this->disableRender();
+//            $this->render();
+            return;
+        }
+
+        $accountRowAffected = $accounts_table->updateByPk(array(
+            'active'  => 1,
+        ), $user_id);
+
+        if($accountRowAffected){
+            $hashIsDeleted = $keys_table->deleteByUserId($user_id);
+            if($hashIsDeleted){
+                $this->view->message = "Ваш аккаунт успешно активирован";
+                $this->view->success = true;
+            }else {
+                $this->view->success = false;
+                $this->view->message = "В ходе активации возникла ошибка (не удалось удалить ключ)";
+            }
+        }else{
+
+            $select = $accounts_table->select()
+                ->where('id = ?', $user_id);
+
+            $accountIsActive = $select->query()->fetch()['active'];
+            if($accountIsActive){
+                $this->view->message = "Аккаунт уже активирован";
+                $this->view->success = false;
+            }
+
+        }
+
+        $this->disableLayout(true);
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+            Zend_Auth::getInstance()->clearIdentity();
+        }
+        Zend_Session::destroy();
+
+
+        // Отключает рендер дефолтного шаблона
+//        $this->disableRender();
+
+        // Ренрерит заданный шаблон
+        //$this->renderScript('/index/login.phtml');
+    }
     /**
      * Destroy account session and redirect on base site url.
      */

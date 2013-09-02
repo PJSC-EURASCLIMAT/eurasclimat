@@ -411,9 +411,9 @@ class Xend_Accounts
             * Отправка письма
             * */
             $mail = new Zend_Mail();
-            $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://eurazclimat:8888/index/activate/?hash='.$key.'">http://eurazclimat:8888/index/accountActivate/?hash='.$key.'</a>');
-            $mail->setFrom('info@eurazclimat.com', 'Евразклимат');
-            $mail->addTo('ansinyutin@yandex.com');
+            $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://dev.eurasclimat.ru/index/activate/?hash='.$key.'">http://dev.eurasclimat.ru/index/accountActivate/?hash='.$key.'</a>');
+            $mail->setFrom('info@eurasclimat.ru', 'Евразклимат');
+            $mail->addTo('bvh.box@gmail.com');
             $mail->setSubject('Активация аккаунта');
             $mail->send();
 

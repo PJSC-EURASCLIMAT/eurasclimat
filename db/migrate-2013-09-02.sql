@@ -59,4 +59,13 @@ ALTER TABLE `catalog_special_services_expendables`
   ADD CONSTRAINT `catalog_special_services_expendables_ibfk_3` FOREIGN KEY (`expendable_id`) REFERENCES `catalog_expendables` (`id`),
   ADD CONSTRAINT `catalog_special_services_expendables_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `catalog_special_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+DROP TABLE IF EXISTS `keys`;
+CREATE TABLE IF NOT EXISTS `keys` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `hash` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+
 SET FOREIGN_KEY_CHECKS=1;

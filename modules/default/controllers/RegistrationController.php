@@ -28,6 +28,27 @@ class RegistrationController extends Xend_Controller_Action
         }
 
 
+        $config = Zend_Registry::get('config');
+
+        //генерим ключ
+        $hash = md5(uniqid(rand(), true));
+
+        /*
+        * Отправка письма
+        * */
+        $mail = new Zend_Mail();
+        $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://'.$config->baseurl.'/index/activate/?hash='.$hash.'">http://'.$config->baseurl.'/index/activate/?hash='.$hash.'</a>');
+        $mail->setFrom($config->mail->from->address, $config->company->name);
+        $mail->addTo('ansinyutin@yandex.ru');
+//        $mail->addTo($response->login);
+        $mail->setSubject('Активация аккаунта');
+        $mail->send();
+
+
+        //записываем в табличку
+        $keys_table = new Xend_Accounts_Table_Keys();
+        $keys_table->insert(array('user_id' => $response->id, 'hash' => $hash));
+
         $this->view->success = true;
     }
 

@@ -136,6 +136,12 @@ class IndexController extends Xend_Controller_Action
             if($hashIsDeleted){
                 $this->view->message = "Ваш аккаунт успешно активирован";
                 $this->view->success = true;
+
+                sleep(3);
+                $redirector = $this->getHelper('Redirector');
+                /* @var $redirector Zend_Controller_Action_Helper_Redirector */
+                $redirector->gotoUrl("/");
+
             }else {
                 $this->view->success = false;
                 $this->view->message = "В ходе активации возникла ошибка (не удалось удалить ключ)";
@@ -178,7 +184,7 @@ class IndexController extends Xend_Controller_Action
         Zend_Session::destroy();
 
         $this->view->success = true;
-        header('Location: /');
+        $this->getResponse()->setHeader('Refresh', '3; URL=http://my.url.com');header('Location: /');
     }
 
     public function getPermissionsAction()

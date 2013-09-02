@@ -18,7 +18,7 @@ Ext.define('App.controller.Register', {
                 url: this.URL,
                 success: function(curForm, action) {
                     Ext.Msg.alert('Ответ системы', 
-                        '<span style="color:green;">Регистрация прошла успешно.</span>');
+                        '<span style="color:green;">Регистрация прошла успешно.</br> На ваш почтовый ящик отправлена ссылка на активацию аккаунта.</span>');
                     win.close();
                 },
                 failure: function(curForm, action) {

@@ -102,7 +102,6 @@ class IndexController extends Xend_Controller_Action
 
     public function activateAction()
     {
-
         $hash = $this->_getParam('hash');
 
         if (empty($hash)) {
@@ -124,7 +123,7 @@ class IndexController extends Xend_Controller_Action
             $this->view->message = "Ваш ключ активации недействителен";
 //            $this->disableRender();
 //            $this->render();
-            return;
+//            return;
         }
 
         $accountRowAffected = $accounts_table->updateByPk(array(
@@ -160,12 +159,6 @@ class IndexController extends Xend_Controller_Action
         }
         Zend_Session::destroy();
 
-//        if($this->view->success){
-//            sleep(3);
-//            $redirector = $this->getHelper('Redirector');
-//            /* @var $redirector Zend_Controller_Action_Helper_Redirector */
-//            $redirector->gotoUrl("/");
-//        }
         // Отключает рендер дефолтного шаблона
 //        $this->disableRender();
 

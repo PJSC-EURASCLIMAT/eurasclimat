@@ -47,7 +47,11 @@ class RegistrationController extends Xend_Controller_Action
 
         //записываем в табличку
         $keys_table = new Xend_Accounts_Table_AuthKeys();
-        $keys_table->insert(array('user_id' => $response->id, 'hash' => $hash));
+        $keysResp = $keys_table->insert(array('user_id' => $response->id, 'hash' => $hash));
+        if ($keysResp->isError()) {
+            $this->_collectErrors($keysResp);
+            return;
+        }
 
         $this->view->success = true;
     }

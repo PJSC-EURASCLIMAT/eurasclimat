@@ -402,25 +402,7 @@ class Xend_Accounts
         if ($id > 0) {
             $status = Xend_Accounts_Status::OK;
             $response->id = $id;
-
-
-            //генерим ключ
-            $key = md5(uniqid(rand(), true));
-
-            /*
-            * Отправка письма
-            * */
-            $mail = new Zend_Mail();
-            $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://dev.eurasclimat.ru/index/activate/?hash='.$key.'">http://dev.eurasclimat.ru/index/accountActivate/?hash='.$key.'</a>');
-            $mail->setFrom('info@eurasclimat.ru', 'Евразклимат');
-//            $mail->addTo('bvh.box@gmail.com');
-            $mail->addTo($f->login);
-            $mail->setSubject('Активация аккаунта');
-            $mail->send();
-
-
-            //записываем в табличку
-            $this->_tableKeys->insert(array('user_id' => $id, 'key' => $key));
+            $response->login = $data['login'];
 
         }
 

@@ -27,11 +27,24 @@ class RegistrationController extends Xend_Controller_Action
             return;
         }
 
-
-        $config = Zend_Registry::get('config');
-
         //генерим ключ
         $hash = md5(uniqid(rand(), true));
+
+        //записываем в табличку
+
+        $keyId = 0;
+
+        $keyResp = new Xend_Response();
+        $keys_table = new Xend_Accounts_Table_AuthKeys();
+        $keyId = $keys_table->insert(array('user_id' => $response->id, 'hash' => $hash));
+
+        if ($keyId == 0) {
+            $keyResp->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::FAILURE));
+            $this->_collectErrors($keyResp);
+            return;
+        }
+
+        $config = Zend_Registry::get('config');
 
         /*
         * Отправка письма
@@ -39,19 +52,10 @@ class RegistrationController extends Xend_Controller_Action
         $mail = new Zend_Mail();
         $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://'.$config->baseurl.'/index/activate/?hash='.$hash.'">http://'.$config->baseurl.'/index/activate/?hash='.$hash.'</a>');
         $mail->setFrom($config->mail->from->address, $config->company->name);
-        $mail->addTo('ansinyutin@yandex.ru');
-//        $mail->addTo($response->login);
+//        $mail->addTo('ansinyutin@yandex.ru');
+        $mail->addTo($response->login);
         $mail->setSubject('Активация аккаунта');
         $mail->send();
-
-
-        //записываем в табличку
-        $keys_table = new Xend_Accounts_Table_AuthKeys();
-        $keysResp = $keys_table->insert(array('user_id' => $response->id, 'hash' => $hash));
-        if ($keysResp->isError()) {
-            $this->_collectErrors($keysResp);
-            return;
-        }
 
         $this->view->success = true;
     }

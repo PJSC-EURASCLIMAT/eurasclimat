@@ -113,7 +113,7 @@ class IndexController extends Xend_Controller_Action
             return;
         }
 
-        $keys_table = new Xend_Accounts_Table_Keys();
+        $keys_table = new Xend_Accounts_Table_AuthKeys();
         $accounts_table = new Xend_Accounts_Table_Accounts();
 
 
@@ -136,11 +136,6 @@ class IndexController extends Xend_Controller_Action
             if($hashIsDeleted){
                 $this->view->message = "Ваш аккаунт успешно активирован";
                 $this->view->success = true;
-
-                sleep(3);
-                $redirector = $this->getHelper('Redirector');
-                /* @var $redirector Zend_Controller_Action_Helper_Redirector */
-                $redirector->gotoUrl("/");
 
             }else {
                 $this->view->success = false;
@@ -165,7 +160,12 @@ class IndexController extends Xend_Controller_Action
         }
         Zend_Session::destroy();
 
-
+//        if($this->view->success){
+//            sleep(3);
+//            $redirector = $this->getHelper('Redirector');
+//            /* @var $redirector Zend_Controller_Action_Helper_Redirector */
+//            $redirector->gotoUrl("/");
+//        }
         // Отключает рендер дефолтного шаблона
 //        $this->disableRender();
 

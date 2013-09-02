@@ -15,7 +15,7 @@ class Xend_Accounts
     /**
      * The accounts table
      *
-     * @var Xend_Accounts_Table_Keys
+     * @var Xend_Accounts_Table_AuthKeys
      */
     protected $_tableKeys;
 
@@ -26,7 +26,7 @@ class Xend_Accounts
     public function __construct()
     {
         $this->_tableAccounts = new Xend_Accounts_Table_Accounts();
-        $this->_tableKeys = new Xend_Accounts_Table_Keys();
+        $this->_tableKeys = new Xend_Accounts_Table_AuthKeys();
     }
 
     /**

@@ -33,6 +33,9 @@ class Xend_Accounts_Status extends Xend_Response_Status_Storage_Abstract
 
     const ACCOUNT_MAX_REACHED = -107;
 
+    const HASH_NOT_FOUND = -108;
+
+
     /**
      * Description storage
      *
@@ -45,6 +48,7 @@ class Xend_Accounts_Status extends Xend_Response_Status_Storage_Abstract
         self::WRONG_PASSWORD            => 'Wrong password',
         self::INCORRECT_NEW_PASSWORD    => 'Incorrect new password',
         self::ACCOUNT_IS_NOT_EXISTS     => 'Account does not exist.',
-        self::EMAIL_DOES_NOT_EXIST      => 'Email does not exist'
+        self::EMAIL_DOES_NOT_EXIST      => 'Email does not exist',
+        self::HASH_NOT_FOUND            => 'Hash does not exist'
     );
 }

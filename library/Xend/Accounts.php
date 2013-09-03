@@ -373,15 +373,15 @@ class Xend_Accounts
             'active'    => array('boolean'),
             '*'         => array('StringTrim')
         ), array(
-            'login'     => array('Login', 'presense' => 'required'),
-            'name'      => array('StringLength', 'presense' => 'required'),
-            'email'     => array('EmailAddress', 'presense' => 'required'),
+            'login'     => array('EmailAddress', 'presense' => 'required'),
+            'name'      => array('StringLength'),
+            'email'     => array('EmailAddress'),
             'country'   => array('StringLength'),
             'city'      => array('StringLength'),
-            'lang'      => array('StringLength'),
-            'tz'        => array('StringLength'),
-            'photo'     => array('StringLength'),
-            'doc'       => array('StringLength'),
+//            'lang'      => array('StringLength'),
+//            'tz'        => array('StringLength'),
+//            'photo'     => array('StringLength'),
+//            'doc'       => array('StringLength'),
 //            'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
@@ -390,23 +390,36 @@ class Xend_Accounts
             return $response;
         }
 
-        $existsResponse = $this->accoutExists($f->login);
-        if ($existsResponse->isError()) {
-            return $existsResponse;
+        // Используется еще и в контроллере, поэтому так
+
+        $exists = $this->_isAccountUnique($f->login);
+
+        if (null ===  $exists) {
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        } elseif (!$exists) {
+            $status = Xend_Accounts_Status::ACCOUNT_IS_ALREADY_EXISTS;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        try {
+            $id = $this->_tableAccounts->insert($f->getData());
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
 
-        $id = $this->_tableAccounts->insert($f->getData());
-
-        $status = Xend_Accounts_Status::FAILURE;
-        if ($id > 0) {
-            $status = Xend_Accounts_Status::OK;
-            $response->id = $id;
-            $response->login = $data['login'];
-
+        if (!($id > 0)) {
+            return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::ADD_FAILED));
         }
-
-
+        $status = Xend_Accounts_Status::OK;
+        $response->id = $id;
+        $response->login = $data['login'];
+        $response->name = $data['name'];
 
         /*
         * Заливка аватарки
@@ -432,32 +445,58 @@ class Xend_Accounts
      */
     public function accoutExists($login)
     {
+        $response = new Xend_Response();
+
         $f = new Zend_Filter_StringTrim();
         $login = $f->filter($login);
 
-        $stringLengthValidator = new Zend_Validate_StringLength(3, 50);
-        $loginValidator = new Xend_Validate_Login();
-        $response = new Xend_Response();
-        if (!$stringLengthValidator->isValid($login) || !$loginValidator->isValid($login)) {
+        $emailLoginValidator = new Zend_Validate_EmailAddress();
+
+        if (!$emailLoginValidator->isValid($login)) {
             return $response->addStatus(new Xend_Accounts_Status(
                 Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'login'));
         }
 
-        $count = $this->_tableAccounts->count(array('login = ?' => $login));
         $status = null;
-        $exists = true;
 
-        if (0 === $count) {
-            $status = Xend_Accounts_Status::OK;
-            $exists = false;
-        } elseif (false === $count) {
+        $exists = $this->_isAccountUnique($login);;
+
+        if (null ===  $exists) {
             $status = Xend_Accounts_Status::DATABASE_ERROR;
-        } else {
+        } elseif (!$exists) {
             $status = Xend_Accounts_Status::ACCOUNT_IS_ALREADY_EXISTS;
+        } else {
+            $status = Xend_Accounts_Status::OK;
         }
 
         $response->exists = $exists;
         return $response->addStatus(new Xend_Accounts_Status($status));
+    }
+
+    private function _isAccountUnique($login)
+    {
+        $emailLoginValidator = new Zend_Validate_EmailAddress();
+
+        if (!$emailLoginValidator->isValid($login)) {
+            return null;
+        }
+
+        try {
+            $count = $this->_tableAccounts->count(array('login = ?' => $login));
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return null;
+        }
+
+        if (0 === $count) {
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
     /**
@@ -638,6 +677,34 @@ class Xend_Accounts
 
         return $response->addStatus(new Xend_Accounts_Status(
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+    }
+
+    public function activate($id)
+    {
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'id'        => 'int',
+        ), array(
+            'id'        => array('id', 'presense' => 'required'),
+        ), array('id' => $id));
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $affectedRows = $this->_tableAccounts->updateByPk(array('active' => 1), $f->id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /*********************** Private methods ******************************/

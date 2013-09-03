@@ -49,6 +49,7 @@ Ext.define('App.view.Register', {
                 }, {
                     xtype: 'textfield',
                     labelWidth: 70,
+                    llowBlank: true,
                     fieldLabel: 'ФИО',
                     name: 'name'
                 }]

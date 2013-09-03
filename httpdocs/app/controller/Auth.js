@@ -6,11 +6,8 @@ Ext.define('App.controller.Auth', {
     
     URL: '/json/default/index/auth',
 
-
     run: function(container) {
 
-
-        
         if (xlib.Acl.Storage.getIdentity().login !== 'guest') {
             
             Ext.MessageBox.confirm('Подтверждение', 'Выйти из системы?', function(b) {
@@ -44,13 +41,11 @@ Ext.define('App.controller.Auth', {
         
         
         authWin.down('button[action=doLogin]').on('click', submitForm, this);
+        authWin.down('button[action=doRegister]').on('click', function() {
+            authWin.close();
+            App.app.getController("Register").run();
+        }, this);
         authWin.on('enterPressed', submitForm, this);
-        authWin.on('regBtnClicked',this.regBtnClicked, this, authWin);
-    }
-
-    ,regBtnClicked: function(authWin){
-        authWin.close();
-        App.app.getController("Register").run();
     }
 
 });

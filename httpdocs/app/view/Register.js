@@ -62,17 +62,10 @@ Ext.define('App.view.Register', {
                 }]
 
             ,buttons: [ {
-                text: 'Зарегистрироваться',
+                text: 'Отправить',
                 formBind: true,
                 action: 'submit'
-            },
-            {xtype:'tbfill'},
-            {
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
-            }
-            ]
+            }]
         }];
 
         this.callParent(arguments);

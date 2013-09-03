@@ -14,13 +14,14 @@ Ext.define('App.view.Auth', {
     
     modal: true,
     
-    width: 200,
+    width: 230,
 
     listeners: {
         afterrender: function(field) {
-            this.down('[name=login]').focus(false,300);
+            this.down('[name=login]').focus(false, 300);
         }
     },
+    
     items : [{
         xtype: 'form',
         bodyPadding: 5,
@@ -51,33 +52,15 @@ Ext.define('App.view.Auth', {
                     }
                 }
             }
-        }, {
-            xtype: 'label',
-            itemId: 'regBtn',
-//            style: 'padding-left: 10px; font-size: x-small;',
-            html: '<a href="#">Регистрация</a>',
-            listeners: {
-                afterrender: function(label) {
-                    // no delegate needed, since inputCmp.el is the <input>
-                    label.mon(label.el, 'click', function(){
-                        this.up('loginwindow').fireEvent("regBtnClicked");
-                    }, this);
-                }
-                ,single: true
-            }
         }],
 
         buttons: [{
+            text: 'Зарегистрироваться',
+            action: 'doRegister'
+        }, '->', {
             text: 'Войти',
             formBind: true,
             action: 'doLogin'
-        },
-        {xtype:'tbfill'},
-        {
-            text: 'Отменить',
-            handler: function(){
-                this.up('window').close();
-            }
         }]
     }]
 

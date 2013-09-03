@@ -45,7 +45,14 @@ Ext.define('App.view.Register', {
                     allowBlank: false,
                     inputType: 'password',
                     fieldLabel: 'Пароль <sup style="color: red;">*</sup>',
-                    name: 'password'
+                    name: 'password',
+                    listeners: {
+                        specialkey: function(f,e){
+                            if (e.getKey() == e.ENTER) {
+                                this.up('window').fireEvent('enterPressed');
+                            }
+                        }
+                    }
                 }, {
                     xtype: 'textfield',
                     labelWidth: 70,
@@ -54,26 +61,20 @@ Ext.define('App.view.Register', {
                     name: 'name'
                 }]
 
-            ,buttons: [{
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
-            }, {
+            ,buttons: [ {
                 text: 'Зарегистрироваться',
                 formBind: true,
                 action: 'submit'
+            },
+            {xtype:'tbfill'},
+            {
+                text: 'Отменить',
+                scope: this,
+                handler: this.close
             }
             ]
         }];
 
-        this.keys = {
-            fn: function(key, e) {
-                this.fireEvent('enterPressed');
-            },
-            key: Ext.EventObject.ENTER,
-            scope: this
-        }
-        
         this.callParent(arguments);
     }
 });

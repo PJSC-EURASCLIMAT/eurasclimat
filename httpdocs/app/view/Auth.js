@@ -43,7 +43,14 @@ Ext.define('App.view.Auth', {
             allowBlank: false,
             inputType: 'password',
             fieldLabel: 'Пароль',
-            name: 'password'
+            name: 'password',
+            listeners: {
+                specialkey: function(f,e){
+                    if (e.getKey() == e.ENTER) {
+                        this.up('window').fireEvent('enterPressed');
+                    }
+                }
+            }
         }, {
             xtype: 'label',
             itemId: 'regBtn',
@@ -59,23 +66,20 @@ Ext.define('App.view.Auth', {
                 ,single: true
             }
         }],
+
         buttons: [{
             text: 'Войти',
             formBind: true,
             action: 'doLogin'
-        }, {
+        },
+        {xtype:'tbfill'},
+        {
             text: 'Отменить',
-            scope: this,
-            handler: this.close
+            handler: function(){
+                this.up('window').close();
+            }
         }]
     }]
 
-    ,keys : {
-        fn: function(key, e) {
-            this.fireEvent('enterPressed');
-        },
-        key: Ext.EventObject.ENTER,
-        scope: this
-    }
 
 });

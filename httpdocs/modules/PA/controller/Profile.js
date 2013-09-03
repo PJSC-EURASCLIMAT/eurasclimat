@@ -36,7 +36,12 @@ Ext.define('EC.PA.controller.Profile', {
         }
     ],
 
+    init:function(){
+        //Копируем инфу по пользователю в текущий контроллер
+        this.account = xlib.Acl.Storage.getIdentity();
 
+        this.callParent();
+    },
 
     run: function(container) {
 
@@ -52,8 +57,7 @@ Ext.define('EC.PA.controller.Profile', {
             }
         });
 
-        //Копируем инфу по пользователю в текущий контроллер
-        this.account = xlib.Acl.Storage.getIdentity();
+
 
         //Создаем окошко профиля
         Ext.create('EC.PA.view.Profile');
@@ -67,7 +71,7 @@ Ext.define('EC.PA.controller.Profile', {
 
     showEditForm:function(){
         console.log("showing edit form");
-        var win = this.getProfileView();
+        var win = this.getProfileWin();
         win.getLayout().setActiveItem('editProfile');
         win.down("#saveBtn").show();
 
@@ -105,7 +109,7 @@ Ext.define('EC.PA.controller.Profile', {
                 var me = this;
 //                this.fillImageField(curForm);
                 setTimeout(function(){
-                    me.win.show();
+                    me.getProfileWin().show();
                 },100);
             }
             ,scope:this
@@ -122,8 +126,8 @@ Ext.define('EC.PA.controller.Profile', {
 
     ,updateProfile: function(){
         var me = this;
-        var form = this.win.down('#editProfile');
-//        var formValues = this.win.down('#editProfile').getValues();
+        var form = this.getProfileWin().down('#editProfile');
+//        var formValues = this.getProfileWin().down('#editProfile').getValues();
 
 //        console.log(formValues);
         form.submit({
@@ -132,8 +136,8 @@ Ext.define('EC.PA.controller.Profile', {
                 Ext.Msg.alert('Ответ системы',
                     '<span style="color:green;">Обновление аккаунта прошло успешно.</span>');
                 this.fillDisplayForm();
-                this.win.getLayout().setActiveItem('displayProfile');
-                this.win.down('#saveBtn').hide();
+                this.getProfileWin().getLayout().setActiveItem('displayProfile');
+                this.getProfileWin().down('#saveBtn').hide();
             },
             failure: function(curForm, action) {
                 Ext.Msg.alert('Ответ системы',

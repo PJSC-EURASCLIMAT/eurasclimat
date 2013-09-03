@@ -40,7 +40,17 @@ class PA_Profile
                 Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
-        $rowset = $this->_tableAccounts->findOne($accountId);
+        try {
+            $rowset = $this->_tableAccounts->findOne($accountId);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
         if (!is_null($rowset)) {
             $rowset = $rowset->toArray();
         } elseif (empty($rowset)) {
@@ -70,12 +80,12 @@ class PA_Profile
 //            'login'     => 'StringTrim',
             'name'      => 'StringTrim',
             'email'     => 'StringTrim',
-            'active'    => 'boolean'
+//            'active'    => 'boolean'
         ), array(
             'id'        => array('id', 'presense' => 'required'),
-            'name'      => array('StringLength', 'presense' => 'required'),
-            'email'     => array('EmailAddress', 'presense' => 'required'),
-            'active'    => array('boolean', 'presense' => 'required')
+            'name'      => array('StringLength'),
+            'email'     => array('EmailAddress'),
+//            'active'    => array('boolean', 'presense' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -88,7 +98,18 @@ class PA_Profile
                 Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
         }
 
-        $affectedRows = $this->_tableAccounts->updateByPk($f->getData(), $f->id);
+        try {
+            $affectedRows = $this->_tableAccounts->updateByPk($f->getData(), $f->id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::FAILURE;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+
 
         $response->affectedRows = $affectedRows;
 
@@ -98,12 +119,11 @@ class PA_Profile
 //      валидация картинки
         if($_FILES['photo']['size'] != 0){
             $file = new Xend_File();
-            $avatar = $file->uploadThumbnail('users',$data['login'],'photo');
+            $avatar = $file->uploadThumbnail('users',$data['id'],'photo');
         }
 
 
-        return $response->addStatus(new Xend_Accounts_Status(
-            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     /**

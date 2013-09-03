@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-CCREATE TABLE `auth_keys` (
+DROP TABLE IF EXISTS `auth_keys`;
+CREATE TABLE `auth_keys` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `hash` varchar(255) NOT NULL,

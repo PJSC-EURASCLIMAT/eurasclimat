@@ -154,7 +154,8 @@ class IndexController extends Xend_Controller_Action
         Zend_Session::destroy();
 
         $this->view->success = true;
-        $this->getResponse()->setHeader('Refresh', '3; URL=http://my.url.com');header('Location: /');
+        //$this->getResponse()->setHeader('Refresh', '3; URL=http://my.url.com');
+        header('Location: /');
     }
 
     public function getPermissionsAction()

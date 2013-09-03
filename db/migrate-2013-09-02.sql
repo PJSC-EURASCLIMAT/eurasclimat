@@ -1,5 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
+DROP TABLE IF EXISTS `catalog_special_services`;
 CREATE TABLE `catalog_special_services` (
 `id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
  `group_id` INT( 10 ) UNSIGNED NOT NULL ,
@@ -12,6 +13,7 @@ PRIMARY KEY (`id`) ,
 KEY  `group_id` (`group_id`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8;
 
+DROP TABLE IF EXISTS `catalog_special_services_groups`;
 CREATE TABLE `catalog_special_services_groups` (
 `id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
  `name` VARCHAR( 255 ) NOT NULL ,
@@ -59,13 +61,12 @@ ALTER TABLE `catalog_special_services_expendables`
   ADD CONSTRAINT `catalog_special_services_expendables_ibfk_3` FOREIGN KEY (`expendable_id`) REFERENCES `catalog_expendables` (`id`),
   ADD CONSTRAINT `catalog_special_services_expendables_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `catalog_special_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-DROP TABLE IF EXISTS `keys`;
+DROP TABLE IF EXISTS `auth_keys`;
 CREATE TABLE IF NOT EXISTS `auth_keys` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `hash` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
 
 SET FOREIGN_KEY_CHECKS=1;

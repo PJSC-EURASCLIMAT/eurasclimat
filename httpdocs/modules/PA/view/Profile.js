@@ -39,9 +39,9 @@ Ext.define('EC.PA.view.Profile', {
                                 {
                                     xtype: 'imagefield'
                                     ,dir: '/images/users/'
-//                                    ,width: 100
-//                                    ,height: 100
-                                    ,name: 'photo'
+                                    ,width: 100
+                                    ,height: 90
+                                    ,name: 'id'
                                     ,margin: '0 10 0 0'
                                 }, {
                                     xtype:'tbspacer',

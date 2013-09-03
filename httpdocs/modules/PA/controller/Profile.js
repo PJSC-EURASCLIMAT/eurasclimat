@@ -117,7 +117,7 @@ Ext.define('EC.PA.controller.Profile', {
     }
 
     ,fillImageField: function(curForm) {
-        curForm.owner.down("[name=photo]").setValue(this.account.login+".jpg");
+        curForm.owner.down("[name=id]").setValue(this.account.id+".jpg");
     }
 
     ,onProfileRender: function(){

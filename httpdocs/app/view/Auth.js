@@ -33,7 +33,7 @@ Ext.define('App.view.Auth', {
             labelWidth: 50,
             allowBlank: false,
             name: 'login',
-            fieldLabel: 'Логин',
+            fieldLabel: 'E-mail',
             inputAttrTpl: [
                 'autocomplete="on"'
             ]

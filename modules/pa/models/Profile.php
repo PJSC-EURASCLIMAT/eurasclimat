@@ -184,6 +184,7 @@ class PA_Profile
         }
 
         try {
+
             $affectedRows = $this->_tableAccounts->updateByPk(array(
                 'password' => md5($f->new_password1)
             ), $id);
@@ -191,6 +192,7 @@ class PA_Profile
             $response->affectedRows = $affectedRows;
             return $response->addStatus(new Xend_Accounts_Status(
                 Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;

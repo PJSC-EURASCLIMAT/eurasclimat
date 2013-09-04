@@ -183,13 +183,22 @@ class PA_Profile
                 Xend_Accounts_Status::INCORRECT_NEW_PASSWORD, 'new_password2'));
         }
 
-        $affectedRows = $this->_tableAccounts->updateByPk(array(
-            'password' => md5($f->new_password1)
-        ), $id);
+        try {
+            $affectedRows = $this->_tableAccounts->updateByPk(array(
+                'password' => md5($f->new_password1)
+            ), $id);
 
-        $response->affectedRows = $affectedRows;
-        return $response->addStatus(new Xend_Accounts_Status(
-            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+            $response->affectedRows = $affectedRows;
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
     }
 
 }

@@ -9,6 +9,14 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
         var MC = this.getController('App.controller.Main');
         container.on('show', function() {
             MC.openModulePortlet({
+                text: 'КАТАЛОГ ИНСТРУМЕНТОВ И МАТЕРИАЛОВ',
+                title: 'Каталог инструментов и материалов',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-1',
+                launchModule: 'EC.Catalog.controller.Expendables'
+            });
+            MC.openModulePortlet({
                 text: 'КАТАЛОГ ТОВАРОВ',
                 title: 'Каталог товаров',
                 icon: '/images/icons/catalog.png',
@@ -73,6 +81,16 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
             portletHeight: 400,
             position: 'CatalogPanel-column-2',
             launchModule: 'EC.Catalog.controller.SpecialServices',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'КАТАЛОГ ИНСТРУМЕНТОВ И МАТЕРИАЛОВ',
+            title: 'Каталог инструментов и материалов',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'CatalogPanel-column-1',
+            launchModule: 'EC.Catalog.controller.Expendables',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

@@ -141,12 +141,11 @@ class PA_Profile
     public function chPassword($id, array $data)
     {
         $response = new Xend_Response();
-
-        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
-        }
-
+//        if ($this->isRemoteauthEnabled() && $this->isAdmin($id)) {
+//
+//            return $response->addStatus(new Xend_Accounts_Status(
+//                Xend_Accounts_Status::ACCOUNT_IS_PROTECTED));
+//        }
         $data['id'] = $id;
 
         $f = new Xend_Filter_Input(array(

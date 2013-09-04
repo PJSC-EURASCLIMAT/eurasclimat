@@ -13,6 +13,8 @@ Ext.define('EC.PA.controller.Profile', {
 
     updateURL: '/json/pa/profile/update-profile',
 
+    changePassURL: '/json/pa/profile/change-password',
+
     refs: [
         {
             ref: 'profileWin',
@@ -43,6 +45,26 @@ Ext.define('EC.PA.controller.Profile', {
         this.callParent();
     },
 
+    chagePassword: function(){
+        var win = this.getPassChangeWin();
+        var form = win.down('form');
+
+        form.submit({
+            url: this.changePassURL,
+            success: function(curForm, action) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:green;">Пароль успешнго обновлен.</span>');
+                win.close();
+            },
+            failure: function(curForm, action) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">Ошибка обновления пароля!</span>');
+            },
+            scope: this
+        });
+
+    },
+
     run: function(container) {
 
         this.control({
@@ -54,6 +76,9 @@ Ext.define('EC.PA.controller.Profile', {
             },
             'profilewin button#saveBtn': {
                 click: this.updateProfile
+            },
+            'passchangeview button#saveBtn': {
+                click: this.chagePassword
             }
         });
 

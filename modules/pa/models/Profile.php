@@ -157,7 +157,21 @@ class PA_Profile
             return $response;
         }
 
-        $password = $this->_tableAccounts->fetchPassword($id);
+        try {
+            $password = $this->_tableAccounts->fetchPassword($id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        if(!$password){
+            $status = Xend_Accounts_Status::ACCOUNT_IS_NOT_EXISTS;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
 
         if ($password !== md5($f->old_password)) {
             return $response->addStatus(new Xend_Accounts_Status(

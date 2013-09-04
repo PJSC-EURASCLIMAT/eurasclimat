@@ -59,6 +59,10 @@ Ext.define('App.view.Register', {
                     llowBlank: true,
                     fieldLabel: 'ФИО',
                     name: 'name'
+                }, {
+                    xtype: 'hiddenfield',
+                    name: 'email',
+                    value: ''
                 }]
 
             ,buttons: [ {
@@ -67,6 +71,7 @@ Ext.define('App.view.Register', {
                 action: 'submit'
             }]
         }];
+
 
         this.callParent(arguments);
     }

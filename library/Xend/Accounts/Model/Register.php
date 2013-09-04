@@ -21,11 +21,10 @@ class Xend_Accounts_Model_Register {
         /*
         * Отправка письма
         * */
-        $mail = new Zend_Mail();
+        $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml('<p>Для активации аккаунта пройдите по следующей ссылке.</p><a href="http://'.$config->baseurl.'/index/activate/?hash='.$hash.'">http://'.$config->baseurl.'/index/activate/?hash='.$hash.'</a>');
         $mail->setFrom($config->mail->from->address, $config->company->name);
-        $mail->addTo('ansinyutin@yandex.ru', $name);
-//        $mail->addTo($login, $name);
+        $mail->addTo($login, $name);
         $mail->setSubject('Активация аккаунта');
 
         try {

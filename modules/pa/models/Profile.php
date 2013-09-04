@@ -167,11 +167,10 @@ class PA_Profile
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
-        if(!$password){
+        if (!$password) {
             $status = Xend_Accounts_Status::ACCOUNT_IS_NOT_EXISTS;
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
-
 
         if ($password !== md5($f->old_password)) {
             return $response->addStatus(new Xend_Accounts_Status(

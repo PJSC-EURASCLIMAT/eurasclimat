@@ -10,7 +10,7 @@ Ext.define('App.view.Auth', {
     
     border: false,
     
-//    autoShow: true,
+    autoShow: true,
     
     modal: true,
     

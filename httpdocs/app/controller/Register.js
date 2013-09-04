@@ -13,6 +13,8 @@ Ext.define('App.controller.Register', {
         var submitForm = function() {
             
             var form = win.down('form');
+            var email = form.down('[name=login]').getValue();
+            form.down('[name=email]').setValue(email);
         
             form.submit({
                 url: this.URL,

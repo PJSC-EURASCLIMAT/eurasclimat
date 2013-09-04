@@ -1,4 +1,4 @@
-Ext.define('EC.PA.models.Profile', {
+Ext.define('EC.PA.model.Profile', {
     extend: 'Ext.data.Model',
     fields: [
         {name: 'active',  type: 'string'},

@@ -151,6 +151,7 @@ class PA_Profile
         $f = new Xend_Filter_Input(array(
             '*'     => array('StringTrim')
         ), array(
+            'id'            => array('Id', 'presense' => 'required'),
             'old_password'  => array('password', 'presense' => 'required'),
             'new_password1'  => array('password', 'presense' => 'required'),
             'new_password2'  => array('password', 'presense' => 'required')

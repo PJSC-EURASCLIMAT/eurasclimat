@@ -35,6 +35,8 @@ class Xend_Accounts_Status extends Xend_Response_Status_Storage_Abstract
 
     const HASH_NOT_FOUND = -108;
 
+    const ACCOUNT_IS_NOT_ACTIVE = -109;
+
 
     /**
      * Description storage
@@ -49,6 +51,7 @@ class Xend_Accounts_Status extends Xend_Response_Status_Storage_Abstract
         self::INCORRECT_NEW_PASSWORD    => 'Incorrect new password',
         self::ACCOUNT_IS_NOT_EXISTS     => 'Account does not exist.',
         self::EMAIL_DOES_NOT_EXIST      => 'Email does not exist',
-        self::HASH_NOT_FOUND            => 'Hash does not exist'
+        self::HASH_NOT_FOUND            => 'Hash does not exist',
+        self::ACCOUNT_IS_NOT_ACTIVE     => 'Account is not active'
     );
 }

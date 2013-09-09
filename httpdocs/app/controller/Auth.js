@@ -32,8 +32,34 @@ Ext.define('App.controller.Auth', {
                 },
                 failure: function(form, action) {
                     authWin.down('textfield[name=password]').reset();
-                    Ext.Msg.alert('Ответ системы', 
-                        '<span style="color:red;">ОШИБКА АВТОРИЗАЦИИ!</span>');
+
+                    var msg = null;
+
+                    var errors = Ext.JSON.decode(action.response.responseText).errors;
+
+                    if (Ext.isDefined(errors)) {
+
+                        for (var i = 0; i < errors.length; i++) {
+
+                            var obj = errors[i];
+
+                            // TODO наверное лучше вынести проверку всех кодов статусов в отдельный класс или функцию
+                            if (errors[i].code === -109) {
+                                msg = 'АККАУНТ НЕ АКТИВИРОВАН!';
+                                break;
+                            }
+
+                        }
+
+                    }
+
+
+                    if (msg === null) {
+                        msg = 'ОШИБКА АВТОРИЗАЦИИ!';
+                    }
+
+                    Ext.Msg.alert('Ответ системы',
+                        '<span style="color:red;">'+msg+'</span>');
                 },
                 scope: this
             });

@@ -31,6 +31,9 @@ class IndexController extends Xend_Controller_Action
      */
     public function authAction()
     {
+
+        $response = new Xend_Response();
+
         $do = trim($this->_getParam('do'));
         $login = trim($this->_getParam('login'));
         $password = trim($this->_getParam('password'));
@@ -59,6 +62,13 @@ class IndexController extends Xend_Controller_Action
 
         // instance of stdClass
         $data = $authAdapter->getResultRowObject(null, 'password');
+
+        if($data->active !== "1"){
+            $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::ACCOUNT_IS_NOT_ACTIVE));
+            $this->_collectErrors($response);
+            $this->view->success = false;
+            return;
+        }
 
         // try to create acl object and assign the permissions
         $acl = new Xend_Acl();

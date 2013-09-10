@@ -6,7 +6,6 @@ Ext.define('EC.Main.view.About.MiniBrowser', {
     
     initComponent: function() {
         
-        
         var iframe = Ext.create('Ext.Component', {
             autoEl: {
                 tag: 'iframe',
@@ -15,6 +14,7 @@ Ext.define('EC.Main.view.About.MiniBrowser', {
                 src: ''
             }
         });
+        
         var navstring = Ext.create('Ext.form.field.Text', {
             width: '100%',
             height: 20,
@@ -32,6 +32,7 @@ Ext.define('EC.Main.view.About.MiniBrowser', {
                 scope: this
             }
         });
+        
         
         this.items = [navstring, iframe];
         

@@ -19,6 +19,16 @@ Ext.define('EC.Catalog.view.SpecialServices.List', {
         if (this.permissions) {
             
             actions.push({
+                icon: '/images/icons/fam/cog.gif',
+                tooltip: 'Конфигурировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('configure', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
                 icon: '/images/icons/fam/plugin.gif',
                 tooltip: 'Редактировать',
                 iconCls: 'x-btn',

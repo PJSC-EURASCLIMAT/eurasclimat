@@ -44,9 +44,9 @@ Ext.define('App.controller.Main', {
         
         this.getController('EC.Main.controller.Main');
         this.getController('EC.Catalog.controller.Main');
+        this.getController('EC.Market.controller.Main');
         /*
         this.getController('EC.Specialists.controller.Main');
-        this.getController('EC.Market.controller.Main');
         this.getController('EC.Mail.controller.Main');
         this.getController('EC.Recreation.controller.Main');
         */

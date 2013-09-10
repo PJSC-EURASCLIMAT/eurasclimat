@@ -250,7 +250,7 @@ Ext.define('EC.Catalog.controller.Expendables', {
     addItem: function() {
         
         if (Ext.isEmpty(this.groupID)) {
-            Ext.Msg.alert('Ошибка', 'Выберите группу для добавления услуги.');
+            Ext.Msg.alert('Ошибка', 'Выберите группу для добавления.');
             return;
         }
         

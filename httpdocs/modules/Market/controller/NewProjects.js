@@ -7,7 +7,37 @@ Ext.define('EC.Market.controller.NewProjects', {
     ],
     
     run: function(container) {
+        
         this.getContainer(container);
+        
+        var MC = this.getController('App.controller.Main');
+
+        var modulesToOpen = [{
+            title: 'ЭТП ММББ',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-1',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site1'
+        }, {
+            title: 'Сбербанк-АСТ',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-2',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site2'
+        }, {
+            title: 'ЕЭТП (Росэлторг)',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-3',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site3'
+        }];
+        
+        container.on('show', function() {
+            Ext.each(modulesToOpen, function(item) {
+                MC.openModulePortlet(item);
+            });
+        }, this, {single: true});
+        
     },
     
     getMenu: function() {
@@ -44,22 +74,6 @@ Ext.define('EC.Market.controller.NewProjects', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
-        }, {
-            text: 'Мини браузер',
-            title: 'Мини браузер',
-//            icon: '/images/icons/about.png',
-            position: 'Market-NewProjects-column-1',
-            allowMultiple: true,
-            launchModule: 'EC.Market.controller.NewProjects.MiniBrowser',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-         }, {
-            text: 'Технологич. конкурсы',
-            title: 'Технологич. конкурсы'
-         }, {
-            text: 'Технологич. аукционы',
-            title: 'Технологич. аукционы'
         }];
     }
 });

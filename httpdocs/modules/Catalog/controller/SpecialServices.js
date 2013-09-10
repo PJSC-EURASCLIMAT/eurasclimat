@@ -4,19 +4,22 @@ Ext.define('EC.Catalog.controller.SpecialServices', {
     
     stores: [
         'EC.Catalog.store.SpecialServices.Groups',
-        'EC.Catalog.store.SpecialServices.List'
+        'EC.Catalog.store.SpecialServices.List',
+        'EC.Catalog.store.SpecialServices.RelatedExpendables'
     ],
     
     models: [
         'EC.Catalog.model.SpecialServices.Groups',
-        'EC.Catalog.model.SpecialServices.List'
+        'EC.Catalog.model.SpecialServices.List',
+        'EC.Catalog.model.SpecialServices.RelatedExpendables'
     ],
     
     views: [
         'EC.Catalog.view.SpecialServices.PortletLayout',
         'EC.Catalog.view.SpecialServices.Layout',
         'EC.Catalog.view.SpecialServices.Groups',
-        'EC.Catalog.view.SpecialServices.List'
+        'EC.Catalog.view.SpecialServices.List',
+        'EC.Catalog.view.SpecialServices.RelatedExpendables'
     ],
     
     groupID: null,
@@ -118,6 +121,7 @@ Ext.define('EC.Catalog.controller.SpecialServices', {
                 });
                 
                 servicesPanel.on({
+                    configure: this.configureItem,
                     edititem: this.editItem,
                     deleteitem: this.deleteItem,
                     scope: this
@@ -247,6 +251,50 @@ Ext.define('EC.Catalog.controller.SpecialServices', {
     
     /* Services section */
    
+    configureItem: function(grid, record) {
+        
+        var w = Ext.create('Ext.window.Window', {
+            //title: 'Добавление материала к услуге',
+            title: 'Инструменты, механизмы и вспомогательные материалы',
+            modal: true,
+            width: 800,
+            height: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false
+        });
+        
+        var relatedExpendablesWidget = this.getController('EC.Catalog.controller.RelatedExpendables');
+        
+        relatedExpendablesWidget.serviceID = record.get('id');
+        relatedExpendablesWidget.allowEdit = this.permissions;
+        relatedExpendablesWidget.run(w);
+        
+        /*
+        var grid = w.down('ServicesList');
+        
+        w.down('button[action=add]').on({
+            click: function() {
+                var rows = grid.getSelectionModel().getSelection();
+                if (0 == rows.length) {
+                    return;
+                }
+                this.saveExpendable(rows[0].get('id'), record.get('id'), panel);
+                w.close();
+            },
+            scope: this
+        });
+        
+        grid.on({
+            itemdblclick: function(g, record) {
+                this.saveExpendable(record.get('id'), id, panel);
+                servicesWindow.close();
+            },
+            scope: this
+        });
+        */
+    },
+    
     addItem: function() {
         
         if (Ext.isEmpty(this.groupID)) {

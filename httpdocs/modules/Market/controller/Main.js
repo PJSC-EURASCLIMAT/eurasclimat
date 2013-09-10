@@ -11,12 +11,13 @@ Ext.define('EC.Market.controller.Main', {
     init: function() {
         
         var container = this.getContainer();
-        
         this.getController('EC.Market.controller.NewProjects').run(container);
+        /*
         this.getController('EC.Market.controller.CurrentProjects').run(container);
         this.getController('EC.Market.controller.Statistic').run(container);
         this.getController('EC.Market.controller.Rating').run(container);
         this.getController('EC.Market.controller.NewChapter').run(container);
+        */
     },
     
     getMenu: function() {

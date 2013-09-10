@@ -13,17 +13,35 @@ Ext.define('EC.Market.controller.NewProjects', {
         var MC = this.getController('App.controller.Main');
 
         var modulesToOpen = [{
+            title: 'Госзакупки',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-1',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site4'
+        }, {
             title: 'ЭТП ММББ',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-1',
             allowMultiple: true,
             launchModule: 'EC.Market.controller.NewProjects.Site1'
         }, {
+            title: 'Аэрофлот',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-2',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site5'
+        }, {
             title: 'Сбербанк-АСТ',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-2',
             allowMultiple: true,
             launchModule: 'EC.Market.controller.NewProjects.Site2'
+        }, {
+            title: 'Закупки Сбербанк-АСТ',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-3',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site6'
         }, {
             title: 'ЕЭТП (Росэлторг)',
             icon: '/images/icons/about.png',
@@ -44,36 +62,6 @@ Ext.define('EC.Market.controller.NewProjects', {
         
         var MC = this.getController('App.controller.Main');
         
-        return [{
-            text: 'Сайт ЭТП ММББ',
-            title: 'ЭТП ММББ',
-            icon: '/images/icons/about.png',
-            position: 'Market-NewProjects-column-1',
-            allowMultiple: true,
-            launchModule: 'EC.Market.controller.NewProjects.Site1',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {
-            text: 'Сайт Сбербанк-АСТ',
-            title: 'Сбербанк-АСТ',
-            icon: '/images/icons/about.png',
-            position: 'Market-NewProjects-column-2',
-            allowMultiple: true,
-            launchModule: 'EC.Market.controller.NewProjects.Site2',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {
-            text: 'Сайт ЕЭТП (Росэлторг)',
-            title: 'ЕЭТП (Росэлторг)',
-            icon: '/images/icons/about.png',
-            position: 'Market-NewProjects-column-3',
-            allowMultiple: true,
-            launchModule: 'EC.Market.controller.NewProjects.Site3',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }];
+        return [];
     }
 });

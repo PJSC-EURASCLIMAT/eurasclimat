@@ -46,10 +46,16 @@ Ext.define('EC.Main.controller.About', {
         }, {
             title: 'О компании',
             icon: '/images/icons/about.png',
-            position: 'MainPanel-column-1',
+            position: 'MainPanel-column-2',
             portletHeight: 200,
             allowMultiple: false,
             launchModule: 'EC.Main.controller.AboutCompany'
+        }, {
+            title: 'Минибраузер',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 410,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.MiniBrowser'
         }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
@@ -59,19 +65,19 @@ Ext.define('EC.Main.controller.About', {
         }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 150,
+            portletHeight: 200,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Currency'
         }, {
             title: 'Новости',
             icon: '/images/icons/news.png',
-            portletHeight: 150,
+            portletHeight: 200,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.News'
         }, {
             title: 'Прогноз погоды',
             icon: '/images/icons/kweather.png',
-            portletHeight: 300,
+            portletHeight: 410,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'
         }];

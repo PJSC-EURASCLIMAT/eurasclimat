@@ -13,6 +13,12 @@ Ext.define('EC.Market.controller.NewProjects', {
         var MC = this.getController('App.controller.Main');
 
         var modulesToOpen = [{
+            title: 'Газпромбанк',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-1',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site10'
+        }, {
             title: 'Почта России',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-1',
@@ -31,6 +37,12 @@ Ext.define('EC.Market.controller.NewProjects', {
             allowMultiple: true,
             launchModule: 'EC.Market.controller.NewProjects.Site1'
         }, {
+            title: 'Газпром',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-2',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site11'
+        }, {
             title: 'ВТБ24',
             icon: '/images/icons/about.png',
             position: 'Market-NewProjects-column-2',
@@ -48,6 +60,12 @@ Ext.define('EC.Market.controller.NewProjects', {
             position: 'Market-NewProjects-column-2',
             allowMultiple: true,
             launchModule: 'EC.Market.controller.NewProjects.Site2'
+        }, {
+            title: 'МГУ',
+            icon: '/images/icons/about.png',
+            position: 'Market-NewProjects-column-3',
+            allowMultiple: true,
+            launchModule: 'EC.Market.controller.NewProjects.Site12'
         }, {
             title: 'Лукойл',
             icon: '/images/icons/about.png',

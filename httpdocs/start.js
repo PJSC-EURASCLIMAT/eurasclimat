@@ -23,6 +23,47 @@ Ext.application({
 
     launch: function() {
 
+        /*
+        Ext.Ajax.on({
+            requestexception: function(conn, response, options) {
+                switch (response.status) {
+                    case 401:
+                        alert("Авторизация истекла! \n Вы будете перенаправлены на страницу входа.");
+                        window.location.reload();
+                        break;
+                        
+                    case 404:
+                        xlib.Msg.error('Страница не найдена');
+                        break;
+                        
+                    case 405:
+                    
+                        var t = ['<b>Нет прав!</b>'];
+                        
+                        var result = xlib.decode(response.responseText);
+                        if (Ext.isArray(result.trace) && result.trace.length > 0) {
+    
+                            t = t.concat(['<table style="padding-top: 20px">', '<tr>', '<td colspan="2"><b>Запрашиваемый ресурс:</b></td></tr>']);
+                            
+                            Ext.each(result.trace, function(i) {
+                                t.push('<tr><td><b>Ресурс:</b> <i>' + i.resource.join('->') + '</i></td></tr>');
+                                t.push('<tr><td><b>Привилегия:</b> <i>' + i.privilege + '</i></td></tr>');
+                            }, this);
+                            
+                            t.push('</table>');
+                        }
+                            
+                        xlib.Msg.error(t.join(''));
+                        break;
+                        
+                    case 500:
+                        xlib.Msg.error('Ошибка сервера');
+                        break;
+                }
+            }  
+        });
+        */
+        
         // чтобы был доступ к объекту приложения
         App.app = this;
 

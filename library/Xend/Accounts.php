@@ -314,10 +314,10 @@ class Xend_Accounts
             'email'     => 'StringTrim',
             'active'    => 'boolean'
         ), array(
-            'id'        => array('id', 'presense' => 'required'),
-            'name'      => array('StringLength', 'presense' => 'required'),
-            'email'     => array('EmailAddress', 'presense' => 'required'),
-            'active'    => array('boolean', 'presense' => 'required')
+            'id'        => array('id', 'presence' => 'required'),
+            'name'      => array('StringLength', 'presence' => 'required'),
+            'email'     => array('EmailAddress', 'presence' => 'required'),
+            'active'    => array('boolean', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -373,7 +373,7 @@ class Xend_Accounts
             'active'    => array('boolean'),
             '*'         => array('StringTrim')
         ), array(
-            'login'     => array('EmailAddress', 'presense' => 'required'),
+            'login'     => array('EmailAddress', 'presence' => 'required'),
             'name'      => array('StringLength'),
             'email'     => array('EmailAddress'),
             'country'   => array('StringLength'),
@@ -382,7 +382,7 @@ class Xend_Accounts
 //            'tz'        => array('StringLength'),
 //            'photo'     => array('StringLength'),
 //            'doc'       => array('StringLength'),
-//            'active'    => array('boolean', 'presense' => 'required')
+//            'active'    => array('boolean', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -547,8 +547,8 @@ class Xend_Accounts
         $f = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
-            'id'        => array('id', 'presense'   => 'required'),
-            'password'  => array('password', 'presense' => 'required')
+            'id'        => array('id', 'presence'   => 'required'),
+            'password'  => array('password', 'presence' => 'required')
         ), array(
             'id'        => $id,
             'password'  => $password
@@ -593,9 +593,9 @@ class Xend_Accounts
         $f = new Xend_Filter_Input(array(
             '*'     => array('StringTrim')
         ), array(
-            'old_password'  => array('password', 'presense' => 'required'),
-            'new_password1'  => array('password', 'presense' => 'required'),
-            'new_password2'  => array('password', 'presense' => 'required')
+            'old_password'  => array('password', 'presence' => 'required'),
+            'new_password1'  => array('password', 'presence' => 'required'),
+            'new_password2'  => array('password', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -686,7 +686,7 @@ class Xend_Accounts
         $f = new Xend_Filter_Input(array(
             'id'        => 'int',
         ), array(
-            'id'        => array('id', 'presense' => 'required'),
+            'id'        => array('id', 'presence' => 'required'),
         ), array('id' => $id));
 
         $response->addInputStatus($f);

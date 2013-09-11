@@ -145,8 +145,8 @@ class Sysdev_Projects_Model
             'parentId' => 'int',
             //'leaf'      => 'int'
         ), array(
-            'parentId' => array('int', 'presense' => 'required'),
-            //'leaf'      => array('int', 'presense' => 'required')
+            'parentId' => array('int', 'presence' => 'required'),
+            //'leaf'      => array('int', 'presence' => 'required')
         ), $data);
         $response->addInputStatus($filter);
         if ($response->hasNotSuccess()) {
@@ -182,7 +182,7 @@ class Sysdev_Projects_Model
         $filter = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
-            'id' => array('id', 'presense' => 'required')
+            'id' => array('id', 'presence' => 'required')
         ), $data);
         $response->addInputStatus($filter);
         if ($response->hasNotSuccess()) {
@@ -216,7 +216,7 @@ class Sysdev_Projects_Model
         $filter = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
-            'id' => array('id', 'presense' => 'required')
+            'id' => array('id', 'presence' => 'required')
         ), $data);
         $response->addInputStatus($filter);
         if ($response->hasNotSuccess()) {
@@ -284,11 +284,11 @@ class Sysdev_Projects_Model
             'name'      => 'StringTrim',
             'leaf'      => 'int'
         ), array(
-            'id'        => array('id', 'presense' => 'required'),
-            'parent_id' => array('id', 'presense' => 'required'),
-            'position'  => array('id', 'presense' => 'required'),
-            'name'      => array('StringLength', 'presense' => 'required'),
-            'leaf'      => array('int', 'presense' => 'required')
+            'id'        => array('id', 'presence' => 'required'),
+            'parent_id' => array('id', 'presence' => 'required'),
+            'position'  => array('id', 'presence' => 'required'),
+            'name'      => array('StringLength', 'presence' => 'required'),
+            'leaf'      => array('int', 'presence' => 'required')
         ), array(
             'id' => $id,
             'parent_id' => $parentId,

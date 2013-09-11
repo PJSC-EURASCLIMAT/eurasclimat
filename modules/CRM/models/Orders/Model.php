@@ -23,11 +23,10 @@ class CRM_Orders_Model
             'skype'     => 'StringTrim',
             'info'     => 'StringTrim',
         ), array(
-            'account_id'        => array('presense' => 'required'),
-            'name'      => array('StringLength', 'presense' => 'required'),
+            'account_id' => array('int', 'presence' => 'required'),
             'phone'      => array('StringLength'),
             'skype'      => array('StringLength'),
-            'info'     => array('StringLength'),
+            'info'       => array('StringLength'),
         ), $data);
 
         $response->addInputStatus($f);

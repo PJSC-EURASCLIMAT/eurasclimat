@@ -82,10 +82,10 @@ class PA_Profile
             'email'     => 'StringTrim',
 //            'active'    => 'boolean'
         ), array(
-            'id'        => array('id', 'presense' => 'required'),
+            'id'        => array('id', 'presence' => 'required'),
             'name'      => array('StringLength'),
             'email'     => array('EmailAddress'),
-//            'active'    => array('boolean', 'presense' => 'required')
+//            'active'    => array('boolean', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -146,10 +146,10 @@ class PA_Profile
         $f = new Xend_Filter_Input(array(
             '*'     => array('StringTrim')
         ), array(
-            'id'            => array('Id', 'presense' => 'required'),
-            'old_password'  => array('password', 'presense' => 'required'),
-            'new_password1'  => array('password', 'presense' => 'required'),
-            'new_password2'  => array('password', 'presense' => 'required')
+            'id'            => array('Id', 'presence' => 'required'),
+            'old_password'  => array('password', 'presence' => 'required'),
+            'new_password1'  => array('password', 'presence' => 'required'),
+            'new_password2'  => array('password', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);

@@ -116,7 +116,7 @@ Ext.define('EC.Main.view.OrderPortlet', {
             buttons: [{
                 text: 'Отправить',
                 formBind: true, //only enabled once the form is valid
-                hidden: !this.permissions,
+//                hidden: !this.permissions,
                 itemId: 'sendBtn'
             },'->']
         }

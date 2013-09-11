@@ -95,7 +95,7 @@ Ext.define('EC.PA.controller.Profile', {
     },
 
     showEditForm:function(){
-        console.log("showing edit form");
+//        console.log("showing edit form");
         var win = this.getProfileWin();
         win.getLayout().setActiveItem('editProfile');
         win.down("#saveBtn").show();
@@ -103,14 +103,14 @@ Ext.define('EC.PA.controller.Profile', {
     },
 
     hideEditForm: function(){
-        console.log("hiding edit form");
+//        console.log("hiding edit form");
         var win = this.getProfileView();
         win.getLayout().setActiveItem('displayProfile');
         win.down("#saveBtn").show();
     }
 
     ,openPassWindow: function(){
-        console.log("opening password window");
+//        console.log("opening password window");
         Ext.create('EC.PA.view.PassChange');
     }
     ,fillDisplayForm: function(){
@@ -146,7 +146,7 @@ Ext.define('EC.PA.controller.Profile', {
     }
 
     ,onProfileRender: function(){
-        console.log('profile rendered');
+//        console.log('profile rendered');
     }
 
     ,updateProfile: function(){

@@ -63,6 +63,12 @@ Ext.define('EC.Main.controller.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Sysdev'
         }, {
+            title: 'Заказ',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 325,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.Order'
+        },{
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
             portletHeight: 200,
@@ -99,6 +105,17 @@ Ext.define('EC.Main.controller.About', {
             portletHeight: 200,
             allowMultiple: false,
             launchModule: 'EC.Main.controller.AboutCompany',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'Заказ',
+            title: 'Заказ',
+            icon: '/images/icons/about.png',
+            position: 'MainPanel-column-2',
+            portletHeight: 200,
+            allowMultiple: false,
+            launchModule: 'EC.Main.controller.Order',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

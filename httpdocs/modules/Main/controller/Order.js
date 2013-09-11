@@ -26,7 +26,7 @@ Ext.define('EC.Main.controller.Order', {
         if (!this.permissions) {
             this.orderForm.on('someFieldIsChanged', function(form, isDirty) {
                 acl.authManager.showAuthWin();
-//                this.orderForm.down('#sendBtn').disable();
+                this.orderForm.down('#sendBtn').disable();
             },this);
         }
 

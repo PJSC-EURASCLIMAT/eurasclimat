@@ -19,13 +19,11 @@ class CRM_Orders_Model
             'category'      => 'int',
             'object'     => 'int',
             'area'     => 'int',
-            'phone'     => 'int',
-            'skype'     => 'StringTrim',
+            'contacts'     => 'StringTrim',
             'info'     => 'StringTrim',
         ), array(
             'account_id' => array('int', 'presence' => 'required'),
-            'phone'      => array('StringLength'),
-            'skype'      => array('StringLength'),
+            'contacts'      => array('StringLength'),
             'info'       => array('StringLength'),
         ), $data);
 

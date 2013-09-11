@@ -11,6 +11,9 @@ Ext.define('EC.Main.view.OrderPortlet', {
 //        pressed: true,
 //        action: 'filter'
 //    }],
+
+    permissions: acl.isUpdate('crm', 'orders'),
+
     items: [
         {
             xtype: 'form',
@@ -22,7 +25,12 @@ Ext.define('EC.Main.view.OrderPortlet', {
             layout: 'anchor',
 
             defaults: {
-                anchor: '100%'
+                anchor: '100%',
+                listeners: {
+                    change: function(field, newVal, oldVal) {
+                        this.up('form').fireEvent('someFieldIsChanged');
+                    }
+                }
             },
 
             defaultType: 'textfield',
@@ -92,11 +100,10 @@ Ext.define('EC.Main.view.OrderPortlet', {
                 minValue: 0,
                 allowBlank: false
             },{
-                fieldLabel: 'Телефон',
-                name: 'phone'
-            },{
-                fieldLabel: 'Скайп',
-                name: 'skype'
+                xtype: 'textarea',
+                fieldLabel: 'Контакты',
+                labelAlign: 'top',
+                name: 'contacts'
             },{
                 xtype: 'textarea',
                 fieldLabel: 'Дополнительные сведения',
@@ -109,6 +116,7 @@ Ext.define('EC.Main.view.OrderPortlet', {
             buttons: [{
                 text: 'Отправить',
                 formBind: true, //only enabled once the form is valid
+                hidden: !this.permissions,
                 itemId: 'sendBtn'
             },'->']
         }

@@ -20,12 +20,16 @@ Ext.define('EC.Main.controller.Order', {
             click: this.sendOrder,
             scope: this
         });
+
         this.orderForm = panel.down('form');
 
-//        if ('portlet' == container.getXType()) {
-//        } else {
-//            panel = container.add(this.getView('EC.Main.view.AboutCompany').create());
-//        }
+        if (!this.permissions) {
+            this.orderForm.on('someFieldIsChanged', function(form, isDirty) {
+                acl.authManager.showAuthWin();
+//                this.orderForm.down('#sendBtn').disable();
+            },this);
+        }
+
     },
     
     openCard: function(grid, record, item, index, e, eOpts) {
@@ -38,7 +42,7 @@ Ext.define('EC.Main.controller.Order', {
             url: this.URL,
             success: function(form, action) {
                 Ext.Msg.alert('Ответ системы',
-                    'Заказ оформлен успешно!');
+                    '<span style="color:green;">Заказ оформлен успешно!</span>');
                 this.orderForm.getForm().reset();
             },
             failure: function(form, action) {

@@ -10,6 +10,7 @@ Ext.Loader.setConfig({
 
 Ext.require('xlib.overrides.FileField');
 Ext.require('xlib.Acl.Manager');
+Ext.require('xlib.Acl.AuthManager');
 
 Ext.application({
     name: 'App',

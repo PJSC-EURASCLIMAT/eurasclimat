@@ -27,7 +27,7 @@ class CRM_OrdersController extends Xend_Controller_Action
         $Identity = $auth->getIdentity();
 
         $data = $this->_getAllParams();
-//        $data['account_id'] = $Identity->id;
+        $data['account_id'] = $Identity->id;
 
         $response = $this->_model->add($data);
         if ($response->isSuccess()) {

@@ -65,7 +65,7 @@ Ext.define('EC.Main.controller.About', {
         }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 300,
+            portletHeight: 340,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
         },{

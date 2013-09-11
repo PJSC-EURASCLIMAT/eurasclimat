@@ -37,12 +37,13 @@ Ext.define('EC.Main.controller.Order', {
         this.orderForm.submit({
             url: this.URL,
             success: function(form, action) {
-                console.log("ORDER SEND SUCCESS");
-                console.log(action);
+                Ext.Msg.alert('Ответ системы',
+                    'Заказ оформлен успешно!');
+                this.orderForm.getForm().reset();
             },
             failure: function(form, action) {
-               console.log("ORDER SEND FAILURE");
-               console.log(action);
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">ОШИБКА ОФОРМЛЕНИЯ ЗАКАЗА!</span>');
             },
             scope: this
         });

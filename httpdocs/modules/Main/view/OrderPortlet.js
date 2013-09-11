@@ -6,18 +6,18 @@ Ext.define('EC.Main.view.OrderPortlet', {
 
 //    layout: 'fit',
 
-    bbar: ['->', {
-        text: 'Подробнее',
-        pressed: true,
-        action: 'filter'
-    }],
+//    bbar: ['->', {
+//        text: 'Подробнее',
+//        pressed: true,
+//        action: 'filter'
+//    }],
     items: [
         {
             xtype: 'form',
             itemId: 'orderForm',
             bodyPadding: '5 5 0 5',
             width: '100%',
-            maxWidth: 350,
+//            maxWidth: 350,
             border: false,
             layout: 'anchor',
 
@@ -92,7 +92,7 @@ Ext.define('EC.Main.view.OrderPortlet', {
                 minValue: 0,
                 allowBlank: false
             },{
-                fieldLabel: 'Email',
+                fieldLabel: 'Телефон',
                 name: 'phone'
             },{
                 fieldLabel: 'Скайп',

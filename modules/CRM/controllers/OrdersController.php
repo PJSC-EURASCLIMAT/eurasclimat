@@ -23,7 +23,13 @@ class CRM_OrdersController extends Xend_Controller_Action
 
     public function addOrderAction()
     {
-        $response = $this->_model->add($this->_getAllParams());
+        $auth = Zend_Auth::getInstance();
+        $Identity = $auth->getIdentity();
+
+        $data = $this->_getAllParams();
+//        $data['account_id'] = $Identity->id;
+
+        $response = $this->_model->add($data);
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;

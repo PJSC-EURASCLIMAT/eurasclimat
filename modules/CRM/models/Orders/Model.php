@@ -32,9 +32,15 @@ class CRM_Orders_Model
             return $response;
         }
 
-        $id = $this->_table->insert($f->getData());
-        if (!$id) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        try {
+            $id = $this->_table->insert($f->getData());
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
         $response->id = $id;

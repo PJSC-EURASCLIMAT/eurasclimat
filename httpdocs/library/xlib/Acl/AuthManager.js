@@ -4,25 +4,32 @@ xlib.Acl.AuthManager = function() {
 
     return {
         showAuthWin: function() {
+            var me = this;
+
             this.authCntr = App.app.getController('Auth');
             this.regCntr = App.app.getController('Register');
 
-            Ext.Msg.show({
+
+            Ext.create('Ext.window.Window', {
                 title: 'Доступ к системе',
-                msg: 'Для продолжения небходимо авторизоваться или зарегистрироваться.',
-                buttons: Ext.Msg.OKCANCEL,
-                fn: function(b) {
-                    if ('ok' == b) {
-                        this.authCntr.run();
-                    }
-                    if ('cancel' == b) {
-                        this.regCntr.run();
-                    }
-                },
-                buttonText: {ok: "Авторизация", cancel: "Регистрация"},
-                icon: Ext.MessageBox.QUESTION,
-                scope: this
-            });
+                bodyPadding: 20,
+                html: 'Для продолжения небходимо авторизоваться или зарегистрироваться.',
+                buttons: [
+                    '->',{
+                        text: 'Авторизация',
+                        handler: function(btn, eOpts){
+                            me.authCntr.run();
+                            btn.up('window').close();
+                        }
+                    },{
+                        text: 'Регистрация',
+                        handler: function(btn, eOpts){
+                            me.regCntr.run();
+                            btn.up('window').close();
+                        }
+                    },'->'
+                ]
+            }).show();
 
         }
     };

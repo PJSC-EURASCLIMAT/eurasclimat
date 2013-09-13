@@ -10,7 +10,7 @@ CREATE TABLE `crm_orders` (
   `info` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 ALTER TABLE `crm_orders`
   ADD CONSTRAINT `crm_orders_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

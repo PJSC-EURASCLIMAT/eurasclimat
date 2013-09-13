@@ -25,17 +25,17 @@ Ext.define('EC.Main.controller.Order', {
 
         if (!this.permissions) {
 //            this.orderForm.on('someFieldIsChanged', function(form, isDirty) {
-//                acl.authManager.showAuthWin();
+//                xlib.Acl.AuthManager.showAuthWin();
 //                this.orderForm.down('#sendBtn').disable();
 //            },this);
 
             this.orderForm.on('beforeaction', function(form, action, eOpts ) {
-                acl.authManager.showAuthWin();
+                xlib.Acl.AuthManager.showAuthWin();
                 return false;
             },this);
 
             this.orderForm.on('dirtychange', function(form, isDirty) {
-                acl.authManager.showAuthWin();
+                xlib.Acl.AuthManager.showAuthWin();
             },this);
         }
 

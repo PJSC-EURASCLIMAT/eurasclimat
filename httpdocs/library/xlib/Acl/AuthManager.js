@@ -34,6 +34,3 @@ xlib.Acl.AuthManager = function() {
         }
     };
 }();
-
-acl = acl || {};
-acl.authManager = xlib.Acl.AuthManager;

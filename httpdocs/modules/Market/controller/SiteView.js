@@ -38,6 +38,7 @@ Ext.define('EC.Market.controller.SiteView', {
     }
 
     ,viewAfterLayout: function ( view, layout, eOpts ) {
+        document.getElementById('eventsIFrame').contentWindow.document.getElementsByTagName('body')[0].innerHTML = "Выберите сайт из списка слева";
 //        this.selectFirstRow();
     }
 

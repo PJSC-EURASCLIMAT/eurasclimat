@@ -16,9 +16,16 @@ Ext.define('EC.Manufacturers.view.Trade.SiteView', {
         {
             itemId: 'tradeFrame',
             xtype: 'container',
-            html: '<iframe id="eventsIFrame" width="100%" height="100%" ' +
-                'src="">' +
-                '</iframe>',
+            layout: 'fit',
+            items: [
+                {
+                    xtype: 'container',
+                    html: '<iframe id="ManufacturersIFrame" width="100%" height="100%" ' +
+                        'src="">' +
+                        '</iframe>'
+                }
+            ],
+
             region: 'center'
         }
     ]

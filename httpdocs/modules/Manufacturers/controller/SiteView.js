@@ -38,7 +38,8 @@ Ext.define('EC.Manufacturers.controller.SiteView', {
     }
 
     ,viewAfterLayout: function ( view, layout, eOpts ) {
-        console.log("asdfasdfasdfasd");
+        document.getElementById('ManufacturersIFrame').contentWindow.document.getElementsByTagName('body')[0].innerHTML = "Выберите сайт из списка слева";
+//        console.log("asdfasdfasdfasd");
 //        this.selectFirstRow();
     }
 

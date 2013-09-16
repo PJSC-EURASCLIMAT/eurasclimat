@@ -109,7 +109,7 @@ Ext.define('EC.Market.controller.NewProjects', {
         this.getContainer(container);
         
         var MC = this.getController('App.controller.Main');
-        
+
         container.on('show', function() {
             Ext.each(this.modules, function(item) {
                 MC.openModulePortlet(item);

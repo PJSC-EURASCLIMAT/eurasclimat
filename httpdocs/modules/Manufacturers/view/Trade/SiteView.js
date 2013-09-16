@@ -1,15 +1,15 @@
-Ext.define('EC.Market.view.Trade.SiteView', {
+Ext.define('EC.Manufacturers.view.Trade.SiteView', {
 
     extend: 'Ext.container.Container',
 
-    alias: 'widget.TradeView',
+    alias: 'widget.ManufacturersTradeView',
 
     layout: 'border',
 
     items: [
         {
             itemId: 'tradeList',
-            xtype: 'TradeViewList',
+            xtype: 'ManufacturersTradeViewList',
             region: 'west',
             width: 200
         },
@@ -18,7 +18,6 @@ Ext.define('EC.Market.view.Trade.SiteView', {
             xtype: 'container',
             html: '<iframe id="eventsIFrame" width="100%" height="100%" ' +
                 'src="">' +
-                '<p>Для просмотра сайта выберите его в левом списке</p>' +
                 '</iframe>',
             region: 'center'
         }

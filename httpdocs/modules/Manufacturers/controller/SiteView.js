@@ -1,19 +1,19 @@
-Ext.define('EC.Market.controller.SiteView', {
+Ext.define('EC.Manufacturers.controller.SiteView', {
     
     extend: 'App.controller.PortalAbstract',
 
     views: [
-        'EC.Market.view.Trade.SiteView',
-        'EC.Market.view.Trade.List'
+        'EC.Manufacturers.view.Trade.SiteView',
+        'EC.Manufacturers.view.Trade.List'
     ],
 
     refs: [
         {
             ref: 'list',
-            selector: 'TradeViewList'
+            selector: 'ManufacturersTradeViewList'
         },{
             ref: 'frame',
-            selector: 'TradeView #tradeFrame'
+            selector: 'ManufacturersTradeView #tradeFrame'
         }
     ],
 
@@ -21,10 +21,10 @@ Ext.define('EC.Market.controller.SiteView', {
     run:function(container) {
 
         this.control({
-            'TradeViewList': {
+            'ManufacturersTradeViewList': {
                 rowClicked: this.openSite
             },
-            'TradeView' : {
+            'ManufacturersTradeView' : {
                afterlayout: this.viewAfterLayout
             }
         });
@@ -38,6 +38,7 @@ Ext.define('EC.Market.controller.SiteView', {
     }
 
     ,viewAfterLayout: function ( view, layout, eOpts ) {
+        console.log("asdfasdfasdfasd");
 //        this.selectFirstRow();
     }
 

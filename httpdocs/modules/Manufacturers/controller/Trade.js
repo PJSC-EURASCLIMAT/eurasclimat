@@ -1,18 +1,26 @@
-Ext.define('EC.Market.controller.Trade', {
+Ext.define('EC.Manufacturers.controller.Trade', {
     
     extend: 'App.controller.PortalAbstract',
 
     views: [
-        'EC.Market.view.Trade.Layout'
+        'EC.Manufacturers.view.Trade.Layout'
     ],
     
     modules: [ {
-        title: 'Тендеры',
+        title: 'Производители оборудования',
         icon: '/images/icons/about.png',
-        position: 'Market-NewProjects-column-3',
+        position: 'Manufacturers-Trade-column-1',
         allowMultiple: true,
-        launchModule: 'EC.Market.controller.SiteView'
-    }],
+        launchModule: 'EC.Manufacturers.controller.SiteView'
+    }
+//    ,{
+//        title: 'Производители оборудования',
+//        icon: '/images/icons/about.png',
+////        position: 'Market-NewProjects-column-3',
+//        allowMultiple: true,
+//        launchModule: 'EC.Market.controller.SiteView'
+//    }
+    ],
     
     run: function(container) {
         

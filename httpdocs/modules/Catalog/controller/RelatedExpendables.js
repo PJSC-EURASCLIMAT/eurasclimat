@@ -18,11 +18,11 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     
     permissions: acl.isUpdate('catalog', 'specialservices'),
     
-    getURL: '/json/catalog/special-services/get-related-expendable',
+    getURL: '/json/catalog/related-expendables/get-list',
     
-    addURL: '/json/catalog/special-services/add-related-expendable',
+    addURL: '/json/catalog/related-expendables/add',
     
-    deleteURL: '/json/catalog/special-services/delete-related-expendable',
+    deleteURL: '/json/catalog/related-expendables/delete',
     
     run: function(container) {
 
@@ -72,6 +72,69 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     
     addItem: function() {
         
+        var w = Ext.create('Ext.window.Window', {
+            title: 'Добавление добавление материала',
+            modal: true,
+            width: 1000,
+            height: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false,
+            buttons: [{
+                text: 'Добавить',
+                action: 'add'
+            }, {
+                text: 'Отменить',
+                scope: this,
+                handler: function() {
+                    w.close();
+                }
+            }]
+        });
+        
+        var expendablesWidget = this.getController('EC.Catalog.controller.Expendables');
+        
+        expendablesWidget.run(w);
+        
+        var grid = w.down('ExpendablesList');
+        
+        w.down('button[action=add]').on({
+            click: function() {
+                var rows = grid.getSelectionModel().getSelection();
+                if (0 == rows.length) {
+                    return;
+                }
+                this.saveItem(rows[0].get('id'));
+                w.close();
+            },
+            scope: this
+        });
+        
+        grid.on({
+            itemdblclick: function(g, record) {
+                this.saveItem(record.get('id'));
+                w.close();
+            },
+            scope: this
+        });
+    },
+    
+    saveItem: function(itemId) {
+        
+        Ext.Ajax.request({
+            params: {
+                service_id: this.serviceID,
+                expendable_id: itemId
+            },
+            url: this.addURL,
+            success: function(response, opts) {
+                this.fireEvent('itemSaved');
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
+            },
+            scope: this
+        });
     },
     
     deleteItem: function(grid, record) {

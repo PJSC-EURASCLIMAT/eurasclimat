@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_SpecialServicesController extends Xend_Controller_Action
+class Catalog_RelatedExpendablesController extends Xend_Controller_Action
 {
 
     /**
@@ -10,7 +10,7 @@ class Catalog_SpecialServicesController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Catalog_SpecialServices_Model();
+        $this->_model = new Catalog_SpecialServices_RelatedExpendables();
         parent::init();
     }
 
@@ -19,13 +19,12 @@ class Catalog_SpecialServicesController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->specialservices);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
     }
 
     public function getListAction()
     {
-        $response = $this->_model->getList($this->_getAllParams());
+        $response = $this->_model->getList($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->data = $response->getRowset();
@@ -41,16 +40,6 @@ class Catalog_SpecialServicesController extends Xend_Controller_Action
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
-        } else {
-           $this->_collectErrors($response);
-        }
-    }
-
-    public function updateAction()
-    {
-        $response = $this->_model->update($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
         } else {
            $this->_collectErrors($response);
         }

@@ -6,13 +6,13 @@ class Catalog_SpecialServices_RelatedExpendables
 
 	protected $_specialServicesTable;
 
-    public function __construct($entity)
+    public function __construct()
     {
-        $this->_specialServicesTable = new Catalog_SpecialServices_Table();
+        $this->_expendablesTable = new Catalog_Expendables_Table();
         $this->_table = new Catalog_SpecialServices_RelatedExpendablesTable();
     }
 
-    public function getAll($id)
+    public function getList($id)
     {
         $response = new Xend_Response();
 
@@ -25,10 +25,12 @@ class Catalog_SpecialServices_RelatedExpendables
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()), array(
-                    'id' => 'i.id', 's.name', 's.code', 's.measure',
-                    's.price', 'i.expendable_id'
+                    'id' => 'i.id', 'e.name', 'e.code', 'e.measure',
+                    'e.price', 'i.expendable_id'
                 ))
-            ->join(array('s' => $this->_specialServicesTable->getTableName()), 's.id=i.service_id', array())
+            ->join(array('e' => $this->_expendablesTable->getTableName()),
+                    'e.id=i.expendable_id', array()
+                )
             ->where('i.service_id = (?)', $id);
 
         try {
@@ -45,15 +47,11 @@ class Catalog_SpecialServices_RelatedExpendables
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function add($expendableId, $serviceId)
+    public function add($data)
     {
-        $data = array(
-            'expendable_id' => $expendableId,
-            'service_id'    => $serviceId
-        );
-
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'expendable_id' => 'Int',
+            'service_id'    => 'Int'
         ), array(
             'expendable_id' => array('Id', 'allowEmpty' => false),
             'service_id'    => array('Id', 'allowEmpty' => false)

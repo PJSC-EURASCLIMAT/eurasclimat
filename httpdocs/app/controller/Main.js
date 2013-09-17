@@ -50,14 +50,13 @@ Ext.define('App.controller.Main', {
         this.getController('EC.Mail.controller.Main');
         this.getController('EC.Recreation.controller.Main');
         */
-        
-        if (acl.isView('admin')) {
-            this.getController('EC.CRM.controller.Main');
-//            this.getController('EC.Main.controller.1C');
-        }
 
         if (acl.isView('pa')) {
             this.getController('EC.Manufacturers.controller.Main');
+        }
+        
+        if (acl.isView('admin')) {
+            this.getController('EC.CRM.controller.Main');
         }
         
         // Make first tab active

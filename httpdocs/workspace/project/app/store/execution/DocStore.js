@@ -6,12 +6,6 @@ Ext.define('Project.store.execution.DocStore', {
    
     model: 'Project.model.DocModel',
   
-    buffered: true,
-    
-    leadingBufferZone: 15,
-    
-    pageSize: 15,
-    
     proxy: {
         type: 'ajax',
         url: '/json/sysdev/project-docs/get-by-project',

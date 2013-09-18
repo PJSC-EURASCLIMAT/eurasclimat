@@ -64,4 +64,61 @@ class Sysdev_ProjectDocs_Model
         }
         return $response->addStatus(new Xend_Status($status));
     }
+
+    public function add($data)
+    {
+
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'account_id'    => 'int',
+            'project_id'    => 'int',
+            'name'          => 'StringTrim',
+            'url'           => 'StringTrim',
+        ), array(
+            'account_id'    => array('int', 'presence' => 'required'),
+            'project_id'    => array('int', 'presence' => 'required'),
+            'name'          => array('StringLength'),
+            'url'           => array('StringLength'),
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $id = $this->_table->insert($f->getData());
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        $response->id = $id;
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
+    }
+
+    public function delete($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+
 }

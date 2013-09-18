@@ -95,7 +95,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
 
-        $response = Xend_File::upload('catalog');
+        $response = Xend_File::upload('catalog',true);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         }

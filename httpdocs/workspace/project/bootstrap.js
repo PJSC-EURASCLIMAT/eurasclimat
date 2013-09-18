@@ -9,6 +9,7 @@ Ext.Loader.addClassPathMappings({
   " Ext.Msg": "../ext/src/window/MessageBox.js",
   "Ext": "../ext/src",
   "Project": "app",
+  "xlib"  : '../../library/xlib',
   "Ext.rtl.EventObjectImpl": "../ext/src/rtl/EventObject.js"
 });
 Ext.ClassManager.addNameAlternateMappings({

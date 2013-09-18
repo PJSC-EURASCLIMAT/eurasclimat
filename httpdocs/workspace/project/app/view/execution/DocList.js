@@ -17,7 +17,7 @@ Ext.define('Project.view.execution.DocList', {
     columns: [{
         xtype: 'templatecolumn',
         header: 'Наименование',
-        tpl: '<a href="{url}" action="getdoc" >{name}</a>'
+        tpl: '<a href="/{url}" action="getdoc" >{name}</a>'
     }, {
         header: 'Автор',
         dataIndex: 'author'
@@ -30,12 +30,32 @@ Ext.define('Project.view.execution.DocList', {
         header: 'project_id',
         dataIndex: 'project_id',
         hidden: true
+    }, {
+        xtype:'actioncolumn',
+        width: 20,
+        items: [
+            {
+                icon: '/images/icons/fam/delete.gif',
+                tooltip: 'Удалить',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.up('panel').fireEvent('deleteitem', grid.getStore().getAt(rowIndex));
+                }
+            }
+        ]
+    }],
+
+    tbar: [{
+        text: 'Добавить',
+        iconCls: 'add',
+        action: 'add',
+//        hidden: !this.allowEdit,
+        scope: this
+    }, '->', {
+        xtype: 'button',
+        tooltip: 'Обновить',
+        iconCls: 'x-tbar-loading',
+        action: 'refresh'
     }]
-       
-//        this.bbar = Ext.create('Ext.PagingToolbar', {
-//            store: this.store,
-//            displayInfo: true,
-//            plugins: Ext.create('xlib.ProgressBarPager', {})
-//        });
 
 });

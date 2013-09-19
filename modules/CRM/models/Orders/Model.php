@@ -15,12 +15,12 @@ class CRM_Orders_Model
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            'account_id'        => 'int',
+            'account_id'    => 'int',
             'category'      => 'int',
-            'object'     => 'int',
-            'area'     => 'int',
-            'contacts'     => 'StringTrim',
-            'info'     => 'StringTrim',
+            'object'        => 'int',
+            'area'          => 'int',
+            'contacts'      => 'StringTrim',
+            'info'          => 'StringTrim',
         ), array(
             'account_id' => array('int', 'presence' => 'required'),
             'contacts'   => array('StringLength'),

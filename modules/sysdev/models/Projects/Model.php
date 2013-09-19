@@ -2,28 +2,28 @@
 
 class Sysdev_Projects_Model
 {
-    
+
     const PREPARATION_STAGE = 1;
     const EXECUTION_STAGE = 2;
-    
+
     /**
      * The role table object
      *
      * @var Xend_Acl_Table_Roles
      */
     protected $_table;
-    
+
     private $_possibleStages;
 
     public function __construct()
     {
         $this->_table = new Sysdev_Projects_Table();
         $this->_possibleStages = array(
-            self::PREPARATION_STAGE, 
+            self::PREPARATION_STAGE,
             self::EXECUTION_STAGE
         );
     }
-    
+
     public function getInfo($id)
     {
         $response = new Xend_Response();
@@ -37,15 +37,15 @@ class Sysdev_Projects_Model
             ->from(
                 array('p'=>$this->_table->getTableName()),
                 array('name',
-                    'description', 
-                    'date_plan_begin', 
-                    'date_plan_end', 
-                    'date_fact_end', 
+                    'description',
+                    'date_plan_begin',
+                    'date_plan_end',
+                    'date_fact_end',
                     'budget',
-                    'date_create', 
-                    'date_discuss_begin', 
-                    'date_discuss_end', 
-                    'date_vote_begin', 
+                    'date_create',
+                    'date_discuss_begin',
+                    'date_discuss_end',
+                    'date_vote_begin',
                     'date_vote_end',
                     'stage'
                 )
@@ -61,28 +61,28 @@ class Sysdev_Projects_Model
         $response->setRow($row);
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
-    
-    public function saveInfo(array $data) 
+
+    public function saveInfo(array $data)
     {
-        
+
         $response = new Xend_Response();
-        
+
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
             'id'             => array('Id','allowEmpty' => false)
         ), $data);
-        
+
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
             return $response;
         }
-        
+
         $affectedRow = $this->_table->updateByPk($data, $data['id']);
-        
+
         return $response->addStatus(new Xend_Accounts_Status(
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
-        
+
     }
 
     /**
@@ -94,21 +94,21 @@ class Sysdev_Projects_Model
     {
 
         $response = new Xend_Response();
-        
+
         if (array_key_exists('id', $data)) {
             $nodeId = $data['id'];
         } else {
             $nodeId = null;
         }
-        
+
         if (!array_key_exists('stage', $data)) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-        
+
         if (!in_array($data['stage'], $this->_possibleStages)) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-        
+
         $stage = (int)$data['stage'];
 
         try {
@@ -121,7 +121,7 @@ class Sysdev_Projects_Model
         } catch (Exception $e) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-        
+
     }
 
     /**
@@ -130,17 +130,17 @@ class Sysdev_Projects_Model
      * @param array $data
      * @return Xend_Response
      */
-    public function add($stage, array $data) 
+    public function add($stage, array $data)
     {
 
         $response = new Xend_Response();
-        
+
         // проверяем параметры запроса на валидность
-        
+
         if (!in_array($stage, $this->_possibleStages)) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-        
+
         $filter = new Xend_Filter_Input(array(
             'parentId' => 'int',
             //'leaf'      => 'int'
@@ -153,7 +153,7 @@ class Sysdev_Projects_Model
             return $response;
             // в случае поломки синхронизации может приходить данные сразу нескольких новых узлов
         }
-        
+
         $isLeaf = (bool)$data['leaf']; // определяется автоматически в ExtJs
         $parentId = (int)$data['parentId']; // определяется автоматически в ExtJs, для корневого узла - 0
 
@@ -189,10 +189,10 @@ class Sysdev_Projects_Model
             return $response;
             // в случае поломки синхронизации может приходить данные сразу нескольких узлов
         }
-        
+
         $id = (int)$data['id'];
         $name = (string)$data['name'];
-        
+
         try {
 
             $this->_renameNode($id, $name);
@@ -212,7 +212,7 @@ class Sysdev_Projects_Model
     public function delete(array $data) {
 
         $response = new Xend_Response();
-        
+
         $filter = new Xend_Filter_Input(array(
             'id'    => 'int'
         ), array(
@@ -223,9 +223,9 @@ class Sysdev_Projects_Model
             return $response;
             // в случае поломки синхронизации может приходить данные сразу нескольких узлов
         }
-        
+
         $id = (int)$data['id'];
-        
+
         try {
 
             $this->_deleteNode($id);
@@ -245,7 +245,7 @@ class Sysdev_Projects_Model
     public function move(array $data) {
 
         $response = new Xend_Response();
-        
+
         $targetId = (int)$data['targetId'];
         $position = (string)$data['position'];
         $movedIds = (array)$data['movedIds'];
@@ -255,11 +255,11 @@ class Sysdev_Projects_Model
 
         // проверяем параметры запроса на валидность
         if (!in_array($position, array('before', 'after', 'append'))) {
-            
+
             return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
-            
+
         }
-        
+
         try {
 
             $this->_moveNode($targetId, $movedIds, $position);
@@ -268,7 +268,7 @@ class Sysdev_Projects_Model
         } catch (Exception $e) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
-        
+
     }
 
     private function update_OldVersion($id, $parentId, $position, $name, $leaf) {
@@ -311,10 +311,10 @@ class Sysdev_Projects_Model
     }
 
 
-    
-    
-    
-    
+
+
+
+
     /**
      * извлекает ветку
      * @param int $stage
@@ -323,13 +323,13 @@ class Sysdev_Projects_Model
      */
     private function _fetchNodeBranch($stage, $nodeId = null)
     {
-        
+
         $tree = $this->_fetchTree($stage);
-        
+
         return $tree->findNodeById($nodeId)->toArray();
 
     }
-    
+
     /**
      * добавляет новый узел
      * @param int $stage
@@ -337,9 +337,9 @@ class Sysdev_Projects_Model
      * @param bool $isLeaf
      * @return array
      */
-    private function _addNewNode($stage, $parentId, $isLeaf) 
+    private function _addNewNode($stage, $parentId, $isLeaf)
     {
-        
+
         $tree = $this->_fetchTree($stage);
 
         $parentNode = $tree->findNodeById($parentId);
@@ -365,15 +365,15 @@ class Sysdev_Projects_Model
         $this->_saveTree($tree);
 
         return $childNode->toFlatArray();
-        
+
     }
-    
+
     /**
      * переименовывает узел
      * @param int $id
      * @param str $name
      */
-    public function _renameNode($id, $name) 
+    public function _renameNode($id, $name)
     {
 
         $affectedRow = $this->_table->updateByPk(array(
@@ -381,13 +381,13 @@ class Sysdev_Projects_Model
         ), $id);
 
     }
-    
+
     /**
      * удаляет узел дерева
      * @param int $id
      * @return void
      */
-    public function _deleteNode($id) 
+    public function _deleteNode($id)
     {
 
         $tree = $this->_fetchTree();
@@ -414,14 +414,14 @@ class Sysdev_Projects_Model
         $this->_saveTree($tree);
 
     }
-    
+
     /**
      * перемещает узлы по дереву
      * @param integer $targetId
      * @param integer[] $movedIds
      * @param string $position "before", "after" или "append"
      */
-    public function _moveNode($targetId, array $movedIds, $position) 
+    public function _moveNode($targetId, array $movedIds, $position)
     {
 
         $tree = $this->_fetchTree();
@@ -474,10 +474,12 @@ class Sysdev_Projects_Model
      * @param int $stage
      * @return \Xend_Tree
      */
-    private function _fetchTree($stage)
+    private function _fetchTree($stage = false)
     {
 
-        $where = array('stage = (?)' => $stage);
+        $where = (false !== $stage)
+            ? array('stage = (?)' => $stage)
+            : array();
         $rows = $this->_table->fetchAll($where)->toArray();
 
         foreach ($rows as $index => $row) {
@@ -511,5 +513,5 @@ class Sysdev_Projects_Model
         }
 
     }
-    
+
 }

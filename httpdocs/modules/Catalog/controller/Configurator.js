@@ -107,7 +107,7 @@ Ext.define('EC.Catalog.controller.Configurator', {
             + this.specialServicesPanel.getStore().sum('summ') 
             + this.expendablesPanel.getStore().sum('summ');
             
-        this.Container.down('[itemId=totalsumm]').setText(summ + ' р.');
+        this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b>');
     }, 
     
     loadEquipment: function() {

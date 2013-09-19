@@ -23,7 +23,7 @@ class CRM_Orders_Model
             'info'     => 'StringTrim',
         ), array(
             'account_id' => array('int', 'presence' => 'required'),
-            'contacts'      => array('StringLength'),
+            'contacts'   => array('StringLength'),
             'info'       => array('StringLength'),
         ), $data);
 

@@ -1,15 +1,14 @@
-Ext.define('EC.Catalog.model.Configurator.Services', {
+Ext.define('EC.Catalog.model.Configurator.Expendables', {
 
     extend: 'Ext.data.Model',
    
     fields: [
         'id',
-        'number',
-        'code',
         'name',
+        'code',
         'price',
         'measure',
-        'term',
+        'number',
         {name: 'summ', type: 'float'}
     ]
 });

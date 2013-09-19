@@ -30,6 +30,14 @@ class Catalog_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-service');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-special-services');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-special-service');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-special-service');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-special-service');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expendables');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-expendable');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-expendable');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expendable');
     }
 
     public function getListAction()
@@ -166,6 +174,92 @@ class Catalog_ProjectsController extends Xend_Controller_Action
     {
         $id = intval($this->_getParam('id'));
         $response = $this->_model->deleteService($id);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function getSpecialServicesAction()
+    {
+        $response = $this->_model->getSpecialServices($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function addSpecialServiceAction()
+    {
+        $response = $this->_model->addSpecialService($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->id = $response->id;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updateSpecialServiceAction()
+    {
+        $response = $this->_model->updateSpecialService($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function deleteSpecialServiceAction()
+    {
+        $id = intval($this->_getParam('id'));
+        $response = $this->_model->deleteSpecialService($id);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function getExpendablesAction()
+    {
+        $response = $this->_model->getExpendables($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function addExpendableAction()
+    {
+        $response = $this->_model->addExpendable($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->id = $response->id;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updateExpendableAction()
+    {
+        $response = $this->_model->updateExpendable($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function deleteExpendableAction()
+    {
+        $id = intval($this->_getParam('id'));
+        $response = $this->_model->deleteExpendable($id);
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

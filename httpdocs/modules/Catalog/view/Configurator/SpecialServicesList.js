@@ -1,14 +1,14 @@
-Ext.define('EC.Catalog.view.Configurator.ServicesList', {
+Ext.define('EC.Catalog.view.Configurator.SpecialServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Сопутствующие работы',
+    title: 'Специальные виды услуг',
     
-    alias: 'widget.ConfiguratorServicesList',
+    alias: 'widget.ConfiguratorSpecialServicesList',
     
     layout: 'fit',
     
-    store: 'EC.Catalog.store.Configurator.Services',
+    store: 'EC.Catalog.store.Configurator.SpecialServices',
     
     permissions: acl.isUpdate('catalog', 'projects'),
     

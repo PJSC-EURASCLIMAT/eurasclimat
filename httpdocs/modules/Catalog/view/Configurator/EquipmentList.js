@@ -12,28 +12,23 @@ Ext.define('EC.Catalog.view.Configurator.EquipmentList', {
     
     permissions: acl.isUpdate('catalog', 'projects'),
     
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
+    
     initComponent: function() {
         
         var actions = [];
         
         if (this.permissions) {
             
-//            actions.push({
-//                icon: '/images/icons/fam/plugin.gif',
-//                tooltip: 'Редактировать',
-//                iconCls: 'x-btn',
-//                handler: function(grid, rowIndex, colIndex) {
-//                    this.fireEvent('editEquipment', grid, grid.getStore().getAt(rowIndex));
-//                },
-//                scope: this
-//            });
-            
             actions.push({
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить',
                 iconCls: 'x-btn',
                 handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteEquipment', grid, grid.getStore().getAt(rowIndex));
+                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
                 
@@ -62,7 +57,12 @@ Ext.define('EC.Catalog.view.Configurator.EquipmentList', {
             width: 60
         }, {
             header: 'Сумма',
-            width: 60
+            width: 100,
+            dataIndex: 'summ',
+            summaryType: 'sum',
+            summaryRenderer: function(value, summaryData, dataIndex) {
+                return Ext.String.format('<b>Итого: {0} р.</b>', value); 
+            }
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,
@@ -71,7 +71,7 @@ Ext.define('EC.Catalog.view.Configurator.EquipmentList', {
         
         this.tbar = [{
             xtype: 'button',
-            text: 'Добавить оборудование в проект',
+            text: 'Добавить',
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'

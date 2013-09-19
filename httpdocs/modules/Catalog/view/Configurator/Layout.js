@@ -30,7 +30,7 @@ Ext.define('EC.Catalog.view.Configurator.Layout', {
         
         this.items = [{
             region: 'center',
-            flex: 1,
+            flex: .5,
             border: false,
             layout: 'border',
             items: [{
@@ -51,19 +51,28 @@ Ext.define('EC.Catalog.view.Configurator.Layout', {
             flex: .5,
             border: false,
             layout: 'border',
-            disabled: true,
             items: [{
                 region: 'center',
                 flex: 1,
-                title: 'Инструменты, механизмы и вспомогательные материалы'
+                xtype: 'ConfiguratorExpendablesList',
+                projectID: this.projectID,
+                permissions: this.permissions
             }, {
                 region: 'east',
                 flex: 1,
-                title: 'Специальные виды услуг'
+                xtype: 'ConfiguratorSpecialServicesList',
+                projectID: this.projectID,
+                permissions: this.permissions
             }]
         }];
 
         this.buttons = [{
+            xtype: 'tbtext',
+            text: '<b>Общая сумма:</b>'
+        }, {
+            xtype: 'tbtext',
+            itemId: 'totalsumm'
+        }, '->', {
             text: 'Закрыть',
             scope: this,
             handler: this.close

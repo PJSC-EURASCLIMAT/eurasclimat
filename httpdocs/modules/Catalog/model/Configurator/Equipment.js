@@ -10,6 +10,7 @@ Ext.define('EC.Catalog.model.Configurator.Equipment', {
         'code',
         'marking',
         'price',
-        'mark'
+        'mark',
+        {name: 'summ', type: 'float'}
     ]
 });

@@ -48,6 +48,7 @@ class Admin_AccountsController extends Xend_Controller_Action
             $this->_collectErrors($response);
             return;
         }
+        $this->view->totalcount = $response->total;
         $this->view->rows = $response->getRowset();
         $this->view->success = true;
     }

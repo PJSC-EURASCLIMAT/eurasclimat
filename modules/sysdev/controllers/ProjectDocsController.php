@@ -84,11 +84,15 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             return;
         }
 
-        $response = $this->_model->delete($id);
-        if ($response->isSuccess()) {
+        $deleteResponse = $this->_model->delete($id);
+        if ($deleteResponse->isSuccess()) {
 
-            $url = $response->getRowSet()['url'];
-            $filePath = ROOT_DIR .'/httpdocs'. DIRECTORY_SEPARATOR . $url;
+            $data = $response->getRowSet();
+            if (false === $data['url'] || $data['url'] === '') {
+                $this->view->success = false;
+                return;
+            }
+            $filePath = ROOT_DIR .'/httpdocs'. DIRECTORY_SEPARATOR . $data['url'];
 
             if (file_exists($filePath)) {
                 unlink($filePath);
@@ -97,7 +101,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             $this->view->success = true;
 
         } else {
-            $this->_collectErrors($response);
+            $this->_collectErrors($deleteResponse);
         }
     }
 

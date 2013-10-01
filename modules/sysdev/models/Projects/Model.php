@@ -160,7 +160,7 @@ class Sysdev_Projects_Model
 
         try {
 
-            $result = $this->_addNewNode($stage, $parentId, $isLeaf);
+            $result = $this->_addNewNode($stage, $parentId, $isLeaf, $data);
             $response->setRowset($result);
             return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
@@ -337,7 +337,7 @@ class Sysdev_Projects_Model
      * @param bool $isLeaf
      * @return array
      */
-    private function _addNewNode($stage, $parentId, $isLeaf)
+    private function _addNewNode($stage, $parentId, $isLeaf, $data)
     {
 
         $tree = $this->_fetchTree($stage);
@@ -352,6 +352,7 @@ class Sysdev_Projects_Model
         $rows = array(array(
             'id' => $childId,
             'parent_id' => null,
+            'account_id' => $data['account_id'],
             'position' => null,
             'name' => '',
             'leaf' => $isLeaf,
@@ -506,6 +507,7 @@ class Sysdev_Projects_Model
             $this->_table->updateByPk(array(
                 'name'  => $row['name'],
                 'parent_id' => $row['parent_id'],
+                'account_id' => $row['account_id'],
                 'position'  => $row['position'],
                 'leaf'      => $row['leaf'] ? 'true' : 'false' // поскольку значение в базе хранится в виде строки
             ), $row['id']);

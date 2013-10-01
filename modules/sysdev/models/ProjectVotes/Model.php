@@ -27,7 +27,7 @@ class Sysdev_ProjectVotes_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d'=>$this->_table->getTableName()),
-                array('id', 'mark_id','date_create', 'project_id')
+                array('id', 'mark_id','date_create', 'project_id', 'account_id')
             )
             ->where('d.project_id=?', $projectId)
             ->where('d.account_id=?', Xend_Accounts_Prototype::getId());

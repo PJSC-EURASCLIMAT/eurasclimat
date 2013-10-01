@@ -24,7 +24,7 @@ Ext.define('Project.store.preparation.CommentStore', {
             encode: true
         }
     },
-    
+
     constructor: function() {
         this.callParent(arguments);
     }

@@ -13,21 +13,12 @@ Ext.define('Project.view.preparation.CommentPanel', {
         autoScroll: true,
         tpl: [
             '<tpl for=".">',
-            '<div style= "border-bottom:1px #D3E2F0 solid; padding: 10px 5px;">',
-            '<span style="line-height:1.5; font-weight: bolder">{author} {[this.formatDate(values.date_create)]}',
-            ' написал:</span> <br/>',
+            '<div style= "border-bottom:1px #D3E2F0 solid; padding: 10px 5px; position: relative">',
+            '<span style="line-height:1.5; font-weight: bolder">{author}  написал:</span> <br/>',
             '{content}',
+            '<span style="position: absolute; right: 5px; top: 5px; font-size:11px; color:gray;">{[Ext.Date.format(values.date_create, "d F Y, H:i:s")]}</span>',
             '</div>',
-            '</tpl>',
-            {
-                formatDate: function(dateString) {
-
-                    var date = Ext.Date.parse(dateString, 'Y-m-d H:i:s');
-
-                    return Ext.Date.format(date, 'd.m.Y H:i:s');
-
-                }
-            }
+            '</tpl>'
         ],
         dockedItems: [{
             xtype: 'panel',
@@ -46,19 +37,22 @@ Ext.define('Project.view.preparation.CommentPanel', {
                     text: 'Результаты голосования: '
                 },{
                     xtype: 'label',
-                    itemId: 'countFor', 
+                    itemId: 'countFor',
                     margin: '11 0 0 10',
-                    text: 'За глосов: '
+                    tpl: 'За глосов: {count}',
+                    data: {count: 0}
                 },{
                     xtype: 'label',
                     itemId: 'countAgainst', 
                     margin: '11 0 0 10',
-                    text: 'Против голосов: '
+                    tpl: 'Против глосов: {count}',
+                    data: {count: ''}
                 },{
                     xtype: 'label',
                     itemId: 'countRemake',
                     margin: '11 0 0 10',
-                    text: 'Предложений доработать: '
+                    tpl: 'Предложений доработать: {count}',
+                    data: {count: ''}
                 }]
             }, {
                 border: false,
@@ -103,8 +97,8 @@ Ext.define('Project.view.preparation.CommentPanel', {
                 grow: true,
                 itemId: 'commentContent',
                 //name: 'message',
+                flex: 1,
                 margin: '1 0 0 1',
-                width: '60%',
                 height: '100%',
                 allowBlank: false,
                 validateOnBlur: false,
@@ -116,7 +110,7 @@ Ext.define('Project.view.preparation.CommentPanel', {
                 itemId: 'commentSubmit',
                 text: 'Коментировать',
                 margin: '1 0 0 1',
-                width: '100',
+//                width: 200,
                 height: '100%'
             }]
         }]

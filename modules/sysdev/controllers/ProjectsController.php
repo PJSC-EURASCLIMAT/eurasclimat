@@ -49,7 +49,12 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
 
         $data = Zend_Json::decode($this->_getParam('data'));
         $stage = $this->_getParam('stage');
-        
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
+        $data['account_id'] = $identity->id;
+
         $response = $this->_model->add($stage, $data);
         
         if ($response->isError()) {
@@ -84,12 +89,19 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $data = Zend_Json::decode($this->_getParam('data'));
         
         $response = $this->_model->delete($data);
-        
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
+
+        $url = $response->getRowSet()['url'];
+        $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . 'httpdocs'. DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'sysdev' . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR .$data['id'];
+
+        if (file_exists($filePath)) {
+            rmdir($filePath);
+        }
+
+
         $this->view->success = true;
         
     }

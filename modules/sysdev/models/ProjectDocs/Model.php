@@ -120,5 +120,46 @@ class Sysdev_ProjectDocs_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
+    /**
+     * Fetch account information by id
+     *
+     * @param int $id    The account id
+     * @return Xend_Response
+     * <code> array(
+     *     'rowset' => Zend_Db_Table_Row | null
+     * )
+     * </code>
+     */
+    public function getById($id)
+    {
+        $response = new Xend_Response();
+        $validate = new Xend_Validate_Id();
+        if (!$validate->isValid($id)) {
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
+        }
+
+        try {
+            $rowset = $this->_table->findOne($id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        if (!is_null($rowset)) {
+            $rowset = $rowset->toArray();
+        } elseif (empty($rowset)) {
+            $rowset = array();
+        }
+
+        $response->rowset = $rowset;
+        $response->setRowset($rowset);
+        return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));
+    }
+
 
 }

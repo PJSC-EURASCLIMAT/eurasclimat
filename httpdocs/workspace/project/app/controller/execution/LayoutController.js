@@ -7,7 +7,7 @@ Ext.define('Project.controller.execution.LayoutController', {
     ],
     
     init: function() {
-        
+
         this.listen({
             controller: {
                 '*': {

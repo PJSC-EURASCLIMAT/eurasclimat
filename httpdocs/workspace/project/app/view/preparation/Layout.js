@@ -16,7 +16,7 @@ Ext.define('Project.view.preparation.Layout', {
             split: true,  
             region: 'west',
             width: 200,
-            hidden: !acl.isView('projectdev'),
+            hidden: !acl.isView('projectdev')
         }, {
             xtype: 'project-preparation-tree-context-menu',
             floating: true,
@@ -49,7 +49,7 @@ Ext.define('Project.view.preparation.Layout', {
                     title: 'Обсуждение и голосование',
                     xtype: 'project-comment-panel',
                     hidden: !acl.isView('projectdev', 'comments'),
-                    itemId: 'projectComment',
+                    itemId: 'projectComment'
                 }
             ]
         }

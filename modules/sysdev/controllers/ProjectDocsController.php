@@ -77,9 +77,25 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
     public function deleteAction()
     {
         $id = intval($this->_getParam('id'));
+
+        $response = $this->_model->getById($id);
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+
         $response = $this->_model->delete($id);
         if ($response->isSuccess()) {
+
+            $url = $response->getRowSet()['url'];
+            $filePath = ROOT_DIR .'/httpdocs'. DIRECTORY_SEPARATOR . $url;
+
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
             $this->view->success = true;
+
         } else {
             $this->_collectErrors($response);
         }

@@ -41,7 +41,7 @@ class Xend_File
 
         if (!file_exists($dir)) {
             mkdir($dir);
-        };
+        }
 
         $target = fopen($dir . DIRECTORY_SEPARATOR . $fileName, 'w');
         if (!$target) {

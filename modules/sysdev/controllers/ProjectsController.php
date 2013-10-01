@@ -85,6 +85,18 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
 
     public function deleteAction()
     {
+        function rrmdir($dir) {
+            if (is_dir($dir)) {
+                $objects = scandir($dir);
+                foreach ($objects as $object) {
+                    if ($object != "." && $object != "..") {
+                        if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+                    }
+                }
+                reset($objects);
+                rmdir($dir);
+            }
+        }
 
         $data = Zend_Json::decode($this->_getParam('data'));
         
@@ -94,11 +106,10 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
             return;
         }
 
-        $url = $response->getRowSet()['url'];
         $filePath = ROOT_DIR . DIRECTORY_SEPARATOR . 'httpdocs'. DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'sysdev' . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR .$data['id'];
 
         if (file_exists($filePath)) {
-            rmdir($filePath);
+            rrmdir($filePath);
         }
 
 

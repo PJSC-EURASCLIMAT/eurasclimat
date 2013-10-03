@@ -28,8 +28,9 @@ Ext.define('EC.Main.controller.Development', {
                  icon: '/images/icons/projects.png',
                  portletHeight: 410,
                  position: 'MainPanel-development-column-1',
-                 launchModule: 'EC.Main.controller.Projectdev'
-//             }, 
+//                 launchModule: 'EC.Main.controller.Projectdev'
+                 launchModule: 'EC.Project.controller.Main'
+//             },
 //             {
 //                 title: 'Разработка системы - ввод',
 //                 icon: '/images/icons/projects.png',

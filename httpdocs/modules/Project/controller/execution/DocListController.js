@@ -1,4 +1,4 @@
-Ext.define('Project.controller.execution.DocListController', {
+Ext.define('EC.Project.controller.execution.DocListController', {
     
     extend: 'Ext.app.Controller',
 

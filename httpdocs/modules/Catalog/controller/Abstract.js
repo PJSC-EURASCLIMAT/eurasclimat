@@ -506,7 +506,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
                     fn: function(upDialog, manager, items, errorCount) {
                         if (!errorCount) {
                             upDialog.close();
-                            panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
                         }
                     },
                     scope: this

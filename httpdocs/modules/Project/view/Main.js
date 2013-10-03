@@ -1,0 +1,24 @@
+Ext.define('EC.Project.view.Main', {
+    
+    extend: 'Ext.tab.Panel',
+    
+    alias: 'widget.project-main',
+
+    hidden: !acl.isView('projectdev'),
+
+    border: false,
+    
+    activeTab: 'project-execution',
+    
+    items: [
+        {
+            xtype: 'project-preparation',
+            title: 'Формирование',
+            itemId: 'project-preparation'
+        }, {
+            xtype: 'project-execution',
+            title: 'Исполнение',
+            itemId: 'project-execution'
+        }
+    ]
+});

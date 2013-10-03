@@ -14,8 +14,8 @@ Ext.define('EC.Main.controller.Main', {
         container.setActiveTab(0);
         
         this.getController('EC.Main.controller.About').run(container);
-        /*
         this.getController('EC.Main.controller.Development').run(container);
+        /*
         this.getController('EC.Main.controller.Projects').run(container);
         this.getController('EC.Main.controller.Competitions').run(container);
         this.getController('EC.Main.controller.NewChapter').run(container);

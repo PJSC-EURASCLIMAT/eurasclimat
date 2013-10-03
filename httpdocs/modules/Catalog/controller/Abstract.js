@@ -502,10 +502,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
             uploadParams: {id: id},
             uploadExtraHeaders: {'Content-Type': 'multipart/form-data'},
             listeners: {
-                'uploadcomplete' : {
+                'uploadcomplete': {
                     fn: function(upDialog, manager, items, errorCount) {
                         if (!errorCount) {
                             upDialog.close();
+                            panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
                         }
                     },
                     scope: this

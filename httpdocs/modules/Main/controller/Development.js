@@ -4,44 +4,24 @@ Ext.define('EC.Main.controller.Development', {
 
     views: ['EC.Main.view.Development.Layout'],
     
-    widgetsReady: false,
-    
-    loadWidgets: function(modulesToOpen, MC) {
+    run: function(container) {
         
-        if (!this.widgetsReady) {
-        
-            this.widgetsReady = true;
-            
+        var viewDevelopment = this.getContainer(container);
+       
+        var modulesToOpen = [{
+            title: 'Разработка системы',
+            icon: '/images/icons/projects.png',
+            portletHeight: 410,
+            position: 'MainPanel-development-column-1',
+            launchModule: 'EC.Project.controller.Main'
+        }];
+       
+       var MC = this.getController('App.controller.Main');
+       viewDevelopment.on('show', function() {
             Ext.each(modulesToOpen, function(item) {
                 MC.openModulePortlet(item);
             });
-      }
-    },
-    
-    run: function(container) {
-        
-       var viewDevelopment = this.getContainer(container);
-       
-       var modulesToOpen = [
-            {
-                 title: 'Разработка системы',
-                 icon: '/images/icons/projects.png',
-                 portletHeight: 410,
-                 position: 'MainPanel-development-column-1',
-//                 launchModule: 'EC.Main.controller.Projectdev'
-                 launchModule: 'EC.Project.controller.Main'
-//             },
-//             {
-//                 title: 'Разработка системы - ввод',
-//                 icon: '/images/icons/projects.png',
-//                 portletHeight: 410,
-//                 position: 'MainPanel-development-column-2',
-//                 launchModule: 'EC.Main.controller.ProjectdevEditor'
-             }
-         ];
-       
-       var MC = this.getController('App.controller.Main');
-       viewDevelopment.on('show', function(){this.loadWidgets(modulesToOpen, MC)}, this);
+       }, this, {single: true});
        
     },
     
@@ -55,17 +35,7 @@ Ext.define('EC.Main.controller.Development', {
             icon: '/images/icons/projects.png',
             portletHeight: 410,
             position: 'MainPanel-development-column-1',
-            launchModule: 'EC.Main.controller.Projectdev',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {
-            title: 'Разработка системы - ввод',
-            text: 'Разработка системы - ввод',
-            icon: '/images/icons/projects.png',
-            portletHeight: 410,
-            position: 'MainPanel-development-column-2',
-            launchModule: 'EC.Main.controller.ProjectdevEditor',
+            launchModule: 'EC.Project.controller.Main',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

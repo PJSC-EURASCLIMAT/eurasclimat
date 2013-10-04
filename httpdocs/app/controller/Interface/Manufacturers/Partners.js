@@ -1,15 +1,16 @@
-Ext.define('App.controller.Interface.CRM.CurrentProjects', {
+Ext.define('App.controller.Interface.Manufacturers.Partners', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['App.view.Interface.CRM.CurrentProjects'],
+    views: ['App.view.Interface.Manufacturers.Partners'],
     
     modules: [{
-        title: '1C Предприятие',
+        title: 'Производители оборудования',
         icon: '/images/icons/about.png',
+        position: 'Manufacturers-Trade-column-1',
         allowMultiple: false,
-        launchModule: 'EC.CRM.controller.1C'
-    }], 
+        launchModule: 'EC.Manufacturers.controller.SiteView'
+    }],
     
     run: function(container) {
         
@@ -18,8 +19,9 @@ Ext.define('App.controller.Interface.CRM.CurrentProjects', {
         var MC = this.getController('App.controller.Main');
 
         container.on('show', function() {
-            MC.openModulePortlet(this.modules[0]);
+            MC.openModuleTab(this.modules[0]);
         }, this, {single: true});
+        
     },
     
     getMenu: function() {

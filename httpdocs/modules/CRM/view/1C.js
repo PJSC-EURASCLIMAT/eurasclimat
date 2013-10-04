@@ -1,4 +1,4 @@
-Ext.define('EC.CRM.view.CurrentProjects.1C', {
+Ext.define('EC.CRM.view.1C', {
 
     extend: 'Ext.panel.Panel',
 

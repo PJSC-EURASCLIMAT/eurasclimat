@@ -1,4 +1,4 @@
-Ext.define('EC.CRM.view.Layout', {
+Ext.define('App.view.Interface.CRM', {
 
     extend: 'App.view.ChapterLayoutAbstarct',
 

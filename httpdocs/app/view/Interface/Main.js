@@ -1,4 +1,4 @@
-Ext.define('EC.Main.view.Layout', {
+Ext.define('App.view.Interface.Main', {
 
     extend: 'App.view.ChapterLayoutAbstarct',
     

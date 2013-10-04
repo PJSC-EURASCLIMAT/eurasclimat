@@ -1,4 +1,4 @@
-Ext.define('EC.Manufacturers.view.Layout', {
+Ext.define('App.view.Interface.Manufacturers', {
 
     extend: 'App.view.ChapterLayoutAbstarct',
 

@@ -1,10 +1,8 @@
-Ext.define('EC.CRM.controller.Main', {
+Ext.define('App.controller.Interface.CRM', {
     
     extend: 'App.controller.ChapterAbstract',
 
-    views: [
-        'EC.CRM.view.Layout'
-    ],
+    views: ['App.view.Interface.CRM'],
     
     viewLayout: 'CRMPanel',
     

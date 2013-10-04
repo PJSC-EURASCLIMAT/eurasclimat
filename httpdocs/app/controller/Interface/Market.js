@@ -1,17 +1,15 @@
-Ext.define('EC.Manufacturers.controller.Main', {
+Ext.define('App.controller.Interface.Market', {
     
     extend: 'App.controller.ChapterAbstract',
 
-    views: [
-        'EC.Manufacturers.view.Layout'
-    ],
+    views: ['App.view.Interface.Market'],
     
-    viewLayout: 'ManufacturersPanel',
+    viewLayout: 'MarketPanel',
     
     init: function() {
         
         var container = this.getContainer();
-        this.getController('EC.Manufacturers.controller.Trade').run(container);
+        this.getController('EC.Market.controller.Trade').run(container);
 
 //        this.getController('EC.Market.controller.NewProjects').run(container);
         /*

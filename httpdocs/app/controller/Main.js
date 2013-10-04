@@ -42,21 +42,13 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        this.getController('EC.Main.controller.Main');
-        this.getController('EC.Catalog.controller.Main');
-        this.getController('EC.Market.controller.Main');
-        /*
-        this.getController('EC.Specialists.controller.Main');
-        this.getController('EC.Mail.controller.Main');
-        this.getController('EC.Recreation.controller.Main');
-        */
+        this.getController('App.controller.Interface.Main');
+        this.getController('App.controller.Interface.GoodsServices');
 
         if (acl.isView('pa')) {
-            this.getController('EC.Manufacturers.controller.Main');
-        }
-        
-        if (acl.isView('admin')) {
-            this.getController('EC.CRM.controller.Main');
+            this.getController('App.controller.Interface.Market');
+            this.getController('App.controller.Interface.Manufacturers');
+            this.getController('App.controller.Interface.CRM');
         }
         
         // Make first tab active

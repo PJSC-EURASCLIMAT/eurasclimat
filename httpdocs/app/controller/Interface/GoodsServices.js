@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.controller.Main', {
+Ext.define('App.controller.Interface.GoodsServices', {
     
     extend: 'App.controller.ChapterAbstract',
 
-    views: ['EC.Catalog.view.Layout'],
+    views: ['App.view.Interface.GoodsServices'],
     
     viewLayout: 'CatalogPanel',
     

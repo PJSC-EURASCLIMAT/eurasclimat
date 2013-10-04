@@ -1,4 +1,4 @@
-Ext.define('EC.Market.view.Layout', {
+Ext.define('App.view.Interface.Market', {
 
     extend: 'App.view.ChapterLayoutAbstarct',
 

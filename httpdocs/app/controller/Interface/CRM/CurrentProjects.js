@@ -8,18 +8,12 @@ Ext.define('App.controller.Interface.CRM.CurrentProjects', {
         
         this.getContainer(container);
         
-        var MC = this.getController('App.controller.Main');
+        var MC = this.getController('App.controller.Main'),
+            menu = this.getMenu();
+            
         container.on('show', function() {
-            MC.openModulePortlet({
-                text: '1C Предприятие',
-                title: '1C Предприятие',
-                icon: '/images/icons/about.png',
-                launchModule: 'EC.CRM.controller.1C',
-                handler: function(b) {
-                    MC.openModulePortlet(b.initialConfig);
-                }
-            });
-        }, this);
+            MC.openModulePortlet(menu[0]);
+        }, this, {single: true});
     },
     
     getMenu: function() {

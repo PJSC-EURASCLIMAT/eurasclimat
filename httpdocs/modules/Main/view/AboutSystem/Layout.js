@@ -1,15 +1,15 @@
-Ext.define('EC.Main.view.Sysdev.Layout', {
+Ext.define('EC.Main.view.AboutSystem.Layout', {
     
     extend: 'Ext.panel.Panel',
     
-    alias: 'widget.SysdevLayout',
+    alias: 'widget.AboutSystemLayout',
     
     layout: 'border',
     
     border: false,
     
     items: [{
-        xtype: 'SysdevThemesTree',
+        xtype: 'AboutSystemThemesTree',
         region: 'west',
         width: 170
     }, {

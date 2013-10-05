@@ -1,10 +1,10 @@
-Ext.define('EC.Main.view.Sysdev.ThemesTree', {
+Ext.define('EC.Main.view.AboutSystem.ThemesTree', {
 
     extend: 'Ext.tree.Panel',
     
-    alias: ['widget.SysdevThemesTree'],
+    alias: ['widget.AboutSystemThemesTree'],
     
-    store: 'EC.Main.store.Sysdev.ThemesTree',
+    store: 'EC.Main.store.AboutSystem.ThemesTree',
     
     layout: 'fit',
     

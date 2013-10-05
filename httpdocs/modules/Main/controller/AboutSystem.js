@@ -3,16 +3,16 @@ Ext.define('EC.Main.controller.AboutSystem', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Main.store.Sysdev.ThemesTree'
+        'EC.Main.store.AboutSystem.ThemesTree'
     ],
     
     models: [
-        'EC.Main.model.Sysdev.ThemesTree'
+        'EC.Main.model.AboutSystem.ThemesTree'
     ],
 
     views: [
-        'EC.Main.view.Sysdev.Layout',
-        'EC.Main.view.Sysdev.ThemesTree'
+        'EC.Main.view.AboutSystem.Layout',
+        'EC.Main.view.AboutSystem.ThemesTree'
     ],
     
     theme: 0,
@@ -20,10 +20,10 @@ Ext.define('EC.Main.controller.AboutSystem', {
     run: function(container) {
 
         var content = container.add({
-            xtype: 'SysdevLayout'
+            xtype: 'AboutSystemLayout'
         });
         
-        var treePanel = content.down('SysdevThemesTree'),
+        var treePanel = content.down('AboutSystemThemesTree'),
             previewPanel = content.down('panel[type=preview]');
         
         treePanel.on('select', function(tree, record, index, eOpts) {

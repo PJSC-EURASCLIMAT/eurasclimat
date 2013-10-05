@@ -1,4 +1,4 @@
-Ext.define('EC.Main.model.Sysdev.ThemesTree', {
+Ext.define('EC.Main.model.AboutSystem.ThemesTree', {
 
     extend: 'Ext.data.Model',
    

@@ -6,7 +6,7 @@ Ext.define('EC.Project.controller.execution.LayoutController', {
         { ref: 'detailTabPanel', selector: 'project-execution [itemId="project-execution-detail-tabs"]' } // this.getDetailTabPanel()
     ],
     
-    init: function() {
+    run: function() {
         console.log("execution.LayoutController inited");
 
         this.listen({
@@ -16,11 +16,10 @@ Ext.define('EC.Project.controller.execution.LayoutController', {
                 }
             }
         });
-        
+
     },
             
     onProjectSelected: function(record) {
-        console.log("execution.LayoutController selected");
 
         var detailPanel = this.getDetailTabPanel();
 

@@ -92,7 +92,21 @@ Ext.define('EC.Project.controller.Main', {
 
         panel = container.add(this.getView('EC.Project.view.Main').create());
 
-        this.getController('EC.Project.controller.preparation.LayoutController').init();
+        this.getController('EC.Project.controller.preparation.LayoutController').run();
+        this.getController('EC.Project.controller.preparation.CommentPanelController').run();
+        this.getController('EC.Project.controller.preparation.InfoController').run();
+        this.getController('EC.Project.controller.preparation.InfoEditController').run();
+        this.getController('EC.Project.controller.preparation.ProjectTreeController').run();
+
+        this.getController('EC.Project.controller.execution.LayoutController').run();
+        this.getController('EC.Project.controller.execution.DocListController').run();
+        this.getController('EC.Project.controller.execution.InfoController').run();
+        this.getController('EC.Project.controller.execution.ProjectTreeController').run();
+        this.getController('EC.Project.controller.execution.StageChartController').run();
+        this.getController('EC.Project.controller.execution.StageEditorController').run();
+        this.getController('EC.Project.controller.execution.StageListController').run();
+
+
 
 
 //

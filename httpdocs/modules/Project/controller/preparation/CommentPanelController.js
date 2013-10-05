@@ -7,7 +7,9 @@ Ext.define('EC.Project.controller.preparation.CommentPanelController', {
         { ref: 'commentList', selector: 'project-comment-panel #commentList' } // this.getCommentList()
     ],
     
-    init: function() {
+    run: function() {
+
+        console.log("PREPARATION  CommentPanelController INITED");
         
         this.commentStore = Ext.getStore({
             type: 'project-comment-store',
@@ -35,8 +37,18 @@ Ext.define('EC.Project.controller.preparation.CommentPanelController', {
                 }
             },
             controller: {
+//                'EC.Project.controller.preparation.ProjectTreeController': {
+//                    'project-selected': this.onProjectSelected,
+//                    onSelect: this.onProjectSelected
+//                },
+                'preparation-project-controller': {
+                    'project-selected': this.onProjectSelected,
+                    onSelect: this.onProjectSelected
+                },
                 '*': {
-                    'project-selected': this.onProjectSelected
+//                    'project-selected': this.onProjectSelected,
+//                    onSelect: this.onProjectSelected
+                    'testEvent': this.onProjectSelected
                 }
             },
             store: {
@@ -48,10 +60,17 @@ Ext.define('EC.Project.controller.preparation.CommentPanelController', {
                 }
             }
         });
+
+        App.getApplication().getController("EC.Project.controller.abstract.ProjectTreeController").on('project-selected',function(){
+
+            console.log("S:LDKJF:LSDJF:LSDJF:LSDFJ");
+        })
         
     },
             
     onProjectSelected: function(record) {
+
+        console.log("PREPARATION  CommentPanelController PROJECT SELECTED");
 
         if (record.get('leaf') != true) {
             return;

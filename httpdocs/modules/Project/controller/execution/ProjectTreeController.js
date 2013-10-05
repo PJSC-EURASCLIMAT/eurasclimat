@@ -11,7 +11,7 @@ Ext.define('EC.Project.controller.execution.ProjectTreeController', {
         { ref: 'createReferenceButton', selector: 'project-execution-tree-context-menu [itemId="create-reference-button"]' } // this.getCreateReferenceButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {

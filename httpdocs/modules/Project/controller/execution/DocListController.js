@@ -12,7 +12,7 @@ Ext.define('EC.Project.controller.execution.DocListController', {
 
     cur_project_id: null,
     
-    init: function() {
+    run: function() {
         
         this.listen({
             controller: {

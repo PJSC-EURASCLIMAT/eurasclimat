@@ -1,11 +1,14 @@
 Ext.define('EC.Project.controller.abstract.ProjectTreeController', {
-    
+
+    id: 'preparation-project-controller',
+
     extend: 'Ext.app.Controller',
   
     onSelect: function(tree, record, index, eOpts) {
         console.log("abstract.ProjectTreeController onSelected");
 
         this.fireEvent('project-selected', record);
+        this.fireEvent('testEvent', record);
 
 //        this.project = record;
 //
@@ -18,7 +21,7 @@ Ext.define('EC.Project.controller.abstract.ProjectTreeController', {
 //        }
 
     },
-            
+
     onItemContextMenu: function(treeview, record, item, index, e) {
 
         e.stopEvent();

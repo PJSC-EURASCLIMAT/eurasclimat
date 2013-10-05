@@ -6,9 +6,9 @@ Ext.define('EC.Project.controller.preparation.LayoutController', {
         { ref: 'detailTabPanel', selector: 'project-preparation [itemId="project-preparation-detail-tabs"]' } // this.getDetailTabPanel()
     ],
     
-    init: function() {
+    run : function() {
         console.log("preparation.LayoutController inited");
-        
+
         this.listen({
             controller: {
                 '*': {
@@ -16,12 +16,10 @@ Ext.define('EC.Project.controller.preparation.LayoutController', {
                 }
             }
         });
-        
+
     },
             
     onProjectSelected: function(record) {
-        console.log("preparation.LayoutController selected");
-
         var detailPanel = this.getDetailTabPanel();
 
         if (record.get('leaf') == true) {

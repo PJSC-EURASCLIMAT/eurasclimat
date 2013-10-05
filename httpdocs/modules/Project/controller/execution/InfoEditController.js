@@ -9,7 +9,7 @@ Ext.define('EC.Project.controller.execution.InfoEditController', {
         { ref: 'saveButton', selector: 'project-execution-info-editor [itemId="save-button"]' }, // this.getSaveButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {

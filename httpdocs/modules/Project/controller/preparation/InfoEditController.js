@@ -6,10 +6,10 @@ Ext.define('EC.Project.controller.preparation.InfoEditController', {
     
     refs: [
         { ref: 'editor', selector: 'project-preparation-info-editor' }, // this.getEditor()
-        { ref: 'saveButton', selector: 'project-preparation-info-editor [itemId="save-button"]' }, // this.getSaveButton()
+        { ref: 'saveButton', selector: 'project-preparation-info-editor [itemId="save-button"]' } // this.getSaveButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {
@@ -22,15 +22,20 @@ Ext.define('EC.Project.controller.preparation.InfoEditController', {
                 'project-preparation-info-editor [itemId="save-button"]': {
                     click: this.onSaveButtonClick
                 }
-            },
-            controller: {
-                '*': {
+            }
+            ,controller: {
+                'preparation-project-controller': {
                     'project-selected': this.onProjectSelected,
+//                    'shitEvent': this.testListen,
                     'project-description-editing-requested': this.onEditorRequested
                 }
             }
         });
         
+    }
+
+    ,testListen: function(){
+        console.log("TEST LISTEN PROJECT SELECTION");
     }
     
 });

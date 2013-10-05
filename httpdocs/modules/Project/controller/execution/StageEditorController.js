@@ -7,7 +7,7 @@ Ext.define('EC.Project.controller.execution.StageEditorController', {
         { ref: 'saveButton', selector: 'project-execution-stage-editor [itemId="save-button"]' } // this.getSaveButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {
@@ -27,7 +27,7 @@ Ext.define('EC.Project.controller.execution.StageEditorController', {
                 }
             }
         });
-        
+
     },
             
     onEditingRequest: function(record) {

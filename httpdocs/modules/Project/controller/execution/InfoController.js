@@ -9,7 +9,7 @@ Ext.define('EC.Project.controller.execution.InfoController', {
         { ref: 'editButton', selector: 'project-execution-info-component [itemId="edit-button"]' } // this.getEditButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {

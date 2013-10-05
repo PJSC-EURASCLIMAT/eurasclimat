@@ -6,7 +6,7 @@ Ext.define('EC.Project.controller.execution.StageChartController', {
         { ref: 'stageChart', selector: 'project-stage-chart' } // this.getStageChart()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             controller: {

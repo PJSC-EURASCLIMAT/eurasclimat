@@ -9,15 +9,15 @@ Ext.define('EC.Project.controller.preparation.InfoController', {
         { ref: 'editButton', selector: 'project-preparation-info-component [itemId="edit-button"]' } // this.getEditButton()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {
                 'project-preparation-info-component [itemId="edit-button"]': {
                     click: this.onEditButtonClick
                 }
-            },
-            controller: {
+            }
+            ,controller: {
                 '*': {
                     'project-selected': this.onProjectSelected
                 }

@@ -1,5 +1,5 @@
 Ext.define('EC.Project.controller.preparation.ProjectTreeController', {
-    
+
     extend: 'EC.Project.controller.abstract.ProjectTreeController',
 
     refs: [
@@ -11,8 +11,9 @@ Ext.define('EC.Project.controller.preparation.ProjectTreeController', {
         { ref: 'createReferenceButton', selector: 'project-preparation-tree-context-menu [itemId="create-reference-button"]' } // this.getCreateReferenceButton()
     ],
     
-    init: function() {
-        
+    run: function() {
+        var me = this;
+
         this.listen({
             component: {
                 'project-preparation-tree': {

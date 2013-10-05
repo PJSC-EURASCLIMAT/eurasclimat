@@ -6,7 +6,7 @@ Ext.define('EC.Project.controller.execution.StageListController', {
         { ref: 'stageList', selector: 'project-stage-list' } // this.getStageList()
     ],
     
-    init: function() {
+    run: function() {
         
         this.listen({
             component: {

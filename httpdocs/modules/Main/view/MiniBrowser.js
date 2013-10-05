@@ -1,4 +1,4 @@
-Ext.define('EC.Main.view.About.MiniBrowser', {
+Ext.define('EC.Main.view.MiniBrowser', {
 
     extend: 'Ext.panel.Panel',
 

@@ -1,8 +1,8 @@
-Ext.define('EC.Main.controller.About', {
+Ext.define('App.controller.Interface.Main.About', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['EC.Main.view.About.Layout'],
+    views: ['App.view.Interface.Main.About'],
     
     run: function(container) {
 

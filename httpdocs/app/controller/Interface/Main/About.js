@@ -61,7 +61,7 @@ Ext.define('App.controller.Interface.Main.About', {
             icon: '/images/icons/sys_dev.png',
             portletHeight: 410,
             position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.Sysdev'
+            launchModule: 'EC.Main.controller.AboutSystem'
         }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',

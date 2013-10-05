@@ -10,7 +10,7 @@ class Aboutsystem_Themes_Table extends Xend_Db_Table_Abstract
      *
      * @var string
      */
-    protected $_name = 'sysdev_themes';
+    protected $_name = 'aboutsystem_themes';
 
 //    protected $_nullableFields = array(
 //        'parent_id'

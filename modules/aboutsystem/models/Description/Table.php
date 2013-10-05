@@ -10,7 +10,7 @@ class Aboutsystem_Description_Table extends Xend_Db_Table_Abstract
      *
      * @var string
      */
-    protected $_name = 'sysdev_description';
+    protected $_name = 'aboutsystem_description';
 
 //    protected $_nullableFields = array(
 //        'parent_id'

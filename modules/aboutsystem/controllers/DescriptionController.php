@@ -8,7 +8,7 @@ class Aboutsystem_DescriptionController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Sysdev_Description_Model();
+        $this->_model = new Aboutsystem_Description_Model();
         parent::init();
     }
 

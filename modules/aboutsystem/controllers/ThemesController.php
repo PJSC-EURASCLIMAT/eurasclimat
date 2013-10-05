@@ -3,7 +3,7 @@
 /**
  * Default application conroller
  */
-class Sysdev_ThemesController extends Xend_Controller_Action
+class Aboutsystem_ThemesController extends Xend_Controller_Action
 {
 
     public function init()

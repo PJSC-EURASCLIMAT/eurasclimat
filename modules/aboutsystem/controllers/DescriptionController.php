@@ -3,7 +3,7 @@
 /**
  * Default application conroller
  */
-class Sysdev_DescriptionController extends Xend_Controller_Action
+class Aboutsystem_DescriptionController extends Xend_Controller_Action
 {
 
     public function init()

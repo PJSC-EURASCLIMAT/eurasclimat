@@ -120,6 +120,16 @@ Ext.define('App.controller.Interface.Main.About', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }, {
+            text: 'О системе',
+            title: 'О системе',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 410,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.AboutSystem',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
             text: 'Производителям',
             title: 'Производителям',
             icon: '/images/icons/4manufacturers.png',

@@ -1,4 +1,4 @@
-Ext.define('EC.Main.view.Development.Layout', {
+Ext.define('App.view.Interface.Main.Development', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 

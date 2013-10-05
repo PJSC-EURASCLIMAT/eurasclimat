@@ -162,10 +162,6 @@ Ext.define('EC.Main.controller.About', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
-        }, {
-            text: 'Сообщения',
-            title: 'Сообщения',
-            icon: '/images/icons/messages.png'
         }];
     }
 });

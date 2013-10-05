@@ -7,15 +7,19 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
     catalog: 'conditioners',
     
     fields: [{
+        xtype: 'textfield',
+        fieldLabel: 'Артикул',
+        name: 'code'
+    }, {
         xtype: 'FilterMark',
         name: 'mark_id'
-    }, {
-        xtype: 'ConditionersFilterGroup',
-        name: 'group_id'
     }, {
         xtype: 'textfield',
         fieldLabel: 'Маркировка',
         name: 'marking'
+    }, {
+        xtype: 'ConditionersFilterGroup',
+        name: 'group_id'
     }, {
         xtype: 'ConditionersFilterProductType',
         name: 'product_type_id'
@@ -49,6 +53,12 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
         fieldLabel: 'Теплопроизводительность (кВт)',
         name: 'heating_capacity'
     }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Цена (р)',
+        name: 'price'
+    }],
+    
+    extrafields: [{
         xtype: 'textfield',
         fieldLabel: 'Гарантированный диапазон наружных температур (охлаждение) (°C)',
         name: 'cooling_outdor_temp'
@@ -145,28 +155,8 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
         fieldLabel: 'Гарантия (лет)',
         name: 'warranty'
     }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Склад (ед.)',
-        name: 'storage'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Резерв (ед.)',
-        name: 'reserve'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Заказ (ед.)',
-        name: 'order'
-    }, {
         xtype: 'textfield',
         fieldLabel: 'Ссылка',
         name: 'url'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Цена (р)',
-        name: 'price'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'СМР (р)',
-        name: 'mount_price'
     }]
 });

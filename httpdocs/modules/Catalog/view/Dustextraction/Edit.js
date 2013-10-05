@@ -130,18 +130,6 @@ Ext.define('EC.Catalog.view.Dustextraction.Edit', {
         fieldLabel: 'Гарантия (лет)',
         name: 'warranty'
     }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Склад (ед.)',
-        name: 'storage'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Резерв (ед.)',
-        name: 'reserve'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Заказ (ед.)',
-        name: 'order'
-    }, {
         xtype: 'textfield',
         fieldLabel: 'Ссылка',
         name: 'url'
@@ -149,9 +137,5 @@ Ext.define('EC.Catalog.view.Dustextraction.Edit', {
         xtype: 'numberfield',
         fieldLabel: 'Цена (р)',
         name: 'price'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'СМР (р)',
-        name: 'mount_price'
     }]
 });

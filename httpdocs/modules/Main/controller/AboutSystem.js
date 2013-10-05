@@ -1,8 +1,6 @@
-Ext.define('EC.Main.controller.Sysdev', {
+Ext.define('EC.Main.controller.AboutSystem', {
     
     extend: 'Ext.app.Controller',
-    
-//    requires: ['xlib.TinyMCE'],
     
     stores: [
         'EC.Main.store.Sysdev.ThemesTree'

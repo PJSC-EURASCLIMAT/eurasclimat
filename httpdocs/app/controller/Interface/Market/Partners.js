@@ -1,14 +1,14 @@
-Ext.define('App.controller.Interface.Manufacturers.Partners', {
+Ext.define('App.controller.Interface.Market.Partners', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['App.view.Interface.Manufacturers.Partners'],
+    views: ['App.view.Interface.Market.Partners'],
     
     modules: [{
-        title: 'Производители оборудования',
+        title: 'Тендеры',
         icon: '/images/icons/about.png',
-        allowMultiple: false,
-        launchModule: 'EC.Manufacturers.controller.SiteView'
+        allowMultiple: true,
+        launchModule: 'EC.Market.controller.SiteView'
     }],
     
     run: function(container) {

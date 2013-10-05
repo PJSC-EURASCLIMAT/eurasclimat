@@ -1,4 +1,4 @@
-Ext.define('App.view.Interface.Manufacturers.Partners', {
+Ext.define('App.view.Interface.Market.Partners', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
@@ -13,11 +13,11 @@ Ext.define('App.view.Interface.Manufacturers.Partners', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'Manufacturers-Partners-column-1'
+            id: 'Market-Partners-column-1'
         }, {
-            id: 'Manufacturers-Partners-column-2'
+            id: 'Market-Partners-column-2'
         }, {
-            id: 'Manufacturers-Partners-column-3'
+            id: 'Market-Partners-column-3'
         }]
     }]
 });

@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.GoodsCatalogLayout', {
+Ext.define('App.view.Interface.GoodsServices.Catalogs', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'Каталог товаров и услуг',
+    title: 'Каталоги товаров и услуг',
     
     icon: '/images/icons/catalog.png',
     

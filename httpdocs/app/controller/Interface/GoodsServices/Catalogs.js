@@ -1,12 +1,15 @@
-Ext.define('EC.Catalog.controller.GoodsCatalog', {
+Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['EC.Catalog.view.GoodsCatalogLayout'],
+    views: ['App.view.Interface.GoodsServices.Catalogs'],
     
     run: function(container) {
+        
         this.getContainer(container);
+        
         var MC = this.getController('App.controller.Main');
+        
         container.on('show', function() {
             MC.openModulePortlet({
                 text: 'КАТАЛОГ ИНСТРУМЕНТОВ И МАТЕРИАЛОВ',
@@ -48,11 +51,13 @@ Ext.define('EC.Catalog.controller.GoodsCatalog', {
                 position: 'CatalogPanel-column-3',
                 launchModule: 'EC.Catalog.controller.Projects'
             });
-        }, this);
+        }, this, {single: true});
     },
     
     getMenu: function() {
+        
         var MC = this.getController('App.controller.Main');
+        
         return [{
             text: 'КАТАЛОГ ТОВАРОВ',
             title: 'Каталог товаров',

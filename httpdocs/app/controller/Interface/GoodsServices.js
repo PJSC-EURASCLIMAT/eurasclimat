@@ -10,7 +10,7 @@ Ext.define('App.controller.Interface.GoodsServices', {
         
         var container = this.getContainer();
         
-        this.getController('EC.Catalog.controller.GoodsCatalog').run(container);
+        this.getController('App.controller.Interface.GoodsServices.Catalogs').run(container);
     },
     
     getMenu: function() {

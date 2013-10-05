@@ -43,7 +43,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
             treePanel.getSelectionModel().select(this.theme);
         }
         
-        if (acl.isUpdate('sysdev')) {
+        if (acl.isUpdate('aboutsystem')) {
 //            xlib.TinyMCE.initTinyMCE();
             previewPanel.down('toolbar button[action=edit]').on('click', function() {
 //                var editor = Ext.widget('tinymce', {
@@ -77,7 +77,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
                         text: 'Сохранить',
                         handler: function() {
                             Ext.Ajax.request({
-                                url: '/json/sysdev/description/update-description-content',
+                                url: '/json/aboutsystem/description/update-description-content',
                                 params: {
                                     theme_id: this.theme.get('id'),
                                     content: editor.getValue()

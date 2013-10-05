@@ -18,7 +18,7 @@ Ext.define('EC.Main.view.AboutSystem.Layout', {
         bodyPadding: 5,
         autoScroll: true,
         loader: {
-            url: '/sysdev/description/get-description-content',
+            url: '/aboutsystem/description/get-description-content',
             loadMask: true
         },
         layout: 'fit',
@@ -26,7 +26,7 @@ Ext.define('EC.Main.view.AboutSystem.Layout', {
         dockedItems: [{
             xtype: 'toolbar',
             dock: 'bottom', 
-            hidden: !acl.isUpdate('sysdev'),
+            hidden: !acl.isUpdate('aboutsystem'),
             items: [{
                 text: 'Редактировать',
                 action: 'edit'

@@ -14,7 +14,7 @@ class Aboutsystem_DescriptionController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->sysdev);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->aboutsystem);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-description-content');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-description-content');
     }

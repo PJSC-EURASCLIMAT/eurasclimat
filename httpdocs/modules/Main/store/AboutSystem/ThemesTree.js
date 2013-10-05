@@ -10,6 +10,6 @@ Ext.define('EC.Main.store.AboutSystem.ThemesTree', {
     
     proxy: {
         type: 'ajax',
-        url: '/json/sysdev/projects/get-tree'
+        url: '/json/aboutsystem/themes/get-tree'
     }    
 });

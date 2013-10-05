@@ -20,6 +20,8 @@ Ext.define('EC.Catalog.view.EditAbstract', {
     
     fields: [],
     
+    extrafields: [],
+    
     catalog: null,
     
     catalogId: null,
@@ -32,13 +34,13 @@ Ext.define('EC.Catalog.view.EditAbstract', {
             items: [{
                 xtype: 'tabpanel',
                 items: [{
-                    title: 'Параметры',
+                    title: 'Основные параметры',
                     xtype: 'form',
                     layout: 'column',
                     autoScroll: true,
-                    columns: 4,
                     defaults: {
                         border: false,
+                        columnWidth: .5,
                         padding: 5
                     },
                     fieldDefaults: {
@@ -47,6 +49,23 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                         anchor: '-5'
                     },
                     items: this.fields
+                }, {
+                    title: 'Дополнительные параметры',
+                    xtype: 'form',
+                    layout: 'column',
+                    autoScroll: true,
+                    columns: 3,
+                    defaults: {
+                        border: false,
+                        columnWidth: .5,
+                        padding: 5
+                    },
+                    fieldDefaults: {
+                        labelAlign: 'left',
+                        labelWidth: 300,
+                        anchor: '-5'
+                    },
+                    items: this.extrafields
                 }, {
                     title: 'Описание',
                     xtype: 'form',

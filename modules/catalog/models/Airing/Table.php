@@ -37,12 +37,8 @@ class Catalog_Airing_Table extends Xend_Db_Table_Abstract
         'speed',
         'air_flow',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

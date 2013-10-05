@@ -122,12 +122,8 @@ class Catalog_Dustextraction_Model
             'downy_valve'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'auto_clean'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
         ), $params);
 

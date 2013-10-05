@@ -35,12 +35,8 @@ class Catalog_Electricity_Table extends Xend_Db_Table_Abstract
         'speed',
         'switching_time',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

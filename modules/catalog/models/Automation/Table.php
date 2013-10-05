@@ -36,12 +36,8 @@ class Catalog_Automation_Table extends Xend_Db_Table_Abstract
         'cable_length',
         'spray_angle',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

@@ -121,12 +121,8 @@ class Catalog_Watersupply_Model
             'delivery_height'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'immersion_depth'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'storage'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'reserve'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'order'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'mount_price'           => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
         ), $params);
 

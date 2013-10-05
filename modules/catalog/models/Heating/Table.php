@@ -41,12 +41,8 @@ class Catalog_Heating_Table extends Xend_Db_Table_Abstract
         'chimney_diameter',
         'efficiency',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

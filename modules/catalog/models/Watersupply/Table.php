@@ -39,12 +39,8 @@ class Catalog_Watersupply_Table extends Xend_Db_Table_Abstract
         'delivery_height',
         'immersion_depth',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

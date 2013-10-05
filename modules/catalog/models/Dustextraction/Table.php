@@ -40,12 +40,8 @@ class Catalog_Dustextraction_Table extends Xend_Db_Table_Abstract
         'downy_valve',
         'auto_clean',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

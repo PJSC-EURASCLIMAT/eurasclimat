@@ -47,12 +47,8 @@ class Catalog_Conditioners_Table extends Xend_Db_Table_Abstract
         'square',
         'volume',
         'warranty',
-        'storage',
-        'reserve',
-        'order',
         'url',
         'price',
-        'mount_price',
         'description'
     );
 }

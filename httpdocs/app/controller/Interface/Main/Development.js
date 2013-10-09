@@ -11,7 +11,7 @@ Ext.define('App.controller.Interface.Main.Development', {
             menu = this.getMenu();
             
        container.on('show', function() {
-            MC.openModulePortlet(menu[0]);
+            MC.openModuleTab(menu[0]);
        }, this, {single: true});
        
     },
@@ -24,9 +24,9 @@ Ext.define('App.controller.Interface.Main.Development', {
             title: 'Разработка системы',
             text: 'Разработка системы',
             icon: '/images/icons/projects.png',
-            portletHeight: 410,
-            position: 'MainPanel-development-column-1',
-            launchModule: 'EC.Project.controller.Main',
+//            portletHeight: 410,
+//            position: 'MainPanel-development-column-1',
+            launchModule: 'EC.SysDev.controller.Main',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

@@ -1,6 +1,8 @@
-Ext.define('EC.Project.view.abstract.Info', {
+Ext.define('EC.SysDev.view.abstract.Info', {
     
     extend: 'Ext.panel.Panel',
+
+    border: false,
     
     //alias: 'widget.project-info-component',
     

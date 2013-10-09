@@ -1,4 +1,4 @@
-Ext.define('EC.Project.view.abstract.ProjectTreeContextMenu', {
+Ext.define('EC.SysDev.view.abstract.ProjectTreeContextMenu', {
     
     extend: 'Ext.menu.Menu',
     

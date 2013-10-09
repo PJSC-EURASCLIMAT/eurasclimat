@@ -30,15 +30,14 @@ Ext.define('EC.SysDev.controller.OriginalController', {
     
     commentsText: null,
     
-    votesResult : null,
+    votesResult: null,
     
     updateVoteResult: function() {
         
         if (!this.votesResult) {
-            
             this.votesResult = Ext.create('Ext.data.Connection');
-            
         } 
+        
         var self = this;
         if (acl.isView('projectdev', 'votes')) {
             this.votesResult.request({

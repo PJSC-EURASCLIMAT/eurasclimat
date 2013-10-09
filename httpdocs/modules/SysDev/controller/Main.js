@@ -78,16 +78,16 @@ Ext.define('EC.SysDev.controller.Main', {
         { ref: 'stagesTab',     selector: 'project-layout #stages' },
         { ref: 'docsTab',       selector: 'project-layout #docs' },
 
-        { ref: 'projectMain', selector: 'project-main' }
-        ,{ ref: 'projectTree', selector: 'project-tree' }
-
-]
+        { ref: 'projectMain', selector: 'project-main' },
+        { ref: 'projectTree', selector: 'project-tree' }
+    ]
 
     ,currentProject: null
     ,currentProjectId: null
 
 
-    ,projectSelected: function(record){
+    ,projectSelected: function(record) {
+        
         var tabs = this.getProjectTabs();
         tabs.setActiveTab('infoCnt');
 
@@ -106,9 +106,7 @@ Ext.define('EC.SysDev.controller.Main', {
         }
     }
 
-
-
-    ,tabClick: function( tabPanel, newCard, oldCard, eOpts ) {
+    ,tabClick: function(tabPanel, newCard, oldCard, eOpts ) {
         switch (newCard.itemId) {
             case 'project-preparation':
                 this.getProjectTree().filterBy('1','stage');

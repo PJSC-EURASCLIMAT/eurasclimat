@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.StageModel', {
+Ext.define('EC.SysDev.model.StageModel', {
 
     extend: 'Ext.data.Model',
    

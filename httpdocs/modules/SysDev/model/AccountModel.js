@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.AccountModel', {
+Ext.define('EC.SysDev.model.AccountModel', {
 
     extend: 'Ext.data.Model',
    

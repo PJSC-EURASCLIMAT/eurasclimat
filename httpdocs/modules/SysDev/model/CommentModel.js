@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.CommentModel', {
+Ext.define('EC.SysDev.model.CommentModel', {
 
     extend: 'Ext.data.Model',
    

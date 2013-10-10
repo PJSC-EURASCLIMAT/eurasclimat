@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.VoteModel', {
+Ext.define('EC.SysDev.model.VoteModel', {
 
     extend: 'Ext.data.Model',
    

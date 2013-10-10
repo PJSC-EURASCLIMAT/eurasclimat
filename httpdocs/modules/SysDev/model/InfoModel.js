@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.InfoModel', {
+Ext.define('EC.SysDev.model.InfoModel', {
 
     extend: 'Ext.data.Model',
     

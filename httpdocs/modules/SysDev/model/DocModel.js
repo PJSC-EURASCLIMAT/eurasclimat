@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.DocModel', {
+Ext.define('EC.SysDev.model.DocModel', {
 
     extend: 'Ext.data.Model',
    

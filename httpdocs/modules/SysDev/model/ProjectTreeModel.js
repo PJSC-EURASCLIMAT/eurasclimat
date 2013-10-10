@@ -1,4 +1,4 @@
-Ext.define('EC.Project.model.ProjectTreeModel', {
+Ext.define('EC.SysDev.model.ProjectTreeModel', {
 
     extend: 'Ext.data.TreeModel',
     

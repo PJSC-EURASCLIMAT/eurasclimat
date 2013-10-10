@@ -5,7 +5,7 @@ Ext.define('EC.SysDev.controller.abstract.InfoController', {
     currentProjectId: null,
 
     onProjectSelected: function(record) {
-        console.log("abstract info controller PROJECT SELECTED");
+//        console.log("abstract info controller PROJECT SELECTED");
         
 //        if (record.get('stage') !== this.projectStageCode) {
 //            return;

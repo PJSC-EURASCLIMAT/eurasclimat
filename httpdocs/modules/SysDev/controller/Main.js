@@ -87,8 +87,17 @@ Ext.define('EC.SysDev.controller.Main', {
 
 
     ,projectSelected: function(record) {
-        
+
+
         var tabs = this.getProjectTabs();
+
+        if(record.data.leaf === false) {
+            this.getProjectMain().down("#backInfo").show();
+            this.getProjectLayout().hide();
+            return;
+        }
+
+
         tabs.setActiveTab('infoCnt');
 
         this.currentProjectId = record.getId();
@@ -101,7 +110,9 @@ Ext.define('EC.SysDev.controller.Main', {
         this.getController('EC.SysDev.controller.execution.StageChartController').onProjectSelected(record);
         this.getController('EC.SysDev.controller.execution.DocListController').onProjectSelected(record);
 
-        if (tabs.hidden === true) {
+        if (tabs.hidden === true || this.getProjectLayout().hidden) {
+            this.getProjectMain().down("#backInfo").hide();
+            this.getProjectLayout().show();
             tabs.show();
         }
     }
@@ -127,7 +138,7 @@ Ext.define('EC.SysDev.controller.Main', {
 
         this.getProjectTabs().hide();
 
-        console.log("tab click, stage: " );
+//        console.log("tab click, stage: " );
     }
 
     ,run: function(container) {

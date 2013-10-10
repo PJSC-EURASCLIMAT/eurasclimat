@@ -9,7 +9,7 @@ Ext.define('EC.SysDev.controller.preparation.CommentPanelController', {
     
     run: function() {
 
-        console.log("PREPARATION  CommentPanelController INITED");
+//        console.log("PREPARATION  CommentPanelController INITED");
         
         this.commentStore = Ext.getStore({
             type: 'project-comment-store',
@@ -51,7 +51,7 @@ Ext.define('EC.SysDev.controller.preparation.CommentPanelController', {
             
     onProjectSelected: function(record) {
 
-        console.log("PREPARATION  CommentPanelController PROJECT SELECTED");
+//        console.log("PREPARATION  CommentPanelController PROJECT SELECTED");
 
         if (record.get('leaf') != true) {
             return;
@@ -170,7 +170,7 @@ Ext.define('EC.SysDev.controller.preparation.CommentPanelController', {
                 scope:this
             }
         );
-        console.log("VOTE TYPE IS: " + voteType);
+//        console.log("VOTE TYPE IS: " + voteType);
     }
 
 });

@@ -57,7 +57,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                     }
                 },
                 failure: function(response, opts) {
-                    console.log('Error updating votes');
+//                    console.log('Error updating votes');
                 }
             });
         }

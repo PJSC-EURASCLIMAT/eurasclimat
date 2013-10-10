@@ -9,28 +9,36 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
     refs: [
         { ref: 'projectTree', selector: 'project-tree' }, // this.getProjectTree()
         { ref: 'contextMenu', selector: 'project-tree-context-menu' }, // this.getContextMenu()
-        { ref: 'deleteButton', selector: 'project-tree-context-menu[itemId="delete-button"]' }, // this.getDeleteButton()
-        { ref: 'renameButton', selector: 'project-tree-context-menu[itemId="rename-button"]' }, // this.getRenameButton()
-        { ref: 'createFolderButton', selector: 'project-tree-context-menu[itemId="create-folder-button"]' }, // this.getCreateFolderButton()
-        { ref: 'createReferenceButton', selector: 'project-tree-context-menu[itemId="create-reference-button"]' } // this.getCreateReferenceButton()
+        { ref: 'deleteButton', selector: 'project-tree-context-menu #delete-button' }, // this.getDeleteButton()
+        { ref: 'renameButton', selector: 'project-tree-context-menu #rename-button' }, // this.getRenameButton()
+        { ref: 'createFolderButton', selector: 'project-tree-context-menu #create-folder-button' }, // this.getCreateFolderButton()
+        { ref: 'createReferenceButton', selector: 'project-tree-context-menu #create-reference-button' } // this.getCreateReferenceButton()
     ],
 
     onTreeReady: function() {
-        console.log("onTreeReady");
+        var tree = this.getProjectTree();
+        tree.getEl().down('.x-tree-view').dom.style.display = "none";
+        tree.setLoading();
     },
     
     onProjectStoreLoad: function(store, node, records, successful, eOpts){
-        var me = this;
-        me.getProjectTree().filterBy('1', 'stage');
+        var tree = this.getProjectTree();
+        tree.filterBy('1', 'stage');
+        tree.getEl().down('.x-tree-view').dom.style.display = "block";
+        tree.setLoading(false);
+//        tree.setVisible(true);
+//        tree.show();
     },
 
     run: function() {
         
         var me = this;
-        this.getProjectTree().store.on('load', 
+        var tree = this.getProjectTree();
+
+        tree.store.on('load',
             this.onProjectStoreLoad, this, {delay: 3000}
         );
-        
+
         this.listen({
             component: {
                 'project-tree': {

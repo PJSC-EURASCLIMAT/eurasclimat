@@ -6,19 +6,26 @@ Ext.define('EC.SysDev.view.Main', {
 
     hidden: !acl.isView('projectdev'),
 
+//    style: {border: "1px solid red"},
+
 //    border: false,
 
     layout: {
         type: 'vbox',
         align: "stretch"
     },
+    split: false,
     items: [
 
         {
             xtype: 'tabpanel',
             activeTab: 'project-preparation',
             itemId: 'main-tabs',
-            border: false,
+            bodyBorder: false,
+            bodyStyle: {
+                backgroundColor: 'red',
+                border: '0px solid blue'
+            },
             items: [
                 {
                     title: 'Формирование',
@@ -30,9 +37,9 @@ Ext.define('EC.SysDev.view.Main', {
                 }
             ]
         },
-
         {
             xtype: "container",
+            style: { border: '1px solid #99bce8' },
             flex: 1,
             layout: {
                 type: 'hbox',
@@ -42,7 +49,29 @@ Ext.define('EC.SysDev.view.Main', {
                 {
                     xtype: 'project-tree',
                     autoScroll: true,
+//                    border: false,
+                    border: '0 1px 0 0',
+                    preventHeader: true,
+//                    hideMode: 'offsets',
+//                    hidden: true,
+//                    header: false,
+//                    hideHeaders: true,
+//                    frameHeader: false,
+////                    border: '0px 1px 0px 0px',
+                    bodyStyle: {
+                        borderTop: '0px',
+                        borderRight: '1px solid #99bce8',
+                        borderBottom: '0px',
+                        borderLeft: '0px'
+                    },
                     width: 200
+                },
+                {
+                    xtype:"container",
+                    itemId: 'backInfo',
+                    flex: 1,
+                    html: 'Выберите проект',
+                    hidden: true
                 },
                 {
                     xtype: 'project-layout',

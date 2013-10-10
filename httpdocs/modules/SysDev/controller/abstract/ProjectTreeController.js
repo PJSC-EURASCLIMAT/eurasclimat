@@ -5,7 +5,7 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
     extend: 'Ext.app.Controller',
   
     onSelect: function(tree, record, index, eOpts) {
-        console.log("abstract.ProjectTreeController onSelected");
+//        console.log("abstract.ProjectTreeController onSelected");
         this.fireEvent('project-selected', record);
 
 //        this.project = record;

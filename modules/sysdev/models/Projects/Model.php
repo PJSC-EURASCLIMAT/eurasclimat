@@ -64,14 +64,48 @@ class Sysdev_Projects_Model
 
     public function saveInfo(array $data)
     {
-
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'id'                => 'int',
+            'name'              => 'StringTrim',
+            'parent_id'         => 'int',
+            'account_id'        => 'int',
+            'extended'          => 'int',
+            'description'       => 'StringTrim',
+            'date_plan_begin'   => 'StringTrim',
+            'date_plan_end'     => 'StringTrim',
+            'date_fact_end'     => 'StringTrim',
+            'date_vote_begin'   => 'StringTrim',
+            'date_vote_end'     => 'StringTrim',
+            'date_discuss_begin'=> 'StringTrim',
+            'date_discuss_end'  => 'StringTrim',
+            'date_create'       => 'StringTrim',
+            'leaf'              => 'boolean',
+            'position'          => 'int',
+            'budget'            => 'float',
+            'stage'             => 'int'
         ), array(
-            'id'             => array('Id','allowEmpty' => false)
+            'id' => array('int', 'presence' => 'required'),
+            'date_plan_begin'     => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_plan_end'       => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_fact_end'       => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_vote_begin'     => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_vote_end'       => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_discuss_begin'  => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_discuss_end'    => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'noise_level_max'     => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_discuss_end'    => array(array('StringLength', 19, 19), 'allowEmpty' => true),
+            'date_create'         => array(array('StringLength', 19, 19), 'allowEmpty' => true),
         ), $data);
+
+//        $response = new Xend_Response();
+//
+//        $f = new Xend_Filter_Input(array(
+//            '*'             => 'StringTrim'
+//        ), array(
+//            'id'             => array('Id','allowEmpty' => false)
+//        ), $data);
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {

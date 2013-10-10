@@ -50,7 +50,7 @@ class Sysdev_Projects_Model
                     'stage'
                 )
             )
-            ->join(
+            ->joinLeft(
                 array('a' => 'accounts'),
                 'p.account_id=a.id',
                 array('author' => 'name')

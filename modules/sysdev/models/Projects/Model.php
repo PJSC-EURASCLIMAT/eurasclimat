@@ -70,7 +70,7 @@ class Sysdev_Projects_Model
             'id'                => 'int',
             'name'              => 'StringTrim',
             'parent_id'         => 'int',
-            'account_id'        => 'int',
+//            'account_id'        => 'int',
             'extended'          => 'int',
             'description'       => 'StringTrim',
             'date_plan_begin'   => 'StringTrim',
@@ -83,7 +83,7 @@ class Sysdev_Projects_Model
             'date_create'       => 'StringTrim',
             'leaf'              => 'boolean',
             'position'          => 'int',
-            'budget'            => 'float',
+            'budget'            => 'digits',
             'stage'             => 'int'
         ), array(
             'id' => array('int', 'presence' => 'required'),

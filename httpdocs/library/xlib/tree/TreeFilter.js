@@ -46,6 +46,7 @@ Ext.define('xlib.tree.TreeFilter', {
                 Ext.get(uiNode).setDisplayed('none');
             }
         }, null, [me, view]);
+        this.doLayout();
     },
 
 
@@ -59,5 +60,6 @@ Ext.define('xlib.tree.TreeFilter', {
                 Ext.get(uiNode).setDisplayed('table-row');
             }
         }, null, [this, view]);
+        this.doLayout();
     }
 });

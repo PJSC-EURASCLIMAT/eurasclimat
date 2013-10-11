@@ -31,6 +31,7 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
         var editor = this.getEditor();
         
         editor.show();
+        editor.down("[name=id]").setValue(projectId);
         
         this.getModel('EC.SysDev.model.InfoModel').load(projectId, {
 
@@ -129,25 +130,46 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
         
         record.set(values); // изменяем значения записи, чтобы сработал метод save()
 
-        record.save({
-            success: function(record, operation) {
-                
+        basicForm.submit({
+            url: '/json/sysdev/project-info/save',
+            params: values,
+            success: function(form, action) {
                 basicForm.loadRecord(record); // загружаем запись в форму повторно, чтобы форма перестала быть dirty
                 basicForm.checkDirty();
-                
+
                 this.fireEvent(
                     'project-info-editor-hidden',
                     this.projectStageCode
                 );
-                    
+
                 this.fireEvent(
                     'project-info-updated',
                     record
                 );
-                    
             },
+
             scope: this
         });
+
+//        record.save({
+//            success: function(record, operation) {
+//
+//                basicForm.loadRecord(record); // загружаем запись в форму повторно, чтобы форма перестала быть dirty
+//                basicForm.checkDirty();
+//
+//                this.fireEvent(
+//                    'project-info-editor-hidden',
+//                    this.projectStageCode
+//                );
+//
+//                this.fireEvent(
+//                    'project-info-updated',
+//                    record
+//                );
+//
+//            },
+//            scope: this
+//        });
 
     }
     

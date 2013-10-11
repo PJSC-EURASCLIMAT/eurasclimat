@@ -32,8 +32,8 @@ class Sysdev_ProjectInfoController extends Xend_Controller_Action
     
     public function saveAction()
     {
-        
-        $data = Zend_Json::decode($this->_getParam('data'));
+
+        $data = $this->_getAllParams();
         
         $response = $this->_model->saveInfo($data);
         

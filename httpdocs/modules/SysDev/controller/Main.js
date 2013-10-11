@@ -142,6 +142,7 @@ Ext.define('EC.SysDev.controller.Main', {
     }
 
     ,run: function(container) {
+        var me = this;
 
         this.control({
             'project-main #main-tabs': {
@@ -170,7 +171,10 @@ Ext.define('EC.SysDev.controller.Main', {
         this.infoEditController.run();
         this.infoEditController.on({
             'project-info-editor-hidden': this.infoController.onEditorHidden,
-            'project-info-updated': this.infoController.onProjectInfoUpdated,
+            'project-info-updated': function(record){
+                me.infoController.onProjectInfoUpdated(record);
+                me.projectTreeCnt.onProjectInfoUpdated(record);
+            },
             scope: this.infoController
         });
 

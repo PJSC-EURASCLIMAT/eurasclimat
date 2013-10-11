@@ -15,6 +15,12 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         { ref: 'createReferenceButton', selector: 'project-tree-context-menu #create-reference-button' } // this.getCreateReferenceButton()
     ],
 
+    onProjectInfoUpdated: function(record) {
+        var id = record.getId();
+        var leaf = this.getProjectTree().store.getById(id);
+        leaf.set('name',record.get('name'));
+    },
+
     onTreeReady: function() {
         var tree = this.getProjectTree();
         tree.getEl().down('.x-tree-view').dom.style.display = "none";

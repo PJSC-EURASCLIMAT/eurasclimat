@@ -30,6 +30,10 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
     
     items: [
         {
+            xtype: 'hiddenfield',
+            name: 'id'
+        },
+        {
             fieldLabel: 'Наименование проекта',
             xtype: 'textfield',
             name: 'name'

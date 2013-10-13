@@ -5,11 +5,15 @@ Ext.define('EC.SysDev.store.AccountStore', {
     alias: 'store.project-account-store',
    
     model: 'EC.SysDev.model.AccountModel',
+
+    remoteFilter: false,
+
+    remoteSort: false,
     
     proxy: {
         type: 'ajax',
         api: {
-            read: '/json/admin/accounts/get-list'
+            read: '/json/sysdev/projects/get-account-list'
         },
         reader: {
             type: 'json',
@@ -20,7 +24,7 @@ Ext.define('EC.SysDev.store.AccountStore', {
             root: 'data',
             encode: true
         }
-    },
+    }
     
     
 });

@@ -19,6 +19,9 @@ Ext.define('EC.SysDev.controller.execution.StageEditorController', {
                 },
                 'project-execution-stage-editor [itemId="save-button"]': {
                     click: this.onSaveButtonClick
+                },
+                'project-execution-stage-editor [itemId="add-button"]': {
+                    click: this.onAddButtonClick
                 }
             }
 //            ,controller: {
@@ -33,11 +36,27 @@ Ext.define('EC.SysDev.controller.execution.StageEditorController', {
     onEditingRequest: function(record) {
 
         var editor = this.getEditor();
-        
+
+        this.getEditor().down('#add-button').hide();
+        this.getEditor().down('#save-button').show();
+
         editor.show();
         
         editor.loadRecord(record);
-        
+
+    },
+
+    onAddingRequest: function(record) {
+
+        var editor = this.getEditor();
+
+        this.getEditor().down('#add-button').show();
+        this.getEditor().down('#save-button').hide();
+
+        editor.show();
+
+        editor.loadRecord(record);
+
 
     },
     
@@ -110,6 +129,41 @@ Ext.define('EC.SysDev.controller.execution.StageEditorController', {
         }
         
     },
+
+    onAddButtonClick: function() {
+
+        var editor = this.getEditor();
+        var saveButton = this.getSaveButton();
+        var basicForm = editor.getForm();
+        var record = basicForm.getRecord();
+        var values = basicForm.getValues();
+
+        saveButton.disable();
+
+        record.set(values); // изменяем значения записи, чтобы сработал метод save()
+
+        basicForm.submit({
+            url: '/json/sysdev/project-stages/add',
+            params: values,
+            success: function(form, action) {
+                basicForm.loadRecord(record); // загружаем запись в форму повторно, чтобы форма перестала быть dirty
+                basicForm.checkDirty();
+
+                this.fireEvent(
+                    'project-stage-editor-hidden',
+                    this.projectStageCode
+                );
+
+                this.fireEvent(
+                    'project-stage-updated',
+                    record
+                );
+            },
+
+            scope: this
+        });
+
+    },
             
     onSaveButtonClick: function() {
 
@@ -123,23 +177,24 @@ Ext.define('EC.SysDev.controller.execution.StageEditorController', {
         
         record.set(values); // изменяем значения записи, чтобы сработал метод save()
 
-        record.save({
-            success: function(record, operation) {
-                
+        basicForm.submit({
+            url: '/json/sysdev/project-stages/update',
+            params: values,
+            success: function(form, action) {
                 basicForm.loadRecord(record); // загружаем запись в форму повторно, чтобы форма перестала быть dirty
                 basicForm.checkDirty();
-                
+
                 this.fireEvent(
                     'project-stage-editor-hidden',
                     this.projectStageCode
                 );
-                    
+
                 this.fireEvent(
                     'project-stage-updated',
                     record
                 );
-                    
             },
+
             scope: this
         });
 

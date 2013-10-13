@@ -14,6 +14,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     public function init()
     {
         $this->_model = new Sysdev_Projects_Model();
+        $this->_accounts = new Xend_Accounts();
         parent::init();
     }
 
@@ -25,6 +26,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'rename');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'move');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-list');
     }
 
     public function getTreeAction()
@@ -130,6 +132,18 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         
         $this->view->success = true;
         
+    }
+
+    public function getAccountListAction()
+    {
+        $response = $this->_accounts->fetchAllNames($this->_getAllParams());
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        $this->view->total = $response->total;
+        $this->view->rows = $response->getRowset();
+        $this->view->success = true;
     }
 
 }

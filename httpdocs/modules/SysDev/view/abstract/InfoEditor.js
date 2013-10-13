@@ -25,9 +25,14 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
         labelWidth: 150,
         maxWidth: 450,
         padding: '10 10 0 10',
-        anchor: '100%'
+        anchor: '100%',
+        listeners: {
+            change: function(field, newVal, oldVal) {
+                field.up('form').fireEvent("formChanged");
+            }
+        }
     },
-    
+
     items: [
         {
             xtype: 'hiddenfield',
@@ -36,12 +41,13 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
         {
             fieldLabel: 'Наименование проекта',
             xtype: 'textfield',
+            allowBlank: false,
             name: 'name'
         }, {
             fieldLabel: 'Описание проекта',
             xtype: 'htmleditor',
             name: 'description',
-            maxWidth: null,
+            maxWidth: null
         }, {
             fieldLabel: 'Инициатор проекта',
             xtype: 'combobox',

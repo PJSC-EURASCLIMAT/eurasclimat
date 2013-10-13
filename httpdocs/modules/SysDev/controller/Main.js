@@ -113,9 +113,17 @@ Ext.define('EC.SysDev.controller.Main', {
 
         if (tabs.hidden === true || this.getProjectLayout().hidden) {
             this.getProjectMain().down("#backInfo").hide();
+
+            this.getInfoTab().down("#info-editor").hide();
+            this.getInfoTab().down("#info").show();
+
             this.getProjectLayout().show();
             tabs.show();
         }
+
+        this.getStagesTab().down("#stage-editor").hide();
+        this.getStagesTab().down("#stage-list").show();
+
     }
 
     ,showPrepTabs: function(){
@@ -147,7 +155,6 @@ Ext.define('EC.SysDev.controller.Main', {
 
         this.getProjectTabs().hide();
 
-//        console.log("tab click, stage: " );
     }
 
     ,run: function(container) {
@@ -199,6 +206,7 @@ Ext.define('EC.SysDev.controller.Main', {
 
         this.stageListCnt.on({
             'stage-editing-requested': this.stageEditorCnt.onEditingRequest,
+            'stage-adding-requested': this.stageEditorCnt.onAddingRequest,
             scope: this.stageEditorCnt
         });
 

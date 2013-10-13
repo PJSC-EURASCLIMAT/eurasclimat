@@ -87,8 +87,6 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     onDocAdd: function() {
-        var me = this;
-//        console.log("DOC ADDING");
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             dialogTitle: 'Передача файлов на сервер',

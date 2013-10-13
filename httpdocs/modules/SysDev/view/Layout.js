@@ -66,9 +66,11 @@ Ext.define('EC.SysDev.view.Layout', {
                     hidden: !acl.isView('projectdev', 'stages'),
                     items: [
                         {
-                            xtype: 'project-stage-list'
+                            xtype: 'project-stage-list',
+                            itemId: 'stage-list'
                         }, {
                             xtype: 'project-execution-stage-editor',
+                            itemId: 'stage-editor',
                             hidden: true
                         }
                     ]

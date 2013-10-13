@@ -5,19 +5,7 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
     extend: 'Ext.app.Controller',
   
     onSelect: function(tree, record, index, eOpts) {
-//        console.log("abstract.ProjectTreeController onSelected");
         this.fireEvent('project-selected', record);
-
-//        this.project = record;
-//
-//        if (record.get('leaf') == true) {
-//
-//            this.clearProjectComponents();
-//            this.loadProjectDetail(this.project);
-//            this.showProjectDiscussion();
-//
-//        }
-
     },
 
     onItemContextMenu: function(treeview, record, item, index, e) {

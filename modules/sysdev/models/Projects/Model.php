@@ -38,6 +38,7 @@ class Sysdev_Projects_Model
                 array('p'=>$this->_table->getTableName()),
                 array('name',
                     'description',
+                    'account_id',
                     'date_plan_begin',
                     'date_plan_end',
                     'date_fact_end',
@@ -64,52 +65,43 @@ class Sysdev_Projects_Model
 
     public function saveInfo(array $data)
     {
-//        $response = new Xend_Response();
-//
-//        $f = new Xend_Filter_Input(array(
-//            'id'                => 'int',
-//            'name'              => 'StringTrim',
-//            'parent_id'         => 'int',
-////            'account_id'        => 'int',
-//            'extended'          => 'int',
-//            'description'       => 'StringTrim',
-//            'date_plan_begin'   => 'StringTrim',
-//            'date_plan_end'     => 'StringTrim',
-//            'date_fact_end'     => 'StringTrim',
-//            'date_vote_begin'   => 'StringTrim',
-//            'date_vote_end'     => 'StringTrim',
-//            'date_discuss_begin'=> 'StringTrim',
-//            'date_discuss_end'  => 'StringTrim',
-//            'date_create'       => 'StringTrim',
-//            'leaf'              => 'boolean',
-//            'position'          => 'int',
-//            'budget'            => 'digits',
-//            'stage'             => 'int'
-//        ), array(
-//            'id' => array('int', 'presence' => 'required'),
-//            'date_plan_begin'     => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_plan_end'       => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_fact_end'       => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_vote_begin'     => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_vote_end'       => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_discuss_begin'  => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_discuss_end'    => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'noise_level_max'     => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_discuss_end'    => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//            'date_create'         => array(array('StringLength', 0, 16), 'allowEmpty' => true),
-//        ), $data);
-
-
-
-//        UPDATE  `e-head_ec`.`main_sysdev_projects` SET  `date_plan_begin` =  '2013-10-01 00:00:00' WHERE  `main_sysdev_projects`.`id` =57;
-
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'id'                => 'int',
+            'name'              => 'StringTrim',
+            'parent_id'         => 'int',
+            'account_id'        => 'int',
+            'extended'          => 'int',
+            'description'       => 'StringTrim',
+            'date_plan_begin'   => 'StringTrim',
+            'date_plan_end'     => 'StringTrim',
+            'date_fact_end'     => 'StringTrim',
+            'date_vote_begin'   => 'StringTrim',
+            'date_vote_end'     => 'StringTrim',
+            'date_discuss_begin'=> 'StringTrim',
+            'date_discuss_end'  => 'StringTrim',
+            'date_create'       => 'StringTrim',
+            'leaf'              => 'boolean',
+            'position'          => 'int',
+            'budget'            => 'digits',
+            'stage'             => 'int'
         ), array(
-            'id'             => array('Id','allowEmpty' => false)
+            'id' => array('int', 'presence' => 'required'),
+            'date_plan_begin'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_plan_end'       => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_fact_end'       => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_vote_begin'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_vote_end'       => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_discuss_begin'  => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_discuss_end'    => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'noise_level_max'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_discuss_end'    => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_create'         => array(array('StringLength', 0, 19), 'allowEmpty' => true),
         ), $data);
+
+
+        $response = new Xend_Response();
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {

@@ -3,11 +3,12 @@ Ext.define('EC.SysDev.model.StageModel', {
     extend: 'Ext.data.Model',
    
     fields: [
-        'id',
+        {name: 'id', type: 'number'},
         'index',
         'name',
+        'account_id',
         'author',
-        'project_id',
+        {name: 'project_id', type: 'number'},
         {name: 'date_plan_begin', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         {name: 'date_plan_end', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         {name: 'date_fact_begin', type: 'date', dateFormat: 'Y-m-d H:i:s'},

@@ -8,20 +8,27 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
         { ref: 'editor', selector: 'project-info-editor' }, // this.getEditor()
         { ref: 'saveButton', selector: 'project-info-editor [itemId="save-button"]' } // this.getSaveButton()
     ],
+
     
     run: function() {
         
         this.listen({
             component: {
                 'project-info-editor': {
-                    dirtychange: this.onFormChange
+//                    dirtychange: this.onFormChange,
+                    formChanged: this.onFormChange2
                 },
                 'project-info-editor [itemId="cancel-button"]': {
                     click: this.onCancelButtonClick
                 },
                 'project-info-editor [itemId="save-button"]': {
                     click: this.onSaveButtonClick
+                },
+                'project-info-editor [itemId="save-button"]': {
+                    click: this.onSaveButtonClick
                 }
+
+
             }
 //            ,controller: {
 //                'preparation-project-controller': {

@@ -184,6 +184,51 @@ class Xend_Accounts
         return $response->addStatus(new Xend_Acl_Status($status));
     }
 
+    public function fetchAllNames(array $params = array())
+    {
+        return $this->_fetchAllNames(array(), $params);
+    }
+
+    protected  function _fetchAllNames($where, array $params = array())
+    {
+        $response = new Xend_Response();
+        $select = $this->_tableAccounts->getAdapter()->select();
+//        $select->from(array('a' => $this->_tableAccounts->getTableName()));
+
+
+        $select->from(array('a' => $this->_tableAccounts->getTableName()), array(
+            'id', 'name'
+        ));
+
+        $plugin = new Xend_Db_Plugin_Select($this->_tableAccounts, $select);
+        $plugin->parse($params);
+
+        if (!empty($where)) {
+            foreach ($where as $key => $value) {
+                $select->where($key, $value);
+            }
+        }
+
+        $status = null;
+        try {
+            $rowset = $select->query()->fetchAll();
+            $response->setRowset($rowset);
+            $response->total = $plugin->getTotalCount();
+            $status = Xend_Acl_Status::OK;
+
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+
+            $status = Xend_Acl_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Acl_Status($status));
+    }
+
+
+
     /**
      * @see _fetchAll()
      *

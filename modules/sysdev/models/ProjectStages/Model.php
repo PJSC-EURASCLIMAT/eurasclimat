@@ -99,4 +99,113 @@ class Sysdev_ProjectStages_Model
         }
         return $response->addStatus(new Xend_Status($status));
     }
+
+
+    public function saveInfo(array $data)
+    {
+
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'id'                => 'int',
+            'account_id'        => 'int',
+            'project_id'        => 'int',
+            'index'             => 'int',
+            'name'              => 'StringTrim',
+            'date_plan_begin'   => 'StringTrim',
+            'date_plan_end'     => 'StringTrim',
+            'date_fact_begin'   => 'StringTrim',
+            'date_fact_end'     => 'StringTrim',
+            'date_create'       => 'StringTrim',
+        ), array(
+            'id'                => array('Id', 'presence' => 'required'),
+            'project_id'        => array('Id', 'presence' => 'required'),
+            'account_id'        => array('Id', 'presence' => 'required'),
+            'name'              => array('StringLength', 'presence' => 'required'),
+            'date_plan_begin'   => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_plan_end'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_fact_begin'   => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_fact_end'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_create'       => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $affectedRow = $this->_table->updateByPk($data, $data['id']);
+
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+
+    }
+
+
+
+    public function delete($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+
+
+    public function add($data)
+    {
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'name'              => 'StringTrim',
+            'date_plan_begin'   => 'StringTrim',
+            'date_plan_end'     => 'StringTrim',
+            'date_fact_begin'   => 'StringTrim',
+            'date_fact_end'     => 'StringTrim',
+            'date_create'       => 'StringTrim',
+            'account_id'        => 'int',
+            'project_id'        => 'int',
+            'index'             => 'int',
+        ), array(
+            'project_id'        => array('Id', 'presence' => 'required'),
+            'account_id'        => array('Id', 'presence' => 'required'),
+            'name'              => array('StringLength', 'presence' => 'required'),
+            'date_plan_begin'   => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_plan_end'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_fact_begin'   => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_fact_end'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+            'date_create'       => array(array('StringLength', 0, 19), 'allowEmpty' => true),
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $id = $this->_table->insert($f->getData());
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        $response->id = $id;
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
+    }
+
 }

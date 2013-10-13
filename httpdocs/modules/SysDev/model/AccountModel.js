@@ -3,7 +3,7 @@ Ext.define('EC.SysDev.model.AccountModel', {
     extend: 'Ext.data.Model',
    
     fields: [
-        'id',
+        { name: 'id', type: 'number' },
         'name',
         'email',
         'country',

@@ -4,6 +4,7 @@ Ext.define('EC.SysDev.model.InfoModel', {
     
     fields: [
         { name: 'name', type: 'string' },
+        { name: 'account_id', type: 'number' },
         { name: 'author', type: 'string' },
         { name: 'description', type: 'string' },
         { name: 'budget', type: 'float' },

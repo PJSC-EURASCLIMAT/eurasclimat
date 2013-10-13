@@ -14,6 +14,19 @@ Ext.define('EC.SysDev.view.execution.StageList', {
         type: 'project-stage-store'
     },
 
+    tbar: [{
+        text: 'Добавить',
+        iconCls: 'add',
+        action: 'add',
+//        hidden: !this.allowEdit,
+        scope: this
+    }, '->', {
+        xtype: 'button',
+        tooltip: 'Обновить',
+        iconCls: 'x-tbar-loading',
+        action: 'refresh'
+    }],
+
     columns: [{
         header: '№',
         dataIndex: 'index'

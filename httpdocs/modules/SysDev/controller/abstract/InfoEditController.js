@@ -24,11 +24,8 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
             
     onEditorRequested: function(projectStageCode, projectId) {
 
-//        if (projectStageCode !== this.projectStageCode) {
-//            return;
-//        }
-
         var editor = this.getEditor();
+        var accCombo = editor.down('[name=account_id]');
         
         editor.show();
         editor.down("[name=id]").setValue(projectId);
@@ -36,8 +33,10 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
         this.getModel('EC.SysDev.model.InfoModel').load(projectId, {
 
             success: function(record, operation) {
-
                 editor.getForm().loadRecord(record);
+
+                var rec = accCombo.store.getById(record.get('account_id'))
+                accCombo.setValue(rec);
 
             },
             scope: this
@@ -90,6 +89,26 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
                 this.projectStageCode
             );
             
+        }
+
+    },
+
+
+    onFormChange2: function(){
+
+        var editor = this.getEditor();
+        var saveButton = this.getSaveButton();
+
+        if (editor.getForm().isDirty()) {
+            editor.setBodyStyle('backgroundColor', '#FBEFEF');
+        } else {
+            editor.setBodyStyle('backgroundColor', '#FFFFFF');
+        }
+
+        if (editor.getForm().isValid()) {
+           saveButton.enable();
+        } else {
+           saveButton.disable();
         }
 
     },

@@ -45,7 +45,7 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
         }, {
             fieldLabel: 'Инициатор проекта',
             xtype: 'combobox',
-            name: 'author',
+            name: 'account_id',
             displayField: 'name',
             valueField: 'id',
             queryMode: 'local',
@@ -69,14 +69,14 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
                 {
                     xtype: 'datefield',
                     name: 'date_plan_begin',
-                    format: 'd.m.Y H:i',
+                    format: 'Y-m-d H:i:s',
                     flex: 1
                 }, {
                     xtype: 'splitter'
                 }, {
                     xtype: 'datefield',
                     name: 'date_plan_end',
-                    format: 'd.m.Y H:i',
+                    format: 'Y-m-d H:i:s',
                     flex: 1
                 }
             ]
@@ -84,7 +84,7 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
             fieldLabel: 'Дата фактического выполнения',
             xtype: 'datefield',
             name: 'date_fact_end',
-            format: 'd.m.Y H:i',
+            format: 'Y-m-d H:i:s'
         }
     ]
     

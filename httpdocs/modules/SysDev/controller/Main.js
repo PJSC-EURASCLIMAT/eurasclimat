@@ -79,6 +79,7 @@ Ext.define('EC.SysDev.controller.Main', {
         { ref: 'docsTab',       selector: 'project-layout #docs' },
 
         { ref: 'projectMain', selector: 'project-main' },
+        { ref: 'mainTabs', selector: 'project-main #main-tabs' },
         { ref: 'projectTree', selector: 'project-tree' }
     ]
 
@@ -117,22 +118,30 @@ Ext.define('EC.SysDev.controller.Main', {
         }
     }
 
+    ,showPrepTabs: function(){
+        this.getCommentTab().tab.show();
+        this.getChartTab().tab.hide();
+        this.getStagesTab().tab.hide();
+        this.getDocsTab().tab.hide();
+    }
+
+    ,showExecTabs: function(){
+        this.getCommentTab().tab.hide();
+        this.getChartTab().tab.show();
+        this.getStagesTab().tab.show();
+        this.getDocsTab().tab.show();
+    }
+
     ,tabClick: function(tabPanel, newCard, oldCard, eOpts ) {
         switch (newCard.itemId) {
             case 'project-preparation':
                 this.getProjectTree().filterBy('1','stage');
-                this.getCommentTab().tab.show();
-                this.getChartTab().tab.hide();
-                this.getStagesTab().tab.hide();
-                this.getDocsTab().tab.hide();
+                this.showPrepTabs();
                 break;
 
             case 'project-execution':
                 this.getProjectTree().filterBy('2','stage');
-                this.getCommentTab().tab.hide();
-                this.getChartTab().tab.show();
-                this.getStagesTab().tab.show();
-                this.getDocsTab().tab.show();
+                this.showExecTabs();
                 break;
         }
 
@@ -200,5 +209,8 @@ Ext.define('EC.SysDev.controller.Main', {
 
         this.getController('EC.SysDev.controller.execution.StageChartController').run();
         this.getController('EC.SysDev.controller.execution.DocListController').run();
+
+        this.showPrepTabs();
+
     }
 });

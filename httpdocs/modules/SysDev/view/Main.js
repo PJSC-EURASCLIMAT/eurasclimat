@@ -23,7 +23,6 @@ Ext.define('EC.SysDev.view.Main', {
             itemId: 'main-tabs',
             bodyBorder: false,
             bodyStyle: {
-                backgroundColor: 'red',
                 border: '0px solid blue'
             },
             items: [

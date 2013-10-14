@@ -12,7 +12,18 @@ class Sysdev_Projects_Table extends Xend_Db_Table_Abstract {
      */
     protected $_name = 'main_sysdev_projects';
 
-//    protected $_nullableFields = array(
-//        'parent_id'
-//    );
+    protected $_nullableFields = array(
+        'parent_id',
+        'account_id',
+        'description',
+        'date_plan_begin',
+        'date_plan_end',
+        'date_fact_end',
+        'date_vote_begin',
+        'date_vote_end',
+        'date_discuss_begin',
+        'date_discuss_end',
+        'budget',
+        'stage'
+    );
 }

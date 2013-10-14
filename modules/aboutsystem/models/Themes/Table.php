@@ -12,7 +12,8 @@ class Aboutsystem_Themes_Table extends Xend_Db_Table_Abstract
      */
     protected $_name = 'aboutsystem_themes';
 
-//    protected $_nullableFields = array(
-//        'parent_id'
-//    );
+    protected $_nullableFields = array(
+        'parent_id',
+        'account_id'
+    );
 }

@@ -12,7 +12,7 @@ class Aboutsystem_Description_Table extends Xend_Db_Table_Abstract
      */
     protected $_name = 'aboutsystem_description';
 
-//    protected $_nullableFields = array(
-//        'parent_id'
-//    );
+    protected $_nullableFields = array(
+        'account_id'
+    );
 }

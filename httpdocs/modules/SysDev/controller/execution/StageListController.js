@@ -54,7 +54,7 @@ Ext.define('EC.SysDev.controller.execution.StageListController', {
             return;
         }
 
-        if (!acl.isView('projectdev', 'stages')) {
+        if (!acl.isView('sysdev', 'stages')) {
             return;
         }
 

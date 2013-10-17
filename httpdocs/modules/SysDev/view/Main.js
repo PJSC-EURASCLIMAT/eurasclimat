@@ -4,7 +4,7 @@ Ext.define('EC.SysDev.view.Main', {
 
     alias: 'widget.project-main',
 
-    hidden: !acl.isView('projectdev'),
+    hidden: !acl.isView('sysdev'),
 
 //    style: {border: "1px solid red"},
 

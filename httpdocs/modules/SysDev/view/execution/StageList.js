@@ -18,7 +18,7 @@ Ext.define('EC.SysDev.view.execution.StageList', {
         text: 'Добавить',
         iconCls: 'add',
         action: 'add',
-//        hidden: !this.allowEdit,
+        hidden: !acl.isUpdate('sysdev', 'stages'),
         scope: this
     }, '->', {
         xtype: 'button',
@@ -64,6 +64,7 @@ Ext.define('EC.SysDev.view.execution.StageList', {
     }, {
         xtype: 'actioncolumn',
         width: 40,
+        hidden: !acl.isUpdate('sysdev', 'info'),
         items: [{
             icon: '/images/icons/fam/plugin.gif',
             tooltip: 'Редактировать',

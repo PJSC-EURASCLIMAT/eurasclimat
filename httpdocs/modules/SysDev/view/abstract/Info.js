@@ -10,7 +10,8 @@ Ext.define('EC.SysDev.view.abstract.Info', {
         '->',
         {
             text: 'Редактировать',
-            itemId: 'edit-button'
+            itemId: 'edit-button',
+            hidden: !acl.isUpdate('sysdev', 'info')
         }
     ],
 

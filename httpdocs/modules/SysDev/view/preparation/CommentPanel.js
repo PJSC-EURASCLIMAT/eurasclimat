@@ -57,7 +57,7 @@ Ext.define('EC.SysDev.view.preparation.CommentPanel', {
             }, {
                 border: false,
                 width: 190,
-                hidden: false,
+                hidden: !isAuth,
                 itemId: 'markMenu',
                 layout: 'vbox',
                 margin: '1 0 0 1',
@@ -93,7 +93,7 @@ Ext.define('EC.SysDev.view.preparation.CommentPanel', {
                 ]
             }, {
                 xtype: 'textareafield',
-                hidden: !acl.isUpdate('projectdev', 'comments'),
+                hidden: !acl.isUpdate('sysdev', 'comments'),
                 grow: true,
                 itemId: 'commentContent',
                 //name: 'message',
@@ -105,7 +105,7 @@ Ext.define('EC.SysDev.view.preparation.CommentPanel', {
                 validateOnChange: false
             }, {
                 xtype: 'button',
-                hidden: !acl.isUpdate('projectdev', 'comments'),
+                hidden: !acl.isUpdate('sysdev', 'comments'),
                 scale: 'large',
                 itemId: 'commentSubmit',
                 text: 'Коментировать',

@@ -10,7 +10,7 @@ Ext.define('EC.SysDev.controller.abstract.InfoController', {
             return;
         }
 
-        if (!acl.isView('projectdev', 'info')) {
+        if (!acl.isView('sysdev', 'info')) {
             return;
         }
         

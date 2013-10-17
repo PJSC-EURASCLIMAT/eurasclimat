@@ -17,7 +17,7 @@ Ext.define('EC.SysDev.view.Layout', {
 //            split: true,
 //            region: 'west',
 //            width: 200,
-//            hidden: !acl.isView('projectdev')
+//            hidden: !acl.isView('sysdev')
 //        },
         {
             xtype: 'tabpanel',
@@ -42,14 +42,14 @@ Ext.define('EC.SysDev.view.Layout', {
                             autoScroll: true
                         }, {
                             xtype: 'project-info-editor',
-                            hidden: true,
+                            hidden: !acl.isUpdate('sysdev'),
                             itemId: 'info-editor'
                         }
                     ]
                 }, {
                     title: 'Обсуждение и голосование',
                     xtype: 'project-comment-panel',
-                    hidden: !acl.isView('projectdev', 'comments'),
+                    hidden: !acl.isView('sysdev', 'comments'),
                     itemId: 'projectComment'
                 }, {
                     title: 'График исполнения',
@@ -63,7 +63,7 @@ Ext.define('EC.SysDev.view.Layout', {
                     itemId: 'stages',
                     xtype: 'panel',
                     layout: 'fit',
-                    hidden: !acl.isView('projectdev', 'stages'),
+                    hidden: !acl.isView('sysdev', 'stages'),
                     items: [
                         {
                             xtype: 'project-stage-list',
@@ -78,7 +78,7 @@ Ext.define('EC.SysDev.view.Layout', {
                     title: 'Документация проекта',
                     itemId: 'docs',
                     xtype: 'project-doc-list',
-                    hidden: !acl.isView('projectdev', 'docs')
+                    hidden: !acl.isView('sysdev', 'docs')
                 }
             ]
         }

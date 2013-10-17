@@ -45,12 +45,18 @@ Ext.define('EC.SysDev.view.abstract.ProjectTree', {
                 metadata.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             },
-            editor: {
+            listeners: {
+                itemdblclick: function( column, record, item, index, e, eOpts ) {
+//                    console.log("itemdblclick");
+                }
+            }
+            ,editor: {
                 xtype: 'textfield',
                 allowBlank: false
             }
         }, {
             xtype:'actioncolumn',
+            hidden: !acl.isUpdate('sysdev', 'info'),
             width: 20,
             items: [{     
                 text: 'Переименовать',

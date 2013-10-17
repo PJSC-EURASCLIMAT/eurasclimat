@@ -11,7 +11,6 @@ Ext.define('App.view.Interface.Main.Development', {
     items: [{
         title: 'Панель виджетов',
         xtype: 'portalpanel',
-        id: 'mypanel',
         border: false,
         closable: false,
         columns: 3,

@@ -14,7 +14,7 @@ class Sysdev_ProjectDiscussionsController extends Sysdev_AbstractController
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projectdev->comments);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->sysdev->comments);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-by-project');
     }

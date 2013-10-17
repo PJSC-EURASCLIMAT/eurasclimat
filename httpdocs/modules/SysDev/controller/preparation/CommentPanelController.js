@@ -53,7 +53,7 @@ Ext.define('EC.SysDev.controller.preparation.CommentPanelController', {
             return;
         }
         
-        if (acl.isView('projectdev', 'comments')) {
+        if (acl.isView('sysdev', 'comments')) {
 
             this.commentStore.load({
                 params:{
@@ -63,7 +63,7 @@ Ext.define('EC.SysDev.controller.preparation.CommentPanelController', {
             
         }
 
-        if (acl.isView('projectdev', 'votes')) {
+        if (acl.isView('sysdev', 'votes')) {
 
             this.voteStore.load({
                 params:{

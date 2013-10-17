@@ -29,7 +29,7 @@ Ext.define('EC.SysDev.controller.execution.StageChartController', {
             return;
         }
         
-        if (!acl.isView('projectdev', 'chart')) {
+        if (!acl.isView('sysdev', 'chart')) {
             return;
         }
 

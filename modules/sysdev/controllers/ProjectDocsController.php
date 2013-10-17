@@ -14,7 +14,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projectdev->docs);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->sysdev->docs);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-by-project');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');

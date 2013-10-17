@@ -32,6 +32,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         hidden: true
     }, {
         xtype:'actioncolumn',
+        hidden: !acl.isUpdate('sysdev', 'docs'),
         width: 20,
         items: [
             {
@@ -49,7 +50,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         text: 'Добавить',
         iconCls: 'add',
         action: 'add',
-//        hidden: !this.allowEdit,
+        hidden: !acl.isUpdate('sysdev', 'docs'),
         scope: this
     }, '->', {
         xtype: 'button',

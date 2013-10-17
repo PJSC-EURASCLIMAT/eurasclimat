@@ -41,7 +41,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             return;
         }
         
-        if (!acl.isView('projectdev', 'docs')) {
+        if (!acl.isView('sysdev', 'docs')) {
             return;
         }
 

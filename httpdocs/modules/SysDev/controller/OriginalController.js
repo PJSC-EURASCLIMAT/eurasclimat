@@ -39,7 +39,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
         } 
         
         var self = this;
-        if (acl.isView('projectdev', 'votes')) {
+        if (acl.isView('sysdev', 'votes')) {
             this.votesResult.request({
                 url: '/json/sysdev/project-votes/get-count-by-project',
                 params: {
@@ -151,7 +151,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
             this.showProjectDiscussion();
         }, this);
         
-        if (acl.isUpdate('projectdev', 'comments')) { 
+        if (acl.isUpdate('sysdev', 'comments')) {
             this.commentsText = this.projectCommentPanel.down('#commentContent');
             this.commentSubmit = this.projectCommentPanel.down('#commentSubmit');
             this.commentSubmit.on('click', function() {
@@ -174,7 +174,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
         
         this.projectVoteStore = Ext.create('EC.SysDev.store.Vote');
         
-        if (acl.isUpdate('projectdev', 'comments')) {
+        if (acl.isUpdate('sysdev', 'comments')) {
             
             this.projectCommentPanel.down('#markButtonFor').on('click', function(button, e, eOpts) {
                 this.projectVoteStore.add({mark_id:1, project_id: this.project.get('id')});
@@ -204,13 +204,13 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                 
                 var isProjectVote = this.isProjectVote();
                 
-                if (acl.isUpdate('projectdev', 'votes')) {
+                if (acl.isUpdate('sysdev', 'votes')) {
                     
                     if (isProjectVote) {
                         this.projectVote.show();
                         this.projectVoteResults.hide();
                     } else {
-                        if (acl.isView('projectdev', 'votes')) {
+                        if (acl.isView('sysdev', 'votes')) {
                             this.projectVote.hide();
                             this.projectVoteResults.show();
                             this.updateVoteResult();
@@ -221,7 +221,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                     }
                     
                 } else {
-                    if (acl.isView('projectdev', 'votes')) {
+                    if (acl.isView('sysdev', 'votes')) {
                         this.projectVote.hide();
                         this.projectVoteResults.show();
                     } else {
@@ -231,7 +231,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                 }
                 
             } else {
-                if (acl.isView('projectdev', 'votes')) {
+                if (acl.isView('sysdev', 'votes')) {
                     this.projectVote.hide();
                     this.projectVoteResults.show();
                     this.updateVoteResult();
@@ -262,7 +262,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
         this.projectChart.getStore().loadRecords([], {addRecords: false});
         this.projectComment.loaded = false;
         
-        if (acl.isUpdate('projectdev', 'comments')) {
+        if (acl.isUpdate('sysdev', 'comments')) {
             this.commentsText.setValue('');
             this.commentsText.clearInvalid(); 
         }
@@ -358,7 +358,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
     
     loadProjectDetail: function(record) {
         
-        if (!acl.isView('projectdev')) {
+        if (!acl.isView('sysdev')) {
             return;
         }
         
@@ -368,7 +368,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
             
             switch (activeTabName) {
                 case 'info':
-                    if (acl.isView('projectdev', 'info')) {
+                    if (acl.isView('sysdev', 'info')) {
                        if (!this.projectInfo.loaded) {
                         
                             this.projectInfo.getLoader().load({
@@ -385,7 +385,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                     break;
                 
                 case 'stages':
-                    if (acl.isView('projectdev', 'stages')) {
+                    if (acl.isView('sysdev', 'stages')) {
                         
                         if (!this.projectStage.loaded) {
 
@@ -401,7 +401,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                 case 'docs':
                     if (!this.projectDoc.loaded) {
                         
-                        if (acl.isView('projectdev', 'docs')) {
+                        if (acl.isView('sysdev', 'docs')) {
                             
                             this.gridProjectDoc.getStore().load({
                                 params:{project_id: record.get('id')}
@@ -416,7 +416,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                 case 'projectComment':
                     if (!this.projectComment.loaded) {
                         
-                        if (acl.isView('projectdev', 'comments')) {
+                        if (acl.isView('sysdev', 'comments')) {
                             
                             this.projectCommentStore.load({
                                 params:{project_id: record.get('id')}
@@ -425,7 +425,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
                             this.projectComment.loaded = true;
                         }
                         
-                        if (acl.isView('projectdev', 'votes')) {
+                        if (acl.isView('sysdev', 'votes')) {
                             
                             this.projectVoteStore.load({
                                 params:{project_id: record.get('id')}
@@ -438,7 +438,7 @@ Ext.define('EC.SysDev.controller.OriginalController', {
               }
               
               if ('portlet' != this.container.getXType()) {
-                  if (acl.isView('projectdev', 'chart')) {
+                  if (acl.isView('sysdev', 'chart')) {
                     this.projectChart.getStore().load({
                         params:{project_id: record.get('id')}
                     });

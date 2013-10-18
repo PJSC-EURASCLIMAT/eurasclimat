@@ -52,6 +52,7 @@ Ext.define('EC.SysDev.view.abstract.ProjectTree', {
             }
             ,editor: {
                 xtype: 'textfield',
+                disabled: !acl.isUpdate('sysdev', 'info'),
                 allowBlank: false
             }
         }, {

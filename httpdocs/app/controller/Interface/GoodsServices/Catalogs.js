@@ -12,14 +12,6 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
         
         container.on('show', function() {
             MC.openModulePortlet({
-                text: 'КАТАЛОГ ИНСТРУМЕНТОВ И МАТЕРИАЛОВ',
-                title: 'Каталог инструментов и материалов',
-                icon: '/images/icons/catalog.png',
-                portletHeight: 400,
-                position: 'CatalogPanel-column-1',
-                launchModule: 'EC.Catalog.controller.Expendables'
-            });
-            MC.openModulePortlet({
                 text: 'КАТАЛОГ ТОВАРОВ',
                 title: 'Каталог товаров',
                 icon: '/images/icons/catalog.png',
@@ -36,20 +28,12 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
                 launchModule: 'EC.Catalog.controller.SpecialServices'
             });
             MC.openModulePortlet({
-                text: 'КАТАЛОГ УСЛУГ',
-                title: 'Каталог услуг',
-                icon: '/images/icons/catalog.png',
-                portletHeight: 400,
-                position: 'CatalogPanel-column-2',
-                launchModule: 'EC.Catalog.controller.Services'
-            });
-            MC.openModulePortlet({
-                text: 'ПРОЕКТЫ',
-                title: 'Проекты',
+                text: 'КАТАЛОГ ИНСТРУМЕНТОВ И МАТЕРИАЛОВ',
+                title: 'Каталог инструментов и материалов',
                 icon: '/images/icons/catalog.png',
                 portletHeight: 400,
                 position: 'CatalogPanel-column-3',
-                launchModule: 'EC.Catalog.controller.Projects'
+                launchModule: 'EC.Catalog.controller.Expendables'
             });
         }, this, {single: true});
     },
@@ -70,16 +54,6 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }, {
-            text: 'КАТАЛОГ УСЛУГ',
-            title: 'Каталог специальных услуг',
-            icon: '/images/icons/catalog.png',
-            portletHeight: 400,
-            position: 'CatalogPanel-column-2',
-            launchModule: 'EC.Catalog.controller.Services',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {
             text: 'КАТАЛОГ СПЕЦИАЛЬНЫХ УСЛУГ',
             title: 'Каталог услуг',
             icon: '/images/icons/catalog.png',
@@ -94,18 +68,8 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
             title: 'Каталог инструментов и материалов',
             icon: '/images/icons/catalog.png',
             portletHeight: 400,
-            position: 'CatalogPanel-column-1',
-            launchModule: 'EC.Catalog.controller.Expendables',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {
-            text: 'ПРОЕКТЫ',
-            title: 'Проекты',
-            icon: '/images/icons/catalog.png',
-            portletHeight: 400,
             position: 'CatalogPanel-column-3',
-            launchModule: 'EC.Catalog.controller.Projects',
+            launchModule: 'EC.Catalog.controller.Expendables',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

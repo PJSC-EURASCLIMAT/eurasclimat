@@ -21,13 +21,23 @@ Ext.define('App.controller.Interface.Main.Orders', {
         var MC = this.getController('App.controller.Main');
         
         return [{
-            title: 'Единое окно',
-            text: 'Единое окно',
-            icon: '/images/icons/projects.png',
-            launchModule: 'EC.Orders.controller.Main',
+            text: 'ПРОЕКТЫ',
+            title: 'Проекты',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'OrdersPanel-column-3',
+            launchModule: 'EC.Orders.controller.Projects',
             handler: function(b) {
-                MC.openModuleTab(b.initialConfig);
+                MC.openModulePortlet(b.initialConfig);
             }
+//        }, {
+//            title: 'Единое окно',
+//            text: 'Единое окно',
+//            icon: '/images/icons/projects.png',
+//            launchModule: 'EC.Orders.controller.Main',
+//            handler: function(b) {
+//                MC.openModuleTab(b.initialConfig);
+//            }
         }];
     }
 });

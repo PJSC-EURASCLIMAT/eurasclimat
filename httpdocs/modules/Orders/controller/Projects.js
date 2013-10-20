@@ -1,30 +1,30 @@
-Ext.define('EC.Catalog.controller.Projects', {
+Ext.define('EC.Orders.controller.Projects', {
     
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Projects'
+        'EC.Orders.store.Projects'
     ],
     
     models: [
-        'EC.Catalog.model.Projects'
+        'EC.Orders.model.Projects'
     ],
     
     views: [
-        'EC.Catalog.view.Projects.List',
-        'EC.Catalog.view.Projects.Add',
-        'EC.Catalog.view.Projects.Edit'
+        'EC.Orders.view.Projects.List',
+        'EC.Orders.view.Projects.Add',
+        'EC.Orders.view.Projects.Edit'
     ],
     
     projectID: null,
     
-    permissions: acl.isUpdate('catalog', 'projects'),
+    permissions: acl.isUpdate('orders', 'projects'),
     
-    addURL: '/json/catalog/projects/add',
+    addURL: '/json/orders/projects/add',
     
-    editURL: '/json/catalog/projects/update',
+    editURL: '/json/orders/projects/update',
     
-    deleteURL: '/json/catalog/projects/delete',
+    deleteURL: '/json/orders/projects/delete',
     
     run: function(container) {
 
@@ -32,7 +32,7 @@ Ext.define('EC.Catalog.controller.Projects', {
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
-        var grid = container.add(Ext.create('EC.Catalog.view.Projects.List', {
+        var grid = container.add(Ext.create('EC.Orders.view.Projects.List', {
             permissions: this.permissions
         }));
         
@@ -69,7 +69,7 @@ Ext.define('EC.Catalog.controller.Projects', {
     
     addItem: function() {
         
-        var view = Ext.create('EC.Catalog.view.Projects.Add');
+        var view = Ext.create('EC.Orders.view.Projects.Add');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.addURL);
@@ -80,13 +80,13 @@ Ext.define('EC.Catalog.controller.Projects', {
     
     configureItem: function(grid, record) {
 
-        var app = this.getController('EC.Catalog.controller.Configurator');
+        var app = this.getController('EC.Orders.controller.Configurator');
         app.run(record.get('id'), record.get('name'));
     },
     
     editItem: function(grid, record) {
         
-        var view = Ext.create('EC.Catalog.view.Projects.Edit');
+        var view = Ext.create('EC.Orders.view.Projects.Edit');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.editURL);

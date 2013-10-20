@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Projects_Model
+class Orders_Projects_Model
 {
     protected $_table,
         $_equipmentTable,
@@ -10,11 +10,11 @@ class Catalog_Projects_Model
 
     public function __construct()
     {
-        $this->_table = new Catalog_Projects_Table();
-        $this->_equipmentTable = new Catalog_Projects_EquipmentTable();
-        $this->_servicesTable = new Catalog_Projects_ServicesTable();
-        $this->_specialServicesTable = new Catalog_Projects_SpecialServicesTable();
-        $this->_expendablesTable = new Catalog_Projects_ExpendablesTable();
+        $this->_table = new Orders_Projects_Table();
+        $this->_equipmentTable = new Orders_Projects_EquipmentTable();
+        $this->_servicesTable = new Orders_Projects_ServicesTable();
+        $this->_specialServicesTable = new Orders_Projects_SpecialServicesTable();
+        $this->_expendablesTable = new Orders_Projects_ExpendablesTable();
     }
 
     public function getList($params)

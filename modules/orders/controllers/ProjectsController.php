@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ProjectsController extends Xend_Controller_Action
+class Orders_ProjectsController extends Xend_Controller_Action
 {
 
     /**
@@ -10,13 +10,13 @@ class Catalog_ProjectsController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Catalog_Projects_Model();
+        $this->_model = new Orders_Projects_Model();
         parent::init();
     }
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->projects);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->orders->projects);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');

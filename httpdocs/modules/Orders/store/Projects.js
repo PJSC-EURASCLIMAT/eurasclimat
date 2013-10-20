@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.store.Projects', {
+Ext.define('EC.Orders.store.Projects', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.Catalog.model.Projects',
+    model: 'EC.Orders.model.Projects',
     
     remoteSort: true,
     
@@ -13,7 +13,7 @@ Ext.define('EC.Catalog.store.Projects', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/catalog/projects/get-list'
+            read:   '/json/orders/projects/get-list'
         },
         reader: {
             type: 'json',

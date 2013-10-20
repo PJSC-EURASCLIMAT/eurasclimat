@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Projects_ExpendablesTable extends Xend_Db_Table_Abstract
+class Orders_Projects_ExpendablesTable extends Xend_Db_Table_Abstract
 {
     /**
      * Table name

@@ -200,6 +200,8 @@ Ext.define('EC.SysDev.controller.Main', {
             scope: this
         });
 
+//        this.projectTreeCnt.getProjectTree().store.on('update', this.infoController.onProjectSelected, this.infoController);
+
         this.commentCnt.run();
         this.stageEditorCnt.run();
         this.stageListCnt.run();

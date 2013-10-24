@@ -14,7 +14,7 @@ CREATE TABLE `messages` (
 
 
 INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `date`, `read`, `parent`) VALUES
-(15, 1, 1, 'test', '2013-10-24 20:11:49', 0, NULL),
+(15, 1, 1, 'test', '2013-10-24 20:11:49', 0, NULL);
 
 
 ALTER TABLE `messages`

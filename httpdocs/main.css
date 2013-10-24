@@ -242,3 +242,20 @@ body#login-page {
 .forecast-daypart-evening {
 	background-color: rgb(224, 217, 217);
 }
+
+
+/*
+* СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЯ
+*/
+
+/* непрочитанные сообщения */
+.curUserMessagesGrid td{
+    vertical-align: middle !important;
+}
+.curUserMessagesGrid .icon-reply{
+    margin-right: 15px;
+}
+.curUserMessage_new td{
+    /*border-left: 5px green !important;*/
+    background-color: #c3f4d9 !important;
+}

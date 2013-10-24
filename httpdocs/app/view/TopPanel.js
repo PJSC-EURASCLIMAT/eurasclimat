@@ -24,7 +24,17 @@ Ext.define('App.view.TopPanel', {
 //              'инженерных проектов ОАО "Евразклимат"'
 //    }, 
     
-    items: ['->', {
+    items: ['->',{
+        xtype: 'button',
+        tooltip: 'Сообщения',
+        icon: '/images/icons/messages.png',
+        arrowCls: '',
+        hidden: !isAuth,
+        action: 'messages',
+        launchModule: 'EC.PA.controller.Messages'
+    },
+    {xtype:"tbspacer", width:15},
+    {
         xtype: 'button',
         tooltip: 'Все виджеты',
         icon: '/images/icons/widgets_all.png',
@@ -71,7 +81,9 @@ Ext.define('App.view.TopPanel', {
                 launchModule: 'EC.Main.controller.Weather'
             }
         }]
-    }, ' ', ' ', ' ', ' ', ' ', ' ', {
+    },
+    {xtype:"tbspacer", width:15},
+    {
         xtype: 'button',
         tooltip: isAuth ? 'Выход' : 'Вход/Регистрация',
         icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',

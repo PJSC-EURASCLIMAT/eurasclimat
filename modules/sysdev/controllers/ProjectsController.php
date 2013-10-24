@@ -10,6 +10,11 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
      * @var Sysdev_Projects_Model
      */
     protected $_model;
+
+    /**
+     * @var Xend_Accounts
+     * */
+    protected $_accounts;
     
     public function init()
     {

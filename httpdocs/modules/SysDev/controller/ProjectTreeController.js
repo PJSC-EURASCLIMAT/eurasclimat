@@ -32,8 +32,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         tree.filterBy('1', 'stage');
         tree.getEl().down('.x-tree-view').dom.style.display = "block";
         tree.setLoading(false);
-//        tree.setVisible(true);
-//        tree.show();
+        tree.doLayout();
     },
 
     run: function() {

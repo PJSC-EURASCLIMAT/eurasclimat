@@ -12,7 +12,7 @@ Ext.define('App.controller.Main', {
         var centerPanel = Ext.getCmp('CenterPanel');
         
         this.control({
-            'LeftPanel button[action=admin], TopPanel button[action=auth] menuitem': {
+            'LeftPanel button[action=admin], TopPanel button[action=auth] menuitem, TopPanel button[action=messages]': {
                 click: function(button, e, options) {
                     if (!Ext.isEmpty(button.launchModule)) {
                         this.getController(button.launchModule).run(centerPanel);

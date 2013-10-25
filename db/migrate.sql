@@ -17,7 +17,4 @@ ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `accounts` (`id`) ON DELETE SET NULL;
 
-INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `date`, `read`, `parent`) VALUES
-(1, 1, 1, 'test', '2013-10-24 20:11:49', 0, NULL);
-
 SET FOREIGN_KEY_CHECKS=1;

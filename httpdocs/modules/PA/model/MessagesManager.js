@@ -1,6 +1,6 @@
 Ext.ns('EC.PA.model.MessagesManager');
 
-PMS.Organizer.Manager = Ext.extend(Ext.Component, {
+EC.PA.model.MessagesManager = Ext.extend(Ext.Component, {
 
     firstRun: true,
     

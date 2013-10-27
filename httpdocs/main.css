@@ -252,10 +252,46 @@ body#login-page {
 .curUserMessagesGrid td{
     vertical-align: middle !important;
 }
+.curUserMessagesGrid td.x-grid-cell-first{
+    vertical-align: top !important;
+}
+
 .curUserMessagesGrid .icon-reply{
     margin-right: 15px;
 }
 .curUserMessage_new td{
     /*border-left: 5px green !important;*/
-    background-color: #c3f4d9 !important;
+    /*background-color: rgb(216, 239, 255) !important;*/
+}
+
+.top-panel-messages-number {
+
+    padding: 2px 5px;
+    text-align: center;
+    top: 0;
+    left: -8px;
+    position: absolute;
+    background-color: #ff0511;
+    border: 1px solid #ffffff;
+
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+
+    -moz-box-shadow: 0px 0px 6px #300101;
+    -webkit-box-shadow: 0px 0px 6px #300101;
+    box-shadow: 0px 0px 6px #300101;
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ff0303', endColorstr = '#630000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ff0303', endColorstr = '#630000')";
+    background-image: -moz-linear-gradient(top, #ff0303, #630000);
+    background-image: -ms-linear-gradient(top, #ff0303, #630000);
+    background-image: -o-linear-gradient(top, #ff0303, #630000);
+    background-image: -webkit-gradient(linear, center top, center bottom, from(#ff0303), to(#630000));
+    background-image: -webkit-linear-gradient(top, #ff0303, #630000);
+    background-image: linear-gradient(top, #ff0303, #630000);
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    font-size: 9px;
 }

@@ -4,7 +4,8 @@ Ext.define('EC.PA.controller.Messages', {
 
     views: [
         'EC.PA.view.Messages',
-        'EC.PA.view.MessageEditor'
+        'EC.PA.view.MessageEditor',
+        'App.view.TopPanel'
     ],
 
 //    models: ['EC.PA.model.Message'],
@@ -13,8 +14,12 @@ Ext.define('EC.PA.controller.Messages', {
 
     messageEditor: null,
 
-    sendURL: '/json/pa/messages/add',
-    delURL: '/json/pa/messages/delete',
+    sendURL:        '/json/pa/messages/add',
+    unreadMesURL:   '/json/pa/messages/unread-count',
+    delURL:         '/json/pa/messages/delete',
+    markAsReadURL:  '/json/pa/messages/mark-as-read',
+
+    expandedMessages: [],
 
 //    URL: '/json/pa/profile/get-profile',
 //    updateURL: '/json/pa/profile/update-profile',
@@ -30,20 +35,88 @@ Ext.define('EC.PA.controller.Messages', {
             selector: 'pa-messages-win #mesGrid'
         },
         {
-            ref: 'mesGrid',
-            selector: 'pa-messages-win #mesGrid'
-        },
-
-        {
             ref: 'mesEditor',
             selector: 'pa-message-editor'
+        },
+        {
+            ref: 'mesTopPanelButton',
+            selector: 'TopPanel top-panel-msg-button'
         }
     ],
 
     init:function(){
-        this.account = xlib.Acl.Storage.getIdentity();
         this.callParent();
+
+        this.account = xlib.Acl.Storage.getIdentity();
         this.mesStore = Ext.StoreManager.lookup('EC.PA.store.Messages');
+        this.unreadRunner = new Ext.util.TaskRunner();
+    },
+
+    listenUserMessages: function() {
+        this.unreadRunner.start({
+            run: this.getNewMessagesCount
+            ,interval: 3000
+            ,scope: this
+        });
+    },
+
+    updateTopMesButtonCount: function(count) {
+        this.getMesTopPanelButton().updateCount(count)
+    },
+
+    getNewMessagesCount: function () {
+        console.log("DELAYED TASK ");
+        Ext.Ajax.request({
+            params: {
+               id : this.account.id
+            },
+            url: this.unreadMesURL,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+                this.updateTopMesButtonCount(r.data);
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось получить сообщения!');
+            },
+            scope: this
+        });
+    },
+
+    onMessagesRowExpand: function(record) {
+        if(record.get('readed') === 1)
+            return;
+
+        var task = new Ext.util.DelayedTask(function(record){
+            if (record.get('expanded')) {
+                this.markAsRead(record);
+            }
+        },this,[record]);
+
+        task.delay(3000);
+    },
+
+    markAsRead: function(record) {
+        console.log("MARKING AD READ");
+        console.log(record);
+
+        Ext.Ajax.request({
+            params: {
+                id: record.getId()
+            },
+            url: this.markAsReadURL,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+                var mesId = response.request.options.params.id;
+                if (r.success) {
+                    this.mesStore.getById(mesId).set('readed',1);
+                }
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось пометить сообщение как прочитанное!');
+            },
+            scope: this
+        });
+
     },
 
 
@@ -62,17 +135,22 @@ Ext.define('EC.PA.controller.Messages', {
                 scope: this
             },
 
-            'pa-messages-win #mesGrid': {
-                deleteRow: this.onMessageDelete,
+            'pa-messages-win [action=refresh]': {
+                click: this.refreshMessages,
                 scope: this
             },
 
-
+            'pa-messages-win #mesGrid': {
+                deleteRow: this.onMessageDelete,
+                rowExpanded: this.onMessagesRowExpand,
+                scope: this
+            },
 
             'pa-message-editor [action=send]': {
                 click: this.sendMessage,
                 scope: this
             },
+
             'pa-message-editor [action=cancel]': {
                 click: this.closeMessageEditor,
                 scope: this
@@ -91,6 +169,11 @@ Ext.define('EC.PA.controller.Messages', {
 
 
     }
+
+    ,refreshMessages: function() {
+        this.mesStore.load();
+    }
+
     ,onSelectedMessagesDelete: function() {
 
         var ids = [];
@@ -155,21 +238,17 @@ Ext.define('EC.PA.controller.Messages', {
             params: values,
             url: this.sendURL,
             success: function(response, opts) {
-                this.getMesEditor().up('window').remove();
+                this.getMesEditor().up('window').close();
+                this.getMesGrid().getStore().load();
                 Ext.Msg.alert('Сообщение', 'Сообщение успешно отправлено!');
             },
             failure: function(response, opts) {
-                this.getMesEditor().up('window').remove();
+                this.getMesEditor().up('window').close();
                 Ext.Msg.alert('Ошибка', 'Сообщение не отправлено!');
             },
             scope: this
         });
 
-    }
-
-    ,sendMessageSuccess: function(response) {
-        var r = Ext.JSON.decode(response);
-        this.getMesGrid().store.add(r.data);
     }
 
     ,showMessageEditor: function() {

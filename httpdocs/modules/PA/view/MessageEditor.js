@@ -14,7 +14,7 @@ Ext.define('EC.PA.view.MessageEditor', {
         {
             xtype: 'button',
 //            iconCls: 'add',
-            text: 'Отправиь',
+            text: 'Отправить',
             disabled: true,
             action: 'send'
         }, '->', {

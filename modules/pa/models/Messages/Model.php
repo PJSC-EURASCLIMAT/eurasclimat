@@ -20,6 +20,53 @@ class PA_Messages_Model
         $this->_table = new PA_Messages_Table();
     }
 
+    public function markAsRead($id)
+    {
+        $id = Zend_Json::decode($id);
+        $response = new Xend_Response();
+
+        try {
+            $result = $this->_table->updateByPk(array('readed' => 1), $id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+        }
+
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($result)));
+    }
+
+
+    public function getUserUnreadMesCount($receiver_id)
+    {
+        $response = new Xend_Response();
+
+        $validate = new Xend_Validate_Id();
+        if (!$validate->isValid($receiver_id)) {
+            return $response->addStatus(new Xend_Accounts_Status(
+                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'receiver_id'));
+        }
+
+        try {
+            $count = $this->_table->count(
+//                'readed = 1'
+                array(
+                'receiver_id = ?' => $receiver_id,
+                'readed = ?'=> 0,
+            )
+            );
+            $response->count = $count;
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status($status));
+    }
 
     public function fetchByReceiver($receinverId)
     {
@@ -33,7 +80,7 @@ class PA_Messages_Model
                     'receiver_id',
                     'message',
                     'date',
-                    'read'
+                    'readed'
                 )
             )
             ->joinLeft(
@@ -90,46 +137,14 @@ class PA_Messages_Model
 
     public function delete($id)
     {
+        $data = Zend_Json::decode($id);
         $response = new Xend_Response();
 
-        $res = $this->_table->deleteByPk($id);
+        $res = $this->_table->deleteByPk($data);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
-
-//
-//    public function getList($params)
-//    {
-//        $response = new Xend_Response();
-//
-//        $select = $this->_table->getAdapter()->select()
-//            ->from(array('i' => $this->_table->getTableName()));
-//
-//        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
-//        $plugin->parse($params);
-//
-//        if ($this->_isMarksEnabled()) {
-//            $marks = $this->_getAllowedMarks();
-//            $select->where('mark_id IN (?)', $marks);
-//        }
-//
-//        try {
-//            $rows = $select->query()->fetchAll();
-//            $response->setRowset($rows);
-//            $response->totalCount = $plugin->getTotalCount();
-//            $status = Xend_Status::OK;
-//        } catch (Exception $e) {
-//            if (DEBUG) {
-//                throw $e;
-//            }
-//            $status = Xend_Status::DATABASE_ERROR;
-//        }
-//        return $response->addStatus(new Xend_Status($status));
-//    }
-
-
 }

@@ -117,5 +117,8 @@ Ext.application({
         });
         
         this.getController('Main').run();
+
+        this.getController("EC.PA.controller.Messages").listenUserMessages();
+
     }
 });

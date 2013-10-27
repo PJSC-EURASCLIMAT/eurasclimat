@@ -21,13 +21,26 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa->messages);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'unread-count');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'mark-as-read');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
     }
 
+    public function unreadCountAction ()
+    {
+        $id = $this->_getParam('id');
 
-//    public function newMessages ()
-//    {}
+        $response = $this->_model->getUserUnreadMesCount($id);
+        $this->view->data = $response->count;
+
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+
+    }
 
     public function addAction ()
     {
@@ -48,15 +61,25 @@ class PA_MessagesController extends Xend_Controller_Action
         $this->view->success = true;
 
     }
-//
-//    public function markAsRead (array $ids)
-//    {}
-//
+
+    public function markAsReadAction ()
+    {
+        $id = $this->_getParam('id');
+
+        $response = $this->_model->markAsRead($id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+
+    }
+
 
 
     public function deleteAction()
     {
-        $id = Zend_Json_Decoder::decode($this->_getParam('id'));
+        $id = $this->_getParam('id');
 
         $response = $this->_model->delete($id);
         if ($response->hasNotSuccess()) {

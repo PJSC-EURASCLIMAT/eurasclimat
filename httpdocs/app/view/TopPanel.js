@@ -10,7 +10,7 @@ Ext.define('App.view.TopPanel', {
     
     region: 'north',
     
-    padding: 5,
+    padding: '0',
     
     border: false,
     
@@ -24,15 +24,8 @@ Ext.define('App.view.TopPanel', {
 //              'инженерных проектов ОАО "Евразклимат"'
 //    }, 
     
-    items: ['->',{
-        xtype: 'button',
-        tooltip: 'Сообщения',
-        icon: '/images/icons/messages.png',
-        arrowCls: '',
-        hidden: !isAuth,
-        action: 'messages',
-        launchModule: 'EC.PA.controller.Messages'
-    },
+    items: ['->',
+    {xtype: 'top-panel-msg-button'},
     {xtype:"tbspacer", width:15},
     {
         xtype: 'button',

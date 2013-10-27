@@ -2,7 +2,7 @@ Ext.define('App.controller.Main', {
     
     extend: 'Ext.app.Controller',
 
-    views: ['Layout', 'TopPanel', 'LeftPanel', 'CenterPanel'],
+    views: ['Layout', 'TopPanel', 'LeftPanel', 'CenterPanel', 'EC.PA.view.MessagesTopPanelButton'],
     
     requires: ['xlib.portal.PortalPanel'],
     

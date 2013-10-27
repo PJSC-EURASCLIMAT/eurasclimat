@@ -55,7 +55,7 @@ Ext.define('EC.PA.controller.Messages', {
     listenUserMessages: function() {
         this.unreadRunner.start({
             run: this.getNewMessagesCount
-            ,interval: 3000
+            ,interval: 30000
             ,scope: this
         });
     },

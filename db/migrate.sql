@@ -6,7 +6,7 @@ CREATE TABLE `messages` (
   `receiver_id` int(10) unsigned DEFAULT NULL,
   `message` text,
   `date` timestamp NULL DEFAULT NULL,
-  `read` tinyint(4) DEFAULT '0',
+  `readed` tinyint(4) DEFAULT '0',
   `parent` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sender_id` (`sender_id`),

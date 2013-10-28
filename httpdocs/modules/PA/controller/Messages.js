@@ -44,7 +44,7 @@ Ext.define('EC.PA.controller.Messages', {
         }
     ],
 
-    init:function(){
+    init: function() {
         this.callParent();
 
         this.account = xlib.Acl.Storage.getIdentity();
@@ -58,14 +58,14 @@ Ext.define('EC.PA.controller.Messages', {
             ,interval: 30000
             ,scope: this
         });
+        this.getNewMessagesCount();
     },
 
     updateTopMesButtonCount: function(count) {
         this.getMesTopPanelButton().updateCount(count)
     },
 
-    getNewMessagesCount: function () {
-        console.log("DELAYED TASK ");
+    getNewMessagesCount: function() {
         Ext.Ajax.request({
             params: {
                id : this.account.id

@@ -118,7 +118,8 @@ Ext.application({
         
         this.getController('Main').run();
 
-        this.getController("EC.PA.controller.Messages").listenUserMessages();
+        var isAuth = (xlib.Acl.Storage.getIdentity().login !== 'guest');
+        if (isAuth) this.getController("EC.PA.controller.Messages").listenUserMessages();
 
     }
 });

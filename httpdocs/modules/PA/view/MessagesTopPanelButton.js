@@ -1,3 +1,5 @@
+var isAuth = (xlib.Acl.Storage.getIdentity().login !== 'guest');
+
 Ext.define('EC.PA.view.MessagesTopPanelButton', {
     
     extend: 'Ext.container.Container',

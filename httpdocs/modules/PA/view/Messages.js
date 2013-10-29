@@ -6,8 +6,6 @@ Ext.define('EC.PA.view.Messages', {
 
     alias: 'widget.pa-messages-win',
     
-    autoScroll: true,
-
     border: false,
 
     modal: true,
@@ -187,7 +185,7 @@ Ext.define('EC.PA.view.Messages', {
 
     ,initComponent: function() {
         this.callParent();
-        this.setTitleCount(this.messagesCount);
+        //this.setTitleCount(this.messagesCount);
     }
 
     ,setTitleCount: function(num) {

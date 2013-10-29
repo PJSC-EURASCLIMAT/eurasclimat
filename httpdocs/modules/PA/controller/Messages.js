@@ -22,6 +22,8 @@ Ext.define('EC.PA.controller.Messages', {
     expandedMessages: [],
 
     newMessagesCount: null,
+    
+    viewerWindow: null,
 
 //    URL: '/json/pa/profile/get-profile',
 //    updateURL: '/json/pa/profile/update-profile',
@@ -57,51 +59,54 @@ Ext.define('EC.PA.controller.Messages', {
 
     run: function(container) {
 
-        this.control({
-            'pa-messages-win [action=add]': {
-                click: this.showMessageEditor,
-                scope: this
-            },
+        if (!this.viewerWindow) {
+        
+            this.control({
+                'pa-messages-win [action=add]': {
+                    click: this.showMessageEditor,
+                    scope: this
+                },
+    
+                'pa-messages-win [action=delete]': {
+                    click: this.onSelectedMessagesDelete,
+                    scope: this
+                },
+    
+                'pa-messages-win [action=refresh]': {
+                    click: this.refreshMessages,
+                    scope: this
+                },
+    
+                'pa-messages-win #mesGrid': {
+                    deleteRow: this.onMessageDelete,
+                    rowExpanded: this.onMessagesRowExpand,
+                    scope: this
+                },
+    
+                'pa-message-editor [action=send]': {
+                    click: this.sendMessage,
+                    scope: this
+                },
+    
+                'pa-message-editor [action=cancel]': {
+                    click: this.closeMessageEditor,
+                    scope: this
+                }
+            });
+            //Русские даты
+    
+            this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
-            'pa-messages-win [action=delete]': {
-                click: this.onSelectedMessagesDelete,
-                scope: this
-            },
-
-            'pa-messages-win [action=refresh]': {
-                click: this.refreshMessages,
-                scope: this
-            },
-
-            'pa-messages-win #mesGrid': {
-                deleteRow: this.onMessageDelete,
-                rowExpanded: this.onMessagesRowExpand,
-                scope: this
-            },
-
-            'pa-message-editor [action=send]': {
-                click: this.sendMessage,
-                scope: this
-            },
-
-            'pa-message-editor [action=cancel]': {
-                click: this.closeMessageEditor,
-                scope: this
-            }
-        });
-        //Русские даты
-
-        this.mesStore.on('load',this.onMessagesStoreLoad,this);
-
+            //Создаем окошко профиля
+            this.viewerWindow = Ext.create('EC.PA.view.Messages',{
+                messagesCount: this.newMessagesCount
+            }).show();    
+            
+        } else {
+            this.viewerWindow.show();
+        }
+        
         this.mesStore.load();
-
-        //Создаем окошко профиля
-        Ext.create('EC.PA.view.Messages',{
-            messagesCount: this.newMessagesCount
-        }).show();
-
-//        this.getProfileWin().hide();
-
 
     },
 

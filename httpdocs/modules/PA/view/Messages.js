@@ -19,28 +19,32 @@ Ext.define('EC.PA.view.Messages', {
     height: 300,
 
     layout: 'fit',
-
-    tools: [
-        {
-            type: 'restore',
-            itemId: 'restoreTool',
-            hidden:true,
-            handler: function( evt,toolEl,owner,tool ) {
-                this.up('window').restore();
-                tool.hide();
-                this.up('window').down("#maximizeTool").show();
-            }
-        },
-        {
-            type: 'maximize',
-            itemId: 'maximizeTool',
-            handler: function( evt,toolEl,owner,tool ) {
-                this.up('window').maximize();
-                tool.hide();
-                this.up('window').down("#restoreTool").show();
-            }
-        }
-    ],
+    
+    maximizable: true,
+    
+    closeAction: 'hide',
+    
+//    tools: [
+//        {
+//            type: 'restore',
+//            itemId: 'restoreTool',
+//            hidden:true,
+//            handler: function( evt,toolEl,owner,tool ) {
+//                this.up('window').restore();
+//                tool.hide();
+//                this.up('window').down("#maximizeTool").show();
+//            }
+//        },
+//        {
+//            type: 'maximize',
+//            itemId: 'maximizeTool',
+//            handler: function( evt,toolEl,owner,tool ) {
+//                this.up('window').maximize();
+//                tool.hide();
+//                this.up('window').down("#restoreTool").show();
+//            }
+//        }
+//    ],
 
     tbar: [
         {

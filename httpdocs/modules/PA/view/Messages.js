@@ -2,8 +2,7 @@ Ext.define('EC.PA.view.Messages', {
     
     extend: 'Ext.window.Window',
 
-    title: 'Сообщения пользователя ' + xlib.Acl.Storage.getIdentity().name +
-        ' (' + xlib.Acl.Storage.getIdentity().login + ') ',
+    title: 'Мои сообщения',
 
     alias: 'widget.pa-messages-win',
     
@@ -12,6 +11,36 @@ Ext.define('EC.PA.view.Messages', {
     border: false,
 
     modal: true,
+
+    messagesCount: 0,
+
+    width: 500,
+
+    height: 300,
+
+    layout: 'fit',
+
+    tools: [
+        {
+            type: 'restore',
+            itemId: 'restoreTool',
+            hidden:true,
+            handler: function( evt,toolEl,owner,tool ) {
+                this.up('window').restore();
+                tool.hide();
+                this.up('window').down("#maximizeTool").show();
+            }
+        },
+        {
+            type: 'maximize',
+            itemId: 'maximizeTool',
+            handler: function( evt,toolEl,owner,tool ) {
+                this.up('window').maximize();
+                tool.hide();
+                this.up('window').down("#restoreTool").show();
+            }
+        }
+    ],
 
     tbar: [
         {
@@ -38,12 +67,23 @@ Ext.define('EC.PA.view.Messages', {
         {
             xtype: 'grid',
             itemId: 'mesGrid',
-            width: 500,
-            height: 300,
             hideHeaders: true,
+//            layout: 'fit',
+//            width: '100%',
+//            height: '100%',
+            store: 'EC.PA.store.Messages',
+//            cls: 'curUserMessagesGrid',
+            viewConfig: {
+                getRowClass: function(record, index, rowParams, store) {
+                    return (record.get('read') === 0) ? 'curUserMessage_new' : '';
+                }
+            },
             expandRows: [],
             listeners: {
                 afterrender: function( grid, eOpts ) {
+
+                    //Скрывает колонку плагина rowexpander
+                    grid.columns[0].hide();
 
                     var expandFunc = function(rowNode, record, expandRow, eOpts) {
                         var expanded = record.get('expanded');
@@ -57,23 +97,26 @@ Ext.define('EC.PA.view.Messages', {
                         this.up().fireEvent('rowCollapsed',record);
                     }
 
+
+
                     grid.view.on('expandbody', expandFunc);
                     grid.view.on('collapsebody', collapseFunc);
                 }
+
+                ,itemclick: function( grid, record, item, index, e, eOpts ) {
+                    this.getPlugin('rowexpander').onDblClick(grid,record,item,index,e);
+                }
+
             },
             plugins: [{
                 ptype: 'rowexpander',
+                pluginId: 'rowexpander',
+                expandOnDblClick: false,
                 rowBodyTpl : new Ext.XTemplate(
                     '<p style="margin-left:36px;">{message}</p>'
                 )
             }],
-            store: 'EC.PA.store.Messages',
-            cls: 'curUserMessagesGrid',
-            viewConfig: {
-                getRowClass: function(record, index, rowParams, store) {
-                    return (record.get('read') === 0) ? 'curUserMessage_new' : '';
-                }
-            },
+
             columns: [
                 {
                     xtype: 'checkcolumn',
@@ -137,4 +180,15 @@ Ext.define('EC.PA.view.Messages', {
             ]
         }
     ]
+
+    ,initComponent: function() {
+        this.callParent();
+        this.setTitleCount(this.messagesCount);
+    }
+
+    ,setTitleCount: function(num) {
+        this.messagesCount = num;
+        var str = (num === 0) ? '' : ' (' + num + ' непрочитанных сообщения)';
+        this.setTitle('Мои сообщения' + str);
+    }
 });

@@ -21,6 +21,8 @@ Ext.define('EC.PA.controller.Messages', {
 
     expandedMessages: [],
 
+    newMessagesCount: null,
+
 //    URL: '/json/pa/profile/get-profile',
 //    updateURL: '/json/pa/profile/update-profile',
 //    changePassURL: '/json/pa/profile/change-password',
@@ -52,77 +54,8 @@ Ext.define('EC.PA.controller.Messages', {
         this.unreadRunner = new Ext.util.TaskRunner();
     },
 
-    listenUserMessages: function() {
-        this.unreadRunner.start({
-            run: this.getNewMessagesCount
-            ,interval: 30000
-            ,scope: this
-        });
-        this.getNewMessagesCount();
-    },
-
-    updateTopMesButtonCount: function(count) {
-        this.getMesTopPanelButton().updateCount(count)
-    },
-
-    getNewMessagesCount: function() {
-        Ext.Ajax.request({
-            params: {
-               id : this.account.id
-            },
-            url: this.unreadMesURL,
-            success: function(response, opts) {
-                var r = Ext.JSON.decode(response.responseText);
-                this.updateTopMesButtonCount(r.data);
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось получить сообщения!');
-            },
-            scope: this
-        });
-    },
-
-    onMessagesRowExpand: function(record) {
-        if(record.get('readed') === 1)
-            return;
-
-        var task = new Ext.util.DelayedTask(function(record){
-            if (record.get('expanded')) {
-                this.markAsRead(record);
-            }
-        },this,[record]);
-
-        task.delay(3000);
-    },
-
-    markAsRead: function(record) {
-        console.log("MARKING AD READ");
-        console.log(record);
-
-        Ext.Ajax.request({
-            params: {
-                id: record.getId()
-            },
-            url: this.markAsReadURL,
-            success: function(response, opts) {
-                var r = Ext.JSON.decode(response.responseText);
-                var mesId = response.request.options.params.id;
-                if (r.success) {
-                    this.mesStore.getById(mesId).set('readed',1);
-                }
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось пометить сообщение как прочитанное!');
-            },
-            scope: this
-        });
-
-    },
-
 
     run: function(container) {
-
-        console.log("TEST");
 
         this.control({
             'pa-messages-win [action=add]': {
@@ -158,17 +91,104 @@ Ext.define('EC.PA.controller.Messages', {
         });
         //Русские даты
 
-
+        this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
         this.mesStore.load();
 
         //Создаем окошко профиля
-        Ext.create('EC.PA.view.Messages').show();
+        Ext.create('EC.PA.view.Messages',{
+            messagesCount: this.newMessagesCount
+        }).show();
 
 //        this.getProfileWin().hide();
 
 
+    },
+
+    onMessagesStoreLoad: function() {
+        this.getNewMessagesCount();
+    },
+
+    listenUserMessages: function() {
+        this.unreadRunner.start({
+            run: this.getNewMessagesCount
+            ,interval: 30000
+            ,scope: this
+        });
+        this.getNewMessagesCount();
+    },
+
+    updateTopMesButtonCount: function(count) {
+        this.getMesTopPanelButton().updateCount(count)
+    },
+
+    udpateMesWinTitleCount: function() {
+        var win = this.getMesWin();
+        if(Ext.isDefined(win)) {
+            win.setTitleCount(this.newMessagesCount);
+        }
+    },
+
+    getNewMessagesCount: function() {
+        Ext.Ajax.request({
+            params: {
+               id : this.account.id
+            },
+            url: this.unreadMesURL,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+                this.newMessagesCount = r.data;
+                this.updateTopMesButtonCount(r.data);
+                this.udpateMesWinTitleCount();
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось получить сообщения!');
+            },
+            scope: this
+        });
+    },
+
+    onMessagesRowExpand: function(record) {
+        if(record.get('readed') === 1)
+            return;
+
+        var task = new Ext.util.DelayedTask(function(record){
+            if (record.get('expanded')) {
+                this.markAsRead(record);
+            }
+        },this,[record]);
+
+        task.delay(3000);
+    },
+
+    markAsRead: function(record) {
+        console.log("MARKING AD READ");
+        console.log(record);
+
+        Ext.Ajax.request({
+            params: {
+                id: record.getId()
+            },
+            url: this.markAsReadURL,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+                var mesId = response.request.options.params.id;
+                if (r.success) {
+                    this.mesStore.getById(mesId).set('readed',1);
+                    this.newMessagesCount--;
+                    this.updateTopMesButtonCount(this.newMessagesCount);
+                    this.udpateMesWinTitleCount(this.newMessagesCount);
+                }
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось пометить сообщение как прочитанное!');
+            },
+            scope: this
+        });
+
     }
+
+
 
     ,refreshMessages: function() {
         this.mesStore.load();
@@ -265,6 +285,7 @@ Ext.define('EC.PA.controller.Messages', {
         var mesEdWin = Ext.create("Ext.window.Window", {
             title: 'Новое сообщение',
             modal: true,
+
             width: 350,
 //            height: 300,
             items: [
@@ -274,6 +295,7 @@ Ext.define('EC.PA.controller.Messages', {
             ]
         });
 
+        mesEdWin.messagesCount = this.mesStore.data.length;
         mesEdWin.down("combo").store = accountsStore;
 
 //        mesEdWin.add(Ext.create('EC.PA.view.MessagesEditor'))

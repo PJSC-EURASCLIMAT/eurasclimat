@@ -252,8 +252,8 @@ body#login-page {
 .curUserMessagesGrid td{
     vertical-align: middle !important;
 }
-.curUserMessagesGrid td.x-grid-cell-first{
-    vertical-align: top !important;
+.curUserMessagesGrid td.x-grid-cell-checkcolumn div{
+    margin: 6px 0;
 }
 
 .curUserMessagesGrid .icon-reply{

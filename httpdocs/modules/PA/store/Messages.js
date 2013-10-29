@@ -6,6 +6,17 @@ Ext.define('EC.PA.store.Messages', {
 
     model: 'EC.PA.model.Message',
 
+    sorters: [
+        {
+            property: 'readed',
+            direction: 'ASC'
+        },
+        {
+            property: 'date',
+            direction: 'DESC'
+        }
+    ],
+
     proxy: {
         type: 'ajax',
         api: {

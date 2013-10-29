@@ -16,7 +16,7 @@ Ext.define('App.controller.Interface.Main', {
         this.getController('App.controller.Interface.Main.About').run(container);
         
         if (acl.isView('admin')) {
-            this.getController('App.controller.Interface.Main.Orders').run(container);
+//            this.getController('App.controller.Interface.Main.Orders').run(container);
         }
     },
     

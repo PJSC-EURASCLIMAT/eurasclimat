@@ -53,10 +53,30 @@ Ext.define('EC.PA.view.Messages', {
             action: 'add'
         }, {
             xtype: 'button',
-            iconCls: 'remove',
-            text: 'Удалить',
-            tooltip: 'Удалить выбранные сообщения',
-            action: 'delete'
+            text: 'Действия',
+//            icon: '/images/icons/widgets_all.png',
+//            arrowCls: '',
+//            action: 'allwidgets',
+            menu: [
+                {
+                    text: 'Выбрать все',
+                    action: 'checkAll'
+                },
+                {
+                    text: 'Снять выделения',
+                    action: 'uncheckAll'
+                },
+                {
+                    text: 'Отметить выбранные как прочитанные',
+                    action: 'setReaded'
+                },
+                {
+                    text: 'Удалить выбранные',
+                    action: 'delete',
+                    itemId: 'deleteChecked'
+                }
+
+            ]
         },'->', {
             xtype: 'button',
             tooltip: 'Обновить',
@@ -74,7 +94,7 @@ Ext.define('EC.PA.view.Messages', {
 //            width: '100%',
 //            height: '100%',
             store: 'EC.PA.store.Messages',
-//            cls: 'curUserMessagesGrid',
+            cls: 'curUserMessagesGrid',
             viewConfig: {
                 getRowClass: function(record, index, rowParams, store) {
                     return (record.get('read') === 0) ? 'curUserMessage_new' : '';

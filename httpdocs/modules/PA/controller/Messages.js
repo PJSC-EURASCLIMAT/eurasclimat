@@ -22,8 +22,6 @@ Ext.define('EC.PA.controller.Messages', {
     expandedMessages: [],
 
     newMessagesCount: null,
-    
-    viewerWindow: null,
 
 //    URL: '/json/pa/profile/get-profile',
 //    updateURL: '/json/pa/profile/update-profile',
@@ -59,55 +57,93 @@ Ext.define('EC.PA.controller.Messages', {
 
     run: function(container) {
 
-        if (!this.viewerWindow) {
-        
-            this.control({
-                'pa-messages-win [action=add]': {
-                    click: this.showMessageEditor,
-                    scope: this
-                },
-    
-                'pa-messages-win [action=delete]': {
-                    click: this.onSelectedMessagesDelete,
-                    scope: this
-                },
-    
-                'pa-messages-win [action=refresh]': {
-                    click: this.refreshMessages,
-                    scope: this
-                },
-    
-                'pa-messages-win #mesGrid': {
-                    deleteRow: this.onMessageDelete,
-                    rowExpanded: this.onMessagesRowExpand,
-                    scope: this
-                },
-    
-                'pa-message-editor [action=send]': {
-                    click: this.sendMessage,
-                    scope: this
-                },
-    
-                'pa-message-editor [action=cancel]': {
-                    click: this.closeMessageEditor,
-                    scope: this
-                }
-            });
-            //Русские даты
-    
-            this.mesStore.on('load',this.onMessagesStoreLoad,this);
+        this.control({
+            'pa-messages-win [action=add]': {
+                click: this.showMessageEditor,
+                scope: this
+            },
 
-            //Создаем окошко профиля
-            this.viewerWindow = Ext.create('EC.PA.view.Messages',{
-                messagesCount: this.newMessagesCount
-            }).show();    
-            
-        } else {
-            this.viewerWindow.show();
-        }
-        
+            'pa-messages-win [action=delete]': {
+                click: this.onSelectedMessagesDelete,
+                scope: this
+            },
+
+            'pa-messages-win [action=refresh]': {
+                click: this.refreshMessages,
+                scope: this
+            },
+
+            'pa-messages-win [action=checkAll]': {
+                click: this.checkAllMessages,
+                scope: this
+            },
+
+            'pa-messages-win [action=uncheckAll]': {
+                click: this.uncheckAllMessages,
+                scope: this
+            },
+
+            'pa-messages-win [action=setReaded]': {
+                click: this.setAllMessagesReaded,
+                scope: this
+            },
+
+            'pa-messages-win #mesGrid': {
+                deleteRow: this.onMessageDelete,
+                rowExpanded: this.onMessagesRowExpand,
+                scope: this
+            },
+
+            'pa-message-editor [action=send]': {
+                click: this.sendMessage,
+                scope: this
+            },
+
+            'pa-message-editor [action=cancel]': {
+                click: this.closeMessageEditor,
+                scope: this
+            }
+        });
+        //Русские даты
+
+        this.mesStore.on('load',this.onMessagesStoreLoad,this);
+
         this.mesStore.load();
 
+        //Создаем окошко профиля
+        Ext.create('EC.PA.view.Messages',{
+            messagesCount: this.newMessagesCount
+        }).show();
+
+//        this.getProfileWin().hide();
+
+
+    },
+
+    checkAllMessages: function() {
+        this.mesStore.each(function(item){
+           item.set('checked',true);
+        });
+    },
+
+    uncheckAllMessages: function() {
+        this.mesStore.each(function(item){
+            item.set('checked',false);
+        });
+    },
+
+    setAllMessagesReaded: function() {
+        var selMesIds = [];
+        this.mesStore.each(function(item){
+            if(item.get('checked') === true)
+                selMesIds.push(item.getId());
+        },this);
+
+        if (selMesIds.length === 0) {
+            return;
+        }
+
+        this.markAsRead(selMesIds);
     },
 
     onMessagesStoreLoad: function() {
@@ -159,30 +195,31 @@ Ext.define('EC.PA.controller.Messages', {
 
         var task = new Ext.util.DelayedTask(function(record){
             if (record.get('expanded')) {
-                this.markAsRead(record);
+                this.markAsRead(record.getId());
             }
         },this,[record]);
 
         task.delay(3000);
     },
 
-    markAsRead: function(record) {
+    markAsRead: function(selIds) {
         console.log("MARKING AD READ");
-        console.log(record);
+        console.log(selIds);
 
         Ext.Ajax.request({
             params: {
-                id: record.getId()
+                id: Ext.JSON.encode(selIds)
             },
             url: this.markAsReadURL,
             success: function(response, opts) {
                 var r = Ext.JSON.decode(response.responseText);
                 var mesId = response.request.options.params.id;
                 if (r.success) {
-                    this.mesStore.getById(mesId).set('readed',1);
-                    this.newMessagesCount--;
-                    this.updateTopMesButtonCount(this.newMessagesCount);
-                    this.udpateMesWinTitleCount(this.newMessagesCount);
+                    this.mesStore.load();
+                    this.getNewMessagesCount();
+//                    this.newMessagesCount--;
+//                    this.updateTopMesButtonCount(this.newMessagesCount);
+//                    this.udpateMesWinTitleCount(this.newMessagesCount);
                 }
             },
             failure: function(response, opts) {
@@ -209,6 +246,10 @@ Ext.define('EC.PA.controller.Messages', {
             }
 
         });
+
+        if(ids.length === 0) {
+            return;
+        }
 
         this.onMessageDelete(ids);
     }

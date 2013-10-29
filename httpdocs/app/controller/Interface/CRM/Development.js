@@ -1,8 +1,8 @@
-Ext.define('App.controller.Interface.Main.Development', {
+Ext.define('App.controller.Interface.CRM.Development', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['App.view.Interface.Main.Development'],
+    views: ['App.view.Interface.CRM.Development'],
     
     run: function(container) {
         

@@ -26,7 +26,7 @@ Ext.define('App.controller.Interface.Main.Orders', {
             icon: '/images/icons/catalog.png',
             portletHeight: 400,
             position: 'OrdersPanel-column-3',
-            launchModule: 'EC.Orders.controller.Projects',
+            launchModule: 'EC.CRM.controller.Projects',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

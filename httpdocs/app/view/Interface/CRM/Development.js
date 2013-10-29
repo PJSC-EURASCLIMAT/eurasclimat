@@ -1,4 +1,4 @@
-Ext.define('App.view.Interface.Main.Development', {
+Ext.define('App.view.Interface.CRM.Development', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 

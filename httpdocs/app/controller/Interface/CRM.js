@@ -11,6 +11,8 @@ Ext.define('App.controller.Interface.CRM', {
         var container = this.getContainer();
         
         this.getController('App.controller.Interface.CRM.CurrentProjects').run(container);
+        this.getController('App.controller.Interface.CRM.Development').run(container);
+        
     },
     
     getMenu: function() {

@@ -6,7 +6,7 @@ Ext.define('EC.PA.view.Messages', {
 
     alias: 'widget.pa-messages-win',
     
-    border: false,
+    border: true,
 
     modal: true,
 
@@ -64,6 +64,7 @@ Ext.define('EC.PA.view.Messages', {
         {
             xtype: 'grid',
             itemId: 'mesGrid',
+            border:false,
             hideHeaders: true,
             store: 'EC.PA.store.Messages',
             cls: 'curUserMessagesGrid',

@@ -8,8 +8,6 @@ Ext.define('EC.PA.controller.Messages', {
         'App.view.TopPanel'
     ],
 
-//    models: ['EC.PA.model.Message'],
-
     stores: ['EC.PA.store.Messages'],
 
     messageEditor: null,
@@ -22,10 +20,6 @@ Ext.define('EC.PA.controller.Messages', {
     expandedMessages: [],
 
     newMessagesCount: null,
-
-//    URL: '/json/pa/profile/get-profile',
-//    updateURL: '/json/pa/profile/update-profile',
-//    changePassURL: '/json/pa/profile/change-password',
 
     refs: [
         {
@@ -115,9 +109,6 @@ Ext.define('EC.PA.controller.Messages', {
             messagesCount: this.newMessagesCount
         }).show();
 
-//        this.getProfileWin().hide();
-
-
     },
 
     checkAllMessages: function() {
@@ -203,8 +194,6 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     markAsRead: function(selIds) {
-        console.log("MARKING AD READ");
-        console.log(selIds);
 
         Ext.Ajax.request({
             params: {
@@ -344,7 +333,6 @@ Ext.define('EC.PA.controller.Messages', {
         mesEdWin.messagesCount = this.mesStore.data.length;
         mesEdWin.down("combo").store = accountsStore;
 
-//        mesEdWin.add(Ext.create('EC.PA.view.MessagesEditor'))
         mesEdWin.show();
     }
 

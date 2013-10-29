@@ -22,28 +22,6 @@ Ext.define('EC.PA.view.Messages', {
     
     closeAction: 'hide',
     
-//    tools: [
-//        {
-//            type: 'restore',
-//            itemId: 'restoreTool',
-//            hidden:true,
-//            handler: function( evt,toolEl,owner,tool ) {
-//                this.up('window').restore();
-//                tool.hide();
-//                this.up('window').down("#maximizeTool").show();
-//            }
-//        },
-//        {
-//            type: 'maximize',
-//            itemId: 'maximizeTool',
-//            handler: function( evt,toolEl,owner,tool ) {
-//                this.up('window').maximize();
-//                tool.hide();
-//                this.up('window').down("#restoreTool").show();
-//            }
-//        }
-//    ],
-
     tbar: [
         {
             xtype: 'button',
@@ -54,9 +32,6 @@ Ext.define('EC.PA.view.Messages', {
         }, {
             xtype: 'button',
             text: 'Действия',
-//            icon: '/images/icons/widgets_all.png',
-//            arrowCls: '',
-//            action: 'allwidgets',
             menu: [
                 {
                     text: 'Выбрать все',
@@ -90,9 +65,6 @@ Ext.define('EC.PA.view.Messages', {
             xtype: 'grid',
             itemId: 'mesGrid',
             hideHeaders: true,
-//            layout: 'fit',
-//            width: '100%',
-//            height: '100%',
             store: 'EC.PA.store.Messages',
             cls: 'curUserMessagesGrid',
             viewConfig: {
@@ -205,7 +177,6 @@ Ext.define('EC.PA.view.Messages', {
 
     ,initComponent: function() {
         this.callParent();
-        //this.setTitleCount(this.messagesCount);
     }
 
     ,setTitleCount: function(num) {

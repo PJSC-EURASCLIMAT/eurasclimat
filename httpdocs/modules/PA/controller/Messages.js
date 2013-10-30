@@ -21,6 +21,12 @@ Ext.define('EC.PA.controller.Messages', {
 
     newMessagesCount: null,
 
+    viewerWindow: null,
+
+//    URL: '/json/pa/profile/get-profile',
+//    updateURL: '/json/pa/profile/update-profile',
+//    changePassURL: '/json/pa/profile/change-password',
+
     refs: [
         {
             ref: 'mesWin',
@@ -50,6 +56,8 @@ Ext.define('EC.PA.controller.Messages', {
 
 
     run: function(container) {
+
+        if (!this.viewerWindow) {
 
         this.control({
             'pa-messages-win [action=add]': {
@@ -102,14 +110,18 @@ Ext.define('EC.PA.controller.Messages', {
 
         this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
+            //Создаем окошко профиля
+            this.viewerWindow = Ext.create('EC.PA.view.Messages',{
+                messagesCount: this.newMessagesCount
+            }).show();
+
+        } else {
+            this.viewerWindow.show();
+        }
+
         this.mesStore.load();
-
-        //Создаем окошко профиля
-        Ext.create('EC.PA.view.Messages',{
-            messagesCount: this.newMessagesCount
-        }).show();
-
     },
+
 
     checkAllMessages: function() {
         this.mesStore.each(function(item){

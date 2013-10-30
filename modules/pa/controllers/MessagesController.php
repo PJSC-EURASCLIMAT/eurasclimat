@@ -58,7 +58,55 @@ class PA_MessagesController extends Xend_Controller_Action
             return;
         }
 
+        $accounts = new Xend_Accounts();
+        $receiverRequest = $accounts->fetchAccount(intval($data['receiver_id']));
+        if ($receiverRequest->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $receiverInfo = $receiverRequest->getRowset();
+
+        $emailResponse = $this->_sendReminder($receiverInfo['name'], $receiverInfo['email'], $identity->name);
+        if ($emailResponse->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+
         $this->view->success = true;
+
+    }
+
+    /**
+     * Отправка письма - известия о новом сообщении
+     */
+
+    private function _sendReminder($receiver_name, $receiver_email, $sender_name)
+    {
+        $response = new Xend_Response();
+        $config = Zend_Registry::get('config');
+
+//        $receiver_name = 'Андрей';
+//        $receiver_email = 'ansinyutin@yandex.ru';
+//        $sender_name = 'Валера';
+
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>Вам пришло новое сообщение от пользователя '.$sender_name.'.</p>');
+        $mail->setFrom($config->mail->from->address, $config->company->name);
+        $mail->addTo($receiver_email, $receiver_name);
+        $mail->setSubject('Новое сообщение на сайте eurasclimat.ru');
+
+        try {
+            $mail->send();
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::FAILURE;
+        }
+
+        return $response->addStatus(new Xend_Accounts_Status($status));
 
     }
 
@@ -109,5 +157,8 @@ class PA_MessagesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
+
+
+
 
 }

@@ -9,7 +9,7 @@ Ext.define('EC.Main.controller.Order', {
 
     permissions: acl.isUpdate('crm', 'orders'),
 
-    URL: '/json/CRM/Orders/add-order',
+    URL: '/json/crm/orders/add-order',
 
     run: function(container) {
         

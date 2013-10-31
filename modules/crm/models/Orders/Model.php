@@ -1,12 +1,12 @@
 <?php
 
-class CRM_Orders_Model
+class Crm_Orders_Model
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new CRM_Orders_Table();
+        $this->_table = new Crm_Orders_Table();
     }
 
     public function add(array $data)

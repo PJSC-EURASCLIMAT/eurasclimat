@@ -11,7 +11,7 @@ Ext.define('EC.CRM.store.Configurator.SpecialServices', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/CRM/projects/get-special-services'
+            read:   '/json/crm/projects/get-special-services'
         },
         reader: {
             type: 'json',

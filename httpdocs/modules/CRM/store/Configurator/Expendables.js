@@ -11,7 +11,7 @@ Ext.define('EC.CRM.store.Configurator.Expendables', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/CRM/projects/get-expendables'
+            read:   '/json/crm/projects/get-expendables'
         },
         reader: {
             type: 'json',

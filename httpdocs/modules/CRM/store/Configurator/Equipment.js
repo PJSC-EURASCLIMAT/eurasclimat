@@ -11,7 +11,7 @@ Ext.define('EC.CRM.store.Configurator.Equipment', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/CRM/projects/get-equipment'
+            read:   '/json/crm/projects/get-equipment'
         },
         reader: {
             type: 'json',

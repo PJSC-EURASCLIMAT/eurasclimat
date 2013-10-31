@@ -1,6 +1,6 @@
 <?php
 
-class CRM_Projects_Model
+class Crm_Projects_Model
 {
     protected $_table,
         $_equipmentTable,
@@ -10,11 +10,11 @@ class CRM_Projects_Model
 
     public function __construct()
     {
-        $this->_table = new CRM_Projects_Table();
-        $this->_equipmentTable = new CRM_Projects_EquipmentTable();
-        $this->_servicesTable = new CRM_Projects_ServicesTable();
-        $this->_specialServicesTable = new CRM_Projects_SpecialServicesTable();
-        $this->_expendablesTable = new CRM_Projects_ExpendablesTable();
+        $this->_table = new Crm_Projects_Table();
+        $this->_equipmentTable = new Crm_Projects_EquipmentTable();
+        $this->_servicesTable = new Crm_Projects_ServicesTable();
+        $this->_specialServicesTable = new Crm_Projects_SpecialServicesTable();
+        $this->_expendablesTable = new Crm_Projects_ExpendablesTable();
     }
 
     public function getList($params)

@@ -1,7 +1,6 @@
 <?php
 
-//class Catalog_ExpendablesController extends Xend_Controller_Action
-class CRM_OrdersController extends Xend_Controller_Action
+class Crm_OrdersController extends Xend_Controller_Action
 {
 
     /**
@@ -11,7 +10,7 @@ class CRM_OrdersController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new CRM_Orders_Model();
+        $this->_model = new Crm_Orders_Model();
         parent::init();
     }
 

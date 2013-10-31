@@ -28,23 +28,23 @@ Ext.define('EC.CRM.controller.Configurator', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    addEquipmentURL: '/json/CRM/projects/add-equipment',
+    addEquipmentURL: '/json/crm/projects/add-equipment',
     
-    deleteEquipmentURL: '/json/CRM/projects/delete-equipment',
+    deleteEquipmentURL: '/json/crm/projects/delete-equipment',
     
-    addServiceURL: '/json/CRM/projects/add-service',
+    addServiceURL: '/json/crm/projects/add-service',
     
-    editServiceURL: '/json/CRM/projects/update-service',
+    editServiceURL: '/json/crm/projects/update-service',
     
-    deleteServiceURL: '/json/CRM/projects/delete-service',
+    deleteServiceURL: '/json/crm/projects/delete-service',
     
-    addExpendableURL: '/json/CRM/projects/add-expendable',
+    addExpendableURL: '/json/crm/projects/add-expendable',
     
-    deleteExpendableURL: '/json/CRM/projects/delete-expendable',
+    deleteExpendableURL: '/json/crm/projects/delete-expendable',
     
-    addSpecialServiceURL: '/json/CRM/projects/add-special-service',
+    addSpecialServiceURL: '/json/crm/projects/add-special-service',
     
-    deleteSpecialServiceURL: '/json/CRM/projects/delete-special-service',
+    deleteSpecialServiceURL: '/json/crm/projects/delete-special-service',
     
     run: function(projectID, projectName) {
 

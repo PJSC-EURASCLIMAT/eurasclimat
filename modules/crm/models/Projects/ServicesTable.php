@@ -1,6 +1,6 @@
 <?php
 
-class CRM_Projects_ServicesTable extends Xend_Db_Table_Abstract
+class Crm_Projects_ServicesTable extends Xend_Db_Table_Abstract
 {
     /**
      * Table name

@@ -55,7 +55,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     {
 
         $data = Zend_Json::decode($this->_getParam('data'));
-        $stage = $this->_getParam('stage');
+        $stage = $data['stage'];
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();

@@ -3,6 +3,8 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
     id: 'preparation-project-controller',
 
     extend: 'Ext.app.Controller',
+
+    currentStage: null,
   
     onSelect: function(tree, record, index, eOpts) {
         this.fireEvent('project-selected', record);
@@ -23,6 +25,8 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
         var deleteButton = this.getDeleteButton();
         var createFolderButton = this.getCreateFolderButton();
         var createReferenceButton = this.getCreateReferenceButton();
+        var moveToPrepButton = this.getMoveToPreparationButton();
+        var moveToExecButton = this.getMoveToExecutionButton();
 
         if (record.get('leaf')) { // лист
             
@@ -30,9 +34,19 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
             deleteButton.show();
             createFolderButton.hide();
             createReferenceButton.hide();
-            
+
+//            if(record.get('stage') === 1) {
+//                moveToPrepButton.hide();
+//                moveToExecButton.show();
+//            }
+//
+//            if(record.get('stage') === 2) {
+//                moveToPrepButton.show();
+//                moveToExecButton.hide();
+//            }
+
         } else { // ответвление
-                
+
             renameButton.show();
             deleteButton.show();
             createFolderButton.show();
@@ -124,17 +138,20 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
         var selectedNode = selectionModel.hasSelection() ? selectionModel.getLastSelected() : projectTree.getRootNode();
 
         selectionModel.deselectAll();
+
+        var stage = this.currentStage;
         
-        var createBranch = (function(projectTree, selectedNode) { 
+        var createBranch = (function(projectTree, selectedNode, stage) {
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
+                    stage: stage,
                     name: '',
                     leaf: false
                 });
                 projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(newNode, 0);
             }
-        })(projectTree, selectedNode);
+        })(projectTree, selectedNode, stage);
 
         if (selectedNode.isExpanded()) {
 
@@ -156,6 +173,8 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
         var projectTree = this.getProjectTree();
         
         var selectionModel = projectTree.getSelectionModel();
+
+        var stage = this.currentStage;
         
         if (!selectionModel.hasSelection()) {
             return;
@@ -164,16 +183,17 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
         var selectedNode = selectionModel.getLastSelected();
         selectionModel.deselectAll();
 
-        var createLeaf = (function(projectTree, selectedNode) { 
+        var createLeaf = (function(projectTree, selectedNode, stage) {
             return function() {
                 var newNode = selectedNode.appendChild({
                     id: null,
+                    stage: stage,
                     name: '',
                     leaf: true
                 });
                 projectTree.getPlugin('project-tree-cell-editing-plugin').startEdit(newNode, 0);
             }
-        })(projectTree, selectedNode);
+        })(projectTree, selectedNode, stage);
 
         if (selectedNode.isExpanded()) {
 
@@ -188,6 +208,15 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
 
         }
         
+    },
+
+
+    onMoveToExecutionButtonClick: function(button, event) {
+        console.log("to exec clicked");
+    },
+
+    onMoveToPreparationButtonClick: function(button, event) {
+        console.log("to prep clicked");
     },
             
     beforeDrop: function(node, data, overModel, dropPosition, dropHandlers) {

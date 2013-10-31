@@ -127,27 +127,29 @@ Ext.define('EC.SysDev.controller.Main', {
     }
 
     ,showPrepTabs: function(){
-        this.getCommentTab().tab.show();
+//        this.getCommentTab().tab.show();
         this.getChartTab().tab.hide();
         this.getStagesTab().tab.hide();
-        this.getDocsTab().tab.hide();
+//        this.getDocsTab().tab.show();
     }
 
     ,showExecTabs: function(){
-        this.getCommentTab().tab.hide();
+//        this.getCommentTab().tab.show();
         this.getChartTab().tab.show();
         this.getStagesTab().tab.show();
-        this.getDocsTab().tab.show();
+//        this.getDocsTab().tab.show();
     }
 
     ,tabClick: function(tabPanel, newCard, oldCard, eOpts ) {
         switch (newCard.itemId) {
             case 'project-preparation':
+                this.projectTreeCnt.currentStage = 1;
                 this.getProjectTree().filterBy('1','stage');
                 this.showPrepTabs();
                 break;
 
             case 'project-execution':
+                this.projectTreeCnt.currentStage = 2;
                 this.getProjectTree().filterBy('2','stage');
                 this.showExecTabs();
                 break;

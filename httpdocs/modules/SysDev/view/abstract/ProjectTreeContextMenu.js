@@ -14,7 +14,17 @@ Ext.define('EC.SysDev.view.abstract.ProjectTreeContextMenu', {
         text: 'Создать пункт',
         icon: '/images/icons/leaf.gif',
         itemId: 'create-reference-button'
-    },{        
+    },{
+        text: 'Перенести в исполнение',
+        icon: '/images/icons/move.gif',
+        hidden: true,
+        itemId: 'move-to-execution-button'
+    },{
+        text: 'Перенести в формирование',
+        icon: '/images/icons/move-left.gif',
+        hidden: true,
+        itemId: 'move-to-preparation-button'
+    },{
         text: 'Переименовать',
         itemId: 'rename-button',
         icon: '/images/icons/edit.png'     

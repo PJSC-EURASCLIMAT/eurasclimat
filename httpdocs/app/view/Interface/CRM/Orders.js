@@ -1,4 +1,4 @@
-Ext.define('App.view.Interface.Main.Orders', {
+Ext.define('App.view.Interface.CRM.Orders', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 

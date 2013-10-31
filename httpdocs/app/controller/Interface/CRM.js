@@ -12,6 +12,7 @@ Ext.define('App.controller.Interface.CRM', {
         
         this.getController('App.controller.Interface.CRM.CurrentProjects').run(container);
         this.getController('App.controller.Interface.CRM.Development').run(container);
+        this.getController('App.controller.Interface.CRM.Orders').run(container);
         
     },
     

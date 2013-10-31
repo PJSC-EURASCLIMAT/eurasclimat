@@ -43,7 +43,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         var tree = this.getProjectTree();
 
         tree.store.on('load',
-            this.onProjectStoreLoad, this, {delay: 50}
+            this.onProjectStoreLoad, this, {delay: 500}
         );
 
         this.listen({

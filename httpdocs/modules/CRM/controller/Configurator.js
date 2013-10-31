@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.controller.Configurator', {
+Ext.define('EC.CRM.controller.Configurator', {
     
     extend: 'Ext.app.Controller',
     
@@ -26,7 +26,7 @@ Ext.define('EC.Catalog.controller.Configurator', {
     
     projectID: null,
     
-    permissions: acl.isUpdate('catalog', 'projects'),
+    permissions: acl.isUpdate('crm', 'projects'),
     
     addEquipmentURL: '/json/catalog/projects/add-equipment',
     

@@ -23,7 +23,7 @@ Ext.define('EC.SysDev.view.Layout', {
             xtype: 'tabpanel',
             itemId: 'project-detail-tabs',
             hidden: true,
-            border: false,
+            border: true,
             split: true,
             layout: 'fit',
 

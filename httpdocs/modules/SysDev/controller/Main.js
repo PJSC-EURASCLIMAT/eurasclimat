@@ -1,4 +1,5 @@
 Ext.define('EC.SysDev.controller.Main', {
+    
     extend: 'Ext.app.Controller',
 
     views: [
@@ -160,11 +161,18 @@ Ext.define('EC.SysDev.controller.Main', {
     }
 
     ,run: function(container) {
+        
         var me = this;
 
         this.control({
             'project-main #main-tabs': {
                 tabchange: this.tabClick,
+                scope: this
+            },
+            'project-tree button[action=refresh]': {
+                click: function() {
+                    this.getStore('EC.SysDev.store.ProjectTreeStore').load();
+                },
                 scope: this
             }
         });

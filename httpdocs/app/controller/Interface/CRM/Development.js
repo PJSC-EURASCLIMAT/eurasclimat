@@ -24,8 +24,6 @@ Ext.define('App.controller.Interface.CRM.Development', {
             title: 'Разработка системы',
             text: 'Разработка системы',
             icon: '/images/icons/projects.png',
-//            portletHeight: 410,
-//            position: 'MainPanel-development-column-1',
             launchModule: 'EC.SysDev.controller.Main',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);

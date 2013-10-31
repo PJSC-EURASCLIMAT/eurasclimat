@@ -94,6 +94,13 @@ Ext.define('EC.SysDev.view.abstract.ProjectTree', {
         
         this.columns = columnsList;
         
+        this.tbar = ['->', {
+            xtype: 'button',
+            tooltip: 'Обновить',
+            iconCls: 'x-tbar-loading',
+            action: 'refresh'
+        }];
+        
         this.callParent();
     }
 });

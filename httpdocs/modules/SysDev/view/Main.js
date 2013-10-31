@@ -50,6 +50,7 @@ Ext.define('EC.SysDev.view.Main', {
                     autoScroll: true,
 //                    border: false,
                     border: '0 1px 0 0',
+                    margin: '0 5 0 0',
                     preventHeader: true,
 //                    hideMode: 'offsets',
 //                    hidden: true,

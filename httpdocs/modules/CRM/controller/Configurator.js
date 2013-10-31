@@ -3,48 +3,48 @@ Ext.define('EC.CRM.controller.Configurator', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.Configurator.Equipment',
-        'EC.Catalog.store.Configurator.Services',
-        'EC.Catalog.store.Configurator.SpecialServices',
-        'EC.Catalog.store.Configurator.Expendables'
+        'EC.CRM.store.Configurator.Equipment',
+        'EC.CRM.store.Configurator.Services',
+        'EC.CRM.store.Configurator.SpecialServices',
+        'EC.CRM.store.Configurator.Expendables'
     ],
     
     models: [
-        'EC.Catalog.model.Configurator.Equipment',
-        'EC.Catalog.model.Configurator.Services',
-        'EC.Catalog.model.Configurator.SpecialServices',
-        'EC.Catalog.model.Configurator.Expendables'
+        'EC.CRM.model.Configurator.Equipment',
+        'EC.CRM.model.Configurator.Services',
+        'EC.CRM.model.Configurator.SpecialServices',
+        'EC.CRM.model.Configurator.Expendables'
     ],
     
     views: [
-//        'EC.Catalog.view.Configurator.Edit',
-        'EC.Catalog.view.Configurator.EquipmentList',
-        'EC.Catalog.view.Configurator.ServicesList',
-        'EC.Catalog.view.Configurator.SpecialServicesList',
-        'EC.Catalog.view.Configurator.ExpendablesList'
+//        'EC.CRM.view.Configurator.Edit',
+        'EC.CRM.view.Configurator.EquipmentList',
+        'EC.CRM.view.Configurator.ServicesList',
+        'EC.CRM.view.Configurator.SpecialServicesList',
+        'EC.CRM.view.Configurator.ExpendablesList'
     ],
     
     projectID: null,
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    addEquipmentURL: '/json/catalog/projects/add-equipment',
+    addEquipmentURL: '/json/CRM/projects/add-equipment',
     
-    deleteEquipmentURL: '/json/catalog/projects/delete-equipment',
+    deleteEquipmentURL: '/json/CRM/projects/delete-equipment',
     
-    addServiceURL: '/json/catalog/projects/add-service',
+    addServiceURL: '/json/CRM/projects/add-service',
     
-    editServiceURL: '/json/catalog/projects/update-service',
+    editServiceURL: '/json/CRM/projects/update-service',
     
-    deleteServiceURL: '/json/catalog/projects/delete-service',
+    deleteServiceURL: '/json/CRM/projects/delete-service',
     
-    addExpendableURL: '/json/catalog/projects/add-expendable',
+    addExpendableURL: '/json/CRM/projects/add-expendable',
     
-    deleteExpendableURL: '/json/catalog/projects/delete-expendable',
+    deleteExpendableURL: '/json/CRM/projects/delete-expendable',
     
-    addSpecialServiceURL: '/json/catalog/projects/add-special-service',
+    addSpecialServiceURL: '/json/CRM/projects/add-special-service',
     
-    deleteSpecialServiceURL: '/json/catalog/projects/delete-special-service',
+    deleteSpecialServiceURL: '/json/CRM/projects/delete-special-service',
     
     run: function(projectID, projectName) {
 
@@ -54,7 +54,7 @@ Ext.define('EC.CRM.controller.Configurator', {
         
         this.projectID = projectID;
         
-        this.Container = Ext.create('EC.Catalog.view.Configurator.Layout', {
+        this.Container = Ext.create('EC.CRM.view.Configurator.Layout', {
             projectID: projectID,
             projectName: projectName,
             permissions: this.permissions

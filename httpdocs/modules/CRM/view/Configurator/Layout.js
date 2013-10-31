@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.Configurator.Layout', {
+Ext.define('EC.CRM.view.Configurator.Layout', {
     
     extend: 'Ext.window.Window',
     

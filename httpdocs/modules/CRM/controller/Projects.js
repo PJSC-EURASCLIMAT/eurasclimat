@@ -20,11 +20,11 @@ Ext.define('EC.CRM.controller.Projects', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    addURL: '/json/orders/projects/add',
+    addURL: '/json/CRM/projects/add',
     
-    editURL: '/json/orders/projects/update',
+    editURL: '/json/CRM/projects/update',
     
-    deleteURL: '/json/orders/projects/delete',
+    deleteURL: '/json/CRM/projects/delete',
     
     run: function(container) {
 

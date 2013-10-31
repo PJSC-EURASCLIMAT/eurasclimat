@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.model.Configurator.Services', {
+Ext.define('EC.CRM.model.Configurator.Services', {
 
     extend: 'Ext.data.Model',
    

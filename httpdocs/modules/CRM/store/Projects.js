@@ -13,7 +13,7 @@ Ext.define('EC.CRM.store.Projects', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/orders/projects/get-list'
+            read:   '/json/CRM/projects/get-list'
         },
         reader: {
             type: 'json',

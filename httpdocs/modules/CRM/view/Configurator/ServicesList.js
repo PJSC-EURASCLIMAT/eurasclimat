@@ -1,16 +1,16 @@
-Ext.define('EC.Catalog.view.Configurator.ExpendablesList', {
+Ext.define('EC.CRM.view.Configurator.ServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Инструменты, механизмы и вспомогательные материалы',
+    title: 'Сопутствующие работы',
     
-    alias: 'widget.ConfiguratorExpendablesList',
+    alias: 'widget.ConfiguratorServicesList',
     
     layout: 'fit',
     
-    store: 'EC.Catalog.store.Configurator.Expendables',
+    store: 'EC.CRM.store.Configurator.Services',
     
-    permissions: acl.isUpdate('catalog', 'projects'),
+    permissions: acl.isUpdate('crm', 'projects'),
     
     features: [{
         ftype: 'summary',
@@ -46,6 +46,10 @@ Ext.define('EC.Catalog.view.Configurator.ExpendablesList', {
         }, {
             header: 'Ед. изм.',
             dataIndex: 'measure',
+            width: 60
+        }, {
+            header: 'Сроки',
+            dataIndex: 'term',
             width: 60
         }, {
             header: 'Цена',

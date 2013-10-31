@@ -1,16 +1,16 @@
-Ext.define('EC.Catalog.view.Configurator.EquipmentList', {
+Ext.define('EC.CRM.view.Configurator.SpecialServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Оборудование',
+    title: 'Специальные виды услуг',
     
-    alias: 'widget.ConfiguratorEquipmentList',
+    alias: 'widget.ConfiguratorSpecialServicesList',
     
     layout: 'fit',
     
-    store: 'EC.Catalog.store.Configurator.Equipment',
+    store: 'EC.CRM.store.Configurator.SpecialServices',
     
-    permissions: acl.isUpdate('catalog', 'projects'),
+    permissions: acl.isUpdate('crm', 'projects'),
     
     features: [{
         ftype: 'summary',
@@ -40,12 +40,16 @@ Ext.define('EC.Catalog.view.Configurator.EquipmentList', {
             dataIndex: 'code',
             width: 60
         }, {
-            header: 'Маркировка',
-            dataIndex: 'marking',
+            header: 'Наименование',
+            dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Марка',
-            dataIndex: 'mark',
+            header: 'Ед. изм.',
+            dataIndex: 'measure',
+            width: 60
+        }, {
+            header: 'Сроки',
+            dataIndex: 'term',
             width: 60
         }, {
             header: 'Цена',

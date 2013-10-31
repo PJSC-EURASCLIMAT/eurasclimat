@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.store.Configurator.Expendables', {
+Ext.define('EC.CRM.store.Configurator.Services', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.Catalog.model.Configurator.Expendables',
+    model: 'EC.CRM.model.Configurator.Services',
     
     remoteSort: true,
     
@@ -11,7 +11,7 @@ Ext.define('EC.Catalog.store.Configurator.Expendables', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/catalog/projects/get-expendables'
+            read:   '/json/CRM/projects/get-services'
         },
         reader: {
             type: 'json',

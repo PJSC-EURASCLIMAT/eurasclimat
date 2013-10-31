@@ -27,7 +27,6 @@ Ext.define('EC.SysDev.view.abstract.Info', {
     tpl: [
         '<tpl if="data">',
         '<div style="padding:5px;">',
-        '<h2>Cведения о проекте разработки системы</h2>',
         '<b>Наименование проекта: </b> {data.name}<br/><br/>',
         '<b>Описание проекта: </b> {data.description}<br/><br/>',
         '<b>Инициатор проекта: </b> {data.author}<br/><br/>',

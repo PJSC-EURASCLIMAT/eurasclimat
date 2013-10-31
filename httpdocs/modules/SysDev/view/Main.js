@@ -63,7 +63,7 @@ Ext.define('EC.SysDev.view.Main', {
                         borderBottom: '0px',
                         borderLeft: '0px'
                     },
-                    width: 200
+                    width: 300
                 },
                 {
                     xtype:"container",

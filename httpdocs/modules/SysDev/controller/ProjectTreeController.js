@@ -78,6 +78,11 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
                 },
                 'project-tree-context-menu [itemId="move-to-preparation-button"]': {
                     click: this.onMoveToPreparationButtonClick
+                },
+                'project-tree button[action=refresh]': {
+                    click: function() {
+                        this.getProjectTree().getStore().load();
+                    }
                 }
             }
         });

@@ -168,6 +168,15 @@ Ext.define('EC.SysDev.controller.Main', {
             'project-main #main-tabs': {
                 tabchange: this.tabClick,
                 scope: this
+            },
+            'project-tree button[action=refresh]': {
+                click: function(b) {
+                    var tree = this.getProjectTree();
+                    tree.store.on('load', function() {
+                        this.tabClick(tree, this.getMainTabs().getActiveTab());
+                    }, this, {delay: 50, single: true});
+                    tree.getStore().load();
+                }
             }
         });
 

@@ -42,9 +42,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         var me = this;
         var tree = this.getProjectTree();
 
-        tree.store.on('load',
-            this.onProjectStoreLoad, this, {delay: 500}
-        );
+        tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50, single: true});
 
         this.listen({
             component: {
@@ -78,11 +76,6 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
                 },
                 'project-tree-context-menu [itemId="move-to-preparation-button"]': {
                     click: this.onMoveToPreparationButtonClick
-                },
-                'project-tree button[action=refresh]': {
-                    click: function() {
-                        this.getProjectTree().getStore().load();
-                    }
                 }
             }
         });

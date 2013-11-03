@@ -16,6 +16,7 @@ class Sysdev_Projects_Table extends Xend_Db_Table_Abstract {
         'parent_id',
         'account_id',
         'description',
+        'full_desc',
         'date_plan_begin',
         'date_plan_end',
         'date_fact_end',

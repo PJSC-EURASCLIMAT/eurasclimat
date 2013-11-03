@@ -38,6 +38,7 @@ class Sysdev_Projects_Model
                 array('p'=>$this->_table->getTableName()),
                 array('name',
                     'description',
+                    'full_desc',
                     'account_id',
                     'date_plan_begin',
                     'date_plan_end',
@@ -74,6 +75,7 @@ class Sysdev_Projects_Model
             'account_id'        => 'int',
             'extended'          => 'int',
             'description'       => 'StringTrim',
+            'full_desc'       => 'StringTrim',
             'date_plan_begin'   => 'StringTrim',
             'date_plan_end'     => 'StringTrim',
             'date_fact_end'     => 'StringTrim',
@@ -507,9 +509,9 @@ class Sysdev_Projects_Model
 
             $depth = $tree->getDepth($movedNode);
 
-            if ($depth <= 1) {
-                throw new Sysdev_Projects_TopLevelProjectCanNotBeMoved();
-            }
+//            if ($depth <= 1) {
+//                throw new Sysdev_Projects_TopLevelProjectCanNotBeMoved();
+//            }
 
             $movedNodes[] = $movedNode;
 

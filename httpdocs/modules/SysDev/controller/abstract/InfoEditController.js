@@ -4,6 +4,8 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
 
     currentProjectId: null,
 
+    curProjectModel: null,
+
     onProjectSelected: function(record) {
 
 //        if (record.get('stage') !== this.projectStageCode) {
@@ -37,6 +39,8 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
 
                 var rec = accCombo.store.getById(record.get('account_id'))
                 accCombo.setValue(rec);
+
+                this.curProjectModel = record;
 
             },
             scope: this
@@ -144,9 +148,9 @@ Ext.define('EC.SysDev.controller.abstract.InfoEditController', {
         var basicForm = editor.getForm();
         var record = basicForm.getRecord();
         var values = basicForm.getValues();
-        
+
         saveButton.disable();
-        
+
         record.set(values); // изменяем значения записи, чтобы сработал метод save()
 
         basicForm.submit({

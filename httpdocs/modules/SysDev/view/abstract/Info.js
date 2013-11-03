@@ -28,6 +28,7 @@ Ext.define('EC.SysDev.view.abstract.Info', {
         '<tpl if="data">',
         '<div style="padding:5px;">',
         '<b>Наименование проекта: </b> {data.name}<br/><br/>',
+        '<a href="#" action="show-full_desc">Детальное описание проекта</a><br/><br/>',
         '<b>Описание проекта: </b> {data.description}<br/><br/>',
         '<b>Инициатор проекта: </b> {data.author}<br/><br/>',
         '<b>Бюджет:</b> {data.budget} р. <br/><br/>',
@@ -47,4 +48,9 @@ Ext.define('EC.SysDev.view.abstract.Info', {
             }
         }
     ]
+    ,listeners: {
+        afterrender: function(panel, eOpts) {
+            console.log("BEBBEBE");
+        }
+    }
 });

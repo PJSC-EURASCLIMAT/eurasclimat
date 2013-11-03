@@ -10,6 +10,11 @@ Ext.define('EC.SysDev.view.abstract.InfoEditor', {
     autoScroll: true,
     
     tbar: [
+        {
+            xtype: 'button',
+            text: 'Детальное описание',
+            itemId: 'full_desc-button'
+        },
         '->',
         {
             text: 'Отменить',

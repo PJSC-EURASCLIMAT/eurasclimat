@@ -8,7 +8,7 @@ Ext.define('EC.SysDev.controller.InfoController', {
     ],
 
     run: function() {
-        
+
         this.listen({
             component: {
                 'project-info-component [itemId="edit-button"]': {
@@ -21,7 +21,7 @@ Ext.define('EC.SysDev.controller.InfoController', {
 //                }
 //            }
         });
-        
+
     }
     
 });

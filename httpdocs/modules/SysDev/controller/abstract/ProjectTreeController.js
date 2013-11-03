@@ -281,25 +281,25 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
 
         // запрещаем перемещать узлы верхнего уровня
 
-        var failed = false;
-        
-        Ext.Array.each(data.records, function(record) {
-
-            if (record.getDepth() <= 1) {
-                failed = true;
-            }
-            
-        });
-
-        if (failed) {
-            Ext.Msg.show({
-                 title:'Внимание',
-                 msg: 'Перемещение невозможно',
-                 buttons: Ext.Msg.OK,
-                 icon: Ext.Msg.WARNING
-            });
-            return false;
-        }
+//        var failed = false;
+//
+//        Ext.Array.each(data.records, function(record) {
+//
+//            if (record.getDepth() <= 1) {
+//                failed = true;
+//            }
+//
+//        });
+//
+//        if (failed) {
+//            Ext.Msg.show({
+//                 title:'Внимание',
+//                 msg: 'Перемещение невозможно',
+//                 buttons: Ext.Msg.OK,
+//                 icon: Ext.Msg.WARNING
+//            });
+//            return false;
+//        }
 
     },
             

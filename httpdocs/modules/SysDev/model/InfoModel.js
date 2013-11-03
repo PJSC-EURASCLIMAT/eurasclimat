@@ -7,6 +7,7 @@ Ext.define('EC.SysDev.model.InfoModel', {
         { name: 'account_id', type: 'number' },
         { name: 'author', type: 'string' },
         { name: 'description', type: 'string' },
+        { name: 'full_desc', type: 'string' },
         { name: 'budget', type: 'float' },
         { name: 'date_create', type: 'date', dateFormat: 'Y-m-d H:i:s' },
         { name: 'date_vote_begin', type: 'date', dateFormat: 'Y-m-d H:i:s' },

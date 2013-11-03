@@ -413,6 +413,46 @@ class Sysdev_Projects_Model
 
     }
 
+
+    /**
+     * Меняет стадию проекта
+     * @param array $data
+     * @return Xend_Response
+     */
+    public function changeStage(array $data) {
+
+        $response = new Xend_Response();
+
+        $filter = new Xend_Filter_Input(array(
+            'id'    => 'int'
+        ), array(
+            'id' => array('id', 'presence' => 'required')
+        ), $data);
+        $response->addInputStatus($filter);
+        if ($response->hasNotSuccess()) {
+            return $response;
+            // в случае поломки синхронизации может приходить данные сразу нескольких узлов
+        }
+
+        $id = (int)$data['id'];
+        $stage = (int)$data['stage'];
+
+        try {
+            $affectedRow = $this->_table->updateByPk(array(
+                'stage'  => $stage,
+                'parent_id'  => new Zend_Db_Expr('NULL'),
+            ), $id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+        }
+
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($affectedRow)));
+    }
+
+
     /**
      * удаляет узел дерева
      * @param int $id
@@ -429,10 +469,10 @@ class Sysdev_Projects_Model
             throw new  ProjectsWithSubprojectsCanNotBeDeleted();
         }
 
-        $depth = $tree->getDepth($removedNode);
-        if ($depth <= 1) {
-            throw new Sysdev_Projects_TopLevelProjectCanNotBeDeleted();
-        }
+//        $depth = $tree->getDepth($removedNode);
+//        if ($depth <= 1) {
+//            throw new Sysdev_Projects_TopLevelProjectCanNotBeDeleted();
+//        }
 
         $removedNodeIds = $tree->removeNode($removedNode);
 

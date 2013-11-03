@@ -5,6 +5,8 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
     extend: 'Ext.app.Controller',
 
     currentStage: null,
+
+    changeStageURL: '/json/sysdev/projects/change-stage',
   
     onSelect: function(tree, record, index, eOpts) {
         this.fireEvent('project-selected', record);
@@ -35,18 +37,19 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
             createFolderButton.hide();
             createReferenceButton.hide();
 
-//            if(record.get('stage') === 1) {
-//                moveToPrepButton.hide();
-//                moveToExecButton.show();
-//            }
-//
-//            if(record.get('stage') === 2) {
-//                moveToPrepButton.show();
-//                moveToExecButton.hide();
-//            }
+            if(record.get('stage') === 1) {
+                moveToPrepButton.hide();
+                moveToExecButton.show();
+            }
+
+            if(record.get('stage') === 2) {
+                moveToPrepButton.show();
+                moveToExecButton.hide();
+            }
 
         } else { // ответвление
-
+            moveToPrepButton.hide();
+            moveToExecButton.hide();
             renameButton.show();
             deleteButton.show();
             createFolderButton.show();
@@ -89,15 +92,15 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
         var selectedNode = selectionModel.getLastSelected();
         
         // запрещаем удалять узлы верхнего уровня
-        if (selectedNode.getDepth() <= 1) {
-            Ext.Msg.show({
-                 title:'Внимание',
-                 msg: 'Удаление невозможно',
-                 buttons: Ext.Msg.OK,
-                 icon: Ext.Msg.WARNING
-            });
-            return;
-        }
+//        if (selectedNode.getDepth() <= 1) {
+//            Ext.Msg.show({
+//                 title:'Внимание',
+//                 msg: 'Удаление невозможно',
+//                 buttons: Ext.Msg.OK,
+//                 icon: Ext.Msg.WARNING
+//            });
+//            return;
+//        }
         
         // запрещаем удалять узлы, у которых есть дочерние узлы
         if (selectedNode.hasChildNodes()) {
@@ -211,11 +214,66 @@ Ext.define('EC.SysDev.controller.abstract.ProjectTreeController', {
     },
 
 
+    changeStage: function(button, event, stage) {
+        var selectionModel = this.getProjectTree().getSelectionModel();
+
+        if (!selectionModel.hasSelection()) {
+            return;
+        }
+
+        var selectedNode = selectionModel.getLastSelected();
+
+        if (selectedNode.get('leaf') !== true) {
+            Ext.Msg.show({
+                 title:'Внимание',
+                 msg: 'Перенос невозможен',
+                 buttons: Ext.Msg.OK,
+                 icon: Ext.Msg.WARNING
+            });
+            return;
+        }
+
+        selectionModel.deselectAll();
+
+        selectionModel.select(selectedNode);
+
+        var message = 'Перенести проект "' + selectedNode.get('name') + '" в раздел "Исполнение"';
+
+        message += '?';
+
+        Ext.MessageBox.confirm('Запрос подтверждения', message, function(buttonId) {
+            if (buttonId === 'yes') {
+
+                selectionModel.deselect(selectedNode);
+                selectedNode.set("stage", stage);
+
+                Ext.Ajax.request({
+                    params: selectedNode.data,
+                    url: this.changeStageURL,
+                    success: function(response, opts) {
+                        Ext.Msg.alert('Сообщение', 'Перенос проекта прошел успешно');
+                        this.getStore('EC.SysDev.store.ProjectTreeStore').load();
+//                        this.get
+//                        this.getDocList().getStore().remove(record);
+                    },
+                    failure: function(response, opts) {
+                        Ext.Msg.alert('Ошибка', 'Перенос проектане выполнен!');
+                    },
+                    scope: this
+                });
+
+            }
+        },this);
+
+    },
+
     onMoveToExecutionButtonClick: function(button, event) {
+        this.changeStage(button, event, 2);
         console.log("to exec clicked");
     },
 
     onMoveToPreparationButtonClick: function(button, event) {
+        this.changeStage(button, event, 1);
         console.log("to prep clicked");
     },
             

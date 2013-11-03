@@ -31,7 +31,8 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
     
     onProjectStoreLoad: function(store, node, records, successful, eOpts){
         var tree = this.getProjectTree();
-        tree.filterBy('1', 'stage');
+        var stage = (this.currentStage !== null) ? this.currentStage : 1;
+        tree.filterBy(String(stage), 'stage');
         tree.getEl().down('.x-tree-view').dom.style.display = "block";
         tree.setLoading(false);
         tree.doLayout();
@@ -42,7 +43,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         var me = this;
         var tree = this.getProjectTree();
 
-        tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50, single: true});
+        tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50});
 
         this.listen({
             component: {

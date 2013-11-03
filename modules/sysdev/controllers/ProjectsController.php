@@ -29,6 +29,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-tree');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'rename');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-stage');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'move');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-list');
@@ -89,6 +90,24 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $this->view->success = true;
 
     }
+
+    public function changeStageAction()
+    {
+
+
+        $data = $this->_getAllParams();
+
+        $response = $this->_model->changeStage($data);
+
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $this->view->success = true;
+
+    }
+
 
     public function deleteAction()
     {

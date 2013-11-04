@@ -12,9 +12,12 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
 
     width: 600,
 
+    autoScroll: true,
+
     height: 400,
 
     layout: 'card',
+//    layout: 'fit',
 
     maximizable: true,
 
@@ -56,35 +59,41 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
                 },
                 {
                     xtype: 'htmleditor',
-                    anchor: '100% 100%',
-                    border: false,
-                    margin: '0',
+                    xtype: 'textarea',
+//                    style: {border:"2px solid blue"},
+//                    height: 200,
+//                    hidden: true,
                     name: 'full_desc'
+//                    anchor: '100% 100%',
+//                    border: false
                 }
             ]
 
         },
         {
             xtype: 'container',
+//            hidden: true,
             style: {background: "white"},
             itemId: 'info',
             html: ''
         }
     ],
 
-    initComponent: function() {
-        this.callParent(arguments);
-        this.down('#info').update(this.data.full_desc);
-    },
-
     onSaveButton: function() {
         var data = this.down("#edit").getForm().getValues();
-        this.fireEvent('save',data);
+
+        this.fireEvent('save', data, this.saveSuccess);
         this.close();
+
+//        this.getLayout().setActiveItem('info');
+//
+//        this.down("#save-button").hide();
+//        this.down("#edit-button").show();
     },
 
     onEditButton: function() {
         this.getLayout().setActiveItem('edit');
+
         this.down("#save-button").show();
         this.down("#edit-button").hide();
     },
@@ -92,6 +101,12 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
     listeners: {
         show: function(win, eOpts) {
             this.getLayout().setActiveItem('info');
+
+            this.down("form").getForm().setValues(this.data);
+            this.down("#info").update(this.data.full_desc);
+
+            this.down("#save-button").hide();
+            this.down("#edit-button").show();
         }
     }
 

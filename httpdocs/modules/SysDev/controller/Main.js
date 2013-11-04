@@ -6,11 +6,6 @@ Ext.define('EC.SysDev.controller.Main', {
         'EC.SysDev.view.Viewport',
         'EC.SysDev.view.Main',
 
-        'EC.SysDev.view.abstract.Info',
-        'EC.SysDev.view.abstract.InfoEditor',
-        'EC.SysDev.view.abstract.ProjectTree',
-        'EC.SysDev.view.abstract.ProjectTreeContextMenu',
-
         'EC.SysDev.view.preparation.CommentPanel',
 
         'EC.SysDev.view.execution.StageList',
@@ -27,9 +22,6 @@ Ext.define('EC.SysDev.controller.Main', {
     ],
 
     controllers: [
-        'EC.SysDev.controller.abstract.ProjectTreeController',
-        'EC.SysDev.controller.abstract.InfoController',
-        'EC.SysDev.controller.abstract.InfoEditController',
 
         'EC.SysDev.controller.preparation.CommentPanelController',
 

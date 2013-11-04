@@ -117,6 +117,31 @@ class Sysdev_Projects_Model
 
     }
 
+    public function saveFullDescription(array $data)
+    {
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'id'                => 'int',
+            'full_desc'       => 'StringTrim',
+        ), array(
+            'id' => array('Id','allowEmpty' => false),
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $affectedRow = $this->_table->updateByPk(array(
+            'full_desc'=>$data['full_desc']
+        ), $data['id']);
+
+        return $response->addStatus(new Xend_Accounts_Status(
+            Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRow)));
+
+    }
+
     /**
      *
      * @param array $data

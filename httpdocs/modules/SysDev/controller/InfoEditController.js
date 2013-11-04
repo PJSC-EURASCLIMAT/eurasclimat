@@ -25,13 +25,11 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
                     click: this.onCancelButtonClick
                 },
                 'project-info-editor [itemId="full_desc-button"]': {
-                    click: this.openFullDesc
+                    save: this.openFullDesc
                 },
                 'project-info-editor [itemId="save-button"]': {
                     click: this.onSaveButtonClick
                 }
-
-
             }
 
         });
@@ -218,6 +216,8 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
 
                 var infoCont = this.getController("EC.SysDev.controller.InfoController");
 
+                this.curProjectModel.set('full_desc',opts.params.full_desc);
+
                 infoCont.getInfo().getLoader().load({
                     params: {
                         id: parseInt(opts.params.id)
@@ -233,7 +233,7 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
     },
 
     openFullDesc: function(data) {
-        if(!Ext.isDefined(data)) {
+        if(!Ext.isDefined(data) || data === null) {
             data = this.curProjectModel.data;
         }
         data.id = this.currentProjectId;

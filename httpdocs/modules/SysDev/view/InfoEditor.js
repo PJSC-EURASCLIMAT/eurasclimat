@@ -47,10 +47,13 @@ Ext.define('EC.SysDev.view.InfoEditor', {
         name: 'description',
         flex: 1
     }, {
-        fieldLabel: 'Детальное описание проекта',
+        text: 'Детальное описание проекта',
         xtype: 'button',
-        name: 'full_desc_btn',
-        flex: 1
+        itemId: 'full_desc-button',
+        handler: function() {
+            this.fireEvent("save",null);
+        },
+        maxWidth: null
     }, {
         fieldLabel: 'Инициатор проекта',
         xtype: 'combobox',

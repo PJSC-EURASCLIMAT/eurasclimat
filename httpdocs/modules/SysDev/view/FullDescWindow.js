@@ -17,7 +17,6 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
     height: 400,
 
     layout: 'card',
-//    layout: 'fit',
 
     maximizable: true,
 
@@ -41,7 +40,6 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
             handler: function() {
                 this.up('window').onSaveButton();
             }
-
         }
     ],
 
@@ -49,7 +47,6 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
         {
             xtype: 'form',
             itemId: 'edit',
-            style: {border: "2px solid red"},
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -58,28 +55,20 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
             items: [
                 {
                     xtype: 'hiddenfield',
-                    height: 0,
+                    hidden: true,
                     name: 'id'
                 },
                 {
                     xtype: 'htmleditor',
                     flex: 1,
-                    style: {border: "2px solid blue"},
+                    border: false,
                     margin: '0',
-//                    xtype: 'textarea',
-//                    style: {border:"2px solid blue"},
-//                    height: 200,
-//                    hidden: true,
                     name: 'full_desc'
-//                    anchor: '100% 100%',
-//                    border: false
                 }
             ]
-
         },
         {
             xtype: 'container',
-//            hidden: true,
             style: {background: "white"},
             itemId: 'info',
             html: ''

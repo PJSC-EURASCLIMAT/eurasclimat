@@ -123,8 +123,6 @@ class PA_MessagesController extends Xend_Controller_Action
 
     }
 
-
-
     public function deleteAction()
     {
         $id = $this->_getParam('id');
@@ -136,8 +134,6 @@ class PA_MessagesController extends Xend_Controller_Action
             $this->view->success = true;
         }
     }
-
-
 
     /**
      * List of messages
@@ -157,8 +153,6 @@ class PA_MessagesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
-
-
 
 
 }

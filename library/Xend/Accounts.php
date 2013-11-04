@@ -379,10 +379,9 @@ class Xend_Accounts
 
         $response->affectedRows = $affectedRows;
 
-        /*
-       * Заливка аватарки
-       * */
-//      валидация картинки
+       /*
+       * Заливка аватарки, валидация картинки
+       */
         if (isset($_FILES) && isset($_FILES['photo']) && $_FILES['photo']['size'] != 0) {
             $file = new Xend_File();
             $avatar = $file->uploadThumbnail('users', $data['login'], 'photo');

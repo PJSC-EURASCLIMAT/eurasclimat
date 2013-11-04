@@ -12,11 +12,7 @@ Ext.define('EC.SysDev.view.InfoEditor', {
     
     autoScroll: true,
 
-    tbar: [{
-        xtype: 'button',
-        text: 'Детальное описание',
-        itemId: 'full_desc-button'
-    }, '->', {
+    tbar: [ '->', {
         text: 'Отменить',
         itemId: 'cancel-button'
     }, {
@@ -46,9 +42,14 @@ Ext.define('EC.SysDev.view.InfoEditor', {
         allowBlank: false,
         name: 'name'
     }, {
-        fieldLabel: 'Описание проекта',
+        fieldLabel: 'Краткое проекта',
         xtype: 'htmleditor',
         name: 'description',
+        flex: 1
+    }, {
+        fieldLabel: 'Детальное описание проекта',
+        xtype: 'button',
+        name: 'full_desc_btn',
         flex: 1
     }, {
         fieldLabel: 'Инициатор проекта',

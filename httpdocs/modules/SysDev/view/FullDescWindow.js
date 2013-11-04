@@ -49,17 +49,24 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
         {
             xtype: 'form',
             itemId: 'edit',
-//            style: {border: "2px solid red"},
-//            layout: 'vbox',
+            style: {border: "2px solid red"},
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
             border: false,
             items: [
                 {
                     xtype: 'hiddenfield',
+                    height: 0,
                     name: 'id'
                 },
                 {
                     xtype: 'htmleditor',
-                    xtype: 'textarea',
+                    flex: 1,
+                    style: {border: "2px solid blue"},
+                    margin: '0',
+//                    xtype: 'textarea',
 //                    style: {border:"2px solid blue"},
 //                    height: 200,
 //                    hidden: true,
@@ -85,10 +92,10 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
         this.fireEvent('save', data, this.saveSuccess);
         this.close();
 
-//        this.getLayout().setActiveItem('info');
-//
-//        this.down("#save-button").hide();
-//        this.down("#edit-button").show();
+        this.getLayout().setActiveItem('info');
+
+        this.down("#save-button").hide();
+        this.down("#edit-button").show();
     },
 
     onEditButton: function() {

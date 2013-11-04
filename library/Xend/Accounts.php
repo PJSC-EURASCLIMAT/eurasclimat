@@ -383,11 +383,10 @@ class Xend_Accounts
        * Заливка аватарки
        * */
 //      валидация картинки
-        if($_FILES['photo']['size'] != 0){
+        if (isset($_FILES) && isset($_FILES['photo']) && $_FILES['photo']['size'] != 0) {
             $file = new Xend_File();
-            $avatar = $file->uploadThumbnail('users',$data['login'],'photo');
+            $avatar = $file->uploadThumbnail('users', $data['login'], 'photo');
         }
-
 
         return $response->addStatus(new Xend_Accounts_Status(
             Xend_Accounts_Status::retrieveAffectedRowStatus($affectedRows)));

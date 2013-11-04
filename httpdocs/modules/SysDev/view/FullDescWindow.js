@@ -24,16 +24,20 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
 
     data: {},
 
-    tbar: [
-        '->',
-        {
+    tbar: [{
+            text: 'Отменить',
+            hidden: true,
+            itemId: 'cancel-button',
+            handler: function() {
+                this.up('window').onEditCancelButton();
+            }
+        }, {
             text: 'Редактировать',
             itemId: 'edit-button',
             handler: function() {
                 this.up('window').onEditButton();
             }
-        },
-        {
+        },'->', {
             text: 'Сохранить',
             itemId: 'save-button',
             hidden: true,
@@ -80,18 +84,24 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
 
         this.fireEvent('save', data, this.saveSuccess);
         this.close();
-
-        this.getLayout().setActiveItem('info');
-
-        this.down("#save-button").hide();
-        this.down("#edit-button").show();
     },
 
     onEditButton: function() {
         this.getLayout().setActiveItem('edit');
 
         this.down("#save-button").show();
+        this.down("#cancel-button").show();
         this.down("#edit-button").hide();
+    },
+
+    onEditCancelButton: function() {
+        this.getLayout().setActiveItem('info');
+
+        this.down("form").getForm().setValues(this.data);
+
+        this.down("#save-button").hide();
+        this.down("#cancel-button").hide();
+        this.down("#edit-button").show();
     },
 
     listeners: {
@@ -102,6 +112,7 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
             this.down("#info").update(this.data.full_desc);
 
             this.down("#save-button").hide();
+            this.down("#cancel-button").hide();
             this.down("#edit-button").show();
         }
     }

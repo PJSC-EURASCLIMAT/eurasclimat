@@ -75,6 +75,11 @@ class Sysdev_ProjectDiscussions_Model
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
+        if (class_exists('PA_Messages_Model')) {
+            $messagesClass = new PA_Messages_Model();
+            $messagesClass->add();
+        }
+
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

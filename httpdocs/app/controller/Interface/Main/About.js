@@ -68,25 +68,27 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 340,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
-        },{
-            title: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Currency'
-        }, {
-            title: 'Новости',
-            icon: '/images/icons/news.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.News'
-        }, {
-            title: 'Прогноз погоды',
-            icon: '/images/icons/kweather.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Weather'
-        }];
+        }
+//        ,{
+//            title: 'Курсы валют',
+//            icon: '/images/icons/cur_exch.png',
+//            portletHeight: 200,
+//            position: 'MainPanel-column-3',
+//            launchModule: 'EC.Main.controller.Currency'
+//        }, {
+//            title: 'Новости',
+//            icon: '/images/icons/news.png',
+//            portletHeight: 200,
+//            position: 'MainPanel-column-3',
+//            launchModule: 'EC.Main.controller.News'
+//        }, {
+//            title: 'Прогноз погоды',
+//            icon: '/images/icons/kweather.png',
+//            portletHeight: 410,
+//            position: 'MainPanel-column-3',
+//            launchModule: 'EC.Main.controller.Weather'
+//        }
+        ];
         
         Ext.each(modulesToOpen, function(item) {
             MC.openModulePortlet(item);

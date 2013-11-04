@@ -42,13 +42,14 @@ Ext.define('EC.SysDev.view.InfoEditor', {
         allowBlank: false,
         name: 'name'
     }, {
-        fieldLabel: 'Краткое проекта',
+        fieldLabel: 'Краткое описание проекта',
         xtype: 'htmleditor',
         name: 'description',
         flex: 1
     }, {
         text: 'Детальное описание проекта',
         xtype: 'button',
+        padding: '2',
         itemId: 'full_desc-button',
         handler: function() {
             this.fireEvent("save",null);

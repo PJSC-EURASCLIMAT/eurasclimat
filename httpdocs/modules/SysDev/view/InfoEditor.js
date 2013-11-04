@@ -49,6 +49,8 @@ Ext.define('EC.SysDev.view.InfoEditor', {
     }, {
         text: 'Детальное описание проекта',
         xtype: 'button',
+        padding: 2,
+        margin: 10,
         itemId: 'full_desc-button',
         handler: function() {
             this.fireEvent("save", null);

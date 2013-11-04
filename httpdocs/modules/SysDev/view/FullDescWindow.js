@@ -25,6 +25,7 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
     data: {},
 
     tbar: [
+        '->',
         {
             text: 'Редактировать',
             itemId: 'edit-button',
@@ -32,7 +33,6 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
                 this.up('window').onEditButton();
             }
         },
-        '->',
         {
             text: 'Сохранить',
             itemId: 'save-button',

@@ -56,9 +56,9 @@ class Sysdev_ProjectDiscussions_Model
         $params['account_id']  = Xend_Accounts_Prototype::getId();
 
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'project_id'    => 'Int',
+            'content'       => 'StringTrim'
         ), array(
-            'mark_id'             => array('Id','allowEmpty' => false),
             'account_id'          => array('Id', 'allowEmpty' => false),
             'project_id'          => array('Id', 'allowEmpty' => false),
         ), $params);
@@ -75,12 +75,33 @@ class Sysdev_ProjectDiscussions_Model
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        if (class_exists('PA_Messages_Model')) {
-            $messagesClass = new PA_Messages_Model();
-            $messagesClass->add();
-        }
+        $this->_sendMessage($f->project_id, $f->content);
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    private function _sendMessage($project_id, $message)
+    {
+        if (!class_exists('PA_Messages_Model')) return;
+
+        $projectModel = new Sysdev_Projects_Model();
+
+        $response = $projectModel->getInfo($project_id);
+        if ($response->hasNotSuccess()) return;
+        $projectInfo = $response->getRow();
+        $receiver_id = intval($projectInfo['account_id']);
+        if (!$receiver_id > 0) return;
+
+        $messageBody = 'Добавлен комментарий в модуль "Разработка системы" к проекту "'
+                     . $projectInfo['name'] . '":</p><p>' . $message . '</p>';
+
+
+        $messagesModel = new PA_Messages_Model();
+        $messagesModel->add(array(
+            'sender_id'      => Xend_Accounts_Prototype::getId(),
+            'receiver_id'    => $receiver_id,
+            'message'        => $messageBody
+        ));
     }
 }

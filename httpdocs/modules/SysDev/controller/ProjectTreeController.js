@@ -390,7 +390,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
 
         tree.store.on('load', function() {
             tree.collapseAll();
-        }, this, {single: true, delay: 50});
+        }, this, {single: true, delay: 500});
         
         tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50});
 

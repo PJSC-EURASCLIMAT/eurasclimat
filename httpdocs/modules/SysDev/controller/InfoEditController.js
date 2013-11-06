@@ -216,7 +216,7 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
 
                 var infoCont = this.getController("EC.SysDev.controller.InfoController");
 
-                this.curProjectModel.set('full_desc',opts.params.full_desc);
+//                this.curProjectModel.set('full_desc',opts.params.full_desc);
 
                 infoCont.getInfo().getLoader().load({
                     params: {

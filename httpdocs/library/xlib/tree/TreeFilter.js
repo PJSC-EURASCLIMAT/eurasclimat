@@ -46,6 +46,8 @@ Ext.define('xlib.tree.TreeFilter', {
                 Ext.get(uiNode).setDisplayed('none');
             }
         }, null, [me, view]);
+
+//        me.collapseAll();
         this.doLayout();
     },
 

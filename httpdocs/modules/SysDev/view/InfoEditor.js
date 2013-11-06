@@ -23,7 +23,7 @@ Ext.define('EC.SysDev.view.InfoEditor', {
 
     defaults: {
         labelWidth: 150,
-        maxWidth: 450,
+//        maxWidth: 450,
         padding: '10 10 0 10',
         anchor: '100%',
         listeners: {
@@ -43,7 +43,7 @@ Ext.define('EC.SysDev.view.InfoEditor', {
         name: 'name'
     }, {
         fieldLabel: 'Краткое описание проекта',
-        xtype: 'htmleditor',
+        xtype: 'textarea',
         name: 'description',
         flex: 1
     }, {

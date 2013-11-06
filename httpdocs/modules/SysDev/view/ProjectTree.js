@@ -110,6 +110,42 @@ Ext.define('EC.SysDev.view.ProjectTree', {
         this.callParent();
     }
 
+//    /**
+//     * Filters the tree recursively with the given function.
+//     *
+//     * @param {Function} fn
+//     * @param {Object} [scope]
+//     */
+//    ,filterBy: function(fn, scope) {
+//        scope = scope || this;
+//
+//        function applyFilter(node) {
+//            var out = [];
+//            Ext.each(node.childNodes, function(child) {
+//                if (fn.call(scope, child)) {
+//                    applyFilter(child);
+//                } else {
+//                    // we can't remove child right away, that would
+//                    // kill the loop
+//                    out.push(child);
+//                }
+//            });
+//            Ext.each(out, function(child) {
+//                // destroy, and suppressEvent
+//                node.removeChild(child, true, true);
+//            });
+//        }
+//
+//        applyFilter(this.getRootNode());
+//    }
+//
+//    ,filterByStage: function(stage) {
+//        this.filterBy(function(record) {
+//            return record.get('stage') === String(stage);
+//        });
+//    }
+
+
 //    ,initComponent: function() {
 //
 //        this.store = Ext.getStore({

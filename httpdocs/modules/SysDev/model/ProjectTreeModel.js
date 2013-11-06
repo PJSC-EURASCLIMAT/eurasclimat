@@ -8,7 +8,12 @@ Ext.define('EC.SysDev.model.ProjectTreeModel', {
         
         { name: 'id', type: 'int', useNull: true }, 
         { name: 'name', type: 'string' }, 
-        { name: 'extended', type: 'boolean' },
+        { name: 'extended', type: 'boolean'},
+//        { name: 'expanded', type: 'boolean', defaultValue: false
+//            ,convert: function(){
+//                return false;
+//            }
+//        },
         { name: 'leaf', type: 'boolean' },
 
         { name: 'parent_id', type: 'int', useNull: true }, 

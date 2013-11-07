@@ -132,7 +132,7 @@ class Xend_File
         $newFileName = basename($filePath);
 
         // Чтобы русские буквы в именах файлов не ломались, перекодируем их
-        $filePath = iconv('UTF-8', 'cp1251', $filePath);
+//        $filePath = iconv('UTF-8', 'cp1251', $filePath);
 
         $target = fopen($filePath, 'w');
         if (!$target) {

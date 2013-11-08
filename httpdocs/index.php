@@ -5,14 +5,15 @@ ini_set('session.gc_maxlifetime', 28800);
 
 error_reporting(E_ALL | E_STRICT);
 
-define('ROOT_DIR', dirname(dirname(__FILE__)));
-define('API_DIR', ROOT_DIR . '/library');
-define('CACHE_DIR', ROOT_DIR . '/cache');
-define('MODULES_DIR', ROOT_DIR . '/modules');
-define('LAYOUT_DIR', ROOT_DIR . '/layouts');
-define('CONFIG_FILE', ROOT_DIR . '/config.xml');
-define('IMAGES_DIR', ROOT_DIR . '/httpdocs/images');
-define('FILES_DIR', ROOT_DIR . '/httpdocs/files');
+define('DOCUMENT_ROOT', dirname(__FILE__));
+define('ROOT_DIR', dirname(DOCUMENT_ROOT));
+define('API_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'library');
+define('CACHE_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'cache');
+define('MODULES_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'modules');
+define('LAYOUT_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'layouts');
+define('CONFIG_FILE', ROOT_DIR . DIRECTORY_SEPARATOR . 'config.xml');
+define('IMAGES_DIR', DOCUMENT_ROOT . DIRECTORY_SEPARATOR .'images');
+define('FILES_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'files');
 
 if (!file_exists(CONFIG_FILE)) {
     throw new Exception('Project is not configured. ' . CONFIG_FILE);

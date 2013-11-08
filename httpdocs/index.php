@@ -10,8 +10,9 @@ define('API_DIR', ROOT_DIR . '/library');
 define('CACHE_DIR', ROOT_DIR . '/cache');
 define('MODULES_DIR', ROOT_DIR . '/modules');
 define('LAYOUT_DIR', ROOT_DIR . '/layouts');
-define('IMAGES_DIR', ROOT_DIR . '/httpdocs/images');
 define('CONFIG_FILE', ROOT_DIR . '/config.xml');
+define('IMAGES_DIR', ROOT_DIR . '/httpdocs/images');
+define('FILES_DIR', ROOT_DIR . '/httpdocs/files');
 
 if (!file_exists(CONFIG_FILE)) {
     throw new Exception('Project is not configured. ' . CONFIG_FILE);

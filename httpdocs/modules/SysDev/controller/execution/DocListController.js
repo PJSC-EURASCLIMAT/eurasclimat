@@ -5,7 +5,9 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     uploadURL: '/json/sysdev/project-docs/upload',
 
     deleteGroupURL: '/json/sysdev/project-docs/delete',
-    
+
+    downloadURL: '/json/sysdev/project-docs/download',
+
     refs: [
         { ref: 'docList', selector: 'project-doc-list' } // this.getDocList()
     ],
@@ -23,7 +25,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         });
         this.control({
             'project-doc-list': {
-                deleteitem: this.onDocDelete
+                deleteitem: this.onDocDelete,
+                download: this.downloadDoc
             },
             'project-doc-list button[action=add]': {
                 click: this.onDocAdd
@@ -83,6 +86,18 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             params: {
                 project_id: this.cur_project_id
             }
+        });
+    },
+
+    downloadDoc: function(record){
+        Ext.DomHelper.append(document.body, {
+            tag: 'iframe',
+            id:'downloadIframe',
+            frameBorder: 0,
+            width: 0,
+            height: 0,
+            css: 'display:none;visibility:hidden;height:0px;',
+            src: this.downloadURL + "?id=" + record.get('id')
         });
     },
 

@@ -14,10 +14,19 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         type: 'project-doc-store'
     },
 
+    listeners: {
+        cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
+            if(cellIndex === 0){
+                this.fireEvent('download', record);
+            }
+        }
+    },
+
     columns: [{
         xtype: 'templatecolumn',
+        cls: 'download-link',
         header: 'Наименование',
-        tpl: '<a href="/json/sysdev/project-docs/download?id={id}" target="_blank" action="getdoc" >{name}</a>'
+        tpl: '<a href="#">{name}</a>'
     }, {
         header: 'Автор',
         dataIndex: 'author'

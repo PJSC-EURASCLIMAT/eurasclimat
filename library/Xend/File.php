@@ -44,7 +44,7 @@ class Xend_File
         $filePath = $dir . DIRECTORY_SEPARATOR . $fileName;
 
         if (!file_exists($dir)) {
-            mkdir($dir);
+            mkdir($dir, 0755, true);
         };
         if (file_exists($filePath)) {
 

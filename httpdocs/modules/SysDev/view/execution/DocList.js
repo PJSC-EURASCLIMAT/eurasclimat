@@ -17,7 +17,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     columns: [{
         xtype: 'templatecolumn',
         header: 'Наименование',
-        tpl: '<a href="/{url}" target="_blank" action="getdoc" >{name}</a>'
+        tpl: '<a href="/json/sysdev/project-docs/download?id={id}" target="_blank" action="getdoc" >{name}</a>'
     }, {
         header: 'Автор',
         dataIndex: 'author'

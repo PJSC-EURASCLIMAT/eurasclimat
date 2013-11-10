@@ -2,114 +2,44 @@
 
 class Xend_File
 {
-    public static function upload($dirName = '', $defaultDir)
+    public static function download($name, $path)
     {
-        if (!isset($defaultDir)) {
-           $defaultDir = true;
-        }
-        if (!isset($uniqueName)) {
-            $uniqueName = true;
-        }
-
-        $response = new Xend_Response();
-
-        $mimeType = $_SERVER['HTTP_X_FILE_TYPE'];
-        $size = $_SERVER['HTTP_X_FILE_SIZE'];
-
-        $fileName = uniqid() . '_' . $_SERVER['HTTP_X_FILE_NAME'];
-
-        if (!$uniqueName) {
-            $fileName = $_SERVER['HTTP_X_FILE_NAME'];
-        }
-
-
-        if($defaultDir){
-            $dir = empty($dirName) ? ''
-                : IMAGES_DIR . DIRECTORY_SEPARATOR . $dirName;
-        } else {
-            $dir = empty($dirName) ? ''
-                : ROOT_DIR . '/httpdocs/' . $dirName;
-        }
-
-        /*
-         * Open the file you want to save the uploaded data to.
-         * In real environment make sure, that:
-         * - the directory exists
-         * - the directory is writeable
-         * - a file with the same name does not exist
-         */
-
-        if (!file_exists($dir)) {
-            mkdir($dir);
-        }
-
-        $target = fopen($dir . DIRECTORY_SEPARATOR . $fileName, 'w');
-        if (!$target) {
-            return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
-        }
-
-        /*
-         * Open the input stream.
-         */
-        $fp = fopen('php://input', 'r');
-        $realSize = 0;
-        $data = '';
-
-        /*
-         * Read data from the input stream and write them into the file.
-         */
-        if ($fp) {
-            while (!feof($fp)) {
-                $data = fread($fp, 1024);
-                $realSize += strlen($data);
-                fwrite($target, $data);
+        if (file_exists($path)) {
+            // сбрасываем буфер вывода PHP, чтобы избежать переполнения памяти выделенной под скрипт
+            // если этого не сделать файл будет читаться в память полностью!
+            if (ob_get_level()) {
+                ob_end_clean();
             }
+            // заставляем браузер показать окно сохранения файла
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $name);
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($path));
+            // читаем файл и отправляем его пользователю
+            readfile($path);
+            exit;
         } else {
-            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            return false;
         }
-
-        fclose($target);
-        $response->fileName = $fileName;
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    public function uploadFile ($dirName = '', $defaultDir, $uniqueName)
+    public function uploadFile ($dir = FILES_DIR, $uniqueName = true)
     {
-
-        if (!isset($defaultDir)) {
-            $defaultDir = true;
-        }
-        if (!isset($uniqueName)) {
-            $uniqueName = true;
-        }
 
         $response = new Xend_Response();
 
-        $mimeType = $_SERVER['HTTP_X_FILE_TYPE'];
-        $size = $_SERVER['HTTP_X_FILE_SIZE'];
+//        $mimeType = $_SERVER['HTTP_X_FILE_TYPE'];
+//        $size = $_SERVER['HTTP_X_FILE_SIZE'];
 
-        $fileName = uniqid() . '_' . $_SERVER['HTTP_X_FILE_NAME'];
+        $fileName = uniqid();
 
         if (!$uniqueName) {
             $fileName = $_SERVER['HTTP_X_FILE_NAME'];
         }
-
-
-        if($defaultDir){
-            $dir = empty($dirName) ? ''
-                : IMAGES_DIR . DIRECTORY_SEPARATOR . $dirName;
-        } else {
-            $dir = empty($dirName) ? ''
-                : ROOT_DIR . '/httpdocs/' . $dirName;
-        }
-
-        /*
-         * Open the file you want to save the uploaded data to.
-         * In real environment make sure, that:
-         * - the directory exists
-         * - the directory is writeable
-         * - a file with the same name does not exist
-         */
 
         $filePath = $dir . DIRECTORY_SEPARATOR . $fileName;
 
@@ -128,11 +58,6 @@ class Xend_File
             }
 
         };
-
-        $newFileName = basename($filePath);
-
-        // Чтобы русские буквы в именах файлов не ломались, перекодируем их
-//        $filePath = iconv('UTF-8', 'cp1251', $filePath);
 
         $target = fopen($filePath, 'w');
         if (!$target) {
@@ -160,7 +85,8 @@ class Xend_File
         }
 
         fclose($target);
-        $response->fileName = $newFileName;
+        $response->addData('fileName', $_SERVER['HTTP_X_FILE_NAME']);
+        $response->addData('uniqueName', $fileName);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 

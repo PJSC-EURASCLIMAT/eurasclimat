@@ -74,7 +74,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $fileResponse = $fileUploader->uploadFile($fileDir);
 
         if ($fileResponse->hasNotSuccess()) {
-            $this->_collectErrors($response);
+            $this->_collectErrors($fileResponse);
         }
 
         $auth = Zend_Auth::getInstance();

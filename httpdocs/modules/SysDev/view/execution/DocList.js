@@ -16,7 +16,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
 
     listeners: {
         cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
-            if(cellIndex === 0){
+            if (cellIndex === 0) {
                 this.fireEvent('download', record);
             }
         }

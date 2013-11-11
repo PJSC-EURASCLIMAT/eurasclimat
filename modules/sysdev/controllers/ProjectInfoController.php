@@ -17,6 +17,7 @@ class Sysdev_ProjectInfoController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->sysdev->info);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'save');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-full-desc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'save-full-desc');
     }
     
@@ -45,6 +46,19 @@ class Sysdev_ProjectInfoController extends Xend_Controller_Action
         
         $this->view->success = true;
         
+    }
+
+    public function getFullDescAction()
+    {
+
+        $response = $this->_model->getFullDescription($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->data = $response->getRow();
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($response);
+        }
+
     }
 
     public function saveFullDescAction()

@@ -12,8 +12,6 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
 
     width: 600,
 
-    autoScroll: true,
-
     height: 400,
 
     layout: 'card',

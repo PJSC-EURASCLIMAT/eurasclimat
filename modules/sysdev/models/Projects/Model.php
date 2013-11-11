@@ -38,7 +38,6 @@ class Sysdev_Projects_Model
                 array('p'=>$this->_table->getTableName()),
                 array('name',
                     'description',
-                    'full_desc',
                     'account_id',
                     'date_plan_begin',
                     'date_plan_end',
@@ -64,6 +63,27 @@ class Sysdev_Projects_Model
         return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
     }
 
+    public function getFullDescription($id)
+    {
+        $response = new Xend_Response();
+
+        $id = intval($id);
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('p'=>$this->_table->getTableName()),
+                array('full_desc')
+            )
+            ->where('p.id=?', $id)
+            ->where('p.leaf = ?', 'true');
+        $row = $this->_table->getAdapter()->fetchRow($select);
+        $response->setRow($row);
+        return $response->addStatus(new Xend_Acl_Status(Xend_Acl_Status::OK));
+    }
+
     public function saveInfo(array $data)
     {
         $response = new Xend_Response();
@@ -75,7 +95,6 @@ class Sysdev_Projects_Model
             'account_id'        => 'int',
             'extended'          => 'int',
             'description'       => 'StringTrim',
-            'full_desc'       => 'StringTrim',
             'date_plan_begin'   => 'StringTrim',
             'date_plan_end'     => 'StringTrim',
             'date_fact_end'     => 'StringTrim',
@@ -98,7 +117,6 @@ class Sysdev_Projects_Model
             'date_discuss_begin'  => array(array('StringLength', 0, 19), 'allowEmpty' => true),
             'date_discuss_end'    => array(array('StringLength', 0, 19), 'allowEmpty' => true),
             'noise_level_max'     => array(array('StringLength', 0, 19), 'allowEmpty' => true),
-            'date_discuss_end'    => array(array('StringLength', 0, 19), 'allowEmpty' => true),
             'date_create'         => array(array('StringLength', 0, 19), 'allowEmpty' => true),
         ), $data);
 

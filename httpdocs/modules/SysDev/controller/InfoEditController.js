@@ -212,11 +212,17 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
             params: data,
             url: '/json/sysdev/project-info/save-full-desc',
             success: function(response, opts) {
+                var test = "a;sldfj;alsdfjasd";
+                try {
+                    Ext.JSON.decode(test)
+                } catch (e) {
+                    Ext.Msg.alert('Ошибка', 'Детальное описание не сохранено!');
+                    return false;
+                }
+
                 Ext.Msg.alert('Сообщение', 'Детальное описание успешно сохранено');
 
                 var infoCont = this.getController("EC.SysDev.controller.InfoController");
-
-//                this.curProjectModel.set('full_desc',opts.params.full_desc);
 
                 infoCont.getInfo().getLoader().load({
                     params: {
@@ -238,23 +244,43 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
         }
         data.id = this.currentProjectId;
 
-        if(this.fullDescWin === null) {
-            this.fullDescWin = Ext.create('EC.SysDev.view.FullDescWindow',{
-                data: data
-            });
-            this.fullDescWin.on("save",this.saveFullDesc,this);
-        }
+        Ext.Ajax.request({
+            params: {
+                id: data.id
+            },
+            url: '/json/sysdev/project-info/get-full-desc',
+            success: function(response, opts) {
+                try {
+                    var r = Ext.JSON.decode(response.responseText)
+                } catch (e) {
+                    Ext.Msg.alert('Ошибка', 'Не удалось открыть детальное описание!');
+                    return false;
+                }
 
-        var win = this.fullDescWin;
-        win.data = data;
-//        var form = win.down('#edit').getForm();
-//        var info = win.down('#info');
+                var winData = {
+                    id: opts.params.id,
+                    full_desc: r.data.full_desc
+                };
 
-//        form.reset();
-//        form.setValues(data);
-//        win.down('[name=full_desc]').setValue(data.full_desc);
-//        info.update(data.full_desc);
-        win.show();
+                if(this.fullDescWin === null) {
+                    this.fullDescWin = Ext.create('EC.SysDev.view.FullDescWindow',{
+                        data: winData
+                    });
+                    this.fullDescWin.on("save",this.saveFullDesc, this);
+                }
+
+                var win = this.fullDescWin;
+                win.data = winData;
+                win.show();
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось открыть детальное описание!');
+            },
+            scope: this
+        });
+
+
+
 
     }
 

@@ -2,9 +2,45 @@
 
 class Xend_File
 {
-    public static function download($name, $path)
+    protected $_table;
+
+    public function __construct()
     {
+        $this->_table = new Xend_File_Table();
+    }
+
+    public function download($id, $name = '')
+    {
+        $response = new Xend_Response();
+
+        try {
+            $rowset = $this->_table->findOne($id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        $data = $rowset->toArray();
+        $path = FILES_DIR. DIRECTORY_SEPARATOR . $data['path'];
+
+        $fileNameInfo = pathinfo($path);
+        $extension = $fileNameInfo['extension'];
+
+        if ($name == '') {
+            $name = $data['name'];
+        }
+
+        $name = $name . '.' . $extension;
+
         if (file_exists($path)) {
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            {
+                return $response->addStatus(new Xend_Status(Xend_Status::OK));
+            }
             // сбрасываем буфер вывода PHP, чтобы избежать переполнения памяти выделенной под скрипт
             // если этого не сделать файл будет читаться в память полностью!
             if (ob_get_level()) {
@@ -21,9 +57,10 @@ class Xend_File
             header('Content-Length: ' . filesize($path));
             // читаем файл и отправляем его пользователю
             readfile($path);
+
             exit;
         } else {
-            return false;
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
     }
 
@@ -32,32 +69,21 @@ class Xend_File
 
         $response = new Xend_Response();
 
-//        $mimeType = $_SERVER['HTTP_X_FILE_TYPE'];
-//        $size = $_SERVER['HTTP_X_FILE_SIZE'];
+        $fileNameInfo = pathinfo($_SERVER['HTTP_X_FILE_NAME']);
 
-        $fileName = uniqid();
+        $fileName = $fileNameInfo['filename'];
+
+        $uniqFileName = uniqid().'.'.$fileNameInfo['extension'];
 
         if (!$uniqueName) {
-            $fileName = $_SERVER['HTTP_X_FILE_NAME'];
+            $uniqFileName = $_SERVER['HTTP_X_FILE_NAME'];
         }
 
-        $filePath = $dir . DIRECTORY_SEPARATOR . $fileName;
+        $filePath = $dir . DIRECTORY_SEPARATOR . $uniqFileName;
 
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);
-        };
-        if (file_exists($filePath)) {
-
-            $trigger = false;
-
-            while (!$trigger) {
-                $filePath = $this->get_unique_filename($filePath);
-                if (!file_exists($filePath)) {
-                    $trigger = true;
-                }
-            }
-
-        };
+        }
 
         $target = fopen($filePath, 'w');
         if (!$target) {
@@ -85,30 +111,39 @@ class Xend_File
         }
 
         fclose($target);
-        $response->addData('fileName', $_SERVER['HTTP_X_FILE_NAME']);
-        $response->addData('uniqueName', $fileName);
+
+        $file_id = $this->_save($uniqFileName, $fileName);
+
+        if (!$file_id) {
+            return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+
+
+        $response->addData('file_id', $file_id);
+        $response->addData('fileName', $fileName);
+//        $response->addData('uniqueName', $fileName);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    protected function get_unique_filename($name) {
-        $name = $this->upcount_name($name);
-        return $name;
-    }
-
-
-    protected function upcount_name_callback($matches) {
-        $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
-        $ext = isset($matches[2]) ? $matches[2] : '';
-        return ' ('.$index.')'.$ext;
-    }
-
-    protected function upcount_name($name) {
-        return preg_replace_callback(
-            '/(?:(?: \(([\d]+)\))?(\.[^.]+))?$/',
-            array($this, 'upcount_name_callback'),
-            $name,
-            1
+    /**
+     * Save info about file to database table
+     * */
+    private function _save($path, $name) {
+        $data = array(
+            'path' => $path,
+            'name' => $name,
+            'date' => date('Y-m-d H:i:s'),
         );
+
+        try {
+            $id = $this->_table->insert($data);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
+        return $id;
     }
 
     public function uploadThumbnail($dirName = '', $fileName = '', $formFileName = 'photo')

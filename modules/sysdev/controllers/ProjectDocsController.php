@@ -43,15 +43,15 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             $this->_collectErrors($response);
             return;
         }
-
         $data = $response->getRowset();
-        $path = $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'] . DIRECTORY_SEPARATOR . $data['url'];
-
-        $download = Xend_File::download($data['name'],$path);
-
-        if (false == $download) {
-            $this->view->success = false;
+//        $path = $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'] . DIRECTORY_SEPARATOR . $data['url'];
+        $file = new Xend_File();
+        $download = $file->download($data['file_id'], $data['name']);
+        if ($download->isError()) {
+            $this->_collectErrors($download);
+            return;
         }
+        $this->view->success = true;
 
     }
 
@@ -69,9 +69,9 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
         $fileUploader = new Xend_File();
 
-        $fileDir =  $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'];
+//        $fileDir =  $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'];
 
-        $fileResponse = $fileUploader->uploadFile($fileDir);
+        $fileResponse = $fileUploader->uploadFile();
 
         if ($fileResponse->hasNotSuccess()) {
             $this->_collectErrors($fileResponse);
@@ -81,8 +81,8 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $identity = $auth->getIdentity();
 
         $data['account_id'] = $identity->id;
+        $data['file_id'] = $fileResponse->__get('file_id');
         $data['name'] = $fileResponse->__get('fileName');
-        $data['url'] = $fileResponse->__get('uniqueName');
         $data['date_create'] = date('Y-m-d H:i:s');
 
         $modResponse = $this->_model->add($data);

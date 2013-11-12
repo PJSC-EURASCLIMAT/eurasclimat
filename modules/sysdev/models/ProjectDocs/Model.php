@@ -30,14 +30,19 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d'=>$this->_table->getTableName()),
-                array('id', 'name', 'project_id', 'date_create', 'account_id', 'url')
+                array('id', 'name', 'project_id', 'file_id', 'account_id')
             )
             ->join(
                 array('a' => 'accounts'),
                 'a.id=d.account_id',
                 array('author' => 'name')
             )
-            ->order('d.date_create ASC');
+            ->join(
+                array('f' => 'files'),
+                'f.id=d.file_id',
+                array('date_create' => 'date')
+            )
+            ->order('f.date ASC');
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -120,45 +125,37 @@ class Sysdev_ProjectDocs_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    /**
-     * Fetch account information by id
-     *
-     * @param int $id    The account id
-     * @return Xend_Response
-     * <code> array(
-     *     'rowset' => Zend_Db_Table_Row | null
-     * )
-     * </code>
-     */
+
     public function getById($id)
     {
         $response = new Xend_Response();
         $validate = new Xend_Validate_Id();
         if (!$validate->isValid($id)) {
-            return $response->addStatus(new Xend_Accounts_Status(
-                Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         try {
             $rowset = $this->_table->findOne($id);
-            $status = Xend_Accounts_Status::OK;
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = Xend_Accounts_Status::DATABASE_ERROR;
-            return $response->addStatus(new Xend_Accounts_Status($status));
+            $status = Xend_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Status($status));
         }
 
         if (!is_null($rowset)) {
             $rowset = $rowset->toArray();
         } elseif (empty($rowset)) {
-            $rowset = array();
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
         $response->rowset = $rowset;
         $response->setRowset($rowset);
-        return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
 

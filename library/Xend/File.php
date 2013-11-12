@@ -64,7 +64,7 @@ class Xend_File
         }
     }
 
-    public function uploadFile ($dir = FILES_DIR, $uniqueName = true)
+    public function uploadFile($dir = FILES_DIR, $uniqueName = true)
     {
 
         $response = new Xend_Response();
@@ -73,7 +73,7 @@ class Xend_File
 
         $fileName = $fileNameInfo['filename'];
 
-        $uniqFileName = uniqid().'.'.$fileNameInfo['extension'];
+        $uniqFileName = uniqid() . '.' . $fileNameInfo['extension'];
 
         if (!$uniqueName) {
             $uniqFileName = $_SERVER['HTTP_X_FILE_NAME'];

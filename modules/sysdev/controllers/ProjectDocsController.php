@@ -71,14 +71,14 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
 //        $fileDir =  $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'];
 
-        $fileResponse = $fileUploader->uploadFile();
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
+        $fileResponse = $fileUploader->uploadFile(null, true, $identity->id);
 
         if ($fileResponse->hasNotSuccess()) {
             $this->_collectErrors($fileResponse);
         }
-
-        $auth = Zend_Auth::getInstance();
-        $identity = $auth->getIdentity();
 
         $data['account_id'] = $identity->id;
         $data['file_id'] = $fileResponse->__get('file_id');

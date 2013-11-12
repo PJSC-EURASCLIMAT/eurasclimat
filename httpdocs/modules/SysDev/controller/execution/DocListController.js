@@ -90,15 +90,37 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     downloadDoc: function(record){
-        Ext.DomHelper.append(document.body, {
-            tag: 'iframe',
-            id:'downloadIframe',
-            frameBorder: 0,
-            width: 0,
-            height: 0,
-            css: 'display:none;visibility:hidden;height:0px;',
-            src: this.downloadURL + "?id=" + record.get('id')
+        var url = this.downloadURL + "?id=" + record.get('id');
+        Ext.Ajax.request({
+            params: {
+                id: record.getId()
+            },
+            url: url,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+
+                if (r.success === true) {
+                    Ext.DomHelper.append(document.body, {
+                        tag: 'iframe',
+                        id:'downloadIframe',
+                        frameBorder: 0,
+                        width: 0,
+                        height: 0,
+                        css: 'display:none;visibility:hidden;height:0px;',
+                        src: url
+                    });
+                } else {
+                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                }
+
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'В ходе получения файла произошла ошибка');
+            },
+            scope: this
         });
+
+
     },
 
     onDocAdd: function() {

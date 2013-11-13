@@ -138,25 +138,24 @@ class Sysdev_ProjectDocs_Model
     public function delete($id)
     {
         $id = intval($id);
-        $response = new Xend_Response();
         if ($id == 0) {
+            $response = new Xend_Response();
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $row = $this->getById($id);
-        if ($row->isError()) {
-            $this->_collectErrors($row);
-            return;
+        $response = $this->getById($id);
+        if ($response->hasNotSuccess()) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         }
         $data = $row->getRowSet();
         $file = new Xend_File();
-        $file->deleteFile($data['file_id']);
+        $fileResponse = $file->deleteFile($data['file_id']);
 
-//        $res = $this->_table->deleteByPk($id);
-//        if (false === $res) {
-//            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-//        }
+        $res = $this->_table->deleteByPk($id);
+        if ($fileResponse->hasNotSuccess()) {
+            return $fileResponse->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
+        }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

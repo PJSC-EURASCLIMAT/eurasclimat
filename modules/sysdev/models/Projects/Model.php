@@ -521,10 +521,11 @@ class Sysdev_Projects_Model
 
         $removedNodeIds = $tree->removeNode($removedNode);
 
+        $docsModel = new Sysdev_ProjectDocs_Model();
+
         foreach ($removedNodeIds as $removedNodeId) {
-
+            $docsModel->deleteAllByProjectId($removedNodeId);
             $this->_table->delete('id = '.$removedNodeId);
-
         }
 
         $this->_saveTree($tree);

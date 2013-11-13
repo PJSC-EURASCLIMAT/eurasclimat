@@ -70,6 +70,33 @@ class Sysdev_ProjectDocs_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+    public function deleteAllByProjectId($project_id)
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('d' => $this->_table->getTableName()),
+                array('d.id',)
+            )
+            ->where('d.project_id=?', $project_id);
+
+        try {
+            $rows = $select->query()->fetchAll();
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return array();
+        }
+
+        foreach ($rows as &$row) {
+            $this->delete($row['id']);
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
     public function add($data)
     {
         $response = new Xend_Response();

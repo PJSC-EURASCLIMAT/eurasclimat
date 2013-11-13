@@ -77,10 +77,6 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             $this->_collectErrors($fileResponse);
         }
 
-        $auth = Zend_Auth::getInstance();
-        $identity = $auth->getIdentity();
-
-        $data['account_id'] = $identity->id;
         $data['file_id'] = $fileResponse->__get('file_id');
         $data['name'] = $fileResponse->__get('fileName');
 

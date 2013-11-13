@@ -30,17 +30,17 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d'=>$this->_table->getTableName()),
-                array('id', 'name', 'project_id', 'file_id')
+                array('d.id', 'd.name', 'd.project_id', 'd.file_id')
             )
             ->join(
                 array('f' => 'files'),
                 'f.id=d.file_id',
-                array('date_create' => 'date')
+                array('date_create' => 'f.date')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
                 'a.id=f.account_id',
-                array('author' => 'name')
+                array('author' => 'a.name')
             )
             ->order('f.date ASC');
 

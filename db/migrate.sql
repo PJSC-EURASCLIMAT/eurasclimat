@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS `files`;
 CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(255) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `date` timestamp NULL default CURRENT_TIMESTAMP,
   `name` varchar(255) DEFAULT NULL,
   `account_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),

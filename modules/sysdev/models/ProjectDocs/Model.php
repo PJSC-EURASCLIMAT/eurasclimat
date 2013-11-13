@@ -53,7 +53,7 @@ class Sysdev_ProjectDocs_Model
                 return $response->addStatus(new Xend_Status(
                     Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
             }
-            $select->where('d.project_id=?',$params['project_id']);
+            $select->where('d.project_id=?', $params['project_id']);
         }
 
         try {
@@ -72,16 +72,13 @@ class Sysdev_ProjectDocs_Model
 
     public function add($data)
     {
-
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            'account_id'    => 'int',
             'project_id'    => 'int',
             'file_id'       => 'int',
             'name'          => 'StringTrim'
         ), array(
-            'account_id'    => array('int', 'presence' => 'required'),
             'project_id'    => array('int', 'presence' => 'required'),
             'file_id'       => array('int', 'presence' => 'required'),
             'name'          => array('StringLength'),
@@ -91,6 +88,9 @@ class Sysdev_ProjectDocs_Model
         if ($response->hasNotSuccess()) {
             return $response;
         }
+
+        $data = $f->getData();
+        $data['account_id'] = Xend_Accounts_Prototype::getId();
 
         try {
             $id = $this->_table->insert($f->getData());
@@ -153,10 +153,7 @@ class Sysdev_ProjectDocs_Model
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $response->rowset = $rowset;
         $response->setRowset($rowset);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
-
 }

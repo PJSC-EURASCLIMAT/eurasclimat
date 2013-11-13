@@ -78,13 +78,13 @@ class Sysdev_ProjectDocs_Model
         $f = new Xend_Filter_Input(array(
             'account_id'    => 'int',
             'project_id'    => 'int',
-            'name'          => 'StringTrim',
-            'url'           => 'StringTrim',
+            'file_id'       => 'int',
+            'name'          => 'StringTrim'
         ), array(
             'account_id'    => array('int', 'presence' => 'required'),
             'project_id'    => array('int', 'presence' => 'required'),
+            'file_id'       => array('int', 'presence' => 'required'),
             'name'          => array('StringLength'),
-            'url'           => array('StringLength'),
         ), $data);
 
         $response->addInputStatus($f);

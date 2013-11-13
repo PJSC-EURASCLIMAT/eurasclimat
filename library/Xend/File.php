@@ -144,13 +144,13 @@ class Xend_File
 
         try {
             $rowset = $this->_table->findOne($id);
-            $status = Xend_Accounts_Status::OK;
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
             $status = Xend_Accounts_Status::DATABASE_ERROR;
-            return $response->addStatus(new Xend_Accounts_Status($status));
+            return $response->addStatus(new Xend_Status($status));
         }
 
         $data = $rowset->toArray();

@@ -64,7 +64,7 @@ class Xend_File
         }
     }
 
-    public function uploadFile ($dir = FILES_DIR, $uniqueName = true, $account_id)
+    public function uploadFile($dir = FILES_DIR, $uniqueName = true)
     {
         if ($dir == null) {
             $dir = FILES_DIR;
@@ -76,7 +76,7 @@ class Xend_File
 
         $fileName = $fileNameInfo['filename'];
 
-        $uniqFileName = uniqid().'.'.$fileNameInfo['extension'];
+        $uniqFileName = uniqid() . '.' . $fileNameInfo['extension'];
 
         if (!$uniqueName) {
             $uniqFileName = $_SERVER['HTTP_X_FILE_NAME'];
@@ -115,7 +115,7 @@ class Xend_File
 
         fclose($target);
 
-        $file_id = $this->_save($uniqFileName, $fileName, $account_id);
+        $file_id = $this->_save($uniqFileName, $fileName);
 
         if (!$file_id) {
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
@@ -131,11 +131,12 @@ class Xend_File
     /**
      * Save info about file to database table
      * */
-    private function _save($path, $name, $account_id) {
+    private function _save($path, $name) {
+
         $data = array(
             'path' => $path,
             'name' => $name,
-            'account_id' => $account_id,
+            'account_id' => Xend_Accounts_Prototype::getId(),
             'date' => date('Y-m-d H:i:s'),
         );
 

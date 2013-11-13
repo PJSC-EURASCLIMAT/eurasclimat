@@ -83,7 +83,6 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $data['account_id'] = $identity->id;
         $data['file_id'] = $fileResponse->__get('file_id');
         $data['name'] = $fileResponse->__get('fileName');
-        $data['date_create'] = date('Y-m-d H:i:s');
 
         $modResponse = $this->_model->add($data);
 

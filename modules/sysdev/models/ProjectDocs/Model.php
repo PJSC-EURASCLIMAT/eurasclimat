@@ -32,18 +32,15 @@ class Sysdev_ProjectDocs_Model
                 array('d'=>$this->_table->getTableName()),
                 array('id', 'name', 'project_id', 'file_id')
             )
-//            ->joinLeft(
-//                array(
-//                    'a' => 'accounts',
-//                    'f' => 'files'
-//                ),
-//                'a.id=f.account_id',
-//                array('author' => 'name')
-//            )
             ->join(
                 array('f' => 'files'),
                 'f.id=d.file_id',
                 array('date_create' => 'date')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=f.account_id',
+                array('author' => 'name')
             )
             ->order('f.date ASC');
 

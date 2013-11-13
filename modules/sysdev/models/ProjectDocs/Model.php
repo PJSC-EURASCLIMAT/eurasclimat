@@ -29,7 +29,7 @@ class Sysdev_ProjectDocs_Model
 
         $select = $this->_table->getAdapter()->select()
             ->from(
-                array('d'=>$this->_table->getTableName()),
+                array('d' => $this->_table->getTableName()),
                 array('d.id', 'd.name', 'd.project_id', 'd.file_id')
             )
             ->join(

@@ -122,11 +122,14 @@ class Sysdev_ProjectDocs_Model
             $this->_collectErrors($row);
             return;
         }
+        $data = $row->getRowSet();
+        $file = new Xend_File();
+        $file->deleteFile($data['file_id']);
 
-        $res = $this->_table->deleteByPk($id);
-        if (false === $res) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-        }
+//        $res = $this->_table->deleteByPk($id);
+//        if (false === $res) {
+//            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+//        }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

@@ -83,7 +83,9 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $modResponse = $this->_model->add($data);
 
         if ($modResponse->hasNotSuccess()) {
+            $fileUploader->deleteFile($data['file_id']);
             $this->_collectErrors($modResponse);
+            //
         } else {
             $this->view->success = true;
         }
@@ -93,32 +95,39 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
     public function deleteAction()
     {
         $id = intval($this->_getParam('id'));
+//
+//        $response = $this->_model->getById($id);
+//        if ($response->isError()) {
+//            $this->_collectErrors($response);
+//            return;
+//        }
 
-        $response = $this->_model->getById($id);
-        if ($response->isError()) {
-            $this->_collectErrors($response);
-            return;
-        }
+//        Удалять файл и все, документ удалится сам
+//        Перенести в модель
+
+//        $data = $response->getRowSet();
+//        $data['file_id']
 
         $deleteResponse = $this->_model->delete($id);
         if ($deleteResponse->isSuccess()) {
 
-            $data = $response->getRowSet();
-            if (false === $data['url'] || $data['url'] === '') {
-                $this->view->success = false;
-                return;
-            }
-            $filePath =  $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'] . DIRECTORY_SEPARATOR . $data['url'];
+//            $data = $response->getRowSet();
+//            if (false === $data['url'] || $data['url'] === '') {
+//                $this->view->success = false;
+//                return;
+//            }
+//            $filePath =  $this->_filesPath . DIRECTORY_SEPARATOR . $data['project_id'] . DIRECTORY_SEPARATOR . $data['url'];
 
 //            $filePath = ROOT_DIR .'/httpdocs'. DIRECTORY_SEPARATOR . $data['url'];
 
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
+//            if (file_exists($filePath)) {
+//                unlink($filePath);
+//            }
 
             $this->view->success = true;
 
         } else {
+
             $this->_collectErrors($deleteResponse);
         }
     }

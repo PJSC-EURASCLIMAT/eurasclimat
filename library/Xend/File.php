@@ -4,9 +4,12 @@ class Xend_File
 {
     protected $_table;
 
+    public $default_dir;
+
     public function __construct()
     {
         $this->_table = new Xend_File_Table();
+        $this->default_dir = FILES_DIR. DIRECTORY_SEPARATOR;
     }
 
     public function download($id, $name = '')
@@ -25,7 +28,7 @@ class Xend_File
         }
 
         $data = $rowset->toArray();
-        $path = FILES_DIR. DIRECTORY_SEPARATOR . $data['path'];
+        $path = $this->default_dir . $data['path'];
 
         $fileNameInfo = pathinfo($path);
         $extension = $fileNameInfo['extension'];
@@ -37,7 +40,7 @@ class Xend_File
         $name = $name . '.' . $extension;
 
         if (file_exists($path)) {
-            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
             {
                 return $response->addStatus(new Xend_Status(Xend_Status::OK));
             }
@@ -118,6 +121,7 @@ class Xend_File
         $file_id = $this->_save($uniqFileName, $fileName);
 
         if (!$file_id) {
+            $this->_removeFile($filePath);
             return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
         }
 
@@ -126,6 +130,41 @@ class Xend_File
         $response->addData('fileName', $fileName);
 //        $response->addData('uniqueName', $fileName);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    private function _removeFile($filePath) {
+        if (is_file($filePath)) {
+            unlink($filePath);
+        }
+    }
+
+    public function deleteFile($id) {
+
+        $response = new Xend_Response();
+
+        try {
+            $rowset = $this->_table->findOne($id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        $data = $rowset->toArray();
+        $path = $this->default_dir . $data['path'];
+
+        $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        $this->_removeFile($path);
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
     }
 
     /**

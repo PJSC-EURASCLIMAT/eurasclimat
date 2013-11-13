@@ -30,13 +30,16 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d'=>$this->_table->getTableName()),
-                array('id', 'name', 'project_id', 'file_id', 'account_id')
+                array('id', 'name', 'project_id', 'file_id')
             )
-            ->join(
-                array('a' => 'accounts'),
-                'a.id=d.account_id',
-                array('author' => 'name')
-            )
+//            ->joinLeft(
+//                array(
+//                    'a' => 'accounts',
+//                    'f' => 'files'
+//                ),
+//                'a.id=f.account_id',
+//                array('author' => 'name')
+//            )
             ->join(
                 array('f' => 'files'),
                 'f.id=d.file_id',
@@ -89,8 +92,8 @@ class Sysdev_ProjectDocs_Model
             return $response;
         }
 
-        $data = $f->getData();
-        $data['account_id'] = Xend_Accounts_Prototype::getId();
+//        $data = $f->getData();
+//        $data['account_id'] = Xend_Accounts_Prototype::getId();
 
         try {
             $id = $this->_table->insert($f->getData());
@@ -115,6 +118,12 @@ class Sysdev_ProjectDocs_Model
         if ($id == 0) {
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $row = $this->getById($id);
+        if ($row->isError()) {
+            $this->_collectErrors($row);
+            return;
         }
 
         $res = $this->_table->deleteByPk($id);

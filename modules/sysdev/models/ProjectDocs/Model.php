@@ -77,7 +77,7 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d' => $this->_table->getTableName()),
-                array('d.id',)
+                array('d.id')
             )
             ->where('d.project_id=?', $project_id);
 

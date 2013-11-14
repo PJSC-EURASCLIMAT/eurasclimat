@@ -65,6 +65,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             $response = new Xend_Response();
             $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
             $this->_collectErrors($response);
+            return;
         }
 
         $fileUploader = new Xend_File();
@@ -75,6 +76,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
         if ($fileResponse->hasNotSuccess()) {
             $this->_collectErrors($fileResponse);
+            return;
         }
 
         $data['file_id'] = $fileResponse->__get('file_id');
@@ -85,7 +87,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         if ($modResponse->hasNotSuccess()) {
             $fileUploader->deleteFile($data['file_id']);
             $this->_collectErrors($modResponse);
-            //
+            return;
         } else {
             $this->view->success = true;
         }

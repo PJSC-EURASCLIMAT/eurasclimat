@@ -75,6 +75,10 @@ class Xend_File
 
         $response = new Xend_Response();
 
+        if (!isset($_SERVER['HTTP_X_FILE_NAME'])) {
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
+        }
+
         $fileNameInfo = $this->_pathinfo_utf($_SERVER['HTTP_X_FILE_NAME']);
 
         $fileName = $fileNameInfo['filename'];

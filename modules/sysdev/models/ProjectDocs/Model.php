@@ -148,7 +148,7 @@ class Sysdev_ProjectDocs_Model
         if ($response->hasNotSuccess()) {
             return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         }
-        $data = $row->getRowSet();
+        $data = $response->getRowSet();
         $file = new Xend_File();
         $fileResponse = $file->deleteFile($data['file_id']);
 

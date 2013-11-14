@@ -75,8 +75,8 @@ class Xend_File
 
         $response = new Xend_Response();
 
-        $fileNameInfo = pathinfo($_SERVER['HTTP_X_FILE_NAME']);
-//        var_dump($_SERVER['HTTP_X_FILE_NAME']); die;
+        $fileNameInfo = $this->_pathinfo_utf($_SERVER['HTTP_X_FILE_NAME']);
+        var_dump($fileNameInfo); die;
 
         $fileName = $fileNameInfo['filename'];
 
@@ -321,5 +321,34 @@ class Xend_File
         }
 
         return true;
+    }
+
+    private function _pathinfo_utf($path)
+    {
+        if (strpos($path, '/') !== false) $basename = end(explode('/', $path));
+        elseif (strpos($path, '\\') !== false) $basename = end(explode('\\', $path));
+        else return false;
+        if (empty($basename)) return false;
+
+        $dirname = substr($path, 0, strlen($path) - strlen($basename) - 1);
+
+        if (strpos($basename, '.') !== false)
+        {
+          $extension = end(explode('.', $path));
+          $filename = substr($basename, 0, strlen($basename) - strlen($extension) - 1);
+        }
+        else
+        {
+          $extension = '';
+          $filename = $basename;
+        }
+
+        return array
+        (
+          'dirname' => $dirname,
+          'basename' => $basename,
+          'extension' => $extension,
+          'filename' => $filename
+        );
     }
 }

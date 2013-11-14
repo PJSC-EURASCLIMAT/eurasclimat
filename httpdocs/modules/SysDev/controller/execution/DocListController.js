@@ -143,7 +143,6 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             dialogTitle: 'Передача файлов на сервер',
             uploadUrl: this.uploadURL,
             uploadParams: {project_id: this.cur_project_id},
-            uploadExtraHeaders: {'Content-Type': 'multipart/form-data'},
             listeners: {
                 'uploadcomplete' : {
                     fn: function(upDialog, manager, items, errorCount) {

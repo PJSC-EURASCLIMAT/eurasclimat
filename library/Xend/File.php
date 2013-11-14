@@ -325,30 +325,31 @@ class Xend_File
 
     private function _pathinfo_utf($path)
     {
-        if (strpos($path, '/') !== false) $basename = end(explode('/', $path));
-        elseif (strpos($path, '\\') !== false) $basename = end(explode('\\', $path));
-        else return false;
+        if (strpos($path, DIRECTORY_SEPARATOR) !== false) {
+            $basename = explode(DIRECTORY_SEPARATOR, $path);
+            $basename = end($basename);
+        } else {
+            $basename = $path;
+        }
         if (empty($basename)) return false;
 
         $dirname = substr($path, 0, strlen($path) - strlen($basename) - 1);
 
-        if (strpos($basename, '.') !== false)
-        {
-          $extension = end(explode('.', $path));
-          $filename = substr($basename, 0, strlen($basename) - strlen($extension) - 1);
-        }
-        else
-        {
-          $extension = '';
-          $filename = $basename;
+        if (strpos($basename, '.') !== false) {
+            $extension = explode('.', $path);
+            $extension = end($extension);
+            $filename = substr($basename, 0, strlen($basename) - strlen($extension) - 1);
+        } else {
+            $extension = '';
+            $filename = $basename;
         }
 
-        return array
-        (
-          'dirname' => $dirname,
-          'basename' => $basename,
-          'extension' => $extension,
-          'filename' => $filename
+        return array(
+            'dirname' => $dirname,
+            'basename' => $basename,
+            'extension' => $extension,
+            'filename' => $filename
         );
     }
+
 }

@@ -11,18 +11,6 @@ Ext.define('App.controller.Interface.Main.About', {
         var MC = this.getController('App.controller.Main');
 
         var modulesToOpen = [{
-//            title: 'Специалисты',
-//            icon: '/images/icons/worker.png',
-//            portletHeight: 300,
-//            position: 'MainPanel-column-1',
-//            launchModule: 'EC.Main.controller.Workers'
-//        }, {
-//            title: 'Производители',
-//            icon: '/images/icons/partners.png',
-//            portletHeight: 200,
-//            position: 'MainPanel-column-1',
-//            launchModule: 'EC.Main.controller.Manufacturers'
-//        }, {
             title: 'Производителям',
             icon: '/images/icons/4manufacturers.png',
             position: 'MainPanel-column-2',
@@ -68,27 +56,32 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 340,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
+        }];
+        
+        if (location.host != 'eurasclimat') {
+            modulesToOpen.push({
+                title: 'Курсы валют',
+                icon: '/images/icons/cur_exch.png',
+                portletHeight: 200,
+                position: 'MainPanel-column-3',
+                launchModule: 'EC.Main.controller.Currency'
+            });
+            
+            modulesToOpen.push({
+                title: 'Новости',
+                icon: '/images/icons/news.png',
+                portletHeight: 200,
+                position: 'MainPanel-column-3',
+                launchModule: 'EC.Main.controller.News'
+            });
+            modulesToOpen.push({
+                title: 'Прогноз погоды',
+                icon: '/images/icons/kweather.png',
+                portletHeight: 410,
+                position: 'MainPanel-column-3',
+                launchModule: 'EC.Main.controller.Weather'
+            });
         }
-        ,{
-            title: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Currency'
-        }, {
-            title: 'Новости',
-            icon: '/images/icons/news.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.News'
-        }, {
-            title: 'Прогноз погоды',
-            icon: '/images/icons/kweather.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Weather'
-        }
-        ];
         
         Ext.each(modulesToOpen, function(item) {
             MC.openModulePortlet(item);

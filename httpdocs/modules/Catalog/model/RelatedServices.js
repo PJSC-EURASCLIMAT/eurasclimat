@@ -4,10 +4,9 @@ Ext.define('EC.Catalog.model.RelatedServices', {
    
     fields: [
         'id',
-        'code',
+        'service_id',
         'name',
-        'price',
-        'measure',
-        'term'
+        'term',
+        'price'
     ]
 });

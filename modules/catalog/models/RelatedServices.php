@@ -28,8 +28,7 @@ class Catalog_RelatedServices
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()), array(
-                    'id' => 'i.id', 's.name', 's.code', 's.measure',
-                    's.term', 's.price', 'i.service_id'
+                    'id' => 'i.id', 's.name', 'i.service_id', 'i.term', 'i.price'
                 ))
             ->join(array('s' => $this->_servicesTable->getTableName()), 's.id=i.service_id', array())
             ->where('i.item_id = (?)', $id);
@@ -48,19 +47,16 @@ class Catalog_RelatedServices
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function add($itemId, $serviceId)
+    public function add($params)
     {
-        $data = array(
-            'item_id' => $itemId,
-            'service_id' => $serviceId
-        );
-
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
             'item_id'       => array('Id', 'allowEmpty' => false),
-            'service_id'    => array('Id', 'allowEmpty' => false)
-        ), $data);
+            'service_id'    => array('Id', 'allowEmpty' => false),
+            'term'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'price'         => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+        ), $params);
 
         $response = new Xend_Response();
 
@@ -71,7 +67,7 @@ class Catalog_RelatedServices
         }
 
         try {
-            $id = $this->_table->insert($data);
+            $id = $this->_table->insert($f->getData());
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
@@ -81,6 +77,38 @@ class Catalog_RelatedServices
         }
 
         $response->id = $id;
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function update($params)
+    {
+        $f = new Xend_Filter_Input(array(
+            '*'             => 'StringTrim'
+        ), array(
+            'id'            => array('Id', 'allowEmpty' => false),
+            'service_id'    => array('Id', 'allowEmpty' => false),
+            'term'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'price'         => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+        ), $params);
+
+        $response = new Xend_Response();
+
+        $response->addInputStatus($f);
+
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $id = $this->_table->updateByPk($f->getData(), $f->id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
+        }
+
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 

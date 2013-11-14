@@ -66,6 +66,8 @@ Ext.define('EC.Catalog.controller.Heating', {
     
     addRelatedServicesURL: '/json/catalog/heating/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/heating/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/heating/delete-related-services'
     
 });

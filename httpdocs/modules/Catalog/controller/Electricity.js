@@ -67,6 +67,8 @@ Ext.define('EC.Catalog.controller.Electricity', {
     
     addRelatedServicesURL: '/json/catalog/electricity/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/electricity/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/electricity/delete-related-services'
     
 });

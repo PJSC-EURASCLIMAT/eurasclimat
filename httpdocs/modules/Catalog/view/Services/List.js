@@ -8,9 +8,7 @@ Ext.define('EC.Catalog.view.Services.List', {
     
     forceFit: true,
     
-    store: 'EC.Catalog.store.Services.List',
-    
-    permissions: acl.isUpdate('catalog', 'services'),
+    store: 'EC.Catalog.store.Services',
     
     initComponent: function() {
         
@@ -41,25 +39,9 @@ Ext.define('EC.Catalog.view.Services.List', {
         }
         
         this.columns = [{
-            header: 'Артикул работ',
-            dataIndex: 'code',
-            width: 100
-        }, {
-            header: 'Наименование работ',
+            header: 'Наименование',
             dataIndex: 'name',
             flex: 1
-        }, {
-            header: 'Ед. изм. работ',
-            dataIndex: 'measure',
-            width: 100
-        }, {
-            header: 'Сроки выполнения работ',
-            dataIndex: 'term',
-            width: 150
-        }, {
-            header: 'Цена работ',
-            dataIndex: 'price',
-            width: 100
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,

@@ -67,6 +67,8 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     addRelatedServicesURL: '/json/catalog/automation/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/automation/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/automation/delete-related-services'
     
 });

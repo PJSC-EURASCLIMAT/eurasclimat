@@ -53,14 +53,9 @@ class Catalog_Services_Model
     public function add(array $params)
     {
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'name'  => 'StringTrim'
         ), array(
-            'group_id'      => array('Id', 'allowEmpty' => false),
-            'code'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'name'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'measure'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'name'  => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required'),
         ), $params);
 
         $response = new Xend_Response();
@@ -82,15 +77,11 @@ class Catalog_Services_Model
     public function update(array $params)
     {
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            'id'    => 'Int',
+            'name'  => 'StringTrim'
         ), array(
-            'id'            => array('Id', 'presence' => 'required'),
-            'group_id'      => array('Id', 'allowEmpty' => false),
-            'code'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'name'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'measure'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'id'    => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
+            'name'  => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
         ), $params);
 
         $response = new Xend_Response();

@@ -66,6 +66,8 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     
     addRelatedServicesURL: '/json/catalog/watersupply/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/watersupply/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/watersupply/delete-related-services'
     
 });

@@ -167,16 +167,19 @@ class Catalog_AbstractController extends Xend_Controller_Action
 
     public function addRelatedServicesAction()
     {
-        $serviceId = intval($this->_getParam('serviceId'));
-        $itemId = intval($this->_getParam('itemId'));
-        if (0 == $serviceId || 0 == $itemId) {
-            $response = new Xend_Response();
-            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-            $this->_collectErrors($response);
-        }
-
         $model = new Catalog_RelatedServices($this->_entity);
-        $response = $model->add($itemId, $serviceId);
+        $response = $model->add($this->_getAllParams());
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+    }
+
+    public function editRelatedServicesAction()
+    {
+        $model = new Catalog_RelatedServices($this->_entity);
+        $response = $model->update($this->_getAllParams());
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {

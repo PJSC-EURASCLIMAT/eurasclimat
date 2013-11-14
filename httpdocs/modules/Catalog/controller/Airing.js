@@ -67,6 +67,8 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     addRelatedServicesURL: '/json/catalog/airing/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/airing/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/airing/delete-related-services'
     
 });

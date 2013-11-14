@@ -60,6 +60,10 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     onDocDelete: function(record) {
 
+        var failure = function() {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -68,12 +72,22 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                     },
                     url: this.deleteGroupURL,
                     success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.getDocList().getStore().remove(record);
+                        
+                        try {
+                            var r = Ext.JSON.decode(response.responseText);
+                        } catch (e) {
+                            failure();
+                            return;
+                        }
+
+                        if (r.success === true) {
+                            Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                            this.getDocList().getStore().load();
+                        } else {
+                            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                        }
                     },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
+                    failure: failure,
                     scope: this
                 });
             }

@@ -61,6 +61,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     addRelatedServicesURL: '/json/catalog/dustextraction/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/dustextraction/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/dustextraction/delete-related-services'
     
 });

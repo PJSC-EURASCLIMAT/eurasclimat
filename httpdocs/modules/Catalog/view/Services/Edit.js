@@ -31,25 +31,8 @@ Ext.define('EC.Catalog.view.Services.Edit', {
                 name: 'id'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Наименование работ',
+                fieldLabel: 'Наименование',
                 name: 'name'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Артикул работ',
-                name: 'code'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Ед. изм. работ',
-                name: 'measure'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Сроки выполнения работ',
-                name: 'term'
-            }, {
-                xtype: 'numberfield',
-                allowNegative: false,
-                fieldLabel: 'Цена работ',
-                name: 'price'
             }],
             buttons: [{
                 text: 'Сохранить',

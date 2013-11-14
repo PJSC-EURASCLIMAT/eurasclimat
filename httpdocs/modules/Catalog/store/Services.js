@@ -1,19 +1,15 @@
-Ext.define('EC.Catalog.store.Services.Groups', {
+Ext.define('EC.Catalog.store.Services', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.Catalog.model.Services.Groups',
-    
-    remoteSort: true,
-    
-    remoteFilter: true,
+    model: 'EC.Catalog.model.Services',
     
     autoLoad: true,
     
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/catalog/services-groups/get-list'
+            read:   '/json/catalog/services/get-list'
         },
         reader: {
             type: 'json',

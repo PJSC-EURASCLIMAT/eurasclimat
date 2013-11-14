@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.model.Services.Groups', {
+Ext.define('EC.Catalog.model.Services', {
 
     extend: 'Ext.data.Model',
    

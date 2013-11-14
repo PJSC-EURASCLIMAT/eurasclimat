@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.RelatedServices', {
+Ext.define('EC.Catalog.view.RelatedServices.List', {
     
     extend: 'Ext.grid.Panel',
     
@@ -31,7 +31,7 @@ Ext.define('EC.Catalog.view.RelatedServices', {
         this.tbar = new Ext.Toolbar({
             items: [{
                 text: 'Добавить',
-                tooltip: 'Добавить услугу из каталога услуг',
+                tooltip: 'Добавить услугу',
                 iconCls: 'add',
                 action: 'add',
                 hidden: !this.allowEdit,
@@ -49,6 +49,16 @@ Ext.define('EC.Catalog.view.RelatedServices', {
         if (this.allowEdit) {
             
             actions.push({
+                icon: '/images/icons/fam/plugin.gif',
+                tooltip: 'Редактировать услугу',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('editservice', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить услугу',
                 iconCls: 'x-btn',
@@ -60,23 +70,15 @@ Ext.define('EC.Catalog.view.RelatedServices', {
         }
         
         this.columns = [{
-            header: 'Артикул работ',
-            dataIndex: 'code',
-            width: 100
-        }, {
-            header: 'Наименование работ',
+            header: 'Наименование',
             dataIndex: 'name',
             flex: 1
         }, {
-            header: 'Ед. изм. работ',
-            dataIndex: 'measure',
-            width: 100
-        }, {
-            header: 'Сроки выполнения работ',
+            header: 'Срок выполнения',
             dataIndex: 'term',
-            width: 150
+            width: 300
         }, {
-            header: 'Цена работ',
+            header: 'Цена',
             dataIndex: 'price',
             width: 100
         }, {

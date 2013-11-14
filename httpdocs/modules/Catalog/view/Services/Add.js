@@ -14,8 +14,6 @@ Ext.define('EC.Catalog.view.Services.Add', {
     
     width: 800,
     
-    groupID: null,
-    
     initComponent: function() {
         
         this.items = [{
@@ -29,31 +27,10 @@ Ext.define('EC.Catalog.view.Services.Add', {
                 anchor: '100%'
             },
             items: [{
-                xtype: 'hidden',
-                name: 'group_id',
-                value: this.groupID
-            }, {
                 xtype: 'textfield',
-                fieldLabel: 'Наименование работ',
-                allowBlank: true,
+                fieldLabel: 'Наименование',
+                allowBlank: false,
                 name: 'name'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Артикул работ',
-                name: 'code'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Ед. изм. работ',
-                name: 'measure'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Сроки выполнения работ',
-                name: 'term'
-            }, {
-                xtype: 'numberfield',
-                allowNegative: false,
-                fieldLabel: 'Цена работ',
-                name: 'price'
             }],
             buttons: [{
                 text: 'Сохранить',

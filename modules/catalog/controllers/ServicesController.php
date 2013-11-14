@@ -16,7 +16,7 @@ class Catalog_ServicesController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->services);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');

@@ -11,6 +11,16 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
         var MC = this.getController('App.controller.Main');
         
         container.on('show', function() {
+            if (acl.isView('admin')) {
+                MC.openModulePortlet({
+                    text: 'СПИСОК УСЛУГ',
+                    title: 'Список услуг',
+                    icon: '/images/icons/catalog.png',
+                    portletHeight: 400,
+                    position: 'CatalogPanel-column-1',
+                    launchModule: 'EC.Catalog.controller.Services'
+                });
+            }
             MC.openModulePortlet({
                 text: 'КАТАЛОГ ТОВАРОВ',
                 title: 'Каталог товаров',
@@ -49,7 +59,17 @@ Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
             portletHeight: 400,
             position: 'CatalogPanel-column-1',
             launchModule: 'EC.Catalog.controller.Catalog',
-            hidden: !acl.isView('catalog'),
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {
+            text: 'СПИСОК УСЛУГ',
+            title: 'Список услуг',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'CatalogPanel-column-1',
+            hidden: !acl.isView('admin'),
+            launchModule: 'EC.Catalog.controller.Services',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

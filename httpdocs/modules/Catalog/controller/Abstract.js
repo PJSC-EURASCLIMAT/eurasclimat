@@ -12,7 +12,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     uses: [
         'EC.Catalog.view.Images',
-        'EC.Catalog.view.RelatedServices',
+        'EC.Catalog.view.RelatedServices.List',
+        'EC.Catalog.view.RelatedServices.Edit',
+        'EC.Catalog.view.Services.Combo',
         'EC.Catalog.view.FilterMark',
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
@@ -56,6 +58,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
     getRelatedServicesURL: null,
     
     addRelatedServicesURL: null,
+    
+    editRelatedServicesURL: null,
     
     deleteRelatedServicesURL: null,
     
@@ -356,6 +360,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 deleteservice: function(view, record) {
                     this.onDeleteService(record.get('id'), catalogRelatedServicesPanel);
                 },
+                editservice: function(view, record) {
+                    this.onEditService(record, catalogRelatedServicesPanel);
+                },
                 scope: this
             });
             
@@ -515,71 +522,81 @@ Ext.define('EC.Catalog.controller.Abstract', {
         });
     },
     
-    onAddService: function(id, panel) {
+    onAddService: function(itemId, panel) {
         
-        var servicesWindow = Ext.create('Ext.window.Window', {
+        var f = Ext.create('EC.Catalog.view.RelatedServices.Edit'),
+            w = Ext.create('Ext.window.Window', {
             title: 'Добавление услуги к товару',
             modal: true,
-            width: 1000,
-            height: 400,
+            width: 400,
             autoShow: true,
             layout: 'fit',
             border: false,
+            items: [f],
             buttons: [{
-                text: 'Добавить услугу',
-                action: 'addservice'
+                text: 'Сохранить',
+                handler: function() {
+                    f.getForm().submit({
+                        url: this.addRelatedServicesURL,
+                        params: {item_id: itemId},
+                        success: function(response, opts) {
+                            panel.setActive(true);
+                            w.close();
+                        },
+                        failure: function(response, opts) {
+                            Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
+                        },
+                        scope: this
+                    });
+                },
+                scope: this
             }, {
                 text: 'Отменить',
                 scope: this,
                 handler: function() {
-                    servicesWindow.close();
+                    w.close();
+                }
+            }]
+        });
+    },
+    
+    onEditService: function(record, panel) {
+        
+        var f = Ext.create('EC.Catalog.view.RelatedServices.Edit'),
+            w = Ext.create('Ext.window.Window', {
+            title: 'Редактирование услуги к товару',
+            modal: true,
+            width: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false,
+            items: [f],
+            buttons: [{
+                text: 'Сохранить',
+                handler: function() {
+                    f.getForm().submit({
+                        url: this.editRelatedServicesURL,
+                        success: function(response, opts) {
+                            panel.setActive(true);
+                            w.close();
+                        },
+                        failure: function(response, opts) {
+                            Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
+                        },
+                        scope: this
+                    });
+                },
+                scope: this
+            }, {
+                text: 'Отменить',
+                scope: this,
+                handler: function() {
+                    w.close();
                 }
             }]
         });
         
-        var servicesWidget = this.getController('EC.Catalog.controller.Services');
-        
-        servicesWidget.run(servicesWindow);
-        
-        var grid = servicesWindow.down('ServicesList');
-        
-        servicesWindow.down('button[action=addservice]').on({
-            click: function() {
-                var rows = grid.getSelectionModel().getSelection();
-                if (0 == rows.length) {
-                    return;
-                }
-                this.saveService(rows[0].get('id'), id, panel);
-                servicesWindow.close();
-            },
-            scope: this
-        });
-        
-        grid.on({
-            itemdblclick: function(g, record) {
-                this.saveService(record.get('id'), id, panel);
-                servicesWindow.close();
-            },
-            scope: this
-        });
-    },
-    
-    saveService: function(serviceId, itemId, panel) {
-        
-        Ext.Ajax.request({
-            params: {
-                serviceId: serviceId,
-                itemId: itemId
-            },
-            url: this.addRelatedServicesURL,
-            success: function(response, opts) {
-                panel.setActive(true);
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
-            },
-            scope: this
-        });
+        f.getForm().loadRecord(record);
     },
     
     onDeleteService: function(id, panel) {

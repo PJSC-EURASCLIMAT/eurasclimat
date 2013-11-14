@@ -66,6 +66,8 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     addRelatedServicesURL: '/json/catalog/conditioners/add-related-services',
     
+    editRelatedServicesURL: '/json/catalog/conditioners/edit-related-services',
+    
     deleteRelatedServicesURL: '/json/catalog/conditioners/delete-related-services'
 
 });

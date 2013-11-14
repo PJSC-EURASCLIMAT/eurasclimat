@@ -76,7 +76,6 @@ class Xend_File
         $response = new Xend_Response();
 
         $fileNameInfo = $this->_pathinfo_utf($_SERVER['HTTP_X_FILE_NAME']);
-        var_dump($fileNameInfo); die;
 
         $fileName = $fileNameInfo['filename'];
 

@@ -58,10 +58,13 @@ Ext.define('xlib.upload.uploader.ExtJsUploader', {
 
         this.conn = this.initConnection();
 
+        var headers = this.initHeaders(item);
+        
         this.conn.request({
             scope : this,
-            headers : this.initHeaders(item),
+            headers : headers,
             xmlData : file,
+            params: headers,
 
             success : Ext.Function.bind(this.onUploadSuccess, this, [
                     item

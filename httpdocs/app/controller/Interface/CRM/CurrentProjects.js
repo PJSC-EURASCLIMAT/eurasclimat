@@ -17,9 +17,11 @@ Ext.define('App.controller.Interface.CRM.CurrentProjects', {
         
         var MC = this.getController('App.controller.Main');
 
-        container.on('show', function() {
-            MC.openModulePortlet(this.modules[0]);
-        }, this, {single: true});
+        if (location.host != 'eurasclimat') {
+            container.on('show', function() {
+                MC.openModulePortlet(this.modules[0]);
+            }, this, {single: true});
+        }
     },
     
     getMenu: function() {

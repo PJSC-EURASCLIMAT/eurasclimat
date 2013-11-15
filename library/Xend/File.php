@@ -70,26 +70,30 @@ class Xend_File
     public function uploadFile($dir = FILES_DIR, $uniqueName = true)
     {
 
-        //die(print_r($_SERVER));
+//        die(print_r($_SERVER));
 
         if ($dir == null) {
             $dir = FILES_DIR;
         }
 
+        $FILENAME = isset($_SERVER['HTTP_X_FILE_NAME'])
+                  ? $_SERVER['HTTP_X_FILE_NAME']
+                  : isset($_GET['X-File-Name']) ? $_GET['X-File-Name'] : '';
+
         $response = new Xend_Response();
 
-        if (!isset($_SERVER['HTTP_X_FILE_NAME'])) {
+        if (empty($FILENAME)) {
             return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
-        $fileNameInfo = $this->_pathinfo_utf($_SERVER['HTTP_X_FILE_NAME']);
+        $fileNameInfo = $this->_pathinfo_utf($FILENAME);
 
         $fileName = $fileNameInfo['filename'];
 
         $uniqFileName = uniqid() . '.' . $fileNameInfo['extension'];
 
         if (!$uniqueName) {
-            $uniqFileName = $_SERVER['HTTP_X_FILE_NAME'];
+            $uniqFileName = $FILENAME;
         }
 
         $filePath = $dir . DIRECTORY_SEPARATOR . $uniqFileName;

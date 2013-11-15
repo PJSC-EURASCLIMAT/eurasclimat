@@ -69,6 +69,9 @@ class Xend_File
 
     public function uploadFile($dir = FILES_DIR, $uniqueName = true)
     {
+
+        //die(print_r($_SERVER));
+
         if ($dir == null) {
             $dir = FILES_DIR;
         }

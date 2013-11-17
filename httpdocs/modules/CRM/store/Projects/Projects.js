@@ -1,14 +1,12 @@
-Ext.define('EC.CRM.store.Projects', {
+Ext.define('EC.CRM.store.Projects.Projects', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.CRM.model.Projects',
-    
-    remoteSort: true,
-    
-    remoteFilter: true,
+    model: 'EC.CRM.model.Projects.Projects',
     
     autoLoad: true,
+    
+    groupField: 'group_name',
     
     proxy: {
         type: 'ajax',

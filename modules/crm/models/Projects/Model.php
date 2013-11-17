@@ -22,17 +22,22 @@ class Crm_Projects_Model
         $response = new Xend_Response();
 
         $accountsTable = new Xend_Accounts_Table_Accounts();
+        $groupsTable = new Crm_Projects_Groups_Table();
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('p' => $this->_table->getTableName()), array(
                 'id'            => 'p.id',
+                'group_id'      => 'p.group_id',
+                'group_name'    => 'g.name',
                 'name'          => 'p.name',
                 'created_date'  => 'p.created_date',
                 'creator_id'    => 'p.creator_id',
                 'creator_name'  => 'a.name'
             ))
-            ->join(array('a' => $accountsTable->getTableName()),
-                'a.id=p.creator_id', array());
+            ->joinLeft(array('a' => $accountsTable->getTableName()),
+                'a.id=p.creator_id', array())
+            ->join(array('g' => $groupsTable->getTableName()),
+                'g.id=p.group_id', array());
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -73,7 +78,8 @@ class Crm_Projects_Model
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'group_id'  => array('Id', 'allowEmpty' => false),
+            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false)
         ), $params);
 
         $response = new Xend_Response();
@@ -85,6 +91,7 @@ class Crm_Projects_Model
 
         $data = array (
             'name'          => $f->getEscaped('name'),
+            'group_id'      => $f->group_id,
             'creator_id'    => Xend_Accounts_Prototype::getId()
         );
 
@@ -100,10 +107,11 @@ class Crm_Projects_Model
     public function update(array $params)
     {
         $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
+            '*'         => 'StringTrim'
         ), array(
-            'id'            => array('Id', 'presence' => 'required'),
-            'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'id'        => array('Id', 'presence' => 'required'),
+            'group_id'  => array('Id', 'allowEmpty' => false),
+            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false)
         ), $params);
 
         $response = new Xend_Response();

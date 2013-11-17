@@ -6,9 +6,21 @@ Ext.define('EC.CRM.view.Projects.List', {
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Projects',
+    store: 'EC.CRM.store.Projects.Projects',
     
     permissions: acl.isUpdate('crm', 'projects'),
+    
+    requires: [
+        'Ext.grid.feature.Grouping'
+    ],
+    
+    features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '{name} ({children.length})',
+        hideGroupedHeader: true,
+        startCollapsed: true,
+        id: 'ProjectsGrouping'
+    }],
     
     initComponent: function() {
         
@@ -49,11 +61,29 @@ Ext.define('EC.CRM.view.Projects.List', {
         }
         
         this.columns = [{
-            header: 'Имя проекта',
+            header: 'Проект',
             dataIndex: 'name',
             flex: .5
         }, {
-            header: 'Инициатор',
+            text: 'Формирование',
+            columns: [{
+                text: 'Подготовка',
+                xtype: 'datecolumn'
+            }, {
+                text: 'Согласование',
+                xtype: 'datecolumn'
+            }]
+        }, {
+            text: 'Исполнение',
+            columns: [{
+                text: 'Выполнение',
+                xtype: 'datecolumn'
+            }, {
+                text: 'Внедрение',
+                xtype: 'datecolumn'
+            }]
+        }, {
+            header: 'Менеджер проекта',
             dataIndex: 'creator_name',
             flex: .5
         }, {
@@ -74,6 +104,13 @@ Ext.define('EC.CRM.view.Projects.List', {
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'
+        }, {
+            xtype: 'button',
+            text: 'Список групп',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            action: 'groupslist'
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

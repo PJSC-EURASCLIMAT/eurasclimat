@@ -1,34 +1,34 @@
-Ext.define('EC.Catalog.controller.Services', {
+Ext.define('EC.CRM.controller.ProjectsGroups', {
     
     extend: 'Ext.app.Controller',
     
-    stores: ['EC.Catalog.store.Services'],
+    stores: ['EC.CRM.store.Projects.Groups'],
     
-    models: ['EC.Catalog.model.Services'],
+    models: ['EC.CRM.model.Projects.Groups'],
     
     views: [
-        'EC.Catalog.view.Services.List'
+        'EC.CRM.view.Projects.Groups.List'
     ],
     
     permissions: acl.isUpdate('admin'),
     
-    addURL: '/json/catalog/services/add',
+    addURL: '/json/crm/projects-groups/add',
     
-    editURL: '/json/catalog/services/update',
+    editURL: '/json/crm/projects-groups/update',
     
-    deleteURL: '/json/catalog/services/delete',
+    deleteURL: '/json/crm/projects-groups/delete',
     
     run: function(container) {
 
         this.Container = container; 
         
-        var servicesPanel = container.add(Ext.create('EC.Catalog.view.Services.List', {
+        var servicesPanel = container.add(Ext.create('EC.CRM.view.Projects.Groups.List', {
             permissions: this.permissions
         }));
         
         servicesPanel.down('button[action=refresh]').on({
             click: function() {
-                this.getStore('EC.Catalog.store.Services').load();
+                this.getStore('EC.CRM.store.Projects.Groups').load();
             },
             scope: this
         });
@@ -48,7 +48,7 @@ Ext.define('EC.Catalog.controller.Services', {
             
             this.on({
                 'itemSaved': function() {
-                    this.getStore('EC.Catalog.store.Services').load();
+                    this.getStore('EC.CRM.store.Projects.Groups').load();
                 },
                 scope: this
             }, this);
@@ -58,7 +58,7 @@ Ext.define('EC.Catalog.controller.Services', {
     
     addItem: function() {
         
-        var view = Ext.create('EC.Catalog.view.Services.Add');
+        var view = Ext.create('EC.CRM.view.Projects.Groups.Edit');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.addURL);
@@ -69,7 +69,7 @@ Ext.define('EC.Catalog.controller.Services', {
     
     editItem: function(grid, record) {
         
-        var view = Ext.create('EC.Catalog.view.Services.Edit');
+        var view = Ext.create('EC.CRM.view.Projects.Groups.Edit');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.editURL);

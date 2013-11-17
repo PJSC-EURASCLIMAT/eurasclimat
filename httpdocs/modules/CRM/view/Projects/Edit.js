@@ -29,6 +29,10 @@ Ext.define('EC.CRM.view.Projects.Edit', {
                 xtype: 'hidden',
                 name: 'id'
             }, {
+                xtype: 'projectsGroupsCombo',
+                fieldLabel: 'Группа',
+                name: 'group_id'
+            }, {
                 xtype: 'textfield',
                 fieldLabel: 'Имя',
                 name: 'name'
@@ -40,20 +44,21 @@ Ext.define('EC.CRM.view.Projects.Edit', {
                 xtype: 'displayfield',
                 fieldLabel: 'Инициатор',
                 name: 'creator_name'
-            }],
-            buttons: [{
-                text: 'Конфигурировать проект',
-                icon: '/images/icons/fam/cog.gif',
-                action: 'configure'
-            }, '->', {
-                text: 'Сохранить',
-                formBind: true,
-                action: 'save'
-            }, {
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
             }]
+        }];
+        
+        this.buttons = [{
+            text: 'Конфигурировать проект',
+            icon: '/images/icons/fam/cog.gif',
+            action: 'configure'
+        }, '->', {
+            text: 'Сохранить',
+            formBind: true,
+            action: 'save'
+        }, {
+            text: 'Отменить',
+            scope: this,
+            handler: this.close
         }];
 
         this.callParent(arguments);

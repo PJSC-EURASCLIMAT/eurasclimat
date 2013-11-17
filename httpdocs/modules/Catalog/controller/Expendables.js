@@ -199,6 +199,10 @@ Ext.define('EC.Catalog.controller.Expendables', {
     
     deleteGroup: function(grid, record) {
         
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -207,12 +211,14 @@ Ext.define('EC.Catalog.controller.Expendables', {
                     },
                     url: this.deleteGroupURL,
                     success: function(response, opts) {
+                        if (!response.responseText || response.responseText.success != true) {
+                            failureFn(arguments);
+                            return;
+                        }
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('groupSaved');
                     },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
+                    failure: failureFn,
                     scope: this
                 });
             }
@@ -305,6 +311,10 @@ Ext.define('EC.Catalog.controller.Expendables', {
     
     deleteItem: function(grid, record) {
         
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -313,12 +323,14 @@ Ext.define('EC.Catalog.controller.Expendables', {
                     },
                     url: this.deleteURL,
                     success: function(response, opts) {
+                        if (!response.responseText || response.responseText.success != true) {
+                            failureFn(arguments);
+                            return;
+                        }
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');
                     },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
+                    failure: failureFn,
                     scope: this
                 });
             }

@@ -139,6 +139,10 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     
     deleteItem: function(grid, record) {
         
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -147,12 +151,14 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
                     },
                     url: this.deleteURL,
                     success: function(response, opts) {
+                        if (!response.responseText || response.responseText.success != true) {
+                            failureFn(arguments);
+                            return;
+                        }
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');
                     },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
+                    failure: failureFn,
                     scope: this
                 });
             }

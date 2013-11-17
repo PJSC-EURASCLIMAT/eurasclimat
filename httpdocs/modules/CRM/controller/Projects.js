@@ -3,17 +3,24 @@ Ext.define('EC.CRM.controller.Projects', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.CRM.store.Projects'
+        'EC.CRM.store.Projects.Projects',
+        'EC.CRM.store.Projects.Groups'
     ],
     
     models: [
-        'EC.CRM.model.Projects'
+        'EC.CRM.model.Projects.Projects',
+        'EC.CRM.model.Projects.Groups'
     ],
     
     views: [
         'EC.CRM.view.Projects.List',
         'EC.CRM.view.Projects.Add',
-        'EC.CRM.view.Projects.Edit'
+        'EC.CRM.view.Projects.Edit',
+        'EC.CRM.view.Projects.Groups.Combo'
+    ],
+    
+    uses: [
+        'EC.CRM.controller.ProjectsGroups'
     ],
     
     projectID: null,
@@ -50,6 +57,11 @@ Ext.define('EC.CRM.controller.Projects', {
                 scope: this
             });
             
+            grid.down('button[action=groupslist]').on({
+                click: this.showGroups,
+                scope: this
+            });
+            
             grid.on({
                 configure: this.configureItem,
                 edititem: this.editItem,
@@ -65,6 +77,28 @@ Ext.define('EC.CRM.controller.Projects', {
             }, this);
         }
         
+    },
+    
+    showGroups: function() {
+        
+        var w = Ext.create('Ext.window.Window', {
+            title: 'Список групп проектов',
+            modal: true,
+            width: 400,
+            height: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false,
+            buttons: [{
+                text: 'Закрыть',
+                scope: this,
+                handler: function() {
+                    w.close();
+                }
+            }]
+        });
+        
+        this.getController('EC.CRM.controller.ProjectsGroups').run(w);
     },
     
     addItem: function() {
@@ -106,6 +140,10 @@ Ext.define('EC.CRM.controller.Projects', {
     
     deleteItem: function(grid, record) {
         
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -114,12 +152,14 @@ Ext.define('EC.CRM.controller.Projects', {
                     },
                     url: this.deleteURL,
                     success: function(response, opts) {
+                        if (!response.responseText || response.responseText.success != true) {
+                            failureFn(arguments);
+                            return;
+                        }
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');
                     },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
+                    failure: failureFn,
                     scope: this
                 });
             }

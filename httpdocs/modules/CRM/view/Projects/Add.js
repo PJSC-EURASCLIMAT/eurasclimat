@@ -26,6 +26,10 @@ Ext.define('EC.CRM.view.Projects.Add', {
                 anchor: '100%'
             },
             items: [{
+                xtype: 'projectsGroupsCombo',
+                fieldLabel: 'Группа',
+                name: 'group_id'
+            }, {
                 xtype: 'textfield',
                 fieldLabel: 'Имя',
                 name: 'name'
@@ -37,18 +41,19 @@ Ext.define('EC.CRM.view.Projects.Add', {
                 xtype: 'displayfield',
                 fieldLabel: 'Инициатор',
                 value: xlib.Acl.Storage.getIdentity().name
-            }],
-            buttons: [{
-                text: 'Сохранить',
-                formBind: true,
-                action: 'save'
-            }, {
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
             }]
         }];
 
+        this.buttons = [{
+            text: 'Сохранить',
+            formBind: true,
+            action: 'save'
+        }, {
+            text: 'Отменить',
+            scope: this,
+            handler: this.close
+        }];
+        
         this.callParent(arguments);
     }
 });

@@ -151,9 +151,13 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
                     },
                     url: this.deleteURL,
                     success: function(response, opts) {
-                        if (!response.responseText || response.responseText.success != true) {
-                            failureFn(arguments);
-                            return;
+                        try {
+                            var r = Ext.decode(response.responseText);
+                            if (!r.success) {
+                                return failureFn(arguments);
+                            }
+                        } catch(e) {
+                            return failureFn(arguments);
                         }
                         Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');

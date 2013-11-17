@@ -136,7 +136,6 @@ class Crm_Projects_Model
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
-
         $res = $this->_table->deleteByPk($id);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));

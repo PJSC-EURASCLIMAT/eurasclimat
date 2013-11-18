@@ -1,0 +1,78 @@
+Ext.define('EC.CRM.controller.ProjectEdit', {
+    
+    extend: 'Ext.app.Controller',
+    
+    stores: [
+        'EC.CRM.store.Projects.Projects',
+        'EC.CRM.store.Projects.Groups'
+    ],
+    
+    models: [
+        'EC.CRM.model.Projects.Projects',
+        'EC.CRM.model.Projects.Groups'
+    ],
+    
+    views: [
+        'EC.CRM.view.Projects.EditLayout',
+        'EC.CRM.view.Projects.Groups.Combo'
+    ],
+    
+    uses: [
+        'EC.CRM.controller.ProjectsGroups',
+        'EC.CRM.controller.Configurator'
+    ],
+    
+    projectID: null,
+    
+    permissions: acl.isUpdate('crm', 'projects'),
+    
+    editURL: '/json/crm/projects/update',
+    
+    run: function(container) {
+
+        if (!this.projectID) {
+            throw 'The project ID must be set!';
+        }
+        
+        this.Container = Ext.create('EC.CRM.view.Projects.EditLayout');
+        
+        var configurator = this.getController('EC.CRM.controller.Configurator');
+        
+        configurator.projectID = this.projectID;
+        
+        configurator.run(this.Container.down('#configuratorPanel'));
+    },
+
+    configureItem: function(grid, record) {
+
+        var app = this.getController('EC.CRM.controller.Configurator');
+        app.run(record.get('id'), record.get('name'));
+    },
+    
+    updateItem: function(view, URL) {
+        
+        var form = view.down('form');
+        
+        form.submit({
+            url: URL,
+            success: function(form, action) {
+                view.close();
+                this.fireEvent('itemSaved');
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+               }
+            },
+            scope: this
+        });
+    }
+    
+});

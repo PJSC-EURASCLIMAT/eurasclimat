@@ -15,15 +15,13 @@ Ext.define('EC.CRM.controller.Projects', {
     views: [
         'EC.CRM.view.Projects.List',
         'EC.CRM.view.Projects.Add',
-        'EC.CRM.view.Projects.Edit',
         'EC.CRM.view.Projects.Groups.Combo'
     ],
     
     uses: [
-        'EC.CRM.controller.ProjectsGroups'
+        'EC.CRM.controller.ProjectsGroups',
+        'EC.CRM.controller.ProjectEdit'
     ],
-    
-    projectID: null,
     
     permissions: acl.isUpdate('crm', 'projects'),
     
@@ -63,8 +61,8 @@ Ext.define('EC.CRM.controller.Projects', {
             });
             
             grid.on({
-                configure: this.configureItem,
                 edititem: this.editItem,
+                itemdblclick: this.editItem,
                 deleteitem: this.deleteItem,
                 scope: this
             });
@@ -119,23 +117,9 @@ Ext.define('EC.CRM.controller.Projects', {
     },
     
     editItem: function(grid, record) {
-        
-        var view = Ext.create('EC.CRM.view.Projects.Edit');
-        view.down('button[action=save]').on({
-            click: function() {
-                this.updateItem(view, this.editURL);
-            },
-            scope: this
-        });
-        view.down('button[action=configure]').on({
-            click: function() {
-                this.configureItem(grid, record);
-            },
-            scope: this
-        });
-        
-        var form = view.down('form');
-        form.loadRecord(record);
+        var projectEdit = this.getController('EC.CRM.controller.ProjectEdit');
+        projectEdit.projectID = record.get('id');
+        projectEdit.run();
     },
     
     deleteItem: function(grid, record) {

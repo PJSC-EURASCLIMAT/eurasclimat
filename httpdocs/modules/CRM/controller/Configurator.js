@@ -46,19 +46,18 @@ Ext.define('EC.CRM.controller.Configurator', {
     
     deleteSpecialServiceURL: '/json/crm/projects/delete-special-service',
     
-    run: function(projectID, projectName) {
+    run: function(container) {
 
-        if (!projectID) {
+        if (!this.projectID) {
             throw 'The project ID must be set!';
         }
         
-        this.projectID = projectID;
-        
         this.Container = Ext.create('EC.CRM.view.Configurator.Layout', {
-            projectID: projectID,
-            projectName: projectName,
+            projectID: this.projectID,
             permissions: this.permissions
         });
+        
+        container.add(this.Container);
         
         this.equipmentPanel = this.Container.down('ConfiguratorEquipmentList');
         this.servicesPanel = this.Container.down('ConfiguratorServicesList');

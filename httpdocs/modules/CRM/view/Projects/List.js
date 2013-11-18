@@ -29,16 +29,6 @@ Ext.define('EC.CRM.view.Projects.List', {
         if (this.permissions) {
             
             actions.push({
-                icon: '/images/icons/fam/cog.gif',
-                tooltip: 'Конфигурировать проект',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('configure', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            });
-            
-            actions.push({
                 icon: '/images/icons/fam/plugin.gif',
                 tooltip: 'Редактировать проект',
                 iconCls: 'x-btn',

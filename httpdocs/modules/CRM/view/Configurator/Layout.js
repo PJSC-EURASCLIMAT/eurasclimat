@@ -1,24 +1,12 @@
 Ext.define('EC.CRM.view.Configurator.Layout', {
     
-    extend: 'Ext.window.Window',
-    
-    title: 'Конфигуратор проекта',
+    extend: 'Ext.panel.Panel',
     
     layout: 'border',
     
     border: false,
     
-    autoShow: true,
-    
-    modal: true,
-    
-    width: 1000,
-    
-    height: 600,
-    
     projectID: null,
-    
-    projectName: null,
     
     permissions: false,
     
@@ -66,22 +54,14 @@ Ext.define('EC.CRM.view.Configurator.Layout', {
             }]
         }];
 
-        this.buttons = [{
+        this.bbar = ['->', {
             xtype: 'tbtext',
             text: '<b>Общая сумма:</b>'
         }, {
             xtype: 'tbtext',
             itemId: 'totalsumm'
-        }, '->', {
-            text: 'Закрыть',
-            scope: this,
-            handler: this.close
         }];
         
         this.callParent(arguments);
-        
-        if (this.projectName) {
-            this.setTitle(this.title + ' "' + this.projectName + '"');
-        }
     }
 });

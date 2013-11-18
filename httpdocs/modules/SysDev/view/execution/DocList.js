@@ -45,6 +45,14 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         width: 20,
         items: [
             {
+                icon: '/images/icons/fam/grid.png',
+                tooltip: 'Версии документа',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.up('panel').fireEvent('open-versions', grid.getStore().getAt(rowIndex));
+                }
+            },
+            {
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить',
                 iconCls: 'x-btn',

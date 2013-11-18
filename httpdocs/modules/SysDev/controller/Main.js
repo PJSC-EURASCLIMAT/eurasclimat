@@ -11,6 +11,7 @@ Ext.define('EC.SysDev.controller.Main', {
         'EC.SysDev.view.execution.StageList',
         'EC.SysDev.view.execution.StageEditor',
         'EC.SysDev.view.execution.DocList',
+        'EC.SysDev.view.execution.DocVersionsList',
         'EC.SysDev.view.execution.StageChart',
 
         'EC.SysDev.view.Layout',
@@ -39,6 +40,7 @@ Ext.define('EC.SysDev.controller.Main', {
         'EC.SysDev.model.ProjectTreeModel',
         'EC.SysDev.model.StageModel',
         'EC.SysDev.model.DocModel',
+        'EC.SysDev.model.DocVersionModel',
         'EC.SysDev.model.StageChartModel',
         'EC.SysDev.model.CommentModel',
         'EC.SysDev.model.VoteModel',
@@ -57,6 +59,7 @@ Ext.define('EC.SysDev.controller.Main', {
         'EC.SysDev.store.execution.ProjectTreeStore',
         'EC.SysDev.store.execution.StageStore',
         'EC.SysDev.store.execution.DocStore',
+        'EC.SysDev.store.execution.DocVersionsStore',
         'EC.SysDev.store.execution.StageChartStore',
 
         'EC.SysDev.store.ProjectTreeStore'

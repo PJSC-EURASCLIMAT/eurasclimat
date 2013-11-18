@@ -4,12 +4,18 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     uploadURL: '/json/sysdev/project-docs/upload',
 
-    deleteGroupURL: '/json/sysdev/project-docs/delete',
+    uploadDocVersionURL: '/json/sysdev/project-docs/upload-version',
+
+    deleteDocURL: '/json/sysdev/project-docs/delete',
+
+    deleteDocVersionURL: '/json/sysdev/project-docs/delete-version',
 
     downloadURL: '/json/sysdev/project-docs/download',
 
+    downloadDocVersionURL: '/json/sysdev/project-docs/download-version',
+
     refs: [
-        { ref: 'docList', selector: 'project-doc-list' } // this.getDocList()
+        { ref: 'docList', selector: 'project-doc-list' }
     ],
 
     cur_project_id: null,
@@ -26,6 +32,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         this.control({
             'project-doc-list': {
                 deleteitem: this.onDocDelete,
+                'open-versions': this.openVersionsForDoc,
                 download: this.downloadDoc
             },
             'project-doc-list button[action=add]': {
@@ -33,9 +40,121 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             },
             'project-doc-list button[action=refresh]': {
                 click: this.docListRefresh
+            },
+            'project-doc-versions-win grid': {
+                download: this.downloadDocVersion,
+                delete: this.deleteDocVersion
+            },
+            'project-doc-versions-win button[action=add]': {
+                click: this.addDocVersion
+            },
+            'project-doc-versions-win button[action=refresh]': {
+                click: this.refreshDocVersionsList
             }
         });
 
+    },
+
+    downloadDocVersion: function(record) {
+        var url = this.downloadDocVersionURL + "?id=" + record.get('id');
+        Ext.Ajax.request({
+            url: url,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+
+                if (r.success === true) {
+                    Ext.DomHelper.append(document.body, {
+                        tag: 'iframe',
+                        id:'downloadIframe',
+                        frameBorder: 0,
+                        width: 0,
+                        height: 0,
+                        css: 'display:none;visibility:hidden;height:0px;',
+                        src: url
+                    });
+                } else {
+                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                }
+
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'В ходе получения файла произошла ошибка');
+            },
+            scope: this
+        });
+    },
+
+    refreshDocVersionsList: function() {
+        this.docVerList.down('grid').store.load();
+    },
+
+    addDocVersion: function() {
+        var doc_id = this.docVerList.down('grid').store.proxy.extraParams.doc_id;
+        Ext.create('xlib.upload.Dialog', {
+            autoShow: true,
+            singleUpload: true,
+            dialogTitle: 'Передача файлов на сервер',
+            uploadUrl: this.uploadDocVersionURL,
+            uploadParams: {doc_id: doc_id},
+            listeners: {
+                'uploadcomplete' : {
+                    fn: function(upDialog, manager, items, errorCount) {
+                        if (!errorCount) {
+                            upDialog.close();
+                            this.refreshDocVersionsList();
+                        }
+                    },
+                    scope: this
+                },
+                'close' : {
+                    fn: function (panel, eOpts ) {
+                        this.refreshDocVersionsList();
+                    },
+                    scope: this
+                }
+            }
+        });
+    },
+
+    deleteDocVersion: function(record) {
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить версию?', function(b) {
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: {
+                        id: record.getId(),
+                        file_id: record.get('file_id')
+                    },
+                    url: this.deleteDocVersionURL,
+                    success: function(response, opts) {
+
+                        try {
+                            var r = Ext.JSON.decode(response.responseText);
+                        } catch (e) {
+                            failure();
+                            return;
+                        }
+
+                        if (r.success === true) {
+                            Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                            this.refreshDocVersionsList();
+                        } else {
+                            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                        }
+                    },
+                    failure: failure,
+                    scope: this
+                });
+            }
+        }, this);
+    },
+
+    openVersionsForDoc: function(record) {
+//        alert('BEBE');.
+        if (!Ext.isDefined(this.docVersionsList)) {
+           this.docVerList = Ext.create('EC.SysDev.view.execution.DocVersionsList').show();
+        }
+        this.docVerList.down('grid').store.proxy.extraParams = {doc_id: record.getId()};
+        this.docVerList.down('grid').store.load();
     },
             
     onProjectSelected: function(record) {
@@ -70,7 +189,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                     params: {
                         id: record.getId()
                     },
-                    url: this.deleteGroupURL,
+                    url: this.deleteDocURL,
                     success: function(response, opts) {
                         
                         try {
@@ -104,7 +223,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     downloadDoc: function(record){
-        var url = this.downloadURL + "?id=" + record.get('id');
+        var url = this.downloadURL + "?doc_id=" + record.get('doc_id');
         Ext.Ajax.request({
             params: {
                 id: record.getId()

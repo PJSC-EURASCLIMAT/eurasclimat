@@ -137,13 +137,15 @@ Ext.define('EC.SysDev.controller.Main', {
         switch (newCard.itemId) {
             case 'project-preparation':
                 this.projectTreeCnt.currentStage = 1;
-                this.getProjectTree().filterBy('1','stage');
+//                this.getProjectTree().filterBy('1','stage');
+                this.getProjectTree().getStore().load({params: {stage: 1}});
                 this.showPrepTabs();
                 break;
 
             case 'project-execution':
                 this.projectTreeCnt.currentStage = 2;
-                this.getProjectTree().filterBy('2','stage');
+//                this.getProjectTree().filterBy('2','stage');
+                this.getProjectTree().getStore().load({params: {stage: 2}});
                 this.showExecTabs();
                 break;
         }
@@ -160,15 +162,6 @@ Ext.define('EC.SysDev.controller.Main', {
             'project-main #main-tabs': {
                 tabchange: this.tabClick,
                 scope: this
-            },
-            'project-tree button[action=refresh]': {
-                click: function(b) {
-                    var tree = this.getProjectTree();
-                    tree.store.on('load', function() {
-                        this.tabClick(tree, this.getMainTabs().getActiveTab());
-                    }, this, {delay: 50, single: true});
-                    tree.getStore().load();
-                }
             }
         });
 

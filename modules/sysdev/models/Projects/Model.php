@@ -597,8 +597,7 @@ class Sysdev_Projects_Model
         $where = (false !== $stage)
             ? array('stage = (?)' => $stage)
             : array();
-//        $rows = $this->_table->fetchAll($where)->toArray();
-        $rows = $this->_table->fetchAll()->toArray();
+        $rows = $this->_table->fetchAll($where)->toArray();
 
         foreach ($rows as $index => $row) {
 

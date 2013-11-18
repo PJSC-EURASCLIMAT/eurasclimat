@@ -389,11 +389,13 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         var tree = this.getProjectTree();
 
         tree.store.on('load', function() {
+            tree.getEl().down('.x-tree-view').dom.style.display = "block";
+            tree.setLoading(false);
             tree.collapseAll();
-        }, this, {single: true, delay: 500});
+        }, this, {delay: 500});
         
-        tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50});
-
+        //tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50});
+        
         this.listen({
             component: {
                 'project-tree': {

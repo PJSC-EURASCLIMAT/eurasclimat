@@ -100,13 +100,6 @@ Ext.define('EC.SysDev.view.ProjectTree', {
 
         this.columns = columnsList;
 
-        this.tbar = ['->', {
-            xtype: 'button',
-            tooltip: 'Обновить',
-            iconCls: 'x-tbar-loading',
-            action: 'refresh'
-        }];
-
         this.callParent();
     }
 

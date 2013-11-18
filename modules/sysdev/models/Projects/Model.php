@@ -602,7 +602,7 @@ class Sysdev_Projects_Model
         foreach ($rows as $index => $row) {
 
             $rows[$index]['leaf'] = ($row['leaf'] == 'true'); // поскольку значение в базе хранится в виде строки
-            $rows[$index]['expanded'] = true; // раскрываем все уровни
+            $rows[$index]['expanded'] = false; // раскрываем все уровни
         }
 
         $tree = new Xend_Tree($rows);

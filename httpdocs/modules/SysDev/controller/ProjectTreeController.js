@@ -373,39 +373,27 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         tree.getEl().down('.x-tree-view').dom.style.display = "none";
         tree.setLoading();
     },
-    
-    onProjectStoreLoad: function(store, node, records, successful, eOpts){
-        var tree = this.getProjectTree();
-        var stage = (this.currentStage !== null) ? this.currentStage : 1;
-        tree.filterBy(String(stage), 'stage');
-        tree.getEl().down('.x-tree-view').dom.style.display = "block";
-        tree.setLoading(false);
-        tree.doLayout();
-    },
 
     run: function() {
         
         var me = this;
         var tree = this.getProjectTree();
-
-        tree.store.on('load', function() {
-            tree.getEl().down('.x-tree-view').dom.style.display = "block";
-            tree.setLoading(false);
-            tree.collapseAll();
-        }, this, {delay: 500});
-        
-        //tree.store.on('load', this.onProjectStoreLoad, this, {delay: 50});
         
         this.listen({
             component: {
                 'project-tree': {
+                    'project-tree-context-menu-requested': this.showContextMenu,
                     select: this.onSelect,
                     itemcontextmenu: this.onItemContextMenu,
                     containercontextmenu: this.onTreeClick,
                     viewready: this.onTreeReady,
-//                    load: this.onProjectStoreLoad,
-//                    afterrender: this.onTreeAfterRender,
-                    'project-tree-context-menu-requested': this.showContextMenu
+                    beforeload: function() {
+                        tree.setLoading(true);
+                    },
+                    load: function() {
+                        tree.getEl().down('.x-tree-view').dom.style.display = "block";
+                        tree.setLoading(false);
+                    }
                 },
                 'project-tree > treeview': {
                     drop: this.onDrop,

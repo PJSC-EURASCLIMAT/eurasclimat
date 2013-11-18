@@ -99,7 +99,9 @@ Ext.define('xlib.upload.Dialog', {
         uploadMessageText : 'Процесс загрузки {0}% ({1} of {2} файлов)',
 
         // browse button
-        buttonText : 'Открыть...'
+        buttonText : 'Открыть...',
+        
+        singleUpload: false
     },
 
     /**
@@ -329,6 +331,9 @@ Ext.define('xlib.upload.Dialog', {
      */
     onFileSelection : function(input, files) {
         this.queue.clearUploadedItems();
+        if (this.singleUpload) {
+            this.queue.clearItems();
+        }
         this.queue.addFiles(files);
         this.browseButton.reset();
     },

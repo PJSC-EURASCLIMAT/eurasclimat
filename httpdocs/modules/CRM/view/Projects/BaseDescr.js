@@ -2,6 +2,8 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
     
     extend: 'Ext.form.Panel',
     
+    trackResetOnLoad: true,
+    
     border: false,
     
     bodyPadding: 5,
@@ -12,6 +14,8 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
         allowBlank: false,
         anchor: '100%'
     },
+    
+    url: null,
     
     initComponent: function() {
         
@@ -36,14 +40,20 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
                 value: xlib.Acl.Storage.getIdentity().name
         }];
 
-        this.buttons = [{
+        this.bbar = ['->', {
             text: 'Сохранить',
             formBind: true,
-            action: 'save'
+            action: 'save',
+            handler: function() {
+                this.submit();
+            },
+            scope: this
         }, {
             text: 'Отменить',
             scope: this,
-            handler: this.close
+            handler: function() {
+                this.getForm().reset();
+            }
         }];
         
         this.callParent(arguments);

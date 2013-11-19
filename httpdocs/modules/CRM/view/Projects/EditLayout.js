@@ -28,18 +28,22 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
                 itemId: 'baseDescrPanel',
                 title: 'Основное'
             }, {
+                disabled: true,
                 layout: 'fit',
                 itemId: 'membersPanel',
                 title: 'Участники'
             }, {
+                disabled: true,
                 layout: 'fit',
                 itemId: 'plansPanel',
                 title: 'План-Факт'
             }, {
+                disabled: true,
                 layout: 'fit',
                 itemId: 'docsPanel',
                 title: 'Документация'
             }, {
+                disabled: true,
                 layout: 'fit',
                 itemId: 'commentsPanel',
                 title: 'Обсуждение'

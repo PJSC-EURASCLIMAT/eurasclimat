@@ -31,7 +31,9 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
     
     editURL: '/json/crm/projects/update',
     
-    baseDescrURL: '/json/crm/projects/get',
+    getBaseDescrURL: '/json/crm/projects/get',
+    
+    updateBaseDescrURL: '/json/crm/projects/update',
     
     run: function(container) {
 
@@ -40,7 +42,13 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
         }
         
         this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
-            title: 'Проект: ' + this.projectName
+            title: 'Проект: ' + this.projectName,
+            listeners: {
+                close: function() {
+                    this.fireEvent('projectEditClose');
+                },
+                scope: this
+            }
         });
         
         var configurator = this.getController('EC.CRM.controller.Configurator');
@@ -48,8 +56,10 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
         configurator.run(this.Container.down('#configuratorPanel'));
         
         var baseDescrPanel = this.Container.down('#baseDescrPanel');
-        var baseDescrForm = baseDescrPanel.add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
-        baseDescrForm.getForm().load({url: this.baseDescrURL, params: {id: this.projectID}});
+        var baseDescrForm = baseDescrPanel.add(Ext.create('EC.CRM.view.Projects.BaseDescr', {
+            url: this.updateBaseDescrURL
+        }));
+        baseDescrForm.getForm().load({url: this.getBaseDescrURL, params: {id: this.projectID}});
     },
 
     configureItem: function(grid, record) {

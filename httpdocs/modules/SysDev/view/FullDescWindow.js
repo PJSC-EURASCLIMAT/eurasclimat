@@ -19,6 +19,8 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
     maximizable: true,
 
     closeAction: 'hide',
+    
+    autoScroll: true,
 
     data: {},
 

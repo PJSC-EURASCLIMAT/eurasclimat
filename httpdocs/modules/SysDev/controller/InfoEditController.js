@@ -208,18 +208,22 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
 
     saveFullDesc: function(data) {
 
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Детальное описание не сохранено!');
+        }
+        
         Ext.Ajax.request({
             params: data,
             url: '/json/sysdev/project-info/save-full-desc',
             success: function(response, opts) {
-                var test = "a;sldfj;alsdfjasd";
                 try {
-                    Ext.JSON.decode(test)
-                } catch (e) {
-                    Ext.Msg.alert('Ошибка', 'Детальное описание не сохранено!');
-                    return false;
+                    var r = Ext.decode(response.responseText);
+                    if (!r.success) {
+                        return failureFn(arguments);
+                    }
+                } catch(e) {
+                    return failureFn(arguments);
                 }
-
                 Ext.Msg.alert('Сообщение', 'Детальное описание успешно сохранено');
 
                 var infoCont = this.getController("EC.SysDev.controller.InfoController");
@@ -230,9 +234,7 @@ Ext.define('EC.SysDev.controller.InfoEditController', {
                     }
                 });
             },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Детальное описание не сохранено!');
-            },
+            failure: failureFn,
             scope: this
         });
 

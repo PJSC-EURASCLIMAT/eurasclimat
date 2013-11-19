@@ -20,64 +20,58 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
 
     closeAction: 'hide',
     
-    autoScroll: true,
-
     data: {},
 
     tbar: ['->', {
-            text: 'Редактировать',
-            itemId: 'edit-button',
-            handler: function() {
-                this.up('window').onEditButton();
-            }
-        }, {
-            text: 'Отменить',
-            hidden: true,
-            itemId: 'cancel-button',
-            handler: function() {
-                this.up('window').onEditCancelButton();
-            }
-        }, {
-            text: 'Сохранить',
-            itemId: 'save-button',
-            hidden: true,
-            handler: function() {
-                this.up('window').onSaveButton();
-            }
+        text: 'Редактировать',
+        itemId: 'edit-button',
+        handler: function() {
+            this.up('window').onEditButton();
         }
-    ],
+    }, {
+        text: 'Отменить',
+        hidden: true,
+        itemId: 'cancel-button',
+        handler: function() {
+            this.up('window').onEditCancelButton();
+        }
+    }, {
+        text: 'Сохранить',
+        itemId: 'save-button',
+        hidden: true,
+        handler: function() {
+            this.up('window').onSaveButton();
+        }
+    }],
 
-    items: [
-        {
-            xtype: 'form',
-            itemId: 'edit',
-            layout: {
-                type: 'vbox',
-                align: 'stretch'
-            },
-            border: false,
-            items: [
-                {
-                    xtype: 'hiddenfield',
-                    hidden: true,
-                    name: 'id'
-                },
-                {
-                    xtype: 'htmleditor',
-                    flex: 1,
-                    border: false,
-                    margin: '0',
-                    name: 'full_desc'
-                }
-            ]
+    items: [{
+        xtype: 'form',
+        itemId: 'edit',
+        layout: {
+            type: 'vbox',
+            align: 'stretch'
         },
-        {
-            xtype: 'container',
-            style: {background: "white"},
-            itemId: 'info',
-            html: ''
-        }
-    ],
+        border: false,
+        items: [{
+            xtype: 'hiddenfield',
+            hidden: true,
+            name: 'id'
+        }, {
+            xtype: 'htmleditor',
+            flex: 1,
+            border: false,
+            margin: '0',
+            name: 'full_desc'
+        }]
+    }, {
+        layout: 'fit',
+        padding: 10,
+        autoScroll: true,
+        xtype: 'container',
+        style: {background: "white"},
+        itemId: 'info',
+        html: ''
+    }],
 
     onSaveButton: function() {
         var data = this.down("#edit").getForm().getValues();

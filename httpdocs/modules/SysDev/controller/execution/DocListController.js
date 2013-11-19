@@ -222,12 +222,9 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         });
     },
 
-    downloadDoc: function(record){
-        var url = this.downloadURL + "?doc_id=" + record.get('doc_id');
+    downloadDoc: function(record) {
+        var url = this.downloadURL + "?id=" + record.get('id');
         Ext.Ajax.request({
-            params: {
-                id: record.getId()
-            },
             url: url,
             success: function(response, opts) {
                 var r = Ext.JSON.decode(response.responseText);

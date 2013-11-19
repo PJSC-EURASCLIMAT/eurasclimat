@@ -21,7 +21,7 @@ class Sysdev_ProjectDocsVersions_Model
         $rows = $allVersions->getRowset();
 
         if (count($rows) > 0) {
-            $lastVersion = intval(end($rows)['version']);
+            $lastVersion = intval(end($rows['version']));
             return $lastVersion + 1;
         } else {
             return false;

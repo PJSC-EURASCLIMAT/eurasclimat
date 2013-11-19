@@ -205,13 +205,13 @@ class Sysdev_ProjectDocs_Model
             ->join(
                 array('v' => 'main_sysdev_project_docs_versions'),
                 'v.doc_id=d.id',
-                null
+                array('v.file_id')
             )
             ->join(
                 array('f' => 'files'),
                 'f.id=v.file_id',
                 array(
-                    'date_create' => new Zend_Db_Expr('max(f.date)')
+                    'date_create' => 'f.date'//new Zend_Db_Expr('max(f.date)')
 //                    'path' => 'f.path',
                 )
             )
@@ -221,16 +221,14 @@ class Sysdev_ProjectDocs_Model
                 array('author' => 'a.name')
             )
             ->where('d.id=?', $id)
+            ->order('f.date DESC')
             ->limit(1);
 
-
-//        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
-//        $plugin->parse($params);
+//        echo $select->assemble();
 
         try {
             $rows = $select->query()->fetchAll();
-            $response->setRowset($rows[0]);
-//            $response->totalCount = $plugin->getTotalCount();
+            $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

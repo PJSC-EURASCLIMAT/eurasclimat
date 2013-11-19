@@ -25,8 +25,29 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
                 itemId: 'configuratorPanel',
                 title: 'Единое окно'
             }, {
-                xtype: 'panel',
-                title: 'Описание'
+                xtype: 'tabpanel',
+                title: 'Описание',
+                items: [{
+                    layout: 'fit',
+                    itemId: 'baseDescrPanel',
+                    title: 'Основное'
+                }, {
+                    layout: 'fit',
+                    itemId: 'membersPanel',
+                    title: 'Участники'
+                }, {
+                    layout: 'fit',
+                    itemId: 'plansPanel',
+                    title: 'План-Факт'
+                }, {
+                    layout: 'fit',
+                    itemId: 'docsPanel',
+                    title: 'Документация'
+                }, {
+                    layout: 'fit',
+                    itemId: 'commentsPanel',
+                    title: 'Обсуждение'
+                }]
             }]
         }];
         

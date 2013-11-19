@@ -119,6 +119,7 @@ Ext.define('EC.CRM.controller.Projects', {
     editItem: function(grid, record) {
         var projectEdit = this.getController('EC.CRM.controller.ProjectEdit');
         projectEdit.projectID = record.get('id');
+        projectEdit.projectName = record.get('name');
         projectEdit.run();
     },
     

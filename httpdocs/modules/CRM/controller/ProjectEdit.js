@@ -14,6 +14,7 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
     
     views: [
         'EC.CRM.view.Projects.EditLayout',
+        'EC.CRM.view.Projects.BaseDescr',
         'EC.CRM.view.Projects.Groups.Combo'
     ],
     
@@ -24,9 +25,13 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
     
     projectID: null,
     
+    projectName: '',
+    
     permissions: acl.isUpdate('crm', 'projects'),
     
     editURL: '/json/crm/projects/update',
+    
+    baseDescrURL: '/json/crm/projects/get',
     
     run: function(container) {
 
@@ -34,13 +39,17 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
             throw 'The project ID must be set!';
         }
         
-        this.Container = Ext.create('EC.CRM.view.Projects.EditLayout');
+        this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
+            title: 'Проект: ' + this.projectName
+        });
         
         var configurator = this.getController('EC.CRM.controller.Configurator');
-        
         configurator.projectID = this.projectID;
-        
         configurator.run(this.Container.down('#configuratorPanel'));
+        
+        var baseDescrPanel = this.Container.down('#baseDescrPanel');
+        var baseDescrForm = baseDescrPanel.add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
+        baseDescrForm.getForm().load({url: this.baseDescrURL, params: {id: this.projectID}});
     },
 
     configureItem: function(grid, record) {

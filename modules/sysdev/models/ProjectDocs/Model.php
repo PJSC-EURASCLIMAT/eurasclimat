@@ -42,7 +42,8 @@ class Sysdev_ProjectDocs_Model
                 array('f' => 'files'),
                 'f.id=v.file_id',
                 array(
-                    'date_create' => new Zend_Db_Expr('max(f.date)')
+                    'date_create' => new Zend_Db_Expr('max(f.date)'),
+                    'ext'   => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)")
 //                    'path' => 'f.path',
                 )
             )

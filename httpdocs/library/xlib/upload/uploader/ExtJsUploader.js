@@ -123,9 +123,9 @@ Ext.define('xlib.upload.uploader.ExtJsUploader', {
 
         this.fireEvent('uploadfailure', item, info);
 
-        this.failure.apply(this.scope, [
-                item, info
-            ]);
+//        this.failure.apply(this.scope, [
+//                item, info
+//            ]);
     },
 
     onUploadProgress : function(event, item) {

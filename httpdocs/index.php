@@ -33,7 +33,7 @@ Zend_Session::start();
 /**
  * Configure cache
  */
-$frontendOptions = array('lifeTime' => 120, 'automatic_serialization' => true);
+$frontendOptions = array('lifeTime' => 1200, 'automatic_serialization' => true);
 $backendOptions  = array('cache_dir' => CACHE_DIR);
 $cacheCore       = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
 $cacheOutput     = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);

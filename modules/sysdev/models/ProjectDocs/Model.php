@@ -42,8 +42,7 @@ class Sysdev_ProjectDocs_Model
                 array('f' => 'files'),
                 'f.id=v.file_id',
                 array(
-                    'date_create' => new Zend_Db_Expr('max(f.date)'),
-                    'ext'   => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)")
+                    'date_create' => new Zend_Db_Expr('max(f.date)')
 //                    'path' => 'f.path',
                 )
             )
@@ -229,7 +228,10 @@ class Sysdev_ProjectDocs_Model
 
         try {
             $rows = $select->query()->fetchAll();
-            $response->setRowset($rows);
+            if(count($rows) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+            $response->setRowset($rows[0]);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

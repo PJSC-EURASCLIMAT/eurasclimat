@@ -60,7 +60,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             $this->_collectErrors($response);
             return;
         }
-        $data = $response->getRow();
+        $data = $response->getRowset();
         $file = new Xend_File();
         $download = $file->download($data['file_id'], $data['name']);
         if ($download->isError()) {
@@ -109,7 +109,9 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             return;
         }
 
-        $data['name'] = $_GET['X-File-Name'];
+        $fileNameInfo = pathinfo($_GET['X-File-Name']);
+
+        $data['name'] = $fileNameInfo['filename'];
 
         $modResponse = $this->_model->add($data);
 
@@ -138,7 +140,10 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
             return;
         }
 
+        $fileNameInfo = pathinfo($_GET['X-File-Name']);
 //        $data['file_id'] = $fileResponse->__get('file_id');
+//        $data['name'] = $_GET['X-File-Name'];
+//
         $data['name'] = $_GET['X-File-Name'];
 
         $modResponse = $this->_versions_model->add($data);

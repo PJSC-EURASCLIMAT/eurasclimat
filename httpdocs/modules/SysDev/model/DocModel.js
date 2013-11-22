@@ -7,6 +7,7 @@ Ext.define('EC.SysDev.model.DocModel', {
         'name',
         'author',
         'project_id',
+        'ext',
         {name: 'date_create', type: 'date', dateFormat: 'Y-m-d H:i:s'}
     ]
 });

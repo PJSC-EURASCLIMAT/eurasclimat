@@ -33,7 +33,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             'project-doc-list': {
                 deleteitem: this.onDocDelete,
                 'open-versions': this.openVersionsForDoc,
-                download: this.downloadDoc
+                download: this.downloadDoc,
+                'update-doc-file': this.addDocVersion
             },
             'project-doc-list button[action=add]': {
                 click: this.onDocAdd
@@ -45,8 +46,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 download: this.downloadDocVersion,
                 delete: this.deleteDocVersion
             },
-            'project-doc-versions-win button[action=add]': {
-                click: this.addDocVersion
+            'project-doc-versions-win': {
+                'add-doc-version': this.addDocVersion
             },
             'project-doc-versions-win button[action=refresh]': {
                 click: this.refreshDocVersionsList
@@ -85,11 +86,13 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     refreshDocVersionsList: function() {
-        this.docVerList.down('grid').store.load();
+        if (Ext.isDefined(this.docVerList)) {
+            this.docVerList.down('grid').store.load();
+        }
     },
 
-    addDocVersion: function() {
-        var doc_id = this.docVerList.down('grid').store.proxy.extraParams.doc_id;
+    addDocVersion: function(doc_id) {
+//        var doc_id = this.docVerList.down('grid').store.proxy.extraParams.doc_id;
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             singleUpload: true,

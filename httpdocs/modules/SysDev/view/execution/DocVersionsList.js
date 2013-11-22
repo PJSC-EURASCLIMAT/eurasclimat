@@ -28,7 +28,14 @@ Ext.define('EC.SysDev.view.execution.DocVersionsList', {
             iconCls: 'add',
             text: 'Добавить',
             tooltip: 'Добавить новую версию',
-            action: 'add'
+            listeners: {
+                click: function() {
+                    var win = this.up('window');
+                    var doc_id = win.down('grid').store.proxy.extraParams.doc_id;
+                    win.fireEvent('add-doc-version',doc_id);
+                }
+            }
+//            action: 'add'
         },'->', {
             xtype: 'button',
             tooltip: 'Обновить',

@@ -54,7 +54,7 @@ class Sysdev_ProjectDocsVersions_Model
         }
 
         $data['file_id'] = $fileResponse->__get('file_id');
-        $data['name'] = $fileResponse->__get('fileName');
+//        $data['name'] = $fileResponse->__get('fileName');
 
 //        $data = $f->getData();
 //        $data['account_id'] = Xend_Accounts_Prototype::getId();
@@ -100,7 +100,7 @@ class Sysdev_ProjectDocsVersions_Model
                 'f.id=d.file_id',
                 array(
                     'date_create' => 'f.date',
-                    'file_name' => 'f.name'
+                    'file_name' => new Zend_Db_Expr("CONCAT(name,'.', SUBSTRING_INDEX(f.path,'.',-1))"),
                 )
             )
             ->order('f.date ASC');
@@ -122,7 +122,7 @@ class Sysdev_ProjectDocsVersions_Model
             $response->setRowset($rows);
             $response->totalCount = $plugin->getTotalCount();
             $status = Xend_Status::OK;
-        } catch (Exception $e) {
+        } catch (Excыeption $e) {
             if (DEBUG) {
                 throw $e;
             }

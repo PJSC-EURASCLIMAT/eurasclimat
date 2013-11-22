@@ -28,6 +28,9 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         header: 'Наименование',
         tpl: '<a href="#">{name}</a>'
     }, {
+        header: 'Расширение',
+        dataIndex: 'ext'
+    },{
         header: 'Автор',
         dataIndex: 'author'
     }, {
@@ -42,8 +45,17 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     }, {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('sysdev', 'docs'),
-        width: 20,
+        width: 30,
         items: [
+            {
+                icon: '/images/icons/fam/add.png',
+                tooltip: 'Обновить документ',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    var record = grid.getStore().getAt(rowIndex);
+                    this.up('panel').fireEvent('update-doc-file', record.getId());
+                }
+            },
             {
                 icon: '/images/icons/fam/grid.png',
                 tooltip: 'Версии документа',

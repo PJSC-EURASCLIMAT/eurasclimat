@@ -42,7 +42,8 @@ class Sysdev_ProjectDocs_Model
                 array('f' => 'files'),
                 'f.id=v.file_id',
                 array(
-                    'date_create' => new Zend_Db_Expr('max(f.date)')
+                    'date_create' => new Zend_Db_Expr('max(f.date)'),
+                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
 //                    'path' => 'f.path',
                 )
             )
@@ -54,7 +55,8 @@ class Sysdev_ProjectDocs_Model
                 array('author' => 'a.name')
             )
             ->group('v.doc_id');
-//            ->order('f.date ASC');
+//            ->order('f.date DESC');
+//            ->limit('v.doc_id');
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);

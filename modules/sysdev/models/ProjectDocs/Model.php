@@ -31,32 +31,37 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d' => $this->_table->getTableName()),
-                array('d.id', 'd.name', 'd.project_id')
+                array(
+                    'd.id', 'd.name', 'd.project_id',
+                    'date_create' => 'f.date',
+                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
+                    'author' => 'a.name'
+                )
             )
-            ->join(
+            ->joinLeft(
                 array('v' => 'main_sysdev_project_docs_versions'),
                 'v.doc_id=d.id',
                 null
             )
-            ->join(
+            ->joinLeft(
                 array('f' => 'files'),
-                'f.id=v.file_id',
-                array(
-                    'date_create' => new Zend_Db_Expr('max(f.date)'),
-                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
-//                    'path' => 'f.path',
-                )
+                'f.id=v.file_id', null
             )
-
-
             ->joinLeft(
                 array('a' => 'accounts'),
-                'a.id=f.account_id',
-                array('author' => 'a.name')
+                'a.id=f.account_id', null
             )
-            ->group('v.doc_id');
-//            ->order('f.date DESC');
-//            ->limit('v.doc_id');
+            ->joinLeft(
+                array('latest' => new Zend_Db_Expr('
+                    (SELECT d.id, MAX(f.date) as recent
+                    FROM ' . $this->_table->getTableName() . ' AS d
+                    LEFT JOIN main_sysdev_project_docs_versions AS v ON v.doc_id=d.id
+                    LEFT JOIN files AS f ON f.id=v.file_id
+                    GROUP BY d.id)
+                ')),
+                'latest.id=d.id AND latest.recent = f.date'
+            )
+            ->where('recent IS NOT NULL');
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);

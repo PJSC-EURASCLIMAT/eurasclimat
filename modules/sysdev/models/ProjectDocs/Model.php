@@ -115,6 +115,27 @@ class Sysdev_ProjectDocs_Model
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
+    public function update($data)
+    {
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'id'    => 'int',
+            'name'       => 'StringTrim'
+        ), array(
+            'id'    => array('int', 'presence' => 'required'),
+            'name'       => array('StringLength')
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
 
     public function add($data)
     {
@@ -207,7 +228,7 @@ class Sysdev_ProjectDocs_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d' => $this->_table->getTableName()),
-                array('d.id', 'd.name', 'd.project_id')
+                array('doc_id' => 'd.id', 'd.name', 'd.project_id')
             )
             ->join(
                 array('v' => 'main_sysdev_project_docs_versions'),

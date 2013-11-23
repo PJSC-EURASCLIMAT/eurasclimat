@@ -4,6 +4,8 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     
     alias: 'widget.project-doc-list',
 
+    require: ['Ext.grid.plugin.CellEditing'],
+
     layout: 'fit',
     
     forceFit: true,
@@ -14,19 +16,47 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         type: 'project-doc-store'
     },
 
+    plugins: [
+        Ext.create('Ext.grid.plugin.CellEditing', {
+            clicksToEdit: 1
+        })
+    ],
+
     listeners: {
-        cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
-            if (cellIndex === 0) {
-                this.fireEvent('download', record);
-            }
+        edit: function(editor, e, eOpts) {
+            this.fireEvent('update-doc-name', e.record);
+        },
+        beforeedit: function(editor, e, eOpts) {
+            return (acl.isUpdate('sysdev', 'docs'));
         }
     },
 
-    columns: [{
-        xtype: 'templatecolumn',
-        cls: 'download-link',
+    initComponent: function() {
+        this.callParent(arguments);
+    },
+
+    columns: [
+    {
+        xtype:'actioncolumn',
+        width: 16,
+        items: [
+            {
+                icon: '/images/icons/download.png',
+                tooltip: 'Скачать документ',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    var record = grid.getStore().getAt(rowIndex);
+                    this.up('panel').fireEvent('download', record);
+                }
+            }
+        ]
+    }, {
         header: 'Наименование',
-        tpl: '<a href="#">{name}</a>'
+        editor: {
+            xtype: 'textfield',
+            allowBlank: false
+        },
+        dataIndex: 'name'
     }, {
         header: 'Расширение',
         dataIndex: 'ext'

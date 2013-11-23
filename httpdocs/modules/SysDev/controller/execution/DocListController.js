@@ -14,27 +14,23 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     downloadDocVersionURL: '/json/sysdev/project-docs/download-version',
 
+    updateDocNameURL: '/json/sysdev/project-docs/update-doc-name',
+
     refs: [
         { ref: 'docList', selector: 'project-doc-list' }
     ],
 
     cur_project_id: null,
-    
+
     run: function() {
         
-        this.listen({
-//            controller: {
-//                '*': {
-//                    'project-selected': this.onProjectSelected
-//                }
-//            }
-        });
         this.control({
             'project-doc-list': {
                 deleteitem: this.onDocDelete,
                 'open-versions': this.openVersionsForDoc,
                 download: this.downloadDoc,
-                'update-doc-file': this.addDocVersion
+                'update-doc-file': this.addDocVersion,
+                'update-doc-name': this.updateDocName
             },
             'project-doc-list button[action=add]': {
                 click: this.onDocAdd
@@ -54,6 +50,23 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             }
         });
 
+    },
+
+    updateDocName: function(record) {
+        Ext.Ajax.request({
+            url: this.updateDocNameURL,
+            params: {
+                id: record.getId(),
+                name: record.get('name')
+            },
+            success: function(response, opts) {
+                record.commit();
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'Не удалось обновить имя документа');
+            },
+            scope: this
+        });
     },
 
     downloadDocVersion: function(record) {
@@ -112,6 +125,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 'close' : {
                     fn: function (panel, eOpts ) {
                         this.refreshDocVersionsList();
+                        this.docListRefresh();
                     },
                     scope: this
                 }
@@ -267,7 +281,6 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                     fn: function(upDialog, manager, items, errorCount) {
                         if (!errorCount) {
                             upDialog.close();
-//                             panel.viewPanel.getStore().load({url: this.getImagesURL, id: id});
                         }
                     },
                     scope: this

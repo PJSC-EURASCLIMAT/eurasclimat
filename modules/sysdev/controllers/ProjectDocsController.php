@@ -25,6 +25,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-version');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-version');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-doc-name');
     }
 
     public function getByProjectAction()
@@ -71,6 +72,18 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
 
     }
+
+    public function updateDocNameAction()
+    {
+        $response = $this->_model->update($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($response);
+        }
+        $this->view->success = true;
+    }
+
     public function downloadVersionAction()
     {
         $id = intval($this->_getParam('id'));
@@ -94,7 +107,6 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
     public function uploadAction()
     {
-//        $data = $this->_getAllParams();
 
 
         $project_id = intval($this->_getParam('project_id'));

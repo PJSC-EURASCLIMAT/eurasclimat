@@ -15,19 +15,6 @@ class Sysdev_ProjectDocsVersions_Model
         $this->_filesPath = FILES_DIR . DIRECTORY_SEPARATOR . 'sysdev' . DIRECTORY_SEPARATOR . 'docs';
     }
 
-    protected function findLastVersion ($docId)
-    {
-        $allVersions = $this->getByDoc($docId);
-        $rows = $allVersions->getRowset();
-
-        if (count($rows) > 0) {
-            $lastVersion = intval(end($rows['version']));
-            return $lastVersion + 1;
-        } else {
-            return false;
-        }
-    }
-
     public function add($data)
     {
         $response = new Xend_Response();

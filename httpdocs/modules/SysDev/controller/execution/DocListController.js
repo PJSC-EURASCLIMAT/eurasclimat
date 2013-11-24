@@ -53,6 +53,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     updateDocName: function(record) {
+        
         Ext.Ajax.request({
             url: this.updateDocNameURL,
             params: {
@@ -70,6 +71,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     downloadDocVersion: function(record) {
+        
         var url = this.downloadDocVersionURL + "?id=" + record.get('id');
         Ext.Ajax.request({
             url: url,
@@ -99,13 +101,14 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     refreshDocVersionsList: function() {
+        
         if (Ext.isDefined(this.docVerList)) {
             this.docVerList.down('grid').store.load();
         }
     },
 
     addDocVersion: function(doc_id) {
-//        var doc_id = this.docVerList.down('grid').store.proxy.extraParams.doc_id;
+
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             singleUpload: true,
@@ -134,6 +137,11 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     deleteDocVersion: function(record) {
+        
+        var failure = function() {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить версию?', function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
@@ -147,16 +155,15 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                         try {
                             var r = Ext.JSON.decode(response.responseText);
                         } catch (e) {
-                            failure();
-                            return;
+                            return failure();
                         }
 
-                        if (r.success === true) {
-                            Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                            this.refreshDocVersionsList();
-                        } else {
-                            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                        if (r.success !== true) {
+                            return failure();
                         }
+                            
+                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                        this.refreshDocVersionsList();
                     },
                     failure: failure,
                     scope: this
@@ -166,9 +173,10 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     openVersionsForDoc: function(record) {
-//        alert('BEBE');.
+        
         if (!Ext.isDefined(this.docVersionsList)) {
            this.docVerList = Ext.create('EC.SysDev.view.execution.DocVersionsList').show();
+           this.docVerList.on('close', this.docListRefresh, this);
         }
         this.docVerList.down('grid').store.proxy.extraParams = {doc_id: record.getId()};
         this.docVerList.down('grid').store.load();
@@ -240,6 +248,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     downloadDoc: function(record) {
+        
         var url = this.downloadURL + "?id=" + record.get('id');
         Ext.Ajax.request({
             url: url,
@@ -249,7 +258,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 if (r.success === true) {
                     Ext.DomHelper.append(document.body, {
                         tag: 'iframe',
-                        id:'downloadIframe',
+                        id: 'downloadIframe',
                         frameBorder: 0,
                         width: 0,
                         height: 0,
@@ -271,6 +280,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     onDocAdd: function() {
+        
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             dialogTitle: 'Передача файлов на сервер',

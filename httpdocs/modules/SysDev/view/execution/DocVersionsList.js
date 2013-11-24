@@ -22,6 +22,8 @@ Ext.define('EC.SysDev.view.execution.DocVersionsList', {
 
     closeAction: 'hide',
 
+    doc_id: null,
+
     tbar: [
         {
             xtype: 'button',

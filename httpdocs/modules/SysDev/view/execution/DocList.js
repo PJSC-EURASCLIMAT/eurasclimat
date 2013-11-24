@@ -31,9 +31,6 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         }
     },
 
-    initComponent: function() {
-        this.callParent(arguments);
-    },
 
     columns: [{
         xtype:'actioncolumn',

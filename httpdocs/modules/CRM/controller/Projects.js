@@ -102,6 +102,7 @@ Ext.define('EC.CRM.controller.Projects', {
     addItem: function() {
         
         var view = Ext.create('EC.CRM.view.Projects.Add');
+        
         view.down('button[action=save]').on({
             click: function() {
                 var form = view.down('form');
@@ -131,6 +132,7 @@ Ext.define('EC.CRM.controller.Projects', {
     },
     
     editItem: function(grid, record) {
+        
         var projectEdit = this.getController('EC.CRM.controller.ProjectEdit');
         projectEdit.projectID = record.get('id');
         projectEdit.projectName = record.get('name');
@@ -147,6 +149,7 @@ Ext.define('EC.CRM.controller.Projects', {
         }
         
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+            
             if ('yes' === b) {
                 Ext.Ajax.request({
                     params: {

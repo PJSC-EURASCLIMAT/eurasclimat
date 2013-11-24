@@ -35,21 +35,18 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         this.callParent(arguments);
     },
 
-    columns: [
-    {
+    columns: [{
         xtype:'actioncolumn',
         width: 16,
-        items: [
-            {
-                icon: '/images/icons/download.png',
-                tooltip: 'Скачать документ',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    this.up('panel').fireEvent('download', record);
-                }
+        items: [{
+            icon: '/images/icons/download.png',
+            tooltip: 'Скачать документ',
+            iconCls: 'x-btn',
+            handler: function(grid, rowIndex, colIndex) {
+                var record = grid.getStore().getAt(rowIndex);
+                this.up('panel').fireEvent('download', record);
             }
-        ]
+        }]
     }, {
         header: 'Наименование',
         editor: {
@@ -60,7 +57,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     }, {
         header: 'Расширение',
         dataIndex: 'ext'
-    },{
+    }, {
         header: 'Автор',
         dataIndex: 'author'
     }, {
@@ -76,44 +73,40 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('sysdev', 'docs'),
         width: 30,
-        items: [
-            {
-                icon: '/images/icons/fam/add.png',
-                tooltip: 'Обновить документ',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    this.up('panel').fireEvent('update-doc-file', record.getId());
-                }
-            },
-            {
-                icon: '/images/icons/fam/grid.png',
-                tooltip: 'Версии документа',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.up('panel').fireEvent('open-versions', grid.getStore().getAt(rowIndex));
-                }
-            },
-            {
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.up('panel').fireEvent('deleteitem', grid.getStore().getAt(rowIndex));
-                }
+        items: [{
+            icon: '/images/icons/fam/add.png',
+            tooltip: 'Обновить документ',
+            iconCls: 'x-btn',
+            handler: function(grid, rowIndex, colIndex) {
+                var record = grid.getStore().getAt(rowIndex);
+                this.up('panel').fireEvent('update-doc-file', record.getId());
             }
-        ]
+        }, {
+            icon: '/images/icons/fam/grid.png',
+            tooltip: 'Версии документа',
+            iconCls: 'x-btn',
+            handler: function(grid, rowIndex, colIndex) {
+                this.up('panel').fireEvent('open-versions', grid.getStore().getAt(rowIndex));
+            }
+        }, {
+            icon: '/images/icons/fam/delete.gif',
+            tooltip: 'Удалить документ',
+            iconCls: 'x-btn',
+            handler: function(grid, rowIndex, colIndex) {
+                this.up('panel').fireEvent('deleteitem', grid.getStore().getAt(rowIndex));
+            }
+        }]
     }],
 
     tbar: [{
-        text: 'Добавить',
+        text: 'Добавить документ',
         iconCls: 'add',
         action: 'add',
         hidden: !acl.isUpdate('sysdev', 'docs'),
         scope: this
     }, '->', {
         xtype: 'button',
-        tooltip: 'Обновить',
+        tooltip: 'Обновить список документов',
         iconCls: 'x-tbar-loading',
         action: 'refresh'
     }]

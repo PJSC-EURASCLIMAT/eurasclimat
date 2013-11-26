@@ -43,11 +43,7 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
         this.bbar = ['->', {
             text: 'Сохранить',
             formBind: true,
-            action: 'save',
-            handler: function() {
-                this.submit();
-            },
-            scope: this
+            action: 'save'
         }, {
             text: 'Отменить',
             scope: this,

@@ -59,7 +59,14 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
         var baseDescrForm = baseDescrPanel.add(Ext.create('EC.CRM.view.Projects.BaseDescr', {
             url: this.updateBaseDescrURL
         }));
+        
+        baseDescrForm.down('button[action=save]').on('click', function() {
+            this.updateItem(baseDescrForm.getForm());
+        }, this);
+        
         baseDescrForm.getForm().load({url: this.getBaseDescrURL, params: {id: this.projectID}});
+        
+        
     },
 
     configureItem: function(grid, record) {
@@ -68,23 +75,21 @@ Ext.define('EC.CRM.controller.ProjectEdit', {
         app.run(record.get('id'), record.get('name'));
     },
     
-    updateItem: function(view, URL) {
-        
-        var form = view.down('form');
+    updateItem: function(form) {
         
         form.submit({
-            url: URL,
+            url: this.updateBaseDescrURL,
             success: function(form, action) {
-                view.close();
                 this.fireEvent('itemSaved');
+                Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');
             },
             failure: function(form, action) {
                 switch (action.failureType) {
                     case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно!');
                         break;
                     case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером.');
                         break;
                     case Ext.form.action.Action.SERVER_INVALID:
                         Ext.Msg.alert('Ошибка', action.result.errors[0].msg);

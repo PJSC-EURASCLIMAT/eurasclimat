@@ -21,8 +21,8 @@ Ext.define('App.controller.Interface.CRM.Development', {
         var MC = this.getController('App.controller.Main');
         
         return [{
-            title: 'Разработка системы',
-            text: 'Разработка системы',
+            title: 'Разработка проектов',
+            text: 'Разработка проектов',
             icon: '/images/icons/projects.png',
             launchModule: 'EC.SysDev.controller.Main',
             handler: function(b) {

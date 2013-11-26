@@ -2,7 +2,7 @@ Ext.define('App.view.Interface.CRM.Development', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'Разработка системы',
+    title: 'Разработка проектов',
     
     icon: '/images/icons/sys_dev.png',
     

@@ -121,7 +121,10 @@ class Crm_Projects_Model
             return $response;
         }
 
-        $data = array ('name' => $f->getEscaped('name'));
+        $data = array (
+            'group_id'  => $f->getEscaped('group_id'),
+            'name'      => $f->getEscaped('name')
+        );
 
         $rows = $this->_table->updateByPk($data, $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);

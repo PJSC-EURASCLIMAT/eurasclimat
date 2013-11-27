@@ -4,7 +4,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
 
     extend: 'Ext.app.Controller',
 
-    currentStage: null,
+    currentStage: 1,
 
     changeStageURL: '/json/sysdev/projects/change-stage',
 

@@ -26,7 +26,7 @@ Ext.define('App.controller.Interface.CRM.Development', {
             icon: '/images/icons/projects.png',
             launchModule: 'EC.SysDev.controller.Main',
             handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
+                MC.openModuleTab(b.initialConfig);
             }
         }];
     }

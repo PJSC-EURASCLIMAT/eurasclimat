@@ -15,7 +15,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
      * @var Xend_Accounts
      * */
     protected $_accounts;
-    
+
     public function init()
     {
         $this->_model = new Sysdev_Projects_Model();
@@ -39,24 +39,26 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     {
 
         $data = $this->_getAllParams();
-        
+
         $response = $this->_model->fetchBranch($data);
-        
+
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
+
         $this->view->success = true;
         $this->view->children = $response->getRowset();
 
     }
-    
+
     public function createAction()
     {
 
         $data = Zend_Json::decode($this->_getParam('data'));
-        $stage = $data['stage'];
+        $stage = (isset($data['stage']) || !empty($data['stage']))
+               ? $data['stage']
+               : $this->_getParam('stage');
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
@@ -64,12 +66,12 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         $data['account_id'] = $identity->id;
 
         $response = $this->_model->add($stage, $data);
-        
+
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
+
         $this->view->success = true;
         $this->view->children = $response->getRowset();
 
@@ -77,16 +79,16 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
 
     public function renameAction()
     {
-        
+
         $data = Zend_Json::decode($this->_getParam('data'));
-        
+
         $response = $this->_model->rename($data);
-        
+
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
+
         $this->view->success = true;
 
     }
@@ -112,7 +114,7 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
     public function deleteAction()
     {
         $data = Zend_Json::decode($this->_getParam('data'));
-        
+
         $response = $this->_model->delete($data);
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -120,22 +122,22 @@ class Sysdev_ProjectsController extends Xend_Controller_Action
         }
 
         $this->view->success = true;
-        
+
     }
-    
+
     public function moveAction() {
-        
+
         $data = $this->_getAllParams();
-        
+
         $response = $this->_model->move($data);
-        
+
         if ($response->isError()) {
             $this->_collectErrors($response);
             return;
         }
-        
+
         $this->view->success = true;
-        
+
     }
 
     public function getAccountListAction()

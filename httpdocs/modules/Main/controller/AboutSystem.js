@@ -15,7 +15,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
         'EC.Main.view.AboutSystem.ThemesTree'
     ],
     
-    theme: 0,
+    theme: 1,
     
     run: function(container) {
 

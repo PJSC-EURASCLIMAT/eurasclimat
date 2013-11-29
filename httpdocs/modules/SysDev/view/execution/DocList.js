@@ -69,7 +69,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     }, {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('sysdev', 'docs'),
-        width: 30,
+        width: 40,
         items: [{
             icon: '/images/icons/fam/add.png',
             tooltip: 'Обновить документ',

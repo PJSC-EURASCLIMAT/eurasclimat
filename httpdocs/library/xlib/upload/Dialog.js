@@ -76,7 +76,7 @@ Ext.define('xlib.upload.Dialog', {
          * 
          * The time after the upload request times out - in miliseconds.
          */
-        uploadTimeout : 6000,
+        uploadTimeout : 600000,
 
         // dialog strings
         textOk : 'OK',

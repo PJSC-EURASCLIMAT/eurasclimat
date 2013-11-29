@@ -214,6 +214,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     deleteDoc: function(id) {
+        
         var failure = function() {
             Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
         };
@@ -227,16 +228,15 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 try {
                     var r = Ext.JSON.decode(response.responseText);
                 } catch (e) {
-                    failure();
-                    return;
+                    return failure();
                 }
 
-                if (r.success === true) {
-                    Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                    this.getDocList().getStore().load();
-                } else {
-                    Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                if (r.success !== true) {
+                    return failure();
                 }
+                
+                this.docListRefresh();
+                Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
             },
             failure: failure,
             scope: this

@@ -15,7 +15,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
         'EC.Main.view.AboutSystem.ThemesTree'
     ],
     
-    theme: 1,
+    theme: null,
     
     run: function(container) {
 
@@ -24,6 +24,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
         });
         
         var treePanel = content.down('AboutSystemThemesTree'),
+            treeStore = this.getStore('EC.Main.store.AboutSystem.ThemesTree'),
             previewPanel = content.down('panel[type=preview]');
         
         treePanel.on('select', function(tree, record, index, eOpts) {
@@ -35,13 +36,13 @@ Ext.define('EC.Main.controller.AboutSystem', {
             this.theme = record;
         }, this);
         
-        if (treePanel.getStore().isLoading()) {
-            treePanel.getStore().on('load', function() {
-                treePanel.getSelectionModel().select(this.theme);
-            }, this);
-        } else {
-            treePanel.getSelectionModel().select(this.theme);
-        }
+        treePanel.getStore().on('load', function() {
+            var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(1);
+            treePanel.getSelectionModel().select(theme);
+        }, this);
+        
+        var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(1);
+        treePanel.getSelectionModel().select(theme);
         
         if (acl.isUpdate('aboutsystem')) {
 //            xlib.TinyMCE.initTinyMCE();

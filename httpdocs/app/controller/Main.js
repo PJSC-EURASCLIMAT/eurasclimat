@@ -46,7 +46,7 @@ Ext.define('App.controller.Main', {
         this.getController('App.controller.Interface.GoodsServices');
         this.getController('App.controller.Interface.Manufacturers');
 
-        if (acl.isView('pa')) {
+        if (acl.isView('crm')) {
             this.getController('App.controller.Interface.Market');
             this.getController('App.controller.Interface.CRM');
         }

@@ -22,14 +22,33 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         })
     ],
 
-    listeners: {
-        edit: function(editor, e, eOpts) {
-            this.fireEvent('update-doc-name', e.record);
-        },
-        beforeedit: function(editor, e, eOpts) {
-            return (acl.isUpdate('sysdev', 'docs'));
-        }
-    },
+    requires: [
+        'Ext.grid.feature.Grouping'
+    ],
+
+    features: [{
+        ftype: 'grouping',
+        groupHeaderTpl: '{name} ({children.length})',
+        hideGroupedHeader: true,
+        startCollapsed: true,
+        id: 'ProjectDocsGrouping'
+    }],
+
+//    listeners: {
+//        edit: function(editor, e, eOpts) {
+////            var data = e.record.data;
+////            if(e.field === "type") {
+////                var dtStore = Ext.StoreMgr.lookup("xlib.DocTypes.store.DocTypes");
+////                var type_id = e.record.get('type');
+////                var typeName = dtStore.getById(type_id).get('name');
+////                e.record.set('type',typeName);
+////            }
+//            this.fireEvent('update-doc', e.record);
+//        },
+//        beforeedit: function(editor, e, eOpts) {
+//            return (acl.isUpdate('sysdev', 'docs'));
+//        }
+//    },
 
 
     columns: [{
@@ -62,7 +81,15 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         header: 'Дата создания',
         format: 'd.m.Y H:i',
         dataIndex: 'date_create'
-    }, {
+    },
+//    {
+//        header: 'Тип документа',
+//        editor: {
+//            xtype: 'docTypesCombo'
+//        },
+//        dataIndex: 'type'
+//    },
+        {
         header: 'project_id',
         dataIndex: 'project_id',
         hidden: true
@@ -70,7 +97,17 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('sysdev', 'docs'),
         width: 40,
-        items: [{
+        items: [
+        {
+            icon: '/images/icons/edit.png',
+            tooltip: 'Редактировать документ',
+            iconCls: 'x-btn',
+            handler: function(grid, rowIndex, colIndex) {
+                var record = grid.getStore().getAt(rowIndex);
+                this.up('panel').fireEvent('update-doc', record);
+            }
+        },
+        {
             icon: '/images/icons/fam/add.png',
             tooltip: 'Обновить документ',
             iconCls: 'x-btn',
@@ -99,6 +136,12 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         text: 'Добавить документ',
         iconCls: 'add',
         action: 'add',
+        hidden: !acl.isUpdate('sysdev', 'docs'),
+        scope: this
+    },{
+        text: 'Типы документов',
+        iconCls: 'option',
+        action: 'edit-doc-types',
         hidden: !acl.isUpdate('sysdev', 'docs'),
         scope: this
     }, '->', {

@@ -35,7 +35,9 @@ class Sysdev_ProjectDocs_Model
                     'd.id', 'd.name', 'd.project_id',
                     'date_create' => 'f.date',
                     'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
-                    'author' => 'a.name'
+                    'author' => 'a.name',
+                    'type' => 't.name',
+                    'type_id' => 't.id'
                 )
             )
             ->joinLeft(
@@ -46,6 +48,10 @@ class Sysdev_ProjectDocs_Model
             ->joinLeft(
                 array('f' => 'files'),
                 'f.id=v.file_id', null
+            )
+            ->joinLeft(
+                array('t' => 'doc_types'),
+                't.id=d.type_id', null
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -120,10 +126,12 @@ class Sysdev_ProjectDocs_Model
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            'id'    => 'int',
-            'name'       => 'StringTrim'
+            'id'        => 'int',
+            'type_id'   => 'int',
+            'name'      => 'StringTrim'
         ), array(
             'id'    => array('int', 'presence' => 'required'),
+            'type_id'    => array('int', 'presence' => 'required'),
             'name'       => array('StringLength')
         ), $data);
 
@@ -171,15 +179,14 @@ class Sysdev_ProjectDocs_Model
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
-//        $doc_id = $modResponse->__get('id');
-        $versionData = array(
-            'doc_id' => $id
-        );
-
-        $versionResponse = $this->_versions_model->add($versionData);
-        if ($versionResponse->hasNotSuccess()) {
-            return $versionResponse->addStatus(new Xend_Status(Xend_Status::FAILURE));
-        }
+//        $versionData = array(
+//            'doc_id' => $id
+//        );
+//
+//        $versionResponse = $this->_versions_model->add($versionData);
+//        if ($versionResponse->hasNotSuccess()) {
+//            return $versionResponse->addStatus(new Xend_Status(Xend_Status::FAILURE));
+//        }
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));

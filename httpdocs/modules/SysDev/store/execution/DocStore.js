@@ -6,6 +6,8 @@ Ext.define('EC.SysDev.store.execution.DocStore', {
    
     model: 'EC.SysDev.model.DocModel',
 
+    groupField: 'type',
+
     sorters: [{
         property: 'date_create',
         direction: 'DESC'

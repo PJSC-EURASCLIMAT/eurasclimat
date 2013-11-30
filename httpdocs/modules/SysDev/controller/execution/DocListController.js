@@ -2,6 +2,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     extend: 'Ext.app.Controller',
 
+    addDocURL: '/json/sysdev/project-docs/add-doc',
+
     uploadURL: '/json/sysdev/project-docs/upload',
 
     uploadDocVersionURL: '/json/sysdev/project-docs/upload-version',
@@ -14,11 +16,17 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     downloadDocVersionURL: '/json/sysdev/project-docs/download-version',
 
-    updateDocNameURL: '/json/sysdev/project-docs/update-doc-name',
+    updateDocURL: '/json/sysdev/project-docs/update-doc',
 
     refs: [
         { ref: 'docList', selector: 'project-doc-list' }
     ],
+
+    stores: ['xlib.DocTypes.store.DocTypes'],
+
+    models: ['xlib.DocTypes.model.DocTypes'],
+
+    views: ['xlib.DocTypes.view.Combo'],
 
     cur_project_id: null,
 
@@ -30,13 +38,16 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 'open-versions': this.openVersionsForDoc,
                 download: this.downloadDoc,
                 'update-doc-file': this.addDocVersion,
-                'update-doc-name': this.updateDocName
+                'update-doc': this.editDoc
             },
             'project-doc-list button[action=add]': {
-                click: this.onDocAdd
+                click: this.addDoc
             },
             'project-doc-list button[action=refresh]': {
                 click: this.docListRefresh
+            },
+            'project-doc-list button[action=edit-doc-types]': {
+                click: this.editDocTypes
             },
             'project-doc-versions-win grid': {
                 download: this.downloadDocVersion,
@@ -52,22 +63,19 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     },
 
-    updateDocName: function(record) {
-        Ext.Ajax.request({
-            url: this.updateDocNameURL,
-            params: {
-                id: record.getId(),
-                name: record.get('name')
-            },
-            success: function(response, opts) {
-                record.commit();
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Сообщение', 'Не удалось обновить имя документа');
-            },
-            scope: this
-        });
-    },
+//    updateDoc: function(record) {
+//        Ext.Ajax.request({
+//            url: this.updateDocURL,
+//            params: record.data,
+//            success: function(response, opts) {
+//                record.commit();
+//            },
+//            failure: function(response, opts) {
+//                Ext.Msg.alert('Сообщение', 'Не удалось обновить документ');
+//            },
+//            scope: this
+//        });
+//    },
 
     downloadDocVersion: function(record) {
         var url = this.downloadDocVersionURL + "?id=" + record.get('id');
@@ -142,44 +150,62 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
             Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
         }
 
+
+        var msgBox = Ext.create('Ext.window.MessageBox',{
+            buttonText: {
+                ok     : "OK",
+                cancel : "Закрыть",
+                yes    : "Удалить документ",
+                no     : "Удалить только версию"
+            }
+        });
+//        msgBox.confirm('bla-bla?', 'bla-bla-bla?', callback);
+
         if (versLength === 1) {
-            Ext.MessageBox.confirm('Подтверждение', 'Удаление единственной версии документа приведет к его удалению. Вы уверены, что хотите удалить документ?', function(b) {
+            msgBox.confirm('Подтверждение', 'Удалить документ, или только версию?', function(b) {
                 if ('yes' === b) {
                     this.deleteDoc(doc_id);
                     this.docVerList.close();
+                }
+                if ('no' === b) {
+                    this.removeDocVersion(record.getId(),record.get('file_id'));
                 }
             }, this);
         } else {
             Ext.MessageBox.confirm('Подтверждение', 'Удалить версию?', function(b) {
                 if ('yes' === b) {
-                    Ext.Ajax.request({
-                        params: {
-                            id: record.getId(),
-                            file_id: record.get('file_id')
-                        },
-                        url: this.deleteDocVersionURL,
-                        success: function(response, opts) {
-
-                            try {
-                                var r = Ext.JSON.decode(response.responseText);
-                            } catch (e) {
-                                return failure();
-                            }
-
-                            if (r.success !== true) {
-                                return failure();
-                            }
-
-                            Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                            this.refreshDocVersionsList();
-                        },
-                        failure: failure,
-                        scope: this
-                    });
+                    this.removeDocVersion(record.getId(),record.get('file_id'));
                 }
             }, this);
         }
 
+    },
+
+    removeDocVersion: function(id, file_id) {
+        Ext.Ajax.request({
+            params: {
+                id: id,
+                file_id: file_id
+            },
+            url: this.deleteDocVersionURL,
+            success: function(response, opts) {
+
+                try {
+                    var r = Ext.JSON.decode(response.responseText);
+                } catch (e) {
+                    return failure();
+                }
+
+                if (r.success !== true) {
+                    return failure();
+                }
+
+                Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
+                this.refreshDocVersionsList();
+            },
+            failure: failure,
+            scope: this
+        });
     },
 
     openVersionsForDoc: function(record) {
@@ -290,29 +316,129 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
 
     },
 
-    onDocAdd: function() {
-        Ext.create('xlib.upload.Dialog', {
-            autoShow: true,
-            dialogTitle: 'Передача файлов на сервер',
-            uploadUrl: this.uploadURL,
-            uploadParams: {project_id: this.cur_project_id},
-            listeners: {
-                'uploadcomplete' : {
-                    fn: function(upDialog, manager, items, errorCount) {
-                        if (!errorCount) {
-                            upDialog.close();
-                        }
-                    },
-                    scope: this
-                },
-                'close' : {
-                    fn: function (panel, eOpts ) {
-                        this.docListRefresh();
-                    },
-                    scope: this
+    submitAddForm: function(view, andUpload) {
+        var form = view.down('form');
+        form.submit({
+            url: this.addDocURL,
+            success: function(form, action) {
+                view.close();
+                this.getDocList().store.load();
+                if (andUpload === true) {
+                    this.addDocVersion(action.result.id);
                 }
-            }
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                }
+            },
+            scope: this
+        });
+    },
+
+    submitEditForm: function(view) {
+        var form = view.down('form');
+        form.submit({
+            url: this.updateDocURL,
+            success: function(form, action) {
+                view.close();
+                this.getDocList().store.load();
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                }
+            },
+            scope: this
+        });
+    },
+
+    editDoc: function(record) {
+
+        var view = Ext.create('EC.SysDev.view.Docs.Edit',{
+            docModel: record
+        });
+
+        view.on({
+            save: function(event) {
+                this.submitEditForm(view);
+            },
+            scope: this
+        });
+    },
+
+    addDoc: function() {
+
+        var view = Ext.create('EC.SysDev.view.Docs.Add',{
+            project_id: this.cur_project_id
+        });
+
+        view.on({
+            save: function(event,andUpload) {
+                this.submitAddForm(view, andUpload);
+            },
+            scope: this
         });
     }
+
+    ,editDocTypes: function() {
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Список групп документов',
+            modal: true,
+            width: 400,
+            height: 400,
+            autoShow: true,
+            layout: 'fit',
+            border: false,
+            buttons: [{
+                text: 'Закрыть',
+                scope: this,
+                handler: function(btn, e) {
+                    this.docListRefresh();
+                    btn.up('window').close();
+                }
+            }]
+        });
+        this.getController('xlib.DocTypes.controller.DocTypes').run(win);
+    }
+
+//    ,onDocAdd: function() {
+//        Ext.create('xlib.upload.Dialog', {
+//            autoShow: true,
+//            dialogTitle: 'Передача файлов на сервер',
+//            uploadUrl: this.uploadURL,
+//            uploadParams: {project_id: this.cur_project_id},
+//            listeners: {
+//                'uploadcomplete' : {
+//                    fn: function(upDialog, manager, items, errorCount) {
+//                        if (!errorCount) {
+//                            upDialog.close();
+//                        }
+//                    },
+//                    scope: this
+//                },
+//                'close' : {
+//                    fn: function (panel, eOpts ) {
+//                        this.docListRefresh();
+//                    },
+//                    scope: this
+//                }
+//            }
+//        });
+//    }
 
 });

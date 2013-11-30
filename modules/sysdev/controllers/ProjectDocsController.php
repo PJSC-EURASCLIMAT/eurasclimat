@@ -21,11 +21,12 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-doc-versions');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'download');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'download-version');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-version');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-version');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-doc-name');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-doc');
     }
 
     public function getByProjectAction()
@@ -73,7 +74,7 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
     }
 
-    public function updateDocNameAction()
+    public function updateDocAction()
     {
         $response = $this->_model->update($this->_getAllParams());
         if ($response->isSuccess()) {
@@ -105,9 +106,33 @@ class Sysdev_ProjectDocsController extends Xend_Controller_Action
 
     }
 
+    public function addDocAction()
+    {
+        $response = new Xend_Response();
+
+        $data= $this->_getAllParams();
+
+        if ($data['project_id'] == 0) {
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $modResponse = $this->_model->add($data);
+
+        if ($modResponse->hasNotSuccess()) {
+            $this->_collectErrors($modResponse);
+            return;
+        } else {
+            $this->view->success = true;
+            $this->view->id = $modResponse->id;
+        }
+
+    }
+
+
     public function uploadAction()
     {
-
 
         $project_id = intval($this->_getParam('project_id'));
 

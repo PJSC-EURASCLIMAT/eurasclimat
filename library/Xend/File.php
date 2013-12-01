@@ -16,8 +16,14 @@ class Xend_File
     {
         $response = new Xend_Response();
 
+        $id = intval($id);
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
         try {
-            $rowset = $this->_table->findOne($id);
+            $row = $this->_table->findOne($id);
             $status = Xend_Accounts_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
@@ -27,7 +33,7 @@ class Xend_File
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
-        $data = $rowset->toArray();
+        $data = $row->toArray();
         $path = $this->default_dir . $data['path'];
 
         $fileNameInfo = pathinfo($path);
@@ -152,6 +158,12 @@ class Xend_File
     public function deleteFile($id) {
 
         $response = new Xend_Response();
+
+        $id = intval($id);
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
 
         try {
             $rowset = $this->_table->findOne($id);

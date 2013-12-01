@@ -140,11 +140,6 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         var versLength = this.docVerList.down("grid").store.data.length;
         var doc_id  = this.docVerList.doc_id;
 
-        var failure = function() {
-            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-        }
-
-
         var msgBox = Ext.create('Ext.window.MessageBox',{
             buttonText: {
                 ok     : "OK",
@@ -153,7 +148,6 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                 no     : "Удалить только версию"
             }
         });
-//        msgBox.confirm('bla-bla?', 'bla-bla-bla?', callback);
 
         if (versLength === 1) {
             msgBox.confirm('Подтверждение', 'Удалить документ, или только версию?', function(b) {
@@ -162,7 +156,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                     this.docVerList.close();
                 }
                 if ('no' === b) {
-                    this.removeDocVersion(record.getId(),record.get('file_id'));
+                    this.removeDocVersion(record.getId(), record.get('file_id'));
                 }
             }, this);
         } else {
@@ -176,6 +170,11 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     removeDocVersion: function(id, file_id) {
+        
+        var failure = function() {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
         Ext.Ajax.request({
             params: {
                 id: id,

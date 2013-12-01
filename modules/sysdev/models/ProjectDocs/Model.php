@@ -24,6 +24,79 @@ class Sysdev_ProjectDocs_Model
      *  );
      * </code>
      */
+//    public function getByProject($params)
+//    {
+//        $response = new Xend_Response();
+//
+//        $select = $this->_table->getAdapter()->select()
+//            ->from(
+//                array('d' => $this->_table->getTableName()),
+//                array(
+//                    'd.id', 'd.name', 'd.project_id',
+//                    'date_create' => 'f.date',
+//                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
+//                    'author' => 'a.name',
+//                    'type' => 't.name',
+//                    'type_id' => 't.id'
+//                )
+//            )
+//            ->joinLeft(
+//                array('v' => 'main_sysdev_project_docs_versions'),
+//                'v.doc_id=d.id',
+//                null
+//            )
+//            ->joinLeft(
+//                array('f' => 'files'),
+//                'f.id=v.file_id', null
+//            )
+//            ->joinLeft(
+//                array('t' => 'doc_types'),
+//                't.id=d.type_id', null
+//            )
+//            ->joinLeft(
+//                array('a' => 'accounts'),
+//                'a.id=f.account_id', null
+//            )
+//            ->joinLeft(
+//                array('latest' => new Zend_Db_Expr('
+//                    (SELECT d.id, MAX(f.date) as recent
+//                    FROM ' . $this->_table->getTableName() . ' AS d
+//                    LEFT JOIN main_sysdev_project_docs_versions AS v ON v.doc_id=d.id
+//                    LEFT JOIN files AS f ON f.id=v.file_id
+//                    GROUP BY d.id)
+//                ')),
+//                'latest.id=d.id AND latest.recent = f.date'
+//            )
+//            ->where('recent IS NOT NULL')
+//        ;
+//
+//        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
+//        $plugin->parse($params);
+//
+//        if (isset($params['project_id']) && !empty($params['project_id'])) {
+//            $params['project_id'] = intval($params['project_id']);
+//            if ($params['project_id']==0) {
+//                return $response->addStatus(new Xend_Status(
+//                    Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
+//            }
+//            $select->where('d.project_id=?', $params['project_id']);
+//        }
+//
+//        try {
+//            $rows = $select->query()->fetchAll();
+//            $response->setRowset($rows);
+//            $response->totalCount = $plugin->getTotalCount();
+//            $status = Xend_Status::OK;
+//        } catch (Exception $e) {
+//            if (DEBUG) {
+//                throw $e;
+//            }
+//            $status = Xend_Status::DATABASE_ERROR;
+//        }
+//        return $response->addStatus(new Xend_Status($status));
+//    }
+
+
     public function getByProject($params)
     {
         $response = new Xend_Response();
@@ -33,41 +106,14 @@ class Sysdev_ProjectDocs_Model
                 array('d' => $this->_table->getTableName()),
                 array(
                     'd.id', 'd.name', 'd.project_id',
-                    'date_create' => 'f.date',
-                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
-                    'author' => 'a.name',
-                    'type' => 't.name',
-                    'type_id' => 't.id'
+                    'type_id' => 't.id',
+                    'type' => 't.name'
                 )
-            )
-            ->joinLeft(
-                array('v' => 'main_sysdev_project_docs_versions'),
-                'v.doc_id=d.id',
-                null
-            )
-            ->joinLeft(
-                array('f' => 'files'),
-                'f.id=v.file_id', null
             )
             ->joinLeft(
                 array('t' => 'doc_types'),
                 't.id=d.type_id', null
-            )
-            ->joinLeft(
-                array('a' => 'accounts'),
-                'a.id=f.account_id', null
-            )
-            ->joinLeft(
-                array('latest' => new Zend_Db_Expr('
-                    (SELECT d.id, MAX(f.date) as recent
-                    FROM ' . $this->_table->getTableName() . ' AS d
-                    LEFT JOIN main_sysdev_project_docs_versions AS v ON v.doc_id=d.id
-                    LEFT JOIN files AS f ON f.id=v.file_id
-                    GROUP BY d.id)
-                ')),
-                'latest.id=d.id AND latest.recent = f.date'
-            )
-            ->where('recent IS NOT NULL');
+            );
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -237,12 +283,12 @@ class Sysdev_ProjectDocs_Model
                 array('d' => $this->_table->getTableName()),
                 array('doc_id' => 'd.id', 'd.name', 'd.project_id')
             )
-            ->join(
+            ->joinLeft(
                 array('v' => 'main_sysdev_project_docs_versions'),
                 'v.doc_id=d.id',
                 array('v.file_id')
             )
-            ->join(
+            ->joinLeft(
                 array('f' => 'files'),
                 'f.id=v.file_id',
                 array(

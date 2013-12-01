@@ -5,11 +5,11 @@ Ext.define('EC.SysDev.model.DocModel', {
     fields: [
         'id',
         'name',
-        'author',
+//        'author',
         'project_id',
-        'ext',
+//        'ext',
         'type',
-        'type_id',
-        {name: 'date_create', type: 'date', dateFormat: 'Y-m-d H:i:s'}
+        'type_id'
+//        {name: 'date_create', type: 'date', dateFormat: 'Y-m-d H:i:s'}
     ]
 });

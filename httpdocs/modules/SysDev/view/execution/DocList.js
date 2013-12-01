@@ -11,6 +11,9 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     forceFit: true,
     
     border: false,
+
+    autoScroll: true,
+
     
     store: {
         type: 'project-doc-store'
@@ -53,7 +56,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
 
     columns: [{
         xtype:'actioncolumn',
-        width: 16,
+        width: 25,
         items: [{
             icon: '/images/icons/download.png',
             tooltip: 'Скачать документ',
@@ -65,23 +68,25 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         }]
     }, {
         header: 'Наименование',
+        flex:1,
         editor: {
             xtype: 'textfield',
             allowBlank: false
         },
         dataIndex: 'name'
-    }, {
-        header: 'Расширение',
-        dataIndex: 'ext'
-    }, {
-        header: 'Автор',
-        dataIndex: 'author'
-    }, {
-        xtype: 'datecolumn',
-        header: 'Дата создания',
-        format: 'd.m.Y H:i',
-        dataIndex: 'date_create'
     },
+//    {
+//        header: 'Расширение',
+//        dataIndex: 'ext'
+//    }, {
+//        header: 'Автор',
+//        dataIndex: 'author'
+//    }, {
+//        xtype: 'datecolumn',
+//        header: 'Дата создания',
+//        format: 'd.m.Y H:i',
+//        dataIndex: 'date_create'
+//    },
 //    {
 //        header: 'Тип документа',
 //        editor: {
@@ -96,7 +101,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
     }, {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('sysdev', 'docs'),
-        width: 40,
+        width: 85,
         items: [
         {
             icon: '/images/icons/edit.png',

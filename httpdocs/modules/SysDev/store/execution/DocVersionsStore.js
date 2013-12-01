@@ -2,7 +2,7 @@ Ext.define('EC.SysDev.store.execution.DocVersionsStore', {
 
     extend: 'Ext.data.Store',
     
-    alias: 'store.project-doc-versions-store',
+    alias: 'store.project-docs-versions-store',
    
     model: 'EC.SysDev.model.DocVersionModel',
 
@@ -14,7 +14,7 @@ Ext.define('EC.SysDev.store.execution.DocVersionsStore', {
 
     proxy: {
         type: 'ajax',
-        url: '/json/sysdev/project-docs/get-doc-versions',
+        url: '/json/sysdev/project-docs-versions/get-doc-versions',
         reader: {
             type: 'json',
             root: 'data'

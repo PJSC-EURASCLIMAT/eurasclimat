@@ -3,20 +3,14 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     extend: 'Ext.app.Controller',
 
     addDocURL: '/json/sysdev/project-docs/add-doc',
-
     uploadURL: '/json/sysdev/project-docs/upload',
-
-    uploadDocVersionURL: '/json/sysdev/project-docs/upload-version',
-
     deleteDocURL: '/json/sysdev/project-docs/delete',
-
-    deleteDocVersionURL: '/json/sysdev/project-docs/delete-version',
-
     downloadURL: '/json/sysdev/project-docs/download',
-
-    downloadDocVersionURL: '/json/sysdev/project-docs/download-version',
-
     updateDocURL: '/json/sysdev/project-docs/update-doc',
+
+    uploadDocVersionURL: '/json/sysdev/project-docs-versions/upload-version',
+    deleteDocVersionURL: '/json/sysdev/project-docs-versions/delete-version',
+    downloadDocVersionURL: '/json/sysdev/project-docs-versions/download-version',
 
     refs: [
         { ref: 'docList', selector: 'project-doc-list' }

@@ -1,26 +1,26 @@
-Ext.define('EC.Catalog.view.Conditioners.Filter.PowerSource', {
+Ext.define('EC.Catalog.view.Conditioners.Filter.HeatingCooling', {
     
     extend: 'Ext.form.ComboBox',
     
-    alias: ['widget.ConditionersFilterPowerSource'],
+    alias: ['widget.ConditionersFilterHeatingCooling'],
     
     valueField: 'id',
     
     displayField: 'name', 
     
-    fieldLabel: 'Наличие инвертора',
+    fieldLabel: 'Охлаждение/нагрев',
     
     editable: false,
     
     queryMode: 'local',
     
-    fieldName: 'power_source_id',
+    fieldName: 'heatingcooling_id',
     
     value: '',
     
     store: { 
         
-        storeId: 'ConditionersFilterPowerSource',
+        storeId: 'ConditionersFilterHeatingCooling',
         
         autoLoad: true,
         
@@ -31,10 +31,10 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.PowerSource', {
             name:   '- Не выбрано -'
         }, {
             id:     '0',
-            name:   'Нет'
+            name:   'только охлаждение'
         }, {
             id:     '1',
-            name:   'Есть'
+            name:   'охлаждение/нагрев'
         }]
     },
 

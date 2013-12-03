@@ -8,7 +8,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ImplementationType', {
     
     displayField: 'name', 
     
-    fieldLabel: 'Тип исполнения',
+    fieldLabel: 'Тип исполнения системы',
     
     editable: false,
     
@@ -20,7 +20,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.ImplementationType', {
     
     store: { 
         
-        storeId: ['ConditionersFilterImplementationType'],
+        storeId: 'ConditionersFilterImplementationType',
     
         autoLoad: true,
         

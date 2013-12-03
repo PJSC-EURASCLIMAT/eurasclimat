@@ -15,17 +15,14 @@ Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
     }, {
         xtype: 'ConditionersFilterImplementationType'
     }, {
-        xtype: 'ConditionersFilterConnectionType'
-    }, {
-        xtype: 'ConditionersFilterProtectionType'
+        xtype: 'ConditionersFilterHeatingCooling'
     }, {
         xtype: 'ConditionersFilterPowerSource'
     }, {
-        xtype: 'ConditionersFilterMaterial'
-    }, {
-        xtype: 'ConditionersFilterControlType'
-    }, {
         xtype: 'ConditionersFilterCountry'
+    }, {
+        xtype: 'ConditionersFilterCurrency',
+        hidden: true
     }]
     
 });

@@ -33,6 +33,10 @@ Ext.define('EC.Catalog.view.EditAbstract', {
             layout: 'fit',
             items: [{
                 xtype: 'tabpanel',
+                border: false,
+                defaults: {
+                    border: false
+                },
                 items: [{
                     title: 'Основные параметры',
                     xtype: 'form',

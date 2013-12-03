@@ -1,3 +1,5 @@
+// TODO: вынести этот комбо общим для всех каталогов.
+
 Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
     
     extend: 'Ext.form.ComboBox',
@@ -8,7 +10,7 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.Country', {
     
     displayField: 'name', 
     
-    fieldLabel: 'Страна',
+    fieldLabel: 'Страна производитель',
     
     editable: false,
     

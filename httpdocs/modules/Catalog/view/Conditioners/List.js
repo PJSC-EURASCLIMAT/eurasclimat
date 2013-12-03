@@ -19,14 +19,15 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             '<img src="http://placehold.it/300x220"/>' +
         '</tpl>' + 
         
-        '<p>Ссылка: <b>{url}</b></p><br/>' + 
-        '<p>Цена: <b>{price}&nbsp;р.</b></p>' + 
-        '<p>СМР: <b>{mount_price}&nbsp;р.</b></p>' + 
-        
-        '</td><td colspan="3" height="40"><h1><p>' + 
+        '<p>Цена: <b>{price}&nbsp;' + 
+        '{[this.r("ConditionersFilterCurrency", values.currency_id)]}' +
+        '</b></p>' + 
+        '<p>Артикул: <b>{code}</b></p>' + 
+
+        '</td><td colspan="2" height="40"><h1><p>' +
+        '{name} ' +
         '{[this.r("FilterMark", values.mark_id)]} ' + 
         '{marking}</p></h1>' + 
-        '<p>Артикул: <b>{code}</b></p>' + 
         '<p>Группа оборудования: <b>' + 
         '{[this.r("ConditionersFilterGroup", values.group_id)]}' + 
         '</b></p>' + 
@@ -35,62 +36,29 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         '<p>Тип продукции: <b>' + 
         '{[this.r("ConditionersFilterProductType", values.product_type_id)]}' + 
         '</b></p>' + 
-        '<p>Тип исполнения: <b>' + 
+        '<p>Тип исполнения системы: <b>' + 
         '{[this.r("ConditionersFilterImplementationType", values.implementation_type_id)]}' + 
         '</b></p>' + 
-        '<p>Способ управления системой: <b>' + 
-        '{[this.r("ConditionersFilterControlType", values.control_type_id)]}' + 
+        '<p>Охлаждение/нагрев: <b>' +
+        '{[this.r("ConditionersFilterHeatingCooling", values.heatingcooling_id)]}' +
         '</b></p>' + 
-        '<p>Тип присоединения: <b>' + 
-        '{[this.r("ConditionersFilterConnectionType", values.connection_type_id)]}' + 
-        '</b></p>' + 
-        '<p>Тип защиты: <b>' + 
-        '{[this.r("ConditionersFilterProtectionType", values.protection_type_id)]}' + 
-        '</b></p>' + 
-        '<p>Источник питания: <b>' + 
+        '<p>Наличие инвертора: <b>' + 
         '{[this.r("ConditionersFilterPowerSource", values.power_source_id)]}' + 
-        '</b></p>' + 
-        '<p>Материал: <b>' + 
-        '{[this.r("ConditionersFilterMaterial", values.material_id)]}' + 
-        '</b></p>' + 
-        '<p>Страна изготовления: <b>' + 
+        '</b></p>' +
+        '<p>Страна производитель: <b>' + 
         '{[this.r("ConditionersFilterCountry", values.country)]}' + 
         '</b></p>' + 
         '<p>Холодопроизводительность: <b>{cooling_capacity}&nbsp;кВт</b></p>' + 
         '<p>Теплопроизводительность: <b>{heating_capacity}&nbsp;кВт</b></p>' + 
-        '<p>Гарантированный диапазон наружных температур (охлаждение): <b>{cooling_outdor_temp}&nbsp;°C</b></p>' + 
-        '<p>Гарантированный диапазон наружных температур (обогрев): <b>{heating_outdor_temp}&nbsp;°C</b></p>' + 
-        '<p>Напряжение питания: <b>{power_supply}&nbsp;В</b></p>' + 
         
         '</td><td>' + 
         
-        '<p>Потребляемая мощность (охлаждение): <b>{cooling_power_consumption}&nbsp;кВт</b></p>' + 
-        '<p>Потребляемая мощность (обогрев): <b>{heating_power_consumption}&nbsp;кВт</b></p>' + 
-        '<p>Рабочий ток: <b>{amperage}&nbsp;ампер</b></p>' + 
         '<p>Расход воздуха (мин): <b>{air_consumption_min}&nbsp;м³/ч</b></p>' + 
         '<p>Расход воздуха (макс): <b>{air_consumption_max}&nbsp;м³/ч</b></p>' + 
-        '<p>Входов для подключаемых датчиков: <b>{sensor_inputs}&nbsp;ед.</b></p>' + 
-        '<p>Давление: <b>{pressure}&nbsp;бар</b></p>' + 
         '<p>Уровень шума (мин): <b>{noise_level_min}&nbsp;дБ(А)</b></p>' + 
         '<p>Уровень шума (макс): <b>{noise_level_max}&nbsp;дБ(А)</b></p>' + 
-        '<p>Энергоэффективность: <b>{eer}&nbsp;EER</b></p>' + 
-        '<p>Вес: <b>{weight}&nbsp;кг</b></p>' + 
         '<p>Габариты (ШхДхВ): <b>{dimensions}&nbsp;мм</b></p>' + 
-        '<p>Длина кабеля: <b>{cable_length}&nbsp;мм</b></p>' + 
-        
-        '</td><td>' + 
-        
-        '<p>Диаметр трубок (жидкость): <b>{pipe_diameter_liquid}&nbsp;мм</b></p>' + 
-        '<p>Диаметр трубок (газ): <b>{pipe_diameter_gas}&nbsp;мм</b></p>' + 
-        '<p>Диаметр дренажа: <b>{drain_diameter}&nbsp;мм</b></p>' + 
-        '<p>Максимальная длина магистрали: <b>{trunk_length}&nbsp;м</b></p>' + 
-        '<p>Максимальный перепад высот: <b>{elevation_difference}&nbsp;м</b></p>' + 
-        '<p>Площадь кондиционирования: <b>{square}&nbsp;м²</b></p>' + 
-        '<p>Площадь кондиционирования: <b>{volume}&nbsp;м³/ч</b></p>' + 
         '<p>Гарантия: <b>{warranty}&nbsp;лет</b></p>' + 
-        '<p>Склад: <b>{storage}&nbsp;ед.</b></p>' + 
-        '<p>Резерв: <b>{reserve}&nbsp;ед.</b></p>' + 
-        '<p>Заказ: <b>{order}&nbsp;ед.</b></p>' + 
         
         '</td></tr></table></div>',
         
@@ -109,7 +77,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
         }, {
             header: 'Группа оборудования',
             dataIndex: 'group_id',
-            flex: 1,
+            hidden: true,
             renderer: function(value) {
                 return this.comboRenderer('ConditionersFilterGroup', value);
             },
@@ -124,8 +92,17 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'string'
             }
         }, {
+            header: 'Наименование',
+            tooltip: 'Брендовое наименование модели (серии)',
+            flex: 1,
+            dataIndex: 'name',
+            filter: {
+                type: 'string'
+            }
+        }, {
             header: 'Артикул',
             width: 100,
+            hidden: true,
             dataIndex: 'code',
             filter: {
                 type: 'string'
@@ -141,7 +118,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Тип исполнения',
+            header: 'Тип исполнения системы',
             width: 150,
             dataIndex: 'implementation_type_id',
             renderer: function(value) {
@@ -151,37 +128,17 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Способ управления системой',
+            header: 'Охлаждение/нагрев',
             hidden: true,
-            dataIndex: 'control_type_id',
+            dataIndex: 'heatingcooling_id',
             renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterControlType', value);
+                return this.comboRenderer('ConditionersFilterHeatingCooling', value);
             },
             filter: {
                 type: 'numeric'
             }
         }, {
-            header: 'Тип присоединения',
-            hidden: true,
-            dataIndex: 'connection_type_id',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterConnectionType', value);
-            },
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Тип защиты',
-            hidden: true,
-            dataIndex: 'protection_type_id',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterProtectionType', value);
-            },
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Источник питания',
+            header: 'Наличие инвертора',
             hidden: true,
             dataIndex: 'power_source_id',
             renderer: function(value) {
@@ -191,17 +148,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Материал',
-            hidden: true,
-            dataIndex: 'material_id',
-            renderer: function(value) {
-                return this.comboRenderer('ConditionersFilterMaterial', value);
-            },
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Страна',
+            header: 'Страна производитель',
             hidden: true,
             dataIndex: 'country',
             renderer: function(value) {
@@ -225,48 +172,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Гарантированный диапазон наружных температур (охлаждение) (°C)',
-            hidden: true,
-            dataIndex: 'cooling_outdor_temp',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Гарантированный диапазон наружных температур (обогрев) (°C)',
-            hidden: true,
-            dataIndex: 'heating_outdor_temp',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Напряжение питания (В)',
-            hidden: true,
-            dataIndex: 'power_supply',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Потребляемая мощность (охлаждение) (кВт)',
-            hidden: true,
-            dataIndex: 'cooling_power_consumption',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Потребляемая мощность (обогрев) (кВт)',
-            hidden: true,
-            dataIndex: 'heating_power_consumption',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Рабочий ток (ампер)',
-            hidden: true,
-            dataIndex: 'amperage',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
             header: 'Расход воздуха (мин) (м³/ч)',
             hidden: true,
             dataIndex: 'air_consumption_min',
@@ -277,20 +182,6 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             header: 'Расход воздуха (макс) (м³/ч)',
             hidden: true,
             dataIndex: 'air_consumption_max',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Входов для подключаемых датчиков (ед.)',
-            hidden: true,
-            dataIndex: 'sensor_inputs',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Давление (бар)',
-            hidden: true,
-            dataIndex: 'pressure',
             filter: {
                 type: 'numeric'
             }
@@ -309,79 +200,9 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Энергоэффективность (EER)',
-            hidden: true,
-            dataIndex: 'eer',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Вес (кг)',
-            hidden: true,
-            dataIndex: 'weight',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
             header: 'Габариты (ШхДхВ) (мм)',
             hidden: true,
             dataIndex: 'dimensions'
-        }, {
-            header: 'Длина кабеля (мм)',
-            hidden: true,
-            dataIndex: 'cable_length',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Диаметр трубок (жидкость) (мм)',
-            hidden: true,
-            dataIndex: 'pipe_diameter_liquid',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Диаметр трубок (газ) (мм)',
-            hidden: true,
-            dataIndex: 'pipe_diameter_gas',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Диаметр дренажа (мм)',
-            hidden: true,
-            dataIndex: 'drain_diameter',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Максимальная длина магистрали (м)',
-            hidden: true,
-            dataIndex: 'trunk_length',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Максимальный перепад высот (м)',
-            hidden: true,
-            dataIndex: 'elevation_difference',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Площадь кондиционирования (м²)',
-            hidden: true,
-            dataIndex: 'square',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Площадь кондиционирования (м³/ч)',
-            hidden: true,
-            dataIndex: 'volume',
-            filter: {
-                type: 'numeric'
-            }
         }, {
             header: 'Гарантия (лет)',
             hidden: true,
@@ -390,41 +211,19 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Склад (ед.)',
-            hidden: true,
-            dataIndex: 'storage',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Резерв (ед.)',
-            hidden: true,
-            dataIndex: 'reserve',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Заказ (ед.)',
-            hidden: true,
-            dataIndex: 'order',
-            filter: {
-                type: 'numeric'
-            }
-        }, {
-            header: 'Ссылка',
-            hidden: true,
-            dataIndex: 'url'
-        }, {
-            header: 'Цена (р)',
+            header: 'Цена',
             width: 80,
             dataIndex: 'price',
             filter: {
                 type: 'numeric'
             }
         }, {
-            header: 'СМР (р)',
-            hidden: true,
-            dataIndex: 'mount_price',
+            header: 'Валюта',
+            width: 80,
+            dataIndex: 'currency_id',
+            renderer: function(value) {
+                return value == '0' ? '' : this.comboRenderer('ConditionersFilterCurrency', value);
+            },
             filter: {
                 type: 'numeric'
             }

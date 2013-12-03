@@ -22,11 +22,9 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Filter.Group',
         'EC.Catalog.view.Conditioners.Filter.ProductType',
         'EC.Catalog.view.Conditioners.Filter.ImplementationType',
-        'EC.Catalog.view.Conditioners.Filter.ControlType',
-        'EC.Catalog.view.Conditioners.Filter.ConnectionType',
-        'EC.Catalog.view.Conditioners.Filter.ProtectionType',
         'EC.Catalog.view.Conditioners.Filter.PowerSource',
-        'EC.Catalog.view.Conditioners.Filter.Material',
+        'EC.Catalog.view.Conditioners.Filter.HeatingCooling',
+        'EC.Catalog.view.Conditioners.Filter.Currency',
         'EC.Catalog.view.Conditioners.Filter.Country'
     ],
     

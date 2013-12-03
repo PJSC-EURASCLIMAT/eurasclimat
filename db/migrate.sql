@@ -83,16 +83,35 @@ CREATE TABLE `experts_rating` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 
-CREATE TABLE `experts_statuses` (
+
+DROP TABLE IF EXISTS `experts_statuses`;
+CREATE TABLE IF NOT EXISTS `experts_statuses` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `desc` text,
-  `date_create` datetime DEFAULT NULL,
+  `date_create` datetime NOT NULL,
   `date_update` datetime DEFAULT NULL,
   `author_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `author_id` (`author_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+
+
+DROP TRIGGER IF EXISTS `date_create`;
+DELIMITER //
+CREATE TRIGGER `date_create` BEFORE INSERT ON `experts_statuses`
+ FOR EACH ROW BEGIN
+set NEW.date_create = NOW();
+set NEW.date_update = NOW();
+END
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `date_update`;
+DELIMITER //
+CREATE TRIGGER `date_update` BEFORE UPDATE ON `experts_statuses`
+ FOR EACH ROW SET NEW.date_update = NOW()
+//
+DELIMITER ;
 
 
 ALTER TABLE `experts`
@@ -121,6 +140,8 @@ ALTER TABLE `experts_rating`
 
 ALTER TABLE `experts_statuses`
   ADD CONSTRAINT `experts_statuses_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `accounts` (`id`) ON DELETE SET NULL;
+
+
 
 
 SET FOREIGN_KEY_CHECKS=1;

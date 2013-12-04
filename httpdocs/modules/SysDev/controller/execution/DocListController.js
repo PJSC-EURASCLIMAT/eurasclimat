@@ -263,7 +263,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
     },
 
     onDocDelete: function(record) {
-        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить документ?', function(b) {
             if ('yes' === b) {
                 this.deleteDoc(record.getId());
             }
@@ -314,8 +314,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         form.submit({
             url: this.addDocURL,
             success: function(form, action) {
+                this.docListRefresh();
                 view.close();
-                this.getDocList().store.load();
                 if (andUpload === true) {
                     this.addDocVersion(action.result.id);
                 }
@@ -341,8 +341,8 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         form.submit({
             url: this.updateDocURL,
             success: function(form, action) {
+                this.docListRefresh();
                 view.close();
-                this.getDocList().store.load();
             },
             failure: function(form, action) {
                 switch (action.failureType) {
@@ -381,7 +381,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         });
 
         view.on({
-            save: function(event,andUpload) {
+            save: function(event, andUpload) {
                 this.submitAddForm(view, andUpload);
             },
             scope: this

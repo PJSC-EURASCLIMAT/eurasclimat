@@ -15,6 +15,63 @@ class WeatherController extends Xend_Controller_Action
 
     public function getCountriesAction()
     {
+        $countries = new Xend_Locations_Countries();
+        $response = $countries->getList();
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function getCitiesByCountryCodeAction()
+    {
+        $cities = new Xend_Locations_Cities();
+        $response = $cities->getByCountry($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function getCitiesAction()
+    {
+        $cities = new Xend_Locations_Cities();
+        $response = $cities->getList();
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function getCitiesOldAction()
+    {
+        $this->disableRender(true);
+        $data = file('http://xml.weather.co.ua/1.2/city/');
+        $xml = new SimpleXMLIterator(join('', $data));
+        $arr = $xml->xpath('city');
+        $out = array();
+        foreach ($arr as $a) {
+            $in = (array)$a;
+            $res = array();
+            $res['id']          = (string)$in['@attributes']['id'];
+            $res['name']        = (string)$in['name'];
+            $res['name_en']     = (string)$in['name_en'];
+            $res['region']      = (string)$in['region'];
+            $res['country_id']  = (string)$in['country_id'];
+
+            $out[] = $res;
+        }
+        echo Zend_Json::encode(array_values($out));
+    }
+
+    public function getCountriesOldAction()
+    {
         $this->disableRender(true);
         $data = file('http://xml.weather.co.ua/1.2/country/');
         $xml = new SimpleXMLIterator(join('', $data));
@@ -34,7 +91,7 @@ class WeatherController extends Xend_Controller_Action
         echo Zend_Json::encode(array_values($out));
     }
 
-    public function getCitiesByCountryCodeAction()
+    public function getCitiesByCountryCodeOldAction()
     {
         $this->disableRender(true);
         $data = file('http://xml.weather.co.ua/1.2/city/?country=' . $this->_getParam('id'));

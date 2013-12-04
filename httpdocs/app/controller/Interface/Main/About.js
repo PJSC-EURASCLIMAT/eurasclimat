@@ -57,7 +57,7 @@ Ext.define('App.controller.Interface.Main.About', {
             launchModule: 'EC.Main.controller.Order'
         }];
         
-        if (location.host != 'eurasclimat') {
+//        if (location.host != 'eurasclimat') {
             modulesToOpen.push({
                 title: 'Курсы валют',
                 icon: '/images/icons/cur_exch.png',
@@ -80,7 +80,7 @@ Ext.define('App.controller.Interface.Main.About', {
                 position: 'MainPanel-column-3',
                 launchModule: 'EC.Main.controller.Weather'
             });
-        }
+//        }
         
         Ext.each(modulesToOpen, function(item) {
             MC.openModulePortlet(item);

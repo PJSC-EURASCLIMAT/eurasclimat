@@ -1,35 +1,28 @@
 <?php
 
 /**
- * Personal Account Messages Controller
+ * Project Docs Controller conroller
  */
-class Experts_ExpertsStatusesController extends Xend_Controller_Action
+class Experts_ExpertsController extends Xend_Controller_Action
 {
-
-    /**
-     * @var PA_Messages_Model
-     * */
-    protected $_model;
 
     public function init()
     {
-        $this->_model = new Experts_Statuses_Model();
+        $this->_model = new Experts_Experts_Model();
+
         parent::init();
     }
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts->statuses);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-by');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
     }
 
-
-    /**
-     * List of messages
-     */
     public function getListAction()
     {
         $response = $this->_model->getAll();
@@ -42,29 +35,44 @@ class Experts_ExpertsStatusesController extends Xend_Controller_Action
         }
     }
 
-    public function updateAction()
+    public function getByAction()
     {
-        $data = $this->_getAllParams();
-        $response = $this->_model->update($data);
+        $params = $this->_getAllParams();
+
+        $response = $this->_model->getByProject($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
+            $this->view->data = $response->getRowset();
+            $this->view->total = $response->totalCount;
         } else {
             $this->_collectErrors($response);
         }
     }
 
 
-    public function addAction ()
+    public function updateAction()
     {
-        $data = $this->_getAllParams();
-
-        $response = $this->_model->add($data);
-
+        $response = $this->_model->update($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
-            $this->view->id = $response->id;
         } else {
             $this->_collectErrors($response);
+        }
+        $this->view->success = true;
+    }
+
+    public function addAction()
+    {
+        $data= $this->_getAllParams();
+
+        $modResponse = $this->_model->add($data);
+
+        if ($modResponse->hasNotSuccess()) {
+            $this->_collectErrors($modResponse);
+            return;
+        } else {
+            $this->view->success = true;
+            $this->view->id = $modResponse->id;
         }
 
     }
@@ -72,11 +80,12 @@ class Experts_ExpertsStatusesController extends Xend_Controller_Action
     public function deleteAction()
     {
         $id = intval($this->_getParam('id'));
-        $response = $this->_model->delete($id);
-        if ($response->isSuccess()) {
+
+        $deleteResponse = $this->_model->delete($id);
+        if ($deleteResponse->isSuccess()) {
             $this->view->success = true;
         } else {
-            $this->_collectErrors($response);
+            $this->_collectErrors($deleteResponse);
         }
     }
 

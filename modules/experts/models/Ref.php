@@ -3,7 +3,7 @@
 /**
  * General class for manipulate accounts
  */
-class Experts_Statuses_Model
+class Experts_Ref
 {
     /**
      * The accounts table
@@ -12,20 +12,49 @@ class Experts_Statuses_Model
      */
     protected $_table;
 
+    protected $_select_fields;
+
+    protected $_filter;
+
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($table_name)
     {
-        $this->_table = new Experts_Statuses_Table();
+        $this->_select_fields = array('id', 'name');
+
+        $this->_filter = array(array(
+//            'id'        => 'int',
+            'name'      => 'StringTrim',
+        ), array(
+
+            'name'       => array('StringLength'),
+        ));
+        $this->_table = new Experts_RefTable($table_name, $this->_select_fields);
+
+        switch($table_name){
+            case 'statuses':
+//                $this->_table = new Experts_RefTable();
+                array_push($this->_select_fields,'desc');
+                array_push($this->_filter[0],array('desc' => 'StringTrim'));
+                array_push($this->_filter[1],array('desc' => array('StringLength')));
+                break;
+        }
+
     }
 
     public function getAll()
     {
         $response = new Xend_Response();
 
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array($this->_table->getTableName()),
+                $this->_select_fields
+            );
+
         try {
-            $rows = $this->_table->fetchAll()->toArray();
+            $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
@@ -34,11 +63,8 @@ class Experts_Statuses_Model
             }
             $status = Xend_Status::DATABASE_ERROR;
         }
-
         return $response->addStatus(new Xend_Status($status));
     }
-
-
 
     public function update($data)
     {
@@ -47,17 +73,11 @@ class Experts_Statuses_Model
         unset($data['date_create']);
         unset($data['date_update']);
 
-        $f = new Xend_Filter_Input(array(
-            'id'        => 'int',
-            'name'      => 'StringTrim',
-            'desc'      => 'StringTrim',
-        ), array(
-            'id'    => array('int', 'presence' => 'required'),
-            'name'       => array('StringLength'),
-            'desc'    => array('StringLength'),
-        ), $data);
+        $filter = $this->_filter;
+        $filter[0]['id'] = 'int';
+        $filter[1]['id'] = array('int', 'presence' => 'required');
 
-
+        $f = new Xend_Filter_Input($filter[0],$filter[1], $data);
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
@@ -75,14 +95,15 @@ class Experts_Statuses_Model
 
         unset($data['date_update']);
         unset($data['date_create']);
+        unset($data['author_id']);
 
-        $f = new Xend_Filter_Input(array(
-            'name'      => 'StringTrim',
-            'desc'      => 'StringTrim',
-        ), array(
-            'name'       => array('StringLength'),
-            'desc'    => array('StringLength'),
-        ), $data);
+        $filter = $this->_filter;
+//        foreach($filter as $key=>$val){
+//            array_splice($val,1,0);
+//        }
+
+
+        $f = new Xend_Filter_Input($filter[0],$filter[1], $data);
 
         $data['author_id'] = Xend_Accounts_Prototype::getId();
 
@@ -103,7 +124,7 @@ class Experts_Statuses_Model
         }
 
         $response->id = $id;
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        return $response->addStatus(new Xend_Status($status));
 
     }
 
@@ -147,7 +168,7 @@ class Experts_Statuses_Model
         }
 
         $response->setRowset($rowset);
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        return $response->addStatus(new Xend_Status($status));
 
     }
 

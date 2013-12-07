@@ -27,31 +27,20 @@ Ext.define('EC.SysDev.view.Docs.Add', {
             },
             items: [{
                 xtype: 'docTypesCombo',
-                fieldLabel: 'Группа',
+                fieldLabel: 'Тип документа',
                 name: 'type_id'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Имя',
+                fieldLabel: 'Имя документа',
                 name: 'name'
             }, {
                 xtype: 'hidden',
                 name: 'project_id',
                 value: this.project_id
-            }
-//            , {
-//                xtype: 'displayfield',
-//                fieldLabel: 'Дата создания',
-//                value: Ext.util.Format.date(Date(), 'd.m.Y')
-//            }, {
-//                xtype: 'displayfield',
-//                fieldLabel: 'Инициатор',
-//                value: xlib.Acl.Storage.getIdentity().name
-//            }
-            ]
+            }]
         }];
 
-        this.buttons = [
-        {
+        this.buttons = [{
             text: 'Сохранить и закрыть',
             formBind: true,
             scope: this,
@@ -65,10 +54,10 @@ Ext.define('EC.SysDev.view.Docs.Add', {
             handler: function(btn) {
                 this.fireEvent('save',null,true);
             }
-        },'->', {
-                text: 'Отменить',
-                scope: this,
-                handler: this.close
+        }, '->', {
+            text: 'Отменить',
+            scope: this,
+            handler: this.close
         }];
         
         this.callParent(arguments);

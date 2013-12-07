@@ -29,26 +29,16 @@ Ext.define('EC.SysDev.view.Docs.Edit', {
             },
             items: [{
                 xtype: 'docTypesCombo',
-                fieldLabel: 'Группа',
+                fieldLabel: 'Тип документа',
                 name: 'type_id'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Имя',
+                fieldLabel: 'Имя документа',
                 name: 'name'
             }, {
                 xtype: 'hidden',
                 name: 'id'
-            }
-//            , {
-//                xtype: 'displayfield',
-//                fieldLabel: 'Дата создания',
-//                value: Ext.util.Format.date(Date(), 'd.m.Y')
-//            }, {
-//                xtype: 'displayfield',
-//                fieldLabel: 'Инициатор',
-//                value: xlib.Acl.Storage.getIdentity().name
-//            }
-            ]
+            }]
         }];
 
         this.buttons = [{

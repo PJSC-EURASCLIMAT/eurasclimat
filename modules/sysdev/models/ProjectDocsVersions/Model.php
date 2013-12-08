@@ -2,17 +2,11 @@
 
 class Sysdev_ProjectDocsVersions_Model
 {
-    /**
-     * The role table object
-     *
-     * @var Xend_Acl_Table_Roles
-     */
     protected $_table;
 
     public function __construct()
     {
         $this->_table = new Sysdev_ProjectDocsVersions_Table();
-        $this->_filesPath = FILES_DIR . DIRECTORY_SEPARATOR . 'sysdev' . DIRECTORY_SEPARATOR . 'docs';
     }
 
     public function add($data)
@@ -20,11 +14,9 @@ class Sysdev_ProjectDocsVersions_Model
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            'doc_id'    => 'int',
-//            'name'       => 'StringTrim'
+            'doc_id'    => 'int'
         ), array(
-            'doc_id'    => array('int', 'presence' => 'required'),
-//            'name'       => array('StringLength')
+            'doc_id'    => array('int', 'presence' => 'required')
         ), $data);
 
         $response->addInputStatus($f);
@@ -41,10 +33,6 @@ class Sysdev_ProjectDocsVersions_Model
         }
 
         $data['file_id'] = $fileResponse->__get('file_id');
-//        $data['name'] = $fileResponse->__get('fileName');
-
-//        $data = $f->getData();
-//        $data['account_id'] = Xend_Accounts_Prototype::getId();
 
         try {
             $id = $this->_table->insert($data);
@@ -109,7 +97,7 @@ class Sysdev_ProjectDocsVersions_Model
             $response->setRowset($rows);
             $response->totalCount = $plugin->getTotalCount();
             $status = Xend_Status::OK;
-        } catch (Excыeption $e) {
+        } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
@@ -127,22 +115,6 @@ class Sysdev_ProjectDocsVersions_Model
             return $versionsResponse;
         }
         $rows = $versionsResponse->getRowset();
-
-//        $select = $this->_table->getAdapter()->select()
-//            ->from(
-//                array('d' => $this->_table->getTableName()),
-//                array('d.id','d.file_id')
-//            )
-//            ->where('d.doc_id=?', $doc_id);
-//
-//        try {
-//            $rows = $select->query()->fetchAll();
-//        } catch (Exception $e) {
-//            if (DEBUG) {
-//                throw $e;
-//            }
-//            return array();
-//        }
 
         foreach ($rows as &$row) {
             $this->delete($row);
@@ -164,15 +136,9 @@ class Sysdev_ProjectDocsVersions_Model
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-//        $response = $this->getById($id);
-//        if ($response->hasNotSuccess()) {
-//            return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
-//        }
-//        $data = $response->getRowSet();
         $file = new Xend_File();
         $fileResponse = $file->deleteFile($data['file_id']);
 
-//        $res = $this->_table->deleteByPk($id);
         if ($fileResponse->hasNotSuccess()) {
             return $fileResponse->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         }

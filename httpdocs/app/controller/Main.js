@@ -50,6 +50,10 @@ Ext.define('App.controller.Main', {
         if (acl.isView('crm')) {
             this.getController('App.controller.Interface.CRM');
         }
+
+        if (acl.isView('experts')) {
+            this.getController('App.controller.Interface.Experts');
+        }
         
         // Make first tab active
         centerPanel.setActiveTab(0);

@@ -1,8 +1,8 @@
-Ext.define('EC.Main.view.Weather.CountriesCombo', {
+Ext.define('xlib.CountriesCombo', {
     
     extend: 'Ext.form.ComboBox',
     
-    alias: ['widget.WeatherCountriesCombo'],
+    alias: ['widget.CountriesCombo'],
     
     valueField: 'id',
     
@@ -24,7 +24,7 @@ Ext.define('EC.Main.view.Weather.CountriesCombo', {
     
     store: { 
         
-        storeId: 'WeatherCountriesComboStore',
+        storeId: 'CountriesComboStore',
         
         autoLoad: true,
         
@@ -32,7 +32,7 @@ Ext.define('EC.Main.view.Weather.CountriesCombo', {
         
         proxy: {
             type: 'ajax',
-            url: '/json/default/weather/get-countries',
+            url: '/json/default/locations/get-countries',
             reader: {
                 type: 'json',
                 root: 'data',

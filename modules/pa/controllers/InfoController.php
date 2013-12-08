@@ -14,6 +14,7 @@ class PA_InfoController extends Xend_Controller_Action
     public function init()
     {
         $this->_accounts = new Xend_Accounts();
+        $this->_cities = new Xend_Accounts();
         parent::init();
     }
 

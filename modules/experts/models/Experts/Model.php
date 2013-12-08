@@ -14,71 +14,28 @@ class Experts_Experts_Model
         $this->_table = new Experts_Experts_Table();
     }
 
-    public function getBy($params)
-    {
-        $response = new Xend_Response();
-
-        $select = $this->_table->getAdapter()->select()
-            ->from(
-                array('d' => $this->_table->getTableName()),
-                array(
-                    'd.id', 'd.name', 'd.project_id',
-                    'type_id' => 't.id',
-                    'type' => 't.name'
-                )
-            )
-            ->joinLeft(
-                array('t' => 'doc_types'),
-                't.id=d.type_id', null
-            );
-
-        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
-        $plugin->parse($params);
-
-        if (isset($params['project_id']) && !empty($params['project_id'])) {
-            $params['project_id'] = intval($params['project_id']);
-            if ($params['project_id']==0) {
-                return $response->addStatus(new Xend_Status(
-                    Xend_Status::INPUT_PARAMS_INCORRECT, 'project_id'));
-            }
-            $select->where('d.project_id=?', $params['project_id']);
-        }
-
-        try {
-            $rows = $select->query()->fetchAll();
-            $response->setRowset($rows);
-            $response->totalCount = $plugin->getTotalCount();
-            $status = Xend_Status::OK;
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-            $status = Xend_Status::DATABASE_ERROR;
-        }
-        return $response->addStatus(new Xend_Status($status));
-    }
-
     public function update($data)
     {
         $response = new Xend_Response();
 
         unset($data['date_update']);
         unset($data['date_create']);
+        unset($data['author_id']);
 
         $f = new Xend_Filter_Input(array(
-            'id'        => 'int',
-            'name'      => 'StringTrim',
-            'desc'      => 'StringTrim',
-//            'city_id'   => 'int',
-//            'status_id'   => 'int',
-//            'equip_id'   => 'int',
+            'id'            => 'int',
+            'account_id'    => 'int',
+            'desc'          => 'StringTrim',
+            'city_id'       => 'int',
+            'status_id'     => 'int',
+            'equip_id'      => 'int',
         ), array(
-            'id'    => array('int', 'presence' => 'required'),
-            'name'       => array('StringLength'),
-            'desc'       => array('StringLength'),
-//            'city_id'    => array('int', 'presence' => 'required'),
-//            'status_id'    => array('int', 'presence' => 'required'),
-//            'equip_id'    => array('int', 'presence' => 'required'),
+            'id'            => array('int', 'presence' => 'required'),
+            'account_id'    => array('Id', 'allowEmpty' => false),
+            'desc'          => array('StringLength'),
+            'city_id'       => array('Id', 'allowEmpty' => true),
+            'status_id'     => array('Id', 'allowEmpty' => true),
+            'equip_id'      => array('Id', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);
@@ -86,7 +43,17 @@ class Experts_Experts_Model
             return $response;
         }
 
-        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+        try {
+            $rows = $this->_table->updateByPk($f->getData(), $f->id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
     }
@@ -103,14 +70,18 @@ class Experts_Experts_Model
         $data['author_id'] = Xend_Accounts_Prototype::getId();
 
         $f = new Xend_Filter_Input(array(
-            'name'          => 'StringTrim',
+            'account_id'    => 'int',
             'desc'          => 'StringTrim',
+            'city_id'       => 'int',
+            'status_id'     => 'int',
+            'equip_id'      => 'int',
         ), array(
-            'name'          => array('StringLength'),
+            'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
+            'city_id'       => array('Id', 'allowEmpty' => true),
+            'status_id'     => array('Id', 'allowEmpty' => true),
+            'equip_id'      => array('Id', 'allowEmpty' => true),
         ), $data);
-
-
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
@@ -157,7 +128,12 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.name', 'e.city_id', 'e.status_id', 'e.equip_id')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.city_id', 'e.status_id', 'e.equip_id')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array('name' => 'a.name')
             )
             ->joinLeft(
                 array('st' => 'experts_statuses'),
@@ -177,7 +153,10 @@ class Experts_Experts_Model
             ->joinLeft(
                 array('co' => 'countries'),
                 'co.id=c.country_id',
-                array('country' => 'co.name')
+                array(
+                    'country' => 'co.name',
+                    'country_id' => 'co.id'
+                )
             );
 
         try {
@@ -185,7 +164,7 @@ class Experts_Experts_Model
             if(count($rows) == 0) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
-            $response->setRowset($rows[0]);
+            $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

@@ -409,29 +409,4 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
         this.getController('xlib.DocTypes.controller.DocTypes').run(win);
     }
 
-//    ,onDocAdd: function() {
-//        Ext.create('xlib.upload.Dialog', {
-//            autoShow: true,
-//            dialogTitle: 'Передача файлов на сервер',
-//            uploadUrl: this.uploadURL,
-//            uploadParams: {project_id: this.cur_project_id},
-//            listeners: {
-//                'uploadcomplete' : {
-//                    fn: function(upDialog, manager, items, errorCount) {
-//                        if (!errorCount) {
-//                            upDialog.close();
-//                        }
-//                    },
-//                    scope: this
-//                },
-//                'close' : {
-//                    fn: function (panel, eOpts ) {
-//                        this.docListRefresh();
-//                    },
-//                    scope: this
-//                }
-//            }
-//        });
-//    }
-
 });

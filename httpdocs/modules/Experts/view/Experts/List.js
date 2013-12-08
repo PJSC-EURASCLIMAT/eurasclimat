@@ -1,0 +1,124 @@
+Ext.define('EC.Experts.view.Experts.List', {
+
+    extend: 'Ext.grid.Panel',
+
+    alias: 'widget.ExpertsList',
+
+    layout: 'fit',
+
+    store: 'EC.Experts.store.Experts',
+    
+    permissions: acl.isUpdate('experts'),
+
+    initComponent: function() {
+        
+        var actions = [];
+
+        if (this.permissions) {
+
+            actions.push({
+                icon: '/images/icons/fam/plugin.gif',
+                tooltip: 'Редактировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+
+            actions.push({
+                icon: '/images/icons/fam/delete.gif',
+                tooltip: 'Удалить',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+
+            });
+        }
+        
+        this.columns = [{
+            header: 'Имя',
+            dataIndex: 'name',
+            flex: .5
+        }, {
+            header: 'Описание',
+            dataIndex: 'desc',
+            flex: .5
+        }, {
+            header: 'Статус',
+            dataIndex: 'status',
+            flex: .5
+        }, {
+            header: 'Тип инженерного оборудования',
+            dataIndex: 'equipment',
+            flex: .5
+        }, {
+            header: 'Город',
+            dataIndex: 'city',
+            flex: .5
+        }, {
+            header: 'Страна',
+            dataIndex: 'country',
+            flex: .5
+        }, {
+            xtype:'actioncolumn',
+            width: parseInt(actions.length) * 20,
+            items: actions
+        }];
+
+        this.tbar = [{
+            xtype: 'button',
+            text: 'Создать',
+            iconCls: 'add',
+            hidden: !this.permissions,
+            action: 'additem'
+        }, {
+            xtype: 'button',
+            text: 'Типы инж. оборудования',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            handler: function() {
+                this.fireEvent('openref','equpment');
+            }
+        },{
+            xtype: 'button',
+            text: 'Опыт',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            action: 'groupslist'
+        },{
+            xtype: 'button',
+            text: 'Типы деятельности',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            action: 'groupslist'
+        },{
+            xtype: 'button',
+            text: 'Рейтинг',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            action: 'groupslist'
+        },{
+            xtype: 'button',
+            text: 'Статусы',
+            icon: '/images/icons/fam/plugin.gif',
+            iconCls: 'x-btn',
+            hidden: !this.permissions,
+            action: 'groupslist'
+        }, '->', {
+            xtype: 'button',
+            tooltip: 'Обновить',
+            iconCls: 'x-tbar-loading',
+            action: 'refresh'
+        }]
+
+
+        this.callParent(arguments);
+    }
+});

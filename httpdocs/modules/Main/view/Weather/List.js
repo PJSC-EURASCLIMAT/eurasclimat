@@ -20,7 +20,7 @@ Ext.define('EC.Main.view.Weather.List', {
         
         proxy: {
             type: 'ajax',
-            url: '/json/default/weather/get-cities-by-country-code',
+            url: '/json/default/locations/get-cities-by-country-code',
             reader: {
                 type: 'json',
                 root: 'data',
@@ -30,7 +30,7 @@ Ext.define('EC.Main.view.Weather.List', {
     },
     
     tbar: [{
-        xtype: 'WeatherCountriesCombo',
+        xtype: 'CountriesCombo',
         hideLabel: true,
         flex: 1
     }],

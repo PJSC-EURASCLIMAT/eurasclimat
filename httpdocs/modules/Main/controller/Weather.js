@@ -15,11 +15,11 @@ Ext.define('EC.Main.controller.Weather', {
             this.Layout = container.add(this.getView('EC.Main.view.Weather.Layout').create());
         }
 
-        this.Layout.down('toolbar WeatherCountriesCombo').on('change', this.getCities, this);
+        this.Layout.down('toolbar CountriesCombo').on('change', this.getCities, this);
         this.Layout.down('WeatherCitiesList').on('itemclick', this.onItemClick, this);
         
         // set location to Russia (id:643), Moscow(id:27) for now
-        this.Layout.down('toolbar WeatherCountriesCombo').setValue('643', true);
+        this.Layout.down('toolbar CountriesCombo').setValue('643', true);
         this.Layout.down('WeatherCitiesList').getStore().on('load', function() { 
             this.Layout.down('toolbar textfield[name=search]').setValue('Москва');
             this.getForecast(27);

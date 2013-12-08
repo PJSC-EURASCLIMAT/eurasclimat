@@ -3,7 +3,7 @@ Ext.define('EC.Main.view.Weather.Layout', {
     extend: 'Ext.panel.Panel',
     
     requires: [
-        'EC.Main.view.Weather.CountriesCombo',
+        'xlib.CountriesCombo',
         'EC.Main.view.Weather.List',
         'EC.Main.view.Weather.Forecast'
     ],

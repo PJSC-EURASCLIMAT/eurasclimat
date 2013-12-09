@@ -7,11 +7,8 @@ Ext.define('App.controller.Interface.Experts', {
     viewLayout: 'ExpertsPanel',
     
     init: function() {
-        
         var container = this.getContainer();
-        
         this.getController('App.controller.Interface.Experts.Experts').run(container);
-
     },
     
     getMenu: function() {

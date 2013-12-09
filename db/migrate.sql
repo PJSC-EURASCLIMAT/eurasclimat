@@ -182,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `experts_statuses` (
   `date_update` datetime DEFAULT NULL,
   `author_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `author_id` (`author_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  KEY `author_id` (`author_id`) 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 

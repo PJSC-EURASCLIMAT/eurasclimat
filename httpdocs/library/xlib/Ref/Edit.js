@@ -2,7 +2,7 @@ Ext.define('xlib.Ref.Edit', {
     
     extend: 'Ext.window.Window',
     
-    title: 'Редактирование группы',
+    title: 'Редактирование',
     
     layout: 'fit',
     

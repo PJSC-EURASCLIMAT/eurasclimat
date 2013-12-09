@@ -134,8 +134,17 @@ Ext.define('xlib.Ref.List', {
     updateItem: function(view, URL) {
 
         var form = view.down('form');
+        var data = form.getValues();
+        var params = {
+            name: data['name']
+        };
 
-        form.submit({
+        if (!Ext.isEmpty(data['id'])) {
+           params.id = data['id'];
+        }
+
+        Ext.Ajax.request({
+            params: params,
             url: URL,
             success: function(form, action) {
                 view.close();
@@ -155,6 +164,27 @@ Ext.define('xlib.Ref.List', {
             },
             scope: this
         });
+//
+//        form.submit({
+//            url: URL,
+//            success: function(form, action) {
+//                view.close();
+//                this.fireEvent('itemSaved');
+//            },
+//            failure: function(form, action) {
+//                switch (action.failureType) {
+//                    case Ext.form.action.Action.CLIENT_INVALID:
+//                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+//                        break;
+//                    case Ext.form.action.Action.CONNECT_FAILURE:
+//                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+//                        break;
+//                    case Ext.form.action.Action.SERVER_INVALID:
+//                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+//                }
+//            },
+//            scope: this
+//        });
     },
 
     deleteItem: function(record) {

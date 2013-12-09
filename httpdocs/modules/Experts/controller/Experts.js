@@ -17,9 +17,7 @@ Ext.define('EC.Experts.controller.Experts', {
     
     views: [
         'EC.Experts.view.Experts.List',
-        'EC.Experts.view.Experts.Edit',
-        'EC.Experts.view.Experts.Add',
-        'EC.Experts.view.RefCombo'
+        'EC.Experts.view.Experts.Edit'
     ],
     
     permissions: acl.isUpdate('experts'),
@@ -29,6 +27,13 @@ Ext.define('EC.Experts.controller.Experts', {
     editURL: '/json/experts/experts/update',
     
     deleteURL: '/json/experts/experts/delete',
+
+    refNames: {
+        'rating': 'Рейтинг специалистов',
+        'equipment': 'Типы инженерного оборудования специалистов',
+        'statuses': 'Статусы специалистов',
+        'job_types': 'Типы деятельности специалистов'
+    },
     
     run: function(container) {
 
@@ -73,31 +78,27 @@ Ext.define('EC.Experts.controller.Experts', {
     },
 
     openRef: function(ref_name) {
+        var list = Ext.create('xlib.Ref.List',{
+            controllerURL: '/json/experts/experts-ref/',
+            ref_name: ref_name
+        });
 
-    },
-    
-    showGroups: function() {
-        
-        var w = Ext.create('Ext.window.Window', {
-            title: 'Список групп проектов',
+        var container = Ext.create('Ext.window.Window', {
+            title: this.refNames[ref_name],
             modal: true,
             width: 400,
             height: 400,
-            autoShow: true,
+//            autoShow: true,
             layout: 'fit',
-            border: false,
-            buttons: [{
-                text: 'Закрыть',
-                scope: this,
-                handler: function() {
-                    w.close();
-                }
-            }]
+            border: false
         });
-        
-        this.getController('EC.Experts.controller.ExpertsGroups').run(w);
+
+        container.on('close',function(){
+            this.getStore('EC.Experts.store.Experts').load();
+        },this);
+        container.add(list);
+        container.show();
     },
-    
     addItem: function() {
         
         var view = Ext.create('EC.Experts.view.Experts.Edit');

@@ -80,8 +80,9 @@ Ext.define('EC.Experts.view.Experts.List', {
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
             hidden: !this.permissions,
+            scope: this,
             handler: function() {
-                this.fireEvent('openref','equpment');
+                this.fireEvent('openref','equipment');
             }
         },{
             xtype: 'button',
@@ -89,28 +90,41 @@ Ext.define('EC.Experts.view.Experts.List', {
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
             hidden: !this.permissions,
-            action: 'groupslist'
+            disabled: true,
+            scope: this,
+            handler: function() {
+                this.fireEvent('openref','experience');
+            }
         },{
             xtype: 'button',
             text: 'Типы деятельности',
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
             hidden: !this.permissions,
-            action: 'groupslist'
+            scope: this,
+            handler: function() {
+                this.fireEvent('openref','job_types');
+            }
         },{
             xtype: 'button',
             text: 'Рейтинг',
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
             hidden: !this.permissions,
-            action: 'groupslist'
+            scope: this,
+            handler: function() {
+                this.fireEvent('openref','rating');
+            }
         },{
             xtype: 'button',
             text: 'Статусы',
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
             hidden: !this.permissions,
-            action: 'groupslist'
+            scope: this,
+            handler: function() {
+                this.fireEvent('openref','statuses');
+            }
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

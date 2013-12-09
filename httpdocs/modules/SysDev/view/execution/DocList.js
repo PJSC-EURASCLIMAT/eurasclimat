@@ -14,7 +14,6 @@ Ext.define('EC.SysDev.view.execution.DocList', {
 
     autoScroll: true,
 
-    
     store: {
         type: 'project-doc-store'
     },
@@ -37,23 +36,6 @@ Ext.define('EC.SysDev.view.execution.DocList', {
         id: 'ProjectDocsGrouping'
     }],
 
-//    listeners: {
-//        edit: function(editor, e, eOpts) {
-////            var data = e.record.data;
-////            if(e.field === "type") {
-////                var dtStore = Ext.StoreMgr.lookup("xlib.DocTypes.store.DocTypes");
-////                var type_id = e.record.get('type');
-////                var typeName = dtStore.getById(type_id).get('name');
-////                e.record.set('type',typeName);
-////            }
-//            this.fireEvent('update-doc', e.record);
-//        },
-//        beforeedit: function(editor, e, eOpts) {
-//            return (acl.isUpdate('sysdev', 'docs'));
-//        }
-//    },
-
-
     columns: [{
         xtype:'actioncolumn',
         width: 25,
@@ -74,27 +56,7 @@ Ext.define('EC.SysDev.view.execution.DocList', {
             allowBlank: false
         },
         dataIndex: 'name'
-    },
-//    {
-//        header: 'Расширение',
-//        dataIndex: 'ext'
-//    }, {
-//        header: 'Автор',
-//        dataIndex: 'author'
-//    }, {
-//        xtype: 'datecolumn',
-//        header: 'Дата создания',
-//        format: 'd.m.Y H:i',
-//        dataIndex: 'date_create'
-//    },
-//    {
-//        header: 'Тип документа',
-//        editor: {
-//            xtype: 'docTypesCombo'
-//        },
-//        dataIndex: 'type'
-//    },
-        {
+    }, {
         header: 'project_id',
         dataIndex: 'project_id',
         hidden: true

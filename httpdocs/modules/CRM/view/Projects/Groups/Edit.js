@@ -12,7 +12,7 @@ Ext.define('EC.CRM.view.Projects.Groups.Edit', {
     
     modal: true,
     
-    width: 800,
+    width: 500,
     
     uses: ['EC.CRM.view.Projects.Groups.Combo'],
     
@@ -23,7 +23,6 @@ Ext.define('EC.CRM.view.Projects.Groups.Edit', {
             bodyPadding: 5,
             fieldDefaults: {
                 labelAlign: 'left',
-                labelWidth: 180,
                 border: false,
                 allowBlank: false,
                 anchor: '100%'

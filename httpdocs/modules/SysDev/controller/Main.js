@@ -77,23 +77,21 @@ Ext.define('EC.SysDev.controller.Main', {
         { ref: 'projectMain', selector: 'project-main' },
         { ref: 'mainTabs', selector: 'project-main #main-tabs' },
         { ref: 'projectTree', selector: 'project-tree' }
-    ]
+    ],
+    
+    currentProject: null,
+    
+    currentProjectId: null,
 
-    ,currentProject: null
-    ,currentProjectId: null
-
-
-    ,projectSelected: function(record) {
-
+    projectSelected: function(record) {
 
         var tabs = this.getProjectTabs();
 
-        if(record.data.leaf === false) {
+        if (record.data.leaf === false) {
             this.getProjectMain().down("#backInfo").show();
             this.getProjectLayout().hide();
             return;
         }
-
 
         tabs.setActiveTab('infoCnt');
 
@@ -120,23 +118,23 @@ Ext.define('EC.SysDev.controller.Main', {
         this.getStagesTab().down("#stage-editor").hide();
         this.getStagesTab().down("#stage-list").show();
 
-    }
+    },
 
-    ,showPrepTabs: function(){
+    showPrepTabs: function() {
 //        this.getCommentTab().tab.show();
         this.getChartTab().tab.hide();
         this.getStagesTab().tab.hide();
 //        this.getDocsTab().tab.show();
-    }
+    },
 
-    ,showExecTabs: function(){
+    showExecTabs: function(){
 //        this.getCommentTab().tab.show();
         this.getChartTab().tab.show();
         this.getStagesTab().tab.show();
 //        this.getDocsTab().tab.show();
-    }
+    },
 
-    ,tabClick: function(tabPanel, newCard, oldCard, eOpts ) {
+    tabClick: function(tabPanel, newCard, oldCard, eOpts ) {
         switch (newCard.itemId) {
             case 'project-preparation':
                 this.projectTreeCnt.currentStage = 1;
@@ -152,12 +150,10 @@ Ext.define('EC.SysDev.controller.Main', {
                 this.showExecTabs();
                 break;
         }
-
         this.getProjectTabs().hide();
+    },
 
-    }
-
-    ,run: function(container) {
+    run: function(container) {
         
         var me = this;
 
@@ -170,7 +166,7 @@ Ext.define('EC.SysDev.controller.Main', {
 
         this.container = container;
 
-        panel = container.add(this.getView('EC.SysDev.view.Main').create());
+        var panel = container.add(this.getView('EC.SysDev.view.Main').create());
 
         this.infoController =  this.getController('EC.SysDev.controller.InfoController');
         this.infoEditController =  this.getController('EC.SysDev.controller.InfoEditController');
@@ -201,8 +197,6 @@ Ext.define('EC.SysDev.controller.Main', {
             scope: this
         });
 
-//        this.projectTreeCnt.getProjectTree().store.on('update', this.infoController.onProjectSelected, this.infoController);
-
         this.commentCnt.run();
         this.stageEditorCnt.run();
         this.stageListCnt.run();
@@ -222,6 +216,5 @@ Ext.define('EC.SysDev.controller.Main', {
         this.getController('EC.SysDev.controller.execution.DocListController').run();
 
         this.showPrepTabs();
-
     }
 });

@@ -10,15 +10,11 @@ Ext.define('EC.SysDev.view.execution.DocVersionsList', {
 
     modal: true,
 
-    messagesCount: 0,
-
     width: 500,
 
     height: 300,
 
     layout: 'fit',
-
-    maximizable: true,
 
     closeAction: 'hide',
 

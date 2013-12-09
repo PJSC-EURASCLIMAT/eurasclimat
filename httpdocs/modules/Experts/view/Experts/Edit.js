@@ -65,7 +65,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                     name: 'equip_id',
                     displayField: 'name',
                     valueField: 'id',
-                    queryMode: 'local',
+//                    queryMode: 'local',
                     store: 'EC.Experts.store.Equipment'
                 },
                 {
@@ -74,7 +74,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                     name: 'status_id',
                     displayField: 'name',
                     valueField: 'id',
-                    queryMode: 'local',
+//                    queryMode: 'local',
                     store: 'EC.Experts.store.Statuses'
                 }
             ]

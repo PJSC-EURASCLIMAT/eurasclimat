@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS `experts` (
   `date_update` datetime DEFAULT NULL,
   `author_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `status_id` (`status_id`) USING BTREE,
-  KEY `equip_id` (`equip_id`) USING BTREE,
-  KEY `author_id` (`author_id`) USING BTREE,
-  KEY `city_id` (`city_id`) USING BTREE,
-  KEY `account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  KEY `status_id` (`status_id`),
+  KEY `equip_id` (`equip_id`),
+  KEY `author_id` (`author_id`),
+  KEY `city_id` (`city_id`),
+  KEY `account_id` (`account_id`) 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 DROP TRIGGER IF EXISTS `experts_date_create`;
@@ -78,8 +78,8 @@ CREATE TABLE IF NOT EXISTS `experts_equipment` (
   `date_update` datetime DEFAULT NULL,
   `author_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `author_id` (`author_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+  KEY `author_id` (`author_id`) 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 DROP TRIGGER IF EXISTS `ex_equipment_date_create`;
@@ -124,8 +124,8 @@ CREATE TABLE IF NOT EXISTS `experts_job_types` (
   `author_id` int(11) unsigned DEFAULT NULL,
   `parent_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `author_id` (`author_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  KEY `author_id` (`author_id`) 
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 DROP TRIGGER IF EXISTS `ex_job_types_date_create`;
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `experts_rating` (
   `author_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `author_id` (`author_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 DROP TRIGGER IF EXISTS `ex_rating_date_create`;

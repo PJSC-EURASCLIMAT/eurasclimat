@@ -12,15 +12,11 @@ Ext.define('App.controller.Interface.Experts.Experts', {
     }],
 
     run: function(container) {
-
         this.getContainer(container);
-
         var MC = this.getController('App.controller.Main');
-
         container.on('show', function() {
             MC.openModuleTab(this.modules[0]);
         }, this, {single: true});
-
     },
 
     getMenu: function() {

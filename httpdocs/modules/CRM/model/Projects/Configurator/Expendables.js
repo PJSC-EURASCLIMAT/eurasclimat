@@ -1,14 +1,13 @@
-Ext.define('EC.CRM.model.Configurator.SpecialServices', {
+Ext.define('EC.CRM.model.Projects.Configurator.Expendables', {
 
     extend: 'Ext.data.Model',
    
     fields: [
         'id',
-        'code',
         'name',
+        'code',
         'price',
         'measure',
-        'term',
         'number',
         {name: 'summ', type: 'float'}
     ]

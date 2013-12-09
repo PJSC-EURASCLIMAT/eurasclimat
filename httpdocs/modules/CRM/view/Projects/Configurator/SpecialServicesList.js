@@ -1,14 +1,14 @@
-Ext.define('EC.CRM.view.Configurator.ExpendablesList', {
+Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Инструменты, механизмы и вспомогательные материалы',
+    title: 'Специальные виды услуг',
     
-    alias: 'widget.ConfiguratorExpendablesList',
+    alias: 'widget.ConfiguratorSpecialServicesList',
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Configurator.Expendables',
+    store: 'EC.CRM.store.Projects.Configurator.SpecialServices',
     
     permissions: acl.isUpdate('crm', 'projects'),
     
@@ -46,6 +46,10 @@ Ext.define('EC.CRM.view.Configurator.ExpendablesList', {
         }, {
             header: 'Ед. изм.',
             dataIndex: 'measure',
+            width: 60
+        }, {
+            header: 'Сроки',
+            dataIndex: 'term',
             width: 60
         }, {
             header: 'Цена',

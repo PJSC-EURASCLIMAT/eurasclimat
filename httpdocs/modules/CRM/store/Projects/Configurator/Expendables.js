@@ -1,8 +1,8 @@
-Ext.define('EC.CRM.store.Configurator.Expendables', {
+Ext.define('EC.CRM.store.Projects.Configurator.Expendables', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.CRM.model.Configurator.Expendables',
+    model: 'EC.CRM.model.Projects.Configurator.Expendables',
     
     remoteSort: true,
     

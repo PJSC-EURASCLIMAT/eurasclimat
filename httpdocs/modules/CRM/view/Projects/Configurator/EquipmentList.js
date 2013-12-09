@@ -1,4 +1,4 @@
-Ext.define('EC.CRM.view.Configurator.EquipmentList', {
+Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
 
     extend: 'Ext.grid.Panel',
 
@@ -8,7 +8,7 @@ Ext.define('EC.CRM.view.Configurator.EquipmentList', {
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Configurator.Equipment',
+    store: 'EC.CRM.store.Projects.Configurator.Equipment',
     
     permissions: acl.isUpdate('crm', 'projects'),
     

@@ -1,4 +1,4 @@
-Ext.define('EC.CRM.view.Configurator.Layout', {
+Ext.define('EC.CRM.view.Projects.Configurator.Layout', {
     
     extend: 'Ext.panel.Panel',
     

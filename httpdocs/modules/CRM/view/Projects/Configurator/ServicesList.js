@@ -1,14 +1,14 @@
-Ext.define('EC.CRM.view.Configurator.SpecialServicesList', {
+Ext.define('EC.CRM.view.Projects.Configurator.ServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Специальные виды услуг',
+    title: 'Сопутствующие работы',
     
-    alias: 'widget.ConfiguratorSpecialServicesList',
+    alias: 'widget.ConfiguratorServicesList',
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Configurator.SpecialServices',
+    store: 'EC.CRM.store.Projects.Configurator.Services',
     
     permissions: acl.isUpdate('crm', 'projects'),
     

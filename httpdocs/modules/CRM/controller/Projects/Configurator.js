@@ -3,25 +3,25 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.CRM.store.Configurator.Equipment',
-        'EC.CRM.store.Configurator.Services',
-        'EC.CRM.store.Configurator.SpecialServices',
-        'EC.CRM.store.Configurator.Expendables'
+        'EC.CRM.store.Projects.Configurator.Equipment',
+        'EC.CRM.store.Projects.Configurator.Services',
+        'EC.CRM.store.Projects.Configurator.SpecialServices',
+        'EC.CRM.store.Projects.Configurator.Expendables'
     ],
     
     models: [
-        'EC.CRM.model.Configurator.Equipment',
-        'EC.CRM.model.Configurator.Services',
-        'EC.CRM.model.Configurator.SpecialServices',
-        'EC.CRM.model.Configurator.Expendables'
+        'EC.CRM.model.Projects.Configurator.Equipment',
+        'EC.CRM.model.Projects.Configurator.Services',
+        'EC.CRM.model.Projects.Configurator.SpecialServices',
+        'EC.CRM.model.Projects.Configurator.Expendables'
     ],
     
     views: [
-//        'EC.CRM.view.Configurator.Edit',
-        'EC.CRM.view.Configurator.EquipmentList',
-        'EC.CRM.view.Configurator.ServicesList',
-        'EC.CRM.view.Configurator.SpecialServicesList',
-        'EC.CRM.view.Configurator.ExpendablesList'
+//        'EC.CRM.view.Projects.Configurator.Edit',
+        'EC.CRM.view.Projects.Configurator.EquipmentList',
+        'EC.CRM.view.Projects.Configurator.ServicesList',
+        'EC.CRM.view.Projects.Configurator.SpecialServicesList',
+        'EC.CRM.view.Projects.Configurator.ExpendablesList'
     ],
     
     projectID: null,
@@ -52,7 +52,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             throw 'The project ID must be set!';
         }
         
-        this.Container = Ext.create('EC.CRM.view.Configurator.Layout', {
+        this.Container = Ext.create('EC.CRM.view.Projects.Configurator.Layout', {
             projectID: this.projectID,
             permissions: this.permissions
         });

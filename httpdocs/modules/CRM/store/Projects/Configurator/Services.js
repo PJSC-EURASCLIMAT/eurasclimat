@@ -1,8 +1,8 @@
-Ext.define('EC.CRM.store.Configurator.Equipment', {
+Ext.define('EC.CRM.store.Projects.Configurator.Services', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.CRM.model.Configurator.Equipment',
+    model: 'EC.CRM.model.Projects.Configurator.Services',
     
     remoteSort: true,
     
@@ -11,7 +11,7 @@ Ext.define('EC.CRM.store.Configurator.Equipment', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/crm/projects/get-equipment'
+            read:   '/json/crm/projects/get-services'
         },
         reader: {
             type: 'json',

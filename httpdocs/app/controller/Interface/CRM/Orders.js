@@ -26,18 +26,10 @@ Ext.define('App.controller.Interface.CRM.Orders', {
             icon: '/images/icons/catalog.png',
             portletHeight: 400,
             position: 'OrdersPanel-column-3',
-            launchModule: 'EC.CRM.controller.Projects',
+            launchModule: 'EC.CRM.controller.Projects.Projects',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
-//        }, {
-//            title: 'Единое окно',
-//            text: 'Единое окно',
-//            icon: '/images/icons/projects.png',
-//            launchModule: 'EC.Orders.controller.Main',
-//            handler: function(b) {
-//                MC.openModuleTab(b.initialConfig);
-//            }
         }];
     }
 });

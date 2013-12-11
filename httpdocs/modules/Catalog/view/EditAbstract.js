@@ -42,6 +42,7 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     xtype: 'form',
                     layout: 'column',
                     autoScroll: true,
+                    padding: 10,
                     defaults: {
                         border: false,
                         columnWidth: .5,
@@ -49,8 +50,8 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     },
                     fieldDefaults: {
                         labelAlign: 'left',
-                        labelWidth: 160,
-                        anchor: '-5'
+                        labelWidth: 270,
+                        anchor: '-15'
                     },
                     items: this.fields
                 }, {
@@ -58,7 +59,8 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     xtype: 'form',
                     layout: 'column',
                     autoScroll: true,
-                    columns: 3,
+                    padding: 10,
+                    columns: 2,
                     defaults: {
                         border: false,
                         columnWidth: .5,
@@ -66,8 +68,8 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     },
                     fieldDefaults: {
                         labelAlign: 'left',
-                        labelWidth: 300,
-                        anchor: '-5'
+                        labelWidth: 270,
+                        anchor: '-15'
                     },
                     items: this.extrafields
                 }, {

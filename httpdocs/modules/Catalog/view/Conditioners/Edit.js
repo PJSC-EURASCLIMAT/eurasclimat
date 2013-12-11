@@ -49,15 +49,6 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
         name: 'heating_capacity'
     }, {
         xtype: 'numberfield',
-        fieldLabel: 'Цена (р)',
-        name: 'price'
-    }, {
-        xtype: 'ConditionersFilterCurrency',
-        name: 'currency_id'
-    }],
-    
-    extrafields: [{
-        xtype: 'numberfield',
         fieldLabel: 'Расход воздуха (мин) (м³/ч)',
         name: 'air_consumption_min'
     }, {
@@ -80,5 +71,50 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
         xtype: 'numberfield',
         fieldLabel: 'Гарантия (лет)',
         name: 'warranty'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Цена (р)',
+        name: 'price'
+    }, {
+        xtype: 'ConditionersFilterCurrency',
+        name: 'currency_id'
+    }],
+    
+    extrafields: [{
+        xtype: 'textfield',
+        fieldLabel: 'Сезонная энергоэффективность (SEER)',
+        name: 'seer'
+    }, {
+        xtype: 'textfield',
+        fieldLabel: 'Сезонная энергоэффективность (SCOP)',
+        name: 'scop'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Макс. количество внутренних блоков (шт.)',
+        name: 'maxblocks'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Количество портов (шт.)',
+        name: 'ports'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Уровень звуковой мощности (дБ(А))',
+        name: 'sound_power_level'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Рабочий ток (А)',
+        name: 'working_amperage'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Рабочий ток (А)',
+        name: 'operating_amperage'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Макс. Рабочий ток (А)',
+        name: 'max_working_amperage'
+    }, {
+        xtype: 'numberfield',
+        fieldLabel: 'Заводская заправка хладагента (кг)',
+        name: 'factory_refrigerant_charge'
     }]
 });

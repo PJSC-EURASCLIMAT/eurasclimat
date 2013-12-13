@@ -210,6 +210,63 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
             filter: {
                 type: 'numeric'
             }
+        }, { 
+            header: 'Сезонная энергоэффективность (SEER)',
+            hidden: true,
+            dataIndex: 'seer'
+        }, {
+            header: 'Сезонная энергоэффективность (SCOP)',
+            hidden: true,
+            dataIndex: 'scop'
+        }, {
+            header: 'Макс. количество внутренних блоков (шт.)',
+            hidden: true,
+            dataIndex: 'maxblocks',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Количество портов (шт.)',
+            hidden: true,
+            dataIndex: 'ports',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Уровень звуковой мощности (дБ(А))',
+            hidden: true,
+            dataIndex: 'sound_power_level',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Рабочий ток (А)',
+            hidden: true,
+            dataIndex: 'working_amperage',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Рабочий ток (А)',
+            hidden: true,
+            dataIndex: 'operating_amperage',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Макс. Рабочий ток (А)',
+            hidden: true,
+            dataIndex: 'max_working_amperage',
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Заводская заправка хладагента (кг)',
+            hidden: true,
+            dataIndex: 'factory_refrigerant_charge',
+            filter: {
+                type: 'numeric'
+            }
         }, {
             header: 'Цена',
             width: 80,

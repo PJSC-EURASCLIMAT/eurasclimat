@@ -73,12 +73,12 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 410,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'
-//        }, {
-//            title: 'С НОВЫМ ГОДОМ! ',
-//            icon: '/images/icons/kweather.png',
-//            portletHeight: 300,
-//            position: 'MainPanel-column-3',
-//            launchModule: 'EC.Main.controller.Newyear'
+        }, {
+            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
+            icon: '/images/icons/kweather.png',
+            portletHeight: 300,
+            position: 'MainPanel-column-3',
+            launchModule: 'EC.Main.controller.Newyear'
         }];
         
             modulesToOpen.push({

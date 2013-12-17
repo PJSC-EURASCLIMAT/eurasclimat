@@ -1,60 +1,76 @@
 Ext.define('EC.CRM.controller.Projects.Docs', {
 
+    itemId: 'EC.CRM.controller.Projects.Docs',
+    
     extend: 'Ext.app.Controller',
 
-    addDocURL: '/json/crm/project-docs/add-doc',
-    uploadURL: '/json/crm/project-docs/upload',
-    deleteDocURL: '/json/crm/project-docs/delete',
-    downloadURL: '/json/crm/project-docs/download',
-    updateDocURL: '/json/sysdev/project-docs/update-doc',
+    addDocURL: '/json/crm/projects-docs/add-doc',
+    uploadURL: '/json/crm/projects-docs/upload',
+    deleteDocURL: '/json/crm/projects-docs/delete',
+    downloadURL: '/json/crm/projects-docs/download',
+    updateDocURL: '/json/crm/projects-docs/update-doc',
 
-    uploadDocVersionURL: '/json/crm/project-docs-versions/upload-version',
-    deleteDocVersionURL: '/json/crm/project-docs-versions/delete-version',
-    downloadDocVersionURL: '/json/crm/project-docs-versions/download-version',
+    uploadDocVersionURL: '/json/crm/projects-docs-versions/upload-version',
+    deleteDocVersionURL: '/json/crm/projects-docs-versions/delete-version',
+    downloadDocVersionURL: '/json/crm/projects-docs-versions/download-version',
 
     refs: [
-        { ref: 'docList', selector: 'project-doc-list' }
+        { ref: 'docList', selector: 'crm-projects-docs-list' }
     ],
 
-    stores: ['xlib.DocTypes.store.DocTypes'],
+    stores: [
+        'xlib.DocTypes.store.DocTypes',
+        'EC.CRM.store.Projects.Docs',
+        'EC.CRM.store.Projects.DocsVersions'
+    ],
 
-    models: ['xlib.DocTypes.model.DocTypes'],
+    models: [
+        'xlib.DocTypes.model.DocTypes',
+        'EC.CRM.model.Projects.Docs',
+        'EC.CRM.model.Projects.DocsVersions'
+    ],
 
-    views: ['xlib.DocTypes.view.Combo'],
+    views: [
+        'xlib.DocTypes.view.Combo',
+        'EC.CRM.view.Projects.Docs.List',
+        'EC.CRM.view.Projects.Docs.Versions'
+    ],
 
     cur_project_id: null,
 
-    run: function() {
-
-        this.control({
-            'project-doc-list': {
-                deleteitem: this.onDocDelete,
-                'open-versions': this.openVersionsForDoc,
-                download: this.downloadDoc,
-                'update-doc-file': this.addDocVersion,
-                'update-doc': this.editDoc
-            },
-            'project-doc-list button[action=add]': {
-                click: this.addDoc
-            },
-            'project-doc-list button[action=refresh]': {
-                click: this.docListRefresh
-            },
-            'project-doc-list button[action=edit-doc-types]': {
-                click: this.editDocTypes
-            },
-            'project-doc-versions-win grid': {
-                download: this.downloadDocVersion,
-                'delete': this.deleteDocVersion
-            },
-            'project-doc-versions-win': {
-                'add-doc-version': this.addDocVersion
-            },
-            'project-doc-versions-win button[action=refresh]': {
-                click: this.refreshDocVersionsList
-            }
+    run: function(container) {
+        
+        this.Container = container;
+        
+        container.add(this.getView('EC.CRM.view.Projects.Docs.List'));
+        
+        //TODO: разобраться с алиасами.
+        
+        this.Container.down('grid').on({
+            deleteitem: this.onDocDelete,
+            'open-versions': this.openVersionsForDoc,
+            download: this.downloadDoc,
+            'update-doc-file': this.addDocVersion,
+            'update-doc': this.editDoc,
+            scope: this
         });
-
+        
+        this.Container.down('button[action=add]').on({
+            click: this.addDoc,
+            scope: this
+        });
+        
+        this.Container.down('button[action=refresh]').on({
+            click: this.docListRefresh,
+            scope: this
+        });
+        
+        this.Container.down('button[action=edit-doc-types]').on({
+            click: this.editDocTypes,
+            scope: this
+        });
+        
+        this.docListRefresh();
     },
 
     downloadDocVersion: function(record) {
@@ -78,7 +94,6 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                 } else {
                     Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
                 }
-
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Сообщение', 'В ходе получения файла произошла ошибка');
@@ -88,12 +103,14 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
     },
 
     refreshDocVersionsList: function() {
+        
         if (Ext.isDefined(this.docVerList)) {
             this.docVerList.down('grid').store.load();
         }
     },
 
     addDocVersion: function(doc_id) {
+        
         Ext.create('xlib.upload.Dialog', {
             autoShow: true,
             singleUpload: true,
@@ -189,10 +206,25 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
 
     openVersionsForDoc: function(record) {
 
-        if (!Ext.isDefined(this.docVersionsList)) {
-            this.docVerList = Ext.create('EC.CRM.view.Projects.Docs.Versions').show();
-            this.docVerList.on('close', this.docListRefresh, this);
-        }
+        this.docVerList = Ext.create('EC.CRM.view.Projects.Docs.Versions').show();
+        
+        this.docVerList.on({
+            'close': this.docListRefresh,
+            'add-doc-version': this.addDocVersion,
+            scope: this
+        });
+            
+        this.docVerList.down('button[action=refresh]').on({
+            click: this.refreshDocVersionsList,
+            scope: this
+        });
+        
+        this.docVerList.down('grid').on({
+            download: this.downloadDocVersion,
+            'delete': this.deleteDocVersion,
+            scope: this
+        });
+        
         this.docVerList.doc_id = record.getId();
         this.docVerList.down('grid').store.proxy.extraParams = {doc_id: record.getId()};
         this.docVerList.down('grid').store.load();
@@ -248,6 +280,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
     },
 
     onDocDelete: function(record) {
+        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить документ?', function(b) {
             if ('yes' === b) {
                 this.deleteDoc(record.getId());
@@ -256,6 +289,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
     },
 
     docListRefresh: function() {
+        
         this.getDocList().getStore().load({
             params: {
                 project_id: this.cur_project_id
@@ -264,6 +298,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
     },
 
     downloadDoc: function(record) {
+        
         var url = this.downloadURL + "?id=" + record.get('id');
         Ext.Ajax.request({
             url: url,
@@ -347,10 +382,10 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
 
     editDoc: function(record) {
 
-        var view = Ext.create('EC.CRM.view.Projects.Docs.Edit',{
+        var view = Ext.create('EC.CRM.view.Projects.Docs.Edit', {
             docModel: record
         });
-
+        
         view.on({
             save: function(event) {
                 this.submitEditForm(view);
@@ -361,7 +396,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
 
     addDoc: function() {
 
-        var view = Ext.create('EC.CRM.view.Projects.Docs.Add',{
+        var view = Ext.create('EC.CRM.view.Projects.Docs.Add', {
             project_id: this.cur_project_id
         });
 
@@ -371,9 +406,10 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
             },
             scope: this
         });
-    }
+    },
 
-    ,editDocTypes: function() {
+    editDocTypes: function() {
+        
         var win = Ext.create('Ext.window.Window', {
             title: 'Список групп документов',
             modal: true,

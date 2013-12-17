@@ -1,8 +1,10 @@
 Ext.define('EC.CRM.view.Projects.Docs.List', {
 
+    itemId: 'EC.CRM.view.Projects.Docs.List',
+    
     extend: 'Ext.grid.Panel',
     
-//    alias: 'widget.project-doc-list',
+    alias: 'widget.crm-projects-docs-list',
 
     require: ['Ext.grid.plugin.CellEditing'],
 
@@ -22,14 +24,16 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         })
     ],
 
-    requires: ['Ext.grid.feature.Grouping'],
+    requires: [
+        'Ext.grid.feature.Grouping'
+    ],
 
     features: [{
         ftype: 'grouping',
         groupHeaderTpl: '{name} ({children.length})',
         hideGroupedHeader: true,
         startCollapsed: true,
-        id: 'ProjectsDocsGrouping'
+        id: 'ProjectDocsGrouping'
     }],
 
     columns: [{
@@ -52,7 +56,8 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
             allowBlank: false
         },
         dataIndex: 'name'
-    }, {
+    },
+        {
         header: 'project_id',
         dataIndex: 'project_id',
         hidden: true
@@ -60,7 +65,8 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('crm', 'projects', 'docs'),
         width: 85,
-        items: [{
+        items: [
+        {
             icon: '/images/icons/edit.png',
             tooltip: 'Редактировать документ',
             iconCls: 'x-btn',
@@ -68,7 +74,8 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
                 var record = grid.getStore().getAt(rowIndex);
                 this.up('panel').fireEvent('update-doc', record);
             }
-        }, {
+        },
+        {
             icon: '/images/icons/fam/add.png',
             tooltip: 'Обновить документ',
             iconCls: 'x-btn',
@@ -110,6 +117,12 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         tooltip: 'Обновить список документов',
         iconCls: 'x-tbar-loading',
         action: 'refresh'
-    }]
+    }],
+    
+    initComponent: function() {
+        
+        console.log('Docs List');
+        this.callParent();
+    }
 
 });

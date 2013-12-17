@@ -1,4 +1,6 @@
-Ext.define('EC.SysDev.view.Docs.Edit', {
+Ext.define('EC.CRM.view.Projects.Docs.Edit', {
+    
+    itemId: 'EC.CRM.view.Projects.Docs.Edit',
     
     extend: 'Ext.window.Window',
     
@@ -15,6 +17,8 @@ Ext.define('EC.SysDev.view.Docs.Edit', {
     width: 400,
 
     docModel: null,
+    
+    itemId: 'CRM.view.Projects.Docs.Edit',
 
     initComponent: function() {
         
@@ -56,6 +60,6 @@ Ext.define('EC.SysDev.view.Docs.Edit', {
         
         this.callParent(arguments);
 
-        this.down('form').getForm().setValues(this.docModel.data)
+        this.down('form').getForm().setValues(this.docModel.data);
     }
 });

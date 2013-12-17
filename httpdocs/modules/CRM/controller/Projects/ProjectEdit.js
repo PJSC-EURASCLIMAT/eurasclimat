@@ -66,7 +66,10 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         
         baseDescrForm.getForm().load({url: this.getBaseDescrURL, params: {id: this.projectID}});
         
-        
+        var docsController = this.getController('EC.CRM.controller.Projects.Docs');
+        docsController.cur_project_id = this.projectID;
+        var docsPanel = this.Container.down('#docsPanel');
+        docsController.run(docsPanel);
     },
 
     updateItem: function(form) {

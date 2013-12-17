@@ -1,8 +1,10 @@
 Ext.define('EC.CRM.view.Projects.Docs.Versions', {
 
+    itemId: 'EC.CRM.view.Projects.Docs.Versions',
+    
     extend: 'Ext.window.Window',
     
-//    alias: 'widget.project-doc-versions-win',
+    alias: 'widget.crm-projects-docs-versions-win',
 
     title: 'Версии документа',
 
@@ -16,7 +18,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
 
     layout: 'fit',
 
-    closeAction: 'hide',
+    closeAction: 'close',
 
     doc_id: null,
 
@@ -46,7 +48,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
         xtype: 'grid',
         itemId: 'docVersGrid',
         border: false,
-        store: 'EC.SysDev.store.execution.DocVersionsStore',
+        store: 'EC.CRM.store.Projects.DocsVersions',
         listeners: {
             cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
                 if (cellIndex === 1) {

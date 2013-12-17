@@ -38,7 +38,6 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
                 itemId: 'plansPanel',
                 title: 'План-Факт'
             }, {
-                disabled: true,
                 layout: 'fit',
                 itemId: 'docsPanel',
                 title: 'Документация'

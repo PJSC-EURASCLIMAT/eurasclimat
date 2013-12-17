@@ -98,7 +98,7 @@ class Catalog_Conditioners_Model
             'name'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'code'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'product_type_id'       => array('Id', 'allowEmpty' => true),
-            'implementation_type_id' => array('Id', 'allowEmpty' => true),
+            'implementation_type_id'    => array('Id', 'allowEmpty' => true),
             'power_source_id'       => array('Id', 'allowEmpty' => true),
             'heatingcooling_id'     => array('Id', 'allowEmpty' => true),
             'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
@@ -110,6 +110,14 @@ class Catalog_Conditioners_Model
             'noise_level_max'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'dimensions'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'seer'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'scop'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'ports'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'sound_power_level'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'working_amperage'      => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'operating_amperage'    => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'max_working_amperage'  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'factory_refrigerant_charge'    => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
         ), $params);

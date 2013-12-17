@@ -1,9 +1,9 @@
 Ext.define('EC.CRM.store.Projects.Docs', {
 
+    storeId: 'EC.CRM.store.Projects.Docs',
+    
     extend: 'Ext.data.Store',
     
-//    alias: 'store.project-doc-store',
-   
     model: 'EC.CRM.model.Projects.Docs',
 
     groupField: 'type',
@@ -15,7 +15,7 @@ Ext.define('EC.CRM.store.Projects.Docs', {
   
     proxy: {
         type: 'ajax',
-        url: '/json/crm/project-docs/get-by-project',
+        url: '/json/crm/projects-docs/get-by-project',
         reader: {
             type: 'json',
             root: 'data'

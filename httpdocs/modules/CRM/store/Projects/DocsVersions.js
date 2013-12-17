@@ -1,9 +1,9 @@
-Ext.define('EC.CRM.store.Projects.Docs', {
+Ext.define('EC.CRM.store.Projects.DocsVersions', {
+    
+    storeId: 'EC.CRM.store.Projects.DocsVersions',
 
     extend: 'Ext.data.Store',
     
-//    alias: 'store.project-docs-versions-store',
-   
     model: 'EC.CRM.model.Projects.DocsVersions',
 
     sorters: [{
@@ -11,10 +11,9 @@ Ext.define('EC.CRM.store.Projects.Docs', {
         direction: 'DESC'
     }],
 
-
     proxy: {
         type: 'ajax',
-        url: '/json/crm/project-docs-versions/get-doc-versions',
+        url: '/json/crm/projects-docs-versions/get-doc-versions',
         reader: {
             type: 'json',
             root: 'data'

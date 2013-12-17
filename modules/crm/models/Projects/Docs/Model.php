@@ -179,7 +179,7 @@ class Crm_Projects_Docs_Model
                 array('doc_id' => 'd.id', 'd.name', 'd.project_id')
             )
             ->joinLeft(
-                array('v' => 'main_sysdev_project_docs_versions'),
+                array('v' => 'crm_projects_docs_versions'),
                 'v.doc_id=d.id',
                 array('v.file_id')
             )

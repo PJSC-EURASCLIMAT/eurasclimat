@@ -1,5 +1,7 @@
-Ext.define('EC.SysDev.view.Docs.Add', {
+Ext.define('EC.CRM.view.Projects.Docs.Add', {
 
+    itemId: 'EC.CRM.view.Projects.Docs.Add',
+    
     extend: 'Ext.window.Window',
     
     title: 'Создание документа',
@@ -14,6 +16,8 @@ Ext.define('EC.SysDev.view.Docs.Add', {
     
     width: 400,
 
+    itemId: 'CRM.view.Projects.Docs.Add',
+    
     initComponent: function() {
         
         this.items = [{

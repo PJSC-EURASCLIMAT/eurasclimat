@@ -11,19 +11,21 @@ Ext.define('EC.Experts.controller.Experts', {
     ],
     
     models: [
-        'EC.Experts.model.Expert',
-        'EC.Experts.model.Ref'
+        'EC.Experts.model.Expert'
     ],
     
     views: [
         'EC.Experts.view.Experts.List',
-        'EC.Experts.view.Experts.Edit'
+        'EC.Experts.view.Experts.Edit',
+        'EC.Experts.view.Experts.Info'
     ],
     
     permissions: acl.isUpdate('experts'),
     
+    getURL: '/json/experts/experts/get',
+
     addURL: '/json/experts/experts/add',
-    
+
     editURL: '/json/experts/experts/update',
     
     deleteURL: '/json/experts/experts/delete',
@@ -55,13 +57,15 @@ Ext.define('EC.Experts.controller.Experts', {
         if (this.permissions) {
             
             grid.down('button[action=additem]').on({
-                click: this.addItem,
+                click: function(){
+                    this.addItem(false);
+                },
                 scope: this
             });
             
             grid.on({
                 edititem: this.editItem,
-                itemdblclick: this.editItem,
+                itemdblclick: this.showItem,
                 deleteitem: this.deleteItem,
                 openref: this.openRef,
                 scope: this
@@ -99,9 +103,10 @@ Ext.define('EC.Experts.controller.Experts', {
         container.add(list);
         container.show();
     },
-    addItem: function() {
+
+    addItem: function(fromCurrent) {
         
-        var view = Ext.create('EC.Experts.view.Experts.Edit');
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{fromCurrent: fromCurrent});
         
         view.down('button[action=save]').on({
             click: function() {
@@ -162,6 +167,58 @@ Ext.define('EC.Experts.controller.Experts', {
             scope: this
         });
     },
+
+    showItem: function(grid, record) {
+        var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id;
+        var card = Ext.widget('ExpertInfo');
+
+        Ext.Ajax.request({
+            params: {
+                id: recordId
+            },
+            url: this.getURL,
+            success: function(response, opts) {
+                var data = Ext.decode(response.responseText).data;
+                card.showTpl.overwrite(card.down('panel').body, data);
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку товара.');
+            },
+            scope: this
+        });
+    },
+//
+//    showItem: function(grid, record) {
+//
+//        var view = Ext.create('EC.Experts.view.Experts.Edit',{record: record});
+//
+//        view.down('button[action=save]').on({
+//            click: function() {
+//                var form = view.down('form');
+//                form.submit({
+//                    url: this.editURL,
+//                    success: function(form, action) {
+//                        view.close();
+//                        this.fireEvent('itemSaved');
+//                    },
+//                    failure: function(form, action) {
+//                        switch (action.failureType) {
+//                            case Ext.form.action.Action.CLIENT_INVALID:
+//                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+//                                break;
+//                            case Ext.form.action.Action.CONNECT_FAILURE:
+//                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+//                                break;
+//                            case Ext.form.action.Action.SERVER_INVALID:
+//                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+//                        }
+//                    },
+//                    scope: this
+//                });
+//            },
+//            scope: this
+//        });
+//    },
 
     deleteItem: function(grid, record) {
         

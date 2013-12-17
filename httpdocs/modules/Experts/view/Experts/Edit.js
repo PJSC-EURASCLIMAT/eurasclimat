@@ -16,6 +16,8 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     record: null,
 
+    fromCurrent: false,
+
     requires: [
         'xlib.AccountsCombo',
         'xlib.ContrCityField'
@@ -43,10 +45,16 @@ Ext.define('EC.Experts.view.Experts.Edit', {
             items: [
                 {
                     xtype: 'hidden',
+                    name:'from_current',
+                    value: this.fromCurrent
+                },
+                {
+                    xtype: 'hidden',
                     name: 'id'
                 },
                 {
                     xtype: 'AccountsCombo',
+                    hidden: this.fromCurrent,
                     name: 'account_id'
                 },
                 {

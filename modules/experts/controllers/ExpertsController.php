@@ -16,7 +16,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-by');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
@@ -35,15 +35,13 @@ class Experts_ExpertsController extends Xend_Controller_Action
         }
     }
 
-    public function getByAction()
+    public function getAction()
     {
-        $params = $this->_getAllParams();
-
-        $response = $this->_model->getByProject($this->_getAllParams());
+        $response = $this->_model->get($this->_getParam('id'));
         if ($response->isSuccess()) {
+            $row = $response->getRow();
             $this->view->success = true;
-            $this->view->data = $response->getRowset();
-            $this->view->total = $response->totalCount;
+            $this->view->data = $row;
         } else {
             $this->_collectErrors($response);
         }

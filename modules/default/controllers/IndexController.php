@@ -188,7 +188,12 @@ class IndexController extends Xend_Controller_Action
             }
         }
 
-        $this->view->identity = Xend_Accounts_Prototype::getInformation();
+        $identity = Xend_Accounts_Prototype::getInformation();
+
+        $expertsModel = new Experts_Experts_Model();
+        $identity->expert_id = $expertsModel->getExpertIdByAccountId($identity->id);
+
+        $this->view->identity = $identity;
         $this->view->resources = $resourceCollection;
         $privilege = Xend_Acl_Privilege::fetchAll();
         $this->view->privileges = (object) $privilege;

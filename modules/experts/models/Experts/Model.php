@@ -264,4 +264,34 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+
+    public function getExpertIdByAccountId($accountId)
+    {
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('e' => $this->_table->getTableName()),
+                array( 'e.id')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id'
+            )
+            ->where("e.account_id = ?", $accountId)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return null;
+            }
+            return $rows[0]['id'];
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+    }
+
+
 }

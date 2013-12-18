@@ -40,19 +40,55 @@ class PA_Profile
                 Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
+        $accountId = 2;
+
+        $select = $this->_tableAccounts->getAdapter()->select()
+            ->from(
+                array('a' => $this->_tableAccounts->getTableName()),
+                array( 'a.id', 'a.login', 'a.name', 'a.active', 'a.lang', 'a.tz')
+            )
+            ->joinLeft(
+                array('c' => 'cities'),
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'a.city_id'
+                )
+            )
+            ->joinLeft(
+                array('co' => 'countries'),
+                'co.id=c.country_id',
+                array(
+                    'country' => 'co.name',
+                    'country_id' => 'co.id'
+                )
+            )
+            ->joinLeft(
+                array('ex' => 'experts'),
+                'ex.account_id=c.id',
+                array(
+                    'expert_id' => 'ex.id'
+                )
+            )
+            ->where("a.id = ?", $accountId)
+            ->limit(1);
+
         try {
-            $rowset = $this->_tableAccounts->findOne($accountId);
-            $status = Xend_Accounts_Status::OK;
+            $rowset = $select->query()->fetchAll();
+            if(count($rowset) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+            $response->setRowset($rowset);
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = Xend_Accounts_Status::DATABASE_ERROR;
-            return $response->addStatus(new Xend_Accounts_Status($status));
+            $status = Xend_Status::DATABASE_ERROR;
         }
 
-        if (!is_null($rowset)) {
-            $rowset = $rowset->toArray();
+        if (!is_null($rowset[0])) {
+            $rowset = $rowset[0];
         } elseif (empty($rowset)) {
             $rowset = array();
         }

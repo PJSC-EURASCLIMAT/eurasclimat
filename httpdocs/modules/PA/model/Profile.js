@@ -4,7 +4,7 @@ Ext.define('EC.PA.model.Profile', {
         {name: 'active',  type: 'string'},
         {name: 'city',   type: 'string'},
         {name: 'country', type: 'string'},
-        {name: 'email', type: 'email'},
+        {name: 'expert_id', type: 'number'},
         {name: 'id', type: 'number'},
         {name: 'lang', type: 'string'},
         {name: 'login', type: 'string'},

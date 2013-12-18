@@ -34,6 +34,20 @@ class PA_ProfileController extends Xend_Controller_Action
         $this->view->success = true;
     }
 
+    public function getProfileExertAction()
+    {
+        $auth = Zend_Auth::getInstance();
+        $Identity = $auth->getIdentity();
+        $id = (null == $Identity) ? 0 : intval($Identity->id);
+        $response = $this->_model->fetchAccount($id);
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        $this->view->data = $response->getRowSet();
+        $this->view->success = true;
+    }
+
     public function updateProfileAction()
     {
 

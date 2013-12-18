@@ -115,14 +115,24 @@ Ext.define('EC.PA.controller.Profile', {
     }
     ,fillDisplayForm: function(){
 //        TODO заполнять из this.account
+        Ext.Ajax.request({
+            url: this.URL,
+            success: function(response) {
+                var r = Ext.JSON.decode(response.responseText);
+                this.account = r.data;
 
-        var formValues = new EC.PA.model.Profile(this.account);
+                var formValues = new EC.PA.model.Profile(this.account);
 
-        this.getDisplayProfileForm().load({
-            url: this.URL
-            ,success: this.fillImageField
-            ,scope:this
-        });
+                this.getDisplayProfileForm().loadRecord(formValues);
+            },
+            failure: function(response) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
+            },
+            scope: this
+        })
+
+
     }
 
     ,fillEditForm: function(){

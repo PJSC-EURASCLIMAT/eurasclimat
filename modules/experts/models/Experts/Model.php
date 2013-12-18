@@ -26,14 +26,12 @@ class Experts_Experts_Model
             'id'            => 'int',
             'account_id'    => 'int',
             'desc'          => 'StringTrim',
-            'city_id'       => 'int',
             'status_id'     => 'int',
             'equip_id'      => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
-            'city_id'       => array('Id', 'allowEmpty' => true),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
         ), $data);
@@ -103,13 +101,11 @@ class Experts_Experts_Model
         $f = new Xend_Filter_Input(array(
             'account_id'    => 'int',
             'desc'          => 'StringTrim',
-            'city_id'       => 'int',
             'status_id'     => 'int',
             'equip_id'      => 'int',
         ), array(
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
-            'city_id'       => array('Id', 'allowEmpty' => true),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
         ), $data);
@@ -159,7 +155,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.city_id', 'e.status_id', 'e.equip_id')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -178,8 +174,11 @@ class Experts_Experts_Model
             )
             ->joinLeft(
                 array('c' => 'cities'),
-                'c.id=e.city_id',
-                array('city' => 'c.name')
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'c.id'
+                )
             )
             ->joinLeft(
                 array('co' => 'countries'),
@@ -215,7 +214,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.city_id', 'e.status_id', 'e.equip_id')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -234,8 +233,11 @@ class Experts_Experts_Model
             )
             ->joinLeft(
                 array('c' => 'cities'),
-                'c.id=e.city_id',
-                array('city' => 'c.name')
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'c.id'
+                )
             )
             ->joinLeft(
                 array('co' => 'countries'),

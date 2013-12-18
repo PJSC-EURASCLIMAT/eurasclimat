@@ -27,6 +27,9 @@ Ext.define('EC.PA.view.Profile', {
 
     initComponent: function() {
 
+        this.acc = xlib.Acl.Storage.getIdentity();
+
+
         this.items = [{
                     xtype: 'form',
                     itemId: 'displayProfile',
@@ -56,21 +59,24 @@ Ext.define('EC.PA.view.Profile', {
                                             text: 'Редактировать профиль',
                                             itemId: 'showEditFormBtn',
                                             margin: '0 0 10 0'
-//                                            handler: function(){
-////                                                var win = this.up('window');
-////                                                var form = win.down('form');
-////                                                win.getLayout().setActiveItem('editProfile');
-////                                                win.down("#saveBtn").show();
-//                                            }
                                         }, {
                                             xtype: 'button',
                                             itemId: 'changePassBtn',
-                                            text: 'Сменить пароль'
-//                                            handler: function(){
-////                                                var win = this.up('window');
-////                                                win.fireEvent('openPassWindow');
-//                                            }
+                                            text: 'Сменить пароль',
+                                            margin: '0 0 10 0'
+                                        },{
+                                            xtype: 'button',
+                                            text: 'Стать специалистом',
+                                            itemId: 'makeExpertFromMe',
+                                            margin: '0 0 10 0'
+                                        },{
+                                            xtype: 'button',
+                                            text: 'Профиль специалиста',
+                                            hidden: (this.acc.expert_id === null),
+                                            itemId: 'editExpertProfile',
+                                            margin: '0 0 10 0'
                                         }
+
                                     ]
                                 }
 
@@ -82,8 +88,8 @@ Ext.define('EC.PA.view.Profile', {
                             fieldLabel: 'ФИО'
                         }, {
                             xtype: 'displayfield',
-                            name: 'email',
-                            fieldLabel: 'Email'
+                            name: 'login',
+                            fieldLabel: 'Логин'
                         }, {
                             xtype: 'displayfield',
                             name: 'country',

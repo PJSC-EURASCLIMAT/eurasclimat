@@ -40,8 +40,6 @@ class PA_Profile
                 Xend_Accounts_Status::INPUT_PARAMS_INCORRECT, 'account_id'));
         }
 
-        $accountId = 2;
-
         $select = $this->_tableAccounts->getAdapter()->select()
             ->from(
                 array('a' => $this->_tableAccounts->getTableName()),

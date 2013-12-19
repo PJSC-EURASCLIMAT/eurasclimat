@@ -1,0 +1,15 @@
+SET FOREIGN_KEY_CHECKS=1;
+
+ALTER TABLE `accounts` DROP `country`,  DROP `city`;
+
+ALTER TABLE `accounts` 
+ADD `country_id` INT UNSIGNED NULL DEFAULT NULL, 
+ADD `city_id` INT UNSIGNED NULL DEFAULT NULL;
+
+ALTER TABLE `accounts` ADD INDEX (`country_id`);
+ALTER TABLE `accounts` ADD INDEX (`city_id`);
+
+ALTER TABLE `accounts` ADD FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
+ALTER TABLE `accounts` ADD FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT ;
+
+SET FOREIGN_KEY_CHECKS=0;

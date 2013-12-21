@@ -168,11 +168,11 @@ class PA_Messages_Model
         $mail->setSubject('Новое сообщение на сайте eurasclimat.ru');
 
         try {
-            $mail->send();
+            @$mail->send();
             return true;
         } catch (Exception $e) {
             if (DEBUG) {
-                throw $e;
+//                throw $e;
             }
             return false;
         }

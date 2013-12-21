@@ -44,8 +44,6 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
         
         container.add(this.getView('EC.CRM.view.Projects.Docs.List'));
         
-        //TODO: разобраться с алиасами.
-        
         this.Container.down('grid').on({
             deleteitem: this.onDocDelete,
             'open-versions': this.openVersionsForDoc,

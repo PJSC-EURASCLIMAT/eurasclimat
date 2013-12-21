@@ -42,9 +42,8 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
                 itemId: 'docsPanel',
                 title: 'Документация'
             }, {
-                disabled: true,
                 layout: 'fit',
-                itemId: 'commentsPanel',
+                itemId: 'discussionsPanel',
                 title: 'Обсуждение'
             }]
         }]

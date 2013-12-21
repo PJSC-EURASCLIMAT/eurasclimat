@@ -117,12 +117,6 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         tooltip: 'Обновить список документов',
         iconCls: 'x-tbar-loading',
         action: 'refresh'
-    }],
-    
-    initComponent: function() {
-        
-        console.log('Docs List');
-        this.callParent();
-    }
+    }]
 
 });

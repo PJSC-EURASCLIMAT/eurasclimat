@@ -1,15 +1,15 @@
 <?php
 
-class Sysdev_ProjectDiscussions_Model
+class Crm_Projects_Discussions_Model
 {
     /**
-     * The Project Discussions object
+     * The Project Discussions model
      */
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new Sysdev_ProjectDiscussions_Table();
+        $this->_table = new Crm_Projects_Discussions_Table();
     }
 
     public function getByProject ($projectId)
@@ -83,15 +83,15 @@ class Sysdev_ProjectDiscussions_Model
     {
         if (!class_exists('PA_Messages_Model')) return;
 
-        $projectModel = new Sysdev_Projects_Model();
+        $projectModel = new Crm_Projects_Model();
 
-        $response = $projectModel->getInfo($project_id);
+        $response = $projectModel->get($project_id);
         if ($response->hasNotSuccess()) return;
         $projectInfo = $response->getRow();
-        $receiver_id = intval($projectInfo['account_id']);
+        $receiver_id = intval($projectInfo['creator_id']);
         if (!$receiver_id > 0) return;
 
-        $messageBody = 'Добавлен комментарий в модуль "Разработка системы" к проекту "'
+        $messageBody = 'Добавлен комментарий в модуль "Производственные проекты" к проекту "'
                      . $projectInfo['name'] . '":</p><p>' . $message . '</p>';
 
 

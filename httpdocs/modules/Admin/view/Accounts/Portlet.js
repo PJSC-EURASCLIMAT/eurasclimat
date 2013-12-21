@@ -15,18 +15,22 @@ Ext.define('EC.Admin.view.Accounts.Portlet', {
     initComponent: function() {
         
         this.columns = [{
+            header: 'Логин',
+            dataIndex: 'login',
+            flex: .5,
+            editor: {
+                xtype: 'textfield',
+                minLength: 3,
+                allowBlank: false
+            }
+        }, {
             header: 'Имя',
             dataIndex: 'name',
-            flex: 1
-        }, {
-            header: 'Страна',
-            dataIndex: 'country',
-            width: 100,
-            renderer: xlib.CountryCombo.getDisplayValue
-        }, {
-            header: 'Город',
-            dataIndex: 'city',
-            width: 100
+            flex: .5,
+            editor: {
+                xtype: 'textfield',
+                allowBlank: false
+            }
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

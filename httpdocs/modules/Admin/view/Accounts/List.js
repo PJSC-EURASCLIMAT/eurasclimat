@@ -74,22 +74,6 @@ Ext.define('EC.Admin.view.Accounts.List', {
                 allowBlank: false
             }
         }, {
-            header: 'Страна',
-            dataIndex: 'country',
-            width: 100,
-            renderer: xlib.CountryCombo.getDisplayValue,
-            editor: {
-                xtype: 'CountryCombo',
-                hideLabel: true 
-            }
-        }, {
-            header: 'Город',
-            dataIndex: 'city',
-            width: 100,
-            editor: {
-                xtype: 'textfield'
-            }
-        }, {
             header: 'Роли',
             dataIndex: 'roles',
             flex: 1,

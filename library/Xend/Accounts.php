@@ -270,7 +270,7 @@ class Xend_Accounts
         $response = new Xend_Response();
         $select = $this->_tableAccounts->getAdapter()->select();
         $select->from(array('a' => $this->_tableAccounts->getTableName()), array(
-            'id', 'login', 'name', 'email', 'country', 'city', 'active',
+            'id', 'login', 'name', 'email', 'active',
             'password_set' => 'IF(LENGTH(password)>0,1,0)'
         ));
 

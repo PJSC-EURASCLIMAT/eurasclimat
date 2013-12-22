@@ -63,7 +63,7 @@ class PA_Profile
             )
             ->joinLeft(
                 array('ex' => 'experts'),
-                'ex.account_id=c.id',
+                'ex.account_id=a.id',
                 array(
                     'expert_id' => 'ex.id'
                 )

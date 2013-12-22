@@ -4,6 +4,8 @@ Ext.define('EC.Experts.view.Experts.List', {
 
     alias: 'widget.ExpertsList',
 
+    uses: ['xlib.CheckColumn'],
+
     layout: 'fit',
 
     store: 'EC.Experts.store.Experts',
@@ -62,6 +64,17 @@ Ext.define('EC.Experts.view.Experts.List', {
             header: 'Страна',
             dataIndex: 'country',
             flex: .5
+        }, {
+            xtype: 'checkcolumn',
+            header: 'Активен',
+            dataIndex: 'active',
+            stopSelection : false,
+            listeners: {
+                checkchange: function( grid, rowIndex, checked, eOpts ) {
+                    this.up('panel').fireEvent('activechange', rowIndex, checked);
+                }
+            },
+            width: 70
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,

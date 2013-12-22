@@ -109,12 +109,14 @@ class PA_Messages_Model
     {
         $params['date'] = date('Y-m-d H:i:s', time());
 
+        $params['sender_id'] = "1";
+
         $f = new Xend_Filter_Input(array(
-            'sender_id'      => 'int',
+//            'sender_id'      => 'int',
             'receiver_id'    => 'int',
             'message'        => 'StringTrim'
         ), array(
-            'sender_id'      => array('Id', 'allowEmpty' => false),
+//            'sender_id'      => array('Id', 'allowEmpty' => true),
             'receiver_id'    => array('Id', 'allowEmpty' => false),
             'message'        => array(array('StringLength', 1), 'allowEmpty' => false),
         ), $params);
@@ -143,7 +145,7 @@ class PA_Messages_Model
 
         $receiverInfo = $receiverRequest->getRowset();
 
-        $this->_sendReminder($receiverInfo['name'], $receiverInfo['email'], $identity->name, $params['message']);
+        $this->_sendReminder($receiverInfo['name'], $receiverInfo['login'], $identity->name, $params['message']);
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));

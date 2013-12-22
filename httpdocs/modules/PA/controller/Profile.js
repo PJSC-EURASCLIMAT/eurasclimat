@@ -4,7 +4,14 @@ Ext.define('EC.PA.controller.Profile', {
 
     views: [
         'EC.PA.view.Profile',
-        'EC.PA.view.PassChange'
+        'EC.PA.view.PassChange',
+        'xlib.AccountsCombo',
+        'xlib.ContrCityField'
+    ],
+
+    stores: [
+        'EC.Experts.store.Equipment',
+        'EC.Experts.store.Statuses'
     ],
 
     models: ['EC.PA.model.Profile'],
@@ -14,6 +21,12 @@ Ext.define('EC.PA.controller.Profile', {
     updateURL: '/json/pa/profile/update-profile',
 
     changePassURL: '/json/pa/profile/change-password',
+
+    getExpertURL: '/json/pa/profile/get-expert',
+
+    addExpertURL: '/json/pa/profile/register-expert',
+
+    editExpertURL: '/json/pa/profile/edit-expert',
 
     refs: [
         {
@@ -74,6 +87,17 @@ Ext.define('EC.PA.controller.Profile', {
             'profilewin button#showEditFormBtn': {
                 click: this.showEditForm
             },
+            'profilewin button#cancel': {
+                click: this.hideEditForm
+            },
+
+            'profilewin button#makeExpertFromMe': {
+                click: this.addExpert
+            },
+            'profilewin button#editExpertProfile': {
+                click: this.editExpert
+            },
+
             'profilewin button#saveBtn': {
                 click: this.updateProfile
             },
@@ -94,25 +118,172 @@ Ext.define('EC.PA.controller.Profile', {
 
     },
 
+    showExpertCard:function(){
+//        console.log("showing edit form");
+        var win = this.getProfileWin();
+
+        console.time("Form show");
+
+        Ext.suspendLayouts();
+
+        win.getLayout().setActiveItem('editProfile');
+        win.down("#saveBtn").show();
+        win.down('#showEditFormBtn').hide();
+        win.down("#cancel").show();
+
+        Ext.resumeLayouts(true);
+
+        console.timeEnd("Form show");
+    },
+
+
+    addExpert: function(fromCurrent) {
+
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{fromCurrent: true});
+
+        view.down('button[action=save]').on({
+            click: function() {
+                var form = view.down('form');
+                form.submit({
+                    url: this.addExpertURL,
+                    success: function(form, action) {
+                        Ext.Msg.alert('Ответ системы',
+                            '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
+
+                        var expert_id = parseInt(Ext.JSON.decode(action.response.responseText).data);
+                        this.account.expert_id  = expert_id;
+                        this.getExpertData();
+
+                        var win = this.getProfileWin();
+
+                        view.close();
+                        win.down('#makeExpertFromMe').hide();
+                        win.down("#editExpertProfile").show();
+
+                    },
+                    failure: function(form, action) {
+                        switch (action.failureType) {
+                            case Ext.form.action.Action.CLIENT_INVALID:
+                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                                break;
+                            case Ext.form.action.Action.CONNECT_FAILURE:
+                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                                break;
+                            case Ext.form.action.Action.SERVER_INVALID:
+                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                        }
+                    },
+                    scope: this
+                });
+            },
+            scope: this
+        });
+    },
+
+    editExpert: function() {
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{
+            record: this.expert,
+            fromCurrent: true
+        });
+
+        view.down('button[action=save]').on({
+            click: function() {
+                var form = view.down('form');
+                form.submit({
+                    url: this.editExpertURL,
+                    success: function(form, action) {
+                        Ext.Msg.alert('Ответ системы',
+                            '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
+                        this.expert.data = form.getValues();
+                        view.close();
+//                        this.fireEvent('itemSaved');
+                    },
+                    failure: function(form, action) {
+                        switch (action.failureType) {
+                            case Ext.form.action.Action.CLIENT_INVALID:
+                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                                break;
+                            case Ext.form.action.Action.CONNECT_FAILURE:
+                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                                break;
+                            case Ext.form.action.Action.SERVER_INVALID:
+                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                        }
+                    },
+                    scope: this
+                });
+            },
+            scope: this
+        });
+    },
     showEditForm:function(){
 //        console.log("showing edit form");
         var win = this.getProfileWin();
+
+        console.time("Form show");
+
+        Ext.suspendLayouts();
+
         win.getLayout().setActiveItem('editProfile');
         win.down("#saveBtn").show();
+        win.down('#showEditFormBtn').hide();
+        win.down("#cancel").show();
 
+        Ext.resumeLayouts(true);
+
+        console.timeEnd("Form show");
     },
 
+
     hideEditForm: function(){
-//        console.log("hiding edit form");
-        var win = this.getProfileView();
+        var win = this.getProfileWin();
+
+        console.time("Form hide");
+
+        Ext.suspendLayouts();
+
         win.getLayout().setActiveItem('displayProfile');
-        win.down("#saveBtn").show();
+        win.down("#saveBtn").hide();
+        win.down('#showEditFormBtn').show();
+        win.down("#cancel").hide();
+
+        Ext.resumeLayouts(true);
+
+        console.timeEnd("Form hide");
     }
 
     ,openPassWindow: function(){
-//        console.log("opening password window");
         Ext.create('EC.PA.view.PassChange');
     }
+
+    ,getExpertData: function() {
+        var ex_id = this.account.expert_id;
+        var win = this.getProfileWin();
+
+        if (ex_id === 0 || ex_id === null) {
+            win.down('#makeExpertFromMe').show();
+            win.down('#editExpertProfile').hide();
+            return;
+        }
+
+        Ext.Ajax.request({
+            url: this.getExpertURL,
+            success: function(response) {
+                var r = Ext.JSON.decode(response.responseText);
+                this.expert = Ext.create('EC.Experts.model.Expert',r.data);
+
+                win.down('#makeExpertFromMe').hide();
+                win.down('#editExpertProfile').show();
+            },
+            failure: function(response) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
+            },
+            scope: this
+        });
+
+    }
+
     ,fillDisplayForm: function(){
 //        TODO заполнять из this.account
         Ext.Ajax.request({
@@ -124,21 +295,22 @@ Ext.define('EC.PA.controller.Profile', {
                 var formValues = new EC.PA.model.Profile(this.account);
 
                 this.getDisplayProfileForm().loadRecord(formValues);
+
+                this.getExpertData();
+
             },
             failure: function(response) {
                 Ext.Msg.alert('Ответ системы',
                     '<span style="color:red;">Ошибка получения данных профиля!</span>');
             },
             scope: this
-        })
-
-
+        });
     }
 
     ,fillEditForm: function(){
 //        TODO заполнять из this.account
-
-        this.getEditProfileForm().load({
+        var form = this.getEditProfileForm();
+        form.load({
             url: this.URL
             ,success: function(curForm, action) {
                 var me = this;
@@ -149,6 +321,10 @@ Ext.define('EC.PA.controller.Profile', {
             }
             ,scope:this
         });
+
+        form.down('[name=city_id]').setValue(this.account.city_id);
+        form.down('[name=country_id]').setValue(this.account.country_id);
+
     }
 
     ,fillImageField: function(curForm) {

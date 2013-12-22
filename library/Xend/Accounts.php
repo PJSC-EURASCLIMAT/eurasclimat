@@ -118,11 +118,34 @@ class Xend_Accounts
                 Xend_Acl_Status::INPUT_PARAMS_INCORRECT, 'role_id'));
         }
 
-        $clause = array();
-        if (!empty($roleId)) {
-            $clause = array('role_id = ?' => $roleId);
+        $response = new Xend_Response();
+
+        $select = $this->_tableAccounts->getAdapter()->select()
+            ->from(
+                array('a' => $this->_tableAccounts->getTableName()),
+                array( 'id', 'login', 'a.name', 'a.active', 'a.city_id', 'a.lang', 'a.tz')
+            )
+            ->joinLeft(
+                array('r' => 'acl_roles_accounts'),
+                'a.id=r.account_id', null
+            )
+//            ->where("r.role_id = ?", $roleId),
+            ->where("r.role_id = ?", $roleId);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
         }
-        return $this->_fetchAll($clause, $params);
+        return $response->addStatus(new Xend_Status($status));
     }
 
     /**
@@ -270,7 +293,7 @@ class Xend_Accounts
         $response = new Xend_Response();
         $select = $this->_tableAccounts->getAdapter()->select();
         $select->from(array('a' => $this->_tableAccounts->getTableName()), array(
-            'id', 'login', 'name', 'email', 'active',
+            'id', 'login', 'name', 'active',
             'password_set' => 'IF(LENGTH(password)>0,1,0)'
         ));
 
@@ -356,12 +379,11 @@ class Xend_Accounts
             'id'        => 'int',
             'login'     => 'StringTrim',
             'name'      => 'StringTrim',
-            'email'     => 'StringTrim',
             'active'    => 'boolean'
         ), array(
             'id'        => array('id', 'presence' => 'required'),
             'name'      => array('StringLength', 'presence' => 'required'),
-            'email'     => array('EmailAddress', 'presence' => 'required'),
+            'login'     => array('EmailAddress', 'presence' => 'required'),
             'active'    => array('boolean', 'presence' => 'required')
         ), $data);
 
@@ -418,7 +440,6 @@ class Xend_Accounts
         ), array(
             'login'     => array('EmailAddress', 'presence' => 'required'),
             'name'      => array('StringLength'),
-            'email'     => array('EmailAddress'),
             'country'   => array('StringLength'),
             'city'      => array('StringLength'),
 //            'lang'      => array('StringLength'),

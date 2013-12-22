@@ -53,7 +53,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
             width: 100,
             editor: {
                 xtype: 'textfield',
-                minLength: 3,
+                vtype: 'email',
                 allowBlank: false
             }
         }, {
@@ -64,16 +64,18 @@ Ext.define('EC.Admin.view.Accounts.List', {
                 xtype: 'textfield',
                 allowBlank: false
             }
-        }, {
-            header: 'Email',
-            dataIndex: 'email',
-            width: 200,
-            editor: {
-                xtype: 'textfield',
-                vtype: 'email',
-                allowBlank: false
-            }
-        }, {
+        },
+//        {
+//            header: 'Email',
+//            dataIndex: 'email',
+//            width: 200,
+//            editor: {
+//                xtype: 'textfield',
+//                vtype: 'email',
+//                allowBlank: false
+//            }
+//        },
+            {
             header: 'Роли',
             dataIndex: 'roles',
             flex: 1,

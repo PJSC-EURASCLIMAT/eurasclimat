@@ -2,7 +2,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
     
     extend: 'Ext.window.Window',
     
-    title: 'Редактирование документа',
+    title: 'Информация об эксперте',
     
     layout: 'fit',
     
@@ -12,7 +12,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
     
     modal: true,
     
-    width: 400,
+    width: 300,
 
     record: null,
 
@@ -25,13 +25,13 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     initComponent: function() {
 
-        var city_id = null;
-        var country_id = null;
-
-        if(!Ext.isEmpty(this.record)) {
-            city_id = this.record.get('city_id');
-            country_id = this.record.get('country_id');
-        }
+//        var city_id = null;
+//        var country_id = null;
+//
+//        if(!Ext.isEmpty(this.record)) {
+//            city_id = this.record.get('city_id');
+//            country_id = this.record.get('country_id');
+//        }
 
         this.items = [{
             xtype: 'form',
@@ -46,26 +46,24 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                 {
                     xtype: 'hidden',
                     name:'from_current',
+                    allowBlank: true,
                     value: this.fromCurrent
                 },
                 {
                     xtype: 'hidden',
+                    allowBlank: true,
                     name: 'id'
                 },
                 {
                     xtype: 'AccountsCombo',
                     hidden: this.fromCurrent,
+                    allowBlank: true,
                     name: 'account_id'
                 },
                 {
                     xtype: 'textfield',
                     fieldLabel: 'Описание',
                     name: 'desc'
-                },
-                {
-                    xtype: 'ContrCityField',
-                    city_id: city_id,
-                    country_id: country_id
                 },
                 {
                     fieldLabel: 'Тип инженерного оборудования',

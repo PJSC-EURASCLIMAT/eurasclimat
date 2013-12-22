@@ -12,6 +12,8 @@ class Experts_Experts_Model
     public function __construct()
     {
         $this->_table = new Experts_Experts_Table();
+        $this->_accountsModel = new Xend_Accounts();
+        $this->_messagesModel = new PA_Messages_Model();
     }
 
     public function update($data)
@@ -28,12 +30,14 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
+            'active'        => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
+            'active'        => array('int', 'presence' => 'required'),
         ), $data);
 
         $response->addInputStatus($f);
@@ -126,6 +130,19 @@ class Experts_Experts_Model
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
 
+        // Массовая рассылка доброй вести админам
+        $adminsResponse = $this->_accountsModel->fetchByRole(ADMIN_ROLE);
+        $admins = $adminsResponse->getRowset();
+        for ($i = 0; $i < count($admins); $i++) {
+            $data = array(
+                'sender_id'      => new Zend_Db_Expr('NULL'),
+                'receiver_id'    => $admins[$i]['id'],
+                'message'        => 'Зарегистрирован новый специалист'
+            );
+            $this->_messagesModel->add($data);
+        }
+
+
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
 
@@ -155,7 +172,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -207,6 +224,65 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+    public function getByAccountId($account_id)
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('e' => $this->_table->getTableName()),
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array('name' => 'a.name')
+            )
+            ->joinLeft(
+                array('st' => 'experts_statuses'),
+                'st.id=e.status_id',
+                array('status' => 'st.name')
+            )
+            ->joinLeft(
+                array('eq' => 'experts_equipment'),
+                'eq.id=e.equip_id',
+                array('equipment' => 'eq.name')
+            )
+            ->joinLeft(
+                array('c' => 'cities'),
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'c.id'
+                )
+            )
+            ->joinLeft(
+                array('co' => 'countries'),
+                'co.id=c.country_id',
+                array(
+                    'country' => 'co.name',
+                    'country_id' => 'co.id'
+                )
+            )
+            ->where("e.account_id = ?", $account_id)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+            $response->setRowset($rows[0]);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+        return $response->addStatus(new Xend_Status($status));
+    }
+
     public function getAll()
     {
         $response = new Xend_Response();
@@ -214,7 +290,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
             )
             ->joinLeft(
                 array('a' => 'accounts'),

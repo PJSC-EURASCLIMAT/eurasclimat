@@ -38,6 +38,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
     public function getAction()
     {
         $response = $this->_model->get($this->_getParam('id'));
+        $fromCurrent = $this->_getParam('fromCurrent');
         if ($response->isSuccess()) {
             $row = $response->getRow();
             $this->view->success = true;
@@ -45,6 +46,21 @@ class Experts_ExpertsController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+    }
+
+    public function activateAction()
+    {
+        $data = array();
+        $data['id'] = $this->_getParam('id');
+        $data['active'] = $this->_getParam('active');
+
+        $response = $this->_model->update($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($response);
+        }
+        $this->view->success = true;
     }
 
 

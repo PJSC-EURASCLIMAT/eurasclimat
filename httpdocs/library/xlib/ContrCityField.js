@@ -8,6 +8,10 @@ Ext.define('xlib.ContrCityField', {
 
     city_id: null,
 
+    layout: 'anchor',
+
+    margin: '0 0 0 0',
+
     initComponent: function() {
 
         this.items = [
@@ -19,7 +23,8 @@ Ext.define('xlib.ContrCityField', {
                 editable: false,
                 queryMode: 'local',
                 anchor: '100%',
-                labelWidth: 60,
+//                labelWidth: 60,
+                allowBlank: false,
                 defaultValue: this.country_id, //Россия
                 name: 'country_id',
 //                hiddenName: 'country_id',
@@ -51,13 +56,14 @@ Ext.define('xlib.ContrCityField', {
                 fieldLabel: 'Город',
                 defaultValue: this.city_id,
                 editable: false,
+                allowBlank: false,
                 queryMode: 'local',
                 anchor: '100%',
-                labelWidth: 60,
+//                labelWidth: 60,
                 name: 'city_id',
                 value: this.city_id,
 //                hiddenName: 'city_id',
-                value: '',
+//                value: '',
                 store: {
                     storeId: 'CitiesStore',
 //                    autoLoad: true,
@@ -82,8 +88,8 @@ Ext.define('xlib.ContrCityField', {
         this.cityCombo = this.down('[name=city_id]');
         this.countryCombo = this.down('[name=country_id]');
 
-        this.cityCombo.setValue(this.city_id);
-        this.countryCombo.setValue(this.country_id);
+//        this.cityCombo.setValue(this.city_id);
+//        this.countryCombo.setValue(this.country_id);
 
         this.countryCombo.getStore().on('load', function(store, records, success, eOpts) {
             store.insert(0, {id: '', name: '- Весь мир -'});
@@ -97,8 +103,19 @@ Ext.define('xlib.ContrCityField', {
     },
 
     countryChanged: function() {
+        var city_id = this.cityCombo.getValue();
         this.cityCombo.reset();
-        this.cityCombo.getStore().load({id: this.countryCombo.getValue()});
+        this.cityCombo.getStore().load({
+            id: this.countryCombo.getValue(),
+            callback: function(records, operation, success) {
+                if (this.cityCombo.getStore().getById(city_id) !== null) {
+                    this.cityCombo.setValue(city_id);
+                }
+            },
+            scope:this
+        });
+
+
     },
     
     getFilter: function() {

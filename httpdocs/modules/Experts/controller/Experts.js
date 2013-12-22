@@ -1,5 +1,5 @@
 Ext.define('EC.Experts.controller.Experts', {
-    
+
     extend: 'Ext.app.Controller',
     
     stores: [
@@ -46,6 +46,8 @@ Ext.define('EC.Experts.controller.Experts', {
         var grid = container.add(Ext.create('EC.Experts.view.Experts.List', {
             permissions: this.permissions
         }));
+
+        this.grid = grid;
         
         grid.down('button[action=refresh]').on({
             click: function() {
@@ -68,6 +70,7 @@ Ext.define('EC.Experts.controller.Experts', {
                 itemdblclick: this.showItem,
                 deleteitem: this.deleteItem,
                 openref: this.openRef,
+                activechange: this.activeChange,
                 scope: this
             });
             
@@ -79,6 +82,31 @@ Ext.define('EC.Experts.controller.Experts', {
             }, this);
         }
         
+    },
+
+    activeChange: function(rowIndex, checked) {
+        var record = this.grid.store.getAt(rowIndex);
+
+        Ext.Ajax.request({
+            params: {
+                id: record.get('id'),
+                active: checked
+            },
+            url: this.editURL,
+            success: function(response, opts) {
+                var resp = Ext.decode(response.responseText, true);
+                if (!resp || !resp.success) {
+                    failure();
+                    return;
+                }
+                record.commit();
+            },
+            failure: function() {
+                record.reject();
+                Ext.Msg.alert('Ошибка', 'Не удалось активировать специалиста!');
+            },
+            scope: this
+        });
     },
 
     openRef: function(ref_name) {
@@ -136,9 +164,9 @@ Ext.define('EC.Experts.controller.Experts', {
         });
     },
 
-    editItem: function(grid, record) {
+    editItem: function(grid, record, fromCurrent) {
 
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{record: record});
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{record: record, fromCurrent: fromCurrent});
 
         view.down('button[action=save]').on({
             click: function() {

@@ -3,7 +3,7 @@ Ext.define('EC.PA.view.Profile', {
     extend: 'Ext.window.Window',
     
     uses: [
-        'xlib.CountryCombo',
+        'xlib.ContrCityField',
         'xlib.LanguageCombo',
         'xlib.form.ImageField'
     ],
@@ -27,7 +27,7 @@ Ext.define('EC.PA.view.Profile', {
 
     initComponent: function() {
 
-        this.acc = xlib.Acl.Storage.getIdentity();
+        var acc = xlib.Acl.Storage.getIdentity();
 
 
         this.items = [{
@@ -54,51 +54,41 @@ Ext.define('EC.PA.view.Profile', {
                                     xtype: 'container',
                                     layout:'vbox',
                                     items: [
-                                        {
-                                            xtype: 'button',
-                                            text: 'Редактировать профиль',
-                                            itemId: 'showEditFormBtn',
-                                            margin: '0 0 10 0'
+                                        , {
+                                            xtype: 'displayfield',
+                                            name: 'name',
+                                            fieldLabel: 'ФИО'
                                         }, {
-                                            xtype: 'button',
-                                            itemId: 'changePassBtn',
-                                            text: 'Сменить пароль',
-                                            margin: '0 0 10 0'
-                                        },{
+                                            xtype: 'displayfield',
+                                            name: 'login',
+                                            fieldLabel: 'Логин'
+                                        }, {
+                                            xtype: 'displayfield',
+                                            name: 'country',
+                                            fieldLabel: 'Страна'
+                                        }, {
+                                            xtype: 'displayfield',
+                                            name: 'city',
+                                            fieldLabel: 'Город'
+                                        },
+                                        {
                                             xtype: 'button',
                                             text: 'Стать специалистом',
                                             itemId: 'makeExpertFromMe',
+                                            hidden: !Ext.isEmpty(acc.expert_id),
                                             margin: '0 0 10 0'
                                         },{
                                             xtype: 'button',
                                             text: 'Профиль специалиста',
-                                            hidden: (this.acc.expert_id === null),
+                                            hidden: Ext.isEmpty(acc.expert_id),
                                             itemId: 'editExpertProfile',
                                             margin: '0 0 10 0'
                                         }
-
                                     ]
                                 }
 
 
                             ]
-                        }, {
-                            xtype: 'displayfield',
-                            name: 'name',
-                            fieldLabel: 'ФИО'
-                        }, {
-                            xtype: 'displayfield',
-                            name: 'login',
-                            fieldLabel: 'Логин'
-                        }, {
-                            xtype: 'displayfield',
-                            name: 'country',
-                            fieldLabel: 'Страна',
-                            renderer: xlib.CountryCombo.getDisplayValue
-                        }, {
-                            xtype: 'displayfield',
-                            name: 'city',
-                            fieldLabel: 'Город'
                         }
                     ]
                 }, {
@@ -124,21 +114,12 @@ Ext.define('EC.PA.view.Profile', {
                             fieldLabel: 'ФИО'
                         }, {
                             xtype: 'textfield',
-                            name: 'email',
-                            fieldLabel: 'Email'
+                            name: 'login',
+                            fieldLabel: 'Логин'
                         }, {
-                            xtype: 'textfield',
-                            name: 'city',
-                            fieldLabel: 'Город'
-                        },{
-                            xtype: 'CountryCombo',
-                            name: 'country',
-                            hiddenName: 'country',
-                            matchFieldWidth: false,
-                            listConfig: {
-                                width: 300
-                            },
-                            value: 'RU'
+                            xtype: 'ContrCityField'
+//                            ,city_id: city_id
+//                            ,country_id: country_id
                         }, {
                             fieldLabel: 'Часовой пояс',
                             xtype: 'combo',
@@ -183,6 +164,12 @@ Ext.define('EC.PA.view.Profile', {
                                 ]
                             },
                             value: '+4'
+                        },
+                        {
+                            xtype: 'button',
+                            itemId: 'changePassBtn',
+                            text: 'Сменить пароль',
+                            margin: '0 0 10 0'
                         }
                     ]
         }];
@@ -199,11 +186,17 @@ Ext.define('EC.PA.view.Profile', {
         }, {
             xtype:'tbspacer',
             flex:1
-        },{
-            text: 'Закрыть',
-            itemId: 'closeBtn',
-            scope: this,
-            handler: this.close
+        }, {
+            xtype: 'button',
+            text: 'Редактировать профиль',
+            itemId: 'showEditFormBtn',
+            margin: '0 0 10 0'
+        }, {
+            xtype: 'button',
+            hidden: true,
+            text: 'Отмена',
+            itemId: 'cancel',
+            margin: '0 0 10 0'
         }]
 
         this.callParent(arguments);

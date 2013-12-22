@@ -14,6 +14,7 @@ Ext.define('EC.Experts.model.Expert', {
         'equipment',
         'city',
         'country',
-        'country_id'
+        'country_id',
+        {name: 'active', type: 'int'}
     ]
 });

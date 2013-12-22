@@ -4,24 +4,24 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     stores: [
         'EC.CRM.store.Projects.Configurator.Equipment',
-        'EC.CRM.store.Projects.Configurator.Services',
+//        'EC.CRM.store.Projects.Configurator.Services',
         'EC.CRM.store.Projects.Configurator.SpecialServices',
-        'EC.CRM.store.Projects.Configurator.Expendables'
+//        'EC.CRM.store.Projects.Configurator.Expendables'
     ],
     
     models: [
         'EC.CRM.model.Projects.Configurator.Equipment',
-        'EC.CRM.model.Projects.Configurator.Services',
+//        'EC.CRM.model.Projects.Configurator.Services',
         'EC.CRM.model.Projects.Configurator.SpecialServices',
-        'EC.CRM.model.Projects.Configurator.Expendables'
+//        'EC.CRM.model.Projects.Configurator.Expendables'
     ],
     
     views: [
 //        'EC.CRM.view.Projects.Configurator.Edit',
         'EC.CRM.view.Projects.Configurator.EquipmentList',
-        'EC.CRM.view.Projects.Configurator.ServicesList',
+//        'EC.CRM.view.Projects.Configurator.ServicesList',
         'EC.CRM.view.Projects.Configurator.SpecialServicesList',
-        'EC.CRM.view.Projects.Configurator.ExpendablesList'
+//        'EC.CRM.view.Projects.Configurator.ExpendablesList'
     ],
     
     projectID: null,
@@ -32,6 +32,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     deleteEquipmentURL: '/json/crm/projects/delete-equipment',
     
+    /*
     addServiceURL: '/json/crm/projects/add-service',
     
     editServiceURL: '/json/crm/projects/update-service',
@@ -41,6 +42,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     addExpendableURL: '/json/crm/projects/add-expendable',
     
     deleteExpendableURL: '/json/crm/projects/delete-expendable',
+    */
     
     addSpecialServiceURL: '/json/crm/projects/add-special-service',
     
@@ -60,14 +62,14 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         container.add(this.Container);
         
         this.equipmentPanel = this.Container.down('ConfiguratorEquipmentList');
-        this.servicesPanel = this.Container.down('ConfiguratorServicesList');
+//        this.servicesPanel = this.Container.down('ConfiguratorServicesList');
         this.specialServicesPanel = this.Container.down('ConfiguratorSpecialServicesList');
-        this.expendablesPanel = this.Container.down('ConfiguratorExpendablesList');
+//        this.expendablesPanel = this.Container.down('ConfiguratorExpendablesList');
         
         this.equipmentPanel.down('button[action=refresh]').on('click', this.loadEquipment, this);
-        this.servicesPanel.down('button[action=refresh]').on('click', this.loadServices, this);
+//        this.servicesPanel.down('button[action=refresh]').on('click', this.loadServices, this);
         this.specialServicesPanel.down('button[action=refresh]').on('click', this.loadSpecialServices, this);
-        this.expendablesPanel.down('button[action=refresh]').on('click', this.loadExpendables, this);
+//        this.expendablesPanel.down('button[action=refresh]').on('click', this.loadExpendables, this);
             
         if (this.permissions) {
             
@@ -75,36 +77,37 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             this.equipmentPanel.on('edititem', this.editEquipment, this);
             this.equipmentPanel.on('deleteitem', this.deleteEquipment, this);
             
-            this.servicesPanel.down('button[action=additem]').on('click', this.addService, this);
-            this.servicesPanel.on('edititem', this.editService, this);
-            this.servicesPanel.on('deleteitem', this.deleteService, this);
+//            this.servicesPanel.down('button[action=additem]').on('click', this.addService, this);
+//            this.servicesPanel.on('edititem', this.editService, this);
+//            this.servicesPanel.on('deleteitem', this.deleteService, this);
             
             this.specialServicesPanel.down('button[action=additem]').on('click', this.addSpecialService, this);
             this.specialServicesPanel.on('edititem', this.editSpecialService, this);
             this.specialServicesPanel.on('deleteitem', this.deleteSpecialService, this);
             
-            this.expendablesPanel.down('button[action=additem]').on('click', this.addExpendable, this);
-            this.expendablesPanel.on('edititem', this.editExpendable, this);
-            this.expendablesPanel.on('deleteitem', this.deleteExpendable, this);
+//            this.expendablesPanel.down('button[action=additem]').on('click', this.addExpendable, this);
+//            this.expendablesPanel.on('edititem', this.editExpendable, this);
+//            this.expendablesPanel.on('deleteitem', this.deleteExpendable, this);
         }
         
         this.equipmentPanel.getStore().on('load', this.refreshTotalSumm, this);
-        this.servicesPanel.getStore().on('load', this.refreshTotalSumm, this);
+//        this.servicesPanel.getStore().on('load', this.refreshTotalSumm, this);
         this.specialServicesPanel.getStore().on('load', this.refreshTotalSumm, this);
-        this.expendablesPanel.getStore().on('load', this.refreshTotalSumm, this);
+//        this.expendablesPanel.getStore().on('load', this.refreshTotalSumm, this);
         
         this.loadEquipment();
-        this.loadServices();
+//        this.loadServices();
         this.loadSpecialServices();
-        this.loadExpendables();
+//        this.loadExpendables();
     },
     
     refreshTotalSumm: function() {
         var summ = 0  
             + this.equipmentPanel.getStore().sum('summ')
-            + this.servicesPanel.getStore().sum('summ')
+//            + this.servicesPanel.getStore().sum('summ')
             + this.specialServicesPanel.getStore().sum('summ') 
-            + this.expendablesPanel.getStore().sum('summ');
+//            + this.expendablesPanel.getStore().sum('summ')
+            ;
             
         this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b>');
     }, 
@@ -113,17 +116,17 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         this.equipmentPanel.getStore().load({params: {id: this.projectID}});
     },
     
-    loadServices: function() {
-        this.servicesPanel.getStore().load({params: {id: this.projectID}});
-    },
+//    loadServices: function() {
+//        this.servicesPanel.getStore().load({params: {id: this.projectID}});
+//    },
     
     loadSpecialServices: function() {
         this.specialServicesPanel.getStore().load({params: {id: this.projectID}});
     },
     
-    loadExpendables: function() {
-        this.expendablesPanel.getStore().load({params: {id: this.projectID}});
-    },
+//    loadExpendables: function() {
+//        this.expendablesPanel.getStore().load({params: {id: this.projectID}});
+//    },
     
     getWindow: function() {
         
@@ -214,6 +217,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         }, this);
     },
     
+    /*
     addService: function() {
         
         var win = this.getWindow();
@@ -275,6 +279,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             }
         }, this);
     },
+    */
     
     addSpecialService: function() {
         
@@ -339,6 +344,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         }, this);
     },
     
+    /*
     addExpendable: function() {
         
         var win = this.getWindow();
@@ -400,4 +406,5 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             }
         }, this);
     }
+    */
 });

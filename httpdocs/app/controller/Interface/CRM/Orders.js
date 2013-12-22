@@ -10,7 +10,7 @@ Ext.define('App.controller.Interface.CRM.Orders', {
             MC = this.getController('App.controller.Main'),
             menu = this.getMenu();
             
-       container.on('show', function() {
+       container.on('activate', function() {
             MC.openModuleTab(menu[0]);
        }, this, {single: true});
        

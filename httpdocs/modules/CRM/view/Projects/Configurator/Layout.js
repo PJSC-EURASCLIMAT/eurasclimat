@@ -18,40 +18,19 @@ Ext.define('EC.CRM.view.Projects.Configurator.Layout', {
         
         this.items = [{
             region: 'center',
-            flex: .5,
+            flex: 1,
             border: false,
-            layout: 'border',
-            items: [{
-                region: 'center',
-                flex: 1,
-                xtype: 'ConfiguratorEquipmentList',
-                projectID: this.projectID,
-                permissions: this.permissions
-            }, {
-                region: 'east',
-                flex: 1,
-                xtype: 'ConfiguratorServicesList',
-                projectID: this.projectID,
-                permissions: this.permissions
-            }]
+            xtype: 'ConfiguratorEquipmentList',
+            projectID: this.projectID,
+            permissions: this.permissions
         }, {
             region: 'south',
-            flex: .5,
+            flex: 1,
             border: false,
-            layout: 'border',
-            items: [{
-                region: 'center',
-                flex: 1,
-                xtype: 'ConfiguratorExpendablesList',
-                projectID: this.projectID,
-                permissions: this.permissions
-            }, {
-                region: 'east',
-                flex: 1,
-                xtype: 'ConfiguratorSpecialServicesList',
-                projectID: this.projectID,
-                permissions: this.permissions
-            }]
+            cls: 'x-border-top',
+            xtype: 'ConfiguratorSpecialServicesList',
+            projectID: this.projectID,
+            permissions: this.permissions
         }];
 
         this.bbar = ['->', {

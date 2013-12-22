@@ -2,7 +2,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
 
     extend: 'Ext.grid.Panel',
 
-    title: 'Специальные виды услуг',
+    title: 'Специальные услуги',
     
     alias: 'widget.ConfiguratorSpecialServicesList',
     

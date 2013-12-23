@@ -27,6 +27,8 @@ Ext.define('EC.Experts.controller.Experts', {
     addURL: '/json/experts/experts/add',
 
     editURL: '/json/experts/experts/update',
+
+    activateURL: '/json/experts/experts/activate',
     
     deleteURL: '/json/experts/experts/delete',
 
@@ -92,7 +94,7 @@ Ext.define('EC.Experts.controller.Experts', {
                 id: record.get('id'),
                 active: checked
             },
-            url: this.editURL,
+            url: this.activateURL,
             success: function(response, opts) {
                 var resp = Ext.decode(response.responseText, true);
                 if (!resp || !resp.success) {

@@ -16,6 +16,76 @@ class Experts_Experts_Model
         $this->_messagesModel = new PA_Messages_Model();
     }
 
+    public function activate($data)
+    {
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(array(
+            'id'            => 'int',
+            'active'        => 'int',
+        ), array(
+            'id'            => array('int', 'presence' => 'required'),
+            'active'        => array('int', 'presence' => 'required'),
+        ), $data);
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $rows = $this->_table->updateByPk($f->getData(), $f->id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        //Права
+
+        $account_id = $this->getAccountIdByExpertId($f->id);
+        $accountResponse = $this->_accountsModel->fetchAccount($account_id);
+
+        $account = $accountResponse->getRowset();
+        $accRoles = $account['roles'];
+
+        $roles = array();
+
+        for ($i = 0; $i < count($accRoles); $i++) {
+            if(intval($accRoles[$i]['id']) != EXPERT_ROLE) {
+                $id = intval($accRoles[$i]['id']);
+                array_push($roles, array('id' => $id));
+            }
+        }
+
+        // TODO наверное лучше вынести в Xend_Accounts, + роль, - роль
+
+        //Отправка мессаджа
+        if (intval($f->active) == 0) {
+            $message = "Вы больше не специалист";
+        } else if(intval($f->active) == 1) {
+            $message = "Вы одобрены как специалист";
+            $roles[] = array('id' => EXPERT_ROLE);
+        }
+
+        $this->_accountsModel->setRoles($account_id, $roles);
+
+        $data = array(
+            'sender_id'      => new Zend_Db_Expr('NULL'),
+            'receiver_id'    => $account_id,
+            'message'        => $message
+        );
+        $this->_messagesModel->add($data);
+
+        // TODO Удалять или добавлять роль Спеца
+
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
+
     public function update($data)
     {
         $response = new Xend_Response();
@@ -361,6 +431,37 @@ class Experts_Experts_Model
                 return null;
             }
             return $rows[0]['id'];
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+    }
+
+    public function getAccountIdByExpertId($expertId)
+    {
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('e' => $this->_table->getTableName()),
+                array( 'e.id')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array(
+                    'account_id' => 'a.id'
+                )
+            )
+            ->where("e.id = ?", $expertId)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return null;
+            }
+            return $rows[0]['account_id'];
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;

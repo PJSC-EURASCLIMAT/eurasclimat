@@ -55,6 +55,7 @@ Zend_Registry::set('config', $config);
 define('ADMIN_ROLE', 1);
 define('GUEST_ROLE', 2);
 define('USER_ROLE', 3);
+define('EXPERT_ROLE', 9);
 define('DEBUG', (boolean) $config->debug);
 define('MYSQL_DATE_TIME_FORMAT', 'Y-m-d H:i:s');
 define('MYSQL_DATE_FORMAT', 'Y-m-d');

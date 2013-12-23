@@ -21,6 +21,8 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
+
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'activate');
     }
 
     public function getListAction()
@@ -54,7 +56,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $data['id'] = $this->_getParam('id');
         $data['active'] = $this->_getParam('active');
 
-        $response = $this->_model->update($this->_getAllParams());
+        $response = $this->_model->activate($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

@@ -109,14 +109,12 @@ class PA_Messages_Model
     {
         $params['date'] = date('Y-m-d H:i:s', time());
 
-        $params['sender_id'] = "1";
-
         $f = new Xend_Filter_Input(array(
-//            'sender_id'      => 'int',
+            'sender_id'      => 'int',
             'receiver_id'    => 'int',
             'message'        => 'StringTrim'
         ), array(
-//            'sender_id'      => array('Id', 'allowEmpty' => true),
+            'sender_id'      => array('Id', 'allowEmpty' => true),
             'receiver_id'    => array('Id', 'allowEmpty' => false),
             'message'        => array(array('StringLength', 1), 'allowEmpty' => false),
         ), $params);

@@ -15,6 +15,8 @@ class PA_ProfileController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'register-expert');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert');
+
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'test');
     }
 
     public function init()

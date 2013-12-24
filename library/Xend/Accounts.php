@@ -440,8 +440,8 @@ class Xend_Accounts
         ), array(
             'login'     => array('EmailAddress', 'presence' => 'required'),
             'name'      => array('StringLength'),
-            'country'   => array('StringLength'),
-            'city'      => array('StringLength'),
+//            'country'   => array('StringLength'),
+//            'city'      => array('StringLength'),
 //            'lang'      => array('StringLength'),
 //            'tz'        => array('StringLength'),
 //            'photo'     => array('StringLength'),
@@ -786,16 +786,7 @@ class Xend_Accounts
         if (!$row || is_null($row)) {
             return false;
         }
-        return ($row->role_id == ADMIN_ROLE && $row->login == 'admin');
-    }
-
-    /**
-     * @return bool
-     */
-    private function isRemoteauthEnabled()
-    {
-        $config = Zend_Registry::get('config');
-        return ($config->remoteauth->enable == 1);
+        return ($row->role_id == ADMIN_ROLE);
     }
 
     /**

@@ -29,7 +29,7 @@ Ext.define('EC.CRM.controller.Projects.Discussions', {
         this.discussionsStore.load({params: {project_id: this.cur_project_id}});
     },
 
-    onStoreLoad: function (store, records, successful, eOpts) {
+    onStoreLoad: function(store, records, successful, eOpts) {
 
         if (successful && records.length > 0) {
 

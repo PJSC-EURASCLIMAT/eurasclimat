@@ -33,7 +33,31 @@ Ext.define('EC.CRM.view.Projects.Configurator.Layout', {
             permissions: this.permissions
         }];
 
-        this.bbar = ['->', {
+        this.bbar = ['-', {
+            xtype: 'tbtext',
+            text: 'Оборудование:'
+        }, {
+            xtype: 'tbtext',
+            itemId: 'totalequipment'
+        }, '-', {
+            xtype: 'tbtext',
+            text: 'Услуги:'
+        }, {
+            xtype: 'tbtext',
+            itemId: 'totalservices'
+        }, '-', {
+            xtype: 'tbtext',
+            text: 'Специальные услуги:'
+        }, {
+            xtype: 'tbtext',
+            itemId: 'totalspecialservices'
+        }, '-', {
+            xtype: 'tbtext',
+            text: 'Материалы:'
+        }, {
+            xtype: 'tbtext',
+            itemId: 'totalexpendables'
+        }, '-', '->', {
             xtype: 'tbtext',
             text: '<b>Общая сумма:</b>'
         }, {

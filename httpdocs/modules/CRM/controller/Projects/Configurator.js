@@ -102,14 +102,17 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     },
     
     refreshTotalSumm: function() {
-        var summ = 0  
-            + this.equipmentPanel.getStore().sum('summ')
-//            + this.servicesPanel.getStore().sum('summ')
-            + this.specialServicesPanel.getStore().sum('summ') 
-//            + this.expendablesPanel.getStore().sum('summ')
-            ;
+        var eq = this.equipmentPanel.getStore().sum('summ'),
+            ss = this.specialServicesPanel.getStore().sum('summ'),
+            sv = 0,
+            ep = 0,
+            summ = eq + ss + sv + ep;  
             
-        this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b>');
+        this.Container.down('[itemId=totalequipment]').setText('<b>' + eq + ' р.</b> ');
+        this.Container.down('[itemId=totalspecialservices]').setText('<b>' + ss + ' р.</b> ');
+        this.Container.down('[itemId=totalservices]').setText('<b>' + sv + ' р.</b> ');
+        this.Container.down('[itemId=totalexpendables]').setText('<b>' + ep + ' р.</b> ');
+        this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b> ');
     }, 
     
     loadEquipment: function() {
@@ -186,7 +189,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             url: this.addEquipmentURL,
             success: function(response, opts) {
                 this.loadEquipment();
-                this.loadServices();
+//                this.loadServices();
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
@@ -313,7 +316,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             url: this.addSpecialServiceURL,
             success: function(response, opts) {
                 this.loadSpecialServices();
-                this.loadExpendables();
+//                this.loadExpendables();
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
@@ -342,7 +345,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
                 });
             }
         }, this);
-    },
+    }
     
     /*
     addExpendable: function() {

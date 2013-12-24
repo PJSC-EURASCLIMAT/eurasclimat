@@ -12,11 +12,6 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    features: [{
-        ftype: 'summary',
-        dock: 'bottom'
-    }],
-    
     initComponent: function() {
         
         var actions = [];
@@ -63,10 +58,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
             header: 'Сумма',
             width: 100,
             dataIndex: 'summ',
-            summaryType: 'sum',
-            summaryRenderer: function(value, summaryData, dataIndex) {
-                return Ext.String.format('<b>Итого: {0} р.</b>', value); 
-            }
+            summaryType: 'sum'
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,

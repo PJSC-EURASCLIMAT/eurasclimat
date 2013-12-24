@@ -31,73 +31,48 @@ Ext.define('EC.PA.view.Profile', {
         var acc = xlib.Acl.Storage.getIdentity();
 
 
-        this.items = [{
-                    xtype: 'form',
+        this.items = [
+                {
+                    xtype: 'panel',
                     itemId: 'displayProfile',
+                    layout: 'fit',
                     bodyPadding: 10,
-                    items: [
-                        {
-                            layout:'hbox',
-                            xtype: 'container',
-                            items: [
-                                {
-                                    xtype: 'imagefield'
-                                    ,dir: '/images/users/'
-                                    ,width: 100
-                                    ,height: 90
-                                    ,name: 'id'
-                                    ,margin: '0 10 0 0'
-                                }, {
-                                    xtype:'tbspacer',
-                                    flex:1
-                                },
-                                {
-                                    xtype: 'container',
-                                    layout:'vbox',
-                                    items: [
-                                        , {
-                                            xtype: 'displayfield',
-                                            name: 'name',
-                                            fieldLabel: 'ФИО'
-                                        }, {
-                                            xtype: 'displayfield',
-                                            name: 'login',
-                                            fieldLabel: 'Логин'
-                                        }, {
-                                            xtype: 'displayfield',
-                                            name: 'country',
-                                            fieldLabel: 'Страна'
-                                        }, {
-                                            xtype: 'displayfield',
-                                            name: 'city',
-                                            fieldLabel: 'Город'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            text: 'Стать специалистом',
-                                            itemId: 'makeExpertFromMe',
-                                            hidden: !Ext.isEmpty(acc.expert_id),
-                                            margin: '0 0 10 0'
-                                        },{
-                                            xtype: 'button',
-                                            text: 'Профиль специалиста',
-                                            hidden: Ext.isEmpty(acc.expert_id),
-                                            itemId: 'editExpertProfile',
-                                            margin: '0 0 10 0'
-                                        }
-                                    ]
-                                }
+                    tpl: Ext.create('Ext.XTemplate',
 
+                        '<table width="100%" border="0">',
+                            '<tr valign="top">',
+                                '<td width="100">',
+                                    '<tpl if="have_avatar == 1">',
+                                        '<img src="images/users/{id}.jpg" width="100" style="float: left;margin-right: 15px">',
+                                    '<tpl else>',
+                                        '<img src="http://placehold.it/100x100" style="float: left;margin-right: 15px"/>',
+                                    '</tpl>',
+                                '</td>',
+                                '<td>',
+                                    'ФИО: {name}<br/><br/>',
+                                    'Email: {login}<br/><br/>',
+                                    'г. {city}, {country}<br/><br/>',
+                                '</td>',
+                            '</tr>',
 
-                            ]
-                        }
-                    ]
+                            '<tr valign="top">',
+                                '<td colspan="2">',
+                                    '<p><b>Специализация</b><p>',
+                                    '<p>Описание: {expert.desc}</p>',
+                                    '<p>Тип инженерного оборудования: {expert.equipment}</p>',
+                                    '<p>Статус: {expert.status}</p>',
+                                '</td>',
+                            '</tr>'
+
+                    )
+
                 }, {
                     xtype: 'form',
                     itemId: 'editProfile',
                     bodyPadding: 10,
                     fieldDefaults: {
-                        margin: '10 0'
+                        margin: '10 0',
+                        anchor: '100%'
 //                        labelWidth: 100
 //                        allowBlank: false,
 //                        anchor: '-5'
@@ -116,19 +91,14 @@ Ext.define('EC.PA.view.Profile', {
                         }, {
                             xtype: 'textfield',
                             name: 'login',
-                            fieldLabel: 'Логин'
+                            fieldLabel: 'Email',
+                            vtype: 'email'
                         }, {
                             xtype: 'ContrCityField'
 //                            ,city_id: city_id
 //                            ,country_id: country_id
                         }, {
                             xtype: 'TZCombo'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'changePassBtn',
-                            text: 'Сменить пароль',
-                            margin: '0 0 10 0'
                         }
                     ]
         }];
@@ -143,19 +113,30 @@ Ext.define('EC.PA.view.Profile', {
             hidden: true
 //                action: 'submit'
         }, {
-            xtype:'tbspacer',
-            flex:1
+            xtype: 'button',
+            text: 'Стать специалистом',
+            itemId: 'makeExpertFromMe',
+            hidden: !Ext.isEmpty(acc.expert_id),
+            margin: '0 0 10 0'
         }, {
             xtype: 'button',
+            text: 'Специализация',
+            tooltip: 'Редактировать профиль специалиста',
+            hidden: Ext.isEmpty(acc.expert_id),
+            itemId: 'editExpertProfile'
+        }, '->', {
+            xtype: 'button',
+            itemId: 'changePassBtn',
+            text: 'Сменить пароль'
+        },'->', {
+            xtype: 'button',
             text: 'Редактировать профиль',
-            itemId: 'showEditFormBtn',
-            margin: '0 0 10 0'
+            itemId: 'showEditFormBtn'
         }, {
             xtype: 'button',
             hidden: true,
             text: 'Отмена',
-            itemId: 'cancel',
-            margin: '0 0 10 0'
+            itemId: 'cancel'
         }]
 
         this.callParent(arguments);

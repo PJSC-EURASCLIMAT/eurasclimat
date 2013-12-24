@@ -94,6 +94,10 @@ class PA_Profile
         $rolesAccountsTable = new Xend_Acl_Table_RolesAccounts();
         $rowset['roles'] = $rolesAccountsTable->getRoles($accountId);
 
+        $avatar_path = IMAGES_DIR . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $rowset['id'] . '.jpg';
+
+        $rowset['have_avatar'] = (file_exists($avatar_path)) ? 1 : 0;
+
         $response->rowset = $rowset;
         $response->setRowset($rowset);
         return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));

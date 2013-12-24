@@ -81,36 +81,23 @@ Ext.define('EC.PA.controller.Profile', {
     run: function(container) {
 
         this.control({
-            'profilewin button#changePassBtn': {
-                click: this.openPassWindow
-            },
-            'profilewin button#showEditFormBtn': {
-                click: this.showEditForm
-            },
-            'profilewin button#cancel': {
-                click: this.hideEditForm
-            },
-
-            'profilewin button#makeExpertFromMe': {
-                click: this.addExpert
-            },
-            'profilewin button#editExpertProfile': {
-                click: this.editExpert
-            },
-
-            'profilewin button#saveBtn': {
-                click: this.updateProfile
-            },
             'passchangeview button#saveBtn': {
                 click: this.chagePassword
             }
         });
 
 
+        this.profileWin = Ext.create('EC.PA.view.Profile');
+        this.profileWin.down('button#changePassBtn').on('click',this.openPassWindow,this);
+        this.profileWin.down('button#showEditFormBtn').on('click',this.showEditForm,this);
+        this.profileWin.down('button#cancel').on('click',this.hideEditForm,this);
+        this.profileWin.down('button#saveBtn').on('click',this.updateProfile,this);
+        this.profileWin.down('button#makeExpertFromMe').on('click',this.addExpert,this);
+        this.profileWin.down('button#editExpertProfile').on('click',this.editExpert,this);
 
         //Создаем окошко профиля
-        Ext.create('EC.PA.view.Profile');
-        this.getProfileWin().hide();
+
+        this.profileWin.hide();
 
         //заполняем формы
         this.fillDisplayForm();
@@ -120,9 +107,9 @@ Ext.define('EC.PA.controller.Profile', {
 
     showExpertCard:function(){
 //        console.log("showing edit form");
-        var win = this.getProfileWin();
+        var win = this.profileWin;
 
-        console.time("Form show");
+//        console.time("Form show");
 
         Ext.suspendLayouts();
 
@@ -133,7 +120,7 @@ Ext.define('EC.PA.controller.Profile', {
 
         Ext.resumeLayouts(true);
 
-        console.timeEnd("Form show");
+//        console.timeEnd("Form show");
     },
 
 
@@ -154,7 +141,7 @@ Ext.define('EC.PA.controller.Profile', {
                         this.account.expert_id  = expert_id;
                         this.getExpertData();
 
-                        var win = this.getProfileWin();
+                        var win = this.profileWin;
 
                         view.close();
                         win.down('#makeExpertFromMe').hide();
@@ -196,6 +183,7 @@ Ext.define('EC.PA.controller.Profile', {
                             '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
                         this.expert.data = form.getValues();
                         view.close();
+                        this.fillDisplayForm();
 //                        this.fireEvent('itemSaved');
                     },
                     failure: function(form, action) {
@@ -216,53 +204,63 @@ Ext.define('EC.PA.controller.Profile', {
             scope: this
         });
     },
-    showEditForm:function(){
-//        console.log("showing edit form");
-        var win = this.getProfileWin();
 
-        console.time("Form show");
+    showEditForm:function(){
+        var win = this.profileWin;
+
+        if (win.getLayout().activeItem.itemId === 'editProfile') {
+            return;
+        }
+
+//        console.time("Form show");
 
         Ext.suspendLayouts();
-
-        win.getLayout().setActiveItem('editProfile');
         win.down("#saveBtn").show();
+        win.down('#editExpertProfile').hide();
         win.down('#showEditFormBtn').hide();
         win.down("#cancel").show();
+        win.getLayout().setActiveItem('editProfile');
 
         Ext.resumeLayouts(true);
 
-        console.timeEnd("Form show");
+//        console.timeEnd("Form show");
     },
 
 
     hideEditForm: function(){
-        var win = this.getProfileWin();
+        var win = this.profileWin;
 
-        console.time("Form hide");
+        if (win.getLayout().activeItem.itemId === 'displayProfile') {
+            win.doLayout();
+            return;
+        }
+
+//        console.time("Form hide");
 
         Ext.suspendLayouts();
 
-        win.getLayout().setActiveItem('displayProfile');
         win.down("#saveBtn").hide();
+        win.down('#editExpertProfile').show();
         win.down('#showEditFormBtn').show();
         win.down("#cancel").hide();
+        win.getLayout().setActiveItem('displayProfile');
+        win.doLayout();
 
         Ext.resumeLayouts(true);
 
-        console.timeEnd("Form hide");
+//        console.timeEnd("Form hide");
     }
 
     ,openPassWindow: function(){
         Ext.create('EC.PA.view.PassChange');
     }
 
+
     ,getExpertData: function() {
         var ex_id = this.account.expert_id;
-        var win = this.getProfileWin();
 
         if (ex_id === 0 || ex_id === null) {
-            win.down('#makeExpertFromMe').show();
-            win.down('#editExpertProfile').hide();
+            this.hideEditForm();
             return;
         }
 
@@ -270,10 +268,15 @@ Ext.define('EC.PA.controller.Profile', {
             url: this.getExpertURL,
             success: function(response) {
                 var r = Ext.JSON.decode(response.responseText);
+                var disp = this.profileWin.down("#displayProfile");
+
                 this.expert = Ext.create('EC.Experts.model.Expert',r.data);
 
-                win.down('#makeExpertFromMe').hide();
-                win.down('#editExpertProfile').show();
+                this.account.expert = r.data;
+                disp.tpl.overwrite(disp.body,this.account);
+
+                this.hideEditForm();
+
             },
             failure: function(response) {
                 Ext.Msg.alert('Ответ системы',
@@ -292,9 +295,11 @@ Ext.define('EC.PA.controller.Profile', {
                 var r = Ext.JSON.decode(response.responseText);
                 this.account = r.data;
 
+                var disp = this.profileWin.down("#displayProfile");
+
                 var formValues = new EC.PA.model.Profile(this.account);
 
-                this.getDisplayProfileForm().loadRecord(formValues);
+                disp.tpl.overwrite(disp.body,this.account);
 
                 this.getExpertData();
 
@@ -307,7 +312,7 @@ Ext.define('EC.PA.controller.Profile', {
         });
     }
 
-    ,fillEditForm: function(){
+    ,fillEditForm: function() {
 //        TODO заполнять из this.account
         var form = this.getEditProfileForm();
         form.load({
@@ -327,28 +332,18 @@ Ext.define('EC.PA.controller.Profile', {
 
     }
 
-    ,fillImageField: function(curForm) {
-        curForm.owner.down("[name=id]").setValue(this.account.id+".jpg");
-    }
-
-    ,onProfileRender: function(){
-//        console.log('profile rendered');
-    }
-
     ,updateProfile: function(){
         var me = this;
-        var form = this.getProfileWin().down('#editProfile');
-//        var formValues = this.getProfileWin().down('#editProfile').getValues();
+        var form = this.profileWin.down('#editProfile');
 
-//        console.log(formValues);
         form.submit({
             url: this.updateURL,
             success: function(curForm, action) {
                 Ext.Msg.alert('Ответ системы',
                     '<span style="color:green;">Обновление аккаунта прошло успешно.</span>');
+
                 this.fillDisplayForm();
-                this.getProfileWin().getLayout().setActiveItem('displayProfile');
-                this.getProfileWin().down('#saveBtn').hide();
+
             },
             failure: function(curForm, action) {
                 Ext.Msg.alert('Ответ системы',

@@ -93,6 +93,7 @@ class Experts_Experts_Model
         unset($data['date_update']);
         unset($data['date_create']);
         unset($data['author_id']);
+        unset($data['active']);
 
         $f = new Xend_Filter_Input(array(
             'id'            => 'int',
@@ -100,14 +101,14 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
-            'active'        => 'int',
+//            'active'        => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
-            'active'        => array('int', 'presence' => 'required'),
+//            'active'        => array('int', 'presence' => 'required'),
         ), $data);
 
         $response->addInputStatus($f);

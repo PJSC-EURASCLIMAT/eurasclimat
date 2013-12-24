@@ -89,55 +89,62 @@ Ext.define('EC.Experts.view.Experts.List', {
             action: 'additem'
         }, {
             xtype: 'button',
-            text: 'Типы инж. оборудования',
-            icon: '/images/icons/fam/plugin.gif',
-            iconCls: 'x-btn',
-            hidden: !this.permissions,
-            scope: this,
-            handler: function() {
-                this.fireEvent('openref','equipment');
-            }
-        },{
-            xtype: 'button',
-            text: 'Опыт',
-            icon: '/images/icons/fam/plugin.gif',
-            iconCls: 'x-btn',
-            hidden: !this.permissions,
-            disabled: true,
-            scope: this,
-            handler: function() {
-                this.fireEvent('openref','experience');
-            }
-        },{
-            xtype: 'button',
-            text: 'Типы деятельности',
-            icon: '/images/icons/fam/plugin.gif',
-            iconCls: 'x-btn',
-            hidden: !this.permissions,
-            scope: this,
-            handler: function() {
-                this.fireEvent('openref','job_types');
-            }
-        },{
-            xtype: 'button',
-            text: 'Рейтинг',
-            icon: '/images/icons/fam/plugin.gif',
-            iconCls: 'x-btn',
-            hidden: !this.permissions,
-            scope: this,
-            handler: function() {
-                this.fireEvent('openref','rating');
-            }
-        },{
-            xtype: 'button',
-            text: 'Статусы',
-            icon: '/images/icons/fam/plugin.gif',
-            iconCls: 'x-btn',
-            hidden: !this.permissions,
-            scope: this,
-            handler: function() {
-                this.fireEvent('openref','statuses');
-            }
+            text: 'Справочники',
+            menu: [
+                {
+//                    xtype: 'button',
+                    text: 'Типы инж. оборудования',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','equipment');
+                    }
+                },{
+//                    xtype: 'button',
+                    text: 'Опыт',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    disabled: true,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','experience');
+                    }
+                },{
+//                    xtype: 'button',
+                    text: 'Типы деятельности',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','job_types');
+                    }
+                },{
+//                    xtype: 'button',
+                    text: 'Рейтинг',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','rating');
+                    }
+                },{
+//                    xtype: 'button',
+                    text: 'Статусы',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','statuses');
+                    }
+                }
+
+            ]
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

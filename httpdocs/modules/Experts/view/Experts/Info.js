@@ -32,6 +32,12 @@ Ext.define('EC.Experts.view.Experts.Info', {
 
     layout: 'fit',
 
+    listeners: {
+        close: function() {
+            Ext.Router.redirect('');
+        }
+    },
+
     initComponent: function() {
 
         this.showTpl = Ext.create('Ext.XTemplate',

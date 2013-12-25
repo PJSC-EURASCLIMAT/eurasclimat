@@ -69,7 +69,9 @@ Ext.define('EC.Experts.controller.Experts', {
             
             grid.on({
                 edititem: this.editItem,
-                itemdblclick: this.showItem,
+                itemdblclick: function(grid, record) {
+                    this.showItem(record.get('id'));
+                },
                 deleteitem: this.deleteItem,
                 openref: this.openRef,
                 activechange: this.activeChange,
@@ -198,10 +200,7 @@ Ext.define('EC.Experts.controller.Experts', {
         });
     },
 
-    showItem: function(grid, record) {
-        var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id;
-        var card = Ext.widget('ExpertInfo');
-
+    showItem: function(recordId) {
         Ext.Ajax.request({
             params: {
                 id: recordId
@@ -209,46 +208,19 @@ Ext.define('EC.Experts.controller.Experts', {
             url: this.getURL,
             success: function(response, opts) {
                 var data = Ext.decode(response.responseText).data;
-                card.showTpl.overwrite(card.down('panel').body, data);
+
+                if (!Ext.isEmpty(data)) {
+                    var card = Ext.widget('ExpertInfo');
+                    card.showTpl.overwrite(card.down('panel').body, data);
+                }
+
             },
             failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку товара.');
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку специалиста.');
             },
             scope: this
         });
     },
-//
-//    showItem: function(grid, record) {
-//
-//        var view = Ext.create('EC.Experts.view.Experts.Edit',{record: record});
-//
-//        view.down('button[action=save]').on({
-//            click: function() {
-//                var form = view.down('form');
-//                form.submit({
-//                    url: this.editURL,
-//                    success: function(form, action) {
-//                        view.close();
-//                        this.fireEvent('itemSaved');
-//                    },
-//                    failure: function(form, action) {
-//                        switch (action.failureType) {
-//                            case Ext.form.action.Action.CLIENT_INVALID:
-//                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-//                                break;
-//                            case Ext.form.action.Action.CONNECT_FAILURE:
-//                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-//                                break;
-//                            case Ext.form.action.Action.SERVER_INVALID:
-//                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-//                        }
-//                    },
-//                    scope: this
-//                });
-//            },
-//            scope: this
-//        });
-//    },
 
     deleteItem: function(grid, record) {
         

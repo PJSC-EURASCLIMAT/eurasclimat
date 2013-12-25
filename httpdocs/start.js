@@ -17,6 +17,14 @@ Ext.application({
     appFolder: 'app',
     controllers: ['Main'],
 
+    requires: [
+        'xlib.Router'
+    ],
+
+    routes: {
+        '/experts/:id/show' : 'main#experts'
+    },
+
     // Глобальные переменные
     globals: {
         avatarsDir: '/images/users/'

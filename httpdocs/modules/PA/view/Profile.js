@@ -55,17 +55,27 @@ Ext.define('EC.PA.view.Profile', {
                                 '</td>',
                             '</tr>',
 
-                            '<tr valign="top">',
-                                '<td colspan="2">',
-                                    '<p><b>Специализация</b><p>',
-                                    '<p>Описание: {expert.desc}</p>',
-                                    '<p>Тип инженерного оборудования: {expert.equipment}</p>',
-                                    '<p>Статус: {expert.status}</p>',
-                                '</td>',
-                            '</tr>',
+                            '<tpl if="this.isExpert(values)">',
+                                '<tr valign="top">',
+                                    '<td colspan="2">',
+                                        '<p><b>Специализация</b><p>',
+                                        '<p>Описание: {expert.desc}</p>',
+                                        '<p>Тип инженерного оборудования: {expert.equipment}</p>',
+                                        '<p>Статус: {expert.status}</p>',
+                                    '</td>',
+                                '</tr>',
+                            '</tpl>',
+
+
                         {
                             dc: function() {
                                 return new Date().getTime();
+                            },
+                            isExpert: function(values) {
+                                if(!Ext.isEmpty(values.expert)){
+                                    return true
+                                }
+                                return false;
                             }
                         }
 

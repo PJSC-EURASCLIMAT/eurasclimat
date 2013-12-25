@@ -204,11 +204,14 @@ class Experts_Experts_Model
         // Массовая рассылка доброй вести админам
         $adminsResponse = $this->_accountsModel->fetchByRole(ADMIN_ROLE);
         $admins = $adminsResponse->getRowset();
+
+//        $site_url = $this->getRequest()->getBaseUrl();
+
         for ($i = 0; $i < count($admins); $i++) {
             $data = array(
                 'sender_id'      => new Zend_Db_Expr('NULL'),
                 'receiver_id'    => $admins[$i]['id'],
-                'message'        => 'Зарегистрирован новый специалист'
+                'message'        => 'Зарегистрирован новый <a href="#/experts/'. $id .'/show"> специалист</a>'
             );
             $this->_messagesModel->add($data);
         }

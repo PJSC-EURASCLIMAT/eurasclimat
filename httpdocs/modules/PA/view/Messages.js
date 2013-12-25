@@ -121,9 +121,16 @@ Ext.define('EC.PA.view.Messages', {
                 {
                     xtype: 'templatecolumn',
                     tpl: new Ext.XTemplate(
-                        '<strong style="{[this.getSenderStyle(values)]}">{sender_name}</strong>' +
+                            '<strong style="{[this.getSenderStyle(values)]}">{[this.getSender(values)]}</strong>' +
                             '<p style="margin: 0; {[this.getEllipsisStyle(values)]}">{[this.getMessage(values)]}</p>',
                         {
+                            getSender: function(values) {
+                                if(Ext.isEmpty(values.sender_name)) {
+                                    return 'Администрация';
+                                }
+                                return values.sender_name;
+                            },
+
                             getMessage: function(values){
                                 var mes = values.message;
                                 if (!values.expanded) {

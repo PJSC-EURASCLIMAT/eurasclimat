@@ -5,6 +5,11 @@ Ext.define('App.controller.Main', {
     views: ['Layout', 'TopPanel', 'LeftPanel', 'CenterPanel', 'EC.PA.view.MessagesTopPanelButton'],
     
     requires: ['xlib.portal.PortalPanel'],
+
+    experts: function(params) {
+        var exCnt = this.getController("EC.Experts.controller.Experts");
+        exCnt.showItem(params.id);
+    },
     
     run: function() {
         

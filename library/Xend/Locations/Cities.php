@@ -16,7 +16,9 @@ class Xend_Locations_Cities
         $id = intval($id);
         $response = new Xend_Response();
 
-        $select = $this->_table->select()->from($this->_table->getTableName(), array('id', 'name'));
+        $select = $this->_table->select()
+            ->from($this->_table->getTableName(), array('id', 'name'))
+            ->order('name');
 
         if ($id != 0) {
             $select->where('country_id = ?', $id);

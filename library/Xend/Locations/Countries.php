@@ -13,7 +13,9 @@ class Xend_Locations_Countries
     {
         $response = new Xend_Response();
 
-        $select = $this->_table->select()->from($this->_table->getTableName(), array('id', 'name'));
+        $select = $this->_table->select()
+            ->from($this->_table->getTableName(), array('id', 'name'))
+            ->order('name');
 
         try {
             $rows = $select->query()->fetchAll();

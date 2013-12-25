@@ -43,7 +43,7 @@ Ext.define('EC.PA.view.Profile', {
                             '<tr valign="top">',
                                 '<td width="100">',
                                     '<tpl if="have_avatar == 1">',
-                                        '<img src="images/users/{id}.jpg" width="100" style="float: left;margin-right: 15px">',
+                                        '<img src="images/users/{id}.jpg?{[this.dc()]}" width="100" style="float: left;margin-right: 15px">',
                                     '<tpl else>',
                                         '<img src="http://placehold.it/100x100" style="float: left;margin-right: 15px"/>',
                                     '</tpl>',
@@ -62,7 +62,12 @@ Ext.define('EC.PA.view.Profile', {
                                     '<p>Тип инженерного оборудования: {expert.equipment}</p>',
                                     '<p>Статус: {expert.status}</p>',
                                 '</td>',
-                            '</tr>'
+                            '</tr>',
+                        {
+                            dc: function() {
+                                return new Date().getTime();
+                            }
+                        }
 
                     )
 

@@ -87,7 +87,7 @@ Ext.define('EC.PA.controller.Profile', {
         });
 
 
-        this.profileWin = Ext.create('EC.PA.view.Profile');
+        this.profileWin = Ext.create('EC.PA.view.Profile',{editable:true});
         this.profileWin.down('button#changePassBtn').on('click',this.openPassWindow,this);
         this.profileWin.down('button#showEditFormBtn').on('click',this.showEditForm,this);
         this.profileWin.down('button#cancel').on('click',this.hideEditForm,this);
@@ -122,7 +122,6 @@ Ext.define('EC.PA.controller.Profile', {
 
 //        console.timeEnd("Form show");
     },
-
 
     addExpert: function(fromCurrent) {
 

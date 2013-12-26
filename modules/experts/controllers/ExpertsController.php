@@ -27,7 +27,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
 
     public function getListAction()
     {
-        $response = $this->_model->getAll();
+        $response = $this->_model->getAll($this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;

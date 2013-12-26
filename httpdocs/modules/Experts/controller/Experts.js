@@ -39,26 +39,41 @@ Ext.define('EC.Experts.controller.Experts', {
         'job_types': 'Типы деятельности специалистов'
     },
     
-    run: function(container) {
+    run: function(container, simple) {
+
+        simple = (!Ext.isEmpty(simple)) ? simple : false;
 
         this.Container = container; 
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
         var grid = container.add(Ext.create('EC.Experts.view.Experts.List', {
-            permissions: this.permissions
+            permissions: this.permissions,
+            simple: simple
         }));
 
         this.grid = grid;
+
+        if (this.simple === true) {
+            grid.down('button[action=refresh]').on({
+                click: function() {
+                    grid.getStore().load({params: {activeOnly: true}});
+                },
+                scope: this
+            });
+        } else {
+            grid.down('button[action=refresh]').on({
+                click: function() {
+                    grid.getStore().load({params: {activeOnly: true}});
+//                    grid.getStore().load({activeOnly: true});
+                },
+                scope: this
+            });
+        }
         
-        grid.down('button[action=refresh]').on({
-            click: function() {
-                grid.getStore().load();
-            },
-            scope: this
-        });
+
         
-        if (this.permissions) {
+        if (this.permissions && simple === false) {
             
             grid.down('button[action=additem]').on({
                 click: function(){

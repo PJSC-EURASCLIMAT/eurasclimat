@@ -12,11 +12,13 @@ Ext.define('EC.Experts.view.Experts.List', {
     
     permissions: acl.isUpdate('experts'),
 
+    simple: false,
+
     initComponent: function() {
         
         var actions = [];
 
-        if (this.permissions) {
+        if (this.permissions === true && this.simple === false) {
 
             actions.push({
                 icon: '/images/icons/fam/plugin.gif',
@@ -42,11 +44,8 @@ Ext.define('EC.Experts.view.Experts.List', {
         
         this.columns = [{
             header: 'Имя',
-            dataIndex: 'name',
-            flex: .5
-        }, {
-            header: 'Описание',
-            dataIndex: 'desc',
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/experts/{id}/show">{name}</a>',
             flex: .5
         }, {
             header: 'Статус',
@@ -89,7 +88,7 @@ Ext.define('EC.Experts.view.Experts.List', {
             action: 'additem'
         }, {
             xtype: 'button',
-            text: 'Справочники',
+            text: 'Настойки',
             menu: [
                 {
 //                    xtype: 'button',
@@ -154,5 +153,7 @@ Ext.define('EC.Experts.view.Experts.List', {
 
 
         this.callParent(arguments);
+
+        this.getStore().getProxy().extraParams = {activeOnly: true};
     }
 });

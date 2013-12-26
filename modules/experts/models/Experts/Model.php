@@ -251,7 +251,10 @@ class Experts_Experts_Model
             ->joinLeft(
                 array('a' => 'accounts'),
                 'a.id=e.account_id',
-                array('name' => 'a.name')
+                array(
+                    'name' => 'a.name',
+                    'login' => 'a.login'
+                )
             )
             ->joinLeft(
                 array('st' => 'experts_statuses'),
@@ -287,6 +290,10 @@ class Experts_Experts_Model
             if(count($rows) == 0) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
+
+            $avatar_path = IMAGES_DIR . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $rows[0]['account_id'] . '.jpg';
+            $rows[0]['have_avatar'] = (file_exists($avatar_path)) ? 1 : 0;
+
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
@@ -295,6 +302,8 @@ class Experts_Experts_Model
             }
             $status = Xend_Status::DATABASE_ERROR;
         }
+
+
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -357,9 +366,13 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function getAll()
+    public function getAll($data)
     {
         $response = new Xend_Response();
+
+        if ($data['activeOnly'] === true) {
+
+        }
 
         $select = $this->_table->getAdapter()->select()
             ->from(
@@ -397,6 +410,11 @@ class Experts_Experts_Model
                     'country_id' => 'co.id'
                 )
             );
+
+            if ($data['activeOnly'] === "true") {
+                $select->where("e.active = ?", 1);
+            }
+
 
         try {
             $rows = $select->query()->fetchAll();

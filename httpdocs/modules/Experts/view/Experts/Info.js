@@ -41,23 +41,35 @@ Ext.define('EC.Experts.view.Experts.Info', {
     initComponent: function() {
 
         this.showTpl = Ext.create('Ext.XTemplate',
-            '<div style="padding: 10px;"><table width="100%" border="0">',
+            '<table width="100%" style="padding:10px" border="0">',
             '<tr valign="top">',
+            '<td width="100">',
+            '<tpl if="have_avatar == 1">',
+            '<img src="images/users/{account_id}.jpg?{[this.dc()]}" width="100" style="float: left;margin-right: 15px">',
+            '<tpl else>',
+            '<img src="http://placehold.it/100x100" style="float: left;margin-right: 15px"/>',
+            '</tpl>',
+            '</td>',
+            '<td>',
+            'ФИО: {name}<br/><br/>',
+            'Email: {login}<br/><br/>',
+            'г. {city}, {country}<br/><br/>',
+            '</td>',
+            '</tr>',
 
-            '<td rowspan="2" width="320">',
-//            '<tpl if="[values.images.length] &gt; 0">',
-//            '<img src="/images/catalog/{[values.images[0].name]}"/>',
-//            '<tpl else>',
-//            '<img src="http://placehold.it/300x220"/>',
-//            '</tpl>',
-            '<p>Имя: <b>{name}</b></p>',
-            '<p>Описание: <b>{desc}</b></p>',
-            '<p>Статус: <b>{status}</b></p>',
-            '<p>Тип инж. оборудования: <b>{equipment}</b></p>',
-            '<p>Город: <b>{city}</b></p>',
-            '<p>Страна: <b>{country}</b></p>',
-
-            '</td></tr></table></div>'
+            '<tr valign="top">',
+            '<td colspan="2">',
+            '<p><b>Специализация</b><p>',
+            '<p>Описание: {desc}</p>',
+            '<p>Тип инженерного оборудования: {equipment}</p>',
+            '<p>Статус: {status}</p>',
+            '</td>',
+            '</tr>',
+            {
+                dc: function() {
+                    return new Date().getTime();
+                }
+            }
         );
 
         this.callParent(arguments);

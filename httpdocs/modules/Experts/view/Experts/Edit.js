@@ -12,7 +12,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
     
     modal: true,
     
-    width: 300,
+    width: 500,
 
     record: null,
 
@@ -38,6 +38,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
             bodyPadding: 5,
             fieldDefaults: {
                 labelAlign: 'left',
+                labelWidth: 120,
                 border: false,
                 allowBlank: false,
                 anchor: '100%'
@@ -61,12 +62,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                     name: 'account_id'
                 },
                 {
-                    xtype: 'textfield',
-                    fieldLabel: 'Описание',
-                    name: 'desc'
-                },
-                {
-                    fieldLabel: 'Тип инженерного оборудования',
+                    fieldLabel: 'Инж. оборудование',
                     xtype: 'combobox',
                     name: 'equip_id',
                     displayField: 'name',
@@ -80,7 +76,15 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                     displayField: 'name',
                     valueField: 'id',
                     store: 'EC.Experts.store.Statuses'
+                },
+                {
+                    xtype: 'textarea',
+                    fieldLabel: 'Описание',
+                    grow: true,
+                    name: 'desc'
                 }
+
+
             ]
         }];
 

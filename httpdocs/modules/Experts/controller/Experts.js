@@ -4,6 +4,7 @@ Ext.define('EC.Experts.controller.Experts', {
     
     stores: [
         'EC.Experts.store.Experts',
+        'EC.Experts.store.ActiveExperts',
         'EC.Experts.store.Equipment',
         'EC.Experts.store.JobTypes',
         'EC.Experts.store.Rating',
@@ -38,43 +39,29 @@ Ext.define('EC.Experts.controller.Experts', {
         'statuses': 'Статусы специалистов',
         'job_types': 'Типы деятельности специалистов'
     },
-    
-    run: function(container, simple) {
 
-        simple = (!Ext.isEmpty(simple)) ? simple : false;
+    run: function(container) {
 
-        this.Container = container; 
+        this.Container = container;
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
         var grid = container.add(Ext.create('EC.Experts.view.Experts.List', {
             permissions: this.permissions,
-            simple: simple
+            store: 'EC.Experts.store.Experts'
         }));
 
         this.grid = grid;
 
-        if (this.simple === true) {
-            grid.down('button[action=refresh]').on({
-                click: function() {
-                    grid.getStore().load({params: {activeOnly: true}});
-                },
-                scope: this
-            });
-        } else {
-            grid.down('button[action=refresh]').on({
-                click: function() {
-                    grid.getStore().load({params: {activeOnly: true}});
-//                    grid.getStore().load({activeOnly: true});
-                },
-                scope: this
-            });
-        }
+        grid.down('button[action=refresh]').on({
+            click: function() {
+                grid.getStore().load();
+            },
+            scope: this
+        });
         
+        if (this.permissions) {
 
-        
-        if (this.permissions && simple === false) {
-            
             grid.down('button[action=additem]').on({
                 click: function(){
                     this.addItem(false);
@@ -100,7 +87,33 @@ Ext.define('EC.Experts.controller.Experts', {
                 scope: this
             }, this);
         }
-        
+
+        grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, grid);
+        grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, grid);
+    },
+
+
+    onEquipFilter: function(combo, newValue, oldValue, eOpts) {
+        this.store.removeFilter('equipFilter');
+        this.store.addFilter({
+            id: 'equipFilter',
+            property: 'equip_id',
+            value: combo.getValue()
+        });
+    },
+
+    onStatusFilter: function(combo, newValue, oldValue, eOpts) {
+        this.store.removeFilter('statusFilter');
+        this.store.addFilter({
+            id: 'statusFilter',
+            property: 'status_id',
+            value: combo.getValue()
+        });
+    },
+
+    onActualityFilter: function(combo, newValue, oldValue, eOpts) {
+        this.getStore().getProxy().extraParams = {actuality: combo.getValue()};
+        this.getStore().guaranteeRange(0, 10);
     },
 
     activeChange: function(rowIndex, checked) {

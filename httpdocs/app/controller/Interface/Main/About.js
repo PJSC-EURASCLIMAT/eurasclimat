@@ -50,6 +50,12 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.AboutSystem'
         }, {
+            title: 'Специалисты',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 340,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Experts.controller.ActiveExperts'
+        }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
             portletHeight: 340,

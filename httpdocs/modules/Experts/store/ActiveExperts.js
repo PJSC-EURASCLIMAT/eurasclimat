@@ -1,6 +1,8 @@
-Ext.define('EC.Experts.store.Experts', {
+Ext.define('EC.Experts.store.ActiveExperts', {
 
     extend: 'Ext.data.Store',
+
+    storeId: 'ActiveExpertsStore',
 
     model: 'EC.Experts.model.Expert',
     
@@ -9,13 +11,12 @@ Ext.define('EC.Experts.store.Experts', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/experts/experts/get-list'
+            read:   '/json/experts/experts/get-active-list'
         },
         reader: {
             type: 'json',
             root: 'data',
             successProperty: 'success'
         }
-    }
-
+    },
 });

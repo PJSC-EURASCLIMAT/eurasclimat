@@ -15,19 +15,33 @@ class Experts_ExpertsController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts->moderation);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
-
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'activate');
+
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-active-list');
     }
 
     public function getListAction()
     {
-        $response = $this->_model->getAll($this->_getAllParams());
+        $response = $this->_model->getAll(null);
+        if ($response->isSuccess()) {
+            $data = $response->getRowset();
+            $this->view->success = true;
+            $this->view->data = $data;
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function getActiveListAction()
+    {
+        $response = $this->_model->getAll(array('e.active = ?',1));
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;

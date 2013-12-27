@@ -8,16 +8,11 @@ Ext.define('EC.Experts.controller.ActiveExperts', {
 
         this.Container = container;
 
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
-
         var grid = container.add(Ext.create('EC.Experts.view.Experts.List', {
             permissions: this.permissions,
             store: 'EC.Experts.store.ActiveExperts',
             activeOnly: activeOnly
         }));
-
-        this.grid = grid;
-
 
         grid.down('button[action=refresh]').on({
             click: function() {

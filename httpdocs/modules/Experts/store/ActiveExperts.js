@@ -18,5 +18,5 @@ Ext.define('EC.Experts.store.ActiveExperts', {
             root: 'data',
             successProperty: 'success'
         }
-    },
+    }
 });

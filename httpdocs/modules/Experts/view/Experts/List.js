@@ -8,17 +8,11 @@ Ext.define('EC.Experts.view.Experts.List', {
 
     layout: 'fit',
 
-    store: 'EC.Experts.store.ActiveExperts',
-    
     permissions: acl.isUpdate('experts'),
 
     activeOnly: false,
 
-    requires: [
-        'EC.Experts.store.Experts',
-        'EC.Experts.store.ActiveExperts',
-        'xlib.EmptyCombo'
-    ],
+    requires: ['xlib.EmptyCombo'],
 
     initComponent: function() {
 

@@ -50,17 +50,17 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.AboutSystem'
         }, {
-            title: 'Каталог специалистов',
-            icon: '/images/icons/sys_dev.png',
-            portletHeight: 340,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.Experts.controller.ActiveExperts'
-        }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 340,
+            portletHeight: 360,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
+        }, {
+            title: 'Каталог специалистов',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Experts.controller.ActiveExperts'
         }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',

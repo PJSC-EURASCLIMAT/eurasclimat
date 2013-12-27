@@ -10,49 +10,40 @@ Ext.define('App.controller.Interface.Main.About', {
         var MC = this.getController('App.controller.Main');
 
         var modulesToOpen = [{
-            title: 'Производителям',
-            icon: '/images/icons/4manufacturers.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForManufacturers'
-        }, {
-            title: 'Заказчикам',
-            icon: '/images/icons/4clients.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForCustomers'
-        }, {
-            title: 'Контрагентам',
-            icon: '/images/icons/4specialists.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: true,
-            launchModule: 'EC.Main.controller.ForSpecialists'
-        }, {
-            title: 'О компании',
-            icon: '/images/icons/about.png',
-            position: 'MainPanel-column-2',
-            portletHeight: 200,
-            allowMultiple: false,
-            launchModule: 'EC.Main.controller.AboutCompany'
+//            title: 'О компании',
+//            icon: '/images/icons/about.png',
+//            position: 'MainPanel-column-2',
+//            portletHeight: 200,
+//            allowMultiple: false,
+//            launchModule: 'EC.Main.controller.AboutCompany'
 //        }, {
 //            title: 'Минибраузер',
 //            icon: '/images/icons/sys_dev.png',
 //            portletHeight: 410,
 //            position: 'MainPanel-column-1',
 //            launchModule: 'EC.Main.controller.MiniBrowser'
+//        }, {
+            title: 'Курсы валют',
+            icon: '/images/icons/cur_exch.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Currency'
+        }, {
+            title: 'Новости',
+            icon: '/images/icons/news.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.News'
         }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-1',
+            portletHeight: 470,
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.AboutSystem'
         }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 360,
+            portletHeight: 260,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
         }, {
@@ -62,21 +53,9 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Experts.controller.ActiveExperts'
         }, {
-            title: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Currency'
-        }, {
-            title: 'Новости',
-            icon: '/images/icons/news.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.News'
-        }, {
             title: 'Прогноз погоды',
             icon: '/images/icons/kweather.png',
-            portletHeight: 410,
+            portletHeight: 370,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'
         }, {
@@ -86,14 +65,6 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Newyear'
         }];
-        
-//            modulesToOpen.push({
-//            });
-//            
-//            modulesToOpen.push({
-//            });
-//            modulesToOpen.push({
-//            });
         
         Ext.each(modulesToOpen, function(item) {
             MC.openModulePortlet(item);

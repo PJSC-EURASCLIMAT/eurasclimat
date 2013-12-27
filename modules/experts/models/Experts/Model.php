@@ -413,9 +413,6 @@ class Experts_Experts_Model
 
         try {
             $rows = $select->query()->fetchAll();
-            if(count($rows) == 0) {
-                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
-            }
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {

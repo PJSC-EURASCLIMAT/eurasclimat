@@ -12,6 +12,9 @@ Ext.define('App.controller.Interface.CRM', {
         
         this.getController('App.controller.Interface.CRM.Orders').run(container);
         this.getController('App.controller.Interface.CRM.Development').run(container);
+        if (acl.isView('experts')) {
+            this.getController('App.controller.Interface.CRM.Experts').run(container);
+        }
         
     },
     

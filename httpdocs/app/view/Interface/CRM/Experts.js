@@ -1,4 +1,4 @@
-Ext.define('App.view.Interface.Experts.Experts', {
+Ext.define('App.view.Interface.CRM.Experts', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
@@ -6,6 +6,8 @@ Ext.define('App.view.Interface.Experts.Experts', {
     
     icon: '/images/icons/sys_dev.png',
 
+    loaded: false,
+    
     items: [{
         title: 'Панель виджетов',
         xtype: 'portalpanel',
@@ -13,11 +15,11 @@ Ext.define('App.view.Interface.Experts.Experts', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'Manufacturers-Partners-column-1'
+            id: 'Experts-column-1'
         }, {
-            id: 'Manufacturers-Partners-column-2'
+            id: 'Experts-column-2'
         }, {
-            id: 'Manufacturers-Partners-column-3'
+            id: 'Experts-column-3'
         }]
     }]
 

@@ -4,8 +4,6 @@ Ext.define('EC.Admin.view.Accounts.List', {
     
     alias: ['widget.AdminAccountsList'],
 
-    uses: ['xlib.CountryCombo'],
-    
     store: 'EC.Admin.store.Accounts',
     
     layout: 'fit',

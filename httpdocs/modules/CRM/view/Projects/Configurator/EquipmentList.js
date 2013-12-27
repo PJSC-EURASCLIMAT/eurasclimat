@@ -19,6 +19,16 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
         if (this.permissions) {
             
             actions.push({
+                icon: '/images/icons/edit.png',
+                tooltip: 'Редактировать документ',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить',
                 iconCls: 'x-btn',
@@ -26,7 +36,6 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-                
             });
         }
         

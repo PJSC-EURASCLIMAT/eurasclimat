@@ -29,7 +29,7 @@ Ext.define('EC.CRM.view.Projects.List', {
         if (this.permissions) {
             
             actions.push({
-                icon: '/images/icons/fam/plugin.gif',
+                icon: '/images/icons/edit.png',
                 tooltip: 'Редактировать проект',
                 iconCls: 'x-btn',
                 handler: function(grid, rowIndex, colIndex) {

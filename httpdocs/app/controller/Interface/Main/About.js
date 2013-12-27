@@ -37,12 +37,12 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 200,
             allowMultiple: false,
             launchModule: 'EC.Main.controller.AboutCompany'
-        }, {
-            title: 'Минибраузер',
-            icon: '/images/icons/sys_dev.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.Main.controller.MiniBrowser'
+//        }, {
+//            title: 'Минибраузер',
+//            icon: '/images/icons/sys_dev.png',
+//            portletHeight: 410,
+//            position: 'MainPanel-column-1',
+//            launchModule: 'EC.Main.controller.MiniBrowser'
         }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
@@ -50,7 +50,7 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.AboutSystem'
         }, {
-            title: 'Специалисты',
+            title: 'Каталог специалистов',
             icon: '/images/icons/sys_dev.png',
             portletHeight: 340,
             position: 'MainPanel-column-1',
@@ -87,13 +87,13 @@ Ext.define('App.controller.Interface.Main.About', {
             launchModule: 'EC.Main.controller.Newyear'
         }];
         
-            modulesToOpen.push({
-            });
-            
-            modulesToOpen.push({
-            });
-            modulesToOpen.push({
-            });
+//            modulesToOpen.push({
+//            });
+//            
+//            modulesToOpen.push({
+//            });
+//            modulesToOpen.push({
+//            });
         
         Ext.each(modulesToOpen, function(item) {
             MC.openModulePortlet(item);

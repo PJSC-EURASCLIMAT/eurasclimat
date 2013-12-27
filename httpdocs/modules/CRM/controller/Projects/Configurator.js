@@ -4,49 +4,30 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     stores: [
         'EC.CRM.store.Projects.Configurator.Equipment',
-//        'EC.CRM.store.Projects.Configurator.Services',
-        'EC.CRM.store.Projects.Configurator.SpecialServices',
-//        'EC.CRM.store.Projects.Configurator.Expendables'
+        'EC.CRM.store.Projects.Configurator.SpecialServices'
     ],
     
     models: [
         'EC.CRM.model.Projects.Configurator.Equipment',
-//        'EC.CRM.model.Projects.Configurator.Services',
-        'EC.CRM.model.Projects.Configurator.SpecialServices',
-//        'EC.CRM.model.Projects.Configurator.Expendables'
+        'EC.CRM.model.Projects.Configurator.SpecialServices'
     ],
     
     views: [
-//        'EC.CRM.view.Projects.Configurator.Edit',
         'EC.CRM.view.Projects.Configurator.EquipmentList',
-//        'EC.CRM.view.Projects.Configurator.ServicesList',
-        'EC.CRM.view.Projects.Configurator.SpecialServicesList',
-//        'EC.CRM.view.Projects.Configurator.ExpendablesList'
+        'EC.CRM.view.Projects.Configurator.SpecialServicesList'
     ],
     
     projectID: null,
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    addEquipmentURL: '/json/crm/projects/add-equipment',
+    addEquipmentURL: '/json/crm/projects-configurator/add-equipment',
     
-    deleteEquipmentURL: '/json/crm/projects/delete-equipment',
+    deleteEquipmentURL: '/json/crm/projects-configurator/delete-equipment',
     
-    /*
-    addServiceURL: '/json/crm/projects/add-service',
+    addSpecialServiceURL: '/json/crm/projects-configurator/add-special-service',
     
-    editServiceURL: '/json/crm/projects/update-service',
-    
-    deleteServiceURL: '/json/crm/projects/delete-service',
-    
-    addExpendableURL: '/json/crm/projects/add-expendable',
-    
-    deleteExpendableURL: '/json/crm/projects/delete-expendable',
-    */
-    
-    addSpecialServiceURL: '/json/crm/projects/add-special-service',
-    
-    deleteSpecialServiceURL: '/json/crm/projects/delete-special-service',
+    deleteSpecialServiceURL: '/json/crm/projects-configurator/delete-special-service',
     
     run: function(container) {
 
@@ -62,14 +43,10 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         container.add(this.Container);
         
         this.equipmentPanel = this.Container.down('ConfiguratorEquipmentList');
-//        this.servicesPanel = this.Container.down('ConfiguratorServicesList');
         this.specialServicesPanel = this.Container.down('ConfiguratorSpecialServicesList');
-//        this.expendablesPanel = this.Container.down('ConfiguratorExpendablesList');
         
         this.equipmentPanel.down('button[action=refresh]').on('click', this.loadEquipment, this);
-//        this.servicesPanel.down('button[action=refresh]').on('click', this.loadServices, this);
         this.specialServicesPanel.down('button[action=refresh]').on('click', this.loadSpecialServices, this);
-//        this.expendablesPanel.down('button[action=refresh]').on('click', this.loadExpendables, this);
             
         if (this.permissions) {
             
@@ -77,28 +54,16 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             this.equipmentPanel.on('edititem', this.editEquipment, this);
             this.equipmentPanel.on('deleteitem', this.deleteEquipment, this);
             
-//            this.servicesPanel.down('button[action=additem]').on('click', this.addService, this);
-//            this.servicesPanel.on('edititem', this.editService, this);
-//            this.servicesPanel.on('deleteitem', this.deleteService, this);
-            
             this.specialServicesPanel.down('button[action=additem]').on('click', this.addSpecialService, this);
             this.specialServicesPanel.on('edititem', this.editSpecialService, this);
             this.specialServicesPanel.on('deleteitem', this.deleteSpecialService, this);
-            
-//            this.expendablesPanel.down('button[action=additem]').on('click', this.addExpendable, this);
-//            this.expendablesPanel.on('edititem', this.editExpendable, this);
-//            this.expendablesPanel.on('deleteitem', this.deleteExpendable, this);
         }
         
         this.equipmentPanel.getStore().on('load', this.refreshTotalSumm, this);
-//        this.servicesPanel.getStore().on('load', this.refreshTotalSumm, this);
         this.specialServicesPanel.getStore().on('load', this.refreshTotalSumm, this);
-//        this.expendablesPanel.getStore().on('load', this.refreshTotalSumm, this);
         
         this.loadEquipment();
-//        this.loadServices();
         this.loadSpecialServices();
-//        this.loadExpendables();
     },
     
     refreshTotalSumm: function() {
@@ -115,23 +80,31 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b> ');
     }, 
     
-    loadEquipment: function() {
-        this.equipmentPanel.getStore().load({params: {id: this.projectID}});
+    loadEquipment: function(editId) {
+        
+        var panel = this.equipmentPanel,
+            store = panel.getStore(); 
+        if (parseInt(editId) > 0) {
+            store.on('load', function() {
+                this.editEquipment(panel.down('grid'), store.getById(editId));
+            }, this, {single: true});
+        }
+        store.load({params: {id: this.projectID}});
     },
     
-//    loadServices: function() {
-//        this.servicesPanel.getStore().load({params: {id: this.projectID}});
-//    },
-    
-    loadSpecialServices: function() {
-        this.specialServicesPanel.getStore().load({params: {id: this.projectID}});
+    loadSpecialServices: function(editId) {
+        
+        var panel = this.specialServicesPanel, 
+            store = panel.getStore();
+        if (parseInt(editId) > 0) {
+            store.on('load', function() {
+                this.editSpecialService(panel.down('grid'), store.getById(editId));
+            }, this, {single: true});
+        }
+        store.load({params: {id: this.projectID}});
     },
     
-//    loadExpendables: function() {
-//        this.expendablesPanel.getStore().load({params: {id: this.projectID}});
-//    },
-    
-    getWindow: function() {
+    getAddingWindow: function() {
         
         var win = Ext.create('Ext.window.Window', {
             title: 'Добавление в конфигурацию',
@@ -156,9 +129,36 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         return win;
     },
     
+    getEditingWindow: function() {
+        
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Редактирование позиции',
+            width: 800,
+            height: 400,
+            modal: true,
+            autoShow: true,
+            border: false,
+            layout: 'fit',
+            buttons: [{
+                text: 'Сохранить',
+                formBind: true,
+                action: 'chose'
+            }, {
+                text: 'Закрыть',
+                handler: function() {
+                    win.close();
+                }
+            }]
+        });
+        
+        return win;
+    },
+    
+    // Equipment methods
+    
     addEquipment: function() {
         
-        var win = this.getWindow(),
+        var win = this.getAddingWindow(),
             CC = this.getController('EC.Catalog.controller.Catalog');
             
         CC.run(win);
@@ -174,7 +174,6 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             },
             scope: this
         });
-        
     },
     
     saveEquipment: function(entity, entityID) {
@@ -188,8 +187,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             },
             url: this.addEquipmentURL,
             success: function(response, opts) {
-                this.loadEquipment();
-//                this.loadServices();
+                var r = Ext.decode(response.responseText);
+                this.loadEquipment(r.id);
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
@@ -220,73 +219,19 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         }, this);
     },
     
-    /*
-    addService: function() {
-        
-        var win = this.getWindow();
-        
-        this.getController('EC.Catalog.controller.Services').run(win);
-        
-        var grid = win.down('ServicesList');
-        
-        win.down('button[action=chose]').on({
-            click: function() {
-                var rows = grid.getSelectionModel().getSelection();
-                if (0 == rows.length) {
-                    return;
-                }
-                this.saveService(rows[0].get('id'));
-                win.close();
-            },
-            scope: this
-        });
+    editEquipment: function(grid, record) {
+        console.log(record);
+        var win = this.getEditingWindow();
     },
     
-    saveService: function(id) {
-        
-        Ext.Ajax.request({
-            params: {
-                service_id: id,
-                project_id: this.projectID,
-                number: 1
-            },
-            url: this.addServiceURL,
-            success: function(response, opts) {
-                this.loadServices();
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
-            },
-            scope: this
-        });
+    updateEquipment: function() {
     },
     
-    deleteService: function(grid, record) {
-        
-        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
-            if ('yes' === b) {
-                Ext.Ajax.request({
-                    params: {
-                        id: record.get('id')
-                    },
-                    url: this.deleteServiceURL,
-                    success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.loadServices();
-                    },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
-                    scope: this
-                });
-            }
-        }, this);
-    },
-    */
+    // Special Services methods    
     
     addSpecialService: function() {
         
-        var win = this.getWindow();
+        var win = this.getAddingWindow();
         
         this.getController('EC.Catalog.controller.SpecialServices').run(win);
         
@@ -316,7 +261,6 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
             url: this.addSpecialServiceURL,
             success: function(response, opts) {
                 this.loadSpecialServices();
-//                this.loadExpendables();
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
@@ -345,69 +289,12 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
                 });
             }
         }, this);
-    }
-    
-    /*
-    addExpendable: function() {
-        
-        var win = this.getWindow();
-        
-        this.getController('EC.Catalog.controller.Expendables').run(win);
-        
-        var grid = win.down('ExpendablesList');
-        
-        win.down('button[action=chose]').on({
-            click: function() {
-                var rows = grid.getSelectionModel().getSelection();
-                if (0 == rows.length) {
-                    return;
-                }
-                this.saveExpendable(rows[0].get('id'));
-                win.close();
-            },
-            scope: this
-        });
     },
     
-    saveExpendable: function(id) {
-        
-        Ext.Ajax.request({
-            params: {
-                expendable_id: id,
-                project_id: this.projectID,
-                number: 1
-            },
-            url: this.addExpendableURL,
-            success: function(response, opts) {
-                this.loadExpendables();
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
-            },
-            scope: this
-        });
+    
+    editSpecialService: function(grid, record) {
     },
     
-    deleteExpendable: function(grid, record) {
-        
-        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
-            if ('yes' === b) {
-                Ext.Ajax.request({
-                    params: {
-                        id: record.get('id')
-                    },
-                    url: this.deleteExpendableURL,
-                    success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
-                        this.loadExpendables();
-                    },
-                    failure: function(response, opts) {
-                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
-                    },
-                    scope: this
-                });
-            }
-        }, this);
+    updateSpecialService: function() {
     }
-    */
 });

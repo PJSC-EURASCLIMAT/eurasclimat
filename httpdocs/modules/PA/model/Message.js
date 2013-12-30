@@ -13,7 +13,7 @@ Ext.define('EC.PA.model.Message', {
         {name: 'date', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         {name: 'readed',   type: 'number'},
         {name: 'parent', type: 'string'},
-        {name: 'checked', type: 'boolean'},
+        {name: 'checked'},
         {name: 'expanded', type: 'boolean', defaultValue: false}
     ]
 

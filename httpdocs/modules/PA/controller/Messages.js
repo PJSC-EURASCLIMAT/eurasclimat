@@ -125,20 +125,20 @@ Ext.define('EC.PA.controller.Messages', {
 
     checkAllMessages: function() {
         this.mesStore.each(function(item){
-           item.set('checked',true);
+           item.set('checked',1);
         });
     },
 
     uncheckAllMessages: function() {
         this.mesStore.each(function(item){
-            item.set('checked',false);
+            item.set('checked',0);
         });
     },
 
     setAllMessagesReaded: function() {
         var selMesIds = [];
         this.mesStore.each(function(item){
-            if(item.get('checked') === true)
+            if(item.get('checked') === 1)
                 selMesIds.push(item.getId());
         },this);
 
@@ -242,7 +242,7 @@ Ext.define('EC.PA.controller.Messages', {
         var ids = [];
         this.getMesGrid().getStore().each(function(item){
 
-            if(item.get('checked') === true) {
+            if(item.get('checked') === 1) {
                 ids.push(item);
             }
 

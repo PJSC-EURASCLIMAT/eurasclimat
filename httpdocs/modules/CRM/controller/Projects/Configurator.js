@@ -129,31 +129,6 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         return win;
     },
     
-    getEditingWindow: function() {
-        
-        var win = Ext.create('Ext.window.Window', {
-            title: 'Редактирование позиции',
-            width: 800,
-            height: 400,
-            modal: true,
-            autoShow: true,
-            border: false,
-            layout: 'fit',
-            buttons: [{
-                text: 'Сохранить',
-                formBind: true,
-                action: 'chose'
-            }, {
-                text: 'Закрыть',
-                handler: function() {
-                    win.close();
-                }
-            }]
-        });
-        
-        return win;
-    },
-    
     // Equipment methods
     
     addEquipment: function() {
@@ -220,8 +195,9 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     },
     
     editEquipment: function(grid, record) {
-        console.log(record);
-        var win = this.getEditingWindow();
+        var editWin = this.getController('EC.CRM.controller.Projects.Configurator.EquipmentEditor');
+        editWin.itemID = record.get('id');
+        editWin.run();
     },
     
     updateEquipment: function() {

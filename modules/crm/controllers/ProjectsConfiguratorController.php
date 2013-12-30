@@ -47,6 +47,17 @@ class Crm_ProjectsConfiguratorController extends Xend_Controller_Action
         }
     }
 
+    public function getEquipmentAction()
+    {
+        $response = $this->_model->getEquipment($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRow();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
     public function addEquipmentAction()
     {
         $response = $this->_model->addEquipment($this->_getAllParams());

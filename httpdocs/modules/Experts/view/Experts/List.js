@@ -22,15 +22,40 @@ Ext.define('EC.Experts.view.Experts.List', {
         this.columns = [{
             header: 'Имя',
             xtype: 'templatecolumn',
-            tpl: '<a href="#/experts/{id}/show">{name}</a>',
-            flex: .5
-        }, {
-            header: 'Статус',
-            dataIndex: 'status',
-            flex: .5
-        }, {
-            header: 'Инж. оборудование',
-            dataIndex: 'equipment',
+            tpl: Ext.create('Ext.XTemplate',
+                '<table width="100%" style="padding:10px" border="0">',
+                '<tr valign="top">',
+                '<td width="100">',
+                '<tpl if="have_avatar == 1">',
+                '<img src="images/users/{account_id}.jpg?{[this.dc()]}" width="100" style="float: left;margin-right: 15px">',
+                '<tpl else>',
+                '<img src="http://placehold.it/100x100" style="float: left;margin-right: 15px"/>',
+                '</tpl>',
+                '</td>',
+                '<td>',
+                'ФИО: {name}<br/><br/>',
+                'Email: {login}<br/><br/>',
+                'г. {city}, {country}<br/><br/>',
+                '</td>',
+                '</tr>',
+
+                '<tr valign="top">',
+                '<td colspan="2">',
+                '<p><b>Специализация</b><p>',
+                '<p>Тип инженерного оборудования: {equipment}</p>',
+                '<p>Статус: {status}</p>',
+                '<p>Описание: {[this.ellip(values.desc)]}</p>',
+                '</td>',
+                '</tr>',
+                {
+                    dc: function() {
+                        return new Date().getTime();
+                    }
+                    ,ellip: function (value) {
+                        return Ext.String.ellipsis(value, 100);
+                    }
+                }
+            ),
             flex: .5
         }];
 

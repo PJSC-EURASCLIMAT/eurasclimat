@@ -47,8 +47,10 @@ Ext.define('EC.Admin.view.Accounts.List', {
         
         this.columns = [{
             header: 'Логин',
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/experts/{id}/show">{login}</a>',
             dataIndex: 'login',
-            width: 100,
+            flex: 1,
             editor: {
                 xtype: 'textfield',
                 vtype: 'email',

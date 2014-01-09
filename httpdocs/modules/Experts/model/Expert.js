@@ -10,6 +10,7 @@ Ext.define('EC.Experts.model.Expert', {
         'city_id',
         'status_id',
         'equip_id',
+        'login',
         'status',
         'equipment',
         'city',

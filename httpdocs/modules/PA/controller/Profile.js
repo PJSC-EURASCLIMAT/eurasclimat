@@ -58,6 +58,13 @@ Ext.define('EC.PA.controller.Profile', {
         this.callParent();
     },
 
+    isExpert: function() {
+        if(Ext.isEmpty(this.account.expert_id)) {
+            return false;
+        }
+        return true;
+    },
+
     chagePassword: function(){
         var win = this.getPassChangeWin();
         var form = win.down('form');
@@ -215,9 +222,18 @@ Ext.define('EC.PA.controller.Profile', {
 
         Ext.suspendLayouts();
         win.down("#saveBtn").show();
-        win.down('#editExpertProfile').hide();
+        win.down('#showEditFormBtn').hide();
+
+        if (this.isExpert()) {
+            win.down('#editExpertProfile').hide();
+        } else {
+            win.down('#makeExpertFromMe').hide();
+        }
+
         win.down('#showEditFormBtn').hide();
         win.down("#cancel").show();
+
+
         win.getLayout().setActiveItem('editProfile');
 
         Ext.resumeLayouts(true);
@@ -239,8 +255,15 @@ Ext.define('EC.PA.controller.Profile', {
         Ext.suspendLayouts();
 
         win.down("#saveBtn").hide();
-        win.down('#editExpertProfile').show();
         win.down('#showEditFormBtn').show();
+
+        if (this.isExpert()) {
+            win.down('#editExpertProfile').show();
+        } else {
+            win.down('#makeExpertFromMe').show();
+        }
+
+
         win.down("#cancel").hide();
         win.getLayout().setActiveItem('displayProfile');
         win.doLayout();

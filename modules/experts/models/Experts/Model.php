@@ -378,7 +378,10 @@ class Experts_Experts_Model
             ->joinLeft(
                 array('a' => 'accounts'),
                 'a.id=e.account_id',
-                array('name' => 'a.name')
+                array(
+                    'name' => 'a.name',
+                    'login' => 'a.login'
+                )
             )
             ->joinLeft(
                 array('st' => 'experts_statuses'),

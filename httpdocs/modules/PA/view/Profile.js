@@ -16,7 +16,7 @@ Ext.define('EC.PA.view.Profile', {
     
     layout: 'card',
 
-    autoScroll: true,
+    autoScroll: false,
     
     border: false,
     

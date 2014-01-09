@@ -26,30 +26,30 @@ Ext.define('App.controller.Interface.Main.About', {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
             portletHeight: 200,
-            position: 'MainPanel-column-2',
+            position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Currency'
         }, {
             title: 'Новости',
             icon: '/images/icons/news.png',
             portletHeight: 200,
-            position: 'MainPanel-column-1',
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.News'
         }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 470,
+            portletHeight: 370,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.AboutSystem'
         }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 260,
+            portletHeight: 270,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
         }, {
             title: 'Каталог специалистов',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 200,
+            portletHeight: 300,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Experts.controller.ActiveExperts'
         }, {
@@ -58,12 +58,12 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 370,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'
-        }, {
-            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
-            icon: '/images/icons/kweather.png',
-            portletHeight: 300,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Newyear'
+//        }, {
+//            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
+//            icon: '/images/icons/kweather.png',
+//            portletHeight: 300,
+//            position: 'MainPanel-column-3',
+//            launchModule: 'EC.Main.controller.Newyear'
         }];
         
         Ext.each(modulesToOpen, function(item) {

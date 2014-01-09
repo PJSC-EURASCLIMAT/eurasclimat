@@ -16,6 +16,7 @@ Ext.define('EC.Main.view.News.List', {
     forceFit: true,
     
     features: [{
+        id: 'filter_feature',
         ftype: 'filters', 
         encode: true, 
         showMenu: false,
@@ -25,11 +26,9 @@ Ext.define('EC.Main.view.News.List', {
         }]
     }],
     
-    viewConfig: {
-        plugins: [{
-            ptype: 'preview',
-            bodyField: 'short_text'
-        }]
+    verticalScroller: {
+        trailingBufferZone: 15,
+        leadingBufferZone: 15
     },
     
     initComponent: function() {
@@ -37,23 +36,23 @@ Ext.define('EC.Main.view.News.List', {
         this.columns = [{
             xtype: 'templatecolumn',
             header: 'Заголовок новости',
-//            flex: 1,
+            flex: 1,
             tpl: '<a href="#" action="readmore" newsid="{id}">{title}</a>'
         }, {
             xtype: 'datecolumn',
             header: 'Дата и время публикации',
-//            width: 150,
+            width: 150,
             format: 'd.m.Y H:i',
             dataIndex: 'date'
         }, {
             xtype: 'templatecolumn',
             header: 'Автор',
-//            width: 100,
-            tpl: '<a href="#" action="showperson" personid="{account_id}">{author}</a>'
+            width: 100,
+            tpl: '{author}'
         }, {
             xtype: 'templatecolumn',
             header: 'Категория',
-//            width: 100,
+            width: 100,
             dataIndex: 'category_id',
             tpl: '{category}'
         }],

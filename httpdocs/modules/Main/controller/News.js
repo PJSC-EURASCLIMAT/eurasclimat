@@ -41,7 +41,7 @@ Ext.define('EC.Main.controller.News', {
         }
         
         if (link.action.value == 'readmore') {
-            MC.openModuleTab({
+            MC.openModuleFullscreen({
                 title: record.get('title'),
                 allowMultiple: true,
                 icon: '/images/icons/news_current.png',
@@ -49,17 +49,6 @@ Ext.define('EC.Main.controller.News', {
             });
             
             MC.getStore('EC.Main.store.News.Card').load({params: {id: link.newsid.value}});
-        }
-        
-        if (link.action.value == 'showperson') {
-            MC.openModuleTab({
-                title: 'Персональная информация',
-                allowMultiple: true,
-                icon: '/images/icons/worker.png',
-                launchModule: 'EC.Main.controller.PersonCard'
-            });
-            
-            MC.getStore('EC.Main.store.PersonCard').load({params: {id: link.personid.value}});
         }
     },
     

@@ -48,8 +48,10 @@ Ext.define('EC.Main.controller.Weather', {
     
     getForecast: function(cityID) {
         
+        var panel = this.Layout.down('WeatherForecast');
         failure = function() {
-            Ext.Msg.alert('Ошибка', 'Ошибка при получении погоды');
+//            Ext.Msg.alert('Ошибка', 'Ошибка при получении погоды');
+            panel.update('Ошибка при получении погоды');
         }
         
         Ext.Ajax.request({

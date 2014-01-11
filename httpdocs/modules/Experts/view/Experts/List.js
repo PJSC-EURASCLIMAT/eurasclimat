@@ -61,7 +61,7 @@ Ext.define('EC.Experts.view.Experts.List', {
             {
                 header: 'ФИО',
                 xtype: 'templatecolumn',
-                tpl: '<a href="#/experts/{id}/show">{name}</a>',
+                tpl: '<a href="#/profile/{account_id}/show">{name}</a>',
                 flex: .5
             }, {
                 header: 'Статус',

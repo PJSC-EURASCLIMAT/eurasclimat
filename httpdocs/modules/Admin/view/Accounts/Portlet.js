@@ -24,6 +24,8 @@ Ext.define('EC.Admin.view.Accounts.Portlet', {
         }, {
             header: 'Имя',
             dataIndex: 'name',
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/profile/{id}/show">{name}</a>',
             flex: .5,
             editor: {
                 xtype: 'textfield',

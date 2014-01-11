@@ -22,7 +22,7 @@ Ext.application({
     ],
 
     routes: {
-        '/experts/:id/show' : 'main#experts'
+        '/profile/:id/show' : 'main#profile'
     },
 
     // Глобальные переменные

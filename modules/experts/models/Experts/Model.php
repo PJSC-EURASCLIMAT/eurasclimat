@@ -211,7 +211,7 @@ class Experts_Experts_Model
             $data = array(
                 'sender_id'      => new Zend_Db_Expr('NULL'),
                 'receiver_id'    => $admins[$i]['id'],
-                'message'        => 'Зарегистрирован новый <a href="#/experts/'. $id .'/show"> специалист</a>'
+                'message'        => 'Зарегистрирован новый <a href="http://'.$_SERVER['HTTP_HOST'].'/#/profile/'. $f->account_id .'/show"> специалист</a>'
             );
             $this->_messagesModel->add($data);
         }

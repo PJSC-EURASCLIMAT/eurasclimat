@@ -23,8 +23,6 @@ Ext.define('EC.Experts.controller.Experts', {
     
     permissions: acl.isUpdate('experts'),
     
-    getURL: '/json/experts/experts/get',
-
     addURL: '/json/experts/experts/add',
 
     editURL: '/json/experts/experts/update',
@@ -228,27 +226,6 @@ Ext.define('EC.Experts.controller.Experts', {
         });
     },
 
-    showItem: function(recordId) {
-        Ext.Ajax.request({
-            params: {
-                id: recordId
-            },
-            url: this.getURL,
-            success: function(response, opts) {
-                var data = Ext.decode(response.responseText).data;
-
-                if (!Ext.isEmpty(data)) {
-                    var card = Ext.widget('ExpertInfo');
-                    card.showTpl.overwrite(card.down('panel').body, data);
-                }
-
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку специалиста.');
-            },
-            scope: this
-        });
-    },
 
     deleteItem: function(grid, record) {
         

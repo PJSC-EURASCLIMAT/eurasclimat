@@ -14,7 +14,7 @@ class PA_InfoController extends Xend_Controller_Action
     public function init()
     {
         $this->_accounts = new Xend_Accounts();
-        $this->_cities = new Xend_Accounts();
+        $this->_profiles = new PA_Profile();
         parent::init();
     }
 
@@ -22,11 +22,9 @@ class PA_InfoController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa->info);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-info');
     }
 
-    /**
-     * The main access point into application
-     */
     public function getAccountListAction()
     {
         $response = $this->_accounts->fetchAllNames($this->_getAllParams());
@@ -37,5 +35,17 @@ class PA_InfoController extends Xend_Controller_Action
         $this->view->total = $response->total;
         $this->view->data = $response->getRowset();
         $this->view->success = true;
+    }
+
+    public function getAccountInfoAction()
+    {
+        $response = $this->_profiles->get($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $row = $response->getRow();
+            $this->view->success = true;
+            $this->view->data = $row;
+        } else {
+            $this->_collectErrors($response);
+        }
     }
 }

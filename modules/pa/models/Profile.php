@@ -103,6 +103,75 @@ class PA_Profile
         return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::OK));
     }
 
+    public function get($id)
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_tableAccounts->getAdapter()->select()
+            ->from(
+                array('e' => 'experts'),
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array(
+                    'name' => 'a.name',
+                    'login' => 'a.login'
+                )
+            )
+            ->joinLeft(
+                array('st' => 'experts_statuses'),
+                'st.id=e.status_id',
+                array('status' => 'st.name')
+            )
+            ->joinLeft(
+                array('eq' => 'experts_equipment'),
+                'eq.id=e.equip_id',
+                array('equipment' => 'eq.name')
+            )
+            ->joinLeft(
+                array('c' => 'cities'),
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'c.id'
+                )
+            )
+            ->joinLeft(
+                array('co' => 'countries'),
+                'co.id=c.country_id',
+                array(
+                    'country' => 'co.name',
+                    'country_id' => 'co.id'
+                )
+            )
+            ->where("a.id = ?", $id)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $avatar_path = IMAGES_DIR . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $rows[0]['account_id'] . '.jpg';
+            $rows[0]['have_avatar'] = (file_exists($avatar_path)) ? 1 : 0;
+
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+
+        return $response->addStatus(new Xend_Status($status));
+    }
+
+
     /**
      * Update account
      *

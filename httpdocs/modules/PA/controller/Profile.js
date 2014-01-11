@@ -4,6 +4,7 @@ Ext.define('EC.PA.controller.Profile', {
 
     views: [
         'EC.PA.view.Profile',
+        'EC.PA.view.Info',
         'EC.PA.view.PassChange',
         'xlib.AccountsCombo',
         'xlib.ContrCityField'
@@ -17,6 +18,8 @@ Ext.define('EC.PA.controller.Profile', {
     models: ['EC.PA.model.Profile'],
 
     URL: '/json/pa/profile/get-profile',
+
+    getURL: '/json/pa/info/get-account-info',
 
     updateURL: '/json/pa/profile/update-profile',
 
@@ -56,6 +59,28 @@ Ext.define('EC.PA.controller.Profile', {
         this.account = xlib.Acl.Storage.getIdentity();
 
         this.callParent();
+    },
+
+    showProfile: function(recordId) {
+        Ext.Ajax.request({
+            params: {
+                id: recordId
+            },
+            url: this.getURL,
+            success: function(response, opts) {
+                var data = Ext.decode(response.responseText).data;
+
+                if (!Ext.isEmpty(data)) {
+                    var card = Ext.widget('ProfileInfo');
+                    card.showTpl.overwrite(card.down('panel').body, data);
+                }
+
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку специалиста.');
+            },
+            scope: this
+        });
     },
 
     isExpert: function() {

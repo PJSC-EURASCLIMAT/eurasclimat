@@ -6,9 +6,9 @@ Ext.define('App.controller.Main', {
     
     requires: ['xlib.portal.PortalPanel'],
 
-    experts: function(params) {
-        var exCnt = this.getController("EC.Experts.controller.Experts");
-        exCnt.showItem(params.id);
+    profile: function(params) {
+        var exCnt = this.getController("EC.PA.controller.Profile");
+        exCnt.showProfile(params.id);
     },
     
     run: function() {

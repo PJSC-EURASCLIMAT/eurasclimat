@@ -39,9 +39,9 @@ class PA_InfoController extends Xend_Controller_Action
 
     public function getAccountInfoAction()
     {
-        $response = $this->_profiles->get($this->_getParam('id'));
+        $response = $this->_profiles->fetchAccount($this->_getParam('id'));
         if ($response->isSuccess()) {
-            $row = $response->getRow();
+            $row = $response->getRowset();
             $this->view->success = true;
             $this->view->data = $row;
         } else {

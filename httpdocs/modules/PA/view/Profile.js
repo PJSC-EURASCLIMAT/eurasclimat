@@ -68,6 +68,7 @@ Ext.define('EC.PA.view.Profile', {
                             '</td>',
                         '</tr>',
                     '</tpl>',
+                '</table>',
 
                 {
                     dc: function() {

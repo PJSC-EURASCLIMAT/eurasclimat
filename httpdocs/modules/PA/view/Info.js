@@ -66,6 +66,8 @@ Ext.define('EC.PA.Profile.view.Info', {
                             '<p>Описание: {expert_desc}</p>',
                             '<p>Тип инженерного оборудования: {expert_equipment}</p>',
                             '<p>Статус: {expert_status}</p>',
+                            '<p>Рейтинг: {expert_rating}</p>',
+                            '<p>Опыт: {expert_experience}</p>',
                         '</td>',
                     '</tr>',
                 '</tpl>',

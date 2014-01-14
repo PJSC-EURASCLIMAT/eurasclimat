@@ -14,9 +14,15 @@ Ext.define('EC.Experts.view.Experts.Edit', {
     
     width: 500,
 
-    record: null,
+    height: 400,
 
     fromCurrent: false,
+
+    filesStore: null,
+
+    hideFiles: false,
+
+    getFilesURL: null,
 
     requires: [
         'xlib.AccountsCombo',
@@ -25,68 +31,165 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     initComponent: function() {
 
-//        var city_id = null;
-//        var country_id = null;
-//
-//        if(!Ext.isEmpty(this.record)) {
-//            city_id = this.record.get('city_id');
-//            country_id = this.record.get('country_id');
-//        }
+        if (!Ext.isEmpty(this.getFilesURL)) {
+            this.filesStore = Ext.create('Ext.data.Store', {
 
-        this.items = [{
-            xtype: 'form',
-            bodyPadding: 5,
-            fieldDefaults: {
-                labelAlign: 'left',
-                labelWidth: 120,
-                border: false,
-                allowBlank: false,
-                anchor: '100%'
-            },
-            items: [
-                {
-                    xtype: 'hidden',
-                    name:'from_current',
-                    allowBlank: true,
-                    value: this.fromCurrent
-                },
-                {
-                    xtype: 'hidden',
-                    allowBlank: true,
-                    name: 'id'
-                },
-                {
-                    xtype: 'AccountsCombo',
-                    hidden: this.fromCurrent,
-                    allowBlank: true,
-                    name: 'account_id'
-                },
-                {
-                    fieldLabel: 'Инж. оборудование',
-                    xtype: 'combobox',
-                    name: 'equip_id',
-                    displayField: 'name',
-                    valueField: 'id',
-                    store: 'EC.Experts.store.Equipment'
-                },
-                {
-                    fieldLabel: 'Статус',
-                    xtype: 'combobox',
-                    name: 'status_id',
-                    displayField: 'name',
-                    valueField: 'id',
-                    store: 'EC.Experts.store.Statuses'
-                },
-                {
-                    xtype: 'textarea',
-                    fieldLabel: 'Описание',
-                    grow: true,
-                    name: 'desc'
+                fields: [
+                    'id',
+                    'file_id',
+                    'file_name'
+                ],
+
+                sorters: [{
+                    property: 'file_name',
+                    direction: 'DESC'
+                }],
+
+                proxy: {
+                    extraParams: {
+                        expert_id: this.data.id
+                    },
+                    type: 'ajax',
+                    url: this.getFilesURL,
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
                 }
+            });
 
+            this.filesStore.load();
+        }
 
-            ]
-        }];
+        this.items = [
+            {
+                xtype: 'tabpanel',
+                items: [
+                    {
+                        title: 'Информация',
+                        xtype: 'form',
+                        bodyPadding: 5,
+                        fieldDefaults: {
+                            labelAlign: 'left',
+                            labelWidth: 120,
+                            border: false,
+                            allowBlank: false,
+                            anchor: '100%'
+                        },
+                        items: [
+                            {
+                                xtype: 'hidden',
+                                name:'from_current',
+                                allowBlank: true,
+                                value: this.fromCurrent
+                            },
+                            {
+                                xtype: 'hidden',
+                                allowBlank: true,
+                                name: 'id'
+                            },
+                            {
+                                xtype: 'AccountsCombo',
+                                hidden: this.fromCurrent,
+                                allowBlank: true,
+                                name: 'account_id'
+                            },
+                            {
+                                fieldLabel: 'Инж. оборудование',
+                                xtype: 'combobox',
+                                name: 'equip_id',
+                                displayField: 'name',
+                                valueField: 'id',
+                                store: 'EC.Experts.store.Equipment'
+                            },
+                            {
+                                fieldLabel: 'Статус',
+                                xtype: 'combobox',
+                                name: 'status_id',
+                                displayField: 'name',
+                                valueField: 'id',
+                                store: 'EC.Experts.store.Statuses'
+                            },
+                            {
+                                xtype: 'textfield',
+                                fieldLabel: 'Рейтинг',
+                                name: 'rating'
+                            },
+                            {
+                                xtype: 'textarea',
+                                fieldLabel: 'Опыт',
+                                name: 'experience'
+                            },
+                            {
+                                xtype: 'textarea',
+                                fieldLabel: 'Описание',
+                                name: 'desc'
+                            }
+                        ]
+                    },{
+                        title: 'Файлы',
+                        hidden: this.hideFiles,
+                        xtype: 'grid',
+                        itemId: 'files',
+                        border: false,
+                        store: this.filesStore,
+                        hideHeaders: true,
+                        columns: [
+                            {
+                                text: 'name',
+                                dataIndex: 'file_name',
+                                flex: 1
+                            },
+                            {
+                                xtype: 'actioncolumn',
+                                align: 'center',
+                                width: 30,
+                                items: [{
+                                    iconCls: 'x-btn icon',
+                                    icon: '/images/icons/delete.png',
+                                    tooltip: 'Удалить',
+                                    disabled: !acl.isUpdate('sysdev', 'docs', 'versions'),
+                                    handler: function(grid, rowIndex, colIndex) {
+                                        var rec = grid.getStore().getAt(rowIndex);
+                                        grid.up('window').fireEvent('delete', rec);
+                                    }
+                                }]
+                            }
+                        ],
+                        listeners: {
+                            cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
+                                if (cellIndex === 1) {
+                                    this.fireEvent('download', record);
+                                }
+                            }
+                        },
+                        tbar: [{
+                            xtype: 'button',
+                            iconCls: 'add',
+                            text: 'Добавить',
+                            tooltip: 'Добавить новую версию',
+                            hidden: !acl.isView('sysdev', 'docs', 'versions'),
+                            listeners: {
+                                click: function() {
+                                    var win = this.up('window');
+                                    win.fireEvent('add', win);
+                                }
+                            }
+                        }, '->', {
+                            xtype: 'button',
+                            tooltip: 'Обновить',
+                            iconCls: 'x-tbar-loading',
+                            listeners: {
+                                click: function() {
+                                    var win = this.up('window');
+                                    win.down('#files').store.load();
+                                }
+                            }
+                        }]
+                    }
+                ]
+            }
+        ];
 
         this.buttons = [{
             text: 'Сохранить',
@@ -100,8 +203,8 @@ Ext.define('EC.Experts.view.Experts.Edit', {
         }];
 
         this.callParent(arguments);
-        if(!Ext.isEmpty(this.record)) {
-            this.down('form').getForm().setValues(this.record.data);
+        if(!Ext.isEmpty(this.data)) {
+            this.down('form').getForm().setValues(this.data);
         }
     }
 });

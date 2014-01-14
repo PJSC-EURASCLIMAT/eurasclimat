@@ -196,7 +196,7 @@ Ext.define('EC.Experts.controller.Experts', {
 
     editItem: function(grid, record, fromCurrent) {
 
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{record: record, fromCurrent: fromCurrent});
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{data: record.data, fromCurrent: fromCurrent});
 
         view.down('button[action=save]').on({
             click: function() {

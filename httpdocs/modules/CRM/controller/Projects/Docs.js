@@ -101,7 +101,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
     },
 
     refreshDocVersionsList: function() {
-        
+
         if (Ext.isDefined(this.docVerList)) {
             this.docVerList.down('grid').store.load();
         }

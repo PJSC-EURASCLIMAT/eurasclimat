@@ -16,7 +16,12 @@ Ext.define('EC.PA.view.Profile', {
     
     layout: 'card',
 
-    autoScroll: false,
+//    autoScroll: true,
+
+    style: {
+        overflowX: 'hidden',
+        overflowY: 'auto'
+    },
     
     border: false,
     
@@ -39,6 +44,7 @@ Ext.define('EC.PA.view.Profile', {
             xtype: 'panel',
             itemId: 'displayProfile',
             layout: 'fit',
+            autoScroll: true,
             bodyPadding: 10,
             tpl: Ext.create('Ext.XTemplate',
 
@@ -62,9 +68,11 @@ Ext.define('EC.PA.view.Profile', {
                         '<tr valign="top">',
                             '<td colspan="2">',
                                 '<p><b>Специализация</b><p>',
-                                '<p>Описание: {expert.desc}</p>',
-                                '<p>Тип инженерного оборудования: {expert.equipment}</p>',
-                                '<p>Статус: {expert.status}</p>',
+                                '<p>Тип инженерного оборудования: {expert_equipment}</p>',
+                                '<p>Статус: {expert_status}</p>',
+                                '<p>Рейтинг: {expert_rating}</p>',
+                                '<p>Опыт: {expert_experience}</p>',
+                                '<p>Описание: {expert_desc}</p>',
                             '</td>',
                         '</tr>',
                     '</tpl>',
@@ -75,7 +83,7 @@ Ext.define('EC.PA.view.Profile', {
                         return new Date().getTime();
                     },
                     isExpert: function(values) {
-                        if(!Ext.isEmpty(values.expert)){
+                        if(!Ext.isEmpty(values.expert_id)){
                             return true
                         }
                         return false;

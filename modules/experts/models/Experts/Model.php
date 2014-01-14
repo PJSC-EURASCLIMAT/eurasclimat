@@ -101,6 +101,8 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
+            'rating'        => 'StringTrim',
+            'experience'    => 'StringTrim',
 //            'active'        => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
@@ -108,6 +110,8 @@ class Experts_Experts_Model
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
+            'rating'        => array('StringLength'),
+            'experience'    => array('StringLength'),
 //            'active'        => array('int', 'presence' => 'required'),
         ), $data);
 

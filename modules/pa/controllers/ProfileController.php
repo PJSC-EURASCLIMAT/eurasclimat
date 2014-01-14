@@ -10,11 +10,14 @@ class PA_ProfileController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-profile');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-profile');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'register-expert');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-expert-doc');
 
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'test');
     }
@@ -23,6 +26,7 @@ class PA_ProfileController extends Xend_Controller_Action
     {
         $this->_model = new PA_Profile();
         $this->_expertsModel = new Experts_Experts_Model();
+        $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
 
         parent::init();
     }
@@ -132,5 +136,65 @@ class PA_ProfileController extends Xend_Controller_Action
         }
         $this->view->data = $response->getRowSet();
         $this->view->success = true;
+    }
+
+    public function uploadExpertDocAction()
+    {
+        $expert_id = intval($this->_getParam('expert_id'));
+
+        $data['expert_id'] = $expert_id;
+
+        if ($expert_id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
+            $this->_collectErrors($response);
+            return;
+        }
+
+//        $data['name'] = $_GET['X-File-Name'];
+
+        $modResponse = $this->_expertsDocsModel->add($data);
+
+        if ($modResponse->hasNotSuccess()) {
+            $this->_collectErrors($modResponse);
+            return;
+        } else {
+            $this->view->success = true;
+        }
+
+    }
+
+    public function deleteExpertDocAction()
+    {
+        $data = $this->_getAllParams();
+
+        $deleteResponse = $this->_expertsDocsModel->delete($data);
+        if ($deleteResponse->isSuccess()) {
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($deleteResponse);
+        }
+    }
+
+    public function getExpertDocsAction()
+    {
+        $expert_id = intval($this->_getParam('expert_id'));
+
+        if ($expert_id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $response = $this->_expertsDocsModel->getByExpert($expert_id);
+
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+            $this->view->total = $response->totalCount;
+        } else {
+            $this->_collectErrors($response);
+        }
     }
 }

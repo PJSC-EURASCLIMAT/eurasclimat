@@ -31,6 +31,12 @@ Ext.define('EC.PA.controller.Profile', {
 
     editExpertURL: '/json/pa/profile/edit-expert',
 
+    addExpertDocURL: '/json/pa/profile/upload-expert-doc',
+
+    deleteExpertDocURL: '/json/pa/profile/delete-expert-doc',
+
+    getExpertDocsURL: '/json/pa/profile/get-expert-docs',
+
     refs: [
         {
             ref: 'profileWin',
@@ -157,7 +163,10 @@ Ext.define('EC.PA.controller.Profile', {
 
     addExpert: function(fromCurrent) {
 
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{fromCurrent: true});
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{
+            fromCurrent: true,
+            hideFiles: true
+        });
 
         view.down('button[action=save]').on({
             click: function() {
@@ -198,22 +207,140 @@ Ext.define('EC.PA.controller.Profile', {
         });
     },
 
+    // TODO проверить
+    addExpertFile: function(win) {
+
+        Ext.create('xlib.upload.Dialog', {
+            autoShow: true,
+            singleUpload: true,
+            dialogTitle: 'Передача файлов на сервер',
+            uploadUrl: this.addExpertDocURL,
+            uploadParams: {
+                expert_id: win.data.id
+            },
+            listeners: {
+                'uploadcomplete': {
+                    fn: function(upDialog, manager, items, errorCount) {
+                        if (!errorCount) {
+                            upDialog.close();
+                            win.filesStore.load();
+                        }
+                    },
+                    scope: this
+                },
+                'close': {
+                    fn: function (panel, eOpts ) {
+                        win.filesStore.load();
+                    },
+                    scope: this
+                }
+            }
+        });
+    },
+
+    // TODO проверить
+    downloadExpertFile: function(record) {
+
+        var url = this.downloadURL + "?id=" + record.get('id');
+        Ext.Ajax.request({
+            url: url,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+
+                if (r.success === true) {
+                    Ext.DomHelper.append(document.body, {
+                        tag: 'iframe',
+                        id:'downloadIframe',
+                        frameBorder: 0,
+                        width: 0,
+                        height: 0,
+                        css: 'display:none;visibility:hidden;height:0px;',
+                        src: url
+                    });
+                } else {
+                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                }
+
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'В ходе получения файла произошла ошибка');
+            },
+            scope: this
+        });
+    },
+
+    deleteExpertFile: function(record) {
+
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить документ?', function(b) {
+
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: record.data,
+                    url: this.deleteExpertDocURL,
+                    success: function(response, opts) {
+                        var r = Ext.JSON.decode(response.responseText);
+
+                        if (r.success === true) {
+                            this.expertsEditWin.filesStore.load();
+                        } else {
+                            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                        }
+
+                    },
+                    failure: function() {
+                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                    },
+                    scope: this
+                });
+            }
+        }, this);
+
+    },
+
     editExpert: function() {
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{
-            record: this.expert,
-            fromCurrent: true
+
+        var data = {
+            id: this.account.expert_id,
+            account_id: this.account.id,
+            equip_id: this.account.expert_equip_id,
+            status_id: this.account.expert_status_id,
+            rating: this.account.expert_rating,
+            experience: this.account.expert_experience,
+            desc: this.account.expert_desc
+        };
+
+
+        this.expertsEditWin = Ext.create('EC.Experts.view.Experts.Edit',{
+            data: data,
+            fromCurrent: true,
+            getFilesURL: this.getExpertDocsURL
         });
 
-        view.down('button[action=save]').on({
+        this.expertsEditWin.on({
+            add: this.addExpertFile,
+            download: this.downloadExpertFile,
+            delete: this.deleteExpertFile,
+            scope: this
+        });
+
+        this.expertsEditWin.down('button[action=save]').on({
             click: function() {
-                var form = view.down('form');
+                var form = this.expertsEditWin.down('form');
                 form.submit({
                     url: this.editExpertURL,
                     success: function(form, action) {
                         Ext.Msg.alert('Ответ системы',
                             '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
-                        this.expert.data = form.getValues();
-                        view.close();
+
+                        var new_data = form.getValues();
+
+                        this.account.equip_id = new_data.equip_id;
+                        this.account.status_id = new_data.status_id;
+                        this.account.rating = new_data.rating;
+                        this.account.experience = new_data.experience;
+                        this.account.desc = new_data.desc;
+
+                        this.expertsEditWin.close();
                         this.fillDisplayForm();
 //                        this.fireEvent('itemSaved');
                     },
@@ -303,36 +430,36 @@ Ext.define('EC.PA.controller.Profile', {
     }
 
 
-    ,getExpertData: function() {
-        var ex_id = this.account.expert_id;
-
-        if (ex_id === 0 || ex_id === null) {
-            this.hideEditForm();
-            return;
-        }
-
-        Ext.Ajax.request({
-            url: this.getExpertURL,
-            success: function(response) {
-                var r = Ext.JSON.decode(response.responseText);
-                var disp = this.profileWin.down("#displayProfile");
-
-                this.expert = Ext.create('EC.Experts.model.Expert',r.data);
-
-                this.account.expert = r.data;
-                disp.tpl.overwrite(disp.body,this.account);
-
-                this.hideEditForm();
-
-            },
-            failure: function(response) {
-                Ext.Msg.alert('Ответ системы',
-                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
-            },
-            scope: this
-        });
-
-    }
+//    ,getExpertData: function() {
+//        var ex_id = this.account.expert_id;
+//
+//        if (ex_id === 0 || ex_id === null) {
+//            this.hideEditForm();
+//            return;
+//        }
+//
+//        Ext.Ajax.request({
+//            url: this.getExpertURL,
+//            success: function(response) {
+//                var r = Ext.JSON.decode(response.responseText);
+//                var disp = this.profileWin.down("#displayProfile");
+//
+//                this.expert = Ext.create('EC.Experts.model.Expert',r.data);
+//
+//                this.account.expert = r.data;
+//                disp.tpl.overwrite(disp.body,this.account);
+//
+//                this.hideEditForm();
+//
+//            },
+//            failure: function(response) {
+//                Ext.Msg.alert('Ответ системы',
+//                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
+//            },
+//            scope: this
+//        });
+//
+//    }
 
     ,fillDisplayForm: function(){
 //        TODO заполнять из this.account
@@ -344,11 +471,9 @@ Ext.define('EC.PA.controller.Profile', {
 
                 var disp = this.profileWin.down("#displayProfile");
 
-                var formValues = new EC.PA.model.Profile(this.account);
-
                 disp.tpl.overwrite(disp.body,this.account);
 
-                this.getExpertData();
+//                this.getExpertData();
 
             },
             failure: function(response) {
@@ -362,6 +487,7 @@ Ext.define('EC.PA.controller.Profile', {
     ,fillEditForm: function() {
 //        TODO заполнять из this.account
         var form = this.getEditProfileForm();
+
         form.load({
             url: this.URL
             ,success: function(curForm, action) {

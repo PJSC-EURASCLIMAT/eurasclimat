@@ -66,7 +66,11 @@ class PA_Profile
                 'ex.account_id=a.id',
                 array(
                     'expert_id' => 'ex.id',
+                    'expert_status_id' => 'ex.status_id',
+                    'expert_equip_id' => 'ex.equip_id',
                     'expert_desc' => 'ex.desc',
+                    'expert_rating' => 'ex.rating',
+                    'expert_experience' => 'ex.experience',
                 )
             )
             ->joinLeft(
@@ -79,12 +83,12 @@ class PA_Profile
                 'eq.id=ex.equip_id',
                 array('expert_equipment' => 'eq.name')
             )
-            ->where("a.id = ?", $accountId)
-            ->limit(1);
+            ->where("a.id = ?", $accountId);
+//            ->limit(1);
 
         try {
-            $rowset = $select->query()->fetchAll();
-            if(count($rowset) == 0) {
+            $rowset = $select->query()->fetch();
+            if(empty($rowset)) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
             $response->setRowset($rowset);
@@ -96,11 +100,7 @@ class PA_Profile
             $status = Xend_Status::DATABASE_ERROR;
         }
 
-        if (!is_null($rowset[0])) {
-            $rowset = $rowset[0];
-        } elseif (empty($rowset)) {
-            $rowset = array();
-        }
+        // Документы аккаунта
 
         $rolesAccountsTable = new Xend_Acl_Table_RolesAccounts();
         $rowset['roles'] = $rolesAccountsTable->getRoles($accountId);

@@ -33,11 +33,6 @@ Ext.define('EC.PA.Profile.view.Info', {
 
     layout: 'fit',
 
-    listeners: {
-        close: function() {
-            Ext.Router.redirect('');
-        }
-    },
 
     initComponent: function() {
 

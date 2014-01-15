@@ -6,9 +6,48 @@ Ext.define('App.controller.Main', {
     
     requires: ['xlib.portal.PortalPanel'],
 
+
+    // ROUTER METHODS
+
+    downloadFileURL: '/json/pa/info/download',
+
     profile: function(params) {
         var exCnt = this.getController("EC.PA.controller.Profile");
         exCnt.showProfile(params.id);
+        Ext.Router.redirect('');
+    },
+
+    download: function(params) {
+
+        var url = this.downloadFileURL + "?id=" + params.id;
+        Ext.Ajax.request({
+            url: url,
+            success: function(response, opts) {
+                var r = Ext.JSON.decode(response.responseText);
+
+                if (r.success === true) {
+                    Ext.DomHelper.append(document.body, {
+                        tag: 'iframe',
+                        id:'downloadIframe',
+                        frameBorder: 0,
+                        width: 0,
+                        height: 0,
+                        css: 'display:none;visibility:hidden;height:0px;',
+                        src: url
+                    });
+                } else {
+                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                }
+                Ext.Router.redirect('');
+
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'В ходе получения файла произошла ошибка');
+                Ext.Router.redirect('');
+            },
+            scope: this
+        });
+
     },
     
     run: function() {

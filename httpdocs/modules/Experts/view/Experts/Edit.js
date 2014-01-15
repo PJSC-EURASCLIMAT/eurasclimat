@@ -20,7 +20,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     filesStore: null,
 
-    hideFiles: false,
+    hideFiles: true,
 
     getFilesURL: null,
 
@@ -136,9 +136,10 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                         hideHeaders: true,
                         columns: [
                             {
-                                text: 'name',
-                                dataIndex: 'file_name',
-                                flex: 1
+                                xtype: 'templatecolumn',
+                                header: 'Заголовок новости',
+                                flex: 1,
+                                tpl: '<a href="#/download/{file_id}">{file_name}</a>'
                             },
                             {
                                 xtype: 'actioncolumn',

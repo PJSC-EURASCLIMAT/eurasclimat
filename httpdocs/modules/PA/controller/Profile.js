@@ -312,6 +312,7 @@ Ext.define('EC.PA.controller.Profile', {
 
         this.expertsEditWin = Ext.create('EC.Experts.view.Experts.Edit',{
             data: data,
+            hideFiles: false,
             fromCurrent: true,
             getFilesURL: this.getExpertDocsURL
         });

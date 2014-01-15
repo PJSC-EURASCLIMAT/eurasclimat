@@ -23,6 +23,7 @@ class PA_InfoController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa->info);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-info');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'download');
     }
 
     public function getAccountListAction()
@@ -47,5 +48,17 @@ class PA_InfoController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+    }
+
+    public function downloadAction()
+    {
+        $id = intval($this->_getParam('id'));
+        $file = new Xend_File();
+        $download = $file->download($id);
+        if ($download->isError()) {
+            $this->_collectErrors($download);
+            return;
+        }
+        $this->view->success = true;
     }
 }

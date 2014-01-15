@@ -57,6 +57,8 @@ Ext.define('EC.Experts.controller.Experts', {
             },
             scope: this
         });
+
+        grid.store.load();
         
         if (this.permissions) {
 

@@ -4,8 +4,6 @@ Ext.define('EC.Experts.store.Experts', {
 
     model: 'EC.Experts.model.Expert',
     
-    autoLoad: true,
-    
     proxy: {
         type: 'ajax',
         api: {

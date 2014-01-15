@@ -19,6 +19,8 @@ class PA_Profile
     public function __construct()
     {
         $this->_tableAccounts = new Xend_Accounts_Table_Accounts();
+        $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
+
     }
 
     /**
@@ -91,6 +93,14 @@ class PA_Profile
             if(empty($rowset)) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
+
+            $rowset['expert_docs'] = array();
+
+            if($rowset['expert_id'] != null) {
+                $expertDocsResponse = $this->_expertsDocsModel->getByExpert($rowset['expert_id']);
+                $rowset['expert_docs'] = $expertDocsResponse->rowset;
+            }
+
             $response->setRowset($rowset);
             $status = Xend_Status::OK;
         } catch (Exception $e) {

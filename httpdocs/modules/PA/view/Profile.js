@@ -37,8 +37,7 @@ Ext.define('EC.PA.view.Profile', {
 
     initComponent: function() {
 
-        var acc = xlib.Acl.Storage.getIdentity();
-
+        var acc = this.data;
 
         this.items = [{
             xtype: 'panel',
@@ -76,6 +75,19 @@ Ext.define('EC.PA.view.Profile', {
                             '</td>',
                         '</tr>',
                     '</tpl>',
+
+                    '<tpl if="this.haveDocs(values)">',
+                        '<tr valign="top">',
+                            '<td colspan="2">',
+                                '<p><b>Файлы:</b></p>',
+                                '<tpl for="expert_docs">',
+                                    '<p><a href="#/download/{file_id}">{file_name}</a></p>',
+                                '</tpl>',
+                            '</td>',
+                        '</tr>',
+                    '</tpl>',
+
+
                 '</table>',
 
                 {
@@ -84,7 +96,13 @@ Ext.define('EC.PA.view.Profile', {
                     },
                     isExpert: function(values) {
                         if(!Ext.isEmpty(values.expert_id)){
-                            return true
+                            return true;
+                        }
+                        return false;
+                    },
+                    haveDocs: function(values) {
+                        if(!Ext.isEmpty(values.expert_docs)){
+                            return true;
                         }
                         return false;
                     }

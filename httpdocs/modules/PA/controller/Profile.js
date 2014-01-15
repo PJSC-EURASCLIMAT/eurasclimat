@@ -60,13 +60,6 @@ Ext.define('EC.PA.controller.Profile', {
         }
     ],
 
-    init:function(){
-        //Копируем инфу по пользователю в текущий контроллер
-        this.account = xlib.Acl.Storage.getIdentity();
-
-        this.callParent();
-    },
-
     showProfile: function(recordId) {
         Ext.Ajax.request({
             params: {
@@ -124,41 +117,56 @@ Ext.define('EC.PA.controller.Profile', {
             }
         });
 
+        //заполняем формы
+        this.refreshData();
+    },
 
-        this.profileWin = Ext.create('EC.PA.view.Profile',{editable:true});
+    refreshData: function(){
+        
+        Ext.Ajax.request({
+            url: this.URL,
+            success: function(response) {
+                var r = Ext.JSON.decode(response.responseText);
+                this.account = r.data;
+
+                this.showProfileWin(r.data);
+
+                var disp = this.profileWin.down("#displayProfile");
+
+                disp.tpl.overwrite(disp.body,this.account);
+                this.fillEditForm();
+
+            },
+            failure: function(response) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
+            },
+            scope: this
+        });
+    },
+
+    showProfileWin: function(data) {
+        var me = this;
+        if (!Ext.isEmpty(this.profileWin)) {
+            return;
+        }
+
+        this.profileWin = Ext.create('EC.PA.view.Profile',{
+            editable:true,
+            data: data,
+            listeners: {
+                close: function() {
+                    me.profileWin = null;
+                }
+            }
+        });
         this.profileWin.down('button#changePassBtn').on('click',this.openPassWindow,this);
         this.profileWin.down('button#showEditFormBtn').on('click',this.showEditForm,this);
         this.profileWin.down('button#cancel').on('click',this.hideEditForm,this);
         this.profileWin.down('button#saveBtn').on('click',this.updateProfile,this);
         this.profileWin.down('button#makeExpertFromMe').on('click',this.addExpert,this);
         this.profileWin.down('button#editExpertProfile').on('click',this.editExpert,this);
-
-        //Создаем окошко профиля
-
         this.profileWin.hide();
-
-        //заполняем формы
-        this.fillDisplayForm();
-        this.fillEditForm();
-
-    },
-
-    showExpertCard:function(){
-//        console.log("showing edit form");
-        var win = this.profileWin;
-
-//        console.time("Form show");
-
-        Ext.suspendLayouts();
-
-        win.getLayout().setActiveItem('editProfile');
-        win.down("#saveBtn").show();
-        win.down('#showEditFormBtn').hide();
-        win.down("#cancel").show();
-
-        Ext.resumeLayouts(true);
-
-//        console.timeEnd("Form show");
     },
 
     addExpert: function(fromCurrent) {
@@ -179,13 +187,13 @@ Ext.define('EC.PA.controller.Profile', {
 
                         var expert_id = parseInt(Ext.JSON.decode(action.response.responseText).data);
                         this.account.expert_id  = expert_id;
-                        this.getExpertData();
 
                         var win = this.profileWin;
 
                         view.close();
                         win.down('#makeExpertFromMe').hide();
                         win.down("#editExpertProfile").show();
+                        this.refreshData();
 
                     },
                     failure: function(form, action) {
@@ -342,8 +350,7 @@ Ext.define('EC.PA.controller.Profile', {
                         this.account.desc = new_data.desc;
 
                         this.expertsEditWin.close();
-                        this.fillDisplayForm();
-//                        this.fireEvent('itemSaved');
+                        this.refreshData();
                     },
                     failure: function(form, action) {
                         switch (action.failureType) {
@@ -430,61 +437,6 @@ Ext.define('EC.PA.controller.Profile', {
         Ext.create('EC.PA.view.PassChange');
     }
 
-
-//    ,getExpertData: function() {
-//        var ex_id = this.account.expert_id;
-//
-//        if (ex_id === 0 || ex_id === null) {
-//            this.hideEditForm();
-//            return;
-//        }
-//
-//        Ext.Ajax.request({
-//            url: this.getExpertURL,
-//            success: function(response) {
-//                var r = Ext.JSON.decode(response.responseText);
-//                var disp = this.profileWin.down("#displayProfile");
-//
-//                this.expert = Ext.create('EC.Experts.model.Expert',r.data);
-//
-//                this.account.expert = r.data;
-//                disp.tpl.overwrite(disp.body,this.account);
-//
-//                this.hideEditForm();
-//
-//            },
-//            failure: function(response) {
-//                Ext.Msg.alert('Ответ системы',
-//                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
-//            },
-//            scope: this
-//        });
-//
-//    }
-
-    ,fillDisplayForm: function(){
-//        TODO заполнять из this.account
-        Ext.Ajax.request({
-            url: this.URL,
-            success: function(response) {
-                var r = Ext.JSON.decode(response.responseText);
-                this.account = r.data;
-
-                var disp = this.profileWin.down("#displayProfile");
-
-                disp.tpl.overwrite(disp.body,this.account);
-
-//                this.getExpertData();
-
-            },
-            failure: function(response) {
-                Ext.Msg.alert('Ответ системы',
-                    '<span style="color:red;">Ошибка получения данных профиля!</span>');
-            },
-            scope: this
-        });
-    }
-
     ,fillEditForm: function() {
 //        TODO заполнять из this.account
         var form = this.getEditProfileForm();
@@ -516,7 +468,7 @@ Ext.define('EC.PA.controller.Profile', {
                 Ext.Msg.alert('Ответ системы',
                     '<span style="color:green;">Обновление аккаунта прошло успешно.</span>');
 
-                this.fillDisplayForm();
+                this.refreshData();
 
             },
             failure: function(curForm, action) {

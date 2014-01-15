@@ -47,7 +47,7 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Order'
         }, {
-            title: 'Каталог специалистов',
+            title: 'Специалисты',
             icon: '/images/icons/sys_dev.png',
             portletHeight: 300,
             position: 'MainPanel-column-1',

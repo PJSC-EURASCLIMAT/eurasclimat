@@ -2,10 +2,10 @@ Ext.define('App.view.Register', {
     
     extend: 'Ext.window.Window',
     
-    uses: [
-        'xlib.CountryCombo',
-        'xlib.LanguageCombo'
-    ],
+//    uses: [
+//        'xlib.CountryCombo',
+//        'xlib.LanguageCombo'
+//    ],
     
     title: 'Регистрация пользователя системы',
     

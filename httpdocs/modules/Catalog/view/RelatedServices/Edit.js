@@ -8,7 +8,7 @@ Ext.define('EC.Catalog.view.RelatedServices.Edit', {
     
     fieldDefaults: {
         labelAlign: 'left',
-        labelWidth: 180,
+        labelWidth: 130,
         border: false,
         allowBlank: false,
         anchor: '100%'
@@ -27,7 +27,7 @@ Ext.define('EC.Catalog.view.RelatedServices.Edit', {
         name: 'term'
     }, {
         xtype: 'numberfield',
-        fieldLabel: 'Цена',
+        fieldLabel: 'Цена (р.)',
         name: 'price'
     }]
 });

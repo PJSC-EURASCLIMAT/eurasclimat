@@ -130,5 +130,8 @@ Ext.application({
         var isAuth = (xlib.Acl.Storage.getIdentity().login !== 'guest');
         if (isAuth) this.getController("EC.PA.controller.Messages").listenUserMessages();
 
+        xlib.formatCurrency = function(value) {
+            return Ext.util.Format.currency(value, ' р.', 2, true);
+        }
     }
 });

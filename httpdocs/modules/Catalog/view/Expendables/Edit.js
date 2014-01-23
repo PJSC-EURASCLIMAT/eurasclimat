@@ -23,7 +23,6 @@ Ext.define('EC.Catalog.view.Expendables.Edit', {
                 labelAlign: 'left',
                 labelWidth: 180,
                 border: false,
-                allowBlank: false,
                 anchor: '100%'
             },
             items: [{
@@ -32,18 +31,22 @@ Ext.define('EC.Catalog.view.Expendables.Edit', {
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Наименование',
+                allowBlank: false,
                 name: 'name'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Артикул',
+                allowBlank: true,
                 name: 'code'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Ед. изм.',
+                allowBlank: true,
                 name: 'measure'
             }, {
                 xtype: 'numberfield',
                 allowNegative: false,
+                allowBlank: true,
                 fieldLabel: 'Цена',
                 name: 'price'
             }],

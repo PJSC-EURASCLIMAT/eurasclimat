@@ -30,7 +30,9 @@ class Catalog_RelatedServices
             ->from(array('i' => $this->_table->getTableName()), array(
                     'id' => 'i.id', 's.name', 'i.service_id', 'i.term', 'i.price'
                 ))
-            ->join(array('s' => $this->_servicesTable->getTableName()), 's.id=i.service_id', array())
+            ->join(array('s' => $this->_servicesTable->getTableName()),
+                   's.id=i.service_id', array()
+                )
             ->where('i.item_id = (?)', $id);
 
         try {
@@ -54,8 +56,8 @@ class Catalog_RelatedServices
         ), array(
             'item_id'       => array('Id', 'allowEmpty' => false),
             'service_id'    => array('Id', 'allowEmpty' => false),
-            'term'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'price'         => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();

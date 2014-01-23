@@ -80,7 +80,8 @@ Ext.define('EC.Catalog.view.RelatedServices.List', {
         }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 100
+            width: 100,
+            renderer: xlib.formatCurrency
         }, {
             xtype: 'actioncolumn',
             sortable: false,

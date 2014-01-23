@@ -18,25 +18,33 @@ Ext.define('EC.Catalog.view.SpecialServices.RelatedExpendables', {
     
     initComponent: function() {
         
-        this.tbar = new Ext.Toolbar({
-            items: [{
-                text: 'Добавить',
-                tooltip: 'Добавить',
-                iconCls: 'add',
-                action: 'add',
-                hidden: !this.permissions,
-                scope: this
-            }, '->', {
-                xtype: 'button',
-                tooltip: 'Обновить',
-                iconCls: 'x-tbar-loading',
-                action: 'refresh'
-            }]
-        });
+        this.tbar = [{
+            text: 'Добавить',
+            tooltip: 'Добавить',
+            iconCls: 'add',
+            action: 'add',
+            hidden: !this.permissions,
+            scope: this
+        }, '->', {
+            xtype: 'button',
+            tooltip: 'Обновить',
+            iconCls: 'x-tbar-loading',
+            action: 'refresh'
+        }];
         
         var actions = [];
         
         if (this.permissions) {
+            
+            actions.push({
+                icon: '/images/icons/fam/plugin.gif',
+                tooltip: 'Редактировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
             
             actions.push({
                 icon: '/images/icons/fam/delete.gif',
@@ -62,9 +70,14 @@ Ext.define('EC.Catalog.view.SpecialServices.RelatedExpendables', {
             dataIndex: 'measure',
             width: 100
         }, {
+            header: 'Количество',
+            dataIndex: 'number',
+            width: 100
+        }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 100
+            width: 100,
+            renderer: xlib.formatCurrency
         }, {
             xtype: 'actioncolumn',
             sortable: false,

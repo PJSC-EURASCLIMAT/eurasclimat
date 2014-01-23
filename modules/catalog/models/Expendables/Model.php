@@ -86,7 +86,7 @@ class Catalog_Expendables_Model
             'id'            => array('Id', 'presence' => 'required'),
             'group_id'      => array('Id', 'allowEmpty' => false),
             'code'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'name'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
             'measure'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ), $params);

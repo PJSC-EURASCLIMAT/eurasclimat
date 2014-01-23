@@ -7,4 +7,9 @@ class Crm_Projects_Configurator_EquipmentTable extends Xend_Db_Table_Abstract
      * @var string
      */
     protected $_name = 'crm_projects_equipment';
+
+    protected $_nullableFields = array(
+        'number',
+        'price'
+    );
 }

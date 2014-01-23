@@ -19,6 +19,7 @@ class Catalog_RelatedExpendablesController extends Xend_Controller_Action
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->specialservices);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
     }
 
@@ -40,6 +41,16 @@ class Catalog_RelatedExpendablesController extends Xend_Controller_Action
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->id = $response->id;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updateAction()
+    {
+        $response = $this->_model->update($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
         } else {
            $this->_collectErrors($response);
         }

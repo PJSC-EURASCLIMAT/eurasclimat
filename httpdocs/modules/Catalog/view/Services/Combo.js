@@ -2,13 +2,13 @@ Ext.define('EC.Catalog.view.Services.Combo', {
     
     extend: 'Ext.form.ComboBox',
     
-    alias: ['widget.ServicesCombo'],
+    alias: 'widget.ServicesCombo',
     
     valueField: 'id',
     
     displayField: 'name', 
     
-    fieldLabel: 'Наименование услуги',
+    fieldLabel: 'Наименование',
     
     editable: false,
     

@@ -6,10 +6,13 @@ Ext.define('EC.CRM.model.Projects.Configurator.SpecialServices', {
         'id',
         'code',
         'name',
-        'price',
         'measure',
         'term',
         'number',
-        {name: 'summ', type: 'float'}
+        'expendables',
+        {name: 'price', type: 'float'},
+        {name: 'summ', type: 'float'},
+        {name: 'expendables_summ', type: 'float'},
+        {name: 'total_summ', type: 'float'}
     ]
 });

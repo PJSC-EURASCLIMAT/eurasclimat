@@ -6,9 +6,9 @@ Ext.define('EC.CRM.model.Projects.Configurator.Expendables', {
         'id',
         'name',
         'code',
-        'price',
         'measure',
-        'number',
+        {name: 'number', type: 'float'},
+        {name: 'price', type: 'float'},
         {name: 'summ', type: 'float'}
     ]
 });

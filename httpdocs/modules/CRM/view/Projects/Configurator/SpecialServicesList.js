@@ -19,6 +19,16 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
         if (this.permissions) {
             
             actions.push({
+                icon: '/images/icons/edit.png',
+                tooltip: 'Редактировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
                 icon: '/images/icons/fam/delete.gif',
                 tooltip: 'Удалить',
                 iconCls: 'x-btn',
@@ -26,14 +36,13 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-                
             });
         }
         
         this.columns = [{
             header: 'Артикул',
             dataIndex: 'code',
-            width: 60
+            width: 90
         }, {
             header: 'Наименование',
             dataIndex: 'name',
@@ -49,7 +58,8 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
         }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 60
+            width: 60,
+            renderer: xlib.formatCurrency
         }, {
             header: 'Кол-во',
             dataIndex: 'number',
@@ -58,7 +68,17 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
             header: 'Сумма',
             width: 100,
             dataIndex: 'summ',
-            summaryType: 'sum'
+            renderer: xlib.formatCurrency
+        }, {
+            header: 'Материалы',
+            width: 100,
+            dataIndex: 'expendables_summ',
+            renderer: xlib.formatCurrency
+        }, {
+            header: 'Всего',
+            width: 100,
+            dataIndex: 'total_summ',
+            renderer: xlib.formatCurrency
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,
@@ -78,6 +98,35 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
             action: 'refresh'
         }]
         
+        this.callParent(arguments);
+    },
+    
+    constructor: function() {
+        
+        this.plugins = [{
+            ptype: 'rowexpander',
+            rowBodyTpl: Ext.create('Ext.XTemplate', 
+                '<table width="100%" cellpadding="3">',
+                '<tr><td  style="border-bottom: 1px solid grey;" colspan="5" align="center">',
+                '<b>Инструменты и материалы:</b></td></tr>',
+                '<tr><td><b>Наименование</b></td>',
+                '<td><b>Ед. изм.</b>',
+                '<td><b>Количество</b>',
+                '</td><td><b>Цена</b></td>',
+                '</td><td><b>Сумма</b></td></tr>',
+                '<tpl for="expendables">',
+                '<tr><td>{name}</td>',
+                '<td>{measure}</td>',
+                '<td>{number:this.formatNumber}</td>',
+                '<td>{price:this.formatCurrency}</td>',
+                '<td>{summ:this.formatCurrency}</td>',
+                '</tr></tpl>',
+                '</table><br/>', {
+                    formatNumber: function(v) { return Ext.util.Format.currency(v, ' ', 3); },
+                    formatCurrency: function(v) { return xlib.formatCurrency(v); }
+                })
+        }];
+       
         this.callParent(arguments);
     }
 });

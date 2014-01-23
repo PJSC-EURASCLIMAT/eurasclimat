@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.SpecialServices.Add', {
+Ext.define('EC.Catalog.view.SpecialServices.EditRelatedExpendables', {
     
     extend: 'Ext.window.Window',
     
-    title: 'Добавление услуги',
+    title: 'Редактирование материала',
     
     layout: 'fit',
     
@@ -12,9 +12,7 @@ Ext.define('EC.Catalog.view.SpecialServices.Add', {
     
     modal: true,
     
-    width: 800,
-    
-    groupID: null,
+    width: 200,
     
     initComponent: function() {
         
@@ -23,37 +21,21 @@ Ext.define('EC.Catalog.view.SpecialServices.Add', {
             bodyPadding: 5,
             fieldDefaults: {
                 labelAlign: 'left',
-                labelWidth: 180,
                 border: false,
                 anchor: '100%'
             },
             items: [{
                 xtype: 'hidden',
-                name: 'group_id',
-                value: this.groupID
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Наименование работ',
-                allowBlank: false,
-                name: 'name'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Артикул работ',
-                allowBlank: true,
-                name: 'code'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Ед. изм. работ',
-                allowBlank: true,
-                name: 'measure'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Сроки выполнения работ',
-                allowBlank: true,
-                name: 'term'
+                name: 'id'
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Цена работ',
+                fieldLabel: 'Количество',
+                allowNegative: false,
+                allowBlank: true,
+                name: 'number'
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Цена',
                 allowNegative: false,
                 allowBlank: true,
                 name: 'price'

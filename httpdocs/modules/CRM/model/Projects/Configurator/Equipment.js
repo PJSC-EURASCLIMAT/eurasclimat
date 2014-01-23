@@ -8,9 +8,12 @@ Ext.define('EC.CRM.model.Projects.Configurator.Equipment', {
         'entity_id',
         'number',
         'code',
-        'marking',
-        'price',
         'mark',
-        {name: 'summ', type: 'float'}
+        'marking',
+        'services',
+        {name: 'price', type: 'float'},
+        {name: 'eq_summ', type: 'float'},
+        {name: 'services_summ', type: 'float'},
+        {name: 'total_summ', type: 'float'}
     ]
 });

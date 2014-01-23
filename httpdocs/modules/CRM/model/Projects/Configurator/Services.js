@@ -4,12 +4,9 @@ Ext.define('EC.CRM.model.Projects.Configurator.Services', {
    
     fields: [
         'id',
-        'number',
-        'code',
+        'service_id',
         'name',
-        'price',
-        'measure',
         'term',
-        {name: 'summ', type: 'float'}
+        'price'
     ]
 });

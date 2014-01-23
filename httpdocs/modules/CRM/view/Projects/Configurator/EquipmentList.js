@@ -12,6 +12,8 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
+    collapsible: true,
+    
     initComponent: function() {
         
         var actions = [];
@@ -42,28 +44,39 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
         this.columns = [{
             header: 'Артикул',
             dataIndex: 'code',
+            width: 90
+        }, {
+            header: 'Марка',
+            dataIndex: 'mark',
             width: 60
         }, {
             header: 'Маркировка',
             dataIndex: 'marking',
             flex: 1
         }, {
-            header: 'Марка',
-            dataIndex: 'mark',
-            width: 60
-        }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 60
+            width: 100,
+            renderer: xlib.formatCurrency
         }, {
             header: 'Кол-во',
             dataIndex: 'number',
             width: 60
         }, {
             header: 'Сумма',
+            width: 150,
+            dataIndex: 'eq_summ',
+            renderer: xlib.formatCurrency
+        }, {
+            header: 'Услуги',
             width: 100,
-            dataIndex: 'summ',
-            summaryType: 'sum'
+            dataIndex: 'services_summ',
+            renderer: xlib.formatCurrency
+        }, {
+            header: 'Всего',
+            width: 100,
+            dataIndex: 'total_summ',
+            renderer: xlib.formatCurrency
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,
@@ -81,8 +94,25 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',
             action: 'refresh'
-        }]
+        }];
         
+        this.callParent(arguments);
+    },
+    
+    constructor: function() {
+        
+        this.plugins = [{
+            ptype: 'rowexpander',
+            rowBodyTpl: Ext.create('Ext.XTemplate', 
+                '<table width="100%" cellpadding="3">',
+                '<tr><td  style="border-bottom: 1px solid grey;" colspan="3" align="center">',
+                '<b>Сопутствующие услуги:</b></td></tr>',
+                '<tr><td><b>Наименование</b></td><td><b>Сроки</b></td><td><b>Цена</b></td></tr>',
+                '<tpl for="services">',
+                '<tr><td>{name}</td><td>{term}</td><td>{price:this.formatChange}</td></tr></tpl>',
+                '</table><br/>', {formatChange: function(v) { return xlib.formatCurrency(v);}})
+        }];
+       
         this.callParent(arguments);
     }
 });

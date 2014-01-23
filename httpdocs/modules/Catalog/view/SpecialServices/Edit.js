@@ -23,7 +23,6 @@ Ext.define('EC.Catalog.view.SpecialServices.Edit', {
                 labelAlign: 'left',
                 labelWidth: 180,
                 border: false,
-                allowBlank: false,
                 anchor: '100%'
             },
             items: [{
@@ -32,23 +31,28 @@ Ext.define('EC.Catalog.view.SpecialServices.Edit', {
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Наименование работ',
+                allowBlank: false,
                 name: 'name'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Артикул работ',
+                allowBlank: true,
                 name: 'code'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Ед. изм. работ',
+                allowBlank: true,
                 name: 'measure'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Сроки выполнения работ',
+                allowBlank: true,
                 name: 'term'
             }, {
                 xtype: 'numberfield',
-                allowNegative: false,
                 fieldLabel: 'Цена работ',
+                allowNegative: false,
+                allowBlank: true,
                 name: 'price'
             }],
             buttons: [{

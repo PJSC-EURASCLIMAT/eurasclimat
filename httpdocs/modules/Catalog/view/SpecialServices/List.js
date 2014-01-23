@@ -69,7 +69,8 @@ Ext.define('EC.Catalog.view.SpecialServices.List', {
         }, {
             header: 'Цена работ',
             dataIndex: 'price',
-            width: 100
+            width: 100,
+            renderer: xlib.formatCurrency
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,

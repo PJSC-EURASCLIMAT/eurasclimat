@@ -67,17 +67,17 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     },
     
     refreshTotalSumm: function() {
-        var eq = this.equipmentPanel.getStore().sum('summ'),
+        var eq = this.equipmentPanel.getStore().sum('total_summ'),
+            sv = this.equipmentPanel.getStore().sum('services_summ'),
             ss = this.specialServicesPanel.getStore().sum('summ'),
-            sv = 0,
-            ep = 0,
+            ep = this.specialServicesPanel.getStore().sum('expendables_summ'),
             summ = eq + ss + sv + ep;  
             
-        this.Container.down('[itemId=totalequipment]').setText('<b>' + eq + ' р.</b> ');
-        this.Container.down('[itemId=totalspecialservices]').setText('<b>' + ss + ' р.</b> ');
-        this.Container.down('[itemId=totalservices]').setText('<b>' + sv + ' р.</b> ');
-        this.Container.down('[itemId=totalexpendables]').setText('<b>' + ep + ' р.</b> ');
-        this.Container.down('[itemId=totalsumm]').setText('<b>' + summ + ' р.</b> ');
+        this.Container.down('[itemId=totalequipment]').setText('<b>' + xlib.formatCurrency(eq) + '</b> ');
+        this.Container.down('[itemId=totalspecialservices]').setText('<b>' + xlib.formatCurrency(ss) + '</b> ');
+        this.Container.down('[itemId=totalservices]').setText('<b>' + xlib.formatCurrency(sv) + '</b> ');
+        this.Container.down('[itemId=totalexpendables]').setText('<b>' + xlib.formatCurrency(ep) + '</b> ');
+        this.Container.down('[itemId=totalsumm]').setText('<b>' + xlib.formatCurrency(summ) + '</b> ');
     }, 
     
     loadEquipment: function(editId) {
@@ -182,8 +182,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
                     },
                     url: this.deleteEquipmentURL,
                     success: function(response, opts) {
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.loadEquipment();
+                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                     },
                     failure: function(response, opts) {
                         Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
@@ -197,10 +197,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     editEquipment: function(grid, record) {
         var editWin = this.getController('EC.CRM.controller.Projects.Configurator.EquipmentEditor');
         editWin.itemID = record.get('id');
+        editWin.on('saved', this.loadEquipment, this);
         editWin.run();
-    },
-    
-    updateEquipment: function() {
     },
     
     // Special Services methods    
@@ -267,10 +265,11 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         }, this);
     },
     
-    
     editSpecialService: function(grid, record) {
-    },
-    
-    updateSpecialService: function() {
+        var editWin = this.getController('EC.CRM.controller.Projects.Configurator.SpecialServicesEditor');
+        editWin.itemID = record.get('id');
+        editWin.on('saved', this.loadSpecialServices, this);
+        editWin.run();
     }
+    
 });

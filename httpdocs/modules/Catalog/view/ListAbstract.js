@@ -31,7 +31,7 @@ Ext.define('EC.Catalog.view.ListAbstract', {
             ptype: 'rowexpander',
             rowBodyTpl: Ext.create('Ext.XTemplate', this.rowBodyTpl, 
                 {r: Ext.bind(this.comboRenderer, this)})
-        }]
+        }];
         
         this.callParent(arguments);
     

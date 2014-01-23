@@ -21,16 +21,16 @@ class Crm_ProjectsConfiguratorController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-equipment');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-equipment');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-equipment');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-services');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-services-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-service');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-special-services-list');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-special-services');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-special-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-special-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-special-service');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-special-service');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expendables');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expendables-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-expendable');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-expendable');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expendable');
@@ -90,7 +90,7 @@ class Crm_ProjectsConfiguratorController extends Xend_Controller_Action
         }
     }
 
-    public function getServicesAction()
+    public function getServicesListAction()
     {
         $response = $this->_model->getServices($this->_getParam('id'));
         if ($response->isSuccess()) {
@@ -144,6 +144,17 @@ class Crm_ProjectsConfiguratorController extends Xend_Controller_Action
         }
     }
 
+    public function getSpecialServiceAction()
+    {
+        $response = $this->_model->getSpecialService($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRow();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
     public function addSpecialServiceAction()
     {
         $response = $this->_model->addSpecialService($this->_getAllParams());
@@ -176,7 +187,7 @@ class Crm_ProjectsConfiguratorController extends Xend_Controller_Action
         }
     }
 
-    public function getExpendablesAction()
+    public function getExpendablesListAction()
     {
         $response = $this->_model->getExpendables($this->_getParam('id'));
         if ($response->isSuccess()) {

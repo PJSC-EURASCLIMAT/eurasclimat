@@ -10,6 +10,7 @@ class Catalog_Expendables_Table extends Xend_Db_Table_Abstract
 
     protected $_nullableFields = array(
         'code',
-        'measure'
+        'measure',
+        'price'
     );
 }

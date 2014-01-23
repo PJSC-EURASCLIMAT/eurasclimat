@@ -55,7 +55,8 @@ Ext.define('EC.Catalog.view.Expendables.List', {
         }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 100
+            width: 100,
+            renderer: xlib.formatCurrency
         }, {
             xtype:'actioncolumn',
             width: parseInt(actions.length) * 20,

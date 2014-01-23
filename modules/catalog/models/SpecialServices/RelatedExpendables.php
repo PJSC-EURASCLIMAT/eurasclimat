@@ -26,7 +26,7 @@ class Catalog_SpecialServices_RelatedExpendables
         $select = $this->_table->getAdapter()->select()
             ->from(array('i' => $this->_table->getTableName()), array(
                     'id' => 'i.id', 'e.name', 'e.code', 'e.measure',
-                    'e.price', 'i.expendable_id'
+                    'i.price', 'i.number', 'i.expendable_id', 'i.service_id'
                 ))
             ->join(array('e' => $this->_expendablesTable->getTableName()),
                     'e.id=i.expendable_id', array()
@@ -67,6 +67,37 @@ class Catalog_SpecialServices_RelatedExpendables
 
         try {
             $id = $this->_table->insert($data);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::DATABASE_ERROR));
+        }
+
+        $response->id = $id;
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function update($data)
+    {
+        $f = new Xend_Filter_Input(array(
+            'id' => 'Int',
+        ), array(
+            'number' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'price'  => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ), $data);
+
+        $response = new Xend_Response();
+
+        $response->addInputStatus($f);
+
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $id = $this->_table->updateByPk($f->getData(), $f->id);
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;

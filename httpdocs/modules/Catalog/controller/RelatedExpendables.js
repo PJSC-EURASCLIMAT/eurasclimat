@@ -11,7 +11,8 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     ],
     
     views: [
-        'EC.Catalog.view.SpecialServices.RelatedExpendables'
+        'EC.Catalog.view.SpecialServices.RelatedExpendables',
+        'EC.Catalog.view.SpecialServices.EditRelatedExpendables'
     ],
     
     serviceID: null,
@@ -21,6 +22,8 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     getURL: '/json/catalog/related-expendables/get-list',
     
     addURL: '/json/catalog/related-expendables/add',
+    
+    updateURL: '/json/catalog/related-expendables/update',
     
     deleteURL: '/json/catalog/related-expendables/delete',
     
@@ -51,6 +54,7 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
                 
         gridPanel.on({
             deleteitem: this.deleteItem,
+            edititem: this.editItem,
             scope: this
         });
                 
@@ -73,7 +77,7 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
     addItem: function() {
         
         var w = Ext.create('Ext.window.Window', {
-            title: 'Добавление добавление материала',
+            title: 'Добавление материала',
             modal: true,
             width: 1000,
             height: 400,
@@ -104,7 +108,7 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
                 if (0 == rows.length) {
                     return;
                 }
-                this.saveItem(rows[0].get('id'));
+                this.saveItem(rows[0].get('id'), rows[0].get('price'));
                 w.close();
             },
             scope: this
@@ -119,12 +123,14 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
         });
     },
     
-    saveItem: function(itemId) {
+    saveItem: function(itemId, price) {
         
         Ext.Ajax.request({
             params: {
                 service_id: this.serviceID,
-                expendable_id: itemId
+                expendable_id: itemId,
+                number: 1,
+                price: price
             },
             url: this.addURL,
             success: function(response, opts) {
@@ -135,6 +141,37 @@ Ext.define('EC.Catalog.controller.RelatedExpendables', {
             },
             scope: this
         });
+    },
+    
+    editItem: function(grid, record) {
+        
+        var w = this.getView('EC.Catalog.view.SpecialServices.EditRelatedExpendables').create();
+        
+        w.down('form').loadRecord(record);
+        
+        w.down('button[action=save]').on('click', function() {
+            
+            w.down('form').submit({
+                url: this.updateURL,
+                success: function(form, action) {
+                    this.fireEvent('itemSaved');
+                    w.close();
+                },
+                failure: function(form, action) {
+                    switch (action.failureType) {
+                        case Ext.form.action.Action.CLIENT_INVALID:
+                            Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                            break;
+                        case Ext.form.action.Action.CONNECT_FAILURE:
+                            Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                            break;
+                        case Ext.form.action.Action.SERVER_INVALID:
+                            Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                   }
+                },
+                scope: this
+            });
+        }, this)
     },
     
     deleteItem: function(grid, record) {

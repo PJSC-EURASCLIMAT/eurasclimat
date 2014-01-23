@@ -16,6 +16,9 @@ Ext.define('EC.Experts.model.Expert', {
         'city',
         'country',
         'country_id',
+        'have_avatar',
+        'rating',
+        'experience',
         {name: 'active', type: 'int'}
     ]
 });

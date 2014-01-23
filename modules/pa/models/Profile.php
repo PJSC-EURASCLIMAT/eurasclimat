@@ -96,10 +96,28 @@ class PA_Profile
 
             $rowset['expert_docs'] = array();
 
+            $rowset['expert_info'] = array(
+                'id'         => $rowset['expert_id'],
+                'status_id'  => $rowset['expert_status_id'],
+                'equip_id'   => $rowset['expert_equip_id'],
+                'desc'       => $rowset['expert_desc'],
+                'rating'     => $rowset['expert_rating'],
+                'experience' => $rowset['expert_experience'],
+            );
+
+
+
             if($rowset['expert_id'] != null) {
                 $expertDocsResponse = $this->_expertsDocsModel->getByExpert($rowset['expert_id']);
                 $rowset['expert_docs'] = $expertDocsResponse->rowset;
             }
+
+//            unset($rowset['expert_id']);
+//            unset($rowset['expert_status_id']);
+//            unset($rowset['expert_equip_id']);
+//            unset($rowset['expert_desc']);
+//            unset($rowset['expert_rating']);
+//            unset($rowset['expert_experience']);
 
             $response->setRowset($rowset);
             $status = Xend_Status::OK;

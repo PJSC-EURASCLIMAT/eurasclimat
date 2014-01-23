@@ -25,11 +25,7 @@ Ext.define('EC.Experts.controller.Experts', {
     
     addURL: '/json/experts/experts/add',
 
-    editURL: '/json/experts/experts/update',
-
     activateURL: '/json/experts/experts/activate',
-    
-    deleteURL: '/json/experts/experts/delete',
 
     refNames: {
         'rating': 'Рейтинг специалистов',
@@ -198,35 +194,18 @@ Ext.define('EC.Experts.controller.Experts', {
 
     editItem: function(grid, record, fromCurrent) {
 
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{data: record.data, fromCurrent: fromCurrent});
-
-        view.down('button[action=save]').on({
-            click: function() {
-                var form = view.down('form');
-                form.submit({
-                    url: this.editURL,
-                    success: function(form, action) {
-                        view.close();
-                        this.fireEvent('itemSaved');
-                    },
-                    failure: function(form, action) {
-                        switch (action.failureType) {
-                            case Ext.form.action.Action.CLIENT_INVALID:
-                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                                break;
-                            case Ext.form.action.Action.CONNECT_FAILURE:
-                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                                break;
-                            case Ext.form.action.Action.SERVER_INVALID:
-                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-                        }
-                    },
-                    scope: this
-                });
-            },
-            scope: this
+        this.expertsEditWin = Ext.create('EC.Experts.view.Experts.Edit',{
+            data: record.data,
+            fromCurrent: fromCurrent,
+            getFilesURL: this.getExpertDocsURL,
+            listeners: {
+                close: function() {
+                    grid.store.load();
+                }
+            }
         });
     },
+
 
 
     deleteItem: function(grid, record) {

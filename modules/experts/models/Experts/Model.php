@@ -182,11 +182,14 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
+            'rating'        => 'StringTrim',
         ), array(
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
+            'rating'        => array('StringLength'),
+            'experience'    => array('StringLength'),
         ), $data);
 
         $response->addInputStatus($f);
@@ -250,7 +253,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -318,7 +321,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -377,7 +380,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -420,6 +423,14 @@ class Experts_Experts_Model
 
         try {
             $rows = $select->query()->fetchAll();
+
+            for ($i = 0; $i < count($rows); $i++ ) {
+                $row = $rows[$i];
+
+                $avatar_path = IMAGES_DIR . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $rows[$i]['account_id'] . '.jpg';
+                $rows[$i]['have_avatar'] = (file_exists($avatar_path)) ? 1 : 0;
+            }
+
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
@@ -428,6 +439,7 @@ class Experts_Experts_Model
             }
             $status = Xend_Status::DATABASE_ERROR;
         }
+
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -439,7 +451,7 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -504,17 +516,18 @@ class Experts_Experts_Model
             )
             ->joinLeft(
                 array('a' => 'accounts'),
-                'a.id=e.account_id'
+                'a.id=e.account_id',
+                null
             )
-            ->where("e.account_id = ?", $accountId)
-            ->limit(1);
+            ->where("e.account_id = ?", $accountId);
+//            ->limit(1);
 
         try {
-            $rows = $select->query()->fetchAll();
+            $rows = $select->query()->fetch();
             if(count($rows) == 0) {
                 return null;
             }
-            return $rows[0]['id'];
+            return $rows['id'];
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;

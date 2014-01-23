@@ -10,16 +10,16 @@ class PA_ProfileController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-profile');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-profile');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'register-expert');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert');
+
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-expert-doc');
 
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'test');
     }
 
     public function init()
@@ -69,6 +69,9 @@ class PA_ProfileController extends Xend_Controller_Action
         $data = $this->_getAllParams();
 
         $expertId = $this->_expertsModel->getExpertIdByAccountId($id);
+        $data['id'] = $expertId;
+        $data['account_id'] = $id;
+
         $response = $this->_expertsModel->update($data);
 
 
@@ -115,28 +118,23 @@ class PA_ProfileController extends Xend_Controller_Action
             $this->_collectErrors($response);
             return;
         }
-//        $this->view->data = $response->getRowSet();
-        $this->view->success = true;
-    }
 
-    public function changePasswordAction()
-    {
+        $this->view->passReset = null;
 
-        $auth = Zend_Auth::getInstance();
-        $Identity = $auth->getIdentity();
-        $data = $this->_getAllParams();
-        $data['id'] = $Identity->id;
-        $data['active'] = $Identity->active;
-
-        $id = (null == $Identity) ? 0 : intval($Identity->id);
-        $response = $this->_model->chPassword($id, $data);
-        if ($response->isError()) {
-            $this->_collectErrors($response);
-            return;
+        if(!empty($data['old_password'])
+            && !empty($data['new_password1'])
+            && !empty($data['new_password2'])
+        ) {
+            $passResponse = $this->_model->chPassword($id, $data);
+            if ($passResponse->isError()) {
+                $this->_collectErrors($passResponse);
+                $this->view->passReset = false;
+                return;
+            }
         }
-        $this->view->data = $response->getRowSet();
         $this->view->success = true;
     }
+
 
     public function uploadExpertDocAction()
     {

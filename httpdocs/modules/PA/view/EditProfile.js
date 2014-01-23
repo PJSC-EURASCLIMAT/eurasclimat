@@ -1,0 +1,215 @@
+Ext.define('EC.PA.view.EditProfile', {
+    
+    extend: 'Ext.window.Window',
+    
+    uses: [
+        'xlib.ContrCityField',
+        'xlib.TZCombo',
+        'xlib.LanguageCombo',
+        'xlib.form.ImageField'
+    ],
+
+    requires: [
+        'EC.Experts.view.Experts.InfoForm',
+        'EC.Experts.view.Experts.FilesList'
+    ],
+
+    title: 'Профиль пользователя ' + xlib.Acl.Storage.getIdentity().name +
+        ' (' + xlib.Acl.Storage.getIdentity().login + ') ',
+
+    layout: 'fit',
+
+//    autoScroll: true,
+
+    style: {
+        overflowX: 'hidden',
+        overflowY: 'auto'
+    },
+    
+    border: false,
+    
+    modal: true,
+
+    getFilesURL: null,
+
+    width: 400,
+
+    height: 350,
+
+    updateURL: '/json/pa/profile/update-profile',
+
+    editExpertURL: '/json/pa/profile/edit-expert',
+
+    addExpertDocURL: '/json/pa/profile/upload-expert-doc',
+
+    deleteExpertDocURL: '/json/pa/profile/delete-expert-doc',
+
+    getExpertDocsURL: '/json/pa/profile/get-expert-docs',
+
+    initComponent: function() {
+
+        this.items = [
+            {
+                xtype: 'tabpanel',
+                itemId: 'editProfile',
+                items: [
+                    {
+                        xtype: 'form',
+                        title: 'Информация',
+                        itemId: 'editForm',
+                        autoScroll: true,
+                        bodyPadding: 10,
+                        fieldDefaults: {
+                            margin: '10 0',
+                            labelWidth: 150,
+                            anchor: '100%'
+                        },
+
+                        trackResetOnLoad: true,
+
+                        bbar: [
+                            {
+                                text: 'Сохранить',
+                                scope: this,
+                                handler: this.updateProfile
+                            },
+                            '->',
+                            {
+                                text: 'Сбросить',
+                                handler: function() {
+                                    this.up('form').getForm().reset();
+                                }
+                            }
+                        ],
+                        items: [
+                            {
+                                xtype: 'filefield',
+                                name: 'photo',
+                                fieldLabel: 'Фотография',
+                                buttonText: 'Выбрать фото'
+                            }, {
+                                xtype: 'textfield',
+                                name: 'name',
+                                fieldLabel: 'ФИО'
+                            }, {
+                                xtype: 'textfield',
+                                name: 'login',
+                                fieldLabel: 'Email',
+                                vtype: 'email'
+                            }, {
+                                xtype: 'ContrCityField'
+                            }, {
+                                xtype: 'TZCombo'
+                            }, {
+                                xtype: 'textfield',
+                                inputType: 'password',
+//                                allowBlank: false,
+                                fieldLabel: 'Старый пароль <sup style="color: red;"></sup>',
+                                labelWidth: 150,
+                                minLength: 3,
+                                maxLength: 15,
+                                name: 'old_password'
+                            }, {
+                                xtype: 'textfield',
+                                inputType: 'password',
+//                                allowBlank: false,
+                                fieldLabel: 'Придумайте пароль <sup style="color: red;"></sup>',
+                                minLength: 3,
+                                maxLength: 15,
+                                itemId: 'passwordFieldRegister',
+                                name: 'new_password1',
+                                listeners: {
+                                    validitychange: function(field){
+                                        this.up('form').down('#passwordFieldRegisterConfirm').validate();
+                                    },
+                                    blur: function(field){
+                                        this.up('form').down('#passwordFieldRegisterConfirm').validate();
+                                    }
+                                }
+                            }, {
+                                xtype: 'textfield',
+                                inputType: 'password',
+//                                allowBlank: false,
+                                fieldLabel: 'Повторите пароль <sup style="color: red;"></sup>',
+                                minLength: 3,
+                                maxLength: 15,
+                                vtype: 'password',
+                                name: 'new_password2',
+                                itemId: 'passwordFieldRegisterConfirm',
+                                initialPassField: 'passwordFieldRegister'
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'experts-info-edit-form',
+                        fromCurrent: true,
+                        editExpertURL: this.editExpertURL,
+                        hidden: this.hideExpert,
+                        data: this.data.expert_info
+                    },
+                    {
+                        xtype: 'experts-files-list',
+                        data: this.data,
+                        addExpertDocURL: this.addExpertDocURL,
+                        deleteExpertDocURL: this.deleteExpertDocURL,
+                        getExpertDocsURL: this.getExpertDocsURL,
+                        hidden: this.hideExpert
+                    }
+                ]
+            }
+
+        ];
+
+        this.callParent(arguments);
+
+        this.down('#editForm').getForm().setValues(this.data);
+
+    },
+
+    passValid: function() {
+        var old_pass = this.down('[name=old_password]');
+        var pass1 = this.down('[name=new_password1]');
+        var pass2 = this.down('[name=new_password2]');
+
+        if( (pass1.isDirty() || pass2.isDirty()) && !old_pass.isDirty()) {
+            Ext.Msg.alert('Ответ системы', 'Для смены пароля введите старый пароль.');
+            return false;
+        }
+
+        if( (!pass1.isDirty() || !pass2.isDirty()) && old_pass.isDirty()) {
+            Ext.Msg.alert('Ответ системы', 'Для смены пароля введите новый пароль.');
+            return false;
+        }
+
+        return true;
+
+    },
+
+    updateProfile: function(){
+        var form = this.down('#editForm');
+
+        if (!form.isValid() || !this.passValid()) {
+            return;
+        }
+
+        this.down('#editForm').submit({
+            url: this.updateURL,
+            success: function(curForm, action) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:green;">Обновление аккаунта прошло успешно.</span>');
+            },
+            failure: function(curForm, action) {
+                if(action.result.passReset === false) {
+                    Ext.Msg.alert('Ответ системы',
+                        '<span style="color:red;">Неверно введен старый пароль!</span>');
+                    return;
+                }
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:red;">Ошибка обновления аккаунта!</span>');
+            },
+            scope: this
+        });
+
+    },
+
+});

@@ -85,8 +85,6 @@ Ext.define('EC.PA.view.PassChange', {
                             }
                         }
                     }
-                }, {
-                    xtype: 'label'
                 }]
 
         }

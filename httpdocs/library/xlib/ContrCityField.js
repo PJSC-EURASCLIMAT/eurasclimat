@@ -104,7 +104,7 @@ Ext.define('xlib.ContrCityField', {
 
     countryChanged: function() {
         var city_id = this.cityCombo.getValue();
-        this.cityCombo.reset();
+        this.cityCombo.setValue(null);
         this.cityCombo.getStore().load({
             id: this.countryCombo.getValue(),
             callback: function(records, operation, success) {

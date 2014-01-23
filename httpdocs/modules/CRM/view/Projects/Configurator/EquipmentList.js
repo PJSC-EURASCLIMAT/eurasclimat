@@ -12,8 +12,6 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    collapsible: true,
-    
     initComponent: function() {
         
         var actions = [];

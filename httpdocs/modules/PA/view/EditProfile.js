@@ -143,7 +143,6 @@ Ext.define('EC.PA.view.EditProfile', {
                     {
                         xtype: 'experts-info-edit-form',
                         fromCurrent: true,
-                        editExpertURL: this.editExpertURL,
                         hidden: this.hideExpert,
                         data: this.data.expert_info
                     },
@@ -162,6 +161,8 @@ Ext.define('EC.PA.view.EditProfile', {
 
         this.callParent(arguments);
 
+        this.expertEditForm = this.down('experts-info-edit-form');
+        this.expertEditForm.down('[action=save]').on('click',this.editExpert, this);
         this.down('#editForm').getForm().setValues(this.data);
 
     },
@@ -211,5 +212,30 @@ Ext.define('EC.PA.view.EditProfile', {
         });
 
     },
+
+    editExpert: function() {
+
+        this.expertEditForm.getForm().submit({
+            url: this.editExpertURL,
+            success: function(form, action) {
+                Ext.Msg.alert('Ответ системы',
+                    '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
+            },
+            failure: function(form, action) {
+                switch (action.failureType) {
+                    case Ext.form.action.Action.CLIENT_INVALID:
+                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
+                        break;
+                    case Ext.form.action.Action.CONNECT_FAILURE:
+                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
+                        break;
+                    case Ext.form.action.Action.SERVER_INVALID:
+                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                }
+            },
+            scope: this
+        });
+
+    }
 
 });

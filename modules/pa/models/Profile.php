@@ -154,15 +154,16 @@ class PA_Profile
 
         $f = new Xend_Filter_Input(array(
             'id'        => 'int',
-//            'login'     => 'StringTrim',
             'name'      => 'StringTrim',
-            'email'     => 'StringTrim',
-//            'active'    => 'boolean'
+            'login'     => 'StringTrim',
+            'tz'        => 'int',
+            'city_id'     => 'int',
         ), array(
             'id'        => array('id', 'presence' => 'required'),
             'name'      => array('StringLength'),
-            'email'     => array('EmailAddress'),
-//            'active'    => array('boolean', 'presence' => 'required')
+            'login'     => array('EmailAddress'),
+            'tz'        => array('int', 'presence' => 'required', 'allowEmpty' => true),
+            'city_id'   => array('int', 'presence' => 'required', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);

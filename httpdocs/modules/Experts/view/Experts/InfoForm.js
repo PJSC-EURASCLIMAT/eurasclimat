@@ -84,7 +84,7 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
                 text: 'Сохранить',
                 formBind: true,
                 scope: this,
-                handler: this.editExpert
+                action: 'save'
             }
             ,'->',
             {
@@ -104,29 +104,6 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
     },
 
 
-    editExpert: function() {
 
-        this.getForm().submit({
-            url: this.editExpertURL,
-            success: function(form, action) {
-                Ext.Msg.alert('Ответ системы',
-                    '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-                }
-            },
-            scope: this
-        });
-
-    }
 
 });

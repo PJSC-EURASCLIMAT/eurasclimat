@@ -101,7 +101,7 @@ Ext.define('EC.PA.controller.Profile', {
         }
 
         this.profileWin = Ext.create('EC.PA.view.Profile',{
-            getFilesURL: this.getExpertDocsURL,
+//            getFilesURL: this.getExpertDocsURL,
             data: this.account,
             listeners: {
                 close: function() {
@@ -112,38 +112,45 @@ Ext.define('EC.PA.controller.Profile', {
 
         this.profileWin.down('button#showEditFormBtn').on('click',this.showEditForm,this);
         this.profileWin.down('button#makeExpertFromMe').on('click',this.addExpert,this);
-
         this.profileWin.show();
     },
 
-    //TODO доделать добавление эксперта
-
     addExpert: function(fromCurrent) {
+        var me = this;
 
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{
-            fromCurrent: true,
-            hideFiles: true
+        var view = Ext.create('EC.Experts.view.Experts.InfoForm',{
+            data: this.account,
+            header: false,
+            listeners: {
+                close: function() {
+                    me.addExpertWin = null;
+                }
+            }
         });
+
+        view.down('[name=account_id]').hide();
+
+        this.addExpertWin = Ext.create('Ext.window.Window', {
+            title: 'Стать специалистом',
+            width: 400,
+            height: 350,
+            layout: 'fit'
+        });
+
+        this.addExpertWin.add(view);
+        this.addExpertWin.show();
 
         view.down('button[action=save]').on({
             click: function() {
-                var form = view.down('form');
-                form.submit({
+                view.getForm().submit({
                     url: this.addExpertURL,
                     success: function(form, action) {
                         Ext.Msg.alert('Ответ системы',
                             '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
-
-                        var expert_id = parseInt(Ext.JSON.decode(action.response.responseText).data);
-                        this.account.expert_id  = expert_id;
-
-                        var win = this.profileWin;
-
-                        view.close();
-                        win.down('#makeExpertFromMe').hide();
-                        win.down("#editExpertProfile").show();
+                        this.profileWin.down('#makeExpertFromMe').hide();
+//                        this.profileWin.down("#showEditFormBtn").show();
                         this.refreshData();
-
+                        this.addExpertWin.close();
                     },
                     failure: function(form, action) {
                         switch (action.failureType) {
@@ -180,8 +187,8 @@ Ext.define('EC.PA.controller.Profile', {
             scope: this
         });
 
+        this.editProfileWin.down('experts-info-edit-form')
         this.editProfileWin.show();
-
     }
 
 });

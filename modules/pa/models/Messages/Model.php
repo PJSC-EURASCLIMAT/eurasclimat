@@ -157,10 +157,6 @@ class PA_Messages_Model
     {
         $config = Zend_Registry::get('config');
 
-//        $receiver_name = 'Андрей';
-//        $receiver_email = 'ansinyutin@yandex.ru';
-//        $sender_name = 'Валера';
-
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>Вам пришло новое сообщение от пользователя '.$sender_name.':</p><p>'.$message.'</p>');
         $mail->setFrom($config->mail->from->address, $config->company->name);

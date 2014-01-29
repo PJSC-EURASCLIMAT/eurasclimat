@@ -64,6 +64,8 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             {
                 xtype: 'textfield',
                 fieldLabel: 'Рейтинг',
+                hidden: this.fromCurrent,
+                allowBlank: true,
                 name: 'rating'
             },
             {

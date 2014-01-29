@@ -72,6 +72,8 @@ class PA_ProfileController extends Xend_Controller_Action
         $data['id'] = $expertId;
         $data['account_id'] = $id;
 
+        unset($data['rating']);
+
         $response = $this->_expertsModel->update($data);
 
 
@@ -92,6 +94,8 @@ class PA_ProfileController extends Xend_Controller_Action
 
         $data['account_id'] = $id;
         $data['author_id'] = $id;
+        unset($data['rating']);
+
         $response = $this->_expertsModel->add($data);
 
         if ($response->isError()) {
@@ -138,7 +142,8 @@ class PA_ProfileController extends Xend_Controller_Action
 
     public function uploadExpertDocAction()
     {
-        $expert_id = intval($this->_getParam('expert_id'));
+        $id = Xend_Accounts_Prototype::getId();
+        $expert_id = $this->_expertsModel->getExpertIdByAccountId($id);
 
         $data['expert_id'] = $expert_id;
 
@@ -176,7 +181,8 @@ class PA_ProfileController extends Xend_Controller_Action
 
     public function getExpertDocsAction()
     {
-        $expert_id = intval($this->_getParam('expert_id'));
+        $id = Xend_Accounts_Prototype::getId();
+        $expert_id = $this->_expertsModel->getExpertIdByAccountId($id);
 
         if ($expert_id == 0) {
             $response = new Xend_Response();

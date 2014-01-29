@@ -18,7 +18,6 @@ Ext.define('EC.Experts.view.Experts.FilesList', {
 
     hideHeaders: true,
 
-
     columns: [
         {
             xtype: 'templatecolumn',
@@ -68,6 +67,12 @@ Ext.define('EC.Experts.view.Experts.FilesList', {
     ],
 
     initComponent: function() {
+
+        if (Ext.isEmpty(this.data)) {
+            this.hidden = true;
+            this.callParent(arguments);
+            return;
+        }
 
         if (!Ext.isEmpty(this.getExpertDocsURL)) {
             this.store = Ext.create('Ext.data.Store', {

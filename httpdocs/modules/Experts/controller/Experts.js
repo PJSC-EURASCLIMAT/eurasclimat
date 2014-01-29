@@ -27,6 +27,8 @@ Ext.define('EC.Experts.controller.Experts', {
 
     activateURL: '/json/experts/experts/activate',
 
+    deleteURL: '/json/experts/experts/delete',
+
     refNames: {
         'rating': 'Рейтинг специалистов',
         'equipment': 'Типы инженерного оборудования специалистов',
@@ -60,7 +62,7 @@ Ext.define('EC.Experts.controller.Experts', {
 
             grid.down('button[action=additem]').on({
                 click: function(){
-                    this.addItem(false);
+                    this.addItem();
                 },
                 scope: this
             });
@@ -160,9 +162,9 @@ Ext.define('EC.Experts.controller.Experts', {
         container.show();
     },
 
-    addItem: function(fromCurrent) {
+    addItem: function() {
         
-        var view = Ext.create('EC.Experts.view.Experts.Edit',{fromCurrent: fromCurrent});
+        var view = Ext.create('EC.Experts.view.Experts.Edit');
         
         view.down('button[action=save]').on({
             click: function() {

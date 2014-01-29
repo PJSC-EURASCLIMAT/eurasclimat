@@ -110,7 +110,7 @@ class Experts_Experts_Model
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
-            'rating'        => array('StringLength'),
+            'rating'        => array('StringLength', 'allowEmpty' => true),
             'experience'    => array('StringLength'),
 //            'active'        => array('int', 'presence' => 'required'),
         ), $data);
@@ -188,7 +188,7 @@ class Experts_Experts_Model
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
-            'rating'        => array('StringLength'),
+            'rating'        => array('StringLength', 'allowEmpty' => true),
             'experience'    => array('StringLength'),
         ), $data);
 

@@ -16,8 +16,6 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     height: 400,
 
-    fromCurrent: false,
-
     hideFiles: true,
 
     getFilesURL: null,

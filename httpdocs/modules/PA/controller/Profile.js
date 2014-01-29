@@ -121,14 +121,13 @@ Ext.define('EC.PA.controller.Profile', {
         var view = Ext.create('EC.Experts.view.Experts.InfoForm',{
             data: this.account,
             header: false,
+            fromCurrent: true,
             listeners: {
                 close: function() {
                     me.addExpertWin = null;
                 }
             }
         });
-
-        view.down('[name=account_id]').hide();
 
         this.addExpertWin = Ext.create('Ext.window.Window', {
             title: 'Стать специалистом',

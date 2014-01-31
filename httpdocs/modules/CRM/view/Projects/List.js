@@ -10,6 +10,12 @@ Ext.define('EC.CRM.view.Projects.List', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
+    columnLines: true,
+    
+    enableColumnHide: false,
+    
+    enableColumnMove: false,
+    
     requires: [
         'Ext.grid.feature.Grouping'
     ],
@@ -57,20 +63,28 @@ Ext.define('EC.CRM.view.Projects.List', {
         }, {
             text: 'Формирование',
             columns: [{
+                xtype: 'datecolumn',
+                format: 'd.m.Y',
                 text: 'Подготовка',
-                xtype: 'datecolumn'
+                dataIndex: 'preparation'
             }, {
+                xtype: 'datecolumn',
+                format: 'd.m.Y',
                 text: 'Согласование',
-                xtype: 'datecolumn'
+                dataIndex: 'coordination'
             }]
         }, {
             text: 'Исполнение',
             columns: [{
+                xtype: 'datecolumn',
+                format: 'd.m.Y',
                 text: 'Выполнение',
-                xtype: 'datecolumn'
+                dataIndex: 'execution'
             }, {
+                xtype: 'datecolumn',
+                format: 'd.m.Y',
                 text: 'Внедрение',
-                xtype: 'datecolumn'
+                dataIndex: 'implementation'
             }]
         }, {
             header: 'Менеджер проекта',

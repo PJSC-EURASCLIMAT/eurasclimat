@@ -20,24 +20,24 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
     initComponent: function() {
         
         this.items = [{
-                xtype: 'hidden',
-                name: 'id'
-            }, {
-                xtype: 'projectsGroupsCombo',
-                fieldLabel: 'Группа',
-                name: 'group_id'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Имя',
-                name: 'name'
-            }, {
-                xtype: 'displayfield',
-                fieldLabel: 'Дата создания',
-                value: Ext.util.Format.date(Date(), 'd.m.Y')
-            }, {
-                xtype: 'displayfield',
-                fieldLabel: 'Инициатор',
-                value: xlib.Acl.Storage.getIdentity().name
+            xtype: 'hidden',
+            name: 'id'
+        }, {
+            xtype: 'projectsGroupsCombo',
+            fieldLabel: 'Группа',
+            name: 'group_id'
+        }, {
+            xtype: 'textfield',
+            fieldLabel: 'Имя',
+            name: 'name'
+        }, {
+            xtype: 'displayfield',
+            fieldLabel: 'Дата создания',
+            value: Ext.util.Format.date(Date(), 'd.m.Y')
+        }, {
+            xtype: 'displayfield',
+            fieldLabel: 'Инициатор',
+            value: xlib.Acl.Storage.getIdentity().name
         }];
 
         this.bbar = ['->', {

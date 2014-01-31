@@ -9,6 +9,10 @@ class Crm_Projects_Table extends Xend_Db_Table_Abstract
     protected $_name = 'crm_projects';
 
     protected $_nullableFields = array(
-        'creator_id'
+        'creator_id',
+        'preparation',
+        'coordination',
+        'execution',
+        'implementation'
     );
 }

@@ -17,19 +17,11 @@ class Crm_Projects_Model
         $groupsTable = new Crm_Projects_Groups_Table();
 
         $select = $this->_table->getAdapter()->select()
-            ->from(array('p' => $this->_table->getTableName()), array(
-                'id'            => 'p.id',
-                'group_id'      => 'p.group_id',
-                'group_name'    => 'g.name',
-                'name'          => 'p.name',
-                'created_date'  => 'p.created_date',
-                'creator_id'    => 'p.creator_id',
-                'creator_name'  => 'a.name'
-            ))
+            ->from(array('p' => $this->_table->getTableName()))
             ->joinLeft(array('a' => $accountsTable->getTableName()),
-                'a.id=p.creator_id', array())
+                'a.id=p.creator_id', array('creator_name'  => 'a.name'))
             ->join(array('g' => $groupsTable->getTableName()),
-                'g.id=p.group_id', array());
+                'g.id=p.group_id', array('group_name'    => 'g.name'));
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -96,7 +88,40 @@ class Crm_Projects_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    public function update(array $params)
+    public function delete($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function getBaseDescr($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $row = $this->_table->findOne($id);
+        if (!$row) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+        $response->setRow($row->toArray());
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function updateBaseDescr(array $params)
     {
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
@@ -123,7 +148,7 @@ class Crm_Projects_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function delete($id)
+    public function getPlans($id)
     {
         $id = intval($id);
         $response = new Xend_Response();
@@ -131,11 +156,36 @@ class Crm_Projects_Model
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
-        $res = $this->_table->deleteByPk($id);
-        if (false === $res) {
+
+        $row = $this->_table->findOne($id);
+        if (!$row) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
-
+        $response->setRow($row->toArray());
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function updatePlans(array $params)
+    {
+        $f = new Xend_Filter_Input(array(
+            '*'         => 'StringTrim'
+        ), array(
+            'id'                => array('Id', 'presence' => 'required'),
+            'preparation'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'coordination'      => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'execution'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'implementation'    => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ), $params);
+
+        $response = new Xend_Response();
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
     }
 }

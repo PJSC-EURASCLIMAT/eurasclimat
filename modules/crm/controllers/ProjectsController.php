@@ -18,10 +18,12 @@ class Crm_ProjectsController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->projects);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-base-descr');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-base-descr');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-plans');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-plans');
     }
 
     public function getListAction()
@@ -36,17 +38,6 @@ class Crm_ProjectsController extends Xend_Controller_Action
         }
     }
 
-    public function getAction()
-    {
-        $response = $this->_model->get($this->_getParam('id'));
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->data = $response->getRow();
-        } else {
-           $this->_collectErrors($response);
-        }
-    }
-
     public function addAction()
     {
         $response = $this->_model->add($this->_getAllParams());
@@ -58,9 +49,10 @@ class Crm_ProjectsController extends Xend_Controller_Action
         }
     }
 
-    public function updateAction()
+    public function deleteAction()
     {
-        $response = $this->_model->update($this->_getAllParams());
+        $id = intval($this->_getParam('id'));
+        $response = $this->_model->delete($id);
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {
@@ -68,10 +60,41 @@ class Crm_ProjectsController extends Xend_Controller_Action
         }
     }
 
-    public function deleteAction()
+    public function getBaseDescrAction()
     {
-        $id = intval($this->_getParam('id'));
-        $response = $this->_model->delete($id);
+        $response = $this->_model->getBaseDescr($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRow();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updateBaseDescrAction()
+    {
+        $response = $this->_model->updateBaseDescr($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function getPlansAction()
+    {
+        $response = $this->_model->getPlans($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRow();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updatePlansAction()
+    {
+        $response = $this->_model->updatePlans($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

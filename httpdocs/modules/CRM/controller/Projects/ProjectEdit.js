@@ -15,6 +15,7 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     views: [
         'EC.CRM.view.Projects.EditLayout',
         'EC.CRM.view.Projects.BaseDescr',
+        'EC.CRM.view.Projects.Plans',
         'EC.CRM.view.Projects.Groups.Combo'
     ],
     
@@ -29,11 +30,13 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    editURL: '/json/crm/projects/update',
+    getBaseDescrURL: '/json/crm/projects/get-base-descr',
     
-    getBaseDescrURL: '/json/crm/projects/get',
+    updateBaseDescrURL: '/json/crm/projects/update-base-descr',
     
-    updateBaseDescrURL: '/json/crm/projects/update',
+    getPlansURL: '/json/crm/projects/get-plans',
+    
+    updatePlansURL: '/json/crm/projects/update-plans',
     
     run: function(container) {
 
@@ -55,16 +58,17 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         configurator.projectID = this.projectID;
         configurator.run(this.Container.down('#configuratorPanel'));
         
-        var baseDescrPanel = this.Container.down('#baseDescrPanel');
-        var baseDescrForm = baseDescrPanel.add(Ext.create('EC.CRM.view.Projects.BaseDescr', {
-            url: this.updateBaseDescrURL
-        }));
-        
+        var baseDescrForm = this.Container.down('#baseDescrPanel').add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
         baseDescrForm.down('button[action=save]').on('click', function() {
-            this.updateItem(baseDescrForm.getForm());
+            this.updateItem(baseDescrForm.getForm(), this.updateBaseDescrURL);
         }, this);
-        
         baseDescrForm.getForm().load({url: this.getBaseDescrURL, params: {id: this.projectID}});
+        
+        var plansForm = this.Container.down('#plansPanel').add(Ext.create('EC.CRM.view.Projects.Plans'));
+        plansForm.down('button[action=save]').on('click', function() {
+            this.updateItem(plansForm.getForm(), this.updatePlansURL);
+        }, this);
+        plansForm.getForm().load({url: this.getPlansURL, params: {id: this.projectID}});
         
         var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
         discussionsController.cur_project_id = this.projectID;
@@ -77,10 +81,11 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         docsController.run(docsPanel);
     },
 
-    updateItem: function(form) {
+    updateItem: function(form, url) {
         
         form.submit({
-            url: this.updateBaseDescrURL,
+            url: url,
+            params: {id: this.projectID},
             success: function(form, action) {
                 this.fireEvent('itemSaved');
                 Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');

@@ -9,6 +9,10 @@ Ext.define('EC.CRM.model.Projects.Projects', {
         'name',
         'created_date',
         'creator_id',
-        'creator_name'
+        'creator_name',
+        'preparation',
+        'coordination',
+        'execution',
+        'implementation'
     ]
 });

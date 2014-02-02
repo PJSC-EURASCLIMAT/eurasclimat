@@ -14,6 +14,7 @@ class Experts_Experts_Model
         $this->_table = new Experts_Experts_Table();
         $this->_accountsModel = new Xend_Accounts();
         $this->_messagesModel = new PA_Messages_Model();
+        $this->_docsModel = new Experts_ExpertsDocs_Model();
     }
 
     public function activate($data)
@@ -101,7 +102,7 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
-            'rating'        => 'StringTrim',
+            'rating'        => 'int',
             'experience'    => 'StringTrim',
 //            'active'        => 'int',
         ), array(
@@ -110,7 +111,7 @@ class Experts_Experts_Model
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
-            'rating'        => array('StringLength', 'allowEmpty' => true),
+            'rating'        => array('int', 'allowEmpty' => true),
             'experience'    => array('StringLength'),
 //            'active'        => array('int', 'presence' => 'required'),
         ), $data);
@@ -182,13 +183,13 @@ class Experts_Experts_Model
             'desc'          => 'StringTrim',
             'status_id'     => 'int',
             'equip_id'      => 'int',
-            'rating'        => 'StringTrim',
+            'rating'        => 'int',
         ), array(
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
-            'rating'        => array('StringLength', 'allowEmpty' => true),
+            'rating'        => array('int', 'allowEmpty' => true),
             'experience'    => array('StringLength'),
         ), $data);
 
@@ -238,6 +239,21 @@ class Experts_Experts_Model
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
+        //Удалние всех документов эксперта
+        $docsResponse = $this->_docsModel->getByExpert($id);
+        if (!$docsResponse->isSuccess()) {
+            return $docsResponse;
+        }
+        $docs = $docsResponse->getRowset();
+        for ($i = 0; $i < count($docs); $i++ ) {
+            $doc = $docs[$i];
+            $deleteDocResponse = $this->_docsModel->delete($doc);
+            if (!$deleteDocResponse ->isSuccess()) {
+                return $deleteDocResponse ;
+            }
+        }
+
+        //Удалние самого эксперта
         $res = $this->_table->deleteByPk($id);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
@@ -247,6 +263,74 @@ class Experts_Experts_Model
     }
 
     public function get($id)
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('e' => $this->_table->getTableName()),
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array(
+                    'name' => 'a.name',
+                    'login' => 'a.login'
+                )
+            )
+            ->joinLeft(
+                array('st' => 'experts_statuses'),
+                'st.id=e.status_id',
+                array('status' => 'st.name')
+            )
+            ->joinLeft(
+                array('eq' => 'experts_equipment'),
+                'eq.id=e.equip_id',
+                array('equipment' => 'eq.name')
+            )
+            ->joinLeft(
+                array('c' => 'cities'),
+                'c.id=a.city_id',
+                array(
+                    'city' => 'c.name',
+                    'city_id' => 'c.id'
+                )
+            )
+            ->joinLeft(
+                array('co' => 'countries'),
+                'co.id=c.country_id',
+                array(
+                    'country' => 'co.name',
+                    'country_id' => 'co.id'
+                )
+            )
+            ->where("e.id = ?", $id)
+            ->limit(1);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if(count($rows) == 0) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $avatar_path = IMAGES_DIR . DIRECTORY_SEPARATOR . 'users' . DIRECTORY_SEPARATOR . $rows[0]['account_id'] . '.jpg';
+            $rows[0]['have_avatar'] = (file_exists($avatar_path)) ? 1 : 0;
+
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+
+        return $response->addStatus(new Xend_Status($status));
+    }
+
+    public function getJobTypes($id)
     {
         $response = new Xend_Response();
 

@@ -15,10 +15,16 @@ class PA_ProfileController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'register-expert');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert-job-types');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'get-expert-job-types');
 
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-expert-doc');
+
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-job-types');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-expert-job-type');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-job-type');
 
     }
 
@@ -27,6 +33,8 @@ class PA_ProfileController extends Xend_Controller_Action
         $this->_model = new PA_Profile();
         $this->_expertsModel = new Experts_Experts_Model();
         $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
+        $this->_expertsJobTypesModel = new Experts_ExpertsJobTypes_Model();
+        $this->_experts2JTModel = new Experts_Experts2JobTypes_Model();
 
         parent::init();
     }
@@ -70,6 +78,31 @@ class PA_ProfileController extends Xend_Controller_Action
 
         $expertId = $this->_expertsModel->getExpertIdByAccountId($id);
         $data['id'] = $expertId;
+        $data['account_id'] = $id;
+
+        unset($data['rating']);
+
+        $response = $this->_expertsModel->update($data);
+
+
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        $this->view->data = $response->getRowSet();
+        $this->view->success = true;
+    }
+
+    public function editExpertJobTypesAction()
+    {
+        $auth = Zend_Auth::getInstance();
+        $Identity = $auth->getIdentity();
+        $id = (null == $Identity) ? 0 : intval($Identity->id);
+
+        $data = $this->_getAllParams();
+
+        $expertId = $this->_expertsModel->getExpertIdByAccountId($id);
+        $data['expert_id'] = $expertId;
         $data['account_id'] = $id;
 
         unset($data['rating']);
@@ -199,6 +232,63 @@ class PA_ProfileController extends Xend_Controller_Action
             $this->view->total = $response->totalCount;
         } else {
             $this->_collectErrors($response);
+        }
+    }
+
+    public function getExpertJobTypesAction()
+    {
+        $id = Xend_Accounts_Prototype::getId();
+        $expert_id = $this->_expertsModel->getExpertIdByAccountId($id);
+
+        if ($expert_id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $response = $this->_expertsJobTypesModel->getByExpertId($expert_id);
+
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+            $this->view->total = $response->totalCount;
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function addExpertJobTypeAction()
+    {
+        $data = $this->_getAllParams();
+
+        $account_id = Xend_Accounts_Prototype::getId();
+        $data['expert_id'] = $this->_expertsModel->getExpertIdByAccountId($account_id);
+
+        $modResponse = $this->_experts2JTModel->add($data);
+
+        if ($modResponse->hasNotSuccess()) {
+            $this->_collectErrors($modResponse);
+            return;
+        } else {
+            $this->view->success = true;
+            $this->view->id = $modResponse->id;
+        }
+
+    }
+
+    public function deleteExpertJobTypeAction()
+    {
+        $data = $this->_getAllParams();
+
+        $account_id = Xend_Accounts_Prototype::getId();
+        $data['expert_id'] = $this->_expertsModel->getExpertIdByAccountId($account_id);
+
+        $deleteResponse = $this->_experts2JTModel->delete($data);
+        if ($deleteResponse->isSuccess()) {
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($deleteResponse);
         }
     }
 }

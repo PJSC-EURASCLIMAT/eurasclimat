@@ -46,6 +46,12 @@ Ext.define('EC.PA.view.EditProfile', {
 
     getExpertDocsURL: '/json/pa/profile/get-expert-docs',
 
+    addExpertJobTypesURL: 'json/pa/profile/add-expert-job-type',
+
+    deleteExpertJobTypesURL: 'json/pa/profile/delete-expert-job-type',
+
+    getExpertJobTypesURL: 'json/pa/profile/get-expert-job-types',
+
     initComponent: function() {
 
         this.items = [
@@ -144,6 +150,9 @@ Ext.define('EC.PA.view.EditProfile', {
                         xtype: 'experts-info-edit-form',
                         fromCurrent: true,
                         hidden: this.hideExpert,
+                        addExpertJobTypesURL: this.addExpertJobTypesURL,
+                        deleteExpertJobTypesURL: this.deleteExpertJobTypesURL,
+                        getExpertJobTypesURL: this.getExpertJobTypesURL,
                         data: this.data.expert_info
                     },
                     {

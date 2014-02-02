@@ -10,6 +10,8 @@ class Experts_ExpertsController extends Xend_Controller_Action
     {
         $this->_model = new Experts_Experts_Model();
         $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
+        $this->_expertsJobTypesModel = new Experts_ExpertsJobTypes_Model();
+        $this->_experts2JTModel = new Experts_Experts2JobTypes_Model();
 
         parent::init();
     }
@@ -27,6 +29,10 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'upload-expert-doc');
+
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-job-types');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-expert-job-type');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-job-type');
 
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-active-list');
@@ -182,6 +188,56 @@ class Experts_ExpertsController extends Xend_Controller_Action
             $this->view->total = $response->totalCount;
         } else {
             $this->_collectErrors($response);
+        }
+    }
+
+    public function getExpertJobTypesAction()
+    {
+        $expert_id = intval($this->_getParam('expert_id'));
+
+        if ($expert_id == 0) {
+            $response = new Xend_Response();
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
+            $this->_collectErrors($response);
+            return;
+        }
+
+        $response = $this->_expertsJobTypesModel->getByExpertId($expert_id);
+
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+            $this->view->total = $response->totalCount;
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function addExpertJobTypeAction()
+    {
+        $data = $this->_getAllParams();
+
+        $modResponse = $this->_experts2JTModel->add($data);
+
+        if ($modResponse->hasNotSuccess()) {
+            $this->_collectErrors($modResponse);
+            return;
+        } else {
+            $this->view->success = true;
+            $this->view->id = $modResponse->id;
+        }
+
+    }
+
+    public function deleteExpertJobTypeAction()
+    {
+        $data = $this->_getAllParams();
+
+        $deleteResponse = $this->_experts2JTModel->delete($data);
+        if ($deleteResponse->isSuccess()) {
+            $this->view->success = true;
+        } else {
+            $this->_collectErrors($deleteResponse);
         }
     }
 

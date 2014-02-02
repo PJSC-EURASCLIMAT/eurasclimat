@@ -12,11 +12,11 @@ class Experts_RefTable extends Xend_Db_Table_Abstract
         parent::__construct();
 
     }
-    /**
-     * Table name
-     * @var string
-     */
-    protected $_name = 'experts_rating';
+//    /**
+//     * Table name
+//     * @var string
+//     */
+//    protected $_name = 'experts_rating';
 
     protected $_nullableFields = array(
         'name',

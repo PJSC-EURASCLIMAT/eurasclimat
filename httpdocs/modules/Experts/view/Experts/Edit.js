@@ -33,6 +33,13 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     getExpertDocsURL: '/json/experts/experts/get-expert-docs',
 
+    addExpertJobTypesURL: 'json/experts/experts/add-expert-job-type',
+
+    deleteExpertJobTypesURL: 'json/experts/experts/delete-expert-job-type',
+
+    getExpertJobTypesURL: 'json/experts/experts/get-expert-job-types',
+
+
     initComponent: function() {
 
         this.items = [
@@ -41,6 +48,9 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                 items: [
                     {
                         xtype: 'experts-info-edit-form',
+                        addExpertJobTypesURL: this.addExpertJobTypesURL,
+                        deleteExpertJobTypesURL: this.deleteExpertJobTypesURL,
+                        getExpertJobTypesURL: this.getExpertJobTypesURL,
                         data: this.data
                     },
                     {

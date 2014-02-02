@@ -119,7 +119,6 @@ Ext.define('EC.PA.controller.Profile', {
         var me = this;
 
         var view = Ext.create('EC.Experts.view.Experts.InfoForm',{
-            data: this.account,
             header: false,
             fromCurrent: true,
             listeners: {

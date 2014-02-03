@@ -15,8 +15,8 @@ class PA_ProfileController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'change-password');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'register-expert');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert-job-types');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'get-expert-job-types');
+//        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-expert-job-types');
+//        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'get-expert-job-types');
 
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-expert-docs');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-doc');
@@ -81,6 +81,7 @@ class PA_ProfileController extends Xend_Controller_Action
         $data['account_id'] = $id;
 
         unset($data['rating']);
+        unset($data['sert_count']);
 
         $response = $this->_expertsModel->update($data);
 
@@ -106,6 +107,7 @@ class PA_ProfileController extends Xend_Controller_Action
         $data['account_id'] = $id;
 
         unset($data['rating']);
+        unset($data['sert_count']);
 
         $response = $this->_expertsModel->update($data);
 
@@ -128,6 +130,7 @@ class PA_ProfileController extends Xend_Controller_Action
         $data['account_id'] = $id;
         $data['author_id'] = $id;
         unset($data['rating']);
+        unset($data['sert_count']);
 
         $response = $this->_expertsModel->add($data);
 

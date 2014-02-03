@@ -72,7 +72,9 @@ class PA_Profile
                     'expert_equip_id' => 'ex.equip_id',
                     'expert_desc' => 'ex.desc',
                     'expert_rating' => 'ex.rating',
-                    'expert_experience' => 'ex.experience',
+                    'expert_work_years' => 'ex.work_years',
+                    'expert_study_years' => 'ex.study_years',
+                    'expert_sert_count' => 'ex.sert_count',
                 )
             )
             ->joinLeft(
@@ -99,10 +101,14 @@ class PA_Profile
             $rowset['expert_info'] = array(
                 'id'         => $rowset['expert_id'],
                 'status_id'  => $rowset['expert_status_id'],
+                'status'     => $rowset['expert_status'],
                 'equip_id'   => $rowset['expert_equip_id'],
+                'equipment'  => $rowset['expert_equipment'],
                 'desc'       => $rowset['expert_desc'],
                 'rating'     => $rowset['expert_rating'],
-                'experience' => $rowset['expert_experience'],
+                'work_years' => $rowset['expert_work_years'],
+                'study_years'=> $rowset['expert_study_years'],
+                'sert_count' => $rowset['expert_sert_count'],
             );
 
 

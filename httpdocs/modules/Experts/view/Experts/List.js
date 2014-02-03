@@ -71,45 +71,6 @@ Ext.define('EC.Experts.view.Experts.List', {
                 dataIndex: 'equipment',
                 flex: .5
             }
-//            {
-//            header: 'Имя',
-//            xtype: 'templatecolumn',
-//            tpl: Ext.create('Ext.XTemplate',
-//                '<table width="100%" style="padding:10px" border="0">',
-//                '<tr valign="top">',
-//                '<td width="100">',
-//                '<tpl if="have_avatar == 1">',
-//                '<img src="images/users/{account_id}.jpg?{[this.dc()]}" width="100" style="float: left;margin-right: 15px">',
-//                '<tpl else>',
-//                '<img src="http://placehold.it/100x100" style="float: left;margin-right: 15px"/>',
-//                '</tpl>',
-//                '</td>',
-//                '<td>',
-//                'ФИО: {name}<br/><br/>',
-//                'Email: {login}<br/><br/>',
-//                'г. {city}, {country}<br/><br/>',
-//                '</td>',
-//                '</tr>',
-//
-//                '<tr valign="top">',
-//                '<td colspan="2">',
-//                '<p><b>Специализация</b><p>',
-//                '<p>Тип инженерного оборудования: {equipment}</p>',
-//                '<p>Статус: {status}</p>',
-//                '<p>Описание: {[this.ellip(values.desc)]}</p>',
-//                '</td>',
-//                '</tr>',
-//                {
-//                    dc: function() {
-//                        return new Date().getTime();
-//                    }
-//                    ,ellip: function (value) {
-//                        return Ext.String.ellipsis(value, 100);
-//                    }
-//                }
-//            ),
-//            flex: .5
-//        }
         ];
 
         if (this.permissions === true && this.activeOnly === false) {
@@ -173,7 +134,6 @@ Ext.define('EC.Experts.view.Experts.List', {
                 text: 'Настойки',
                 menu: [
                     {
-//                    xtype: 'button',
                         text: 'Типы инж. оборудования',
                         icon: '/images/icons/fam/plugin.gif',
                         iconCls: 'x-btn',
@@ -182,19 +142,8 @@ Ext.define('EC.Experts.view.Experts.List', {
                         handler: function() {
                             this.fireEvent('openref','equipment');
                         }
-                    },{
-//                    xtype: 'button',
-                        text: 'Опыт',
-                        icon: '/images/icons/fam/plugin.gif',
-                        iconCls: 'x-btn',
-                        hidden: !this.permissions,
-                        disabled: true,
-                        scope: this,
-                        handler: function() {
-                            this.fireEvent('openref','experience');
-                        }
-                    },{
-//                    xtype: 'button',
+                    },
+                    {
                         text: 'Типы деятельности',
                         icon: '/images/icons/fam/plugin.gif',
                         iconCls: 'x-btn',
@@ -204,7 +153,6 @@ Ext.define('EC.Experts.view.Experts.List', {
                             this.fireEvent('openref','job_types');
                         }
                     },{
-//                    xtype: 'button',
                         text: 'Рейтинг',
                         icon: '/images/icons/fam/plugin.gif',
                         iconCls: 'x-btn',
@@ -214,7 +162,6 @@ Ext.define('EC.Experts.view.Experts.List', {
                             this.fireEvent('openref','rating');
                         }
                     },{
-//                    xtype: 'button',
                         text: 'Статусы',
                         icon: '/images/icons/fam/plugin.gif',
                         iconCls: 'x-btn',
@@ -255,6 +202,9 @@ Ext.define('EC.Experts.view.Experts.List', {
             xtype: 'button',
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',
+            handler: function() {
+                this.up('grid').getStore().load();
+            },
             action: 'refresh'
         });
 

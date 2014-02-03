@@ -103,8 +103,9 @@ class Experts_Experts_Model
             'status_id'     => 'int',
             'equip_id'      => 'int',
             'rating'        => 'int',
-            'experience'    => 'StringTrim',
-//            'active'        => 'int',
+            'work_years'    => 'int',
+            'study_years'   => 'int',
+            'sert_count'    => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'account_id'    => array('Id', 'allowEmpty' => false),
@@ -112,8 +113,9 @@ class Experts_Experts_Model
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
             'rating'        => array('int', 'allowEmpty' => true),
-            'experience'    => array('StringLength'),
-//            'active'        => array('int', 'presence' => 'required'),
+            'work_years'    => array('int', 'allowEmpty' => true),
+            'study_years'   => array('int', 'allowEmpty' => true),
+            'sert_count'    => array('int', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);
@@ -184,13 +186,18 @@ class Experts_Experts_Model
             'status_id'     => 'int',
             'equip_id'      => 'int',
             'rating'        => 'int',
+            'work_years'    => 'int',
+            'study_years'   => 'int',
+            'sert_count'    => 'int',
         ), array(
             'account_id'    => array('Id', 'allowEmpty' => false),
             'desc'          => array('StringLength'),
             'status_id'     => array('Id', 'allowEmpty' => true),
             'equip_id'      => array('Id', 'allowEmpty' => true),
             'rating'        => array('int', 'allowEmpty' => true),
-            'experience'    => array('StringLength'),
+            'work_years'    => array('int', 'allowEmpty' => true),
+            'study_years'   => array('int', 'allowEmpty' => true),
+            'sert_count'    => array('int', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);
@@ -269,7 +276,9 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id',
+                    'e.equip_id', 'e.active', 'e.rating', 'e.rating',
+                    'e.work_years', 'e.study_years','e.sert_count')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -337,7 +346,8 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active',
+                    'e.rating', 'e.work_years', 'e.study_years','e.sert_count')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -405,7 +415,8 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active',
+                    'e.rating', 'e.work_years', 'e.study_years','e.sert_count')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -464,7 +475,8 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active',
+                    'e.rating', 'e.work_years', 'e.study_years','e.sert_count')
             )
             ->joinLeft(
                 array('a' => 'accounts'),
@@ -535,7 +547,8 @@ class Experts_Experts_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('e' => $this->_table->getTableName()),
-                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active', 'e.experience', 'e.rating')
+                array( 'e.id', 'e.account_id', 'e.desc', 'e.status_id', 'e.equip_id', 'e.active',
+                    'e.rating', 'e.work_years', 'e.study_years','e.sert_count')
             )
             ->joinLeft(
                 array('a' => 'accounts'),

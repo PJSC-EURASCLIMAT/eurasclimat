@@ -42,32 +42,24 @@ Ext.define('EC.Experts.controller.Experts', {
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
-        var grid = container.add(Ext.create('EC.Experts.view.Experts.List', {
-            permissions: this.permissions,
-            store: 'EC.Experts.store.Experts'
+        this.layout = container.add(Ext.create('EC.Experts.view.Experts.Layout', {
+            permissions: this.permissions
         }));
 
-        this.grid = grid;
+        this.grid = this.layout.down('#list');
 
-        grid.down('button[action=refresh]').on({
-            click: function() {
-                grid.getStore().load();
-            },
-            scope: this
-        });
+        this.grid.store.load();
 
-        grid.store.load();
-        
         if (this.permissions) {
 
-            grid.down('button[action=additem]').on({
+            this.grid.down('button[action=additem]').on({
                 click: function(){
                     this.addItem();
                 },
                 scope: this
             });
-            
-            grid.on({
+
+            this.grid.on({
                 edititem: this.editItem,
                 itemdblclick: function(grid, record) {
                     this.showItem(record.get('id'));
@@ -86,8 +78,8 @@ Ext.define('EC.Experts.controller.Experts', {
             }, this);
         }
 
-        grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, grid);
-        grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, grid);
+        this.grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, this.grid);
+        this.grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, this.grid);
     },
 
 

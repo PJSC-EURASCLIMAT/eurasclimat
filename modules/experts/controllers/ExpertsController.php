@@ -34,6 +34,11 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-expert-job-type');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-expert-job-type');
 
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-equipment');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-status');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-rating');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-job-types');
+
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-active-list');
     }
@@ -240,5 +245,102 @@ class Experts_ExpertsController extends Xend_Controller_Action
             $this->_collectErrors($deleteResponse);
         }
     }
+
+//    ФИЛЬТРЫ
+    //TODO проверить могут ли обычные юзеры на главной фильтровать
+    public function filterEquipmentAction()
+    {
+        $equip_id = $this->_getParam('id');
+
+        $where = array('e.equip_id = ?', $equip_id);
+
+        $response = $this->_model->getAll($where);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function filterStatusAction()
+    {
+        $id = $this->_getParam('id');
+
+        $where = array('e.status_id = ?', $id);
+
+        $response = $this->_model->getAll($where);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function filterRatingAction()
+    {
+        $id = $this->_getParam('id');
+        $map = array(
+            1 => array('e.equip_id = ?', 1),
+            2 => array('e.rating = ?', 2),
+            3 => array(new Zend_Db_Expr('e.rating > 2 AND e.rating <= 4'), null),
+            4 => array('e.rating = ?', 5),
+            5 => array('e.rating > 5', 5),
+            6 => array('e.rating > ?', 6),
+        );
+
+        $response = $this->_model->getAll($map[$id]);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function filterJobTypesAction()
+    {
+        $id = $this->_getParam('id');
+
+        $customJoin = array(
+            array('e2j' => 'experts2job_types'),
+            'e.id=e2j.expert_id',
+            null
+        );
+
+        $where = array('e2j.job_type_id = ?', $id);
+
+        $response = $this->_model->getAll($where, $customJoin);
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+//    public function filterExperienceAction()
+//    {
+//        $id = $this->_getParam('id');
+//
+//        $customJoin = array(
+//            array('e2j' => 'experts2job_types'),
+//            'e.id=e2j.expert_id',
+//            null
+//        );
+//
+//        $where = array('e2j.job_type_id = ?', $id);
+//
+//        $response = $this->_model->getAll($where, $customJoin);
+//        if ($response->isSuccess()) {
+//            $this->view->success = true;
+//            $this->view->data = $response->getRowset();
+//        } else {
+//            $this->_collectErrors($response);
+//        }
+//    }
+
+
 
 }

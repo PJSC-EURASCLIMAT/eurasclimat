@@ -468,7 +468,7 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function getAll($where)
+    public function getAll($where, $customJoin = null)
     {
         $response = new Xend_Response();
 
@@ -512,6 +512,10 @@ class Experts_Experts_Model
                     'country_id' => 'co.id'
                 )
             );
+
+            if (isset($customJoin)) {
+                $select->joinLeft($customJoin[0], $customJoin[1], $customJoin[2]);
+            }
 
             if (isset($where)) {
                 $select->where($where[0], $where[1]);

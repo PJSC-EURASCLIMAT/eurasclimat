@@ -20,7 +20,7 @@ Ext.define('EC.Experts.view.Experts.Layout', {
         this.items = [
             {
                 xtype: 'ExpertsFilterTree',
-                width: 200,
+                width: 300,
                 itemId: 'tree'
             },
             {

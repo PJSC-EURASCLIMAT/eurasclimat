@@ -58,22 +58,20 @@ Ext.define('EC.Experts.view.Experts.List', {
         var actions = [];
         this.tbar = [];
 
-        this.columns = [
-            {
-                header: 'ФИО',
-                xtype: 'templatecolumn',
-                tpl: '<a href="#/profile/{account_id}/show">{name}</a>',
-                flex: .5
-            }, {
-                header: 'Статус',
-                dataIndex: 'status',
-                flex: .5
-            }, {
-                header: 'Инж. оборудование',
-                dataIndex: 'equipment',
-                flex: .5
-            }
-        ];
+        this.columns = [{
+            header: 'ФИО',
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/profile/{account_id}/show">{name}</a>',
+            flex: .5
+        }, {
+            header: 'Статус',
+            dataIndex: 'status',
+            flex: .5
+        }, {
+            header: 'Инж. оборудование',
+            dataIndex: 'equipment',
+            flex: .5
+        }];
 
         if (this.permissions === true && this.activeOnly === false) {
 
@@ -134,47 +132,43 @@ Ext.define('EC.Experts.view.Experts.List', {
             }, {
                 xtype: 'button',
                 text: 'Настройки',
-                menu: [
-                    {
-                        text: 'Типы инж. оборудования',
-                        icon: '/images/icons/fam/plugin.gif',
-                        iconCls: 'x-btn',
-                        hidden: !this.permissions,
-                        scope: this,
-                        handler: function() {
-                            this.fireEvent('openref','equipment');
-                        }
-                    },
-                    {
-                        text: 'Типы деятельности',
-                        icon: '/images/icons/fam/plugin.gif',
-                        iconCls: 'x-btn',
-                        hidden: !this.permissions,
-                        scope: this,
-                        handler: function() {
-                            this.fireEvent('openref','job_types');
-                        }
-                    },{
-                        text: 'Рейтинг',
-                        icon: '/images/icons/fam/plugin.gif',
-                        iconCls: 'x-btn',
-                        hidden: !this.permissions,
-                        scope: this,
-                        handler: function() {
-                            this.fireEvent('openref','rating');
-                        }
-                    },{
-                        text: 'Статусы',
-                        icon: '/images/icons/fam/plugin.gif',
-                        iconCls: 'x-btn',
-                        hidden: !this.permissions,
-                        scope: this,
-                        handler: function() {
-                            this.fireEvent('openref','statuses');
-                        }
+                menu: [{
+                    text: 'Типы инж. оборудования',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','equipment');
                     }
-
-                ]
+                }, {
+                    text: 'Типы деятельности',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','job_types');
+                    }
+                }, {
+                    text: 'Рейтинг',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','rating');
+                    }
+                }, {
+                    text: 'Статусы',
+                    icon: '/images/icons/fam/plugin.gif',
+                    iconCls: 'x-btn',
+                    hidden: !this.permissions,
+                    scope: this,
+                    handler: function() {
+                        this.fireEvent('openref','statuses');
+                    }
+                }]
             }];
 
         }
@@ -188,8 +182,7 @@ Ext.define('EC.Experts.view.Experts.List', {
             flex: 1,
             valueField: 'id',
             store: 'EC.Experts.store.Equipment'
-        },
-        {
+        }, {
             emptyText: 'Статус',
             xtype: 'EmptyCombo',
             name: 'status_id',
@@ -198,9 +191,7 @@ Ext.define('EC.Experts.view.Experts.List', {
             flex: 1,
             valueField: 'id',
             store: 'EC.Experts.store.Statuses'
-        });
-
-        this.tbar.push( '->', {
+        }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',

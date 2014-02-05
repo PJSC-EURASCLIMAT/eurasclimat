@@ -23,9 +23,5 @@ Ext.define('EC.SysDev.store.preparation.CommentStore', {
             root: 'data',
             encode: true
         }
-    },
-
-    constructor: function() {
-        this.callParent(arguments);
     }
 });

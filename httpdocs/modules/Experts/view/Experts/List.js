@@ -133,7 +133,7 @@ Ext.define('EC.Experts.view.Experts.List', {
                 action: 'additem'
             }, {
                 xtype: 'button',
-                text: 'Настойки',
+                text: 'Настройки',
                 menu: [
                     {
                         text: 'Типы инж. оборудования',

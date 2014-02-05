@@ -12,6 +12,10 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
         $this->_expertsJobTypesModel = new Experts_ExpertsJobTypes_Model();
         $this->_experts2JTModel = new Experts_Experts2JobTypes_Model();
+        $this->_equipRef = new Experts_Ref('equipment');
+        $this->_statusRef = new Experts_Ref('statuses');
+        $this->_jobTypesRef = new Experts_Ref('job_types');
+        $this->_ratingRef = new Experts_Ref('rating');
 
         parent::init();
     }
@@ -39,13 +43,15 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-rating');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'filter-job-types');
 
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-filters-tree');
+
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-active-list');
     }
 
     public function getListAction()
     {
-        $response = $this->_model->getAll(null);
+        $response = $this->_model->getAll(null, $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
@@ -318,6 +324,77 @@ class Experts_ExpertsController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+    }
+
+    public function getFiltersTreeAction()
+    {
+
+        $tree = [];
+
+        $euqipNode =  array(
+            'text' => 'Cпециалисты по типам инженерного оборудования',
+            'type' => 'equipment',
+            'children' => []
+        );
+
+        $jobTypesNode =  array(
+            'text' => 'Cпециалисты по типам деятельности',
+            'type' => 'job_types',
+            'children' => []
+        );
+
+        $statusNode =  array(
+            'text' => 'Cпециалисты по типам статусу',
+            'type' => 'statuses',
+            'children' => []
+        );
+
+        $ratingNode =  array(
+            'text' => 'Cпециалисты по рейтингам',
+            'type' => 'rating',
+            'children' => []
+        );
+
+        $expNode =  array(
+            'text' => 'Cпециалисты по опыту',
+            'type' => 'experience',
+            'children' => []
+        );
+
+        $cityNode =  array(
+            'text' => 'Cпециалисты по регионам',
+            'type' => 'cities',
+            'children' => []
+        );
+
+        $equipResponse = $this->_equipRef->getAll();
+        $statusResponse = $this->_statusRef->getAll();
+        $jobTypesResponse = $this->_jobTypesRef->getAll();
+        $ratingResponse = $this->_ratingRef->getAll();
+        $cityResponse = $this->_model->getCities();
+
+        $euqipNode['children'] = $equipResponse->getRowset();
+        $jobTypesNode['children'] = $jobTypesResponse->getRowset();
+        $statusNode['children'] = $statusResponse->getRowset();
+        $ratingNode['children'] = $ratingResponse->getRowset();
+        $cityNode['children'] = $cityResponse->getRowset();
+
+        array_push($tree, $euqipNode, $jobTypesNode, $statusNode, $ratingNode, $expNode, $cityNode);
+
+        for($j = 0; $j < count($tree); $j++ ) {
+            for($i = 0; $i < count($tree[$j]['children']); $i++ ) {
+                $tree[$j]['children'][$i]['text'] = $tree[$j]['children'][$i]['name'];
+                $tree[$j]['children'][$i]['filId'] = $tree[$j]['children'][$i]['id'];
+                $tree[$j]['children'][$i]['leaf'] = true;
+                $tree[$j]['children'][$i]['checked'] = false;
+                unset($tree[$j]['children'][$i]['name']);
+                unset($tree[$j]['children'][$i]['id']);
+            }
+        }
+
+        $this->view->success = true;
+        $this->view->data = $tree;
+
     }
 
 //    public function filterExperienceAction()

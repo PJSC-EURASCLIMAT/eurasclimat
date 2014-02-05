@@ -468,7 +468,7 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function getAll($where, $customJoin = null)
+    public function getAll($where, $params)
     {
         $response = new Xend_Response();
 
@@ -505,21 +505,22 @@ class Experts_Experts_Model
                 )
             )
             ->joinLeft(
+                array('e2j' => 'experts2job_types'),
+                'e2j.expert_id=e.id',
+                null
+            )
+            ->joinLeft(
                 array('co' => 'countries'),
                 'co.id=c.country_id',
                 array(
                     'country' => 'co.name',
                     'country_id' => 'co.id'
                 )
-            );
+            )
+            ->group('e.id');
 
-            if (isset($customJoin)) {
-                $select->joinLeft($customJoin[0], $customJoin[1], $customJoin[2]);
-            }
-
-            if (isset($where)) {
-                $select->where($where[0], $where[1]);
-            }
+            $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
+            $plugin->parse($params);
 
         try {
             $rows = $select->query()->fetchAll();
@@ -666,6 +667,42 @@ class Experts_Experts_Model
             }
             $status = Xend_Status::DATABASE_ERROR;
         }
+    }
+
+    public function getCities()
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('e' => $this->_table->getTableName()),
+                null
+            )
+            ->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=e.account_id',
+                array('name' => 'a.name')
+            )
+            ->join(
+                array('c' => 'cities'),
+                'c.id=a.city_id',
+                array(
+                    'name' => 'c.name',
+                    'id' => 'c.id'
+                )
+            );
+
+        try {
+            $rows = $select->query()->fetchAll();
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+        return $response->addStatus(new Xend_Status($status));
     }
 
 

@@ -29,11 +29,23 @@ Ext.define('EC.Experts.controller.Experts', {
 
     deleteURL: '/json/experts/experts/delete',
 
+    filtersTreeURL: '/json/experts/experts/get-filters-tree',
+
     refNames: {
         'rating': 'Рейтинг специалистов',
         'equipment': 'Типы инженерного оборудования специалистов',
         'statuses': 'Статусы специалистов',
         'job_types': 'Типы деятельности специалистов'
+    },
+
+    hiddenGridColumns: [],
+    filters: {
+        'rating': '',
+        'equip_id': '',
+        'status_id': '',
+        'job_types': '',
+        'city': '',
+        'experience': ''
     },
 
     run: function(container) {
@@ -48,7 +60,12 @@ Ext.define('EC.Experts.controller.Experts', {
 
         this.grid = this.layout.down('#list');
 
+        this.filtersTree = this.layout.down('#tree');
+        this.filtersTree.on('checkchange', this.onTreeFilterCheck, this);
+
         this.grid.store.load();
+
+        this.loadFilterTree();
 
         if (this.permissions) {
 
@@ -82,6 +99,72 @@ Ext.define('EC.Experts.controller.Experts', {
         this.grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, this.grid);
     },
 
+
+    loadFilterTree: function() {
+
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Не удалось получить даныне по фильтрам!');
+        };
+
+        Ext.Ajax.request({
+            url: this.filtersTreeURL,
+            success: function(response, opts) {
+                try {
+                    var r = Ext.decode(response.responseText);
+                    if (!r.success) {
+                        return failureFn(arguments);
+                    }
+                    var root = {
+                        expanded: true,
+                        children: r.data
+                    };
+
+                    var store = Ext.create('Ext.data.TreeStore', {
+                        fields: ['filId', 'text', 'type'],
+                        root: root
+                    });
+
+                    this.filtersTree.setRootNode(store.getRootNode());
+
+                } catch(e) {
+                    return failureFn(arguments);
+                }
+            },
+            failure: failureFn,
+            scope: this
+        });
+    },
+
+    onTreeFilterCheck: function( node, checked, eOpts ) {
+        var p = node.parentNode;
+        this.filters[p.data.type] = '';
+        var arr = [];
+
+        p.cascadeBy(function(n){
+            if(n.data.checked === true) {
+                arr.push(n.data.filId);
+            }
+        }, this);
+
+        this.filters[p.data.type] = arr.join(',');
+        this.refreshGridFilters();
+    },
+
+    refreshGridFilters: function() {
+        this.grid.store.clearFilter();
+        
+        Ext.iterate(this.filters, function(key, value){
+            if (value !== "" ) {
+                this.grid.store.addFilter({
+                    property: key,
+                    value: value
+                })
+            }
+        }, this);
+
+        this.grid.store.load();
+
+    },
 
     onEquipFilter: function(combo, newValue, oldValue, eOpts) {
         this.store.removeFilter('equipFilter');

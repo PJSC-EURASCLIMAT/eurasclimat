@@ -35,10 +35,9 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
     initComponent: function() {
 
         this.items = [
-
             {
                 xtype: 'hidden',
-                name:'from_current',
+                name: 'from_current',
                 allowBlank: true,
                 value: this.fromCurrent
             },
@@ -50,7 +49,6 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             {
                 xtype: 'AccountsCombo',
                 hidden: this.fromCurrent,
-                allowBlank: true,
                 name: 'account_id'
             },
             {

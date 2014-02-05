@@ -132,7 +132,7 @@ Ext.define('EC.Admin.view.Accounts.List', {
         }]
         
         this.bbar = Ext.create('Ext.PagingToolbar', {
-            pageSize: 10,
+            pageSize: 25,
             store: this.store,
             displayInfo: true,
             plugins: Ext.create('xlib.ProgressBarPager', {})

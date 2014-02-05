@@ -11,6 +11,8 @@ Ext.define('EC.Experts.view.Experts.List', {
     permissions: acl.isUpdate('experts'),
 
     activeOnly: false,
+    
+    pageSize: 25,
 
     requires: ['xlib.EmptyCombo'],
 
@@ -208,6 +210,13 @@ Ext.define('EC.Experts.view.Experts.List', {
             action: 'refresh'
         });
 
+        this.bbar = Ext.create('Ext.PagingToolbar', {
+            pageSize: 25,
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        });
+        
         this.callParent(arguments);
     }
 });

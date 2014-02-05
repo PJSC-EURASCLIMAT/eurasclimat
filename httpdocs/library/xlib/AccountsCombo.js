@@ -13,6 +13,8 @@ Ext.define('xlib.AccountsCombo', {
     editable: false,
     
     fieldName: 'account_id',
+
+    pageSize: 25,
     
     value: '',
     

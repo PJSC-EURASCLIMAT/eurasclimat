@@ -42,31 +42,27 @@ Ext.define('EC.Experts.view.Experts.Edit', {
 
     initComponent: function() {
 
-        this.items = [
-            {
-                xtype: 'tabpanel',
-                items: [
-                    {
-                        xtype: 'experts-info-edit-form',
-                        addExpertJobTypesURL: this.addExpertJobTypesURL,
-                        deleteExpertJobTypesURL: this.deleteExpertJobTypesURL,
-                        getExpertJobTypesURL: this.getExpertJobTypesURL,
-                        data: this.data
-                    },
-                    {
-                        xtype: 'experts-files-list',
-                        data: this.data,
-                        addExpertDocURL: this.addExpertDocURL,
-                        deleteExpertDocURL: this.deleteExpertDocURL,
-                        getExpertDocsURL: this.getExpertDocsURL
-                    }
-                ]
-            }
-        ];
+        this.items = [{
+            xtype: 'tabpanel',
+            items: [{
+                xtype: 'experts-info-edit-form',
+                addExpertJobTypesURL: this.addExpertJobTypesURL,
+                deleteExpertJobTypesURL: this.deleteExpertJobTypesURL,
+                getExpertJobTypesURL: this.getExpertJobTypesURL,
+                data: this.data
+            }, {
+                xtype: 'experts-files-list',
+                data: this.data,
+                addExpertDocURL: this.addExpertDocURL,
+                deleteExpertDocURL: this.deleteExpertDocURL,
+                getExpertDocsURL: this.getExpertDocsURL
+            }]
+        }];
+        
         this.callParent(arguments);
 
         this.expertEditForm = this.down('experts-info-edit-form');
-        this.expertEditForm.down('[action=save]').on('click',this.editExpert, this);
+        this.expertEditForm.down('[action=save]').on('click', this.editExpert, this);
     },
 
     editExpert: function() {

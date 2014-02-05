@@ -34,71 +34,60 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
 
     initComponent: function() {
 
-        this.items = [
-            {
-                xtype: 'hidden',
-                name: 'from_current',
-                allowBlank: true,
-                value: this.fromCurrent
-            },
-            {
-                xtype: 'hidden',
-                allowBlank: true,
-                name: 'id'
-            },
-            {
-                xtype: 'AccountsCombo',
-                hidden: this.fromCurrent,
-                name: 'account_id'
-            },
-            {
-                fieldLabel: 'Инж. оборудование',
-                xtype: 'combobox',
-                name: 'equip_id',
-                displayField: 'name',
-                valueField: 'id',
-                store: 'EC.Experts.store.Equipment'
-            },
-            {
-                fieldLabel: 'Статус',
-                xtype: 'combobox',
-                name: 'status_id',
-                displayField: 'name',
-                valueField: 'id',
-                store: 'EC.Experts.store.Statuses'
-            },
-            {
-                xtype: 'numberfield',
-                fieldLabel: 'Рейтинг',
-                hidden: this.fromCurrent,
-                allowBlank: true,
-                name: 'rating'
-            },
-            {
-                xtype: 'textarea',
-                fieldLabel: 'Описание',
-                allowBlank: true,
-                name: 'desc'
-            },
-            {
-                xtype: 'numberfield',
-                fieldLabel: 'Стаж профильной работы',
-                allowBlank: true,
-                name: 'work_years'
-            },
-            {
-                xtype: 'numberfield',
-                fieldLabel: 'Стаж профильного обучения',
-                allowBlank: true,
-                name: 'study_years'
-            },
-            {
-                xtype: 'numberfield',
-                fieldLabel: 'Количество сертиифкатов',
-                allowBlank: true,
-                name: 'sert_count'
-            }
-        ];
+        this.items = [{
+            xtype: 'hidden',
+            name: 'from_current',
+            allowBlank: true,
+            value: this.fromCurrent
+        }, {
+            xtype: 'hidden',
+            allowBlank: true,
+            name: 'id'
+        }, {
+            xtype: 'AccountsCombo',
+            hidden: this.fromCurrent,
+            name: 'account_id'
+        }, {
+            fieldLabel: 'Инж. оборудование',
+            xtype: 'combobox',
+            name: 'equip_id',
+            displayField: 'name',
+            valueField: 'id',
+            store: 'EC.Experts.store.Equipment'
+        }, {
+            fieldLabel: 'Статус',
+            xtype: 'combobox',
+            name: 'status_id',
+            displayField: 'name',
+            valueField: 'id',
+            store: 'EC.Experts.store.Statuses'
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Рейтинг',
+            hidden: this.fromCurrent,
+            allowBlank: true,
+            name: 'rating'
+        }, {
+            xtype: 'textarea',
+            fieldLabel: 'Описание',
+            allowBlank: true,
+            name: 'desc'
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Стаж профильной работы',
+            allowBlank: true,
+            name: 'work_years'
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Стаж профильного обучения',
+            allowBlank: true,
+            name: 'study_years'
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Количество сертиифкатов',
+            allowBlank: true,
+            name: 'sert_count'
+        }];
 
 //        if (!Ext.isEmpty(this.data)) {
 //
@@ -139,23 +128,19 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
 //            ]});
 //        }
 
-        this.bbar = [
-            {
-                text: 'Сохранить',
-                formBind: true,
-                scope: this,
-                action: 'save'
+        this.bbar = [{
+            text: 'Сохранить',
+            formBind: true,
+            scope: this,
+            action: 'save'
+        } ,'->', {
+            text: 'Cбросить',
+            formBind: true,
+            scope: this,
+            handler: function() {
+                this.getForm().reset();
             }
-            ,'->',
-            {
-                text: 'Cбросить',
-                formBind: true,
-                scope: this,
-                handler: function() {
-                    this.getForm().reset();
-                }
-            }
-        ];
+        }];
 
         this.callParent(arguments);
         if(!Ext.isEmpty(this.data)) {
@@ -169,10 +154,11 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             1: this.addExpertJobTypesURL,
             0: this.deleteExpertJobTypesURL
         };
+        
         var phrases = {
             1: "Не удалось доваить тип деятельности!",
             0: "Не удалось доваить тип деятельности!"
-        }
+        };
 
         var failure = function() {
             record.reject();
@@ -197,5 +183,4 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             scope: this
         });
     }
-
 });

@@ -200,8 +200,6 @@ Ext.define('EC.Experts.controller.Experts', {
         });
     },
 
-
-
     deleteItem: function(grid, record) {
         
         var failureFn = function(response, opts) {
@@ -234,5 +232,4 @@ Ext.define('EC.Experts.controller.Experts', {
             }
         }, this);
     }
-    
 });

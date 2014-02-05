@@ -18,53 +18,48 @@ Ext.define('EC.Experts.view.Experts.FilesList', {
 
     hideHeaders: true,
 
-    columns: [
-        {
-            xtype: 'templatecolumn',
-            header: 'Заголовок новости',
-            flex: 1,
-            tpl: '<a href="#/download/{file_id}">{file_name}</a>'
-        },
-        {
-            xtype: 'actioncolumn',
-            align: 'center',
-            width: 30,
-            items: [{
-                iconCls: 'x-btn icon',
-                icon: '/images/icons/delete.png',
-                tooltip: 'Удалить',
-                disabled: !acl.isUpdate('sysdev', 'docs', 'versions'),
-                handler: function(gridView, rowIndex, colIndex) {
-                    var grid = gridView.up('grid');
-                    var rec = grid.getStore().getAt(rowIndex);
-                    grid.deleteExpertFile(rec);
-                }
-            }]
-        }
-    ],
+    columns: [{
+        xtype: 'templatecolumn',
+        header: 'Заголовок новости',
+        flex: 1,
+        tpl: '<a href="#/download/{file_id}">{file_name}</a>'
+    }, {
+        xtype: 'actioncolumn',
+        align: 'center',
+        width: 30,
+        items: [{
+            iconCls: 'x-btn icon',
+            icon: '/images/icons/delete.png',
+            tooltip: 'Удалить',
+            disabled: !acl.isUpdate('sysdev', 'docs', 'versions'),
+            handler: function(gridView, rowIndex, colIndex) {
+                var grid = gridView.up('grid');
+                var rec = grid.getStore().getAt(rowIndex);
+                grid.deleteExpertFile(rec);
+            }
+        }]
+    }],
 
-    tbar: [
-        {
-            xtype: 'button',
-            iconCls: 'add',
-            text: 'Добавить',
-            listeners: {
-                click: function() {
-                    var grid = this.up('grid');
-                    grid.addExpertFile(grid);
-                }
-            }
-        }, '->', {
-            xtype: 'button',
-            tooltip: 'Обновить',
-            iconCls: 'x-tbar-loading',
-            listeners: {
-                click: function() {
-                    this.up('grid').store.load();
-                }
+    tbar: [{
+        xtype: 'button',
+        iconCls: 'add',
+        text: 'Добавить',
+        listeners: {
+            click: function() {
+                var grid = this.up('grid');
+                grid.addExpertFile(grid);
             }
         }
-    ],
+    }, '->', {
+        xtype: 'button',
+        tooltip: 'Обновить',
+        iconCls: 'x-tbar-loading',
+        listeners: {
+            click: function() {
+                this.up('grid').store.load();
+            }
+        }
+    }],
 
     initComponent: function() {
 

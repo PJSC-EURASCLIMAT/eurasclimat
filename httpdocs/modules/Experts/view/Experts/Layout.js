@@ -17,20 +17,17 @@ Ext.define('EC.Experts.view.Experts.Layout', {
 
     initComponent: function() {
 
-        this.items = [
-            {
-                xtype: 'ExpertsFilterTree',
-                width: 330,
-                itemId: 'tree'
-            },
-            {
-                xtype: 'ExpertsList',
-                itemId: 'list',
-                permissions: this.permissions,
-                store: 'EC.Experts.store.Experts',
-                flex: 1
-            }
-        ];
+        this.items = [{
+            xtype: 'ExpertsFilterTree',
+            width: 330,
+            itemId: 'tree'
+        }, {
+            xtype: 'ExpertsList',
+            itemId: 'list',
+            permissions: this.permissions,
+            store: 'EC.Experts.store.Experts',
+            flex: 1
+        }];
 
         this.callParent(arguments);
     }

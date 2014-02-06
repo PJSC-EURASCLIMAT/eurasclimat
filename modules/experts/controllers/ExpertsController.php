@@ -333,19 +333,19 @@ class Experts_ExpertsController extends Xend_Controller_Action
 
         $euqipNode =  array(
             'text' => 'Cпециалисты по типам инженерного оборудования',
-            'type' => 'equipment',
+            'type' => 'equip_id',
             'children' => []
         );
 
         $jobTypesNode =  array(
             'text' => 'Cпециалисты по типам деятельности',
-            'type' => 'job_types',
+            'type' => 'job_type_id',
             'children' => []
         );
 
         $statusNode =  array(
             'text' => 'Cпециалисты по типам статусу',
-            'type' => 'statuses',
+            'type' => 'status_id',
             'children' => []
         );
 
@@ -363,7 +363,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
 
         $cityNode =  array(
             'text' => 'Cпециалисты по регионам',
-            'type' => 'cities',
+            'type' => 'city_id',
             'children' => []
         );
 

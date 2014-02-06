@@ -43,8 +43,8 @@ Ext.define('EC.Experts.controller.Experts', {
         'rating': '',
         'equip_id': '',
         'status_id': '',
-        'job_types': '',
-        'city': '',
+        'job_type_id': '',
+        'city_id': '',
         'experience': ''
     },
 
@@ -95,8 +95,8 @@ Ext.define('EC.Experts.controller.Experts', {
             }, this);
         }
 
-        this.grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, this.grid);
-        this.grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, this.grid);
+//        this.grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, this.grid);
+//        this.grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, this.grid);
     },
 
 
@@ -151,16 +151,30 @@ Ext.define('EC.Experts.controller.Experts', {
     },
 
     refreshGridFilters: function() {
-        this.grid.store.clearFilter();
-        
+//        this.grid.store.clearFilter();
+
+        this.grid.store.proxy.extraParams.filters = [];
+        var arr = [];
         Ext.iterate(this.filters, function(key, value){
-            if (value !== "" ) {
-                this.grid.store.addFilter({
-                    property: key,
-                    value: value
-                })
-            }
+                if (value !== "" ) {
+                    if(key === 'rating') {
+                        arr.push({
+                            field: key,
+                            type: 'numeric',
+                            comparison: 'numeric',
+                            value: value
+                        });
+                    } else {
+                        arr.push({
+                            field: key,
+                            type: 'list',
+                            value: value
+                        });
+                    }
+                }
         }, this);
+
+        this.grid.store.proxy.extraParams.filter = Ext.JSON.encode(arr);
 
         this.grid.store.load();
 

@@ -468,7 +468,7 @@ class Experts_Experts_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-    public function getAll($where, $params)
+    public function getAll($where, $params = array())
     {
         $response = new Xend_Response();
 
@@ -507,7 +507,9 @@ class Experts_Experts_Model
             ->joinLeft(
                 array('e2j' => 'experts2job_types'),
                 'e2j.expert_id=e.id',
-                null
+                array(
+                    'job_type_id' => 'e2j.job_type_id'
+                )
             )
             ->joinLeft(
                 array('co' => 'countries'),
@@ -519,7 +521,17 @@ class Experts_Experts_Model
             )
             ->group('e.id');
 
-            $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
+            if (isset($where)) {
+                $select->where($where[0], $where[1]);
+            }
+
+            $plugin = new Xend_Db_Plugin_Select($this->_table, $select, array(
+                'city_id',
+                'job_type_id',
+                'equip_id',
+                'status_id',
+                'rating'
+            ));
             $plugin->parse($params);
 
         try {

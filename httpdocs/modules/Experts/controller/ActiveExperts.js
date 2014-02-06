@@ -21,7 +21,7 @@ Ext.define('EC.Experts.controller.ActiveExperts', {
             scope: this
         });
 
-        grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, grid);
-        grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, grid);
+//        grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, grid);
+//        grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, grid);
     }
 });

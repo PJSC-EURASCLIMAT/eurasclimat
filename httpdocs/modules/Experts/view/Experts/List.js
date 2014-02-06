@@ -14,7 +14,7 @@ Ext.define('EC.Experts.view.Experts.List', {
     
     pageSize: 25,
 
-    requires: ['xlib.EmptyCombo'],
+//    requires: ['xlib.EmptyCombo'],
 
     plugins: [{
         ptype: 'rowexpander',
@@ -173,25 +173,27 @@ Ext.define('EC.Experts.view.Experts.List', {
 
         }
 
-        this.tbar.push({
-            emptyText: 'Инж. оборудование',
-            xtype: 'EmptyCombo',
-            name: 'equip_id',
-            displayField: 'name',
-            emptyFieldText: '- Все инж. оборудование -',
-            flex: 1,
-            valueField: 'id',
-            store: 'EC.Experts.store.Equipment'
-        }, {
-            emptyText: 'Статус',
-            xtype: 'EmptyCombo',
-            name: 'status_id',
-            emptyFieldText: '- Все статусы -',
-            displayField: 'name',
-            flex: 1,
-            valueField: 'id',
-            store: 'EC.Experts.store.Statuses'
-        }, '->', {
+        this.tbar.push(
+//        {
+//            emptyText: 'Инж. оборудование',
+//            xtype: 'EmptyCombo',
+//            name: 'equip_id',
+//            displayField: 'name',
+//            emptyFieldText: '- Все инж. оборудование -',
+//            flex: 1,
+//            valueField: 'id',
+//            store: 'EC.Experts.store.Equipment'
+//        }, {
+//            emptyText: 'Статус',
+//            xtype: 'EmptyCombo',
+//            name: 'status_id',
+//            emptyFieldText: '- Все статусы -',
+//            displayField: 'name',
+//            flex: 1,
+//            valueField: 'id',
+//            store: 'EC.Experts.store.Statuses'
+//        },
+            '->', {
             xtype: 'button',
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',

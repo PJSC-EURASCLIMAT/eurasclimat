@@ -329,42 +329,42 @@ class Experts_ExpertsController extends Xend_Controller_Action
     public function getFiltersTreeAction()
     {
 
-        $tree = [];
+        $tree = array();
 
         $euqipNode =  array(
             'text' => 'Cпециалисты по типам инженерного оборудования',
             'type' => 'equip_id',
-            'children' => []
+            'children' => array()
         );
 
         $jobTypesNode =  array(
             'text' => 'Cпециалисты по типам деятельности',
             'type' => 'job_type_id',
-            'children' => []
+            'children' => array()
         );
 
         $statusNode =  array(
             'text' => 'Cпециалисты по типам статусу',
             'type' => 'status_id',
-            'children' => []
+            'children' => array()
         );
 
         $ratingNode =  array(
             'text' => 'Cпециалисты по рейтингам',
             'type' => 'rating',
-            'children' => []
+            'children' => array()
         );
 
         $expNode =  array(
             'text' => 'Cпециалисты по опыту',
             'type' => 'experience',
-            'children' => []
+            'children' => array()
         );
 
         $cityNode =  array(
             'text' => 'Cпециалисты по регионам',
             'type' => 'city_id',
-            'children' => []
+            'children' => array()
         );
 
         $equipResponse = $this->_equipRef->getAll();

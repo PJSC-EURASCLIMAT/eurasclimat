@@ -136,6 +136,7 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         var projectEdit = this.getController('EC.CRM.controller.Projects.ProjectEdit');
         projectEdit.projectID = record.get('id');
         projectEdit.projectName = record.get('name');
+        projectEdit.projectCreateDate = Ext.util.Format.date(record.get('created_date'), 'd.m.Y');
         projectEdit.on('projectEditClose', function() {
             grid.getStore().load();
         });

@@ -26,7 +26,9 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     projectID: null,
     
-    projectName: '',
+    projectName: null,
+    
+    projectCreateDate: null,
     
     permissions: acl.isUpdate('crm', 'projects'),
     
@@ -45,7 +47,9 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         }
         
         this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
-            title: 'Проект: ' + this.projectName,
+            title: 'Проект № ' + this.projectID 
+                         + ' от ' + this.projectCreateDate 
+                         + ' "' + this.projectName + '"',
             listeners: {
                 close: function() {
                     this.fireEvent('projectEditClose');
@@ -54,21 +58,29 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
             }
         });
         
-        var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
-        configurator.projectID = this.projectID;
-        configurator.run(this.Container.down('#configuratorPanel'));
-        
         var baseDescrForm = this.Container.down('#baseDescrPanel').add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
         baseDescrForm.down('button[action=save]').on('click', function() {
             this.updateItem(baseDescrForm.getForm(), this.updateBaseDescrURL);
         }, this);
-        baseDescrForm.getForm().load({url: this.getBaseDescrURL, params: {id: this.projectID}});
+        baseDescrForm.getForm().load({
+            url: this.getBaseDescrURL, 
+            params: {id: this.projectID},
+            waitMsg: 'Загрузка...'
+        });
         
         var plansForm = this.Container.down('#plansPanel').add(Ext.create('EC.CRM.view.Projects.Plans'));
         plansForm.down('button[action=save]').on('click', function() {
             this.updateItem(plansForm.getForm(), this.updatePlansURL);
         }, this);
-        plansForm.getForm().load({url: this.getPlansURL, params: {id: this.projectID}});
+        plansForm.getForm().load({
+            url: this.getPlansURL, 
+            params: {id: this.projectID},
+            waitMsg: 'Загрузка...'
+        });
+        
+        var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
+        configurator.projectID = this.projectID;
+        configurator.run(this.Container.down('#configuratorPanel'));
         
         var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
         discussionsController.cur_project_id = this.projectID;
@@ -86,6 +98,7 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         form.submit({
             url: url,
             params: {id: this.projectID},
+            waitMsg: 'Сохранение...',
             success: function(form, action) {
                 this.fireEvent('itemSaved');
                 Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');

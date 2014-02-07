@@ -19,7 +19,7 @@ class Crm_Projects_Model
         $select = $this->_table->getAdapter()->select()
             ->from(array('p' => $this->_table->getTableName()))
             ->joinLeft(array('a' => $accountsTable->getTableName()),
-                'a.id=p.creator_id', array('creator_name'  => 'a.name'))
+                'a.id=p.manager_id', array('manager_name'  => 'a.name'))
             ->join(array('g' => $groupsTable->getTableName()),
                 'g.id=p.group_id', array('group_name'    => 'g.name'));
 
@@ -73,11 +73,8 @@ class Crm_Projects_Model
             return $response;
         }
 
-        $data = array (
-            'name'          => $f->getEscaped('name'),
-            'group_id'      => $f->group_id,
-            'creator_id'    => Xend_Accounts_Prototype::getId()
-        );
+        $data = $f->getData();
+        $data['creator_id'] = Xend_Accounts_Prototype::getId();
 
         $id = $this->_table->insert($data);
         if (!$id) {
@@ -126,9 +123,39 @@ class Crm_Projects_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
-            'id'        => array('Id', 'presence' => 'required'),
-            'group_id'  => array('Id', 'allowEmpty' => false),
-            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'id'            => array('Id', 'presence' => 'required'),
+            'group_id'      => array('Id', 'allowEmpty' => false),
+            'customer_id'   => array('Id', 'allowEmpty' => true),
+            'manager_id'    => array('Id', 'allowEmpty' => true),
+            'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'address'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'object_type'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'area'          => array('Id', 'allowEmpty' => true),
+            'description'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'stage'         => array(array('InArray', array('preparation',
+                                                            'coordination',
+                                                            'execution',
+                                                            'implementation')
+                                                            ), 'allowEmpty' => false),
+            'sys_cond'              => array('Int', 'allowEmpty' => true),
+            'sys_vent'              => array('Int', 'allowEmpty' => true),
+            'sys_heat'              => array('Int', 'allowEmpty' => true),
+            'sys_water'             => array('Int', 'allowEmpty' => true),
+            'sys_electricity'       => array('Int', 'allowEmpty' => true),
+            'sys_automation'        => array('Int', 'allowEmpty' => true),
+            'sys_canal'             => array('Int', 'allowEmpty' => true),
+            'sys_fire'              => array('Int', 'allowEmpty' => true),
+            'sys_security'          => array('Int', 'allowEmpty' => true),
+            'sys_internet'          => array('Int', 'allowEmpty' => true),
+            'sys_phone'             => array('Int', 'allowEmpty' => true),
+            'sys_radio'             => array('Int', 'allowEmpty' => true),
+            'sys_tv'                => array('Int', 'allowEmpty' => true),
+            'sys_dispatch'          => array('Int', 'allowEmpty' => true),
+            'sys_clean'             => array('Int', 'allowEmpty' => true),
+            'serv_project'          => array('Int', 'allowEmpty' => true),
+            'serv_logistic'         => array('Int', 'allowEmpty' => true),
+            'serv_execution'        => array('Int', 'allowEmpty' => true),
+            'serv_implementation'   => array('Int', 'allowEmpty' => true)
         ), $params);
 
         $response = new Xend_Response();
@@ -138,12 +165,7 @@ class Crm_Projects_Model
             return $response;
         }
 
-        $data = array (
-            'group_id'  => $f->getEscaped('group_id'),
-            'name'      => $f->getEscaped('name')
-        );
-
-        $rows = $this->_table->updateByPk($data, $f->id);
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
     }

@@ -18,10 +18,6 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
         xtype: 'tabpanel',
         items: [{
             layout: 'fit',
-            itemId: 'configuratorPanel',
-            title: 'Единое окно'
-        }, {
-            layout: 'fit',
             itemId: 'baseDescrPanel',
             title: 'Описание'
         }, {
@@ -36,6 +32,10 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
             layout: 'fit',
             itemId: 'discussionsPanel',
             title: 'Обсуждение'
+        }, {
+            layout: 'fit',
+            itemId: 'configuratorPanel',
+            title: 'Конфигуратор оборудования'
         }]
     }]
 });

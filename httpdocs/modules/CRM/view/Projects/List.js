@@ -10,8 +10,6 @@ Ext.define('EC.CRM.view.Projects.List', {
     
     permissions: acl.isUpdate('crm', 'projects'),
     
-    columnLines: true,
-    
     enableColumnHide: false,
     
     enableColumnMove: false,
@@ -24,7 +22,6 @@ Ext.define('EC.CRM.view.Projects.List', {
         ftype: 'grouping',
         groupHeaderTpl: '{name} ({children.length})',
         hideGroupedHeader: true,
-        startCollapsed: true,
         id: 'ProjectsGrouping'
     }],
     
@@ -66,12 +63,24 @@ Ext.define('EC.CRM.view.Projects.List', {
                 xtype: 'datecolumn',
                 format: 'd.m.Y',
                 text: 'Подготовка',
-                dataIndex: 'preparation'
+                dataIndex: 'preparation',
+                renderer: function(value, metaData, record) {
+                    if ('preparation' === record.get('stage')) {
+                        metaData.style = 'background-color: lightgreen;';
+                    }
+                    return Ext.util.Format.date(value, 'd.m.Y');
+                }
             }, {
                 xtype: 'datecolumn',
                 format: 'd.m.Y',
                 text: 'Согласование',
-                dataIndex: 'coordination'
+                dataIndex: 'coordination',
+                renderer: function(value, metaData, record) {
+                    if ('coordination' === record.get('stage')) {
+                        metaData.style = 'background-color: lightgreen;';
+                    }
+                    return Ext.util.Format.date(value, 'd.m.Y');
+                }
             }]
         }, {
             text: 'Исполнение',
@@ -79,16 +88,30 @@ Ext.define('EC.CRM.view.Projects.List', {
                 xtype: 'datecolumn',
                 format: 'd.m.Y',
                 text: 'Выполнение',
-                dataIndex: 'execution'
+                dataIndex: 'execution',
+                renderer: function(value, metaData, record) {
+                    if ('execution' === record.get('stage')) {
+                        metaData.style = 'background-color: lightgreen;';
+                    }
+                    return Ext.util.Format.date(value, 'd.m.Y');
+                }
             }, {
                 xtype: 'datecolumn',
                 format: 'd.m.Y',
                 text: 'Внедрение',
-                dataIndex: 'implementation'
+                dataIndex: 'implementation',
+                renderer: function(value, metaData, record) {
+                    if ('implementation' === record.get('stage')) {
+                        metaData.style = 'background-color: lightgreen;';
+                    }
+                    return Ext.util.Format.date(value, 'd.m.Y');
+                }
             }]
         }, {
-            header: 'Менеджер проекта',
-            dataIndex: 'creator_name',
+            xtype: 'templatecolumn',
+            header: 'Руководитель проекта',
+            tpl: '<a href="#/profile/{manager_id}/show">{manager_name}</a>',
+            dataIndex: 'manager_name',
             flex: .5
         }, {
             xtype: 'datecolumn',

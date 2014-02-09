@@ -1,10 +1,8 @@
-Ext.define('EC.Main.view.MiniBrowser', {
+Ext.define('xlib.MiniBrowser', {
 
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.app.Controller',
 
-//    layout: 'fit',
-    
-    initComponent: function() {
+    run: function(container) {
         
         var iframe = Ext.create('Ext.Component', {
             autoEl: {
@@ -33,9 +31,10 @@ Ext.define('EC.Main.view.MiniBrowser', {
             }
         });
         
-        
-        this.items = [navstring, iframe];
-        
-        this.callParent(arguments);
+        container.add(Ext.create('Ext.panel.Panel', {
+            items: [navstring, iframe]
+        }));
+            
     }
+    
 });

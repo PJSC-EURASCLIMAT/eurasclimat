@@ -20,6 +20,7 @@ class PA_Profile
     {
         $this->_tableAccounts = new Xend_Accounts_Table_Accounts();
         $this->_expertsDocsModel = new Experts_ExpertsDocs_Model();
+        $this->_expertsJBModel = new Experts_ExpertsJobTypes_Model();
 
     }
 
@@ -118,15 +119,15 @@ class PA_Profile
                 $rowset['expert_docs'] = $expertDocsResponse->rowset;
             }
 
-//            unset($rowset['expert_id']);
-//            unset($rowset['expert_status_id']);
-//            unset($rowset['expert_equip_id']);
-//            unset($rowset['expert_desc']);
-//            unset($rowset['expert_rating']);
-//            unset($rowset['expert_experience']);
+            $jbResponse = $this->_expertsJBModel->getCheckedByExpertId($rowset['expert_info']['id']);
+            if ($jbResponse->isError()) {
+                return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::FAILURE));
+            }
+
+            $rowset['job_types'] = $jbResponse->getRowSet();
 
             $response->setRowset($rowset);
-            $status = Xend_Status::OK;
+//            $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
@@ -192,8 +193,6 @@ class PA_Profile
             $status = Xend_Accounts_Status::FAILURE;
             return $response->addStatus(new Xend_Accounts_Status($status));
         }
-
-
 
         $response->affectedRows = $affectedRows;
 

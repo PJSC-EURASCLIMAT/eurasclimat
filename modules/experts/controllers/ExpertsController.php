@@ -344,7 +344,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
         );
 
         $statusNode =  array(
-            'text' => 'Cпециалисты по типам статусу',
+            'text' => 'Cпециалисты по типам статуса',
             'type' => 'status_id',
             'children' => array()
         );

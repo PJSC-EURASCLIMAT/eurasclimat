@@ -84,49 +84,49 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             name: 'study_years'
         }, {
             xtype: 'numberfield',
-            fieldLabel: 'Количество сертиифкатов',
+            fieldLabel: 'Количество сертификатов',
             allowBlank: true,
             name: 'sert_count'
         }];
 
-//        if (!Ext.isEmpty(this.data)) {
-//
-//            this.getExpertJobTypesURL += '?expert_id=' + this.data.id;
-//
-//            this.jobTypesStore = Ext.create('Ext.data.Store', {
-//                autoLoad: true,
-//                fields: ['id','name','checked'],
-//                proxy: {
-//                    type: 'ajax',
-//                    url: this.getExpertJobTypesURL,
-//                    reader: {
-//                        type: 'json',
-//                        root: 'data',
-//                        successProperty: 'success'
-//                    }
-//                }
-//            });
-//
-//            this.items.push({
-//                xtype: 'grid',
-//                allowBlank: true,
-//                title: 'Типы деятельности',
-//                store: this.jobTypesStore,
-//                hideHeaders: true,
-//                height: 200,
-//                columns: [
-//                { dataIndex: 'name', flex: 1 },
-//                {
-//                    xtype: 'checkcolumn',
-//                    align: 'center',
-//                    dataIndex: 'checked',
-//                    listeners: {
-//                        checkchange: this.onCheckChange.bind(this)
-//                    },
-//                    width: 40
-//                }
-//            ]});
-//        }
+        if (!Ext.isEmpty(this.data)) {
+
+            this.getExpertJobTypesURL += '?expert_id=' + this.data.id;
+
+            this.jobTypesStore = Ext.create('Ext.data.Store', {
+                autoLoad: true,
+                fields: ['id','name','checked'],
+                proxy: {
+                    type: 'ajax',
+                    url: this.getExpertJobTypesURL,
+                    reader: {
+                        type: 'json',
+                        root: 'data',
+                        successProperty: 'success'
+                    }
+                }
+            });
+
+            this.items.push({
+                xtype: 'grid',
+                allowBlank: true,
+                title: 'Типы деятельности',
+                store: this.jobTypesStore,
+                hideHeaders: true,
+                height: 200,
+                columns: [
+                { dataIndex: 'name', flex: 1 },
+                {
+                    xtype: 'checkcolumn',
+                    align: 'center',
+                    dataIndex: 'checked',
+                    listeners: {
+                        checkchange: this.onCheckChange.bind(this)
+                    },
+                    width: 40
+                }
+            ]});
+        }
 
         this.bbar = [{
             text: 'Сохранить',

@@ -60,9 +60,14 @@ Ext.define('EC.PA.view.Profile', {
                                     '<p>Стаж профильной работы: {expert_info.work_years}</p>',
                                     '<p>Стаж профильного обучения: {expert_info.study_years}</p>',
                                     '<p>Количество сертиифкатов: {expert_info.sert_count}</p>',
-                                '</td>',
+                                    '<tpl if="this.haveJobTypes(values)">',
+                                        '<p>Типы деятельности: {[this.getJobTypes(values)]}</p>',
+                                    '</tpl>',
+
+                    '</td>',
                             '</tr>',
                         '</tpl>',
+
 
                         '<tpl if="this.haveDocs(values)">',
                             '<tr valign="top">',
@@ -93,6 +98,21 @@ Ext.define('EC.PA.view.Profile', {
                                 return true;
                             }
                             return false;
+                        },
+                        haveJobTypes: function(values) {
+                            if(!Ext.isEmpty(values.job_types)){
+                                return true;
+                            }
+                            return false;
+                        },
+
+                        getJobTypes: function(values) {
+                            var str = values.job_types[0].name;
+                            for (var i = 1; i < values.job_types.length; i++) {
+                                var jbt = values.job_types[i];
+                                str+= ', '+jbt.name;
+                            }
+                            return str;
                         }
                     }
 

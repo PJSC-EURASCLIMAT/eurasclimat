@@ -4,14 +4,17 @@ Ext.define('EC.Experts.view.Experts.Layout', {
 
     alias: 'widget.ExpertsLayout',
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'border',
 
     permissions: null,
 
     activeOnly: false,
+
+    expertsStore: null,
+
+    hideTree: false,
+
+    isPortlet: false,
 
     requires: ['EC.Experts.view.Experts.FilterTree','EC.Experts.view.Experts.List'],
 
@@ -19,14 +22,18 @@ Ext.define('EC.Experts.view.Experts.Layout', {
 
         this.items = [{
             xtype: 'ExpertsFilterTree',
-            width: 330,
+            region: 'west',
+            hidden: this.isPortlet,
+            split: true,
+            width: 300,
             itemId: 'tree'
         }, {
             xtype: 'ExpertsList',
             itemId: 'list',
+            isPortlet: this.isPortlet,
+            region: 'center',
             permissions: this.permissions,
-            store: 'EC.Experts.store.Experts',
-            flex: 1
+            store: this.expertsStore
         }];
 
         this.callParent(arguments);

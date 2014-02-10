@@ -38,8 +38,11 @@ Ext.define('EC.Experts.controller.Experts', {
         'job_types': 'Типы деятельности специалистов'
     },
 
+    expertsStore: 'EC.Experts.store.Experts',
+
     hiddenGridColumns: [],
     filters: {
+        'active': '',
         'rating': '',
         'equip_id': '',
         'status_id': '',
@@ -48,13 +51,19 @@ Ext.define('EC.Experts.controller.Experts', {
         'experience': ''
     },
 
-    run: function(container) {
+    run: function(container, activeOnly) {
 
         this.Container = container;
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
-        
+        var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
+
+        if(activeOnly) {
+            this.expertsStore = 'EC.Experts.store.ActiveExperts';
+        }
+
         this.layout = container.add(Ext.create('EC.Experts.view.Experts.Layout', {
+            expertsStore: this.expertsStore,
+            isPortlet: isPortlet,
             permissions: this.permissions
         }));
 
@@ -67,7 +76,7 @@ Ext.define('EC.Experts.controller.Experts', {
 
         this.loadFilterTree();
 
-        if (this.permissions) {
+        if (this.permissions && !isPortlet) {
 
             this.grid.down('button[action=additem]').on({
                 click: function(){
@@ -95,8 +104,6 @@ Ext.define('EC.Experts.controller.Experts', {
             }, this);
         }
 
-//        this.grid.down('toolbar [name=equip_id]').on('change', this.onEquipFilter, this.grid);
-//        this.grid.down('toolbar [name=status_id]').on('change', this.onStatusFilter, this.grid);
     },
 
 
@@ -180,28 +187,7 @@ Ext.define('EC.Experts.controller.Experts', {
 
     },
 
-    onEquipFilter: function(combo, newValue, oldValue, eOpts) {
-        this.store.removeFilter('equipFilter');
-        this.store.addFilter({
-            id: 'equipFilter',
-            property: 'equip_id',
-            value: combo.getValue()
-        });
-    },
 
-    onStatusFilter: function(combo, newValue, oldValue, eOpts) {
-        this.store.removeFilter('statusFilter');
-        this.store.addFilter({
-            id: 'statusFilter',
-            property: 'status_id',
-            value: combo.getValue()
-        });
-    },
-
-    onActualityFilter: function(combo, newValue, oldValue, eOpts) {
-        this.getStore().getProxy().extraParams = {actuality: combo.getValue()};
-        this.getStore().guaranteeRange(0, 10);
-    },
 
     activeChange: function(rowIndex, checked) {
         var record = this.grid.store.getAt(rowIndex);

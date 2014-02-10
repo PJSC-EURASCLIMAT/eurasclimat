@@ -63,7 +63,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
 
     public function getActiveListAction()
     {
-        $response = $this->_model->getAll(array('e.active = ?',1));
+        $response = $this->_model->getAll(array('e.active = ?',1), $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;

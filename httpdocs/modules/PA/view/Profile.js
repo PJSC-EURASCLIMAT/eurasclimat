@@ -59,7 +59,7 @@ Ext.define('EC.PA.view.Profile', {
                                     '<p>Рейтинг: {expert_info.rating}</p>',
                                     '<p>Стаж профильной работы: {expert_info.work_years}</p>',
                                     '<p>Стаж профильного обучения: {expert_info.study_years}</p>',
-                                    '<p>Количество сертиифкатов: {expert_info.sert_count}</p>',
+                                    '<p>Количество сертификатов: {expert_info.sert_count}</p>',
                                     '<tpl if="this.haveJobTypes(values)">',
                                         '<p>Типы деятельности: {[this.getJobTypes(values)]}</p>',
                                     '</tpl>',

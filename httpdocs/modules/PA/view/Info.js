@@ -64,7 +64,7 @@ Ext.define('EC.PA.Profile.view.Info', {
                             '<p>Рейтинг: {expert_info.rating}</p>',
                             '<p>Стаж профильной работы: {expert_info.work_years}</p>',
                             '<p>Стаж профильного обучения: {expert_info.study_years}</p>',
-                            '<p>Количество сертиифкатов: {expert_info.sert_count}</p>',
+                            '<p>Количество сертификатов: {expert_info.sert_count}</p>',
                         '</td>',
                     '</tr>',
                 '</tpl>',

@@ -14,7 +14,7 @@ Ext.define('EC.Experts.view.Experts.List', {
     
     pageSize: 25,
 
-//    requires: ['xlib.EmptyCombo'],
+    isPortlet: false,
 
     plugins: [{
         ptype: 'rowexpander',
@@ -33,14 +33,8 @@ Ext.define('EC.Experts.view.Experts.List', {
                         'г. {city}, {country}<br/>',
                         'Тип инженерного оборудования: {equipment}<br/>',
                         'Статус: {status}<br/>',
-//                        'Описание: {[this.ellip(values.desc)]}<br/>',
                     '</td>',
                 '</tr>',
-//                '<tr valign="top">',
-//                    '<td colspan="2">',
-//
-//                    '</td>',
-//                '</tr>',
             '</table>',
             {
                 dc: function() {
@@ -56,7 +50,6 @@ Ext.define('EC.Experts.view.Experts.List', {
     initComponent: function() {
 
         var actions = [];
-        this.tbar = [];
 
         this.columns = [{
             header: 'ФИО',
@@ -73,7 +66,7 @@ Ext.define('EC.Experts.view.Experts.List', {
             flex: .5
         }];
 
-        if (this.permissions === true && this.activeOnly === false) {
+        if (this.permissions === true && this.activeOnly === false && !this.isPortlet) {
 
             actions.push({
                 icon: '/images/icons/fam/plugin.gif',
@@ -172,36 +165,6 @@ Ext.define('EC.Experts.view.Experts.List', {
             }];
 
         }
-
-        this.tbar.push(
-//        {
-//            emptyText: 'Инж. оборудование',
-//            xtype: 'EmptyCombo',
-//            name: 'equip_id',
-//            displayField: 'name',
-//            emptyFieldText: '- Все инж. оборудование -',
-//            flex: 1,
-//            valueField: 'id',
-//            store: 'EC.Experts.store.Equipment'
-//        }, {
-//            emptyText: 'Статус',
-//            xtype: 'EmptyCombo',
-//            name: 'status_id',
-//            emptyFieldText: '- Все статусы -',
-//            displayField: 'name',
-//            flex: 1,
-//            valueField: 'id',
-//            store: 'EC.Experts.store.Statuses'
-//        },
-            '->', {
-            xtype: 'button',
-            tooltip: 'Обновить',
-            iconCls: 'x-tbar-loading',
-            handler: function() {
-                this.up('grid').getStore().load();
-            },
-            action: 'refresh'
-        });
 
         this.bbar = Ext.create('Ext.PagingToolbar', {
             pageSize: 25,

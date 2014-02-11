@@ -41,6 +41,7 @@ Ext.define('EC.Experts.controller.Experts', {
     expertsStore: 'EC.Experts.store.Experts',
 
     hiddenGridColumns: [],
+    
     filters: {
         'active': '',
         'rating': '',
@@ -57,7 +58,7 @@ Ext.define('EC.Experts.controller.Experts', {
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
 
-        if(activeOnly) {
+        if (activeOnly) {
             this.expertsStore = 'EC.Experts.store.ActiveExperts';
         }
 
@@ -103,9 +104,7 @@ Ext.define('EC.Experts.controller.Experts', {
                 scope: this
             }, this);
         }
-
     },
-
 
     loadFilterTree: function() {
 
@@ -143,6 +142,7 @@ Ext.define('EC.Experts.controller.Experts', {
     },
 
     onTreeFilterCheck: function( node, checked, eOpts ) {
+        
         var p = node.parentNode;
         this.filters[p.data.type] = '';
         var arr = [];
@@ -184,12 +184,10 @@ Ext.define('EC.Experts.controller.Experts', {
         this.grid.store.proxy.extraParams.filter = Ext.JSON.encode(arr);
 
         this.grid.store.load();
-
     },
 
-
-
     activeChange: function(rowIndex, checked) {
+        
         var record = this.grid.store.getAt(rowIndex);
 
         Ext.Ajax.request({
@@ -215,6 +213,7 @@ Ext.define('EC.Experts.controller.Experts', {
     },
 
     openRef: function(ref_name) {
+        
         var list = Ext.create('xlib.Ref.List',{
             controllerURL: '/json/experts/experts-ref/',
             ref_name: ref_name
@@ -247,8 +246,8 @@ Ext.define('EC.Experts.controller.Experts', {
                 form.submit({
                     url: this.addURL,
                     success: function(form, action) {
-                        view.close();
                         this.fireEvent('itemSaved');
+                        view.close();
                     },
                     failure: function(form, action) {
                         switch (action.failureType) {
@@ -306,8 +305,8 @@ Ext.define('EC.Experts.controller.Experts', {
                         } catch(e) {
                             return failureFn(arguments);
                         }
-                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                         this.fireEvent('itemSaved');
+                        Ext.Msg.alert('Сообщение', 'Удаление прошло успешно');
                     },
                     failure: failureFn,
                     scope: this

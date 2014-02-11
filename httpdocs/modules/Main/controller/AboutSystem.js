@@ -15,6 +15,8 @@ Ext.define('EC.Main.controller.AboutSystem', {
         'EC.Main.view.AboutSystem.ThemesTree'
     ],
     
+    uses: ['xlib.form.HtmlEditor'],
+    
     theme: null,
     
     run: function(container) {
@@ -64,7 +66,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
 //                    }
 //                });
                 
-                var editor = Ext.widget('htmleditor');
+                var editor = Ext.widget('XHtmlEditor');
                 var win = Ext.create('Ext.window.Window', {
                     width: 800,
                     height: 500,
@@ -74,6 +76,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
                     title: this.theme.get('name'),
                     layout: 'fit',
                     items: [editor],
+                    bodyStyle: 'font-size:11px;',
                     buttons: [{
                         text: 'Сохранить',
                         handler: function() {

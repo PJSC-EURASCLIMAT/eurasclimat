@@ -17,6 +17,7 @@ Ext.define('EC.Main.view.AboutSystem.Layout', {
         type: 'preview',
         bodyPadding: 5,
         autoScroll: true,
+        bodyStyle: 'font-size:11px;',
         loader: {
             url: '/aboutsystem/description/get-description-content',
             loadMask: true

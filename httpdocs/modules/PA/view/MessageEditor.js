@@ -34,6 +34,7 @@ Ext.define('EC.PA.view.MessageEditor', {
             valueField: 'id',
             fieldLabel: 'Кому',
             name: 'receiver_id',
+            pageSize: 25,
 //            store: {
 //                type: 'accounts-names',
 //                autoLoad: true,

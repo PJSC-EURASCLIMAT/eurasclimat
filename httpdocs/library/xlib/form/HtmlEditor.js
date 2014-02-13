@@ -12,6 +12,8 @@ Ext.define('xlib.form.HtmlEditor', {
     
     bodyStyle: 'font-size:11px;',
     
+    iframeAttrTpl: 'style="font-size:11px;"',
+    
     getDocMarkup: function() {
         var me = this,
             h = me.iframeEl.getHeight() - me.iframePad * 2,
@@ -30,6 +32,42 @@ Ext.define('xlib.form.HtmlEditor', {
             + (Ext.isIE ? '' : 'font-family:{2}')
             + '}</style></head><body style="font-size:11px;"></body></html>'
             , me.iframePad, h, me.defaultFont);
-    }
+    },
 
+    initComponent: function() {
+        this.on('render', this.addStripTagsBtn, this);
+        this.callParent(arguments);
+    },
+   
+    addStripTagsBtn: function() {
+        
+        var tb = this.getToolbar();
+        tb.add({
+            itemId: 'striptags',
+            cls: Ext.baseCSSPrefix + 'btn-icon',
+            iconCls: 'option',
+            enableToggle: false,
+            scope: this,
+            clickEvent: 'mousedown',
+            tooltip: 'Очистить форматирование',
+            tabIndex: -1,
+            handler: this.stripTags
+//            function() {
+//                var confirmDialog = Ext.MessageBox.confirm('Подтверждение', 
+//                'Очистить форматирование документа?', 
+//                function(b) { if ('yes' === b) { this.stripTags(); } }, this);
+//                confirmDialog.focus(false, false);
+//                confirmDialog.toFront();
+//            }
+        });
+    },
+   
+    stripTags: function() {
+        
+        var v = this.getValue(),
+            v = Ext.util.Format.stripTags(v),
+            v = Ext.util.Format.nl2br(v)
+            ;
+        this.setValue(v);
+    } 
 });

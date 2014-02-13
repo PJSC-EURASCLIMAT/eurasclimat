@@ -117,14 +117,13 @@ class PA_Profile
             if($rowset['expert_id'] != null) {
                 $expertDocsResponse = $this->_expertsDocsModel->getByExpert($rowset['expert_id']);
                 $rowset['expert_docs'] = $expertDocsResponse->rowset;
-            }
 
-            $jbResponse = $this->_expertsJBModel->getCheckedByExpertId($rowset['expert_info']['id']);
-            if ($jbResponse->isError()) {
-                return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::FAILURE));
+                $jbResponse = $this->_expertsJBModel->getCheckedByExpertId($rowset['expert_info']['id']);
+                if ($jbResponse->isError()) {
+                    return $response->addStatus(new Xend_Accounts_Status(Xend_Accounts_Status::FAILURE));
+                }
+                $rowset['job_types'] = $jbResponse->getRowSet();
             }
-
-            $rowset['job_types'] = $jbResponse->getRowSet();
 
             $response->setRowset($rowset);
 //            $status = Xend_Status::OK;

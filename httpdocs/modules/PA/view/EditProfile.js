@@ -10,7 +10,7 @@ Ext.define('EC.PA.view.EditProfile', {
     ],
 
     requires: [
-        'EC.Experts.view.Experts.InfoForm',
+        'EC.PA.view.ExpertForm',
         'EC.Experts.view.Experts.FilesList'
     ],
 
@@ -147,7 +147,7 @@ Ext.define('EC.PA.view.EditProfile', {
                         ]
                     },
                     {
-                        xtype: 'experts-info-edit-form',
+                        xtype: 'profile-expert-edit-form',
                         fromCurrent: true,
                         hidden: this.hideExpert,
                         addExpertJobTypesURL: this.addExpertJobTypesURL,
@@ -170,7 +170,7 @@ Ext.define('EC.PA.view.EditProfile', {
 
         this.callParent(arguments);
 
-        this.expertEditForm = this.down('experts-info-edit-form');
+        this.expertEditForm = this.down('profile-expert-edit-form');
         this.expertEditForm.down('[action=save]').on('click',this.editExpert, this);
         this.down('#editForm').getForm().setValues(this.data);
 

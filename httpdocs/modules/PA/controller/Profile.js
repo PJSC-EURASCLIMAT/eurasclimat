@@ -118,7 +118,7 @@ Ext.define('EC.PA.controller.Profile', {
     addExpert: function(fromCurrent) {
         var me = this;
 
-        var view = Ext.create('EC.Experts.view.Experts.InfoForm',{
+        var view = Ext.create('EC.PA.view.ExpertForm',{
             header: false,
             fromCurrent: true,
             listeners: {
@@ -185,7 +185,7 @@ Ext.define('EC.PA.controller.Profile', {
             scope: this
         });
 
-        this.editProfileWin.down('experts-info-edit-form')
+        this.editProfileWin.down('profile-expert-edit-form')
         this.editProfileWin.show();
     }
 

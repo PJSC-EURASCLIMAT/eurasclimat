@@ -166,9 +166,9 @@ class Experts_Experts_Model
         unset($data['date_create']);
 //        unset($data['account_id']);
 
-        if(true === $data['from_current']) {
-            $data['account_id'] = Xend_Accounts_Prototype::getId();
-        }
+//        if(true === $data['from_current']) {
+//            $data['account_id'] = Xend_Accounts_Prototype::getId();
+//        }
 
         $exists = $this->_isExpertUnique($data['account_id']);
 

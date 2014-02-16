@@ -28,22 +28,22 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 200,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.News'
-        }, {
-            title: 'О системе',
-            icon: '/images/icons/sys_dev.png',
-            portletHeight: 370,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.AboutSystem'
+//        }, {
+//            title: 'О системе',
+//            icon: '/images/icons/sys_dev.png',
+//            portletHeight: 370,
+//            position: 'MainPanel-column-2',
+//            launchModule: 'EC.Main.controller.AboutSystem'
         }, {
             title: 'Заказ',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 270,
-            position: 'MainPanel-column-1',
+            portletHeight: 370,
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Order'
         }, {
             title: 'Специалисты',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 300,
+            portletHeight: 580,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Experts.controller.ActiveExperts'
         }, {

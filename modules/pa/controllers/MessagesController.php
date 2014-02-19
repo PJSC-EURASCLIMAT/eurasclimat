@@ -21,6 +21,8 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->pa->messages);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-sent-list');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-deleted-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'unread-count');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'mark-as-read');
@@ -50,11 +52,19 @@ class PA_MessagesController extends Xend_Controller_Action
         $identity = $auth->getIdentity();
 
         $data['sender_id'] = $identity->id;
+        $data['owner_id'] = $data['receiver_id'];
 
-        $response = $this->_model->add($data);
+        $inReponse = $this->_model->add($data);
+        if ($inReponse->isError()) {
+            $this->_collectErrors($inReponse);
+            return;
+        }
 
-        if ($response->isError()) {
-            $this->_collectErrors($response);
+        $data['owner_id'] = $identity->id;
+
+        $outReponse = $this->_model->add($data);
+        if ($outReponse->isError()) {
+            $this->_collectErrors($inReponse);
             return;
         }
 
@@ -90,15 +100,13 @@ class PA_MessagesController extends Xend_Controller_Action
     }
 
     /**
-     * List of messages
+     * List of incoming messages
      */
     public function getListAction()
     {
-        $auth = Zend_Auth::getInstance();
-        $Identity = $auth->getIdentity();
-        $curAccountId = (null == $Identity) ? 0 : intval($Identity->id);
+        $accId = Xend_Accounts_Prototype::getId();
 
-        $response = $this->_model->fetchByReceiver($curAccountId);
+        $response = $this->_model->getAll(new Zend_Db_Expr('receiver_id = '.$accId . ' AND owner_id = ' . $accId), $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
@@ -106,6 +114,43 @@ class PA_MessagesController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+
+    }
+
+    /**
+     * List of sent messages
+     */
+    public function getSentListAction()
+    {
+        $accId = Xend_Accounts_Prototype::getId();
+
+        $response = $this->_model->getAll(new Zend_Db_Expr('sender_id = '.$accId . ' AND owner_id = ' . $accId), $this->_getAllParams());
+        if ($response->isSuccess()) {
+            $data = $response->getRowset();
+            $this->view->success = true;
+            $this->view->data = $data;
+        } else {
+            $this->_collectErrors($response);
+        }
+
+    }
+
+    /**
+     * List of deleted messages
+     */
+    public function getDeletedListAction()
+    {
+        $accId = Xend_Accounts_Prototype::getId();
+
+        $response = $this->_model->getAll(new Zend_Db_Expr('deleted = 1 AND owner_id = ' . $accId), $this->_getAllParams());
+        if ($response->isSuccess()) {
+            $data = $response->getRowset();
+            $this->view->success = true;
+            $this->view->data = $data;
+        } else {
+            $this->_collectErrors($response);
+        }
+
     }
 
 

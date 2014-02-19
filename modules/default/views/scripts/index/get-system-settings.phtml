@@ -1,0 +1,12 @@
+Ext.ns('xlib.System');
+
+xlib.System.Messages = function() {
+
+    var types = <?=Zend_Json::encode($this->messageTypes); ?> || [];
+
+    return {
+        getMessageTypes: function() {
+            return types;
+        }
+    };
+}();

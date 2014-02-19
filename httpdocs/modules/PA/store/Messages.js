@@ -19,9 +19,7 @@ Ext.define('EC.PA.store.Messages', {
 
     proxy: {
         type: 'ajax',
-        api: {
-            read:   '/json/pa/messages/get-list'
-        },
+        url: '/json/pa/messages/get-list',
         reader: {
             type: 'json',
             root: 'data',

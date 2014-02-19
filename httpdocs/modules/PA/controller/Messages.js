@@ -17,11 +17,17 @@ Ext.define('EC.PA.controller.Messages', {
     delURL:         '/json/pa/messages/delete',
     markAsReadURL:  '/json/pa/messages/mark-as-read',
 
+    inBoxURL: '/json/pa/messages/get-list',
+    sentBoxURL: '/json/pa/messages/get-sent-list',
+    delBoxURL: '/json/pa/messages/get-deleted-list',
+
     expandedMessages: [],
 
     newMessagesCount: null,
 
     viewerWindow: null,
+
+    fitlerParams: [],
 
 //    URL: '/json/pa/profile/get-profile',
 //    updateURL: '/json/pa/profile/update-profile',
@@ -35,6 +41,10 @@ Ext.define('EC.PA.controller.Messages', {
         {
             ref: 'mesGrid',
             selector: 'pa-messages-win #mesGrid'
+        },
+        {
+            ref: 'mesDetail',
+            selector: 'pa-messages-win #mesDetail'
         },
         {
             ref: 'mesEditor',
@@ -92,7 +102,13 @@ Ext.define('EC.PA.controller.Messages', {
 
             'pa-messages-win #mesGrid': {
                 deleteRow: this.onMessageDelete,
+                select: this.onMessageSelect,
                 rowExpanded: this.onMessagesRowExpand,
+                scope: this
+            },
+
+            'pa-messages-win #mesFilterTree': {
+                select: this.onFilterTreeSelect,
                 scope: this
             },
 
@@ -122,6 +138,92 @@ Ext.define('EC.PA.controller.Messages', {
         this.mesStore.load();
     },
 
+    onFilterTreeSelect: function( tree, record, index, eOpts ) {
+        var type = record.get('type'),
+            box = record.get('box'),
+            arr = [],
+            boxField,
+            boxValue;
+
+
+        // Тип самого мессаджа
+        if ( type !== 0 ) {
+            arr.push({
+                field: 'type',
+                type: 'numeric',
+                comparison: 'eq',
+                value: type
+            });
+        }
+
+
+        // Тип ящика - входящие, исходящие, удаленные
+        switch(box) {
+            case 'in':
+                this.getMesGrid().store.proxy.url = this.inBoxURL;
+                break;
+            case 'out':
+                this.getMesGrid().store.proxy.url = this.sentBoxURL;
+                break;
+            case 'deleted':
+                this.getMesGrid().store.proxy.url = this.delBoxURL;
+                break;
+        }
+
+
+
+
+
+        Ext.iterate(this.filters, function(key, value){
+            if (value !== "" ) {
+                if(key === 'rating') {
+                    arr.push({
+                        field: key,
+                        type: 'numeric',
+                        comparison: 'numeric',
+                        value: value
+                    });
+                } else {
+                    arr.push({
+                        field: key,
+                        type: 'list',
+                        value: value
+                    });
+                }
+            }
+        }, this);
+
+        this.getMesGrid().store.proxy.extraParams.filter = Ext.JSON.encode(arr);
+
+        this.getMesGrid().store.load();
+
+    },
+
+    checkReadedDelay: function (record) {
+        this.selectedRecord = record;
+
+        if(record.get('readed') === 1)
+            return;
+
+        var task = new Ext.util.DelayedTask(function(record){
+            var curSelRecord = this.getMesGrid().getSelectionModel().getLastSelected();
+
+            if  (thisels.selectedRecord === curSelRecord ) {
+                this.markAsRead(record.getId());
+            }
+
+        },this,[record]);
+
+        task.delay(3000);
+    },
+
+
+    onMessageSelect: function( mesGrid, record, index, eOpts ) {
+        this.checkReadedDelay(record);
+        var detail = this.getMesDetail();
+        detail.show();
+        detail.tpl.overwrite(detail.body,record.data)
+    },
 
     checkAllMessages: function() {
         this.mesStore.each(function(item){
@@ -192,19 +294,6 @@ Ext.define('EC.PA.controller.Messages', {
         });
     },
 
-    onMessagesRowExpand: function(record) {
-        if(record.get('readed') === 1)
-            return;
-
-        var task = new Ext.util.DelayedTask(function(record){
-            if (record.get('expanded')) {
-                this.markAsRead(record.getId());
-            }
-        },this,[record]);
-
-        task.delay(3000);
-    },
-
     markAsRead: function(selIds) {
 
         Ext.Ajax.request({
@@ -216,7 +305,9 @@ Ext.define('EC.PA.controller.Messages', {
                 var r = Ext.JSON.decode(response.responseText);
                 var mesId = response.request.options.params.id;
                 if (r.success) {
-                    this.mesStore.load();
+                    this.selectedRecord.set('readed',1);
+                    this.selectedRecord = null;
+//                    this.mesStore.load();
                     this.getNewMessagesCount();
 //                    this.newMessagesCount--;
 //                    this.updateTopMesButtonCount(this.newMessagesCount);

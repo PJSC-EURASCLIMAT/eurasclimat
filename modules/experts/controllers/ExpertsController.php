@@ -332,7 +332,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
         $tree = array();
 
         $euqipNode =  array(
-            'text' => 'Cпециалисты по типам инженерного оборудования',
+            'text' => 'Cпециалисты по типам инженерных систем',
             'type' => 'equip_id',
             'children' => array()
         );

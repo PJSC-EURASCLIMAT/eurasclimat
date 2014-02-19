@@ -42,7 +42,15 @@ Ext.define('EC.PA.view.MessageEditor', {
 //                sortOnLoad: true
 //            },
             allowBlank:false
-        }, {
+        },
+        {
+            xtype: 'textfield',
+            name: 'subject',
+            fieldLabel: 'Тема',
+            allowBlank:true
+        },
+
+        {
             xtype: 'textarea',
             fieldLabel: 'Сообщение',
             name: 'message',

@@ -18,6 +18,7 @@ class PA_Messages_Model
     public function __construct()
     {
         $this->_table = new PA_Messages_Table();
+        $this->_accModel = new Xend_Accounts();
     }
 
     public function markAsRead($id)
@@ -68,6 +69,55 @@ class PA_Messages_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+
+
+    public function getAll($where, $params = array())
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('d'=>$this->_table->getTableName()),
+                array('id',
+                    'sender_id',
+                    'receiver_id',
+                    'message',
+                    'date',
+                    'readed',
+                    'subject',
+                    'sender_name',
+                    'receiver_name',
+                )
+            )
+            ->order('d.date ASC');
+
+        if (isset($where)) {
+            $select->where($where);
+        }
+
+        $plugin = new Xend_Db_Plugin_Select($this->_table, $select, array(
+            'type',
+        ));
+        $plugin->parse($params);
+
+        try {
+            $rows = $select->query()->fetchAll();
+
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status($status));
+    }
+
+
+
+
     public function fetchByReceiver($receinverId)
     {
         $response = new Xend_Response();
@@ -107,19 +157,37 @@ class PA_Messages_Model
 
     public function add(array $params)
     {
+        $response = new Xend_Response();
+
+        $senderDataResponse = $this->_accModel->fetchAccount($params['sender_id']);
+        if ($senderDataResponse->hasNotSuccess()) {
+            return $senderDataResponse;
+        }
+
+        $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
+        if ($receiverDataResponse->hasNotSuccess()) {
+            return $receiverDataResponse;
+        }
+
         $params['date'] = date('Y-m-d H:i:s', time());
+        $params['sender_name'] = $senderDataResponse->getRowset()['name'];
+        $params['receiver_name']= $receiverDataResponse->getRowset()['name'];
 
         $f = new Xend_Filter_Input(array(
             'sender_id'      => 'int',
             'receiver_id'    => 'int',
-            'message'        => 'StringTrim'
+            'owner_id'       => 'int',
+            'type'           => 'int',
+            'subject'        => 'StringTrim',
+            'message'        => 'StringTrim',
         ), array(
             'sender_id'      => array('Id', 'allowEmpty' => true),
             'receiver_id'    => array('Id', 'allowEmpty' => false),
+            'owner_id'       => array('Id', 'allowEmpty' => false),
+            'type'           => array('int', 'allowEmpty' => true),
+            'subject'        => array(array('StringLength', 1), 'allowEmpty' => true),
             'message'        => array(array('StringLength', 1), 'allowEmpty' => false),
         ), $params);
-
-        $response = new Xend_Response();
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {

@@ -199,6 +199,16 @@ class IndexController extends Xend_Controller_Action
         $this->view->privileges = (object) $privilege;
     }
 
+    public function getSystemSettingsAction()
+    {
+        $this->disableLayout(true);
+        $this->view->messageTypes = array(
+            1 => 'Важные',
+            2 => 'Системные',
+            3 => 'От других пользователей',
+        );
+    }
+
     public function getCountriesAction()
     {
         $locales = Zend_Locale::getLocaleList();

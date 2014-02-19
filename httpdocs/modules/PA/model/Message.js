@@ -9,11 +9,13 @@ Ext.define('EC.PA.model.Message', {
         {name: 'sender_id',  type: 'number'},
         {name: 'receiver_id',  type: 'number'},
         {name: 'sender_name',  type: 'string'},
+        {name: 'receiver_name',  type: 'string'},
+        {name: 'subject',  type: 'string'},
         {name: 'message',  type: 'string'},
         {name: 'date', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         {name: 'readed',   type: 'number'},
         {name: 'parent', type: 'string'},
-        {name: 'checked'},
+        {name: 'checked', type: 'int'},
         {name: 'expanded', type: 'boolean', defaultValue: false}
     ]
 

@@ -31,7 +31,7 @@ Ext.define('EC.Experts.view.Experts.List', {
                     '<td>',
                         'Email: {login}<br/>',
                         'г. {city}, {country}<br/>',
-                        'Тип инженерного оборудования: {equipment}<br/>',
+                        'Тип инженерных систем: {equipment}<br/>',
                         'Статус: {status}<br/>',
                     '</td>',
                 '</tr>',

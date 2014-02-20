@@ -163,15 +163,17 @@ class PA_Messages_Model
         if ($senderDataResponse->hasNotSuccess()) {
             return $senderDataResponse;
         }
+        $senderData = $senderDataResponse->getRowset();
 
         $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
         if ($receiverDataResponse->hasNotSuccess()) {
             return $receiverDataResponse;
         }
+        $receiverData = $receiverDataResponse->getRowset();
 
         $params['date'] = date('Y-m-d H:i:s', time());
-        $params['sender_name'] = $senderDataResponse->getRowset()['name'];
-        $params['receiver_name']= $receiverDataResponse->getRowset()['name'];
+        $params['sender_name'] = $senderData['name'];
+        $params['receiver_name'] = $receiverData['name'];
 
         $f = new Xend_Filter_Input(array(
             'sender_id'      => 'int',

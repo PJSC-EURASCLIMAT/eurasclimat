@@ -10,16 +10,17 @@ Ext.define('EC.PA.view.MessageEditor', {
 
     bodyPadding: 5,
 
+    requires: ['EC.PA.store.Accounts'],
+
     bbar: [
         {
             xtype: 'button',
-//            iconCls: 'add',
+            formBind: true,
             text: 'Отправить',
             disabled: true,
             action: 'send'
         }, '->', {
             xtype: 'button',
-//            iconCls: 'remove',
             text: 'Отмена',
             action: 'cancel'
         }
@@ -28,19 +29,13 @@ Ext.define('EC.PA.view.MessageEditor', {
     items: [
         {
             xtype: 'combo',
-//            store: Ext.StoreManager.lookup("AccountsNames"),
+            store: Ext.create('EC.PA.store.Accounts',{autoLoad: true}),
             displayField: 'name',
             queryMode: 'local',
             valueField: 'id',
             fieldLabel: 'Кому',
             name: 'receiver_id',
             pageSize: 25,
-//            store: {
-//                type: 'accounts-names',
-//                autoLoad: true,
-//                sorters: [{property:'name', direction: 'ASC'}],
-//                sortOnLoad: true
-//            },
             allowBlank:false
         },
         {
@@ -54,17 +49,7 @@ Ext.define('EC.PA.view.MessageEditor', {
             xtype: 'textarea',
             fieldLabel: 'Сообщение',
             name: 'message',
-            allowBlank:false,
-            listeners: {
-                change: function( textarea, newValue, oldValue, eOpts ) {
-                    var form = textarea.up('form');
-                    if (form.isValid()) {
-                        form.down("[action=send]").enable();
-                    } else {
-                        form.down("[action=send]").disable();
-                    }
-                }
-            }
+            allowBlank:false
         }
     ]
 });

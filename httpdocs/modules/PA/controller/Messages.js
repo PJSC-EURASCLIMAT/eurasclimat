@@ -120,6 +120,13 @@ Ext.define('EC.PA.controller.Messages', {
             'pa-message-editor [action=cancel]': {
                 click: this.closeMessageEditor,
                 scope: this
+            },
+
+            'pa-messages-win #mesDetail': {
+                respond: this.onDetailRespond,
+                respondWithCit: this.onDetailRespondWithCit,
+                forward: this.onDetailForward,
+                delete: this.onDetailDelete
             }
         });
         //Русские даты
@@ -136,6 +143,52 @@ Ext.define('EC.PA.controller.Messages', {
         }
 
         this.mesStore.load();
+    },
+
+    onDetailRespond: function() {
+        var record = this.getMesDetail().record;
+        var editorWin = this.showMessageEditor();
+        editorWin.down('[name=receiver_id]').setValue(record.get('sender_id'));
+        console.log('onDetailRespond');
+    },
+
+    onDetailRespondWithCit: function() {
+        var record = this.getMesDetail().record;
+
+        var editorWin = this.showMessageEditor();
+        editorWin.down('[name=receiver_id]').setValue(record.get('sender_id'));
+
+        var message = '\n---- Пересылаемое сообщение ----\n' +
+            'От: ' + record.get('sender_name') + '\n' +
+            'Кому: ' + record.get('receiver_name') + '\n' +
+            'Тема: ' + record.get('subject') + '\n' + record.get('message');
+
+        editorWin.down('[name=message]').setValue(message);
+        editorWin.down('[name=subject]').setValue('Re: ' + record.get('subject'));
+    },
+
+    onDetailForward: function() {
+        var record = this.getMesDetail().record;
+
+        var editorWin = this.showMessageEditor();
+        var message = '\n---- Пересылаемое сообщение ----\n' +
+            'От: ' + record.get('sender_name') + '\n' +
+            'Кому: ' + record.get('receiver_name') + '\n' +
+            'Тема: ' + record.get('subject') + '\n' + record.get('message');
+
+        editorWin.down('[name=message]').setValue(message);
+        editorWin.down('[name=subject]').setValue('Fwd: ' + record.get('subject'));
+    },
+
+    onDetailDelete: function() {
+        var me = this;
+        var record = this.getMesDetail().record;
+        this.onMessageDelete([record],function(){
+            me.getMesDetail().hide();
+        });
+
+
+        console.log('onDetailDelete');
     },
 
     onFilterTreeSelect: function( tree, record, index, eOpts ) {
@@ -208,7 +261,7 @@ Ext.define('EC.PA.controller.Messages', {
         var task = new Ext.util.DelayedTask(function(record){
             var curSelRecord = this.getMesGrid().getSelectionModel().getLastSelected();
 
-            if  (thisels.selectedRecord === curSelRecord ) {
+            if  (this.selectedRecord === curSelRecord ) {
                 this.markAsRead(record.getId());
             }
 
@@ -221,6 +274,7 @@ Ext.define('EC.PA.controller.Messages', {
     onMessageSelect: function( mesGrid, record, index, eOpts ) {
         this.checkReadedDelay(record);
         var detail = this.getMesDetail();
+        detail.record = record;
         detail.show();
         detail.tpl.overwrite(detail.body,record.data)
     },
@@ -346,7 +400,7 @@ Ext.define('EC.PA.controller.Messages', {
         this.onMessageDelete(ids);
     }
 
-    ,onMessageDelete: function(id) {
+    ,onMessageDelete: function(id, successCallback) {
 
         var params = null;
         var records = id;
@@ -373,6 +427,9 @@ Ext.define('EC.PA.controller.Messages', {
                     url: this.delURL,
                     success: function(response, opts) {
                         this.getMesGrid().getStore().remove(opts.extraParams.records);
+                        if(Ext.isDefined(successCallback)){
+                            successCallback();
+                        }
                     },
                     failure: function(response, opts) {
                         Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
@@ -396,13 +453,13 @@ Ext.define('EC.PA.controller.Messages', {
             params: values,
             url: this.sendURL,
             success: function(response, opts) {
+                Ext.Msg.alert('Сообщение', 'Сообщение успешно отправлено!');
                 this.getMesEditor().up('window').close();
                 this.getMesGrid().getStore().load();
-                Ext.Msg.alert('Сообщение', 'Сообщение успешно отправлено!');
             },
             failure: function(response, opts) {
-                this.getMesEditor().up('window').close();
                 Ext.Msg.alert('Ошибка', 'Сообщение не отправлено!');
+                this.getMesEditor().up('window').close();
             },
             scope: this
         });
@@ -411,32 +468,18 @@ Ext.define('EC.PA.controller.Messages', {
 
     ,showMessageEditor: function() {
 
-        var accountsStore = null;
-
-        if(!Ext.isDefined(Ext.StoreManager.lookup("AccountsNames"))){
-            accountsStore = Ext.create('EC.PA.store.Accounts');
-            accountsStore.load();
-        } else {
-            accountsStore = Ext.StoreManager.lookup("AccountsNames")
-        }
-
         var mesEdWin = Ext.create("Ext.window.Window", {
             title: 'Новое сообщение',
             modal: true,
-
             width: 350,
-//            height: 300,
-            items: [
-                {
-                    xtype: 'pa-message-editor'
-                }
-            ]
+            items: [{
+                xtype: 'pa-message-editor'
+            }]
         });
 
-        mesEdWin.messagesCount = this.mesStore.data.length;
-        mesEdWin.down("combo").store = accountsStore;
-
         mesEdWin.show();
+
+        return mesEdWin;
     }
 
 });

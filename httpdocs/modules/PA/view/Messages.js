@@ -178,29 +178,40 @@ Ext.define('EC.PA.view.Messages', {
                 itemId: 'mesDetail',
                 bodyStyle: {padding: '10px'},
                 hidden: true,
-//                tbar: [
-//                    {
-//                       text: 'Ответить',
-//                       itemId: 'respondBtn'
-//                    },
-//                    {
-//                        text: 'Ответить c цитированием',
-//                        itemId: 'respondWithCitBtn'
-//                    },
-//                    {
-//                        text: 'Переслать',
-//                        itemId: 'forwardBtn'
-//                    },
-//                    {
-//                        text: 'Удалить',
-//                        itemId: 'delBtn'
-//                    }
-//                ],
+                tbar: [
+                    {
+                       text: 'Ответить',
+                       itemId: 'respondBtn',
+                       handler: function(){this.up('#mesDetail').fireEvent('respond')}
+                    },
+                    {
+                        text: 'Ответить c цитированием',
+                        itemId: 'respondWithCitBtn',
+                        handler: function(){this.up('#mesDetail').fireEvent('respondWithCit')}
+                    },
+                    {
+                        text: 'Переслать',
+                        itemId: 'forwardBtn',
+                        handler: function(){this.up('#mesDetail').fireEvent('forward')}
+                    },
+                    {
+                        text: 'Удалить',
+                        itemId: 'delBtn',
+                        handler: function(){this.up('#mesDetail').fireEvent('delete')}
+                    }
+                ],
                 tpl: Ext.create('Ext.XTemplate',
-                    '<strong>Тема:</strong> {subject}<br/>',
-                    '<p><strong>От кого:</strong> {sender_name}</p>',
-                    '{message}'
-                )
+                    '<strong>Тема: </strong>{subject}<br/>',
+                    '<p><strong>От: </strong>{[this.getName(values.sender_name)]}</p>',
+                    '<p><strong>Кому: </strong>{[this.getName(values.receiver_name)]}</p>',
+                    '{message}',{
+                        getName: function(name) {
+                            if(Ext.isEmpty(name)) {
+                                return 'Администрация';
+                            }
+                            return name;
+                        }
+                    })
             }
         ];
 

@@ -60,12 +60,14 @@ class PA_MessagesController extends Xend_Controller_Action
             return;
         }
 
-        $data['owner_id'] = $identity->id;
+        if ($data['sender_id'] != $data['receiver_id']) {
+            $data['owner_id'] = $identity->id;
 
-        $outReponse = $this->_model->add($data);
-        if ($outReponse->isError()) {
-            $this->_collectErrors($inReponse);
-            return;
+            $outReponse = $this->_model->add($data);
+            if ($outReponse->isError()) {
+                $this->_collectErrors($inReponse);
+                return;
+            }
         }
 
         $this->view->success = true;

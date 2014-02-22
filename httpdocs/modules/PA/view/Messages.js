@@ -81,13 +81,12 @@ Ext.define('EC.PA.view.Messages', {
             region: 'center',
             layout: 'border',
             items: [{
-                region: 'north',
+                region: 'center',
                 hideHeaders: true,
                 split: true,
-                height: 100,
+                height: 150,
                 xtype: 'grid',
                 itemId: 'mesGrid',
-                border: false,
                 store: 'EC.PA.store.Messages',
                 cls: 'curUserMessagesGrid',
                 viewConfig: {
@@ -163,10 +162,11 @@ Ext.define('EC.PA.view.Messages', {
                     width: 30
                 }]
             }, {
-                region: 'center',
+                region: 'south',
                 collapsible: true,
                 split: true,
                 header: false,
+                flex: 1,
                 xtype: 'panel',
                 itemId: 'mesDetail',
                 bodyStyle: {padding: '10px'},

@@ -27,6 +27,8 @@ class PA_MessagesController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'mark-as-read');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'trash');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'untrash');
     }
 
     public function unreadCountAction ()
@@ -101,6 +103,30 @@ class PA_MessagesController extends Xend_Controller_Action
         }
     }
 
+    public function trashAction()
+    {
+        $id = $this->_getParam('id');
+
+        $response = $this->_model->trash($id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+    }
+
+    public function untrashAction()
+    {
+        $id = $this->_getParam('id');
+
+        $response = $this->_model->untrash($id);
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
+    }
+
     /**
      * List of incoming messages
      */
@@ -108,7 +134,9 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $accId = Xend_Accounts_Prototype::getId();
 
-        $response = $this->_model->getAll(new Zend_Db_Expr('receiver_id = '.$accId . ' AND owner_id = ' . $accId), $this->_getAllParams());
+        $where = new Zend_Db_Expr('receiver_id = '.$accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+
+        $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
@@ -126,7 +154,9 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $accId = Xend_Accounts_Prototype::getId();
 
-        $response = $this->_model->getAll(new Zend_Db_Expr('sender_id = '.$accId . ' AND owner_id = ' . $accId), $this->_getAllParams());
+        $where = new Zend_Db_Expr('sender_id = '.$accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+
+        $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
@@ -144,7 +174,9 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $accId = Xend_Accounts_Prototype::getId();
 
-        $response = $this->_model->getAll(new Zend_Db_Expr('deleted = 1 AND owner_id = ' . $accId), $this->_getAllParams());
+        $where = new Zend_Db_Expr('deleted = 1 AND owner_id = ' . $accId);
+
+        $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;

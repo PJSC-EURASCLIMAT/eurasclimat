@@ -38,6 +38,40 @@ class PA_Messages_Model
             Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
+    public function trash($id)
+    {
+        $id = Zend_Json::decode($id);
+        $response = new Xend_Response();
+
+        try {
+            $result = $this->_table->updateByPk(array('deleted' => 1), $id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+        }
+
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($result)));
+    }
+
+    public function untrash($id)
+    {
+        $id = Zend_Json::decode($id);
+        $response = new Xend_Response();
+
+        try {
+            $result = $this->_table->updateByPk(array('deleted' => 0), $id);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+        }
+
+        return $response->addStatus(new Xend_Status(
+            Xend_Status::retrieveAffectedRowStatus($result)));
+    }
+
 
     public function getUserUnreadMesCount($receiver_id)
     {
@@ -84,6 +118,7 @@ class PA_Messages_Model
                     'message',
                     'date',
                     'readed',
+                    'deleted',
                     'subject',
                     'sender_name',
                     'receiver_name',

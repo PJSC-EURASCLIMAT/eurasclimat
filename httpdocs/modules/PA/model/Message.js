@@ -16,6 +16,7 @@ Ext.define('EC.PA.model.Message', {
         {name: 'readed',   type: 'number'},
         {name: 'parent', type: 'string'},
         {name: 'checked', type: 'int'},
+        {name: 'deleted', type: 'int'},
         {name: 'expanded', type: 'boolean', defaultValue: false}
     ]
 

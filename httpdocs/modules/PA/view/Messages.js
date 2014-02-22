@@ -31,35 +31,7 @@ Ext.define('EC.PA.view.Messages', {
 
     requires: 'EC.PA.store.MessagesTypes',
     
-    tbar: [{
-        xtype: 'button',
-        iconCls: 'add',
-        text: 'Написать',
-        tooltip: 'Написать новое сообщение',
-        action: 'add'
-    }, {
-        xtype: 'button',
-        text: 'Действия',
-        menu: [{
-            text: 'Выбрать все',
-            action: 'checkAll'
-        }, {
-            text: 'Снять выделения',
-            action: 'uncheckAll'
-        }, {
-            text: 'Отметить выбранные как прочитанные',
-            action: 'setReaded'
-        }, {
-            text: 'Удалить выбранные',
-            action: 'delete',
-            itemId: 'deleteChecked'
-        }]
-    },'->', {
-        xtype: 'button',
-        tooltip: 'Обновить',
-        iconCls: 'x-tbar-loading',
-        action: 'refresh'
-    }],
+
 
     initComponent: function() {
         
@@ -80,6 +52,35 @@ Ext.define('EC.PA.view.Messages', {
         }, {
             region: 'center',
             layout: 'border',
+            tbar: [{
+                xtype: 'button',
+                iconCls: 'add',
+                text: 'Написать',
+                tooltip: 'Написать новое сообщение',
+                action: 'add'
+            }, {
+                xtype: 'button',
+                text: 'Действия',
+                menu: [{
+                    text: 'Выбрать все',
+                    action: 'checkAll'
+                }, {
+                    text: 'Снять выделения',
+                    action: 'uncheckAll'
+                }, {
+                    text: 'Отметить выбранные как прочитанные',
+                    action: 'setReaded'
+                }, {
+                    text: 'Удалить выбранные',
+                    action: 'delete',
+                    itemId: 'deleteChecked'
+                }]
+            },'->', {
+                xtype: 'button',
+                tooltip: 'Обновить',
+                iconCls: 'x-tbar-loading',
+                action: 'refresh'
+            }],
             items: [{
                 region: 'center',
                 hideHeaders: true,
@@ -155,7 +156,7 @@ Ext.define('EC.PA.view.Messages', {
                         tooltip: 'Удалить',
                         handler: function(grid, rowIndex, colIndex) {
                             var rec = grid.getStore().getAt(rowIndex);
-                            this.up('#mesGrid').fireEvent('deleteRow',rec);
+                            this.up('#mesGrid').fireEvent('deleteRow', [rec]);
                         }
     
                     }],

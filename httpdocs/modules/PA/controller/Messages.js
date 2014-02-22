@@ -15,6 +15,8 @@ Ext.define('EC.PA.controller.Messages', {
     sendURL:        '/json/pa/messages/add',
     unreadMesURL:   '/json/pa/messages/unread-count',
     delURL:         '/json/pa/messages/delete',
+    trashURL:         '/json/pa/messages/trash',
+    untrashURL:         '/json/pa/messages/untrash',
     markAsReadURL:  '/json/pa/messages/mark-as-read',
 
     inBoxURL: '/json/pa/messages/get-list',
@@ -129,7 +131,6 @@ Ext.define('EC.PA.controller.Messages', {
                 delete: this.onDetailDelete
             }
         });
-        //Русские даты
 
         this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
@@ -400,31 +401,41 @@ Ext.define('EC.PA.controller.Messages', {
         this.onMessageDelete(ids);
     }
 
-    ,onMessageDelete: function(id, successCallback) {
+    ,onMessageDelete: function(records, successCallback) {
 
-        var params = null;
-        var records = id;
+        var params = null,
+            deleted = records[0].get('deleted'),
+            map = {
+                0 : {
+                    message: 'Переместить в корзину?',
+                    url: this.trashURL
+                },
+                1 : {
+                    message: 'Удалить навсегда?',
+                    url: this.delURL
+                }
+            };
 
-        if (Ext.isArray(id)) {
+        if (Ext.isArray(records)) {
             params = [];
-            Ext.each(id,function(item){
+            Ext.each(records,function(item){
                 params.push(item.getId());
             },this);
             params = Ext.JSON.encode(params);
         } else {
-            params = id.getId();
+            params = records.getId();
         }
 
-        Ext.MessageBox.confirm('Подтверждение', 'Удалить сообщение?', function(b) {
+        Ext.MessageBox.confirm('Подтверждение', map[deleted].message, function(b) {
             if ('yes' === b) {
                 Ext.Ajax.request({
                     params: {
                         id: params
                     },
                     extraParams:{
-                        records: id
+                        records: records
                     },
-                    url: this.delURL,
+                    url: map[deleted].url,
                     success: function(response, opts) {
                         this.getMesGrid().getStore().remove(opts.extraParams.records);
                         if(Ext.isDefined(successCallback)){

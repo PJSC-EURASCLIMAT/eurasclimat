@@ -19,7 +19,7 @@ Ext.define('EC.PA.store.MessagesTypes', {
                 icon: '/images/icons/outbox.png'
             },
             'deleted': {
-                name: 'Удаленные',
+                name: 'Корзина',
                 icon: '/images/icons/trash.png'
             }
         };
@@ -34,7 +34,7 @@ Ext.define('EC.PA.store.MessagesTypes', {
                     text: boxName,
                     icon: icon,
                     leaf: false,
-                    expanded: true,
+                    expanded: false,
                     children: []
             };
 

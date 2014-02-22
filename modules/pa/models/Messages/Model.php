@@ -120,6 +120,7 @@ class PA_Messages_Model
                     'readed',
                     'deleted',
                     'subject',
+                    'type',
                     'sender_name',
                     'receiver_name',
                 )

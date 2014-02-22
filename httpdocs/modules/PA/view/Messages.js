@@ -99,14 +99,30 @@ Ext.define('EC.PA.view.Messages', {
                         }
                     }
                 }, {
+                    dataIndex: 'type',
+                    width: 30,
+                    renderer: function(type){
+                        if(type === 0) {
+                            return '';
+                        }
+
+                        var typeIcons = {
+                            1 : '/images/icons/warning.png',
+                            2 : '/images/icons/fam/cog.png',
+                            3 : '/images/icons/fam/user.png'
+                        };
+                        return '<img src="' + typeIcons[type] + '" />';
+                    }
+                }, {
                     xtype: 'templatecolumn',
                     // itemId: 'content-col',
                     // tdCls: 'content-td',
                     flex: 1,
                     tpl: new Ext.XTemplate(
-                        '<strong style="{[this.getSenderStyle(values)]}">{[this.getSender(values)]}</strong>' +
+//                            '{[this.getIcon(values)]}' +
+                            '<strong style="{[this.getSenderStyle(values)]}">{[this.getSender(values)]}</strong>' +
                             // '<p style="margin: 0; {[this.getEllipsisStyle(values)]}">{[this.getMessage(values)]}</p>' +
-                            '</br><span style="{[this.getSenderStyle(values)]}">{subject}</span>',
+                            '&#032;&#032;&#032;&#032;&#032;<span style="{[this.getSenderStyle(values)]}">{subject}</span>',
                             // '<small>{date:date("h:i:s d F Y")}</small>',
                         {
                             getSender: function(values) {
@@ -115,7 +131,7 @@ Ext.define('EC.PA.view.Messages', {
                                 }
                                 return values.sender_name;
                             },
-    
+
                             getMessage: function(values){
                                 var mes = values.message;
                                 if (!values.expanded) {
@@ -148,7 +164,7 @@ Ext.define('EC.PA.view.Messages', {
                     align: 'left',
                     items: [{
                         iconCls: 'x-btn icon',
-                        icon: '/images/icons/delete.png',
+                        icon: '/images/icons/trash.png',
                         tooltip: 'Удалить',
                         handler: function(grid, rowIndex, colIndex) {
                             var rec = grid.getStore().getAt(rowIndex);

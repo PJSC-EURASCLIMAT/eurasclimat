@@ -53,6 +53,9 @@ class PA_MessagesController extends Xend_Controller_Action
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
 
+
+        // TODO брать type из константы
+        $data['type'] = 3; //Личное
         $data['sender_id'] = $identity->id;
         $data['owner_id'] = $data['receiver_id'];
 
@@ -64,6 +67,7 @@ class PA_MessagesController extends Xend_Controller_Action
 
         if ($data['sender_id'] != $data['receiver_id']) {
             $data['owner_id'] = $identity->id;
+            $data['readed'] = 1;
 
             $outReponse = $this->_model->add($data);
             if ($outReponse->isError()) {

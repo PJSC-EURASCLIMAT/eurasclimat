@@ -11,6 +11,7 @@ Ext.define('EC.PA.model.Message', {
         {name: 'sender_name',  type: 'string'},
         {name: 'receiver_name',  type: 'string'},
         {name: 'subject',  type: 'string'},
+        {name: 'type',  type: 'int'},
         {name: 'message',  type: 'string'},
         {name: 'date', type: 'date', dateFormat: 'Y-m-d H:i:s'},
         {name: 'readed',   type: 'number'},

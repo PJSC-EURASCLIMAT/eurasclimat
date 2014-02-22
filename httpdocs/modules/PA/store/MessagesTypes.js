@@ -23,6 +23,13 @@ Ext.define('EC.PA.store.MessagesTypes', {
                 icon: '/images/icons/trash.png'
             }
         };
+        var typeIcons = {
+            1 : '/images/icons/warning.png',
+            2 : '/images/icons/fam/cog.png',
+            3 : '/images/icons/fam/user.png'
+        };
+
+
 
         for (var i in boxes) {
             var boxName = boxes[i].name;
@@ -41,9 +48,13 @@ Ext.define('EC.PA.store.MessagesTypes', {
             if (i !== 'deleted') {
                 for (var j in types) {
                     var type = types[j];
-                    child.children.push(
-                        {type: j, box: i, text: type, leaf: true }
-                    )
+                    child.children.push({
+                        type: j,
+                        box: i,
+                        icon: typeIcons[j],
+                        text: type,
+                        leaf: true
+                    })
                 }
             }
 

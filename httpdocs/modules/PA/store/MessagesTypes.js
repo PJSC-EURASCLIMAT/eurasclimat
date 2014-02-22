@@ -41,11 +41,11 @@ Ext.define('EC.PA.store.MessagesTypes', {
                     text: boxName,
                     icon: icon,
                     leaf: false,
-                    expanded: false,
+                    expanded: true,
                     children: []
             };
 
-            if (i !== 'deleted') {
+            if (i == 'in') {
                 for (var j in types) {
                     var type = types[j];
                     child.children.push({

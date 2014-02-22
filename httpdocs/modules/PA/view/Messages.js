@@ -217,6 +217,11 @@ Ext.define('EC.PA.view.Messages', {
         }];
 
         this.callParent();
+        
+        var treePanel = this.down('#mesFilterTree');
+        treePanel.on('viewready', function() {
+            treePanel.getSelectionModel().selectRange(0,0);
+        }, this);
     },
 
     setTitleCount: function(num) {

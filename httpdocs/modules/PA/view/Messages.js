@@ -17,11 +17,6 @@ Ext.define('EC.PA.view.Messages', {
     width: 800,
 
     height: 400,
-
-//    layout: {
-//        type: 'hbox',
-//        align: 'stretch'
-//    },
     
     layout: 'border',
     
@@ -30,8 +25,6 @@ Ext.define('EC.PA.view.Messages', {
     closeAction: 'hide',
 
     requires: 'EC.PA.store.MessagesTypes',
-    
-
 
     initComponent: function() {
         
@@ -42,6 +35,7 @@ Ext.define('EC.PA.view.Messages', {
             collapsible: true,
             split: true,
             header: false,
+            border: false,
             xtype: 'treepanel',
             itemId: 'mesFilterTree',
             store: store,
@@ -85,6 +79,7 @@ Ext.define('EC.PA.view.Messages', {
             items: [{
                 region: 'center',
                 hideHeaders: true,
+                border: false,
                 split: true,
                 height: 150,
                 xtype: 'grid',
@@ -168,6 +163,7 @@ Ext.define('EC.PA.view.Messages', {
                 collapsible: true,
                 split: true,
                 header: false,
+                border: false,
                 flex: 1,
                 xtype: 'panel',
                 itemId: 'mesDetail',

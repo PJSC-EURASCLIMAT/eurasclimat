@@ -52,6 +52,7 @@ Ext.define('EC.PA.view.Messages', {
         }, {
             region: 'center',
             layout: 'border',
+            border: false,
             tbar: [{
                 xtype: 'button',
                 iconCls: 'add',

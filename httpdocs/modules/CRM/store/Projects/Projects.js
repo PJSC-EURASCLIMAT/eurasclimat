@@ -23,5 +23,4 @@ Ext.define('EC.CRM.store.Projects.Projects', {
         sortParam: undefined,
         limitParam: undefined
     }
-
 });

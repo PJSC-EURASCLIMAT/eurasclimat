@@ -20,13 +20,17 @@ Ext.define('EC.CRM.store.Calcpd.ConfigAbstract', {
             api: this.apiConfig,
             reader: {
                 type: 'json',
-                root: 'rows',
+                root: 'data',
                 successProperty: 'success'
             },
             writer: {
                 root: 'data',
                 encode: true
-            }
+            },
+            pageParam: undefined,
+            startParam: undefined,
+            sortParam: undefined,
+            limitParam: undefined
         },
 
         this.callParent(arguments);
@@ -55,7 +59,6 @@ Ext.define('EC.CRM.store.Calcpd.ConfigAbstract', {
                 this.onCreateSuccess.apply(this, arguments);
             }
         }, this);
-        
     },
     
     onCreateSuccess: function(store, operation, eOpts) {
@@ -72,24 +75,20 @@ Ext.define('EC.CRM.store.Calcpd.ConfigAbstract', {
     },
     
     onCreateException: function(proxy, response, operation, eOpts) {
-        
         this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка создания.');
     },
     
     onReadException: function(proxy, response, operation, eOpts) {
-        
         Ext.Msg.alert('Ошибка', 'Ошибка чтения.');
     },
     
     onUpdateException: function(proxy, response, operation, eOpts) {
-        
         this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка сохранения.');
     },
     
     onDestroyException: function(proxy, response, operation, eOpts) {
-        
         this.rejectChanges();
         Ext.Msg.alert('Ошибка', 'Ошибка удаления.');
     }

@@ -31,9 +31,24 @@ Ext.define('EC.CRM.view.Calcpd.ConfigLayout', {
             itemId: 'objClassPanel',
             title: 'Классы объектов'
         }, {
-            layout: 'fit',
-            itemId: 'configPanel',
-            title: 'Конфигуратор стоимости'
+            layout: 'border',
+            itemId: 'pricePanel',
+            border: false,
+            title: 'Конфигуратор стоимости',
+            items: [{
+                xtype: 'CalcpdObjTree',
+                margins: '0 5 0 0',
+                region: 'west',
+                itemId: 'objTreePanel',
+                width: 300
+            }, {
+                xtype: 'panel',
+                region: 'center',
+                layout: 'fit',
+                itemId: 'priceFormPanel',
+                title: 'Цены на услуги проектирования',
+                items: []
+            }]
         }]
     }]
 });

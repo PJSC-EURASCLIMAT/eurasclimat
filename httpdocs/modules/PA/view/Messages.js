@@ -67,25 +67,27 @@ Ext.define('EC.PA.view.Messages', {
 
         this.items = [{
             region: 'west',
+            collapsible: true,
+            split: true,
+            header: false,
             xtype: 'treepanel',
             itemId: 'mesFilterTree',
             store: store,
             animate: false,
             useArrows: true,
             rootVisible: false,
-            collapsible: true,
-            title: false,
-            split: true,
             width: 200
         }, {
             region: 'center',
             layout: 'border',
             items: [{
-                region: 'center',
+                region: 'north',
+                hideHeaders: true,
+                split: true,
+                height: 100,
                 xtype: 'grid',
                 itemId: 'mesGrid',
                 border: false,
-                hideHeaders: true,
                 store: 'EC.PA.store.Messages',
                 cls: 'curUserMessagesGrid',
                 viewConfig: {
@@ -161,11 +163,10 @@ Ext.define('EC.PA.view.Messages', {
                     width: 30
                 }]
             }, {
-                region: 'south',
-                height: 200,
-                title: false,
-                split: true,
+                region: 'center',
                 collapsible: true,
+                split: true,
+                header: false,
                 xtype: 'panel',
                 itemId: 'mesDetail',
                 bodyStyle: {padding: '10px'},

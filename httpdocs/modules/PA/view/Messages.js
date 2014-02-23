@@ -184,6 +184,7 @@ Ext.define('EC.PA.view.Messages', {
                 xtype: 'panel',
                 itemId: 'mesDetail',
                 bodyStyle: {padding: '10px'},
+                autoScroll: true,
                 tbar: [{
                    text: 'Ответить',
                    itemId: 'respondBtn',

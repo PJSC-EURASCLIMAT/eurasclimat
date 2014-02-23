@@ -129,7 +129,7 @@ Ext.define('EC.PA.controller.Messages', {
 
         this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
-            //Создаем окошко
+            // Создаем окошко
             this.viewerWindow = Ext.create('EC.PA.view.Messages',{
                 messagesCount: this.newMessagesCount
             }).show();

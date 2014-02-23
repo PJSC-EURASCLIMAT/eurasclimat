@@ -15,13 +15,13 @@ Ext.define('EC.PA.controller.Messages', {
     sendURL:        '/json/pa/messages/add',
     unreadMesURL:   '/json/pa/messages/unread-count',
     delURL:         '/json/pa/messages/delete',
-    trashURL:         '/json/pa/messages/trash',
-    untrashURL:         '/json/pa/messages/untrash',
+    trashURL:       '/json/pa/messages/trash',
+    untrashURL:     '/json/pa/messages/untrash',
     markAsReadURL:  '/json/pa/messages/mark-as-read',
 
-    inBoxURL: '/json/pa/messages/get-list',
+    inBoxURL:   '/json/pa/messages/get-list',
     sentBoxURL: '/json/pa/messages/get-sent-list',
-    delBoxURL: '/json/pa/messages/get-deleted-list',
+    delBoxURL:  '/json/pa/messages/get-deleted-list',
 
     expandedMessages: [],
 
@@ -60,7 +60,6 @@ Ext.define('EC.PA.controller.Messages', {
         this.mesStore = Ext.StoreManager.lookup('EC.PA.store.Messages');
         this.unreadRunner = new Ext.util.TaskRunner();
     },
-
 
     run: function(container) {
 
@@ -504,9 +503,8 @@ Ext.define('EC.PA.controller.Messages', {
     },
     
     clearDetailPanel: function() {
-        
-        var panel = this.getMesDetail(),
-            topbar = panel.down('toolbar');
+       
+        var panel = this.getMesDetail();
         panel.record = null;
         panel.body.update('');
     }

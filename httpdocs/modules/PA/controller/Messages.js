@@ -35,30 +35,25 @@ Ext.define('EC.PA.controller.Messages', {
 //    updateURL: '/json/pa/profile/update-profile',
 //    changePassURL: '/json/pa/profile/change-password',
 
-    refs: [
-        {
-            ref: 'mesWin',
-            selector: 'pa-messages-win'
-        },
-        {
-            ref: 'mesGrid',
-            selector: 'pa-messages-win #mesGrid'
-        },
-        {
-            ref: 'mesDetail',
-            selector: 'pa-messages-win #mesDetail'
-        },
-        {
-            ref: 'mesEditor',
-            selector: 'pa-message-editor'
-        },
-        {
-            ref: 'mesTopPanelButton',
-            selector: 'TopPanel top-panel-msg-button'
-        }
-    ],
+    refs: [{
+        ref: 'mesWin',
+        selector: 'pa-messages-win'
+    }, {
+        ref: 'mesGrid',
+        selector: 'pa-messages-win #mesGrid'
+    }, {
+        ref: 'mesDetail',
+        selector: 'pa-messages-win #mesDetail'
+    }, {
+        ref: 'mesEditor',
+        selector: 'pa-message-editor'
+    }, {
+        ref: 'mesTopPanelButton',
+        selector: 'TopPanel top-panel-msg-button'
+    }],
 
     init: function() {
+        
         this.callParent();
 
         this.account = xlib.Acl.Storage.getIdentity();
@@ -128,13 +123,13 @@ Ext.define('EC.PA.controller.Messages', {
                 respond: this.onDetailRespond,
                 respondWithCit: this.onDetailRespondWithCit,
                 forward: this.onDetailForward,
-                delete: this.onDetailDelete
+                'delete': this.onDetailDelete
             }
         });
 
         this.mesStore.on('load',this.onMessagesStoreLoad,this);
 
-            //Создаем окошко профиля
+            //Создаем окошко
             this.viewerWindow = Ext.create('EC.PA.view.Messages',{
                 messagesCount: this.newMessagesCount
             }).show();
@@ -147,6 +142,7 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onDetailRespond: function() {
+        
         var record = this.getMesDetail().record;
         var editorWin = this.showMessageEditor();
         editorWin.down('[name=receiver_id]').setValue(record.get('sender_id'));
@@ -154,6 +150,7 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onDetailRespondWithCit: function() {
+        
         var record = this.getMesDetail().record;
 
         var editorWin = this.showMessageEditor();
@@ -169,6 +166,7 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onDetailForward: function() {
+        
         var record = this.getMesDetail().record;
 
         var editorWin = this.showMessageEditor();
@@ -182,17 +180,17 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onDetailDelete: function() {
+        
         var me = this;
         var record = this.getMesDetail().record;
         this.onMessageDelete([record],function(){
-            me.getMesDetail().hide();
+            //me.getMesDetail().hide();
+            // TODO: очистить панель, деактивировать кнопки
         });
-
-
-        console.log('onDetailDelete');
     },
 
     onFilterTreeSelect: function( tree, record, index, eOpts ) {
+        
         var type = record.get('type'),
             box = record.get('box'),
             arr = [],
@@ -225,9 +223,6 @@ Ext.define('EC.PA.controller.Messages', {
         }
 
 
-
-
-
         Ext.iterate(this.filters, function(key, value){
             if (value !== "" ) {
                 if(key === 'rating') {
@@ -250,29 +245,30 @@ Ext.define('EC.PA.controller.Messages', {
         this.getMesGrid().store.proxy.extraParams.filter = Ext.JSON.encode(arr);
 
         this.getMesGrid().store.load();
-
     },
 
     checkReadedDelay: function (record) {
+        
         this.selectedRecord = record;
 
         if(record.get('readed') === 1)
             return;
 
-        var task = new Ext.util.DelayedTask(function(record){
+        var task = new Ext.util.DelayedTask(function(record) {
             var curSelRecord = this.getMesGrid().getSelectionModel().getLastSelected();
 
             if  (this.selectedRecord === curSelRecord ) {
                 this.markAsRead(record.getId());
             }
 
-        },this,[record]);
+        }, this, [record]);
 
         task.delay(3000);
     },
 
 
     onMessageSelect: function( mesGrid, record, index, eOpts ) {
+        
         this.checkReadedDelay(record);
         var detail = this.getMesDetail();
         detail.record = record;
@@ -281,23 +277,27 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     checkAllMessages: function() {
+        
         this.mesStore.each(function(item){
            item.set('checked',1);
         });
     },
 
     uncheckAllMessages: function() {
-        this.mesStore.each(function(item){
-            item.set('checked',0);
+        
+        this.mesStore.each(function(item) {
+            item.set('checked', 0);
         });
     },
 
     setAllMessagesReaded: function() {
+        
         var selMesIds = [];
-        this.mesStore.each(function(item){
-            if(item.get('checked') === 1)
+        this.mesStore.each(function(item) {
+            if (item.get('checked') === 1) {
                 selMesIds.push(item.getId());
-        },this);
+            }
+        }, this);
 
         if (selMesIds.length === 0) {
             return;
@@ -311,26 +311,29 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     listenUserMessages: function() {
+        
         this.unreadRunner.start({
-            run: this.getNewMessagesCount
-            ,interval: 30000
-            ,scope: this
+            run: this.getNewMessagesCount(),
+            interval: 30000,
+            scope: this
         });
         this.getNewMessagesCount();
     },
 
     updateTopMesButtonCount: function(count) {
-        this.getMesTopPanelButton().updateCount(count)
+        this.getMesTopPanelButton().updateCount(count);
     },
 
     udpateMesWinTitleCount: function() {
+        
         var win = this.getMesWin();
-        if(Ext.isDefined(win)) {
+        if (Ext.isDefined(win)) {
             win.setTitleCount(this.newMessagesCount);
         }
     },
 
     getNewMessagesCount: function() {
+        
         Ext.Ajax.request({
             params: {
                id : this.account.id
@@ -375,18 +378,16 @@ Ext.define('EC.PA.controller.Messages', {
             scope: this
         });
 
-    }
+    },
 
-
-
-    ,refreshMessages: function() {
+    refreshMessages: function() {
         this.mesStore.load();
-    }
+    },
 
-    ,onSelectedMessagesDelete: function() {
+    onSelectedMessagesDelete: function() {
 
         var ids = [];
-        this.getMesGrid().getStore().each(function(item){
+        this.getMesGrid().getStore().each(function(item) {
 
             if(item.get('checked') === 1) {
                 ids.push(item);
@@ -399,9 +400,9 @@ Ext.define('EC.PA.controller.Messages', {
         }
 
         this.onMessageDelete(ids);
-    }
+    },
 
-    ,onMessageDelete: function(records, successCallback) {
+    onMessageDelete: function(records, successCallback) {
 
         var params = null,
             deleted = records[0].get('deleted'),
@@ -418,9 +419,9 @@ Ext.define('EC.PA.controller.Messages', {
 
         if (Ext.isArray(records)) {
             params = [];
-            Ext.each(records,function(item){
+            Ext.each(records,function(item) {
                 params.push(item.getId());
-            },this);
+            }, this);
             params = Ext.JSON.encode(params);
         } else {
             params = records.getId();
@@ -449,14 +450,14 @@ Ext.define('EC.PA.controller.Messages', {
                 });
             }
         }, this);
+    },
 
-    }
-
-    ,closeMessageEditor: function() {
+    closeMessageEditor: function() {
         this.getMesEditor().up('window').close();
-    }
+    },
 
-    ,sendMessage: function() {
+    sendMessage: function() {
+        
         var editor = this.getMesEditor();
         var values = editor.getValues();
 
@@ -474,10 +475,9 @@ Ext.define('EC.PA.controller.Messages', {
             },
             scope: this
         });
+    },
 
-    }
-
-    ,showMessageEditor: function() {
+    showMessageEditor: function() {
 
         var mesEdWin = Ext.create("Ext.window.Window", {
             title: 'Новое сообщение',
@@ -487,10 +487,6 @@ Ext.define('EC.PA.controller.Messages', {
                 xtype: 'pa-message-editor'
             }]
         });
-
-        mesEdWin.show();
-
-        return mesEdWin;
+        return mesEdWin.show();
     }
-
 });

@@ -18,7 +18,7 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
     fieldDefaults: {
         labelAlign: 'left',
         border: false,
-        allowBlank: false,
+        allowBlank: true,
         anchor: '100%',
         labelWidth: 200
     },

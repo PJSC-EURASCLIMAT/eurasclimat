@@ -32,7 +32,6 @@ class Crm_Calcpd_ConfigModel
             $tmp = array();
             foreach ($classList as $c) {
                 $tmp[] = array(
-                    'expanded'      => true,
                     'leaf'          => true,
                     'text'          => $c['name'],
                     'obj_type_id'   => $t['id'],
@@ -40,7 +39,7 @@ class Crm_Calcpd_ConfigModel
                 );
             }
             $data[] =  array(
-                'expanded'      => true,
+                'expanded'      => false,
                 'leaf'          => false,
                 'text'          => $t['name'],
                 'obj_type_id'   => 0,

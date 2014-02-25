@@ -49,11 +49,19 @@ class Crm_Projects_Model
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $row = $this->_table->findOne($id);
-        if (!$row) {
+        $accountsTable = new Xend_Accounts_Table_Accounts();
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('p' => $this->_table->getTableName()))
+            ->joinLeft(array('a' => $accountsTable->getTableName()),
+                'a.id=p.creator_id', array('creator_name'  => 'a.name'))
+            ->where('p.id = ?', $id)
+            ->limit(1);
+
+        $rows = $select->query()->fetchAll();
+        if (!$rows) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
-        $response->setRow($row->toArray());
+        $response->setRow($rows[0]);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -98,23 +106,6 @@ class Crm_Projects_Model
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
-    }
-
-    public function getBaseDescr($id)
-    {
-        $id = intval($id);
-        $response = new Xend_Response();
-        if ($id == 0) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        $row = $this->_table->findOne($id);
-        if (!$row) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-        }
-        $response->setRow($row->toArray());
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -168,23 +159,6 @@ class Crm_Projects_Model
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
-    }
-
-    public function getPlans($id)
-    {
-        $id = intval($id);
-        $response = new Xend_Response();
-        if ($id == 0) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        $row = $this->_table->findOne($id);
-        if (!$row) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-        }
-        $response->setRow($row->toArray());
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function updatePlans(array $params)

@@ -18,14 +18,10 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
 //        'EC.CRM.view.Projects.Plans',
 //        'EC.CRM.view.Projects.Groups.Combo'
 //    ],
-//    
-//    getBaseDescrURL: '/json/crm/projects/get-base-descr',
-//    
-//    updateBaseDescrURL: '/json/crm/projects/update-base-descr',
-//    
-//    getPlansURL: '/json/crm/projects/get-plans',
-//    
-//    updatePlansURL: '/json/crm/projects/update-plans',
+
+    addURL: '/json/crm/calcpd/add',
+    
+    editURL: '/json/crm/calcpd/update',
     
     run: function(container) {
 

@@ -33,7 +33,7 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
         }, {
             xtype: 'displayfield',
             fieldLabel: 'Инициатор',
-            value: xlib.Acl.Storage.getIdentity().name
+            name: 'creator_name'
         }, {
             xtype: 'projectsGroupsCombo',
             fieldLabel: 'Группа',

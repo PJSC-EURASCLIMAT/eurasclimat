@@ -20,10 +20,6 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
     
     permissions: acl.isUpdate('admin'),
     
-    addURL: '/json/crm/calcpd/add',
-    
-    editURL: '/json/crm/calcpd/update',
-    
     deleteURL: '/json/crm/calcpd/delete',
     
     run: function(container) {

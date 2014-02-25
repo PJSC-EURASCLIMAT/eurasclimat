@@ -62,7 +62,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
 
     public function getBaseDescrAction()
     {
-        $response = $this->_model->getBaseDescr($this->_getParam('id'));
+        $response = $this->_model->get($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->data = $response->getRow();
@@ -83,7 +83,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
 
     public function getPlansAction()
     {
-        $response = $this->_model->getPlans($this->_getParam('id'));
+        $response = $this->_model->get($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->data = $response->getRow();

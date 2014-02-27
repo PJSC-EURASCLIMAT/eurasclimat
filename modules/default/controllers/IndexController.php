@@ -171,6 +171,7 @@ class IndexController extends Xend_Controller_Action
     public function getPermissionsAction()
     {
         $this->disableLayout(true);
+        $this->getResponse()->setHeader('Content-Type', 'application/javascript');
 
         $acl = Xend_Accounts_Prototype::getAcl();
         $aclCollection = array();
@@ -202,6 +203,7 @@ class IndexController extends Xend_Controller_Action
     public function getSystemSettingsAction()
     {
         $this->disableLayout(true);
+        $this->getResponse()->setHeader('Content-Type', 'application/javascript');
         $this->view->messageTypes = array(
             1 => 'Важные',
             2 => 'Системные',

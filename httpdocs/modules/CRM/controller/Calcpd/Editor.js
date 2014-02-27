@@ -2,40 +2,66 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
     
     extend: 'Ext.app.Controller',
     
-//    stores: [
-//        'EC.CRM.store.Projects.Projects',
-//        'EC.CRM.store.Projects.Groups'
-//    ],
-//    
-//    models: [
-//        'EC.CRM.model.Projects.Projects',
-//        'EC.CRM.model.Projects.Groups'
-//    ],
-//    
-//    views: [
-//        'EC.CRM.view.Projects.EditLayout',
-//        'EC.CRM.view.Projects.BaseDescr',
-//        'EC.CRM.view.Projects.Plans',
-//        'EC.CRM.view.Projects.Groups.Combo'
-//    ],
-
-    addURL: '/json/crm/calcpd/add',
+    stores: [
+        'EC.CRM.store.Calcpd.Editor'
+    ],
     
-    editURL: '/json/crm/calcpd/update',
+    models: [
+        'EC.CRM.model.Calcpd.Editor'
+    ],
     
-    run: function(container) {
+    views: [
+        'EC.CRM.view.Calcpd.EditorLayout'
+    ],
 
+    requires: [
+        'Ext.grid.feature.Grouping'
+    ],
+    
+    projectID: null,
+    
+    objTypeID: null,
+    
+    title: null,
+    
+    addURL: '/json/crm/calcpd/add-line',
+    
+    run: function(config) {
+        
+        Ext.apply(this, config);        
+        this.Container = Ext.create('EC.CRM.view.Calcpd.EditorLayout');
+        this.Container.setTitle(this.title);
+        
+        this.Container.down('button[action=addline]').on('click', this.onAdd, this);
+        
+        this.on('itemSaved', this.loadData, this);
+        this.loadData();
+        
+        this.Container.down('grid').on({
+            'edit': function(editor, e) {
+                e.record.commit();
+            }
+        });
     },
 
-    updateItem: function(form, url) {
+    loadData: function() {
+        this.getStore('EC.CRM.store.Calcpd.Editor').load({id: this.projectID});
+    },
+    
+    onAdd: function() {
+        
+        var form = this.Container.down('form');
         
         form.submit({
-            url: url,
-            params: {},
+            url: this.addURL,
+            params: {
+                project_id: this.projectID,
+                obj_type_id: this.objTypeID
+            },
             waitMsg: 'Сохранение...',
             success: function(form, action) {
                 this.fireEvent('itemSaved');
-                Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');
+                //Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');
             },
             failure: function(form, action) {
                 switch (action.failureType) {

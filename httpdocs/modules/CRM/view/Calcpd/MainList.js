@@ -6,6 +6,12 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
     
     store: 'EC.CRM.store.Calcpd.Main',
     
+    enableColumnHide: false,
+    
+    enableColumnMove: false,
+    
+    sortableColumns: false,
+    
     initComponent: function() {
         
         var actions = [];
@@ -32,19 +38,23 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
         });
         
         this.columns = [{
-            header: 'Имя',
+            header: 'Наименование',
             dataIndex: 'name',
-            flex: .5
+            flex: 1
+        }, {
+            header: 'Тип объекта',
+            dataIndex: 'obj_type_name',
+            width: 300
         }, {
             xtype: 'templatecolumn',
             header: 'Создал',
-            tpl: '<a href="#/profile/{creator_id}/show">{creator_name}</a>',
-            dataIndex: 'creator_name',
-            flex: .5
+            tpl: '<a href="#/profile/{account_id}/show">{account_name}</a>',
+            dataIndex: 'account_name',
+            width: 300
         }, {
             xtype: 'datecolumn',
             header: 'Дата создания',
-            dataIndex: 'created_date',
+            dataIndex: 'date',
             format: 'd.m.Y H:i',
             width: 100
         }, {
@@ -69,7 +79,14 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',
             action: 'refresh'
-        }]
+        }];
+        
+        this.bbar = Ext.create('Ext.PagingToolbar', {
+            pageSize: 25,
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        });
         
         this.callParent(arguments);
     }

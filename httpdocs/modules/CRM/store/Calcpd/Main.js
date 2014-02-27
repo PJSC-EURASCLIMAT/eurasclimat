@@ -6,6 +6,12 @@ Ext.define('EC.CRM.store.Calcpd.Main', {
     
     autoLoad: true,
     
+    remoteSort: true,
+    
+    sorters: [{property: 'date', direction: 'DESC'}],
+    
+    pageSize: 25,
+    
     proxy: {
         type: 'ajax',
         api: {
@@ -16,10 +22,6 @@ Ext.define('EC.CRM.store.Calcpd.Main', {
             root: 'data',
             successProperty: 'success'
         }
-//        pageParam: undefined,
-//        startParam: undefined,
-//        sortParam: undefined,
-//        limitParam: undefined
     }
 
 });

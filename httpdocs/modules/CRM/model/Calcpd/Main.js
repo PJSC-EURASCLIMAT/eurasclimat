@@ -5,8 +5,10 @@ Ext.define('EC.CRM.model.Calcpd.Main', {
     fields: [
         'id',
         'name',
-        {name: 'created_date', type: 'date', dateReadFormat: 'Y-m-d H:i:s'},
-        'creator_id',
-        'creator_name'
+        'obj_type_id',
+        'obj_type_name',
+        {name: 'date', type: 'date', dateReadFormat: 'Y-m-d H:i:s'},
+        'account_id',
+        'account_name'
     ]
 });

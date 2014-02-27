@@ -24,16 +24,16 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
         defaults: {
             inputAttrTpl: 'style="height:19px;"',
             allowBlank: false,
-            margins: '0 10 0 0'
+            margins: '5 5 5 5'
         },
         items: [{
             xtype: 'combo',
             valueField: 'id',
             displayField: 'name', 
-            fieldLabel: 'Класс объекта',
+            fieldLabel: 'Тип помещения',
             name: 'obj_class_id',
-            labelWidth: 80,
-            width: 250,
+            labelWidth: 90,
+            width: 270,
             editable: false,
             value: '',
             store: {
@@ -62,7 +62,7 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
             fieldLabel: 'Вид работы',
             name: 'serv_id',
             labelWidth: 70,
-            width: 450,
+            width: 430,
             editable: false,
             value: '',
             store: {
@@ -96,7 +96,6 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
         }, {
             xtype: 'button',
             text: 'Добавить в проект',
-            width: 120,
             formBind: true,
             action: 'addline'
         }]

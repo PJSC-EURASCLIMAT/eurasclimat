@@ -30,7 +30,7 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
         xtype: 'panel',
         border: false,
         bodyPadding: 20,
-        html: 'Выберите объект и класс объекта'
+        html: 'Выберите тип объекта и тип помещения'
     },
     
     run: function(container) {

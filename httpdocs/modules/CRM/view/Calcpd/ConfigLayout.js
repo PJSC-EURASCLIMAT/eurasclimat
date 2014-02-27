@@ -29,7 +29,7 @@ Ext.define('EC.CRM.view.Calcpd.ConfigLayout', {
         }, {
             layout: 'fit',
             itemId: 'objClassPanel',
-            title: 'Классы объектов'
+            title: 'Типы помещений'
         }, {
             layout: 'border',
             itemId: 'pricePanel',

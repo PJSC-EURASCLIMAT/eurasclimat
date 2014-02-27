@@ -34,7 +34,6 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
                 this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
             },
             scope: this
-            
         });
         
         this.columns = [{
@@ -58,7 +57,7 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
             format: 'd.m.Y H:i',
             width: 100
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             width: parseInt(actions.length) * 20,
             items: actions
         }];

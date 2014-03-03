@@ -28,7 +28,7 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
 
         this.Container = container; 
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
+        var isPortlet = false; //('portlet' == container.getXType() || container.up('portlet')); 
         
         var grid = container.add(isPortlet 
             ? Ext.create('EC.CRM.view.Calcpd.MainListPortlet')
@@ -122,8 +122,7 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
     
     editItem: function(grid, record) {
         
-        var module = this.getController('EC.CRM.controller.Calcpd.Editor');
-        module.run({
+        this.getController('EC.CRM.controller.Calcpd.Editor').run({
             projectID: record.get('id'),
             objTypeID: record.get('obj_type_id'),
             title: '<i>Проект:</i> "' + record.get('name') + '". '

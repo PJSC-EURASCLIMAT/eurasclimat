@@ -31,7 +31,7 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
         if (!acl.isUpdate('calcpd')) return;
         
         Ext.apply(this, config);        
-        this.Container = Ext.create('EC.CRM.view.Calcpd.EditorLayout');
+        this.Container = this.getView('EC.CRM.view.Calcpd.EditorLayout').create();
         this.Container.setTitle(this.title);
         
         this.Container.down('button[action=addline]').on('click', this.onAdd, this);
@@ -42,7 +42,9 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
         this.Container.down('grid').on({
             'edit': function(editor, e) {
                 e.record.commit();
-            }
+                this.loadData();
+            },
+            scope: this
         });
     },
 
@@ -63,7 +65,6 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
             waitMsg: 'Сохранение...',
             success: function(form, action) {
                 this.fireEvent('itemSaved');
-                //Ext.Msg.alert('Сообщение', 'Данные успешно сохранены.');
             },
             failure: function(form, action) {
                 switch (action.failureType) {

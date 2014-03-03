@@ -12,6 +12,11 @@ Ext.require('xlib.overrides.FileField');
 Ext.require('xlib.Acl.Manager');
 Ext.require('xlib.Acl.AuthManager');
 
+Ext.ns('xlib');
+xlib.formatCurrency = function(value) {
+    return Ext.util.Format.currency(value, ' р.', 2, true);
+}
+
 Ext.application({
     name: 'App',
     appFolder: 'app',
@@ -129,9 +134,5 @@ Ext.application({
 
         var isAuth = (xlib.Acl.Storage.getIdentity().login !== 'guest');
         if (isAuth) this.getController("EC.PA.controller.Messages").listenUserMessages();
-
-        xlib.formatCurrency = function(value) {
-            return Ext.util.Format.currency(value, ' р.', 2, true);
-        }
     }
 });

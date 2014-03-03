@@ -157,6 +157,7 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
             header: 'Сумма',
             hideable: false,
             sortable: false,
+            summaryRenderer: xlib.formatCurrency,
             renderer: function(value, metaData, record, rowIdx, colIdx, store, view) {
                 return xlib.formatCurrency(record.get('price') * record.get('square'));
             },
@@ -166,11 +167,11 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
                     record = records[i];
                     total += (record.get('price') * record.get('square'));
                 }
+                console.log(total);
                 return total;
-            },
-            summaryRenderer: xlib.formatCurrency
+            }
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             hideable: false,
             sortable: false,
             width: 45,

@@ -35,13 +35,6 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
             : Ext.create('EC.CRM.view.Calcpd.MainList')
         );
         
-        grid.down('button[action=refresh]').on({
-            click: function() {
-                grid.getStore().load();
-            },
-            scope: this
-        });
-        
         if (acl.isUpdate('calcpd', 'admin') && !isPortlet) {
             
             grid.down('button[action=config]').on({

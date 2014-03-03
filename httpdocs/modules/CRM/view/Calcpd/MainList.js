@@ -78,11 +78,6 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
             iconCls: 'x-btn',
             hidden: !acl.isUpdate('calcpd', 'admin'),
             action: 'config'
-        }, '->', {
-            xtype: 'button',
-            tooltip: 'Обновить',
-            iconCls: 'x-tbar-loading',
-            action: 'refresh'
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

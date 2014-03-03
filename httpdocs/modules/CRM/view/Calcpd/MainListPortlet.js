@@ -17,7 +17,7 @@ Ext.define('EC.CRM.view.Calcpd.MainListPortlet', {
         this.columns = [{
             header: 'Наименование',
             dataIndex: 'name',
-            flex: 1
+            flex: .8
         }, {
             xtype: 'templatecolumn',
             header: 'Создал',
@@ -30,13 +30,6 @@ Ext.define('EC.CRM.view.Calcpd.MainListPortlet', {
             dataIndex: 'date',
             format: 'd.m.Y H:i',
             width: 100
-        }];
-        
-        this.tbar = ['->', {
-            xtype: 'button',
-            tooltip: 'Обновить',
-            iconCls: 'x-tbar-loading',
-            action: 'refresh'
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

@@ -28,7 +28,7 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
 
         this.Container = container; 
         
-        var isPortlet = false; //('portlet' == container.getXType() || container.up('portlet')); 
+        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
         var grid = container.add(isPortlet 
             ? Ext.create('EC.CRM.view.Calcpd.MainListPortlet')

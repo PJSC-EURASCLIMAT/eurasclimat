@@ -13,6 +13,7 @@ class Crm_Calcpd_Model
     {
         $response = new Xend_Response();
 
+
         $accountsTable = new Xend_Accounts_Table_Accounts();
         $objTypeTable = new Crm_Calcpd_ObjTypeTable();
 
@@ -22,6 +23,16 @@ class Crm_Calcpd_Model
                 'a.id=c.account_id', array('account_name' => 'a.name'))
             ->join(array('o' => $objTypeTable->getTableName()),
                 'o.id=c.obj_type_id', array('obj_type_name' => 'o.name'));
+
+        $acl = Xend_Accounts_Prototype::getAcl();
+        $perm = $acl->isAllowed(
+                Xend_Acl_Resource_Generator::getInstance()->calcpd->admin,
+                Xend_Acl_Privilege::UPDATE
+        );
+
+        if (!$perm) {
+            $select->where('c.account_id = (?)', Xend_Accounts_Prototype::getId());
+        }
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);

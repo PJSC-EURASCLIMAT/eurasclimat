@@ -46,7 +46,7 @@ Ext.define('EC.CRM.view.Calcpd.ConfigLayout', {
                 region: 'center',
                 layout: 'fit',
                 itemId: 'priceFormPanel',
-                title: 'Цены на услуги проектирования',
+                title: 'Цены на услуги проектирования (за м.кв.)',
                 items: []
             }]
         }]

@@ -41,9 +41,16 @@ Ext.define('App.controller.Interface.Main.About', {
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Order'
         }, {
+            text: 'Калькулятор ПИР',
+            title: 'Калькулятор ПИР',
+            icon: '/images/icons/about.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.CRM.controller.Calcpd.Main'
+        }, {
             title: 'Специалисты',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 580,
+            portletHeight: 370,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Experts.controller.ActiveExperts'
         }, {

@@ -16,25 +16,28 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
         
         var actions = [];
         
-        actions.push({
-            icon: '/images/icons/edit.png',
-            tooltip: 'Редактировать',
-            iconCls: 'x-btn',
-            handler: function(grid, rowIndex, colIndex) {
-                this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
-            },
-            scope: this
-        });
-        
-        actions.push({
-            icon: '/images/icons/fam/delete.gif',
-            tooltip: 'Удалить',
-            iconCls: 'x-btn',
-            handler: function(grid, rowIndex, colIndex) {
-                this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-            },
-            scope: this
-        });
+        if (acl.isUpdate('calcpd')) {
+            
+            actions.push({
+                icon: '/images/icons/edit.png',
+                tooltip: 'Редактировать',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+            
+            actions.push({
+                icon: '/images/icons/fam/delete.gif',
+                tooltip: 'Удалить',
+                iconCls: 'x-btn',
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            });
+        }
         
         this.columns = [{
             header: 'Наименование',
@@ -66,12 +69,14 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
             xtype: 'button',
             text: 'Создать проект',
             iconCls: 'add',
+            hidden: !acl.isUpdate('calcpd'),
             action: 'additem'
         }, {
             xtype: 'button',
             text: 'Настройки',
             icon: '/images/icons/fam/plugin.gif',
             iconCls: 'x-btn',
+            hidden: !acl.isUpdate('calcpd', 'admin'),
             action: 'config'
         }, '->', {
             xtype: 'button',

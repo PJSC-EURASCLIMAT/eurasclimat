@@ -169,8 +169,8 @@ Ext.define('EC.Experts.view.Experts.List', {
         this.bbar = Ext.create('Ext.PagingToolbar', {
             pageSize: 25,
             store: this.store,
-            displayInfo: true,
-            plugins: Ext.create('xlib.ProgressBarPager', {})
+            displayInfo: !this.isPortlet,
+            plugins: this.isPortlet ? [] : Ext.create('xlib.ProgressBarPager', {})
         });
         
         this.callParent(arguments);

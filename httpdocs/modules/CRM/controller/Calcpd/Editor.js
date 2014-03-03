@@ -28,6 +28,8 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
     
     run: function(config) {
         
+        if (!acl.isUpdate('calcpd')) return;
+        
         Ext.apply(this, config);        
         this.Container = Ext.create('EC.CRM.view.Calcpd.EditorLayout');
         this.Container.setTitle(this.title);

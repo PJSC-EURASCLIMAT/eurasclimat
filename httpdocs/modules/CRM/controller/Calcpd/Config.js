@@ -35,6 +35,8 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
     
     run: function(container) {
         
+        if (!acl.isUpdate('calcpd', 'admin')) return;
+        
         this.Container = Ext.create('EC.CRM.view.Calcpd.ConfigLayout');
 
         /* serv section */

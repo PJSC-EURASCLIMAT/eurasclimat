@@ -17,8 +17,6 @@ Ext.define('App.controller.Interface.CRM', {
         }
         this.getController('App.controller.Interface.CRM.MiniBrowser').run(container);
         this.getController('App.controller.Interface.CRM.About').run(container);
-        this.getController('App.controller.Interface.CRM.Calc').run(container);
-        
     },
     
     getMenu: function() {

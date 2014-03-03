@@ -16,7 +16,7 @@ class Crm_CalcpdConfigController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->calcpd->admin);
 
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-obj-tree');
 

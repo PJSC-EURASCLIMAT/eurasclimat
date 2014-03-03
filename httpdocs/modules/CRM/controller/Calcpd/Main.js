@@ -16,10 +16,9 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
     
     views: [
         'EC.CRM.view.Calcpd.MainList',
+        'EC.CRM.view.Calcpd.MainListPortlet',
         'EC.CRM.view.Calcpd.Add'
     ],
-    
-    permissions: acl.isUpdate('admin'),
     
     addURL: '/json/crm/calcpd/add',
     
@@ -31,9 +30,10 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
         
-        var grid = container.add(Ext.create('EC.CRM.view.Calcpd.MainList', {
-            permissions: this.permissions
-        }));
+        var grid = container.add(isPortlet 
+            ? Ext.create('EC.CRM.view.Calcpd.MainListPortlet')
+            : Ext.create('EC.CRM.view.Calcpd.MainList')
+        );
         
         grid.down('button[action=refresh]').on({
             click: function() {
@@ -42,15 +42,18 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
             scope: this
         });
         
-        grid.down('button[action=additem]').on({
-            click: this.addItem,
-            scope: this
-        });
-        
-        if (this.permissions) {
+        if (acl.isUpdate('calcpd', 'admin') && !isPortlet) {
             
             grid.down('button[action=config]').on({
                 click: this.showConfig,
+                scope: this
+            });
+        }
+        
+        if (acl.isUpdate('calcpd') && !isPortlet) {
+            
+            grid.down('button[action=additem]').on({
+                click: this.addItem,
                 scope: this
             });
             

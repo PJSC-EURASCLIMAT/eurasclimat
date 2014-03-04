@@ -26,8 +26,8 @@ class Crm_Calcpd_Model
 
         $acl = Xend_Accounts_Prototype::getAcl();
         $perm = $acl->isAllowed(
-                Xend_Acl_Resource_Generator::getInstance()->calcpd->admin,
-                Xend_Acl_Privilege::UPDATE
+            Xend_Acl_Resource_Generator::getInstance()->calcpd->admin,
+            Xend_Acl_Privilege::UPDATE
         );
 
         if (!$perm) {

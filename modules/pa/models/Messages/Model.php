@@ -190,16 +190,28 @@ class PA_Messages_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+    /**
+     * Создает сообщение
+     *
+     * @param array $params         - параметры сообщения
+     * @param bool  $sendReminder   - Отпавлять уведомления на почту
+     * @param bool  $fromAdmin      - Системное сообщение
+     * @return Xend_Response
+     */
 
-    public function add(array $params)
+    public function add(array $params, $sendReminder = false, $fromAdmin = false)
     {
         $response = new Xend_Response();
 
-        $senderDataResponse = $this->_accModel->fetchAccount($params['sender_id']);
-        if ($senderDataResponse->hasNotSuccess()) {
-            return $senderDataResponse;
+        if ( $fromAdmin ) {
+            $senderData = array('name' => 'Администрация');
+        } else {
+            $senderDataResponse = $this->_accModel->fetchAccount($params['sender_id']);
+            if ($senderDataResponse->hasNotSuccess()) {
+                return $senderDataResponse;
+            }
+            $senderData = $senderDataResponse->getRowset();
         }
-        $senderData = $senderDataResponse->getRowset();
 
         $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
         if ($receiverDataResponse->hasNotSuccess()) {
@@ -212,14 +224,14 @@ class PA_Messages_Model
         $params['receiver_name'] = $receiverData['name'];
 
         $f = new Xend_Filter_Input(array(
-            'sender_id'      => 'int',
+//            'sender_id'      => 'int',
             'receiver_id'    => 'int',
             'owner_id'       => 'int',
             'type'           => 'int',
             'subject'        => 'StringTrim',
             'message'        => 'StringTrim',
         ), array(
-            'sender_id'      => array('Id', 'allowEmpty' => true),
+//            'sender_id'      => array('Id', 'allowEmpty' => true),
             'receiver_id'    => array('Id', 'allowEmpty' => false),
             'owner_id'       => array('Id', 'allowEmpty' => false),
             'type'           => array('int', 'allowEmpty' => true),
@@ -249,7 +261,16 @@ class PA_Messages_Model
 
         $receiverInfo = $receiverRequest->getRowset();
 
-        $this->_sendReminder($receiverInfo['name'], $receiverInfo['login'], $identity->name, $params['message']);
+        if ( $sendReminder ) {
+            if ( $fromAdmin ) {
+                $message = '<p>Вам пришло новое cистемное сообщение:</p>';
+            } else {
+                $message = '<p>Вам пришло новое сообщение от пользователя <a href="http://' . $_SERVER['HTTP_HOST'] . '/#/profile/' . $receiverInfo['id'] . '/show">' . $senderData['name'] . '</a>:</p>';
+            }
+
+            $message .= $params['message'];
+            $this->_sendReminder( $receiverInfo['name'], $receiverInfo['login'], $identity->name, $message );
+        }
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
@@ -263,10 +284,14 @@ class PA_Messages_Model
     {
         $config = Zend_Registry::get('config');
 
+        // TODO удалить
+        $receiver_email = 'ansinyutin@yandex.ru';
+
         $mail = new Zend_Mail('UTF-8');
-        $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>Вам пришло новое сообщение от пользователя '.$sender_name.':</p><p>'.$message.'</p>');
+        $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>'.$message.'</p>');
         $mail->setFrom($config->mail->from->address, $config->company->name);
         $mail->addTo($receiver_email, $receiver_name);
+//        $mail->addTo($receiver_email, $receiver_name);
         $mail->setSubject('Новое сообщение на сайте eurasclimat.ru');
 
         try {

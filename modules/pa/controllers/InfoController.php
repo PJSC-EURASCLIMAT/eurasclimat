@@ -24,6 +24,7 @@ class PA_InfoController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-account-info');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'download');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-contacts');
     }
 
     public function getAccountListAction()
@@ -60,5 +61,23 @@ class PA_InfoController extends Xend_Controller_Action
             return;
         }
         $this->view->success = true;
+    }
+
+    /**
+     * List of account contacts
+     */
+    public function getContactsAction()
+    {
+        $accId = Xend_Accounts_Prototype::getId();
+
+        $response = $this->_accounts->fetchContacts($accId, $this->_getAllParams());
+        if ($response->isError()) {
+            $this->_collectErrors($response);
+            return;
+        }
+        $this->view->total = $response->total;
+        $this->view->data = $response->getRowset();
+        $this->view->success = true;
+
     }
 }

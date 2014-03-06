@@ -94,31 +94,54 @@ class PA_ProfileController extends Xend_Controller_Action
         $this->view->success = true;
     }
 
-    public function editExpertJobTypesAction()
-    {
-        $auth = Zend_Auth::getInstance();
-        $Identity = $auth->getIdentity();
-        $id = (null == $Identity) ? 0 : intval($Identity->id);
+//    public function editExpertJobTypesAction()
+//    {
+//        $auth = Zend_Auth::getInstance();
+//        $Identity = $auth->getIdentity();
+//        $id = (null == $Identity) ? 0 : intval($Identity->id);
+//
+//        $data = $this->_getAllParams();
+//
+//        $expertId = $this->_expertsModel->getExpertIdByAccountId($id);
+//        $data['expert_id'] = $expertId;
+//        $data['account_id'] = $id;
+//
+//        unset($data['rating']);
+//        unset($data['sert_count']);
+//
+//        $response = $this->_expertsModel->update($data);
+//
+//
+//        if ($response->isError()) {
+//            $this->_collectErrors($response);
+//            return;
+//        }
+//        $this->view->data = $response->getRowSet();
+//        $this->view->success = true;
+//    }
 
-        $data = $this->_getAllParams();
-
-        $expertId = $this->_expertsModel->getExpertIdByAccountId($id);
-        $data['expert_id'] = $expertId;
-        $data['account_id'] = $id;
-
-        unset($data['rating']);
-        unset($data['sert_count']);
-
-        $response = $this->_expertsModel->update($data);
-
-
-        if ($response->isError()) {
-            $this->_collectErrors($response);
-            return;
-        }
-        $this->view->data = $response->getRowSet();
-        $this->view->success = true;
-    }
+//    public function getExpertJobTypesAction()
+//    {
+//        $id = Xend_Accounts_Prototype::getId();
+//        $expert_id = $this->_expertsModel->getExpertIdByAccountId($id);
+//
+//        if ($expert_id == 0) {
+//            $response = new Xend_Response();
+//            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
+//            $this->_collectErrors($response);
+//            return;
+//        }
+//
+//        $response = $this->_expertsJobTypesModel->getByExpertId($expert_id);
+//
+//        if ($response->isSuccess()) {
+//            $this->view->success = true;
+//            $this->view->data = $response->getRowset();
+//            $this->view->total = $response->totalCount;
+//        } else {
+//            $this->_collectErrors($response);
+//        }
+//    }
 
     public function registerExpertAction()
     {
@@ -238,28 +261,7 @@ class PA_ProfileController extends Xend_Controller_Action
         }
     }
 
-    public function getExpertJobTypesAction()
-    {
-        $id = Xend_Accounts_Prototype::getId();
-        $expert_id = $this->_expertsModel->getExpertIdByAccountId($id);
 
-        if ($expert_id == 0) {
-            $response = new Xend_Response();
-            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'expert_id'));
-            $this->_collectErrors($response);
-            return;
-        }
-
-        $response = $this->_expertsJobTypesModel->getByExpertId($expert_id);
-
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->data = $response->getRowset();
-            $this->view->total = $response->totalCount;
-        } else {
-            $this->_collectErrors($response);
-        }
-    }
 
     public function addExpertJobTypeAction()
     {

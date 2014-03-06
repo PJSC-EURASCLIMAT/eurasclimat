@@ -15,7 +15,7 @@ Ext.define('xlib.AccountsCombo', {
     fieldName: 'account_id',
 
     pageSize: 25,
-    
+
     value: '',
     
     store: { 

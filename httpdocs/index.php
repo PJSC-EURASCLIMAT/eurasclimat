@@ -52,6 +52,18 @@ if (!$config = $cacheCore->load('config')) {
 date_default_timezone_set($config->ui->timezone);
 Zend_Registry::set('config', $config);
 
+/**
+ * Сделал через объект, чтобы не городить $rg['sys']['mesType'] и т.д
+ */
+
+$rg = Zend_Registry::getInstance();
+$rg::set('sys', new StdClass);
+$rg->sys->mesTypes = array(
+//    'IMPORTANT' => 1,
+    'SYSTEM'    => 2,
+    'FROM_USER' => 3,
+);
+
 define('ADMIN_ROLE', 1);
 define('GUEST_ROLE', 2);
 define('USER_ROLE', 3);

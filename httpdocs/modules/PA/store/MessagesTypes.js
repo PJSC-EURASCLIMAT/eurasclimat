@@ -8,7 +8,7 @@ Ext.define('EC.PA.store.MessagesTypes', {
             children: []
         };
 
-        var types = xlib.System.Messages.getMessageTypes();
+        var types = xlib.System.getMessageTypes();
         var boxes = {
             'in': {
                 name: 'Входящие',

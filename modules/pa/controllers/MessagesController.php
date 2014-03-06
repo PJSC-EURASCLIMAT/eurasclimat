@@ -53,26 +53,36 @@ class PA_MessagesController extends Xend_Controller_Action
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
 
+        $registry = Zend_Registry::getInstance();
+        $mesTypes = $registry->sys->mesTypes;
 
-        // TODO брать type из константы
-        $data['type'] = 3; //Личное
+        $receivers = explode(',',$data['receiver_id']);
+
+        $data['type'] = $mesTypes['FROM_USER'];
         $data['sender_id'] = $identity->id;
-        $data['owner_id'] = $data['receiver_id'];
 
-        $inReponse = $this->_model->add($data);
-        if ($inReponse->isError()) {
-            $this->_collectErrors($inReponse);
-            return;
-        }
+        for($i = 0; $i < count($receivers); $i++)
+        {
+            $receiver_id = $receivers[$i];
 
-        if ($data['sender_id'] != $data['receiver_id']) {
-            $data['owner_id'] = $identity->id;
-            $data['readed'] = 1;
+            $data['owner_id'] = $receiver_id;
+            $data['receiver_id'] = $receiver_id;
 
-            $outReponse = $this->_model->add($data);
-            if ($outReponse->isError()) {
+            $inReponse = $this->_model->add($data, true);
+            if ($inReponse->isError()) {
                 $this->_collectErrors($inReponse);
                 return;
+            }
+
+            if ($data['sender_id'] != $receiver_id) {
+                $data['owner_id'] = $identity->id;
+                $data['readed'] = 1;
+
+                $outReponse = $this->_model->add($data);
+                if ($outReponse->isError()) {
+                    $this->_collectErrors($inReponse);
+                    return;
+                }
             }
         }
 

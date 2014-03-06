@@ -75,11 +75,13 @@ class Experts_Experts_Model
         $this->_accountsModel->setRoles($account_id, $roles);
 
         $data = array(
-            'sender_id'      => new Zend_Db_Expr('NULL'),
-            'receiver_id'    => $account_id,
-            'message'        => $message
+            'type'          => 2,
+            'receiver_id'   => $account_id,
+            'owner_id'      => $account_id,
+            'subject'        => 'Активация специалиста',
+            'message'       => $message
         );
-        $this->_messagesModel->add($data);
+        $this->_messagesModel->add($data, true, true);
 
         // TODO Удалять или добавлять роль Спеца
 
@@ -172,6 +174,12 @@ class Experts_Experts_Model
 
         $exists = $this->_isExpertUnique($data['account_id']);
 
+        $accountResponse = $this->_accountsModel->fetchAccount($data['account_id']);
+        if (!$accountResponse->isSuccess()) {
+            return $accountResponse;
+        }
+        $accountData = $accountResponse->getRowset();
+
         if (null ===  $exists) {
             $status = Xend_Accounts_Status::DATABASE_ERROR;
             return $response->addStatus(new Xend_Accounts_Status($status));
@@ -220,15 +228,18 @@ class Experts_Experts_Model
         $adminsResponse = $this->_accountsModel->fetchByRole(ADMIN_ROLE);
         $admins = $adminsResponse->getRowset();
 
-//        $site_url = $this->getRequest()->getBaseUrl();
+        $registry = Zend_Registry::getInstance();
+        $mesTypes = $registry->sys->mesTypes;
 
         for ($i = 0; $i < count($admins); $i++) {
             $data = array(
-                'sender_id'      => new Zend_Db_Expr('NULL'),
+                'type'           => $mesTypes['SYSTEM'],
                 'receiver_id'    => $admins[$i]['id'],
-                'message'        => 'Зарегистрирован новый <a href="http://'.$_SERVER['HTTP_HOST'].'/#/profile/'. $f->account_id .'/show"> специалист</a>'
+                'owner_id'       => $admins[$i]['id'],
+                'subject'        => 'Новый специалист',
+                'message'        => 'Зарегистрирован новый специалист - <a href="http://'.$_SERVER['HTTP_HOST'].'/#/profile/'. $f->account_id .'/show"> '. $accountData['name'] .'</a>'
             );
-            $this->_messagesModel->add($data);
+            $this->_messagesModel->add($data, true, true);
         }
 
 

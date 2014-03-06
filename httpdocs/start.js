@@ -9,6 +9,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.require('xlib.overrides.FileField');
+Ext.require('xlib.overrides.Format');
 Ext.require('xlib.Acl.Manager');
 Ext.require('xlib.Acl.AuthManager');
 

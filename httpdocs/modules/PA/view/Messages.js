@@ -115,18 +115,14 @@ Ext.define('EC.PA.view.Messages', {
                     }
                 }, {
                     xtype: 'templatecolumn',
-                    // itemId: 'content-col',
-                    // tdCls: 'content-td',
                     flex: 1,
                     tpl: new Ext.XTemplate(
-//                            '{[this.getIcon(values)]}' +
                             '<strong style="{[this.getSenderStyle(values)]}">{[this.getSender(values)]}</strong>' +
                             // '<p style="margin: 0; {[this.getEllipsisStyle(values)]}">{[this.getMessage(values)]}</p>' +
                             '&#032;&#032;&#032;&#032;&#032;<span style="{[this.getSenderStyle(values)]}">{subject}</span>',
-                            // '<small>{date:date("h:i:s d F Y")}</small>',
                         {
                             getSender: function(values) {
-                                if(Ext.isEmpty(values.sender_name)) {
+                                if (Ext.isEmpty(values.sender_name)) {
                                     return 'Администрация';
                                 }
                                 return values.sender_name;
@@ -157,21 +153,29 @@ Ext.define('EC.PA.view.Messages', {
                 }, {
                     xtype: 'datecolumn',
                     dataIndex: 'date',
-                    format:'d.m.Y',
-                    width: 70
+                    format:'d.m.Y H:i',
+                    width: 100
                 }, {
                     xtype: 'actioncolumn',
+                    dataIndex: 'deleted',
                     align: 'left',
-                    items: [{
-                        iconCls: 'x-btn icon',
-                        icon: '/images/icons/trash.png',
-                        tooltip: 'Удалить',
-                        handler: function(grid, rowIndex, colIndex) {
-                            var rec = grid.getStore().getAt(rowIndex);
+                    renderer: function(deleted){
+                        if (deleted === 0) {
+                            return '<img style="cursor: pointer" src="/images/icons/trash.png" />';
+                        }
+                        if (deleted === 1) {
+                            return '<img style="cursor: pointer" src="/images/icons/delete.png" />';
+                        }
+                        return '';
+                    },
+                    // х.з. как сделать одновременно actioncolumn с динамическим рендером,
+                    // поэтому сделал так
+                    listeners: {
+                        click: function() {
+                            var rec = arguments[5];
                             this.up('#mesGrid').fireEvent('deleteRow', [rec]);
                         }
-    
-                    }],
+                    },
                     width: 30
                 }]
             }, {
@@ -186,9 +190,9 @@ Ext.define('EC.PA.view.Messages', {
                 bodyStyle: {padding: '10px'},
                 autoScroll: true,
                 tbar: [{
-                   text: 'Ответить',
-                   itemId: 'respondBtn',
-                   handler: function(){this.up('#mesDetail').fireEvent('respond')}
+                    text: 'Ответить',
+                    itemId: 'respondBtn',
+                    handler: function(){this.up('#mesDetail').fireEvent('respond')}
                 }, {
                     text: 'Ответить c цитированием',
                     itemId: 'respondWithCitBtn',

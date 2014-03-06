@@ -4,15 +4,11 @@ Ext.define('EC.PA.controller.Messages', {
 
     views: [
         'EC.PA.view.Messages',
-        'EC.PA.view.MessageEditor',
         'App.view.TopPanel'
     ],
 
     stores: ['EC.PA.store.Messages'],
 
-    messageEditor: null,
-
-    sendURL:        '/json/pa/messages/add',
     unreadMesURL:   '/json/pa/messages/unread-count',
     delURL:         '/json/pa/messages/delete',
     trashURL:       '/json/pa/messages/trash',
@@ -23,17 +19,9 @@ Ext.define('EC.PA.controller.Messages', {
     sentBoxURL: '/json/pa/messages/get-sent-list',
     delBoxURL:  '/json/pa/messages/get-deleted-list',
 
-    expandedMessages: [],
-
     newMessagesCount: null,
 
     viewerWindow: null,
-
-    fitlerParams: [],
-
-//    URL: '/json/pa/profile/get-profile',
-//    updateURL: '/json/pa/profile/update-profile',
-//    changePassURL: '/json/pa/profile/change-password',
 
     refs: [{
         ref: 'mesWin',
@@ -45,9 +33,6 @@ Ext.define('EC.PA.controller.Messages', {
         ref: 'mesDetail',
         selector: 'pa-messages-win #mesDetail'
     }, {
-        ref: 'mesEditor',
-        selector: 'pa-message-editor'
-    }, {
         ref: 'mesTopPanelButton',
         selector: 'TopPanel top-panel-msg-button'
     }],
@@ -55,6 +40,8 @@ Ext.define('EC.PA.controller.Messages', {
     init: function() {
         
         this.callParent();
+
+        this.editFormController = this.getController('EC.PA.controller.MessageForm');
 
         this.account = xlib.Acl.Storage.getIdentity();
         this.mesStore = Ext.StoreManager.lookup('EC.PA.store.Messages');
@@ -108,16 +95,6 @@ Ext.define('EC.PA.controller.Messages', {
                 scope: this
             },
 
-            'pa-message-editor [action=send]': {
-                click: this.sendMessage,
-                scope: this
-            },
-
-            'pa-message-editor [action=cancel]': {
-                click: this.closeMessageEditor,
-                scope: this
-            },
-
             'pa-messages-win #mesDetail': {
                 respond: this.onDetailRespond,
                 respondWithCit: this.onDetailRespondWithCit,
@@ -142,52 +119,47 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onDetailRespond: function() {
-        
-        var record = this.getMesDetail().record;
-        
+        var record = this.getMesDetail().record,
+            data = {};
         if (!Ext.isObject(record)) return;
-        
-        var editorWin = this.showMessageEditor();
-        editorWin.down('[name=receiver_id]').setValue(record.get('sender_id'));
+
+        data.receiver_id = record.get('sender_id');
+        this.showMessageEditor(data);
     },
 
     onDetailRespondWithCit: function() {
-        
-        var record = this.getMesDetail().record;
+        var record = this.getMesDetail().record,
+            data = {};
 
         if (!Ext.isObject(record)) return;
-        
-        var editorWin = this.showMessageEditor();
-        editorWin.down('[name=receiver_id]').setValue(record.get('sender_id'));
 
-        var message = '\n---- Пересылаемое сообщение ----\n' +
-            'От: ' + record.get('sender_name') + '\n' +
-            'Кому: ' + record.get('receiver_name') + '\n' +
-            'Тема: ' + record.get('subject') + '\n' + record.get('message');
+        data.receiver_id = record.get('sender_id');
+        data.subject = record.get('subject');
+        data.message = '\n\r---- Пересылаемое сообщение ----\n\r' +
+            'От: ' + record.get('sender_name') + '\n\r' +
+            'Кому: ' + record.get('receiver_name') + '\n\r' +
+            'Тема: ' + record.get('subject') + '\n\r' + record.get('message');
 
-        editorWin.down('[name=message]').setValue(message);
-        editorWin.down('[name=subject]').setValue('Re: ' + record.get('subject'));
+        this.showMessageEditor(data);
     },
 
     onDetailForward: function() {
-        
-        var record = this.getMesDetail().record;
+        var record = this.getMesDetail().record,
+            data = {};
 
         if (!Ext.isObject(record)) return;
-        
-        var editorWin = this.showMessageEditor();
-        var message = '\n---- Пересылаемое сообщение ----\n' +
-            'От: ' + record.get('sender_name') + '\n' +
-            'Кому: ' + record.get('receiver_name') + '\n' +
-            'Тема: ' + record.get('subject') + '\n' + record.get('message');
 
-        editorWin.down('[name=message]').setValue(message);
-        editorWin.down('[name=subject]').setValue('Fwd: ' + record.get('subject'));
+        data.receiver_id = record.get('sender_id');
+        data.subject = 'Fwd: ' + record.get('subject');
+        data.message = '\n\r---- Пересылаемое сообщение ----\n\r' +
+            'От: ' + record.get('sender_name') + '\n\r' +
+            'Кому: ' + record.get('receiver_name') + '\n\r' +
+            'Тема: ' + record.get('subject') + '\n\r' + record.get('message');
+
+        this.showMessageEditor(data);
     },
 
     onDetailDelete: function() {
-        
-        var me = this;
         var record = this.getMesDetail().record;
         this.onMessageDelete([record]);
     },
@@ -200,7 +172,6 @@ Ext.define('EC.PA.controller.Messages', {
             boxField,
             boxValue;
 
-
         // Тип самого мессаджа
         if ( type !== 0 ) {
             arr.push({
@@ -210,7 +181,6 @@ Ext.define('EC.PA.controller.Messages', {
                 value: type
             });
         }
-
 
         // Тип ящика - входящие, исходящие, удаленные
         switch(box) {
@@ -271,11 +241,14 @@ Ext.define('EC.PA.controller.Messages', {
 
 
     onMessageSelect: function(mesGrid, record, index, eOpts) {
-        
-        this.checkReadedDelay(record);
         var detail = this.getMesDetail();
         detail.record = record;
-        detail.tpl.overwrite(detail.body,record.data)
+
+        var data = Ext.clone(record.data);
+        data.message = data.message.replace(/\r\n|\n/g, '<br/>');
+
+        this.checkReadedDelay(record);
+        detail.tpl.overwrite(detail.body, data);
     },
 
     checkAllMessages: function() {
@@ -459,47 +432,21 @@ Ext.define('EC.PA.controller.Messages', {
         }, this);
     },
 
-    closeMessageEditor: function() {
-        this.getMesEditor().up('window').close();
-    },
-
-    sendMessage: function() {
-        
-        var editor = this.getMesEditor(),
-            values = editor.getValues(),
-            mask = new Ext.LoadMask(editor, { msg: "Отправка..." });
-            
-        mask.show();
-        
-        Ext.Ajax.request({
-            params: values,
-            url: this.sendURL,
-            waitMsg: 'Отправка',
-            success: function(response, opts) {
-                Ext.Msg.alert('Сообщение', 'Сообщение успешно отправлено!');
-                mask.hide();
-                this.getMesEditor().up('window').close();
-                this.getMesGrid().getStore().load();
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Сообщение не отправлено!');
-                mask.hide();
-            },
-            scope: this
-        });
-    },
-
-    showMessageEditor: function() {
-
+    showMessageEditor: function(data) {
+        var me = this;
         var mesEdWin = Ext.create("Ext.window.Window", {
             title: 'Новое сообщение',
             modal: true,
-            width: 350,
-            items: [{
-                xtype: 'pa-message-editor'
-            }]
+            layout: 'fit',
+            width: 450,
+            height: 300
         });
-        return mesEdWin.show();
+
+        this.editFormController.run(mesEdWin, data, function() {
+            me.getMesGrid().getStore().load();
+        });
+
+        mesEdWin.show();
     },
     
     clearDetailPanel: function() {

@@ -207,6 +207,51 @@ class Xend_Accounts
         return $response->addStatus(new Xend_Acl_Status($status));
     }
 
+    public function fetchContacts( $owner_id = null, array $params = array())
+    {
+        $response = new Xend_Response();
+
+        $select = $this->_tableAccounts->getAdapter()->select()
+            ->from(
+                array('a'=>$this->_tableAccounts->getTableName()),
+                array('id',
+                    'name',
+                    'group' => new Zend_Db_Expr("IF(con.owner_id IS NULL,'Все остальные','Контакты')"),
+                )
+            )
+            ->joinLeft(
+                array('con' => 'accounts_contacts'),
+                new Zend_Db_Expr('con.owner_id = ' . $owner_id . ' AND a.id = con.contact_id'),
+                null
+            )
+            ->order('name');
+
+
+        $plugin = new Xend_Db_Plugin_Select($this->_tableAccounts, $select);
+        $plugin->parse($params);
+
+        if ( isset($where) ) {
+            $select->where($where);
+        }
+
+        $status = null;
+        try {
+            $rowset = $select->query()->fetchAll();
+            $response->setRowset($rowset);
+            $response->total = $plugin->getTotalCount();
+            $status = Xend_Acl_Status::OK;
+
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+
+            $status = Xend_Acl_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Acl_Status($status));
+    }
+
     public function fetchAllNames(array $params = array())
     {
         return $this->_fetchAllNames(array(), $params);

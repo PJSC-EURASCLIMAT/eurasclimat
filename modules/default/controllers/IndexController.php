@@ -204,10 +204,40 @@ class IndexController extends Xend_Controller_Action
     {
         $this->disableLayout(true);
         $this->getResponse()->setHeader('Content-Type', 'application/javascript');
+
+        $acl = Xend_Accounts_Prototype::getAcl();
+        $aclCollection = array();
+        if (!empty($acl)) {
+            $aclCollection = (object) $acl->toArray();
+        };
+        $this->view->acl = $aclCollection;
+
+        $resourceCollection = array();
+        $resource = new Xend_Acl_Resource();
+        $response = $resource->fetchAll();
+        if ($response->isSuccess()) {
+            foreach ($response->rows as $row) {
+                $resourceCollection[] = array($row['id'], strtolower($row['name']), $row['parent_id']);
+            }
+        }
+
+        $identity = Xend_Accounts_Prototype::getInformation();
+
+        $expertsModel = new Experts_Experts_Model();
+        $identity->expert_id = $expertsModel->getExpertIdByAccountId($identity->id);
+
+        $this->view->identity = $identity;
+        $this->view->resources = $resourceCollection;
+        $privilege = Xend_Acl_Privilege::fetchAll();
+        $this->view->privileges = (object) $privilege;
+
+        $registry = Zend_Registry::getInstance();
+        $mesTypes = $registry->sys->mesTypes;
+
         $this->view->messageTypes = array(
-            1 => 'Важные',
-            2 => 'Системные',
-            3 => 'От других пользователей',
+//            $mesTypes['IMPORTANT'] => 'Важные',
+            $mesTypes['SYSTEM'] => 'Системные',
+            $mesTypes['FROM_USER'] => 'Прочие',
         );
     }
 

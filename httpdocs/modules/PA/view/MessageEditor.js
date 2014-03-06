@@ -1,16 +1,23 @@
 Ext.define('EC.PA.view.MessageEditor', {
-    
+
     extend: 'Ext.form.Panel',
 
     alias: 'widget.pa-message-editor',
 
     autoScroll: true,
 
-    layout: 'form',
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    },
+
+    border: false,
 
     bodyPadding: 5,
 
-    requires: ['EC.PA.store.Accounts'],
+    requires: [
+        'xlib.AccountsRef'
+    ],
 
     bbar: [
         {
@@ -26,30 +33,38 @@ Ext.define('EC.PA.view.MessageEditor', {
         }
     ],
 
-    items: [
-        {
-            xtype: 'combo',
-            store: Ext.create('EC.PA.store.Accounts',{autoLoad: true}),
-            displayField: 'name',
-            queryMode: 'local',
-            valueField: 'id',
-            fieldLabel: 'Кому',
+    initComponent: function() {
+        var d = this.data,
+            receiver_id,
+            subject,
+            message;
+
+        if ( !Ext.isEmpty(d) ) {
+            receiver_id =   ( !Ext.isEmpty(d.receiver_id) ) ? d.receiver_id : null;
+            subject =       ( !Ext.isEmpty(d.subject) ) ? d.subject : null;
+            message =       ( !Ext.isEmpty(d.message) ) ? d.message : null;
+        }
+
+        this.items = [{
+            xtype: 'accounts-ref',
             name: 'receiver_id',
-            pageSize: 25,
-            allowBlank:false
-        },
-        {
+            value: receiver_id
+        }, {
             xtype: 'textfield',
             name: 'subject',
             fieldLabel: 'Тема',
-            allowBlank:true
-        },
-
-        {
+            allowBlank: true,
+            value: subject
+        }, {
             xtype: 'textarea',
             fieldLabel: 'Сообщение',
             name: 'message',
-            allowBlank:false
-        }
-    ]
+            allowBlank: false,
+            value: message,
+            flex: 1
+        }];
+
+        this.callParent(arguments);
+    }
+
 });

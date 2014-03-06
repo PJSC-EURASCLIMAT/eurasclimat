@@ -24,10 +24,8 @@ class Experts_Ref
         $this->_select_fields = array('id', 'name');
 
         $this->_filter = array(array(
-//            'id'        => 'int',
             'name'      => 'StringTrim',
         ), array(
-
             'name'       => array('StringLength'),
         ));
         $this->_table = new Experts_RefTable($table_name, $this->_select_fields);
@@ -98,10 +96,6 @@ class Experts_Ref
         unset($data['author_id']);
 
         $filter = $this->_filter;
-//        foreach($filter as $key=>$val){
-//            array_splice($val,1,0);
-//        }
-
 
         $f = new Xend_Filter_Input($filter[0],$filter[1], $data);
 

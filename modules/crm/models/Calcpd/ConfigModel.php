@@ -6,36 +6,51 @@ class Crm_Calcpd_ConfigModel
     public function getObjTree()
     {
         $response = new Xend_Response();
+
         $objTypeTable = new Xend_Db_Table_Factory('calcpd_obj_type');
         $objClassTable = new Xend_Db_Table_Factory('calcpd_obj_class');
+        $servTable = new Xend_Db_Table_Factory('calcpd_serv');
 
         try {
             $rowsType = $objTypeTable->fetchAll();
             $rowsClass = $objClassTable->fetchAll();
-            if (!$rowsType || !$rowsClass) {
-                $status = Xend_Accounts_Status::DATABASE_ERROR;
-                return $response->addStatus(new Xend_Accounts_Status($status));
+            $rowsServ = $servTable->fetchAll();
+            if (!$rowsType || !$rowsClass || !$rowsServ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
             }
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
-            $status = Xend_Accounts_Status::DATABASE_ERROR;
-            return $response->addStatus(new Xend_Accounts_Status($status));
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         $typeList = $rowsType->toArray();
         $classList = $rowsClass->toArray();
+        $servList = $rowsServ->toArray();
         $data = array();
 
         foreach ($typeList as $t) {
             $tmp = array();
             foreach ($classList as $c) {
+                $tmpServ = array();
+                foreach ($servList as $s) {
+                    $tmpServ[] = array(
+                        'leaf'          => true,
+                        'text'          => $s['name'],
+                        'obj_type_id'   => $t['id'],
+                        'obj_class_id'  => $c['id'],
+                        'serv_id'       => $s['id']
+                    );
+                }
                 $tmp[] = array(
-                    'leaf'          => true,
+                    'expanded'      => false,
+                    'leaf'          => false,
                     'text'          => $c['name'],
-                    'obj_type_id'   => $t['id'],
-                    'obj_class_id'  => $c['id']
+                    'obj_type_id'   => 0,
+                    'obj_class_id'  => 0,
+                    'serv_id'       => 0,
+                    'children'      => $tmpServ
                 );
             }
             $data[] =  array(
@@ -44,6 +59,7 @@ class Crm_Calcpd_ConfigModel
                 'text'          => $t['name'],
                 'obj_type_id'   => 0,
                 'obj_class_id'  => 0,
+                'serv_id'       => 0,
                 'children'      => $tmp
             );
         }
@@ -52,7 +68,7 @@ class Crm_Calcpd_ConfigModel
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    public function getPrice($obj_type_id, $obj_class_id)
+    public function getPrice($obj_type_id, $obj_class_id, $serv_id)
     {
         $response = new Xend_Response();
 
@@ -67,24 +83,34 @@ class Crm_Calcpd_ConfigModel
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'obj_class_id'));
         }
 
-        $servTable = new Xend_Db_Table_Factory('calcpd_serv');
+        if (!$validate->isValid($serv_id)) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'serv_id'));
+        }
+
         $priceTable = new Xend_Db_Table_Factory('calcpd_price');
 
-        $select = $servTable->getAdapter()->select()
-            ->from(array('s' => $servTable->getTableName()),
-                array('s.id', 's.name'))
-            ->joinLeft(array('p' => $priceTable->getTableName()),
-                new Zend_Db_Expr(sprintf(
-                    's.id=p.serv_id AND p.obj_type_id = %d AND p.obj_class_id = %d',
-                    $obj_type_id, $obj_class_id
-                )), array('p.price')
-            );
+        $select = $priceTable->getAdapter()->select()
+            ->from(array('s' => $priceTable->getTableName()), '*')
+            ->where('obj_type_id = ?', $obj_type_id)
+            ->where('obj_class_id = ?', $obj_class_id)
+            ->where('serv_id = ?', $serv_id)
+            ->limit(1);
 
         try {
-            $rows['serv'] = $select->query()->fetchAll();
-            $rows['obj_type_id'] = $obj_type_id;
-            $rows['obj_class_id'] = $obj_class_id;
-            $response->setRowset($rows);
+            $rows = $select->query()->fetchAll();
+            $row = !empty($rows) ? $rows[0]
+                 : array(
+                    'obj_type_id'   => $obj_type_id,
+                    'obj_class_id'  => $obj_class_id,
+                    'serv_id'       => $serv_id,
+                    'price1'        => 0,
+                    'price2'        => 0,
+                    'price3'        => 0,
+                    'price4'        => 0,
+                    'price5'        => 0
+                 );
+            $response->setRow($row);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
@@ -112,45 +138,31 @@ class Crm_Calcpd_ConfigModel
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'obj_class_id'));
         }
 
-        $serv = $data['serv'];
-        if (!is_array($serv)) {
+        if (!$validate->isValid($data['serv_id'])) {
             return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'serv'));
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'serv_id'));
         }
 
-        foreach ($serv as $id => $v) {
+        $select = $priceTable->getAdapter()->select()
+            ->from($priceTable->getTableName())
+            ->where('obj_type_id = ?', $data['obj_type_id'])
+            ->where('obj_class_id = ?', $data['obj_class_id'])
+            ->where('serv_id = ?', $data['serv_id'])
+            ->limit(1);
 
-            if (!$validate->isValid($id) || !is_double(floatval($v))) {
-                return $response->addStatus(new Xend_Status(
-                    Xend_Status::INPUT_PARAMS_INCORRECT, 'serv[' . $id . ']'));
+        try {
+            $rows = $select->query()->fetchAll();
+            if (!empty($rows)) {
+                $priceTable->updateByPk($data, $rows[0]['id']);
+            } else {
+                $priceTable->insert($data);
             }
-
-            $select = $priceTable->getAdapter()->select()
-                ->from($priceTable->getTableName())
-                ->where('obj_type_id = ?', $data['obj_type_id'])
-                ->where('obj_class_id = ?', $data['obj_class_id'])
-                ->where('serv_id = ?', $id);
-
-            try {
-                $rows = $select->query()->fetchAll();
-
-                if (!empty($rows)) {
-                    $priceTable->updateByPk(array('price' => $v), $rows[0]['id']);
-                } else {
-                    $priceTable->insert(array(
-                        'obj_type_id'   => $data['obj_type_id'],
-                        'obj_class_id'  => $data['obj_class_id'],
-                        'serv_id'       => $id,
-                        'price'         => $v
-                    ));
-                }
-
-            } catch (Exception $e) {
-                if (DEBUG) {
-                    throw $e;
-                }
-                return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
             }
+            $status = Xend_Status::DATABASE_ERROR;
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
@@ -272,5 +284,4 @@ class Crm_Calcpd_ConfigModel
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
 }

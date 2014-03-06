@@ -139,6 +139,8 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
             header: 'Цена за м.кв.',
             hideable: false,
             sortable: false,
+            align: 'right',
+            width: 100,
             dataIndex: 'price',
             renderer: xlib.formatCurrency
         }, {
@@ -146,6 +148,8 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
             header: 'Площадь (м.кв.)',
             hideable: false,
             sortable: false,
+            align: 'right',
+            width: 150,
             dataIndex: 'square',
             summaryType: 'sum',
             field: {
@@ -157,6 +161,8 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
             header: 'Сумма',
             hideable: false,
             sortable: false,
+            align: 'right',
+            width: 150,
             summaryRenderer: xlib.formatCurrency,
             renderer: function(value, metaData, record, rowIdx, colIdx, store, view) {
                 return xlib.formatCurrency(record.get('price') * record.get('square'));
@@ -167,13 +173,13 @@ Ext.define('EC.CRM.view.Calcpd.EditorLayout', {
                     record = records[i];
                     total += (record.get('price') * record.get('square'));
                 }
-                console.log(total);
                 return total;
             }
         }, {
             xtype: 'actioncolumn',
             hideable: false,
             sortable: false,
+            align: 'center',
             width: 45,
             items: [{
                 icon: '/images/icons/edit.png',

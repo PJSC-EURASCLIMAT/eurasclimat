@@ -77,7 +77,15 @@ class Crm_Calcpd_Model
             ->joinLeft(array('p' => $priceTable->getTableName()),
                 new Zend_Db_Expr('(c.obj_type_id=p.obj_type_id AND
                  c.obj_class_id=p.obj_class_id AND
-                 c.serv_id=p.serv_id)'), array('p.price'))
+                 c.serv_id=p.serv_id)'), array('price' =>
+                    new Zend_Db_Expr('CASE
+                        WHEN (`square` < 500) THEN `price1`
+                        WHEN (`square` >= 500 AND `square` < 1000) THEN `price2`
+                        WHEN (`square` >= 1000 AND `square` < 5000) THEN `price3`
+                        WHEN (`square` >= 5000 AND `square` < 10000) THEN `price4`
+                        ELSE `price5` END
+                    ')
+                ))
             ->where('c.project_id = ?', $id);
 
 //        die($select->assemble());

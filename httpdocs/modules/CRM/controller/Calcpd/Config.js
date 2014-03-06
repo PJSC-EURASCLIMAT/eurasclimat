@@ -26,13 +26,6 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
     
     saveURL: '/json/crm/calcpd-config/set-price',
     
-    msgPanel: {
-        xtype: 'panel',
-        border: false,
-        bodyPadding: 20,
-        html: 'Выберите тип объекта и тип помещения'
-    },
-    
     run: function(container) {
         
         if (!acl.isUpdate('calcpd', 'admin')) return;
@@ -85,7 +78,9 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
 
         /* objClass section */
         
-        var objClassPanel = this.Container.down('#objClassPanel').add(Ext.create('EC.CRM.view.Calcpd.ObjClassList'));
+        var objClassPanel = this.Container.down('#objClassPanel').add(
+                Ext.create('EC.CRM.view.Calcpd.ObjClassList')
+            );
         objClassPanel.Editing.on('edit', function(editor, e, eOpts) {
             e.grid.getStore().sync();
         });
@@ -111,15 +106,17 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
             priceFormPanel = this.Container.down('#priceFormPanel');
         
         pricePanel.on('activate', function() {
+            this.clearForm();
+            priceFormPanel.disable();
             objTree.getStore().reload();
-            priceFormPanel.removeAll(true);
-            priceFormPanel.add(this.msgPanel);
         }, this);
         
         objTree.on('itemclick', this.onObjSelect, this);
         
-        priceFormPanel.removeAll(true);
-        priceFormPanel.add(this.msgPanel);
+        priceFormPanel.down('button[action=save]').on('click', this.saveData, this);
+        priceFormPanel.down('button[action=reset]').on('click', function() {
+            priceFormPanel.getForm().reset();
+        }, this);
     },
     
     /* Abstract routine */
@@ -159,80 +156,51 @@ Ext.define('EC.CRM.controller.Calcpd.Config', {
     onObjSelect: function(tree, record) {
         
         var priceFormPanel = this.Container.down('#priceFormPanel'),
-            obj_type_id = record.get('obj_type_id'),
-            obj_class_id = record.get('obj_class_id');
+            params = {
+                obj_type_id: record.get('obj_type_id'),
+                obj_class_id: record.get('obj_class_id'),
+                serv_id: record.get('serv_id')
+            };
             
-        priceFormPanel.removeAll(true);
-        
-        if (!obj_type_id > 0 || !obj_class_id > 0) {
-            priceFormPanel.add(this.msgPanel);
+        if (!params.obj_type_id > 0 || !params.obj_class_id > 0 || !params.serv_id > 0) {
+            this.clearForm();
+            priceFormPanel.disable();
             return;
         }
         
-        this.loadPrice(obj_type_id, obj_class_id);
-    },
-    
-    loadPrice: function(obj_type_id, obj_class_id) {
-        
         var failure = function() {
+            this.clearForm();
+            priceFormPanel.disable();
             Ext.Msg.alert('Ошибка', 'Ошибка чтения формы!');
-        }
+        };
         
-        Ext.Ajax.request({
+        priceFormPanel.getForm().load({
             url: this.loadURL,
-            params: {
-                obj_type_id: obj_type_id,
-                obj_class_id: obj_class_id
-            },
-            failure: failure,
-            success: function(response) {
-                var resp = Ext.decode(response.responseText);
-                if (!resp.success) {
+            params: params,
+            waitMsg: 'Загрузка...',
+            success: function(form, action) {
+                if (!action.result.success) {
                     failure();
                 }
-                this.showForm(resp.data);
+                priceFormPanel.enable();
             },
+            failure: failure,
             scope: this
         });
     },
     
-    showForm: function(data) {
-        
-        var items = [{
-            xtype: 'hidden',
-            name: 'obj_type_id',
-            value: data.obj_type_id
-        }, {
-            xtype: 'hidden',
-            name: 'obj_class_id',
-            value: data.obj_class_id
-        }];
-        
-        Ext.each(data.serv, function(i) {
-            items.push({
-                xtype: 'numberfield',
-                name: 'serv[' + i.id + ']',
-                fieldLabel: i.name,
-                value: i.price
-            });
-        }, this); 
-        
-        var priceFormPanel = this.Container.down('#priceFormPanel'),
-            formPanel = Ext.create('EC.CRM.view.Calcpd.ConfigPriceForm', {items: items}),
-            form = formPanel.getForm();
-            
-        priceFormPanel.add(formPanel);
-        
-        formPanel.down('button[action=reset]').on('click', form.reset, form);
-        formPanel.down('button[action=save]').on('click', this.saveData, this);
-        
+    clearForm: function() {
+        this.Container.down('#priceFormPanel').getForm().getFields().each(
+        function(i) {
+            i.setValue(0);
+        }, this);
     },
     
     saveData: function() {
         
-        var formPanel = this.Container.down('#priceFormPanel form');
+        var formPanel = this.Container.down('#priceFormPanel');
             
-        formPanel.getForm().submit({
+        formPanel.submit({
             url: this.saveURL,
             waitMsg: 'Сохранение...',
             success: function(form, action) {

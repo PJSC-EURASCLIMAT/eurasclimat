@@ -54,11 +54,13 @@ class Crm_CalcpdConfigController extends Xend_Controller_Action
     public function getPriceAction()
     {
         $response = $this->_model->getPrice(
-            $this->_getParam('obj_type_id'), $this->_getParam('obj_class_id')
+            $this->_getParam('obj_type_id'),
+            $this->_getParam('obj_class_id'),
+            $this->_getParam('serv_id')
         );
         if ($response->isSuccess()) {
             $this->view->success = true;
-            $this->view->data = $response->getRowset();
+            $this->view->data = $response->getRow();
         } else {
             $this->_collectErrors($response);
         }

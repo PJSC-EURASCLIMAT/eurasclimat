@@ -5,7 +5,8 @@ Ext.define('EC.CRM.model.Calcpd.ObjTree', {
     fields: [
         'text',
         'obj_type_id',
-        'obj_class_id'
+        'obj_class_id',
+        'serv_id'
     ]
     
 });

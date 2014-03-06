@@ -18,6 +18,7 @@ Ext.define('EC.CRM.view.Calcpd.ConfigLayout', {
     
     items: [{
         xtype: 'tabpanel',
+        border: false,
         items: [{
             layout: 'fit',
             itemId: 'servPanel',
@@ -34,20 +35,18 @@ Ext.define('EC.CRM.view.Calcpd.ConfigLayout', {
             layout: 'border',
             itemId: 'pricePanel',
             border: false,
+            bodyBorder: false,
             title: 'Конфигуратор стоимости',
             items: [{
                 xtype: 'CalcpdObjTree',
                 margins: '0 5 0 0',
                 region: 'west',
                 itemId: 'objTreePanel',
-                width: 300
+                width: 600
             }, {
-                xtype: 'panel',
+                xtype: 'CalcpdConfigPriceForm',
                 region: 'center',
-                layout: 'fit',
-                itemId: 'priceFormPanel',
-                title: 'Цены на услуги проектирования (за м.кв.)',
-                items: []
+                itemId: 'priceFormPanel'
             }]
         }]
     }]

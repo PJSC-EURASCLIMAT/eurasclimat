@@ -34,16 +34,13 @@ Ext.define('xlib.RefField', {
 
     checkedRecords: [],
 
-
-
     /**
-     * TODO обработать multiSelect:
-     * true - грид c галочками + в комибик количество "5 позиций выбрано"
-     * полный список в тултип
-     * false - без галок, выбор на селект + displayField в комбик
-     * TODO множественный setValue для [массив айдишников], чтобы в гриде выставлял
      * TODO c beforedestroy разобраться
      * */
+
+//    inputAttrTpl: [
+//        "data-qtip=\"on\""
+//    ],
 
     listeners: {
         beforedestroy: function() {
@@ -56,6 +53,12 @@ Ext.define('xlib.RefField', {
             this.win = null;
 
         }
+//        ,render: function(c){
+//            Ext.QuickTips.register({
+//                target: c.getEl(),
+//                text: c.qtip
+//            });
+//        }
     },
 
     initComponent: function() {
@@ -296,10 +299,25 @@ Ext.define('xlib.RefField', {
         if( values.length > 1) {
             output = this.getWord(max);
         }
+        this.updateQTip();
 
         Ext.form.field.Trigger.superclass.setValue.call(this, [output]);
 
         this.win.hide();
+    },
+
+    updateQTip: function() {
+        if ( !this.multiSelect ) {
+            this.getEl().set({'data-qtip': ''});
+            return;
+        }
+        var string = '';
+        for (var i = 0; i < this.checkedRecords.length; i++) {
+            var record = this.checkedRecords[i];
+            string += record.get(this.displayField) + '<br/>';
+        }
+
+        this.getEl().set({'data-qtip': string});
     },
 
     singleSelectionComplete: function() {

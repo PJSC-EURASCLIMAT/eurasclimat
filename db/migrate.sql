@@ -7,7 +7,7 @@ CREATE TABLE `accounts_contacts` (
   PRIMARY KEY (`id`),
   KEY `owner_id` (`owner_id`),
   KEY `contact_id` (`contact_id`)
-) EN
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `accounts_contacts`
   ADD CONSTRAINT `accounts_contacts_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE,

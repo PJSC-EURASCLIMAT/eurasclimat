@@ -7,17 +7,20 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
     ],
     
     stores: [
-        'EC.CRM.store.Calcpd.Main'
+        'EC.CRM.store.Calcpd.Main',
+        'EC.CRM.store.Calcpd.Info'
     ],
     
     models: [
-        'EC.CRM.model.Calcpd.Main'
+        'EC.CRM.model.Calcpd.Main',
+        'EC.CRM.model.Calcpd.Info'
     ],
     
     views: [
         'EC.CRM.view.Calcpd.MainList',
         'EC.CRM.view.Calcpd.MainListPortlet',
-        'EC.CRM.view.Calcpd.Add'
+        'EC.CRM.view.Calcpd.Add',
+        'EC.CRM.view.Calcpd.Info'
     ],
     
     addURL: '/json/crm/calcpd/add',
@@ -39,6 +42,17 @@ Ext.define('EC.CRM.controller.Calcpd.Main', {
             
             grid.down('button[action=config]').on({
                 click: this.showConfig,
+                scope: this
+            });
+        }
+        
+        if (!isPortlet) {
+            
+            grid.down('button[action=info]').on({
+                click: function() {
+                    this.getView('EC.CRM.view.Calcpd.Info').create();
+                    this.getStore('EC.CRM.store.Calcpd.Info').load();
+                },
                 scope: this
             });
         }

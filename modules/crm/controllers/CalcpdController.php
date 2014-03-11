@@ -17,6 +17,7 @@ class Crm_CalcpdController extends Xend_Controller_Action
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->calcpd);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-info');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
@@ -24,6 +25,18 @@ class Crm_CalcpdController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-line');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-line');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-line');
+    }
+
+    public function getInfoAction()
+    {
+        $response = $this->_model->getInfo();
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRowset();
+//            die('<pre>' . var_dump($response->getRowset()));
+        } else {
+            $this->_collectErrors($response);
+        }
     }
 
     public function getListAction()

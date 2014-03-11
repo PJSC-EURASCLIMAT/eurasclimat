@@ -15,6 +15,9 @@
 .save {
     background-image:url(/images/icons/save.gif) !important;
 }
+.info {
+	background-image:url(/images/icons/fam/book.png) !important;
+}
 
 .user {
     background-image:url( /images/icons/fam/user.gif ) !important;

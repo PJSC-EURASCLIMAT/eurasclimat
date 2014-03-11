@@ -9,10 +9,85 @@ class Crm_Calcpd_Model
         $this->_table = new Crm_Calcpd_Table();
     }
 
-    public function getList($params)
+    public function getInfo()
     {
         $response = new Xend_Response();
 
+        $objTypeTable = new Crm_Calcpd_ObjTypeTable();
+        $objClassTable = new Crm_Calcpd_ObjClassTable();
+        $servTable = new Crm_Calcpd_ServTable();
+        $priceTable = new Crm_Calcpd_PriceTable();
+
+        $select = $this->_table->getAdapter()->select();
+
+        try {
+            $rowsType = $objTypeTable->fetchAll();
+            $rowsClass = $objClassTable->fetchAll();
+            $rowsServ = $servTable->fetchAll();
+            $rowsPrice = $priceTable->fetchAll();
+            if (!$rowsType || !$rowsClass || !$rowsServ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+            }
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        $typeList = $rowsType->toArray();
+        $classList = $rowsClass->toArray();
+        $servList = $rowsServ->toArray();
+        $priceList = $rowsPrice->toArray();
+
+        $data = array();
+        $id = 1;
+        foreach ($typeList as $t) {
+            foreach ($classList as $c) {
+                foreach ($servList as $s) {
+
+                    $price = array(
+                        'price1'        => 0,
+                        'price2'        => 0,
+                        'price3'        => 0,
+                        'price4'        => 0,
+                        'price5'        => 0
+                    );
+
+                    foreach($priceList as $p) {
+
+                        if ($t['id'] == $p['obj_type_id']
+                        &&  $c['id'] == $p['obj_class_id']
+                        &&  $s['id'] == $p['serv_id']) {
+
+                            $price = array(
+                                'price1'        => $p['price1'],
+                                'price2'        => $p['price2'],
+                                'price3'        => $p['price3'],
+                                'price4'        => $p['price4'],
+                                'price5'        => $p['price5']
+                            );
+                            break;
+                        }
+                    }
+
+                    $data[] = array_merge(array(
+                        'id'        => $id++,
+                        'obj_type'  => $t['name'],
+                        'obj_class' => $c['name'],
+                        'serv'      => $s['name']
+                    ), $price);
+                }
+            }
+        }
+
+        $response->setRowset($data);
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function getList($params)
+    {
+        $response = new Xend_Response();
 
         $accountsTable = new Xend_Accounts_Table_Accounts();
         $objTypeTable = new Crm_Calcpd_ObjTypeTable();

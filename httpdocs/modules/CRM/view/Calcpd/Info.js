@@ -10,11 +10,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
     
     autoShow: true,
 
-    bodyPadding: 5,
-    
     modal: true,
-    
-    maximizable: true,
     
     width: 1000,
     
@@ -32,7 +28,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
             ftype: 'multigrouping',
             enableGroupingMenu: false,
             hideGroupedHeader: true,
-            startCollapsed: false
+            collapsible: false
         }],
         columns: [{
             header: 'Тип объекта',
@@ -43,7 +39,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
         }, {
             header: 'Наименование работы',
             dataIndex: 'serv',
-            flex: 1,
+            width: 420,
             hideable: false,
             sortable: false
         }, {
@@ -54,7 +50,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
                 hideable: false,
                 sortable: false,
                 align: 'right',
-                width: 100,
+                width: 110,
                 dataIndex: 'price1',
                 renderer: xlib.formatCurrency
             }, {
@@ -63,7 +59,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
                 hideable: false,
                 sortable: false,
                 align: 'right',
-                width: 100,
+                width: 110,
                 dataIndex: 'price2',
                 renderer: xlib.formatCurrency
             }, {
@@ -72,7 +68,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
                 hideable: false,
                 sortable: false,
                 align: 'right',
-                width: 100,
+                width: 110,
                 dataIndex: 'price3',
                 renderer: xlib.formatCurrency
             }, {
@@ -81,7 +77,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
                 hideable: false,
                 sortable: false,
                 align: 'right',
-                width: 100,
+                width: 110,
                 dataIndex: 'price4',
                 renderer: xlib.formatCurrency
             }, {
@@ -90,7 +86,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
                 hideable: false,
                 sortable: false,
                 align: 'right',
-                width: 100,
+                width: 110,
                 dataIndex: 'price5',
                 renderer: xlib.formatCurrency
             }]

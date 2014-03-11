@@ -32,7 +32,7 @@ Ext.define('EC.CRM.view.Calcpd.Info', {
             ftype: 'multigrouping',
             enableGroupingMenu: false,
             hideGroupedHeader: true,
-            startCollapsed: true
+            startCollapsed: false
         }],
         columns: [{
             header: 'Тип объекта',

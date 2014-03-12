@@ -40,7 +40,7 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
             xtype: 'tabpanel',
             layout: 'fit',
             itemId: 'equipmentPanel',
-            title: 'Оборудование'
+            title: 'Оборудование и работы'
         }]
     }]
 });

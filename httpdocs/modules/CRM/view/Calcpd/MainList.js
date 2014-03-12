@@ -67,21 +67,21 @@ Ext.define('EC.CRM.view.Calcpd.MainList', {
         
         this.tbar = [{
             xtype: 'button',
+            text: 'Информация по ценам на ПИР',
+            iconCls: 'info',
+            action: 'info'
+        }, {
+            xtype: 'button',
             text: 'Создать проект',
             iconCls: 'add',
             hidden: !acl.isUpdate('calcpd'),
             action: 'additem'
-        }, {
+        }, '->', {
             xtype: 'button',
             text: 'Настройки',
             iconCls: 'option',
             hidden: !acl.isUpdate('calcpd', 'admin'),
             action: 'config'
-        }, '->', {
-            xtype: 'button',
-            text: 'Информация по ценам на ПИР',
-            iconCls: 'info',
-            action: 'info'
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

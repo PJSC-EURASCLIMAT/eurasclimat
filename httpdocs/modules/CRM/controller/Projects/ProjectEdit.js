@@ -36,6 +36,10 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     updateBaseDescrURL: '/json/crm/projects/update-base-descr',
     
+    getConfigURL: '/json/crm/projects/get-config',
+    
+    updateConfigURL: '/json/crm/projects/update-config',
+    
     getPlansURL: '/json/crm/projects/get-plans',
     
     updatePlansURL: '/json/crm/projects/update-plans',
@@ -68,6 +72,16 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
             waitMsg: 'Загрузка...'
         });
         
+        var configForm = this.Container.down('#configPanel').add(Ext.create('EC.CRM.view.Projects.Config'));
+        configForm.down('button[action=save]').on('click', function() {
+            this.updateItem(configForm.getForm(), this.updateConfigURL);
+        }, this);
+        configForm.getForm().load({
+            url: this.getConfigURL, 
+            params: {id: this.projectID},
+            waitMsg: 'Загрузка...'
+        });
+        
         var plansForm = this.Container.down('#plansPanel').add(Ext.create('EC.CRM.view.Projects.Plans'));
         plansForm.down('button[action=save]').on('click', function() {
             this.updateItem(plansForm.getForm(), this.updatePlansURL);
@@ -80,7 +94,11 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         
         var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
         configurator.projectID = this.projectID;
-        configurator.run(this.Container.down('#configuratorPanel'));
+        configurator.run(this.Container.down('#equipmentPanel').add({
+            title: 'Кондиционирование',
+            layout: 'fit',
+            itemId: 'configuratorPanel'
+        }));
         
         var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
         discussionsController.cur_project_id = this.projectID;

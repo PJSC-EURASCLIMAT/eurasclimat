@@ -161,6 +161,45 @@ class Crm_Projects_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+    public function updateConfig(array $params)
+    {
+        $f = new Xend_Filter_Input(array(
+            '*'         => 'StringTrim'
+        ), array(
+            'id'            => array('Id', 'presence' => 'required'),
+            'sys_cond'              => array('Int', 'allowEmpty' => true),
+            'sys_vent'              => array('Int', 'allowEmpty' => true),
+            'sys_heat'              => array('Int', 'allowEmpty' => true),
+            'sys_water'             => array('Int', 'allowEmpty' => true),
+            'sys_electricity'       => array('Int', 'allowEmpty' => true),
+            'sys_automation'        => array('Int', 'allowEmpty' => true),
+            'sys_canal'             => array('Int', 'allowEmpty' => true),
+            'sys_fire'              => array('Int', 'allowEmpty' => true),
+            'sys_security'          => array('Int', 'allowEmpty' => true),
+            'sys_internet'          => array('Int', 'allowEmpty' => true),
+            'sys_phone'             => array('Int', 'allowEmpty' => true),
+            'sys_radio'             => array('Int', 'allowEmpty' => true),
+            'sys_tv'                => array('Int', 'allowEmpty' => true),
+            'sys_dispatch'          => array('Int', 'allowEmpty' => true),
+            'sys_clean'             => array('Int', 'allowEmpty' => true),
+            'serv_project'          => array('Int', 'allowEmpty' => true),
+            'serv_logistic'         => array('Int', 'allowEmpty' => true),
+            'serv_execution'        => array('Int', 'allowEmpty' => true),
+            'serv_implementation'   => array('Int', 'allowEmpty' => true)
+        ), $params);
+
+        $response = new Xend_Response();
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
+
     public function updatePlans(array $params)
     {
         $f = new Xend_Filter_Input(array(

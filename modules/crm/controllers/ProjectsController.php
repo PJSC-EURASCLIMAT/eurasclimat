@@ -22,6 +22,8 @@ class Crm_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-base-descr');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-base-descr');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-config');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-config');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-plans');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-plans');
     }
@@ -74,6 +76,27 @@ class Crm_ProjectsController extends Xend_Controller_Action
     public function updateBaseDescrAction()
     {
         $response = $this->_model->updateBaseDescr($this->_getAllParams());
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function getConfigAction()
+    {
+        $response = $this->_model->get($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $this->view->success = true;
+            $this->view->data = $response->getRow();
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function updateConfigAction()
+    {
+        $response = $this->_model->updateConfig($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

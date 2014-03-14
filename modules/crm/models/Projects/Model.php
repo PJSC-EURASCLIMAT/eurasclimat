@@ -223,4 +223,44 @@ class Crm_Projects_Model
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
     }
+
+    public function getMembers($id)
+    {
+//        $f = new Xend_Filter_Input(array(
+//            '*'         => 'StringTrim'
+//        ), array(
+//            'id'                => array('Id', 'presence' => 'required'),
+//        ), $params);
+
+        $response = new Xend_Response();
+
+//        $response->addInputStatus($f);
+//        if ($response->hasNotSuccess()) {
+//            return $response;
+//        }
+//
+//        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+//        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
+
+    public function updateMembers(array $params)
+    {
+//        $f = new Xend_Filter_Input(array(
+//            '*'         => 'StringTrim'
+//        ), array(
+//            'id'                => array('Id', 'presence' => 'required'),
+//        ), $params);
+
+        $response = new Xend_Response();
+
+//        $response->addInputStatus($f);
+//        if ($response->hasNotSuccess()) {
+//            return $response;
+//        }
+//
+//        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+//        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
 }

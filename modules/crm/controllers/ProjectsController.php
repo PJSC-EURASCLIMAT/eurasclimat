@@ -142,6 +142,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
     {
         $response = $this->_model->updateMembers($this->_getAllParams());
         if ($response->isSuccess()) {
+            $this->view->data = $response->data;
             $this->view->success = true;
         } else {
            $this->_collectErrors($response);

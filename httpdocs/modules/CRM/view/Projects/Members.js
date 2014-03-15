@@ -13,49 +13,56 @@ Ext.define('EC.CRM.view.Projects.Members', {
         padding: 20
     },
     
-    reguires: ['xlib.AccountsCombo'],
-    
     items: [{
-        xtype: 'fieldset',
         title: 'Менеджеры проекта',
-        defaultType: 'AccountsCombo',
-        items: []
+        itemId: 'manager',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'manager'
+        }]
     }, {
-        xtype: 'fieldset',
         title: 'Представители заказчика',
-        defaultType: 'AccountsCombo',
-        items: []
+        itemId: 'customer',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'customer'
+        }]
     }, {
-        xtype: 'fieldset',
         title: 'Отдел проектирования',
-        defaultType: 'AccountsCombo',
-        items: []
+        itemId: 'projector',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'projector'
+        }]
     }, {
-        xtype: 'fieldset',
         title: 'Отдел логистики',
-        defaultType: 'AccountsCombo',
-        items: []
+        itemId: 'logistic',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'logistic'
+        }]
     }, {
-        xtype: 'fieldset',
         title: 'Производственный отдел',
-        defaultType: 'AccountsCombo',
-        items: []
+        itemId: 'productor',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'productor'
+        }]
     }],
         
-    initComponent: function() {
-        
-        this.bbar = ['->', {
-            text: 'Сохранить',
-            formBind: true,
-            action: 'save'
-        }, {
-            text: 'Отменить',
-            scope: this,
-            handler: function() {
-                this.getForm().reset();
-            }
-        }];
-        
-        this.callParent(arguments);
-    }
+    bbar: ['->', {
+        text: 'Сохранить',
+        formBind: true,
+        action: 'save'
+    }]
 });

@@ -21,7 +21,8 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     uses: [
         'EC.CRM.controller.Projects.ProjectsGroups',
-        'EC.CRM.controller.Projects.Configurator'
+        'EC.CRM.controller.Projects.Configurator',
+        'EC.CRM.controller.Projects.Members'
     ],
     
     projectID: null,
@@ -43,10 +44,6 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     getPlansURL: '/json/crm/projects/get-plans',
     
     updatePlansURL: '/json/crm/projects/update-plans',
-    
-    getMembersURL: '/json/crm/projects/get-members',
-    
-    updateMembersURL: '/json/crm/projects/update-members',
     
     run: function(container) {
 
@@ -96,15 +93,10 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
             waitMsg: 'Загрузка...'
         });
         
-        var membersForm = this.Container.down('#membersPanel').add(Ext.create('EC.CRM.view.Projects.Members'));
-        membersForm.down('button[action=save]').on('click', function() {
-            this.updateItem(membersForm.getForm(), this.updateMembersURL);
-        }, this);
-        membersForm.getForm().load({
-            url: this.getMembersURL, 
-            params: {id: this.projectID},
-            waitMsg: 'Загрузка...'
-        });
+        var membersForm = this.getController('EC.CRM.controller.Projects.Members');
+        membersForm.projectID = this.projectID;
+        membersForm.permissions = this.permissions;
+        membersForm.run(this.Container.down('#membersPanel'));
         
         var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
         configurator.projectID = this.projectID;

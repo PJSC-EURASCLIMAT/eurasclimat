@@ -43,30 +43,42 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
             fieldLabel: 'Наименование проекта',
             name: 'name'
         }, {
-            xtype: 'AccountsCombo',
-            fieldLabel: 'Заказчик',
-            name: 'customer_id'
-        }, {
-            xtype: 'AccountsCombo',
-            fieldLabel: 'Руководитель проекта',
-            name: 'manager_id'
-        }, {
-            xtype: 'ProjectsStageCombo'
-        }, {
-            xtype: 'ProjectsObjectCombo'
-        }, {
-            xtype: 'numberfield',
-            fieldLabel: 'Площадь(м.кв.)',
-            name: 'area'
+            xtype: 'textfield',
+            fieldLabel: 'Название заказчика',
+            name: 'customer_name'
         }, {
             xtype: 'textfield',
             fieldLabel: 'Адрес объекта',
             name: 'address'
         }, {
+            xtype: 'ProjectsObjectCombo'
+        }, {
+            xtype: 'numberfield',
+            fieldLabel: 'Площадь объекта (м.кв.)',
+            name: 'area'
+        }, {
             xtype: 'textarea',
             fieldLabel: 'Описание',
             name: 'description',
             height: 250
+        }, {
+            xtype: 'radiogroup',
+            fieldLabel: 'Этап проекта',
+            columns: 4,
+            defaults: {name: 'stage'},
+            items: [{
+                boxLabel: 'Подготовка',
+                inputValue: 'preparation'
+            }, {
+                boxLabel: 'Согласование',
+                inputValue: 'coordination'
+            }, {
+                boxLabel: 'Выполнение',
+                inputValue: 'execution'
+            }, {
+                boxLabel: 'Внедрение',
+                inputValue: 'implementation'
+            }]
         }];
 
         this.bbar = ['->', {

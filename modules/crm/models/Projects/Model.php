@@ -19,7 +19,7 @@ class Crm_Projects_Model
         $select = $this->_table->getAdapter()->select()
             ->from(array('p' => $this->_table->getTableName()))
             ->joinLeft(array('a' => $accountsTable->getTableName()),
-                'a.id=p.manager_id', array('manager_name'  => 'a.name'))
+                'a.id=p.creator_id', array('creator_name'  => 'a.name'))
             ->join(array('g' => $groupsTable->getTableName()),
                 'g.id=p.group_id', array('group_name'    => 'g.name'));
 
@@ -116,9 +116,8 @@ class Crm_Projects_Model
         ), array(
             'id'            => array('Id', 'presence' => 'required'),
             'group_id'      => array('Id', 'allowEmpty' => false),
-            'customer_id'   => array('Id', 'allowEmpty' => true),
-            'manager_id'    => array('Id', 'allowEmpty' => true),
             'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'customer_name' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'address'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'object_type'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'area'          => array('Id', 'allowEmpty' => true),
@@ -241,7 +240,7 @@ class Crm_Projects_Model
 //
 //        $rows = $this->_table->updateByPk($f->getData(), $f->id);
 //        $status = Xend_Status::retrieveAffectedRowStatus($rows);
-        return $response->addStatus(new Xend_Status($status));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function updateMembers(array $params)
@@ -254,6 +253,8 @@ class Crm_Projects_Model
 
         $response = new Xend_Response();
 
+        $response->data = Zend_Json::encode($params);
+
 //        $response->addInputStatus($f);
 //        if ($response->hasNotSuccess()) {
 //            return $response;
@@ -261,6 +262,6 @@ class Crm_Projects_Model
 //
 //        $rows = $this->_table->updateByPk($f->getData(), $f->id);
 //        $status = Xend_Status::retrieveAffectedRowStatus($rows);
-        return $response->addStatus(new Xend_Status($status));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 }

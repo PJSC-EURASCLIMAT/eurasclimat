@@ -109,9 +109,9 @@ Ext.define('EC.CRM.view.Projects.List', {
             }]
         }, {
             xtype: 'templatecolumn',
-            header: 'Руководитель проекта',
-            tpl: '<a href="#/profile/{manager_id}/show">{manager_name}</a>',
-            dataIndex: 'manager_name',
+            header: 'Создатель проекта',
+            tpl: '<a href="#/profile/{creator_id}/show">{creator_name}</a>',
+            dataIndex: 'creator_name',
             flex: .5
         }, {
             xtype: 'datecolumn',

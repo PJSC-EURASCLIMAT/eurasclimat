@@ -129,10 +129,11 @@ class Crm_ProjectsController extends Xend_Controller_Action
 
     public function getMembersAction()
     {
-        $response = $this->_model->getMembers($this->_getParam('id'));
+        $model = new Crm_Projects_Members_Model();
+        $response = $model->get($this->_getParam('id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
-            $this->view->data = $response->getRow();
+            $this->view->data = $response->getRowset();
         } else {
            $this->_collectErrors($response);
         }
@@ -140,7 +141,9 @@ class Crm_ProjectsController extends Xend_Controller_Action
 
     public function updateMembersAction()
     {
-        $response = $this->_model->updateMembers($this->_getAllParams());
+//        return var_dump($this->_getAllParams());
+        $model = new Crm_Projects_Members_Model();
+        $response = $model->update($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->data = $response->data;
             $this->view->success = true;

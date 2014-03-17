@@ -4,7 +4,10 @@ Ext.define('EC.CRM.controller.Projects.Members', {
     
     views: ['EC.CRM.view.Projects.Members'],
     
-    reguires: ['xlib.AccountsCombo'],
+    uses: [
+        'xlib.form.ComboBox',
+        'xlib.AccountsCombo'
+    ],
     
     getURL: '/json/crm/projects/get-members',
     
@@ -41,19 +44,56 @@ Ext.define('EC.CRM.controller.Projects.Members', {
                 });
             }, this);
             
-        }        
+        }
+        
+        this.loadData();
     },
     
-    addField: function(itemId) {
+    addField: function(itemId, value) {
         
-        var cnt = this.Container.down('#' + itemId);
-        cnt.add({
-            xtype: 'AccountsCombo',
-            anchor: '50%',
-            padding: 10,
-            hideLabel: true,
-            name: itemId + '[]'
+        var cnt = this.Container.down('#' + itemId),
+            combo = Ext.create('xlib.AccountsCombo', {
+                anchor: '50%',
+                padding: 10,
+                hideLabel: true,
+                name: itemId + '[]'
+            });
+            
+            if (!Ext.isEmpty(value)) {
+                combo.getStore().on('load', function() {
+                    combo.setValue(value);
+                }, this, {single: true});
+            }
+            
+        cnt.add(combo);
+    },
+    
+    loadData: function() {
+        
+        var failure = function() {
+            Ext.Msg.alert('Ошибка', 'Ошибка загрузки!');
+        };
+            
+        Ext.Ajax.request({
+            url: this.getURL,
+            params: {id: this.projectID},
+            success: function(response, opts) {
+                var resp = Ext.decode(response.responseText, true);
+                if (!resp || !resp.success) {
+                    failure();
+                    return;
+                }
+                this.buildForm(resp.data);
+            },
+            failure: failure,
+            scope: this
         });
+    },
+    
+    buildForm: function(data) {
+        Ext.each(data, function(item) {
+            this.addField(item.role, item.account_id);
+        }, this);
     },
     
     saveData: function() {

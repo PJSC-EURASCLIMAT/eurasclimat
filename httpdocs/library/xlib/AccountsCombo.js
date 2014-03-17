@@ -1,6 +1,7 @@
 Ext.define('xlib.AccountsCombo', {
     
-    extend: 'Ext.form.ComboBox',
+//    extend: 'xlib.form.ComboBox',
+    extend: 'Ext.form.field.ComboBox',
     
     alias: ['widget.AccountsCombo'],
     
@@ -36,21 +37,6 @@ Ext.define('xlib.AccountsCombo', {
                 root: 'data',
                 successProperty: 'success'
             }
-        }
-        
-
-    },
-    
-    getFilter: function() {
-        return this.getValue(); 
-    },
-    
-    statics: {
-        getDisplayValue: function(v) {
-            var store = Ext.getStore('CountryComboStore') 
-                || Ext.create('widget.CountryCombo').getStore(),
-                record = store ? store.getById(v) : null;
-            return record ? record.get('name') : v;
         }
     }
 });

@@ -3,7 +3,6 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
     extend: 'Ext.form.Panel',
     
     uses: [
-        'EC.CRM.view.Projects.StageCombo',
         'EC.CRM.view.Projects.ObjectCombo'
     ],
     

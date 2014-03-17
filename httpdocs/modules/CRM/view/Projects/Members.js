@@ -5,6 +5,8 @@ Ext.define('EC.CRM.view.Projects.Members', {
     trackResetOnLoad: true,
     
     border: false,
+
+    autoScroll: true,
     
     bodyPadding: 20,
     
@@ -14,15 +16,6 @@ Ext.define('EC.CRM.view.Projects.Members', {
     },
     
     items: [{
-        title: 'Менеджеры проекта',
-        itemId: 'manager',
-        items: [{
-            xtype: 'button',
-            text: 'Добавить',
-            iconCls: 'add',
-            action: 'manager'
-        }]
-    }, {
         title: 'Представители заказчика',
         itemId: 'customer',
         items: [{
@@ -30,6 +23,15 @@ Ext.define('EC.CRM.view.Projects.Members', {
             text: 'Добавить',
             iconCls: 'add',
             action: 'customer'
+        }]
+    }, {
+        title: 'Менеджеры проекта',
+        itemId: 'manager',
+        items: [{
+            xtype: 'button',
+            text: 'Добавить',
+            iconCls: 'add',
+            action: 'manager'
         }]
     }, {
         title: 'Отдел проектирования',

@@ -83,6 +83,11 @@ Ext.define('EC.PA.controller.Messages', {
                 scope: this
             },
 
+            'pa-messages-win [action=contacts]': {
+                click: this.onContacts,
+                scope: this
+            },
+
             'pa-messages-win #mesGrid': {
                 deleteRow: this.onMessageDelete,
                 select: this.onMessageSelect,
@@ -116,6 +121,84 @@ Ext.define('EC.PA.controller.Messages', {
         }
 
         this.mesStore.load();
+    },
+
+    onContacts: function() {
+        if( !Ext.isEmpty(this.contactsWin) ) {
+            this.contactsWin.show();
+        }
+
+        this.contactsWin = Ext.create('Ext.window.Window', {
+            title: 'Адресная книга',
+            width: 500,
+            height: 400,
+            layout: 'fit',
+            tbar: [{
+                text: 'Добавить в контакты',
+                iconCls: 'add',
+                handler: this.onContactsAdd
+            },{
+                text: 'Удалить из контактов',
+                iconCls: 'remove',
+                handler: this.onContactsDel
+            }, '->', {
+                xtype: 'button',
+                tooltip: 'Обновить',
+                iconCls: 'x-tbar-loading',
+                scope: this,
+                handler: function() {
+                    this.contactsWin.down('grid').getStore().load();
+//                    this.up('panel').down('grid').getStore().load();
+                }
+            }],
+            items: [{
+                xtype: 'grid',
+                uses: ['xlib.CheckColumn'],
+                hideHeaders: true,
+                features: [{
+                    ftype:'grouping',
+                    groupHeaderTpl: '{name}'
+                }],
+                columns: [
+                    {
+                        xtype: 'checkcolumn',
+                        width: 30,
+                        dataIndex: 'checked',
+                        listeners: {
+                            checkchange:  function( grid, rowIndex, checked, eOpts ) {
+                                grid.fireEvent('activechange', rowIndex, checked);
+                            },
+                            scope: this
+                        }
+                    },
+                    {
+                        text: 'name',
+                        dataIndex: 'name',
+                        flex: 1
+                    }
+                ],
+                store: {
+                    fields: [{name: 'id', type: 'number'}, 'name', 'group'],
+                    groupers: [{property: 'group', direction: 'DESC'}],
+                    sorters: [{property: 'name', direction: 'ASC'}],
+                    autoLoad: true,
+                    proxy: {
+                        type: 'ajax',
+                        api: {
+                            read:   '/json/pa/info/get-contacts'
+                        },
+                        reader: {
+                            type: 'json',
+                            root: 'data',
+                            successProperty: 'success'
+                        }
+                    }
+                }
+            }]
+        });
+
+        this.contactsWin.show();
+
     },
 
     onDetailRespond: function() {

@@ -70,6 +70,12 @@ Ext.define('EC.PA.view.Messages', {
                     action: 'delete',
                     itemId: 'deleteChecked'
                 }]
+            }, {
+                xtype: 'button',
+                iconCls: 'book',
+                hidden: true,
+                text: 'Адресная книга',
+                action: 'contacts'
             },'->', {
                 xtype: 'button',
                 tooltip: 'Обновить',

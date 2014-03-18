@@ -213,15 +213,17 @@ class PA_Messages_Model
             $senderData = $senderDataResponse->getRowset();
         }
 
-        $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
-        if ($receiverDataResponse->hasNotSuccess()) {
-            return $receiverDataResponse;
-        }
-        $receiverData = $receiverDataResponse->getRowset();
-
         $params['date'] = date('Y-m-d H:i:s', time());
         $params['sender_name'] = $senderData['name'];
-        $params['receiver_name'] = $receiverData['name'];
+
+        if ( !isset( $params['receiver_name'] ) ) {
+            $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
+            if ($receiverDataResponse->hasNotSuccess()) {
+                return $receiverDataResponse;
+            }
+            $receiverData = $receiverDataResponse->getRowset();
+            $params['receiver_name'] = $receiverData['name'];
+        }
 
         $f = new Xend_Filter_Input(array(
 //            'sender_id'      => 'int',
@@ -273,6 +275,8 @@ class PA_Messages_Model
         }
 
         $response->id = $id;
+        $response->receiver_name = $receiverData['name'];
+
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 

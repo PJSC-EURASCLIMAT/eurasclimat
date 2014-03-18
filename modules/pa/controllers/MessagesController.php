@@ -61,6 +61,8 @@ class PA_MessagesController extends Xend_Controller_Action
         $data['type'] = $mesTypes['FROM_USER'];
         $data['sender_id'] = $identity->id;
 
+        $names = array();
+
         for($i = 0; $i < count($receivers); $i++)
         {
             $receiver_id = $receivers[$i];
@@ -68,21 +70,25 @@ class PA_MessagesController extends Xend_Controller_Action
             $data['owner_id'] = $receiver_id;
             $data['receiver_id'] = $receiver_id;
 
-            $inReponse = $this->_model->add($data, true);
-            if ($inReponse->isError()) {
-                $this->_collectErrors($inReponse);
+            $inResponse = $this->_model->add($data, true);
+            if ($inResponse->isError()) {
+                $this->_collectErrors($inResponse);
                 return;
             }
+            array_push($names, $inResponse->receiver_name);
+        }
 
-            if ($data['sender_id'] != $receiver_id) {
-                $data['owner_id'] = $identity->id;
-                $data['readed'] = 1;
+        if ( count($receivers) != 0 && $data['sender_id'] != $receivers[0] ) {
+//        if ($data['sender_id'] != $receiver_id) {
+            $data['owner_id'] = $identity->id;
+            $data['readed'] = 1;
+            $data['receiver_name'] = implode($names,', ');
 
-                $outReponse = $this->_model->add($data);
-                if ($outReponse->isError()) {
-                    $this->_collectErrors($inReponse);
-                    return;
-                }
+
+            $outResponse = $this->_model->add($data);
+            if ($outResponse->isError()) {
+                $this->_collectErrors($outResponse);
+                return;
             }
         }
 

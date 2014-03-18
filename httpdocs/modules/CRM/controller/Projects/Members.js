@@ -2,123 +2,142 @@ Ext.define('EC.CRM.controller.Projects.Members', {
     
     extend: 'Ext.app.Controller',
     
+    stores: ['EC.CRM.store.Projects.Members'],
+    
+    models: ['EC.CRM.model.Projects.Members'],
+    
     views: ['EC.CRM.view.Projects.Members'],
     
     uses: [
-        'xlib.form.ComboBox',
         'xlib.AccountsCombo'
     ],
     
-    getURL: '/json/crm/projects/get-members',
+    addURL: '/json/crm/projects/add-member',
     
-    updateURL: '/json/crm/projects/update-members',
+    deleteURL: '/json/crm/projects/delete-member',
     
     projectID: null,
     
-    permissions: true,
+    permissions: acl.isUpdate('crm', 'projects'),
     
     run: function(container) {
 
         this.Container = container; 
         
-        var membersPanel = container.add(this.getView('EC.CRM.view.Projects.Members', {
-            permissions: this.permissions
-        }).create());
+        var membersPanel = container.add(Ext.create('EC.CRM.view.Projects.Members', {
+            permissions: this.permissions,
+            projectID: this.projectID
+        }));
+        
+        membersPanel.down('button[action=refresh]').on('click', this.loadStore, this);
         
         if (this.permissions) {
         
-            membersPanel.down('button[action=save]').on({
-                click: function() {
-                    this.saveData();
-                },
-                scope: this
-            });
+            membersPanel.on('deleteitem', this.onDelete, this);
             
-            var addButtons = membersPanel.query('fieldset button');
+            var addButtons = membersPanel.query('menuitem');
             Ext.each(addButtons, function(item) {
                 item.on({
                     click: function(b) {
-                        this.addField(b.action);
+                        this.onAdd(b.role);
                     },
                     scope: this
                 });
             }, this);
-            
         }
         
-        this.loadData();
+        this.loadStore();
     },
     
-    addField: function(itemId, value) {
-        
-        var cnt = this.Container.down('#' + itemId),
-            combo = Ext.create('xlib.AccountsCombo', {
-                anchor: '50%',
-                padding: 10,
-                hideLabel: true,
-                name: itemId + '[]'
-            });
-            
-            if (!Ext.isEmpty(value)) {
-                combo.getStore().on('load', function() {
-                    combo.setValue(value);
-                }, this, {single: true});
-            }
-            
-        cnt.add(combo);
+    loadStore: function() {
+        this.Container.down('#ProjectsMembersPanel').getStore().load({
+            params: {project_id: this.projectID}
+        });
     },
     
-    loadData: function() {
+    onAdd: function(role) {
         
-        var failure = function() {
-            Ext.Msg.alert('Ошибка', 'Ошибка загрузки!');
-        };
-            
+        var win = Ext.create('Ext.window.Window', {
+            autoShow: true,
+            modal: true,
+            border: false,
+            width: 400,
+            title: 'Добавить участника',
+            layout: 'fit',
+            items: [{
+                xtype: 'AccountsCombo',
+                anchor: '100%',
+                hideLabel: true
+            }],
+            buttons: ['->', {
+                text: 'Добавить',
+                handler: function() {
+                    this.saveData(win.down('combo').getValue(), role);
+                    win.close();
+                },
+                scope: this
+            }],
+            scope: this
+        });
+        
+    },
+    
+    saveData: function(account_id, role) {
+        
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
+        }
+        
         Ext.Ajax.request({
-            url: this.getURL,
-            params: {id: this.projectID},
+            params: {
+                project_id: this.projectID,
+                account_id: account_id,
+                role: role
+            },
+            url: this.addURL,
             success: function(response, opts) {
-                var resp = Ext.decode(response.responseText, true);
-                if (!resp || !resp.success) {
-                    failure();
-                    return;
+                try {
+                    var r = Ext.decode(response.responseText);
+                    if (!r.success) {
+                        return failureFn(arguments);
+                    }
+                } catch(e) {
+                    return failureFn(arguments);
                 }
-                this.buildForm(resp.data);
+                this.loadStore();
             },
-            failure: failure,
+            failure: failureFn,
             scope: this
         });
     },
     
-    buildForm: function(data) {
-        Ext.each(data, function(item) {
-            this.addField(item.role, item.account_id);
-        }, this);
-    },
-    
-    saveData: function() {
+    onDelete: function(id) {
         
-        this.Container.down('form').submit({
-            url: this.updateURL,
-            params: {id: this.projectID},
-            waitMsg: 'Сохранение...',
-            success: function(form, action) {
-                this.fireEvent('saved');
-            },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-               }
-            },
-            scope: this
-        });
+        var failureFn = function(response, opts) {
+            Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        }
+        
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить участника?', function(b) {
+            
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: {id: id},
+                    url: this.deleteURL,
+                    success: function(response, opts) {
+                        try {
+                            var r = Ext.decode(response.responseText);
+                            if (!r.success) {
+                                return failureFn(arguments);
+                            }
+                        } catch(e) {
+                            return failureFn(arguments);
+                        }
+                        this.loadStore();
+                    },
+                    failure: failureFn,
+                    scope: this
+                });
+            }
+        }, this);
     }
-    
 });

@@ -17,58 +17,66 @@ class Crm_Projects_Members_Model
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('m' => $this->_table->getTableName()),
+                array( 'm.id', 'm.account_id', 'm.role')
+            )
+            ->joinLeft(array('a' => 'accounts'), 'a.id=m.account_id',
+                array('account_name' => 'a.name')
+            )
+            ->joinLeft(array('c' => 'cities'), 'c.id=a.city_id',
+                array('city' => 'c.name')
+            )
+            ->joinLeft(array('co' => 'countries'), 'co.id=c.country_id',
+                array('country' => 'co.name')
+            )
+            ->where('m.project_id = (?)', $id);
+
         try {
-            $res = $this->_table->fetchAll(array('project_id = (?)' => $id));
-            $rows = $res->toArray();
+            $rows = $select->query()->fetchAll();
+            $response->setRowset($rows);
+            $status = Xend_Status::OK;
         } catch (Exception $e) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
         }
-        $response->setRowset($rows);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-    public function update(array $params)
+    public function add($project_id, $account_id, $role)
+    {
+        $response = new Xend_Response();
+
+        try {
+            $this->_table->insert(array(
+                'project_id'    => $project_id,
+                'account_id'    => $account_id,
+                'role'          => $role
+            ));
+        } catch(Exception $e) {
+            return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function delete($id)
     {
         $response = new Xend_Response();
         $validator = new Xend_Validate_Id();
-        $id = intval($params['id']);
+        $id = intval($id);
         if (!$validator->isValid($id)) {
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        // Ensure if project exist
-        $table = new Crm_Projects_Table();
-        $project = $table->findOne($id);
-        if (false === $project) {
+        $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-        }
-        if (null === $project) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        // Delete all members for this project
-        $this->_table->delete(array('project_id = (?)' => $id));
-
-        // Insert members
-        foreach (array('customer', 'manager', 'projector', 'logistic', 'productor') as $role) {
-
-            if (isset($params[$role])) {
-
-                foreach ($params[$role] as $account_id) {
-
-                    if (!$validator->isValid($account_id)) continue;
-
-                    try {
-                        $this->_table->insert(array(
-                            'project_id'    => $id,
-                            'account_id'    => $account_id,
-                            'role'          => $role
-                        ));
-                    } catch(Exception $e) {}
-                }
-            }
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));

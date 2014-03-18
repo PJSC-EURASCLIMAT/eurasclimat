@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `crm_projects_members` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `project_id` int(10) unsigned NOT NULL,
   `account_id` int(10) unsigned NOT NULL,
-  `role` enum('customer','manager','projector','logistic') NOT NULL DEFAULT 'customer',
+  `role` enum('customer','manager','projector','logistic','productor') NOT NULL DEFAULT 'customer',
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `account_id` (`account_id`)

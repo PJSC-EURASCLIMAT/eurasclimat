@@ -190,8 +190,55 @@ class PA_Messages_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
+
     /**
-     * Создает сообщение
+     * Отправляет мессадж
+     * @param array $data         - параметры сообщения
+     * @return Xend_Response
+     */
+    public function sendMessage(array $data)
+    {
+        $registry = Zend_Registry::getInstance();
+        $mesTypes = $registry->sys->mesTypes;
+
+        $receivers = explode(',', $data['receiver_id']);
+
+        $data['type'] = $mesTypes['FROM_USER'];
+//        $data['sender_id'] = $identity->id;
+
+        $names = array();
+
+        for($i = 0; $i < count($receivers); $i++)
+        {
+            $receiver_id = $receivers[$i];
+
+            $data['owner_id'] = $receiver_id;
+            $data['receiver_id'] = $receiver_id;
+
+            $inResponse = $this->add($data, true);
+            if ($inResponse->hasNotSuccess()) {
+                return $inResponse;
+            }
+            array_push($names, $inResponse->receiver_name);
+        }
+
+        if ( count($receivers) != 0 && $data['sender_id'] != $receivers[0] ) {
+//        if ($data['sender_id'] != $receiver_id) {
+            $data['owner_id'] = $data['sender_id'];
+            $data['readed'] = 1;
+            //TODO фильтр в $this->add отсекает new Zend_Db_Expr('NULL') и 0
+//            $data['receiver_id'] = 0;
+            $data['receiver_name'] = implode($names,', ');
+
+            $outResponse = $this->add($data);
+            if ($outResponse->hasNotSuccess()) {
+                return $outResponse;
+            }
+        }
+    }
+
+    /**
+     * Создает одно сообщение
      *
      * @param array $params         - параметры сообщения
      * @param bool  $sendReminder   - Отпавлять уведомления на почту
@@ -289,14 +336,14 @@ class PA_Messages_Model
         $config = Zend_Registry::get('config');
 
         // TODO проверить в конфиге
-
-//        $receiver_email = 'ansinyutin@yandex.ru';
+        if(Zend_Registry::get('config')->testmode == 1) {
+            $receiver_email = 'ansinyutin@yandex.ru';
+        }
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>'.$message.'</p>');
         $mail->setFrom($config->mail->from->address, $config->company->name);
         $mail->addTo($receiver_email, $receiver_name);
-//        $mail->addTo($receiver_email, $receiver_name);
         $mail->setSubject('Новое сообщение на сайте eurasclimat.ru');
 
         try {

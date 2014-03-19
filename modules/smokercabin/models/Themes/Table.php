@@ -3,14 +3,14 @@
 /**
  * Storage table
  */
-class Aboutsystem_Themes_Table extends Xend_Db_Table_Abstract
+class Smokercabin_Themes_Table extends Xend_Db_Table_Abstract
 {
     /**
      * Table name
      *
      * @var string
      */
-    protected $_name = 'aboutsystem_themes';
+    protected $_name = 'smokercabin_themes';
 
     protected $_nullableFields = array(
         'parent_id',

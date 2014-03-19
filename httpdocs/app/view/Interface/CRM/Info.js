@@ -1,8 +1,8 @@
-Ext.define('App.view.Interface.CRM.About', {
+Ext.define('App.view.Interface.CRM.Info', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'О системе',
+    title: 'Информация',
     
     icon: '/images/icons/sys_dev.png',
 
@@ -15,11 +15,11 @@ Ext.define('App.view.Interface.CRM.About', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'About-column-1'
+            id: 'Info-column-1'
         }, {
-            id: 'About-column-2'
+            id: 'Info-column-2'
         }, {
-            id: 'About-column-3'
+            id: 'Info-column-3'
         }]
     }]
 

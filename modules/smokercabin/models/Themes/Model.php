@@ -1,12 +1,12 @@
 <?php
 
-class Aboutsystem_Themes_Model
+class Smokercabin_Themes_Model
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new Aboutsystem_Themes_Table();
+        $this->_table = new Smokercabin_Themes_Table();
     }
 
     /**

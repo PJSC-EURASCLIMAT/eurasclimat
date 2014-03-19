@@ -1,12 +1,12 @@
 <?php
 
-class Aboutsystem_Description_Model
+class Smokercabin_Description_Model
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new Aboutsystem_Description_Table();
+        $this->_table = new Smokercabin_Description_Table();
     }
 
     public function getDescriptionByThemeId($themeId)

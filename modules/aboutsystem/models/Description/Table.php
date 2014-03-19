@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Storage table for roles
+ * Storage table
  */
 class Aboutsystem_Description_Table extends Xend_Db_Table_Abstract
 {

@@ -288,8 +288,9 @@ class PA_Messages_Model
     {
         $config = Zend_Registry::get('config');
 
-        // TODO удалить
-        $receiver_email = 'ansinyutin@yandex.ru';
+        // TODO проверить в конфиге
+
+//        $receiver_email = 'ansinyutin@yandex.ru';
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml('<p>Уважаемый '.$receiver_name.',</p><p>'.$message.'</p>');

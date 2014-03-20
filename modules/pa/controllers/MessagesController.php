@@ -121,7 +121,7 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $accId = Xend_Accounts_Prototype::getId();
 
-        $where = new Zend_Db_Expr('receiver_id = '.$accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+        $where = new Zend_Db_Expr('receiver_id = ' . $accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
 
         $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
@@ -141,7 +141,7 @@ class PA_MessagesController extends Xend_Controller_Action
     {
         $accId = Xend_Accounts_Prototype::getId();
 
-        $where = new Zend_Db_Expr('sender_id = '.$accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+        $where = new Zend_Db_Expr('sender_id = ' . $accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
 
         $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {

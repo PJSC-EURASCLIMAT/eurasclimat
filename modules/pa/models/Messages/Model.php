@@ -198,6 +198,8 @@ class PA_Messages_Model
      */
     public function sendMessage(array $data)
     {
+        $response = new Xend_Response();
+
         $registry = Zend_Registry::getInstance();
         $mesTypes = $registry->sys->mesTypes;
 
@@ -235,6 +237,8 @@ class PA_Messages_Model
                 return $outResponse;
             }
         }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     /**

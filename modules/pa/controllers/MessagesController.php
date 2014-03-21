@@ -31,22 +31,18 @@ class PA_MessagesController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'untrash');
     }
 
-    public function unreadCountAction ()
+    public function unreadCountAction()
     {
-        $id = $this->_getParam('id');
-
-        $response = $this->_model->getUserUnreadMesCount($id);
-        $this->view->data = $response->count;
-
+        $response = $this->_model->getUserUnreadMesCount($this->_getParam('id'));
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
+            $this->view->data = $response->count;
             $this->view->success = true;
         }
-
     }
 
-    public function addAction ()
+    public function addAction()
     {
         $data = $this->_getAllParams();
 
@@ -54,35 +50,26 @@ class PA_MessagesController extends Xend_Controller_Action
         $data['sender_id'] = $accountId;
 
         $reponse = $this->_model->sendMessage($data);
-        if ($reponse->isError()) {
-            $this->_collectErrors($reponse);
-            return;
-        }
-
-        $this->view->success = true;
-
-    }
-
-
-
-    public function markAsReadAction ()
-    {
-        $id = $this->_getParam('id');
-
-        $response = $this->_model->markAsRead($id);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
             $this->view->success = true;
         }
+    }
 
+    public function markAsReadAction()
+    {
+        $response = $this->_model->markAsRead($this->_getParam('id'));
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+        } else {
+            $this->view->success = true;
+        }
     }
 
     public function deleteAction()
     {
-        $id = $this->_getParam('id');
-
-        $response = $this->_model->delete($id);
+        $response = $this->_model->delete($this->_getParam('id'));
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
@@ -92,9 +79,7 @@ class PA_MessagesController extends Xend_Controller_Action
 
     public function trashAction()
     {
-        $id = $this->_getParam('id');
-
-        $response = $this->_model->trash($id);
+        $response = $this->_model->trash($this->_getParam('id'));
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
@@ -104,9 +89,7 @@ class PA_MessagesController extends Xend_Controller_Action
 
     public function untrashAction()
     {
-        $id = $this->_getParam('id');
-
-        $response = $this->_model->untrash($id);
+        $response = $this->_model->untrash($this->_getParam('id'));
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
@@ -120,18 +103,17 @@ class PA_MessagesController extends Xend_Controller_Action
     public function getListAction()
     {
         $accId = Xend_Accounts_Prototype::getId();
-
-        $where = new Zend_Db_Expr('receiver_id = ' . $accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+        $where = new Zend_Db_Expr('receiver_id = '
+               . $accId . ' AND owner_id = '
+               . $accId . ' AND deleted = 0');
 
         $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
-            $data = $response->getRowset();
+            $this->view->data = $response->getRowset();
             $this->view->success = true;
-            $this->view->data = $data;
         } else {
             $this->_collectErrors($response);
         }
-
     }
 
     /**
@@ -140,18 +122,17 @@ class PA_MessagesController extends Xend_Controller_Action
     public function getSentListAction()
     {
         $accId = Xend_Accounts_Prototype::getId();
-
-        $where = new Zend_Db_Expr('sender_id = ' . $accId . ' AND owner_id = ' . $accId . ' AND deleted = 0');
+        $where = new Zend_Db_Expr('sender_id = '
+               . $accId . ' AND owner_id = '
+               . $accId . ' AND deleted = 0');
 
         $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
-            $data = $response->getRowset();
+            $this->view->data = $response->getRowset();
             $this->view->success = true;
-            $this->view->data = $data;
         } else {
             $this->_collectErrors($response);
         }
-
     }
 
     /**
@@ -160,19 +141,14 @@ class PA_MessagesController extends Xend_Controller_Action
     public function getDeletedListAction()
     {
         $accId = Xend_Accounts_Prototype::getId();
-
         $where = new Zend_Db_Expr('deleted = 1 AND owner_id = ' . $accId);
 
         $response = $this->_model->getAll($where, $this->_getAllParams());
         if ($response->isSuccess()) {
-            $data = $response->getRowset();
+            $this->view->data = $response->getRowset();
             $this->view->success = true;
-            $this->view->data = $data;
         } else {
             $this->_collectErrors($response);
         }
-
     }
-
-
 }

@@ -1,14 +1,21 @@
 <?php
 
 /**
- * General class for manipulate accounts
+ * General class for manipulate account's messages
  */
 class PA_Messages_Model
 {
     /**
-     * The accounts table
+     * The accounts model
      *
-     * @var Xend_Accounts_Table_Accounts
+     * @var Xend_Accounts_Model
+     */
+    protected $_accTable;
+
+    /**
+     * The messages table
+     *
+     * @var PA_Messages_Table
      */
     protected $_table;
 
@@ -23,8 +30,8 @@ class PA_Messages_Model
 
     public function markAsRead($id)
     {
-        $id = Zend_Json::decode($id);
         $response = new Xend_Response();
+        $id = intval(Zend_Json::decode($id));
 
         try {
             $result = $this->_table->updateByPk(array('readed' => 1), $id);
@@ -40,8 +47,8 @@ class PA_Messages_Model
 
     public function trash($id)
     {
-        $id = Zend_Json::decode($id);
         $response = new Xend_Response();
+        $id = intval(Zend_Json::decode($id));
 
         try {
             $result = $this->_table->updateByPk(array('deleted' => 1), $id);
@@ -57,8 +64,8 @@ class PA_Messages_Model
 
     public function untrash($id)
     {
-        $id = Zend_Json::decode($id);
         $response = new Xend_Response();
+        $id = intval(Zend_Json::decode($id));
 
         try {
             $result = $this->_table->updateByPk(array('deleted' => 0), $id);
@@ -84,14 +91,11 @@ class PA_Messages_Model
         }
 
         try {
-            $count = $this->_table->count(
-//                'readed = 1'
+            $response->count = $this->_table->count(
                 array(
-                'receiver_id = ?' => $receiver_id,
-                'readed = ?'=> 0,
-            )
-            );
-            $response->count = $count;
+                'receiver_id = ?'   => $receiver_id,
+                'readed = ?'        => 0,
+            ));
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
@@ -102,8 +106,6 @@ class PA_Messages_Model
 
         return $response->addStatus(new Xend_Status($status));
     }
-
-
 
     public function getAll($where, $params = array())
     {
@@ -138,7 +140,6 @@ class PA_Messages_Model
 
         try {
             $rows = $select->query()->fetchAll();
-
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
@@ -150,9 +151,6 @@ class PA_Messages_Model
 
         return $response->addStatus(new Xend_Status($status));
     }
-
-
-
 
     public function fetchByReceiver($receinverId)
     {
@@ -190,7 +188,6 @@ class PA_Messages_Model
         return $response->addStatus(new Xend_Status($status));
     }
 
-
     /**
      * Отправляет мессадж
      * @param array $data         - параметры сообщения
@@ -210,10 +207,9 @@ class PA_Messages_Model
 
         $names = array();
 
-        for($i = 0; $i < count($receivers); $i++)
-        {
-            $receiver_id = $receivers[$i];
+        for ($i = 0; $i < count($receivers); $i++) {
 
+            $receiver_id = $receivers[$i];
             $data['owner_id'] = $receiver_id;
             $data['receiver_id'] = $receiver_id;
 
@@ -224,13 +220,13 @@ class PA_Messages_Model
             array_push($names, $inResponse->receiver_name);
         }
 
-        if ( count($receivers) != 0 && $data['sender_id'] != $receivers[0] ) {
+        if (count($receivers) != 0 && $data['sender_id'] != $receivers[0]) {
 //        if ($data['sender_id'] != $receiver_id) {
             $data['owner_id'] = $data['sender_id'];
             $data['readed'] = 1;
             //TODO фильтр в $this->add отсекает new Zend_Db_Expr('NULL') и 0
 //            $data['receiver_id'] = 0;
-            $data['receiver_name'] = implode($names,', ');
+            $data['receiver_name'] = implode($names, ', ');
 
             $outResponse = $this->add($data);
             if ($outResponse->hasNotSuccess()) {
@@ -249,12 +245,11 @@ class PA_Messages_Model
      * @param bool  $fromAdmin      - Системное сообщение
      * @return Xend_Response
      */
-
     public function add(array $params, $sendReminder = false, $fromAdmin = false)
     {
         $response = new Xend_Response();
 
-        if ( $fromAdmin ) {
+        if ($fromAdmin) {
             $senderData = array('name' => 'Администрация');
         } else {
             $senderDataResponse = $this->_accModel->fetchAccount($params['sender_id']);
@@ -267,7 +262,7 @@ class PA_Messages_Model
         $params['date'] = date('Y-m-d H:i:s', time());
         $params['sender_name'] = $senderData['name'];
 
-        if ( !isset( $params['receiver_name'] ) ) {
+        if (!isset($params['receiver_name'])) {
             $receiverDataResponse = $this->_accModel->fetchAccount($params['receiver_id']);
             if ($receiverDataResponse->hasNotSuccess()) {
                 return $receiverDataResponse;
@@ -314,15 +309,15 @@ class PA_Messages_Model
 
         $receiverInfo = $receiverRequest->getRowset();
 
-        if ( $sendReminder ) {
-            if ( $fromAdmin ) {
+        if ($sendReminder) {
+            if ($fromAdmin) {
                 $message = '<p>Вам пришло новое cистемное сообщение:</p>';
             } else {
                 $message = '<p>Вам пришло новое сообщение от пользователя <a href="http://' . $_SERVER['HTTP_HOST'] . '/#/profile/' . $receiverInfo['id'] . '/show">' . $senderData['name'] . '</a>:</p>';
             }
 
             $message .= $params['message'];
-            $this->_sendReminder( $receiverInfo['name'], $receiverInfo['login'], $identity->name, $message );
+            $this->_sendReminder($receiverInfo['name'], $receiverInfo['login'], $identity->name, $message );
         }
 
         $response->id = $id;
@@ -334,7 +329,6 @@ class PA_Messages_Model
     /**
      * Отправка письма - известия о новом сообщении
      */
-
     private function _sendReminder($receiver_name, $receiver_email, $sender_name, $message)
     {
         $config = Zend_Registry::get('config');
@@ -363,14 +357,13 @@ class PA_Messages_Model
 
     public function delete($id)
     {
-        $data = Zend_Json::decode($id);
         $response = new Xend_Response();
+        $id = intval(Zend_Json::decode($id));
 
         $res = $this->_table->deleteByPk($data);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
-
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 }

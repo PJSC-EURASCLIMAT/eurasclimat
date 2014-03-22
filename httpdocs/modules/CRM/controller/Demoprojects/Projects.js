@@ -13,6 +13,7 @@ Ext.define('EC.CRM.controller.Demoprojects.Projects', {
     ],
     
     views: [
+        'EC.CRM.view.Demoprojects.PortletList',
         'EC.CRM.view.Demoprojects.List',
         'EC.CRM.view.Demoprojects.Add',
         'EC.CRM.view.Demoprojects.Groups.Combo'
@@ -35,11 +36,11 @@ Ext.define('EC.CRM.controller.Demoprojects.Projects', {
 
         this.Container = container; 
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
+        var isPortlet = ('portlet' == container.getXType() || container.up('portlet'))
+            list = isPortlet ? 'EC.CRM.view.Demoprojects.PortletList' 
+                             : 'EC.CRM.view.Demoprojects.List'; 
         
-        var grid = container.add(Ext.create('EC.CRM.view.Demoprojects.List', {
-            permissions: this.permissions
-        }));
+        var grid = container.add(Ext.create(list, {permissions: this.permissions}));
         
         grid.down('button[action=refresh]').on({
             click: function() {

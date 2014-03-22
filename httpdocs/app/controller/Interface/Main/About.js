@@ -35,11 +35,18 @@ Ext.define('App.controller.Interface.Main.About', {
 //            position: 'MainPanel-column-2',
 //            launchModule: 'EC.Main.controller.AboutSystem'
         }, {
-            title: 'Заказ',
-            icon: '/images/icons/sys_dev.png',
+            text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+            icon: '/images/icons/catalog.png',
             portletHeight: 370,
             position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.Order'
+            launchModule: 'EC.CRM.controller.Demoprojects.Projects'
+//        }, {
+//            title: 'Заказ',
+//            icon: '/images/icons/sys_dev.png',
+//            portletHeight: 370,
+//            position: 'MainPanel-column-2',
+//            launchModule: 'EC.Main.controller.Order'
         }, {
             text: 'Калькулятор ПИР',
             title: 'Калькулятор ПИР',
@@ -84,6 +91,15 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 200,
             allowMultiple: false,
             launchModule: 'EC.Main.controller.Order',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        }, {text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 370,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

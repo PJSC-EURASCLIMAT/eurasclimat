@@ -1,0 +1,19 @@
+Ext.define('EC.CRM.model.Demoprojects.Configurator.Equipment', {
+
+    extend: 'Ext.data.Model',
+   
+    fields: [
+        'id',
+        'entity',
+        'entity_id',
+        'number',
+        'code',
+        'mark',
+        'marking',
+        'services',
+        {name: 'price', type: 'float'},
+        {name: 'eq_summ', type: 'float'},
+        {name: 'services_summ', type: 'float'},
+        {name: 'total_summ', type: 'float'}
+    ]
+});

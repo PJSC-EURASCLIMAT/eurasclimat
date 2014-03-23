@@ -49,7 +49,7 @@ class PA_MessagesController extends Xend_Controller_Action
         $accountId = Xend_Accounts_Prototype::getId();
         $data['sender_id'] = $accountId;
 
-        $reponse = $this->_model->sendMessage($data);
+        $response = $this->_model->sendMessage($data);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {
@@ -82,9 +82,11 @@ class PA_MessagesController extends Xend_Controller_Action
         $response = $this->_model->trash($this->_getParam('id'));
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
-        } else {
-            $this->view->success = true;
+            $this->view->success = false;
+            return;
         }
+
+        $this->view->success = true;
     }
 
     public function untrashAction()
@@ -111,6 +113,7 @@ class PA_MessagesController extends Xend_Controller_Action
         if ($response->isSuccess()) {
             $this->view->data = $response->getRowset();
             $this->view->success = true;
+            $this->view->total = $response->total;
         } else {
             $this->_collectErrors($response);
         }

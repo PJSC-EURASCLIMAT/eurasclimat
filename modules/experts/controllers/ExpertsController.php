@@ -56,6 +56,7 @@ class Experts_ExpertsController extends Xend_Controller_Action
             $data = $response->getRowset();
             $this->view->success = true;
             $this->view->data = $data;
+            $this->view->total = $response->total;
         } else {
             $this->_collectErrors($response);
         }
@@ -105,10 +106,10 @@ class Experts_ExpertsController extends Xend_Controller_Action
     public function updateAction()
     {
         $response = $this->_model->update($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-        } else {
+        if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
+            $this->view->success = false;
+            return;
         }
         $this->view->success = true;
     }

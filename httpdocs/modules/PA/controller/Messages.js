@@ -413,18 +413,26 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     markAsRead: function(selIds) {
+        var params = (Ext.isArray(selIds)) ? selIds.join(',') : selIds;
 
         Ext.Ajax.request({
             params: {
-                id: Ext.JSON.encode(selIds)
+                id: params
             },
             url: this.markAsReadURL,
             success: function(response, opts) {
                 var r = Ext.JSON.decode(response.responseText);
-                var mesId = response.request.options.params.id;
                 if (r.success) {
-                    this.selectedRecord.set('readed', 1);
-                    this.selectedRecord = null;
+                    var mesIds = response.request.options.params.id;
+                    mesIds = (Ext.isString(mesIds)) ? mesIds.split(',') : Ext.Array.from(mesIds);
+
+                    for (var i = 0; i < mesIds.length; i++) {
+                        var id = mesIds[i];
+                        var rec = this.mesStore.getById(parseInt(id));
+                        rec.set('readed', 1);
+                        rec.set('checked', 0);
+                    }
+//                    this.selectedRecord = null;
 //                    this.mesStore.load();
                     this.getNewMessagesCount();
 //                    this.newMessagesCount--;
@@ -484,7 +492,7 @@ Ext.define('EC.PA.controller.Messages', {
             Ext.each(records,function(item) {
                 params.push(item.getId());
             }, this);
-            params = Ext.JSON.encode(params);
+            params = params.join(',');
         } else {
             params = records.getId();
         }
@@ -500,7 +508,9 @@ Ext.define('EC.PA.controller.Messages', {
                     },
                     url: map[deleted].url,
                     success: function(response, opts) {
-                        this.getMesGrid().getStore().remove(opts.extraParams.records);
+                        var mesStore = this.getMesGrid().getStore();
+                        mesStore.remove(opts.extraParams.records);
+                        mesStore.load();
                         this.clearDetailPanel();
                         if (Ext.isDefined(successCallback)){
                             successCallback();

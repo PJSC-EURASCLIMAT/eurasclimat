@@ -28,55 +28,69 @@ class PA_Messages_Model
         $this->_accModel = new Xend_Accounts();
     }
 
-    public function markAsRead($id)
+    public function markAsRead($idValues)
     {
         $response = new Xend_Response();
-        $id = intval(Zend_Json::decode($id));
-
         try {
-            $result = $this->_table->updateByPk(array('readed' => 1), $id);
+            $result = $this->_table->getAdapter()->update(
+                $this->_table->getTableName(),
+                array('readed' => 1),
+                new Zend_Db_Expr("id IN (" . $idValues . ")")
+            );
+
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        return $response->addStatus(new Xend_Status(
+                Xend_Status::retrieveAffectedRowStatus($result)));
+    }
+
+    public function trash($idValues)
+    {
+        $response = new Xend_Response();
+
+        try {
+            $result = $this->_table->getAdapter()->update(
+                $this->_table->getTableName(),
+                array('deleted' => 1),
+                new Zend_Db_Expr("id IN (" . $idValues . ")")
+            );
+
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         return $response->addStatus(new Xend_Status(
             Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
-    public function trash($id)
+    public function untrash($idValues)
     {
         $response = new Xend_Response();
-        $id = intval(Zend_Json::decode($id));
 
         try {
-            $result = $this->_table->updateByPk(array('deleted' => 1), $id);
+            $result = $this->_table->getAdapter()->update(
+                $this->_table->getTableName(),
+                array('deleted' => 0),
+                new Zend_Db_Expr("id IN (" . $idValues . ")")
+            );
+
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
             }
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         return $response->addStatus(new Xend_Status(
-            Xend_Status::retrieveAffectedRowStatus($result)));
-    }
-
-    public function untrash($id)
-    {
-        $response = new Xend_Response();
-        $id = intval(Zend_Json::decode($id));
-
-        try {
-            $result = $this->_table->updateByPk(array('deleted' => 0), $id);
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-        }
-
-        return $response->addStatus(new Xend_Status(
-            Xend_Status::retrieveAffectedRowStatus($result)));
+                Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
 
@@ -141,6 +155,7 @@ class PA_Messages_Model
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
+            $response->total = $plugin->getTotalCount();
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {
@@ -203,7 +218,6 @@ class PA_Messages_Model
         $receivers = explode(',', $data['receiver_id']);
 
         $data['type'] = $mesTypes['FROM_USER'];
-//        $data['sender_id'] = $identity->id;
 
         $names = array();
 
@@ -355,15 +369,24 @@ class PA_Messages_Model
         }
     }
 
-    public function delete($id)
+    public function delete($idValues)
     {
         $response = new Xend_Response();
-        $id = intval(Zend_Json::decode($id));
 
-        $res = $this->_table->deleteByPk($data);
-        if (false === $res) {
+        try {
+            $result = $this->_table->getAdapter()->delete(
+                $this->_table->getTableName(),
+                new Zend_Db_Expr("id IN (" . $idValues . ")")
+            );
+
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
+        return $response->addStatus(new Xend_Status(
+                Xend_Status::retrieveAffectedRowStatus($result)));
     }
 }

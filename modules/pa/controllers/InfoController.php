@@ -77,6 +77,7 @@ class PA_InfoController extends Xend_Controller_Action
         }
         $this->view->total = $response->total;
         $this->view->data = $response->getRowset();
+        $this->view->valueData = $response->valueRows;
         $this->view->success = true;
 
     }

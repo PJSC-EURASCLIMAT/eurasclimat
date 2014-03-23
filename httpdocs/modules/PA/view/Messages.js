@@ -95,6 +95,11 @@ Ext.define('EC.PA.view.Messages', {
                 viewConfig: {
                     preserveScrollOnRefresh: true
                 },
+                bbar: Ext.create('Ext.PagingToolbar', {
+                    store: 'EC.PA.store.Messages',
+                    displayInfo: true,
+                    plugins: Ext.create('xlib.ProgressBarPager', {})
+                }),
                 columns: [{
                     xtype: 'checkcolumn',
                     width: 30,

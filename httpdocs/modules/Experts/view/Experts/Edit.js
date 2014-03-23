@@ -72,6 +72,7 @@ Ext.define('EC.Experts.view.Experts.Edit', {
             success: function(form, action) {
                 Ext.Msg.alert('Ответ системы',
                     '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
+                this.fireEvent('updateSuccess', action);
             },
             failure: function(form, action) {
                 switch (action.failureType) {
@@ -82,8 +83,16 @@ Ext.define('EC.Experts.view.Experts.Edit', {
                         Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
                         break;
                     case Ext.form.action.Action.SERVER_INVALID:
-                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                        var errorMsg = action.result.errors[0].msg;
+                        if(errorMsg === 'Expert exists already.') {
+                            Ext.Msg.alert('Ошибка', 'Эксперт с таким аккаунтом уже зарегистрирован.');
+                        } else {
+                            Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
+                        }
+
+
                 }
+                this.fireEvent('updateFailure');
             },
             scope: this
         });

@@ -88,9 +88,10 @@ Ext.define('EC.Experts.controller.Experts', {
 
             this.grid.on({
                 edititem: this.editItem,
-                itemdblclick: function(grid, record) {
-                    this.showItem(record.get('id'));
-                },
+//                itemdblclick: function(grid, record) {
+//                    var accId = record.get('account_id');
+//                    Ext.Router.redirect('#/profile/' + accId + '/show');
+//                },
                 deleteitem: this.deleteItem,
                 openref: this.openRef,
                 activechange: this.activeChange,
@@ -99,7 +100,7 @@ Ext.define('EC.Experts.controller.Experts', {
             
             this.on({
                 'itemSaved': function() {
-                    grid.getStore().load();
+                    this.grid.getStore().load();
                 },
                 scope: this
             }, this);
@@ -238,34 +239,14 @@ Ext.define('EC.Experts.controller.Experts', {
 
     addItem: function() {
         
-        var view = Ext.create('EC.Experts.view.Experts.Edit');
-        
-        view.down('button[action=save]').on({
-            click: function() {
-                var form = view.down('form');
-                form.submit({
-                    url: this.addURL,
-                    success: function(form, action) {
-                        this.fireEvent('itemSaved');
-                        view.close();
-                    },
-                    failure: function(form, action) {
-                        switch (action.failureType) {
-                            case Ext.form.action.Action.CLIENT_INVALID:
-                                Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                                break;
-                            case Ext.form.action.Action.CONNECT_FAILURE:
-                                Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                                break;
-                            case Ext.form.action.Action.SERVER_INVALID:
-                                Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-                       }
-                    },
-                    scope: this
-                });
-            },
-            scope: this
+        var view = Ext.create('EC.Experts.view.Experts.Edit',{
+            editExpertURL: this.addURL
         });
+
+        view.on('updateSuccess',function() {
+            this.grid.store.load();
+            view.close();
+        }, this);
     },
 
     editItem: function(grid, record, fromCurrent) {
@@ -280,6 +261,10 @@ Ext.define('EC.Experts.controller.Experts', {
                 }
             }
         });
+        this.expertsEditWin.on('updateSuccess',function() {
+            this.expertsEditWin.close();
+            this.grid.getStore().load();
+        }, this);
     },
 
     deleteItem: function(grid, record) {

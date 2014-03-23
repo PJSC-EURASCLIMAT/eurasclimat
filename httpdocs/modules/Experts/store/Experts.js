@@ -6,6 +6,8 @@ Ext.define('EC.Experts.store.Experts', {
 
     removeFilter: true,
 
+    pageSize: 25,
+
     proxy: {
         type: 'ajax',
         api: {

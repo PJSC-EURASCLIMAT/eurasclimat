@@ -239,6 +239,7 @@ class Xend_Accounts
             $rowset = $select->query()->fetchAll();
             $response->setRowset($rowset);
             $response->total = $plugin->getTotalCount();
+            $response->valueRows = $plugin->getValueRows('a.id');
             $status = Xend_Acl_Status::OK;
 
         } catch (Exception $e) {

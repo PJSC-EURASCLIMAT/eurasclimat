@@ -98,6 +98,25 @@ class Experts_Experts_Model
         unset($data['author_id']);
         unset($data['active']);
 
+//        $accountResponse = $this->_accountsModel->fetchAccount($data['account_id']);
+//        if ( $accountResponse->hasNotSuccess() ) {
+//            return $accountResponse;
+//        }
+//
+        if ( $this->getAccountIdByExpertId($data['id']) != $data['account_id'] )
+        {
+            $exists = $this->_isExpertUnique($data['account_id']);
+
+            if ( null ===  $exists ) {
+                $status = Xend_Accounts_Status::DATABASE_ERROR;
+                return $response->addStatus(new Xend_Accounts_Status($status));
+            } elseif ( !$exists ) {
+                $status = Experts_Status::EXPERT_IS_ALREADY_EXISTS;
+                return $response->addStatus(new Experts_Status($status));
+            }
+        }
+
+
         $f = new Xend_Filter_Input(array(
             'id'            => 'int',
             'account_id'    => 'int',
@@ -515,13 +534,13 @@ class Experts_Experts_Model
                     'city_id' => 'c.id'
                 )
             )
-            ->joinLeft(
-                array('e2j' => 'experts2job_types'),
-                'e2j.expert_id=e.id',
-                array(
-                    'job_type_id' => 'e2j.job_type_id'
-                )
-            )
+//            ->joinLeft(
+//                array('e2j' => 'experts2job_types'),
+//                'e2j.expert_id=e.id',
+//                array(
+//                    'job_type_id' => 'e2j.job_type_id'
+//                )
+//            )
             ->joinLeft(
                 array('co' => 'countries'),
                 'co.id=c.country_id',
@@ -530,7 +549,8 @@ class Experts_Experts_Model
                     'country_id' => 'co.id'
                 )
             )
-            ->group('e.id');
+            ->distinct();
+//            ->group('e.id');
 
             if (isset($where)) {
                 $select->where($where[0], $where[1]);
@@ -556,6 +576,7 @@ class Experts_Experts_Model
             }
 
             $response->setRowset($rows);
+            $response->total = $plugin->getTotalCount();
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

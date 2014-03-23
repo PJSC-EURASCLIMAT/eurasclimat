@@ -32,7 +32,7 @@ Ext.define('xlib.RefField', {
      * */
     realValue: [],
 
-    checkedRecords: [],
+    checkedIds: [],
 
     /**
      * TODO c beforedestroy разобраться
@@ -63,12 +63,13 @@ Ext.define('xlib.RefField', {
 
     initComponent: function() {
 
-        this.checkedRecords = [];
+        this.checkedIds = [];
 
         this.selCompleteFn = (this.multiSelect) ? this.multipleSelectionComplete : this.singleSelectionComplete;
 
         this.configureStore();
         this.configureGrid();
+        this.configureValuesGrid();
 
         this.win = Ext.create('Ext.window.Window', {
             title: this.windowTitle,
@@ -76,7 +77,8 @@ Ext.define('xlib.RefField', {
             height: 400,
             modal: true,
             closeAction: 'hide',
-            layout: 'fit',
+            layout: 'border',
+
             bbar: [{
                 text: 'Выбрать',
                 handler: this.selCompleteFn,
@@ -86,10 +88,29 @@ Ext.define('xlib.RefField', {
                 handler: this.selCancelFn,
 
                 scope: this
+            }],
+
+            items: [{
+                region:'west',
+                border:false,
+                width: '30%',
+                split: true,
+                layout: 'fit',
+                items: [
+                    this.valuesGrid
+                ]
+            },{
+                region:'center',
+                width: '70%',
+                border:false,
+                layout: 'fit',
+                items: [
+                    this.grid
+                ]
             }]
         });
 
-        this.win.add(this.grid);
+//        this.win.add(this.grid);
 
         if ( !this.multiSelect ) {
             this.win.on('show', this.selectGridRow, this);
@@ -100,12 +121,12 @@ Ext.define('xlib.RefField', {
     },
 
     selCancelFn: function() {
-        for (var i = 0; i < this.checkedRecords.length; i++) {
-            var record = this.checkedRecords[i];
+        for (var i = 0; i < this.checkedIds.length; i++) {
+            var record = this.checkedIds[i];
             record.set('checked', 0);
         }
 
-        this.checkedRecords = [];
+        this.checkedIds = [];
 
         this.setValue(this.realValue);
 
@@ -114,26 +135,80 @@ Ext.define('xlib.RefField', {
 
 
     configureStore: function() {
-        var params = {
-            filterParam: undefined,
-//            groupParam: undefined,
-            pageParam: undefined,
-            startParam: undefined,
-//            sortParam: undefined,
-            limitParam: undefined
-        };
+//        var params = {
+//            filterParam: undefined,
+////            groupParam: undefined,
+//            pageParam: undefined,
+//            startParam: undefined,
+////            sortParam: undefined,
+//            limitParam: undefined
+//        };
 
-        Ext.apply(this.storeConfig.proxy, params);
+//        Ext.apply(this.storeConfig.proxy, params);
+
+        var value = ( Ext.isArray( this.value ) ) ? this.value.join(',') : this.value;
 
         this.storeConfig.empty = true;
+        this.storeConfig.pageSize = 5;
+        this.storeConfig.proxy.extraParams = {value: value};
 
         this.store = Ext.create('Ext.data.Store', this.storeConfig);
-        this.store.on('load', this.firstStoreLoad, this, {single: true});
-        this.store.load();
+//        this.store.on('load', );
+        this.store.load({
+            callback: this.firstStoreLoad,
+            scope: this
+        });
+
+        this.store.on('load', this.onStoreLoad, this);
+
+        this.valueStore = Ext.create('Ext.data.Store', {
+            fields: this.storeConfig.fields
+        });
     },
 
-    firstStoreLoad: function( records, operation, success ) {
-        this.store.empty = false;
+    onStoreLoad: function( store, records, successful, eOpts ) {
+//        var arr = ( Ext.isArray(this.realValue) ) ? this.realValue : Ext.Array.from(this.realValue);
+
+        Ext.each(this.checkedIds, function(id, index){
+            var rec = this.store.getById(id);
+            if ( !Ext.isEmpty(rec) ) {
+                rec.set('checked', 1);
+            }
+
+        }, this);
+    },
+
+    firstStoreLoad: function( records, operation, success) {
+        if ( success ) {
+            var r = Ext.JSON.decode(operation.response.responseText);
+            this.store.empty = false;
+            this.valueStore.loadData(r.valueData);
+        }
+    },
+
+    configureValuesGrid: function() {
+
+        var config = Ext.clone(this.gridConfig);
+        config.store = this.valueStore;
+        config.hideHeaders = true;
+        config.border = false;
+
+        config.uses = ['xlib.CheckColumn'];
+
+//        if ( this.multiSelect ) {
+//            config.columns.unshift({
+//                xtype: 'checkcolumn',
+//                width: 30,
+//                dataIndex: 'checked',
+//                listeners: {
+//                    checkchange: this.onGridCheckChange,
+//                    scope: this
+//                }
+//            });
+//        }
+
+        this.valuesGrid = Ext.create('Ext.grid.Panel', config);
+
     },
 
     configureGrid: function() {
@@ -143,6 +218,11 @@ Ext.define('xlib.RefField', {
         config.hideHeaders = true;
         config.border = false;
         config.uses = ['xlib.CheckColumn'];
+        config.bbar = Ext.create('Ext.PagingToolbar', {
+            store: this.store,
+            displayInfo: true,
+            plugins: Ext.create('xlib.ProgressBarPager', {})
+        });
 
         if ( this.multiSelect ) {
             config.columns.unshift({
@@ -161,11 +241,19 @@ Ext.define('xlib.RefField', {
     },
 
     onGridCheckChange: function( grid, rowIndex, checked, eOpts ) {
-        debugger;
+//        debugger;
         this.grid.fireEvent('activechange', rowIndex, checked);
         var record = this.store.getAt(rowIndex);
+        var id = record.get(this.valueField);
 
-        (checked) ? this.checkedRecords.push(record) : Ext.Array.remove(this.checkedRecords, record);
+        if ( checked ) {
+            this.checkedIds.push(id);
+            this.valueStore.add(record);
+        } else {
+            Ext.Array.remove(this.checkedIds, id);
+            this.valueStore.remove(record);
+        }
+
 
     },
 
@@ -210,12 +298,13 @@ Ext.define('xlib.RefField', {
 
         if ( this.store.empty ) {
             this.store.on('load', function() {
-               this.setValue(value);
+                this.store.empty = false;
+                this.setValue(value);
             }, this, {single: true});
             return null;
         }
 
-        debugger;
+//        debugger;
 
         output = ( this.multiSelect ) ? this.multiSelectSetValue(value) : this.multiSelectSetValue(value);
 
@@ -230,7 +319,7 @@ Ext.define('xlib.RefField', {
     multiSelectSetValue: function(value) {
         var record, val, count = 0;
 
-        this.checkedRecords = [];
+        this.checkedIds = [];
 
         value = Ext.Array.from(value);
 
@@ -241,7 +330,7 @@ Ext.define('xlib.RefField', {
             record = this.store.getById(val);
 
             if ( !Ext.isEmpty(record) ) {
-                this.checkedRecords.push(record);
+                this.checkedIds.push(record.get(this.valueField));
                 record.set('checked', 1);
                 count++;
             }
@@ -276,11 +365,11 @@ Ext.define('xlib.RefField', {
         var record,
             val,
             values  = [],
-            max     = this.checkedRecords.length,
+            max     = this.checkedIds.length,
             output  = null;
 
         for (var i = 0; i < max; i++) {
-            record = this.checkedRecords[i];
+            record = this.valueStore.getById(this.checkedIds[i]);
             val = record.get(this.valueField);
             values.push(val);
         }
@@ -312,8 +401,8 @@ Ext.define('xlib.RefField', {
             return;
         }
         var string = '';
-        for (var i = 0; i < this.checkedRecords.length; i++) {
-            var record = this.checkedRecords[i];
+        for (var i = 0; i < this.checkedIds.length; i++) {
+            var record = this.valueStore.getById(this.checkedIds[i]);
             string += record.get(this.displayField) + '<br/>';
         }
 

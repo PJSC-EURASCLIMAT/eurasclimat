@@ -6,6 +6,8 @@ Ext.define('EC.PA.store.Messages', {
 
     model: 'EC.PA.model.Message',
 
+    pageSize: 25,
+
     sorters: [
         {
             property: 'readed',

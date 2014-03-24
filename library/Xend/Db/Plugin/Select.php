@@ -183,6 +183,9 @@ class Xend_Db_Plugin_Select
             return array();
         }
 
+        $from = $valueStatement->getPart('from');
+        Zend_Debug::dump($from);
+
         $valueStatement->where( $idName . ' IN (' . $value . ')');
 
         $valueRows = $valueStatement->query()->fetchAll();

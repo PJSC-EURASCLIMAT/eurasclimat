@@ -17,6 +17,7 @@ class Crm_DemoprojectsController extends Xend_Controller_Action
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->demoprojects);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'help');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
@@ -30,6 +31,9 @@ class Crm_DemoprojectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-member');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-member');
     }
+
+    public function helpAction()
+    {}
 
     public function getListAction()
     {

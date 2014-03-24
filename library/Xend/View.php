@@ -35,6 +35,8 @@ class Xend_View
                 $engineObject = new $engineName();
                 break;
 
+            case 'html':
+                $config = array('disableLayout' => true);
             default:
                 $mvc = Zend_Layout::startMvc($config);
                 if (!empty($config['disableLayout']) && true == $config['disableLayout']) {

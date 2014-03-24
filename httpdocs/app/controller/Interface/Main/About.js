@@ -40,7 +40,8 @@ Ext.define('App.controller.Interface.Main.About', {
             icon: '/images/icons/catalog.png',
             portletHeight: 370,
             position: 'MainPanel-column-2',
-            launchModule: 'EC.CRM.controller.Demoprojects.Projects'
+            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
+            helpURL: '/html/crm/demoprojects/help'
 //        }, {
 //            title: 'Заказ',
 //            icon: '/images/icons/sys_dev.png',
@@ -100,6 +101,7 @@ Ext.define('App.controller.Interface.Main.About', {
             portletHeight: 370,
             position: 'MainPanel-column-2',
             launchModule: 'EC.CRM.controller.Demoprojects.Projects',
+            helpURL: '/html/crm/demoprojects/help',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

@@ -70,6 +70,17 @@ class Xend_Controller_Plugin_ViewEngine extends Zend_Controller_Plugin_Abstract
             array('id' => 1))
         );
 
+        // prepare HTML router
+        $router->addRoute(
+            'html',
+            new Zend_Controller_Router_Route('html/:module/:controller/:action/*',
+            array(
+                'module'        => 'module',
+                'controller'    => 'controller',
+                'action'        => 'action'
+            ))
+        );
+
         // prepare debug router
         if (DEBUG) {
             $router->addRoute(

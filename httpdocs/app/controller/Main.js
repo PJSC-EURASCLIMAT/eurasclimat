@@ -81,6 +81,7 @@ Ext.define('App.controller.Main', {
         
         this.control({
             'CenterPanel portlet': {
+                showhelp: this.showHelp,
                 restore: this.openModuleTab,
                 maximize: this.openModuleFullscreen
             }
@@ -145,23 +146,11 @@ Ext.define('App.controller.Main', {
             initConfig: config,
             tools: [{
                 type: 'help',
+                tooltip: 'Справка',
                 handler: function(event, toolEl, parent, tool) {
-                    Ext.create('Ext.Window', {
-                        title: 'Справка',
-                        layout: 'fit',
-                        height: 400,
-                        width: 400,
-                        modal: true,
-                        autoScroll: true,
-                        items: [{
-                            layout: 'fit',
-                            border: false,
-                            bodyPadding: 5,
-                            html: '<p>Справка по данному елементу недоступна...</p>'
-                        }]
-                    }).show();
+                    this.showHelp(module);
                 },
-                tooltip: 'Справка'
+                scope: this
             }, {
                 type: 'save',
                 tooltip: 'Свернуть на рабочий стол',
@@ -233,23 +222,11 @@ Ext.define('App.controller.Main', {
             initConfig: config,
             tools: [{
                 type: 'help',
+                tooltip: 'Справка',
                 handler: function(event, toolEl, parent, tool) {
-                    Ext.create('Ext.Window', {
-                        title: 'Справка',
-                        layout: 'fit',
-                        height: 400,
-                        width: 400,
-                        modal: true,
-                        autoScroll: true,
-                        items: [{
-                            layout: 'fit',
-                            border: false,
-                            bodyPadding: 5,
-                            html: '<p>Справка по данному елементу недоступна...</p>'
-                        }]
-                    }).show();
+                    this.showHelp(module);
                 },
-                tooltip: 'Справка'
+                scope: this
             }, {
                 type: 'save',
                 tooltip: 'Свернуть на рабочий стол',
@@ -281,6 +258,42 @@ Ext.define('App.controller.Main', {
             this.getController(config.launchModule).run(win);
         }
         if (module.close) module.close();
+    },
+    
+    showHelp: function(module) {
+        
+        var noHelpText = '<p>Справка отсутствует...</p>',
+            isSetHelpURL = !Ext.isEmpty(module)
+            helpContainer = Ext.create('Ext.panel.Panel', {
+                layout: 'fit',
+                border: false,
+                autoScroll: true,
+                bodyPadding: 20,
+                html: noHelpText,
+                style: 'background-color: white;',
+                loader: Ext.isEmpty(module.helpURL) ? false : {
+                    url: module.helpURL,
+                    loadMask: true,
+                    autoLoad: true,
+                    scripts: false,
+                    failure: function() {
+                        helpContainer.update(noHelpText);
+                    }
+                }
+            });
+        
+        Ext.create('Ext.Window', {
+            title: 'Справка',
+            layout: 'fit',
+            height: 400,
+            width: 400,
+            autoShow: true,
+            modal: true,
+            resizable: true,
+            maximizable: true,
+            autoScroll: true,
+            items: [helpContainer]
+        });
     },
     
     populateChapterMenu: function(items) {

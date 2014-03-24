@@ -30,23 +30,11 @@ Ext.define('xlib.portal.Portlet', {
     
     tools: [{
         type: 'help',
+        tooltip: 'Справка',
         handler: function(event, toolEl, parent, tool) {
-            Ext.create('Ext.Window', {
-                title: 'Справка',
-                layout: 'fit',
-                height: 400,
-                width: 400,
-                modal: true,
-                autoScroll: true,
-                items: [{
-                    layout: 'fit',
-                    border: false,
-                    bodyPadding: 5,
-                    html: '<p>Справка по данному елементу недоступна...</p>'
-                }]
-            }).show();
-        },
-        tooltip: 'Справка'
+            var portlet = parent.findParentByType('portlet');
+            portlet.fireEvent('showhelp', portlet);
+        }
     }, {
         type: 'plus',
         disabled: true

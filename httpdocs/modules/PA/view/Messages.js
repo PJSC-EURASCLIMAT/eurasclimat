@@ -92,6 +92,9 @@ Ext.define('EC.PA.view.Messages', {
                 itemId: 'mesGrid',
                 store: 'EC.PA.store.Messages',
                 cls: 'curUserMessagesGrid',
+
+                box: null,
+
                 viewConfig: {
                     preserveScrollOnRefresh: true
                 },
@@ -132,11 +135,19 @@ Ext.define('EC.PA.view.Messages', {
                             // '<p style="margin: 0; {[this.getEllipsisStyle(values)]}">{[this.getMessage(values)]}</p>' +
                             '&#032;&#032;&#032;&#032;&#032;<span style="{[this.getSenderStyle(values)]}">{subject}</span>',
                         {
+                            win: this,
+
                             getSender: function(values) {
                                 if (Ext.isEmpty(values.sender_name)) {
                                     return 'Администрация';
                                 }
+
+                                if ( this.win.mesGrid.box === 'out') {
+                                    return 'Кому: ' + values.receiver_name;
+                                }
+
                                 return values.sender_name;
+
                             },
 
                             getMessage: function(values){
@@ -233,11 +244,32 @@ Ext.define('EC.PA.view.Messages', {
         }];
 
         this.callParent();
+
+        this.mesGrid =  this.down('#mesGrid');
+
+        this.detail = this.down('#mesDetail');
+        this.respBtn = this.detail.down('#respondBtn');
+        this.respCitBtn = this.detail.down('#respondWithCitBtn');
+        this.forwBtn = this.detail.down('#forwardBtn');
         
         var treePanel = this.down('#mesFilterTree');
         treePanel.on('viewready', function() {
             treePanel.getSelectionModel().selectRange(0,0);
         }, this);
+    },
+
+    enableRespondButtons: function() {
+        if( !this.respBtn.isDisabled() ) return;
+        this.respBtn.enable();
+        this.respCitBtn.enable();
+        this.forwBtn.enable();
+    },
+
+    disableRespondButtons: function() {
+        if( this.respBtn.isDisabled() ) return;
+        this.respBtn.disable();
+        this.respCitBtn.disable();
+        this.forwBtn.disable();
     },
 
     setTitleCount: function(num) {

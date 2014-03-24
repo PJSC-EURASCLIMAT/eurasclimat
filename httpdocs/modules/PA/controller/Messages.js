@@ -253,6 +253,7 @@ Ext.define('EC.PA.controller.Messages', {
             box = record.get('box'),
             arr = [],
             boxField,
+            grid = this.getMesGrid(),
             boxValue;
 
         // Тип самого мессаджа
@@ -268,13 +269,16 @@ Ext.define('EC.PA.controller.Messages', {
         // Тип ящика - входящие, исходящие, удаленные
         switch(box) {
             case 'in':
-                this.getMesGrid().store.proxy.url = this.inBoxURL;
+                grid.store.proxy.url = this.inBoxURL;
+                grid.box = 'in';
                 break;
             case 'out':
-                this.getMesGrid().store.proxy.url = this.sentBoxURL;
+                grid.store.proxy.url = this.sentBoxURL;
+                grid.box = 'out';
                 break;
             case 'deleted':
-                this.getMesGrid().store.proxy.url = this.delBoxURL;
+                grid.store.proxy.url = this.delBoxURL;
+                grid.box = 'deleted';
                 break;
         }
 
@@ -325,6 +329,8 @@ Ext.define('EC.PA.controller.Messages', {
 
     onMessageSelect: function(mesGrid, record, index, eOpts) {
         var detail = this.getMesDetail();
+        var win = this.getMesWin();
+
         detail.record = record;
 
         var data = Ext.clone(record.data);
@@ -332,7 +338,15 @@ Ext.define('EC.PA.controller.Messages', {
 
         this.checkReadedDelay(record);
         detail.tpl.overwrite(detail.body, data);
+
+        if ( record.get('sender_id') === 0 ) {
+            win.disableRespondButtons();
+        } else {
+            win.enableRespondButtons();
+        }
     },
+
+
 
     checkAllMessages: function() {
         
@@ -365,9 +379,9 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onMessagesStoreLoad: function() {
-        
         this.clearDetailPanel();
         this.getNewMessagesCount();
+        this.getMesGrid().getSelectionModel().deselectAll();
     },
 
     listenUserMessages: function() {
@@ -543,9 +557,12 @@ Ext.define('EC.PA.controller.Messages', {
     },
     
     clearDetailPanel: function() {
-       
         var panel = this.getMesDetail();
+        var win = this.getMesWin();
+
         panel.record = null;
         panel.body.update('');
+
+        win.enableRespondButtons();
     }
 });

@@ -221,20 +221,30 @@ class PA_Messages_Model
 
         $names = array();
 
+        $trigger = false;
+
         for ($i = 0; $i < count($receivers); $i++) {
 
             $receiver_id = $receivers[$i];
             $data['owner_id'] = $receiver_id;
             $data['receiver_id'] = $receiver_id;
 
+            if ( $data['sender_id'] == $receivers[$i] ) {
+                $trigger = true;
+            }
+//            else {
+//                $name = $inResponse->receiver_name;
+//            }
+
             $inResponse = $this->add($data, true);
             if ($inResponse->hasNotSuccess()) {
                 return $inResponse;
             }
+
             array_push($names, $inResponse->receiver_name);
         }
 
-        if (count($receivers) != 0 && $data['sender_id'] != $receivers[0]) {
+        if ( count($receivers) != 0 && false == $trigger ) {
 //        if ($data['sender_id'] != $receiver_id) {
             $data['owner_id'] = $data['sender_id'];
             $data['readed'] = 1;

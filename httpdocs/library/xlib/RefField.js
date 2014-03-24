@@ -121,9 +121,35 @@ Ext.define('xlib.RefField', {
     },
 
     selCancelFn: function() {
+        var id, rec, valRec, trigger = false,
+            realArr = ( Ext.isArray( this.realValue ) ) ? this.realValue : Ext.Array.from(this.realValue);
         for (var i = 0; i < this.checkedIds.length; i++) {
-            var record = this.checkedIds[i];
-            record.set('checked', 0);
+            id = this.checkedIds[i];
+
+            trigger = false;
+
+            for (var j = 0; j < realArr.length; j++) {
+                var realId = realArr[j];
+                if ( realId === id ) {
+                    trigger = true;
+                    break;
+                }
+            }
+
+            if ( !trigger ) {
+                rec = this.store.getById(id);
+                valRec = this.valueStore.getById(id);
+
+                if ( !Ext.isEmpty( rec ) ) {
+                    rec.set('checked', 0);
+                }
+
+                if ( !Ext.isEmpty( valRec ) ) {
+                    this.valueStore.remove(valRec);
+                }
+            }
+
+
         }
 
         this.checkedIds = [];
@@ -212,7 +238,6 @@ Ext.define('xlib.RefField', {
     },
 
     configureGrid: function() {
-
         var config = Ext.clone(this.gridConfig);
         config.store = this.store;
         config.hideHeaders = true;
@@ -221,7 +246,7 @@ Ext.define('xlib.RefField', {
         config.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
             displayInfo: true,
-            plugins: Ext.create('xlib.ProgressBarPager', {})
+            displayMsg: 'Записи {0} - {1} из {2}'
         });
 
         if ( this.multiSelect ) {

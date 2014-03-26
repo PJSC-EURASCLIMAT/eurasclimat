@@ -69,6 +69,11 @@ Ext.define('EC.PA.view.Messages', {
                     text: 'Удалить выбранные',
                     action: 'delete',
                     itemId: 'deleteChecked'
+                }, {
+                    text: 'Восстановить выбранные',
+                    action: 'untrash',
+                    hidden: true,
+                    itemId: 'untrashChecked'
                 }]
             }, {
                 xtype: 'button',
@@ -95,9 +100,13 @@ Ext.define('EC.PA.view.Messages', {
 
                 box: null,
 
+                autoScroll: true,
+
                 viewConfig: {
-                    preserveScrollOnRefresh: true
+                    preserveScrollOnRefresh: true,
+                    forceFit: true
                 },
+
                 bbar: Ext.create('Ext.PagingToolbar', {
                     store: 'EC.PA.store.Messages',
                     displayInfo: true,
@@ -203,6 +212,18 @@ Ext.define('EC.PA.view.Messages', {
                         }
                     },
                     width: 30
+                },{
+                    xtype: 'actioncolumn',
+                    itemId: 'untrashCol',
+                    width:30,
+                    items: [{
+                        icon: 'images/icons/arrow_undo.png',  // Use a URL in the icon config
+                        tooltip: 'Edit',
+                        handler: function(grid, rowIndex, colIndex) {
+                            var rec = grid.getStore().getAt(rowIndex);
+                            this.up('#mesGrid').fireEvent('untrash', [rec]);
+                        }
+                    }]
                 }]
             }, {
                 region: 'south',

@@ -63,6 +63,11 @@ Ext.define('EC.PA.controller.Messages', {
                 scope: this
             },
 
+            'pa-messages-win [action=untrash]': {
+                click: this.onSelectedMessagesUntrash,
+                scope: this
+            },
+
             'pa-messages-win [action=refresh]': {
                 click: this.refreshMessages,
                 scope: this
@@ -90,6 +95,7 @@ Ext.define('EC.PA.controller.Messages', {
 
             'pa-messages-win #mesGrid': {
                 deleteRow: this.onMessageDelete,
+                untrash: this.onMessageUntrash,
                 select: this.onMessageSelect,
                 rowExpanded: this.onMessagesRowExpand,
                 scope: this
@@ -269,14 +275,20 @@ Ext.define('EC.PA.controller.Messages', {
         // Тип ящика - входящие, исходящие, удаленные
         switch(box) {
             case 'in':
+                grid.down('#untrashCol').hide();
+                this.getMesWin().down('#untrashChecked').hide();
                 grid.store.proxy.url = this.inBoxURL;
                 grid.box = 'in';
                 break;
             case 'out':
+                grid.down('#untrashCol').hide();
+                this.getMesWin().down('#untrashChecked').hide();
                 grid.store.proxy.url = this.sentBoxURL;
                 grid.box = 'out';
                 break;
             case 'deleted':
+                grid.down('#untrashCol').show();
+                this.getMesWin().down('#untrashChecked').show();
                 grid.store.proxy.url = this.delBoxURL;
                 grid.box = 'deleted';
                 break;
@@ -467,7 +479,13 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onSelectedMessagesDelete: function() {
+        var ids = this.getCheckedIds();
+        if ( ids === false ) return;
 
+        this.onMessageDelete(ids);
+    },
+
+    getCheckedIds: function() {
         var ids = [];
         this.getMesGrid().getStore().each(function(item) {
 
@@ -478,10 +496,75 @@ Ext.define('EC.PA.controller.Messages', {
         });
 
         if(ids.length === 0) {
-            return;
+            return false;
         }
 
-        this.onMessageDelete(ids);
+        return ids;
+    },
+
+    onSelectedMessagesUntrash: function() {
+
+//        var ids = [];
+//        this.getMesGrid().getStore().each(function(item) {
+//
+//            if(item.get('checked') === 1) {
+//                ids.push(item);
+//            }
+//
+//        });
+//
+//        if(ids.length === 0) {
+//            return;
+//        }
+        var ids = this.getCheckedIds();
+        if ( ids === false ) return;
+
+        this.onMessageUntrash(ids);
+    },
+
+    onMessageUntrash: function(records, successCallback) {
+        debugger;
+        if (!Ext.isObject(records[0])) return;
+
+        var params = null,
+            deleted = records[0].get('deleted');
+
+        if (Ext.isArray(records)) {
+            params = [];
+            Ext.each(records,function(item) {
+                params.push(item.getId());
+            }, this);
+            params = params.join(',');
+        } else {
+            params = records.getId();
+        }
+
+        Ext.MessageBox.confirm('Подтверждение', 'Восстановить?', function(b) {
+            if ('yes' === b) {
+                Ext.Ajax.request({
+                    params: {
+                        id: params
+                    },
+                    extraParams: {
+                        records: records
+                    },
+                    url: this.untrashURL,
+                    success: function(response, opts) {
+                        var mesStore = this.getMesGrid().getStore();
+                        mesStore.remove(opts.extraParams.records);
+                        mesStore.load();
+                        this.clearDetailPanel();
+                        if (Ext.isDefined(successCallback)){
+                            successCallback();
+                        }
+                    },
+                    failure: function(response, opts) {
+                        Ext.Msg.alert('Ошибка', 'Восстановление не выполнено!');
+                    },
+                    scope: this
+                });
+            }
+        }, this);
     },
 
     onMessageDelete: function(records, successCallback) {

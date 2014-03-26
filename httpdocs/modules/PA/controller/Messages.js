@@ -523,7 +523,6 @@ Ext.define('EC.PA.controller.Messages', {
     },
 
     onMessageUntrash: function(records, successCallback) {
-        debugger;
         if (!Ext.isObject(records[0])) return;
 
         var params = null,

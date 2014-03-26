@@ -252,6 +252,11 @@ Ext.define('EC.PA.view.Messages', {
                     text: 'Удалить',
                     itemId: 'delBtn',
                     handler: function(){this.up('#mesDetail').fireEvent('delete')}
+                }, {
+                    text: 'Восстановить',
+                    hidden: true,
+                    itemId: 'untrashBtn',
+                    handler: function(){this.up('#mesDetail').fireEvent('untrash')}
                 }],
                 tpl: Ext.create('Ext.XTemplate',
                     '<strong>Тема: </strong>{subject}<br/>',

@@ -111,6 +111,7 @@ Ext.define('EC.PA.controller.Messages', {
                 respondWithCit: this.onDetailRespondWithCit,
                 forward: this.onDetailForward,
                 'delete': this.onDetailDelete,
+                untrash: this.onDetailUntrash,
                 scope: this
             }
         });
@@ -253,6 +254,11 @@ Ext.define('EC.PA.controller.Messages', {
         this.onMessageDelete([record]);
     },
 
+    onDetailUntrash: function() {
+        var record = this.getMesDetail().record;
+        this.onMessageUntrash([record]);
+    },
+
     onFilterTreeSelect: function(tree, record, index, eOpts) {
         
         var type = record.get('type'),
@@ -260,6 +266,8 @@ Ext.define('EC.PA.controller.Messages', {
             arr = [],
             boxField,
             grid = this.getMesGrid(),
+            win = this.getMesWin(),
+            detail = this.getMesDetail(),
             boxValue;
 
         // Тип самого мессаджа
@@ -276,19 +284,22 @@ Ext.define('EC.PA.controller.Messages', {
         switch(box) {
             case 'in':
                 grid.down('#untrashCol').hide();
-                this.getMesWin().down('#untrashChecked').hide();
+                win.down('#untrashChecked').hide();
+                detail.down('#untrashBtn').hide();
                 grid.store.proxy.url = this.inBoxURL;
                 grid.box = 'in';
                 break;
             case 'out':
                 grid.down('#untrashCol').hide();
-                this.getMesWin().down('#untrashChecked').hide();
+                win.down('#untrashChecked').hide();
+                detail.down('#untrashBtn').hide();
                 grid.store.proxy.url = this.sentBoxURL;
                 grid.box = 'out';
                 break;
             case 'deleted':
                 grid.down('#untrashCol').show();
-                this.getMesWin().down('#untrashChecked').show();
+                win.down('#untrashChecked').show();
+                detail.down('#untrashBtn').show();
                 grid.store.proxy.url = this.delBoxURL;
                 grid.box = 'deleted';
                 break;
@@ -344,6 +355,12 @@ Ext.define('EC.PA.controller.Messages', {
         var win = this.getMesWin();
 
         detail.record = record;
+
+        if ( record.get('deleted') === 1 ) {
+            detail.down('#untrashBtn').show();
+        } else {
+            detail.down('#untrashBtn').hide();
+        }
 
         var data = Ext.clone(record.data);
         data.message = data.message.replace(/\r\n|\n/g, '<br/>');

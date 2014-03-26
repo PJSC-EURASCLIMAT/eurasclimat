@@ -223,11 +223,38 @@ class PA_Messages_Model
 
         $trigger = false;
 
+        $data['filter'] = json_encode(
+            array(
+                 array(
+                    'field' => "id",
+                    "type"  => "list",
+                    "value" => $data["receiver_id"]
+                )
+            )
+        );
+        // Вынуть имена получателей заранее
+        $namesResponse = $this->_accModel->fetchAllNames($data);
+        if ($namesResponse->hasNotSuccess()) {
+            return $namesResponse;
+        }
+
+        $namesArr = $namesResponse->getRowset();
+        $names = array();
+
+        foreach ($namesArr as $key => $value) {
+            array_push($names, $value['name']);
+            if( $value['name'] == $data['sender_id']);
+        }
+        $namesList = implode($names, ',');
+
+//        $namesResponse = $this->_accModel->fetchAllNames(array(), new Zend_Db_Expr('id IN (' + # + ')'));
+
         for ($i = 0; $i < count($receivers); $i++) {
 
             $receiver_id = $receivers[$i];
             $data['owner_id'] = $receiver_id;
             $data['receiver_id'] = $receiver_id;
+            $data['receiver_name'] = $namesList;
 
             if ( $data['sender_id'] == $receivers[$i] ) {
                 $trigger = true;
@@ -241,7 +268,7 @@ class PA_Messages_Model
                 return $inResponse;
             }
 
-            array_push($names, $inResponse->receiver_name);
+//            array_push($names, $inResponse->receiver_name);
         }
 
         if ( count($receivers) != 0 && false == $trigger ) {
@@ -250,7 +277,7 @@ class PA_Messages_Model
             $data['readed'] = 1;
             //TODO фильтр в $this->add отсекает new Zend_Db_Expr('NULL') и 0
 //            $data['receiver_id'] = 0;
-            $data['receiver_name'] = implode($names, ', ');
+            $data['receiver_name'] = $namesList;
 
             $outResponse = $this->add($data);
             if ($outResponse->hasNotSuccess()) {

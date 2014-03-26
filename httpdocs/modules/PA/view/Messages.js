@@ -146,6 +146,10 @@ Ext.define('EC.PA.view.Messages', {
                                     return 'Кому: ' + values.receiver_name;
                                 }
 
+                                if ( this.win.mesGrid.box === 'in') {
+                                    return 'От кого: ' + values.sender_name;
+                                }
+
                                 return values.sender_name;
 
                             },

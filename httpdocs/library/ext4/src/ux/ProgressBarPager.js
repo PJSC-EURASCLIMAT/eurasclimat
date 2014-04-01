@@ -18,14 +18,14 @@ the sales department at http://www.sencha.com/contact.
 
 */
 /**
-* @class xlib.ProgressBarPager
+* @class Ext.ux.ProgressBarPager
 * @extends Object
 * Plugin for displaying a progressbar inside of a paging toolbar instead of plain text
 * @constructor
 * Create a new ItemSelector
 * @param {Object} config Configuration options
 */
-Ext.define('xlib.ProgressBarPager', {
+Ext.define('Ext.ux.ProgressBarPager', {
     
     extend: 'Object',
     

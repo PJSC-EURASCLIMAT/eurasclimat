@@ -2,7 +2,11 @@ Ext.define('EC.Catalog.view.ListAbstract', {
 
     extend: 'Ext.grid.Panel',
     
-    requires: ['xlib.grid.FiltersFeature'],
+    requires: [
+        'xlib.grid.FiltersFeature',
+        'Ext.ux.PagingToolbarResizer',
+        'Ext.ux.ProgressBarPager'
+    ],
    
     layout: 'fit',
     
@@ -87,7 +91,10 @@ Ext.define('EC.Catalog.view.ListAbstract', {
         this.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
             displayInfo: true,
-            plugins: Ext.create('xlib.ProgressBarPager', {})
+            plugins: [
+                {ptype: 'pagingtoolbarresizer'},
+                {ptype: 'progressbarpager'}
+            ]
         });
         
         this.callParent(arguments);

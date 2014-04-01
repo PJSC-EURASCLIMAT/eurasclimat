@@ -364,7 +364,7 @@ class PA_Messages_Model
             if ($fromAdmin) {
                 $message = '<p>Вам пришло новое cистемное сообщение:</p>';
             } else {
-                $message = '<p>Вам пришло новое сообщение от пользователя <a href="http://' . $_SERVER['HTTP_HOST'] . '/#/profile/' . $receiverInfo['id'] . '/show">' . $senderData['name'] . '</a>:</p>';
+                $message = '<p>Вам пришло новое сообщение от пользователя <a href="http://' . $_SERVER['HTTP_HOST'] . '/#/profile/' . $senderData['id'] . '/show">' . $senderData['name'] . '</a>:</p>';
             }
 
             $message .= $params['message'];

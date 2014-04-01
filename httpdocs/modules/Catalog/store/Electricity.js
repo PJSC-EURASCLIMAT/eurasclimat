@@ -8,8 +8,6 @@ Ext.define('EC.Catalog.store.Electricity', {
     
     remoteFilter: true,
     
-    pageSize: 10,
-    
     proxy: {
         type: 'ajax',
         api: {

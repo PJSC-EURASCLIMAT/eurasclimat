@@ -240,7 +240,7 @@ Ext.define('EC.Catalog.view.Conditioners.List', {
                 type: 'numeric'
             }
         }, {
-            header: 'Рабочий ток (А)',
+            header: 'Пусковой ток (А)',
             hidden: true,
             dataIndex: 'working_amperage',
             filter: {

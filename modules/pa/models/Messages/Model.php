@@ -141,7 +141,7 @@ class PA_Messages_Model
                     'receiver_name',
                 )
             )
-            ->order('d.date ASC');
+            ->order('d.date DESC');
 
         if (isset($where)) {
             $select->where($where);

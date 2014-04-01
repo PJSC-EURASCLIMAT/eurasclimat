@@ -102,7 +102,7 @@ Ext.define('EC.Catalog.view.Conditioners.Edit', {
         name: 'sound_power_level'
     }, {
         xtype: 'numberfield',
-        fieldLabel: 'Рабочий ток (А)',
+        fieldLabel: 'Пусковой ток (А)',
         name: 'working_amperage'
     }, {
         xtype: 'numberfield',

@@ -270,11 +270,22 @@ Ext.define('xlib.Tree', {
             selectionModel.select(record);
         }
 
-        // просто удаляет без синхронизации стора
-        // в store.removed падает только один record
-        record.remove(false);
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
 
-        this.store.sync();
+            if ( 'yes' === b ) {
+
+                // просто удаляет без синхронизации стора
+                // в store.removed падает только один record
+                record.remove(false);
+//                this.grid.store.remove(record);
+                this.store.sync();
+//                this.grid.store.sync();
+            }
+
+        }, this);
+
+
+
     },
 
     onBeforeDrop: function( node, data, overModel, dropPosition, dropHandlers, eOpts ) {

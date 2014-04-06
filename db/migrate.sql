@@ -11,11 +11,10 @@ CREATE TABLE `experts_courses` (
   `type_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `type_id` (`type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `experts_courses`
   ADD CONSTRAINT `experts_courses_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `experts_course_types` (`id`) ON DELETE CASCADE;
-
 
 CREATE TABLE `experts_course_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -24,10 +23,11 @@ CREATE TABLE `experts_course_types` (
   `sort` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `experts_course_types`
   ADD CONSTRAINT `experts_course_types_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `experts_course_types` (`id`) ON DELETE CASCADE;
 
+ALTER TABLE `aboutsystem_themes` ADD FOREIGN KEY (`parent_id`) REFERENCES `aboutsystem_themes`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 SET FOREIGN_KEY_CHECKS=1;

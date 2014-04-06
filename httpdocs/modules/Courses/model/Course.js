@@ -1,4 +1,4 @@
-Ext.define('EC.Experts.model.Course', {
+Ext.define('EC.Courses.model.Course', {
 
     extend: 'Ext.data.Model',
    

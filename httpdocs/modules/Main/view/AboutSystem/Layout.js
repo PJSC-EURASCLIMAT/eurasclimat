@@ -13,7 +13,7 @@ Ext.define('EC.Main.view.AboutSystem.Layout', {
         region: 'west',
         split: true,
         border: '0 1 0 0',
-        width: 170
+        width: 200
     }, {
         xtype: 'panel',
         type: 'preview',

@@ -16,7 +16,9 @@ Ext.define('EC.Main.view.AboutSystem.ThemesTree', {
     
     useArrows: true,
     
-    scroll: 'vertical'
+    scroll: 'vertical',
+
+    permissions: acl.isUpdate('aboutsystem')
 
     
 });

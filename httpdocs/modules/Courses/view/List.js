@@ -1,26 +1,22 @@
-Ext.define('EC.Experts.view.Courses.List', {
+Ext.define('EC.Courses.view.List', {
 
     extend: 'Ext.grid.Panel',
 
-    alias: 'widget.ExpertsCoursesList',
+    alias: 'widget.courses-list',
 
     uses: ['xlib.CheckColumn'],
 
     layout: 'fit',
 
-    store: 'EC.Experts.store.Courses',
+    store: 'EC.Courses.store.Courses',
 
-    permissions: acl.isUpdate('courses'),
+    permissions: acl.isUpdate(['courses','groups']),
 
     isPortlet: false,
 
     initComponent: function() {
 
         var actions = [];
-
-        //TODO добавить колонки
-        //TODO добавить СRUD
-        //TODO добавить фильтрацию по type_id завернуть через plugin
 
         this.columns = [{
             header: 'Название',

@@ -1,8 +1,8 @@
-Ext.define('EC.Experts.view.Courses.Layout', {
+Ext.define('EC.Courses.view.Layout', {
     
     extend: 'Ext.panel.Panel',
     
-    alias: 'widget.ExpertsCoursesLayout',
+    alias: 'widget.courses-layout',
     
     layout: 'border',
     
@@ -12,7 +12,7 @@ Ext.define('EC.Experts.view.Courses.Layout', {
 
     initComponent: function() {
         this.items = [{
-            xtype: 'ExpertsCoursesTree',
+            xtype: 'courses-tree',
             region: 'west',
             hidden: this.isPortlet,
             itemId: 'tree',
@@ -20,7 +20,7 @@ Ext.define('EC.Experts.view.Courses.Layout', {
             split: true,
             width: 200
         }, {
-            xtype: 'ExpertsCoursesList',
+            xtype: 'courses-list',
             border: '0 0 0 1',
             isPortlet: this.isPortlet,
             layout: 'fit',

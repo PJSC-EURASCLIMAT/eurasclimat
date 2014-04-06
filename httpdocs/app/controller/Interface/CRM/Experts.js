@@ -22,12 +22,12 @@ Ext.define('App.controller.Interface.CRM.Experts', {
         var MC = this.getController('App.controller.Main');
         
         return [{
-            text: 'Админстирование курсов специалистов',
-            title: 'Администрирование курсов специалистов',
+            text: 'Админстирование курсов',
+            title: 'Администрирование курсов',
             icon: '/images/icons/about.png',
             portletHeight: 400,
             position: 'Experts-column-1',
-            launchModule: 'EC.Experts.controller.Courses',
+            launchModule: 'EC.Courses.controller.Courses',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

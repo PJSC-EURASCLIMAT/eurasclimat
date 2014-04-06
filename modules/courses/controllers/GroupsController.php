@@ -3,7 +3,7 @@
 /**
  * Project Docs Controller conroller
  */
-class Experts_CoursesTypesController extends Xend_Controller_Action
+class Courses_GroupsController extends Xend_Controller_Action
 {
     /**
      * @var Xend_Tree_Model
@@ -12,7 +12,7 @@ class Experts_CoursesTypesController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Xend_Tree_Model('experts_course_types');
+        $this->_model = new Xend_Tree_Model('courses_groups');
         parent::init();
     }
 
@@ -21,7 +21,7 @@ class Experts_CoursesTypesController extends Xend_Controller_Action
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         // TODO Создать отдельные пермишены для курсов экспертов
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts->courseTypes);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->courses->groups);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');

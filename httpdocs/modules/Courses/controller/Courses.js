@@ -1,19 +1,19 @@
-Ext.define('EC.Experts.controller.Courses', {
+Ext.define('EC.Courses.controller.Courses', {
 
     extend: 'Ext.app.Controller',
 
     stores: [
-        'EC.Experts.store.Courses'
+        'EC.Courses.store.Courses'
     ],
 
     models: [
-        'EC.Experts.model.Course'
+        'EC.Courses.model.Course'
     ],
 
     views: [
-        'EC.Experts.view.Courses.Layout',
-        'EC.Experts.view.Courses.Tree',
-        'EC.Experts.view.Courses.List'
+        'EC.Courses.view.Layout',
+        'EC.Courses.view.Tree',
+        'EC.Courses.view.List'
     ],
 
     permissions: acl.isUpdate('courses'),
@@ -24,7 +24,7 @@ Ext.define('EC.Experts.controller.Courses', {
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
 
-        this.layout = container.add(Ext.create('EC.Experts.view.Courses.Layout', {
+        this.layout = container.add(Ext.create('EC.Courses.view.Layout', {
             expertsStore: this.expertsStore,
             isPortlet: isPortlet,
             permissions: this.permissions
@@ -91,7 +91,7 @@ Ext.define('EC.Experts.controller.Courses', {
     },
 
     addItem: function() {
-        this.editWin = Ext.create('EC.Experts.view.Courses.Edit');
+        this.editWin = Ext.create('EC.Courses.view.Edit');
         this.editForm = this.editWin.down('form');
 
         this.editForm.down('button[action=submit]').on('click',function() {
@@ -103,7 +103,7 @@ Ext.define('EC.Experts.controller.Courses', {
     },
 
     editItem: function(grid, record, fromCurrent) {
-        this.editWin = Ext.create('EC.Experts.view.Courses.Edit',{
+        this.editWin = Ext.create('EC.Courses.view.Edit',{
             values: record.data
         });
         this.editForm = this.editWin.down('form');

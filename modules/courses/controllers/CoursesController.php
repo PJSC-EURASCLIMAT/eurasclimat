@@ -3,7 +3,7 @@
 /**
  * Project Docs Controller conroller
  */
-class Experts_CoursesController extends Xend_Controller_Action
+class Courses_CoursesController extends Xend_Controller_Action
 {
     /**
      * @var Xend_Tree_Model
@@ -12,13 +12,13 @@ class Experts_CoursesController extends Xend_Controller_Action
 
     public function init()
     {
-        $this->_model = new Experts_Courses_Model();
+        $this->_model = new Courses_Model();
         parent::init();
     }
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts->courses);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->courses);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');

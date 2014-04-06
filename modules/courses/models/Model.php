@@ -1,6 +1,6 @@
 <?php
 
-class Experts_Courses_Model
+class Courses_Model
 {
     /**
      * The role table object
@@ -11,7 +11,7 @@ class Experts_Courses_Model
 
     public function __construct()
     {
-        $this->_table = new Experts_Courses_Table();
+        $this->_table = new Courses_Table();
     }
 
     public function update(array $params)
@@ -120,7 +120,7 @@ class Experts_Courses_Model
                 array( 'c.id', 'c.name', 'c.description', 'c.type_id')
             )
             ->joinLeft(
-                array('t' => 'experts_course_types'),
+                array('t' => 'courses_groups'),
                 't.id=c.type_id',
                 array(
                      'type_name' => 't.text'
@@ -157,7 +157,7 @@ class Experts_Courses_Model
                 array( 'c.id', 'c.name', 'c.description', 'c.type_id')
             )
             ->joinLeft(
-                array('t' => 'experts_course_types'),
+                array('t' => 'courses_groups'),
                 't.id=c.type_id',
                 array(
                     'type_name' => 't.text'

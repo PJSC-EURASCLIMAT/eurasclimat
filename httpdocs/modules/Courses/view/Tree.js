@@ -1,12 +1,10 @@
-Ext.define('EC.Experts.view.Courses.Tree', {
+Ext.define('EC.Courses.view.Tree', {
 
     extend: 'xlib.Tree',
     
-    alias: ['widget.ExpertsCoursesTree'],
-    
-//    store: 'EC.Main.store.AboutSystem.ThemesTree',
+    alias: ['widget.courses-tree'],
 
-    controllerURL: '/json/experts/courses-types/',
+    controllerURL: '/json/courses/groups/',
     
     layout: 'fit',
     

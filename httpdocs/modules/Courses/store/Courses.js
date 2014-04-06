@@ -1,8 +1,8 @@
-Ext.define('EC.Experts.store.Courses', {
+Ext.define('EC.Courses.store.Courses', {
 
     extend: 'Ext.data.Store',
 
-    model: 'EC.Experts.model.Course',
+    model: 'EC.Courses.model.Course',
 
     removeFilter: true,
 
@@ -12,10 +12,10 @@ Ext.define('EC.Experts.store.Courses', {
         type: 'ajax',
 
         api: {
-            read: '/json/experts/courses/read',
-            create: '/json/experts/courses/create',
-            update: '/json/experts/courses/update',
-            destroy: '/json/experts/courses/destroy'
+            read: '/json/courses/courses/read',
+            create: '/json/courses/courses/create',
+            update: '/json/courses/courses/update',
+            destroy: '/json/courses/courses/destroy'
         },
 
         reader: {

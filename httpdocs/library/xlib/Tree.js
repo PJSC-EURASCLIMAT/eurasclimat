@@ -229,8 +229,13 @@ Ext.define('xlib.Tree', {
 
     create: function() {
         var selModel = this.getSelectionModel(),
-            node = selModel.getLastSelected(),
+//            node = selModel.getLastSelected(),
+            node = selModel.getSelection(),
             me = this;
+
+        if ( Ext.isEmpty(node) ) {
+            node = this.getRootNode();
+        }
 
         this.addBtn.disable();
 

@@ -1,4 +1,4 @@
-Ext.define('EC.Experts.view.Courses.Edit', {
+Ext.define('EC.Courses.view.Edit', {
     
     extend: 'Ext.window.Window',
     
@@ -50,7 +50,7 @@ Ext.define('EC.Experts.view.Courses.Edit', {
             },{
                 xtype: 'tree-reffield',
                 fieldLabel: 'Категория',
-                controllerURL: '/json/experts/courses-types/',
+                controllerURL: '/json/courses/groups/',
                 value: this.values.type_id,
                 listeners: {
                     change: function(){

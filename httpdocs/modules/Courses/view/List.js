@@ -6,11 +6,16 @@ Ext.define('EC.Courses.view.List', {
 
     uses: ['xlib.CheckColumn'],
 
+    requires: [
+        'Ext.ux.PagingToolbarResizer',
+        'Ext.ux.ProgressBarPager'
+    ],
+
     layout: 'fit',
 
     store: 'EC.Courses.store.Courses',
 
-    permissions: acl.isUpdate(['courses','groups']),
+    permissions: acl.isUpdate('courses'),
 
     isPortlet: false,
 
@@ -74,7 +79,11 @@ Ext.define('EC.Courses.view.List', {
         this.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
             displayInfo: !this.isPortlet,
-            plugins: this.isPortlet ? [] : Ext.create('xlib.ProgressBarPager', {})
+            plugins: this.isPortlet ? [] : [
+                {ptype: 'pagingtoolbarresizer'},
+                {ptype: 'progressbarpager'}
+            ]
+//            plugins: this.isPortlet ? [] : Ext.create('xlib.ProgressBarPager', {})
         });
         
         this.callParent(arguments);

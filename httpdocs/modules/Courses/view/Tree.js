@@ -16,7 +16,7 @@ Ext.define('EC.Courses.view.Tree', {
     
     scroll: 'vertical',
 
-    permissions: acl.isUpdate('courses'),
+    permissions: acl.isUpdate('courses','groups'),
 
     bbar: [{
         xtype: 'button',

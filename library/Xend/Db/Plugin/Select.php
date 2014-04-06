@@ -175,6 +175,10 @@ class Xend_Db_Plugin_Select
         $valueStatement = clone $this->_selectStatement;
         $valueStatement->reset(Xend_Db_Select::LIMIT_OFFSET);
         $valueStatement->reset(Xend_Db_Select::LIMIT_COUNT);
+
+        //TODO проверить не сломается ли
+        $valueStatement->reset(Xend_Db_Select::WHERE);
+
         $valueStatement->reset(Xend_Db_Select::GROUP);
 
         $value = $params[self::VALUE];

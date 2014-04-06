@@ -11,10 +11,13 @@ Ext.define('EC.Main.view.AboutSystem.Layout', {
     items: [{
         xtype: 'AboutSystemThemesTree',
         region: 'west',
+        split: true,
+        border: '0 1 0 0',
         width: 170
     }, {
         xtype: 'panel',
         type: 'preview',
+        border: '0 0 0 1',
         bodyPadding: 5,
         autoScroll: true,
         bodyStyle: 'font-size:11px;',

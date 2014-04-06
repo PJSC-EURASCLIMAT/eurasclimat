@@ -4,7 +4,7 @@ Ext.define('EC.Main.model.AboutSystem.ThemesTree', {
    
     fields: [
         'id',
-        'name',
+        'text',
         'parent_id',
         'account_id',
         {name: 'extended', type: 'boolean'}

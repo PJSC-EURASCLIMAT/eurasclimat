@@ -26,7 +26,8 @@ Ext.define('EC.Main.controller.AboutSystem', {
         });
         
         var treePanel = content.down('AboutSystemThemesTree'),
-            treeStore = this.getStore('EC.Main.store.AboutSystem.ThemesTree'),
+//            treeStore = this.getStore('EC.Main.store.AboutSystem.ThemesTree'),
+            treeStore = treePanel.getStore(),
             previewPanel = content.down('panel[type=preview]');
         
         treePanel.on('select', function(tree, record, index, eOpts) {

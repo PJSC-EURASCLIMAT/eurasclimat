@@ -28,8 +28,8 @@ Ext.application({
     ],
 
     routes: {
-        '/profile/:id/show' : 'main#profile'
-        ,'/download/:id' : 'main#download'
+        '/profile/:id/show' : 'main#profile',
+        '/download/:id' : 'main#download'
     },
 
     // Глобальные переменные

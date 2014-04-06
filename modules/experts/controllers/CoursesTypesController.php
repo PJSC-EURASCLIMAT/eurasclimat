@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Default application conroller
+ * Project Docs Controller conroller
  */
-class Aboutsystem_ThemesController extends Xend_Controller_Action
+class Experts_CoursesTypesController extends Xend_Controller_Action
 {
+    /**
+     * @var Xend_Tree_Model
+     * */
+    protected $_model;
 
     public function init()
     {
-//        $this->_model = new Aboutsystem_Themes_Model();
-        $nullablse_fields = array(
-            'parent_id',
-            'account_id'
-        );
-        $this->_model = new Xend_Tree_Model('aboutsystem_themes', $nullablse_fields);
+        $this->_model = new Xend_Tree_Model('experts_course_types');
         parent::init();
     }
 
+    // TODO вынести контроллер в Xend_Tree_Controller;
+
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->aboutsystem);
+        // TODO Создать отдельные пермишены для курсов экспертов
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->experts->courseTypes);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'destroy');
-
-//        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-tree');
     }
 
     public function createAction()
@@ -48,6 +48,7 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
             $data = $response->getRowset();
             $this->view->success = true;
             $this->view->data = $data;
+            $this->view->valueData = $response->valueRows;
 //            $this->view->total = $response->total;
         } else {
             $this->_collectErrors($response);
@@ -75,18 +76,5 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
-
-//
-//    public function getTreeAction()
-//    {
-//        $response = $this->_model->fetchBranch(0);
-//        if ($response->isSuccess()) {
-//            $this->view->success = true;
-//            $rows = $response->getRowset();
-//            $this->view->assign(array('children' => $rows));
-//        } else {
-//            $this->_collectErrors($response);
-//        }
-//    }
 
 }

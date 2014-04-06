@@ -9,10 +9,12 @@ Ext.define('App.controller.Interface.CRM.Experts', {
         var container = this.getContainer(container),
             MC = this.getController('App.controller.Main'),
             menu = this.getMenu();
-            
-       container.on('activate', function() {
-            MC.openModuleTab(menu[0]);
-       }, this, {single: true});
+
+        container.on('activate', function() {
+            Ext.each(menu, function(item) {
+                MC.openModulePortlet(item);
+            }, this);
+        }, this, {single: true});
     },
 
     getMenu: function() {
@@ -20,11 +22,21 @@ Ext.define('App.controller.Interface.CRM.Experts', {
         var MC = this.getController('App.controller.Main');
         
         return [{
+            text: 'Админстирование курсов специалистов',
+            title: 'Администрирование курсов специалистов',
+            icon: '/images/icons/about.png',
+            portletHeight: 400,
+            position: 'Experts-column-1',
+            launchModule: 'EC.Experts.controller.Courses',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        },{
             text: 'Администрирование специалистов',
             title: 'Администрирование специалистов',
             icon: '/images/icons/about.png',
             portletHeight: 400,
-            position: 'OrdersPanel-column-3',
+            position: 'Experts-column-2',
             launchModule: 'EC.Experts.controller.Experts',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);

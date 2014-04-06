@@ -15,7 +15,7 @@ class Aboutsystem_Themes_Model
      * @return Xend_Response <code>
      *  rows: array(
      *      id: int
-     *      name: string
+     *      text: string
      *      parent_id: int
      *  );
      * </code>
@@ -34,7 +34,7 @@ class Aboutsystem_Themes_Model
      * @return Xend_Response <code>
      *  rows: array(
      *      id: int
-     *      name: string
+     *      text: string
      *      parent_id: int
      *  );
      * </code>

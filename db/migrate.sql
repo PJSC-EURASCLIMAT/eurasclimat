@@ -2,7 +2,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 ALTER TABLE  `aboutsystem_themes` CHANGE  `name`  `text` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
 
-ALTER TABLE aboutsystem_themes DROP INDEX name;
+ALTER TABLE `aboutsystem_themes` DROP INDEX name;
 
 CREATE TABLE `experts_courses` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

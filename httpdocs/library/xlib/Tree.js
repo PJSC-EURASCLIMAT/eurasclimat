@@ -159,7 +159,7 @@ Ext.define('xlib.Tree', {
 
             this.selModel = {
                 selection: 'treemodel',
-                mode: 'MULTI'
+                mode: 'SINGLE'
             };
 
             treeColumn.editor = {
@@ -228,10 +228,15 @@ Ext.define('xlib.Tree', {
     },
 
     create: function() {
-        var selModel = this.getSelectionModel(),
-//            node = selModel.getLastSelected(),
-            node = selModel.getSelection(),
+        var selectedRecords = this.selModel.getSelection(),
+            node,
             me = this;
+
+        if ( Ext.isArray( selectedRecords ) ) {
+            node = selectedRecords[0];
+        } else if ( Ext.isObject( selectedRecords ) ) {
+            node = selectedRecords;
+        }
 
         if ( Ext.isEmpty(node) ) {
             node = this.getRootNode();
@@ -267,10 +272,27 @@ Ext.define('xlib.Tree', {
 
     },
 
-    deleteNode: function(treeView, rowIndex, u, button, event, record, rowEl) {
-        var tree = treeView.ownerCt;
+    constraintErrorHandler: function() {
+        Ext.MessageBox.alert("Сообщение", "Невозможно удалить элемент, т.к есть зависимости");
+    },
 
-        var selectionModel = tree.getSelectionModel();
+    checkErrors: function() {
+        //TODO хз как ошибки по человечески вынуть
+        Ext.each(this.store.proxy.reader.jsonData.errors, function(error){
+            if ( error.code === -41 ) {
+                this.constraintErrorHandler();
+            }
+        }, this);
+    },
+
+    deleteNode: function(treeView, rowIndex, u, button, event, record, rowEl) {
+        var tree = treeView.ownerCt,
+            beforeNode,
+            error,
+            selectionModel = tree.selModel,
+            parentNode = record.parentNode,
+            index = parentNode.indexOf(record);
+
         if (!selectionModel.isSelected(record)) {
             selectionModel.select(record);
         }
@@ -282,9 +304,14 @@ Ext.define('xlib.Tree', {
                 // просто удаляет без синхронизации стора
                 // в store.removed падает только один record
                 record.remove(false);
-//                this.grid.store.remove(record);
-                this.store.sync();
-//                this.grid.store.sync();
+                this.store.sync({
+                    failure: function(batch, options) {
+                        this.checkErrors();
+                        beforeNode = parentNode.getChildAt(index);
+                        parentNode.insertBefore(record, beforeNode)
+                    },
+                    scope: this
+                });
             }
 
         }, this);

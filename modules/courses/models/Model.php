@@ -25,11 +25,13 @@ class Courses_Model
             'name'          => 'StringTrim',
             'description'   => 'StringTrim',
             'type_id'       => 'int',
+            'closed'        => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'name'          => array('StringLength'),
             'description'   => array('StringLength'),
             'type_id'       => array('Id', 'allowEmpty' => true),
+            'closed'        => array('int'),
         ), $data);
 
         $response->addInputStatus($f);
@@ -154,7 +156,7 @@ class Courses_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('c' => $this->_table->getTableName()),
-                array( 'c.id', 'c.name', 'c.description', 'c.type_id')
+                array( 'c.id', 'c.name', 'c.description', 'c.type_id', 'c.closed')
             )
             ->joinLeft(
                 array('t' => 'courses_groups'),

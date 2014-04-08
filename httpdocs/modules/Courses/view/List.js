@@ -32,7 +32,7 @@ Ext.define('EC.Courses.view.List', {
             dataIndex: 'description',
             flex: 1
         },{
-            header: 'Категория',
+            header: 'Группа',
             dataIndex: 'type_name',
             flex: 1
         }];
@@ -49,22 +49,33 @@ Ext.define('EC.Courses.view.List', {
                 scope: this
             });
 
-            actions.push({
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
+//            actions.push({
+//                icon: '/images/icons/fam/delete.gif',
+//                tooltip: 'Удалить',
+//                iconCls: 'x-btn',
+//                handler: function(grid, rowIndex, colIndex) {
+//                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
+//                },
+//                scope: this
+//
+//            });
 
-            });
 
-
-            this.columns.push({
+            this.columns.push( {
                 xtype:'actioncolumn',
                 width: parseInt(actions.length) * 20,
                 items: actions
+            },{
+                xtype: 'checkcolumn',
+                header: 'Закрыт',
+                dataIndex: 'closed',
+                stopSelection : false,
+                listeners: {
+                    checkchange: function( grid, rowIndex, checked, eOpts ) {
+                        this.up('grid').fireEvent('closedchange', rowIndex, checked);
+                    }
+                },
+                width: 50
             });
 
             this.tbar = [{

@@ -18,6 +18,10 @@ Ext.define('EC.Courses.view.Tree', {
 
     permissions: acl.isUpdate('courses','groups'),
 
+    constraintErrorHandler: function() {
+        Ext.MessageBox.alert("Сообщение", "Невозможно удалить группу, т.к внутри группы есть курсы");
+    },
+
     bbar: [{
         xtype: 'button',
         text: 'Сбросить фильтр',

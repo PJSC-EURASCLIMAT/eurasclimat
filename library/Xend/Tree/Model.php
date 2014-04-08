@@ -134,12 +134,25 @@ class Xend_Tree_Model
             return $response->addStatus(new Xend_Status(
                     Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
-        $res = $this->_table->deleteByPk($id);
-        if (false === $res) {
-            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+
+        try {
+            $response = $this->_table->deleteByPk($id);
+            $status = Xend_Status::OK;
+        } catch (Exception $e) {
+            // TODO не нашел как по фен-шую вынуть код mysql ошибки
+            if ( preg_match('/Integrity constraint violation: 1451/',$e->getMessage()) ) {
+                $status = Xend_Status::DATABASE_CONSTRAINT_ERROR;
+                return $response->addStatus(new Xend_Status($status));
+            }
+            if (DEBUG) {
+                throw $e;
+            }
+
+            $status = Xend_Status::DATABASE_ERROR;
         }
 
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+
+        return $response->addStatus(new Xend_Status($status));
     }
 
 }

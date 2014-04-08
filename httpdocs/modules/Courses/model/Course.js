@@ -7,6 +7,7 @@ Ext.define('EC.Courses.model.Course', {
         'name',
         'description',
         'type_id',
-        'type_name'
+        'type_name',
+        {name: 'closed', type: 'int'}
     ]
 });

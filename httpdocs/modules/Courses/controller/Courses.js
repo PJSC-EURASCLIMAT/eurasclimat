@@ -54,6 +54,7 @@ Ext.define('EC.Courses.controller.Courses', {
             this.grid.on({
                 edititem: this.editItem,
                 deleteitem: this.deleteItem,
+                closedchange: this.closedChange,
                 scope: this
             });
             
@@ -100,6 +101,14 @@ Ext.define('EC.Courses.controller.Courses', {
             this.grid.store.load();
             this.editWin.close();
         }, this);
+    },
+
+    closedChange: function( rowIndex, checked ) {
+        debugger;
+        var record = this.grid.store.getAt(rowIndex);
+        record.set('closed', checked);
+        this.grid.store.sync();
+        this.grid.store.load();
     },
 
     editItem: function(grid, record, fromCurrent) {

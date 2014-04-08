@@ -28,9 +28,11 @@ abstract class Xend_Response_Status_Storage_Abstract implements Xend_Response_St
     const DELETE_FAILED             = -20;
 
     const UPDATED                   = 30;
-    const UPDATE_FAILED           = -31;
+    const UPDATE_FAILED             = -31;
     const UPDATED_NO_ONE_ROWS_UPDATED = 31;
     const NO_ONE_ROWS_AFFECTED      = 32;
+
+    const DATABASE_CONSTRAINT_ERROR = -41;
 
 
 	/**
@@ -100,7 +102,8 @@ abstract class Xend_Response_Status_Storage_Abstract implements Xend_Response_St
 
         self::DELETED                       => 'Deleted successfully.',
         self::DELETE_FAILED                 => 'Deleting failed.',
-        self::NO_ONE_ROWS_AFFECTED          => 'No one rows affected'
+        self::NO_ONE_ROWS_AFFECTED          => 'No one rows affected',
+        self::DATABASE_CONSTRAINT_ERROR     => 'Integrity constraint violation'
     );
 
     /**

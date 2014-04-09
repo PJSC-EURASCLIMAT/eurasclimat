@@ -1,26 +1,24 @@
-Ext.define('App.controller.Interface.GoodsServices.Catalogs', {
+Ext.define('App.controller.Interface.CRM.Catalogs', {
     
     extend: 'App.controller.PortalAbstract',
 
-    views: ['App.view.Interface.GoodsServices.Catalogs'],
+    views: ['App.view.Interface.CRM.Catalogs'],
     
     run: function(container) {
         
-        this.getContainer(container);
+        var panel = this.getContainer(container);
         
         var MC = this.getController('App.controller.Main');
         
-        container.on('show', function() {
-            if (acl.isView('admin')) {
-                MC.openModulePortlet({
-                    text: 'СПИСОК УСЛУГ',
-                    title: 'Список услуг',
-                    icon: '/images/icons/catalog.png',
-                    portletHeight: 400,
-                    position: 'CatalogPanel-column-1',
-                    launchModule: 'EC.Catalog.controller.Services'
-                });
-            }
+        panel.on('show', function() {
+            MC.openModulePortlet({
+                text: 'СПИСОК УСЛУГ',
+                title: 'Список услуг',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-1',
+                launchModule: 'EC.Catalog.controller.Services'
+            });
             MC.openModulePortlet({
                 text: 'КАТАЛОГ ТОВАРОВ',
                 title: 'Каталог товаров',

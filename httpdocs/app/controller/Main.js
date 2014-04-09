@@ -88,7 +88,6 @@ Ext.define('App.controller.Main', {
         });
         
         this.getController('App.controller.Interface.Main');
-        this.getController('App.controller.Interface.GoodsServices');
         this.getController('App.controller.Interface.Manufacturers');
         this.getController('App.controller.Interface.Market');
 

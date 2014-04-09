@@ -1,8 +1,12 @@
-Ext.define('App.view.Interface.GoodsServices.Catalogs', {
+Ext.define('App.view.Interface.Main.Catalog', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 
-    title: 'Каталоги товаров и услуг',
+    alias: 'widget.MainCatalogPanel',
+    
+    title: 'Каталог товаров',
+    
+    layout: 'fit',
     
     icon: '/images/icons/catalog.png',
     
@@ -13,12 +17,11 @@ Ext.define('App.view.Interface.GoodsServices.Catalogs', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'CatalogPanel-column-1'
+            id: 'MainPanelCatalog-column-1'
         }, {
-            id: 'CatalogPanel-column-2'
+            id: 'MainPanelCatalog-column-2'
         }, {
-            id: 'CatalogPanel-column-3'
+            id: 'MainPanelCatalog-column-3'
         }]
     }]
-
 });

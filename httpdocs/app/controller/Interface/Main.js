@@ -14,6 +14,7 @@ Ext.define('App.controller.Interface.Main', {
         container.setActiveTab(0);
         
         this.getController('App.controller.Interface.Main.About').run(container);
+        this.getController('App.controller.Interface.Main.Catalog').run(container);
         
     },
     

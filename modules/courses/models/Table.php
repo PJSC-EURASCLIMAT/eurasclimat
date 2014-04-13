@@ -15,6 +15,8 @@ class Courses_Table extends Xend_Db_Table_Abstract
     protected $_nullableFields = array(
         'name',
         'description',
-        'type_id',
+        'group_id',
+        'offer_num',
+        'price',
     );
 }

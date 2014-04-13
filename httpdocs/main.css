@@ -299,3 +299,11 @@ body#login-page {
     background-clip: padding-box;
     font-size: 9px;
 }
+
+.green-row .x-grid-cell {
+    background-color: #A4F0B0;;
+}
+
+.red-row .x-grid-cell {
+    background-color: #FFD8D2;
+}

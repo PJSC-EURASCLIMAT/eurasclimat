@@ -19,8 +19,11 @@ Ext.define('EC.Courses.view.Edit', {
     values: {
         name: null,
         description: null,
-        type_id: null,
-        type_name: null,
+        group_id: null,
+        group_name: null,
+        offer_num: null,
+        price: null,
+        closed: 0
     },
 
     initComponent: function() {
@@ -51,18 +54,40 @@ Ext.define('EC.Courses.view.Edit', {
                 xtype: 'tree-reffield',
                 fieldLabel: 'Категория',
                 controllerURL: '/json/courses/groups/',
-                value: this.values.type_id,
+                value: this.values.group_id,
                 listeners: {
                     change: function(){
-                        this.up('form').down('[name=type_name]').setValue(this.value[0]);
+                        this.up('form').down('[name=group_name]').setValue(this.value[0]);
                     }
                 },
-                name: 'type_id'
+                name: 'group_id'
             },{
                 xtype: 'textfield',
                 hidden: true,
-                value: this.values.type_name,
-                name: 'type_name'
+                value: this.values.group_name,
+                name: 'group_name'
+            },{
+                xtype: 'textfield',
+                fieldLabel: 'Номер оферты',
+                value: this.values.offer_num,
+                name: 'offer_num'
+            },{
+                xtype: 'numberfield',
+                hideTrigger: true,
+                fieldLabel: 'Цена',
+                value: this.values.price,
+                name: 'price'
+            },{
+                xtype: 'fieldcontainer',
+                fieldLabel: 'Закрыт',
+                items: [{
+                    xtype: 'checkboxfield',
+                    name: 'closed',
+                    checked: this.values.closed,
+//                    value: 0,
+                    inputValue: 1,
+                    uncheckedValue: 0
+                }]
             }],
 
             buttons:[{

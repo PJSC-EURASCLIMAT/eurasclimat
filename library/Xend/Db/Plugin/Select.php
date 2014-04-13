@@ -334,7 +334,7 @@ class Xend_Db_Plugin_Select
 
             if (empty($filter['field'])
             || empty($filter['type'])
-            || empty($filter['value'])) {
+            || (empty($filter['value'])) && $filter['value'] !== 0 && $filter['value'] !== false) {
                 continue;
             }
 

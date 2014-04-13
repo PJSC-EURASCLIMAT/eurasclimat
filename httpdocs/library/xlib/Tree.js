@@ -23,6 +23,10 @@ Ext.define('xlib.Tree', {
 
     store: null,
 
+    addText: 'Добавить',
+
+    addToolTip: 'Добавить',
+
     initComponent: function() {
 
         if ( this.store === null ) {
@@ -95,28 +99,31 @@ Ext.define('xlib.Tree', {
 
         columnsList.push(treeColumn);
 
-        this.tbar = ['->',{
-            text: 'Открыть все',
-            itemId: 'open-all',
-            scope: this,
-            handler: this.onExpandAllClick
-        },{
-            text: 'Закрыть все',
-            itemId: 'close-all',
-            scope: this,
-            handler: this.onCollapseAllClick
-        }];
+//        this.tbar = [
+        // '->',{
+//            text: 'Открыть все',
+//            itemId: 'open-all',
+//            scope: this,
+//            handler: this.onExpandAllClick
+//        },{
+//            text: 'Закрыть все',
+//            itemId: 'close-all',
+//            scope: this,
+//            handler: this.onCollapseAllClick
+//        }
+//        ];
 
 
         if ( this.permissions ) {
 
-            this.tbar.unshift({
-                text: '',
+            this.tbar = [{
+                text: this.addText,
                 itemId: 'add',
                 icon: 'images/icons/fam/add.png',
+                tooltip: this.addToolTip,
                 scope: this,
                 handler: this.create
-            });
+            }];
 
             this.editing = Ext.create('Ext.grid.plugin.CellEditing', {
                 listeners: {
@@ -167,17 +174,26 @@ Ext.define('xlib.Tree', {
                 allowBlank: false
             };
 
+            var removeIconConfig = {
+                text: 'Удалить',
+                icon: '/images/icons/delete.png',
+                scope: this,
+                handler: this.deleteNode
+            };
+
+            if ( this.rootVisible ) {
+                removeIconConfig.getClass = function( value, meta, record ) {
+                    if( record.data.id === "root" ) {
+                        return 'x-hide-visibility';
+                    }
+                }
+            }
+
             columnsList.push({
                 xtype:'actioncolumn',
                 width: 20,
-                items: [{
-                    text: 'Удалить',
-                    icon: '/images/icons/delete.png',
-                    scope: this,
-                    handler: this.deleteNode
-                }]
+                items: [removeIconConfig]
             });
-
 
         }
 
@@ -286,6 +302,9 @@ Ext.define('xlib.Tree', {
     },
 
     deleteNode: function(treeView, rowIndex, u, button, event, record, rowEl) {
+
+        if ( record.data.id === "root" ) return;
+
         var tree = treeView.ownerCt,
             beforeNode,
             error,

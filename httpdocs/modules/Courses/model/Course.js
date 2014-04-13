@@ -6,8 +6,10 @@ Ext.define('EC.Courses.model.Course', {
         'id',
         'name',
         'description',
-        'type_id',
-        'type_name',
+        'group_id',
+        'group_name',
+        'offer_num',
+        'price',
         {name: 'closed', type: 'int'}
     ]
 });

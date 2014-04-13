@@ -7,6 +7,7 @@ Ext.define('EC.Courses.view.List', {
     uses: ['xlib.CheckColumn'],
 
     requires: [
+        'xlib.grid.FiltersFeature',
         'Ext.ux.PagingToolbarResizer',
         'Ext.ux.ProgressBarPager'
     ],
@@ -17,13 +18,47 @@ Ext.define('EC.Courses.view.List', {
 
     permissions: acl.isUpdate('courses'),
 
+    features: [{
+        ftype: 'filters',
+        encode: true,
+        filters: [{
+            type: 'numeric',
+            dataIndex: 'closed'
+        }],
+        showMenu: false
+    }],
+
     isPortlet: false,
+
+    viewConfig: {
+        getRowClass: function(record) {
+            return record.get('closed') === 0 ? 'green-row' : 'red-row';
+        }
+    },
+
+
 
     initComponent: function() {
 
         var actions = [];
 
+        this.listeners = {
+            afterrender: function() {
+                this.filters.createFilters();
+            },
+            scope: this
+        };
+
         this.columns = [{
+            header: 'Группа',
+            itemId: 'groupColumn',
+            dataIndex: 'group_name',
+            flex: 1
+        },{
+            header: '№ оферты',
+            dataIndex: 'offer_num',
+            width: 70
+        },{
             header: 'Название',
             dataIndex: 'name',
             flex: 1
@@ -32,9 +67,59 @@ Ext.define('EC.Courses.view.List', {
             dataIndex: 'description',
             flex: 1
         },{
-            header: 'Группа',
-            dataIndex: 'type_name',
-            flex: 1
+            header: 'Цена',
+            dataIndex: 'price',
+            width: 70
+        }];
+
+        this.tbar = ['->',{
+            xtype: 'combo',
+            valueField: 'id',
+            displayField: 'name',
+            value: 2,
+            store: Ext.create('Ext.data.Store', {
+                fields: ['id', 'name'],
+                data : [
+                    {"id": 2, "name":"Все курсы"},
+                    {"id": 1, "name":"Закрытые"},
+                    {"id": 0, "name":"Открытые"}
+                ]
+            }),
+            listeners: {
+                select: function( combo, records, eOpts ) {
+                    var f = this.filters.getFilter('closed');
+                    if ( records[0].data.id === 2 ) {
+                        f.setActive(false);
+                        return;
+                    }
+                    f.setValue({eq: records[0].data.id});
+                    f.setActive(true);
+                },
+                scope: this
+            }
+        },{
+            xtype: 'container',
+            layout: 'hbox',
+            margin: 5,
+            items: [{
+                xtype: 'container',
+                width: 15,
+                height: 15,
+                margin: '0 5 0 0',
+                style: { background: '#FFD8D2', border: "1px solid white" }
+            },{
+                xtype: 'label',
+                text: ' - закрытые курсы'
+            },{
+                xtype: 'container',
+                width: 15,
+                height: 15,
+                margin: '0 5 0 15',
+                style: { background: '#A4F0B0', border: "1px solid white" }
+            },{
+                xtype: 'label',
+                text: ' - открытые курсы'
+            }]
         }];
 
         if (this.permissions === true && !this.isPortlet) {
@@ -49,41 +134,18 @@ Ext.define('EC.Courses.view.List', {
                 scope: this
             });
 
-//            actions.push({
-//                icon: '/images/icons/fam/delete.gif',
-//                tooltip: 'Удалить',
-//                iconCls: 'x-btn',
-//                handler: function(grid, rowIndex, colIndex) {
-//                    this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
-//                },
-//                scope: this
-//
-//            });
-
-
-            this.columns.push( {
+            this.columns.push({
                 xtype:'actioncolumn',
-                width: parseInt(actions.length) * 20,
+                width: parseInt(actions.length) * 22,
                 items: actions
-            },{
-                xtype: 'checkcolumn',
-                header: 'Закрыт',
-                dataIndex: 'closed',
-                stopSelection : false,
-                listeners: {
-                    checkchange: function( grid, rowIndex, checked, eOpts ) {
-                        this.up('grid').fireEvent('closedchange', rowIndex, checked);
-                    }
-                },
-                width: 50
             });
 
-            this.tbar = [{
+            this.tbar.unshift({
                 xtype: 'button',
-                text: 'Создать',
+                text: 'Добавить курс',
                 iconCls: 'add',
                 action: 'additem'
-            }];
+            });
 
         }
 

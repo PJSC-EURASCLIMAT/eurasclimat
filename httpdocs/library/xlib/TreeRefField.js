@@ -49,6 +49,8 @@ Ext.define('xlib.TreeRefField', {
 
             items: [{
                 xtype: 'new-tree',
+                addText: this.addText,
+                addToolTip: this.addToolTip,
                 store: this.store,
                 permissions: false,
                 controllerURL: this.controllerURL
@@ -122,9 +124,11 @@ Ext.define('xlib.TreeRefField', {
             var r = Ext.JSON.decode(operation.response.responseText);
             this.store.empty = false;
 
-            this.realValue = r.valueData[0][this.valueField];
-            Ext.form.field.Trigger.superclass.setValue.call(this, [r.valueData[0][this.displayField]]);
-//            this.valueStore.loadData(r.valueData);
+            if ( r.valueData.length > 0 ) {
+                this.realValue = r.valueData[0][this.valueField];
+                Ext.form.field.Trigger.superclass.setValue.call(this, [r.valueData[0][this.displayField]]);
+            }
+
         }
     },
 

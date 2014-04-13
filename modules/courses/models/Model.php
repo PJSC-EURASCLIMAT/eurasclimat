@@ -23,14 +23,18 @@ class Courses_Model
         $f = new Xend_Filter_Input(array(
             'id'            => 'int',
             'name'          => 'StringTrim',
+            'offer_num'     => 'StringTrim',
             'description'   => 'StringTrim',
-            'type_id'       => 'int',
+            'group_id'      => 'int',
+//            'price'         => 'decimal',
             'closed'        => 'int',
         ), array(
             'id'            => array('int', 'presence' => 'required'),
             'name'          => array('StringLength'),
+            'offer_num'     => array('StringLength'),
             'description'   => array('StringLength'),
-            'type_id'       => array('Id', 'allowEmpty' => true),
+            'group_id'      => array('Id', 'allowEmpty' => true),
+            'price'         => array('Float', 'locale' => 'de'),
             'closed'        => array('int'),
         ), $data);
 
@@ -63,12 +67,18 @@ class Courses_Model
 
         $f = new Xend_Filter_Input(array(
             'name'          => 'StringTrim',
+            'offer_num'     => 'StringTrim',
             'description'   => 'StringTrim',
-            'type_id'       => 'int',
+            'group_id'      => 'int',
+            'price'         => 'Digits',
+            'closed'        => 'int',
         ), array(
             'name'          => array('StringLength'),
+            'offer_num'     => array('StringLength'),
             'description'   => array('StringLength'),
-            'type_id'       => array('Id', 'allowEmpty' => true),
+            'group_id'      => array('Id', 'allowEmpty' => true),
+            'price'         => array('Float', 'allowEmpty' => true),
+            'closed'        => array('int'),
         ), $data);
 
         $response->addInputStatus($f);
@@ -119,13 +129,13 @@ class Courses_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('c' => $this->_table->getTableName()),
-                array( 'c.id', 'c.name', 'c.description', 'c.type_id')
+                array( 'c.id', 'c.name', 'c.description', 'c.group_id', 'c.closed', 'c.offer_num', 'c.price')
             )
             ->joinLeft(
                 array('t' => 'courses_groups'),
-                't.id=c.type_id',
+                't.id=c.group_id',
                 array(
-                     'type_name' => 't.text'
+                     'group_name' => 't.text'
                 )
             )
             ->where('c.id = ?', $id);
@@ -156,13 +166,13 @@ class Courses_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('c' => $this->_table->getTableName()),
-                array( 'c.id', 'c.name', 'c.description', 'c.type_id', 'c.closed')
+                array( 'c.id', 'c.name', 'c.description', 'c.group_id', 'c.closed', 'c.offer_num', 'c.price')
             )
             ->joinLeft(
                 array('t' => 'courses_groups'),
-                't.id=c.type_id',
+                't.id=c.group_id',
                 array(
-                    'type_name' => 't.text'
+                    'group_name' => 't.text'
                 )
             );
 
@@ -170,10 +180,7 @@ class Courses_Model
                 $select->where($where[0], $where[1]);
             }
 
-            $plugin = new Xend_Db_Plugin_Select($this->_table, $select, array(
-                'type_id'
-            ));
-
+            $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
             $plugin->parse($params);
 
         try {

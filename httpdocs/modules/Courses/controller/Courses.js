@@ -37,14 +37,7 @@ Ext.define('EC.Courses.controller.Courses', {
 
         this.grid.store.load();
 
-        this.filtersTree.down('#clear-button').on({
-            click: function(){
-                this.clearTreeFilter();
-            },
-            scope: this
-        });
-
-        if (this.permissions && !isPortlet) {
+        if ( this.permissions && !isPortlet ) {
 
             this.grid.down('button[action=additem]').on({
                 click: this.addItem,
@@ -68,6 +61,9 @@ Ext.define('EC.Courses.controller.Courses', {
     },
 
     clearTreeFilter: function() {
+
+        this.grid.down('#groupColumn').show();
+
         var arr = [];
         this.grid.store.proxy.extraParams.filter = Ext.JSON.encode(arr);
         this.grid.store.load();
@@ -81,8 +77,15 @@ Ext.define('EC.Courses.controller.Courses', {
 
 
     onTreeFilterSelect: function( tree, record, index, eOpts ) {
+
+        if ( record.data.id === 'root' ) {
+            this.clearTreeFilter();
+            return;
+        }
+        this.grid.down('#groupColumn').hide();
+
         var arr = [{
-            field: 'type_id',
+            field: 'group_id',
             type: 'list',
             value: record.data.id
         }];

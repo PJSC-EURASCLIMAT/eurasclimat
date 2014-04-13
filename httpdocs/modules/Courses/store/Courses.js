@@ -4,7 +4,7 @@ Ext.define('EC.Courses.store.Courses', {
 
     model: 'EC.Courses.model.Course',
 
-    removeFilter: true,
+    remoteFilter: true,
 
     pageSize: 25,
 

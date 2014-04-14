@@ -27,14 +27,9 @@ Ext.define('EC.Catalog.controller.Catalog', {
         treePanel.on('select', function(tree, record, index, eOpts) {
             this.showCatalog(record.get('id'), previewPanel);
         }, this);
-        
-        if (!Ext.isEmpty(this.catalogID)) {
-            treePanel.selectPath('/root/' + this.catalogID);
-        }
     },
     
     showCatalog: function(id, container) {
-        this.catalogID = id;
         container.removeAll(true);
         var controller = 'EC.Catalog.controller.' + id;
         this.getController(controller).run(container);

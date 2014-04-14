@@ -12,7 +12,7 @@ Ext.define('EC.Courses.view.Edit', {
     
     modal: true,
     
-    width: 300,
+    width: 400,
 
     requires: ['xlib.TreeRefField'],
 
@@ -40,62 +40,58 @@ Ext.define('EC.Courses.view.Edit', {
             },
 
             items: [{
+                xtype: 'tree-reffield',
+                fieldLabel: 'Группа',
+                controllerURL: '/json/courses/groups/',
+                value: this.values.group_id,
+                listeners: {
+                    change: function() {
+                        this.up('form').down('[name=group_name]').setValue(this.value[0]);
+                    }
+                },
+                name: 'group_id'
+            }, {
+                xtype: 'textfield',
+                hidden: true,
+                value: this.values.group_name,
+                name: 'group_name'
+            }, {
+                xtype: 'textfield',
+                fieldLabel: '№ оферты',
+                value: this.values.offer_num,
+                name: 'offer_num'
+            }, {
                 xtype: 'textfield',
                 fieldLabel: 'Имя',
                 name: 'name',
                 value: this.values.name,
                 allowBlank:false
-            },{
-                xtype: 'textarea',
-                fieldLabel: 'Описание',
-                value: this.values.description,
-                name: 'description'
-            },{
-                xtype: 'tree-reffield',
-                fieldLabel: 'Категория',
-                controllerURL: '/json/courses/groups/',
-                value: this.values.group_id,
-                listeners: {
-                    change: function(){
-                        this.up('form').down('[name=group_name]').setValue(this.value[0]);
-                    }
-                },
-                name: 'group_id'
-            },{
-                xtype: 'textfield',
-                hidden: true,
-                value: this.values.group_name,
-                name: 'group_name'
-            },{
-                xtype: 'textfield',
-                fieldLabel: 'Номер оферты',
-                value: this.values.offer_num,
-                name: 'offer_num'
-            },{
+            }, {
                 xtype: 'numberfield',
                 hideTrigger: true,
                 fieldLabel: 'Цена',
                 value: this.values.price,
                 name: 'price'
-            },{
-                xtype: 'fieldcontainer',
-                fieldLabel: 'Закрыт',
-                items: [{
-                    xtype: 'checkboxfield',
-                    name: 'closed',
-                    checked: this.values.closed,
-//                    value: 0,
-                    inputValue: 1,
-                    uncheckedValue: 0
-                }]
+            }, {
+                xtype: 'textarea',
+                fieldLabel: 'Описание',
+                value: this.values.description,
+                name: 'description'
+            }, {
+                fieldLabel: 'Архивный',
+                xtype: 'checkboxfield',
+                name: 'closed',
+                checked: this.values.closed,
+                inputValue: 1,
+                uncheckedValue: 0
             }],
 
-            buttons:[{
+            buttons:['->', {
                 text: 'Сохранить',
                 formBind: true,
                 action: 'submit'
-            },'->',{
-                text: 'Закрыть',
+            }, {
+                text: 'Отмена',
                 handler: function() {
                     this.up('window').close();
                 }

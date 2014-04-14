@@ -21,7 +21,7 @@ Ext.define('EC.Courses.view.Tree', {
     addToolTip: 'Добавить группу',
 
     root: {
-        text: "Группы курсов",
+        text: "Все курсы",
         expanded: true
     },
 

@@ -18,6 +18,8 @@ Ext.define('EC.Courses.controller.Courses', {
 
     permissions: acl.isUpdate('courses'),
 
+    selectedGroup: null,
+    
     run: function(container, activeOnly) {
 
         this.Container = container;
@@ -64,6 +66,8 @@ Ext.define('EC.Courses.controller.Courses', {
 
         this.grid.down('#groupColumn').show();
 
+        this.selectedGroup = null;
+        
         var arr = [];
         this.grid.store.proxy.extraParams.filter = Ext.JSON.encode(arr);
         this.grid.store.load();
@@ -76,18 +80,22 @@ Ext.define('EC.Courses.controller.Courses', {
     },
 
 
-    onTreeFilterSelect: function( tree, record, index, eOpts ) {
+    onTreeFilterSelect: function (tree, record, index, eOpts) {
 
-        if ( record.data.id === 'root' ) {
+        var groupID = record.get('id');
+        
+        if ('root' === groupID) {
             this.clearTreeFilter();
             return;
         }
         this.grid.down('#groupColumn').hide();
 
+        this.selectedGroup = groupID; 
+        
         var arr = [{
             field: 'group_id',
             type: 'list',
-            value: record.data.id
+            value: groupID
         }];
 
         this.grid.store.proxy.extraParams.filter = Ext.JSON.encode(arr);
@@ -95,7 +103,18 @@ Ext.define('EC.Courses.controller.Courses', {
     },
 
     addItem: function() {
-        this.editWin = Ext.create('EC.Courses.view.Edit');
+        
+        this.editWin = Ext.create('EC.Courses.view.Edit', {
+            values: {
+                name: null,
+                description: null,
+                group_id: this.selectedGroup,
+                group_name: null,
+                offer_num: null,
+                price: null,
+                closed: 0
+            }
+        });
         this.editForm = this.editWin.down('form');
 
         this.editForm.down('button[action=submit]').on('click',function() {
@@ -107,7 +126,7 @@ Ext.define('EC.Courses.controller.Courses', {
     },
 
     closedChange: function( rowIndex, checked ) {
-        debugger;
+        //debugger;
         var record = this.grid.store.getAt(rowIndex);
         record.set('closed', checked);
         this.grid.store.sync();

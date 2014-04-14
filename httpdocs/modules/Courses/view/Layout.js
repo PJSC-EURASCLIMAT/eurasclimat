@@ -11,6 +11,7 @@ Ext.define('EC.Courses.view.Layout', {
     isPortlet: false,
 
     initComponent: function() {
+        
         this.items = [{
             xtype: 'courses-tree',
             region: 'west',
@@ -18,7 +19,7 @@ Ext.define('EC.Courses.view.Layout', {
             itemId: 'tree',
             border: '0 1 0 0',
             split: true,
-            width: 200
+            width: 250
         }, {
             xtype: 'courses-list',
             border: '0 0 0 1',
@@ -27,6 +28,7 @@ Ext.define('EC.Courses.view.Layout', {
             itemId: 'list',
             region: 'center'
         }];
+        
         this.callParent();
     }
 });

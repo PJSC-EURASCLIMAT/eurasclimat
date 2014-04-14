@@ -6,8 +6,6 @@ Ext.define('EC.Courses.store.Courses', {
 
     remoteFilter: true,
 
-    pageSize: 25,
-
     proxy: {
         type: 'ajax',
 

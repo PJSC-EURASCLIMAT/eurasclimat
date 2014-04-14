@@ -102,7 +102,7 @@ class Xend_Tree_Model
             'text'    => 'StringTrim'
         ), array(
             'id'        => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
-            'text'    => array(array('StringLength', 0, 50), 'allowEmpty' => false, 'presence' => 'required')
+            'text'    => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
         ), $data);
 
         if ( $f->parent_id == 'root') {

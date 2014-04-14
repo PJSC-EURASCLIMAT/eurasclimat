@@ -4,8 +4,6 @@ Ext.define('EC.Courses.view.List', {
 
     alias: 'widget.courses-list',
 
-    uses: ['xlib.CheckColumn'],
-
     requires: [
         'xlib.grid.FiltersFeature',
         'Ext.ux.PagingToolbarResizer',
@@ -32,7 +30,7 @@ Ext.define('EC.Courses.view.List', {
 
     viewConfig: {
         getRowClass: function(record) {
-            return record.get('closed') === 0 ? 'green-row' : 'red-row';
+            return record.get('closed') === 1 ? 'red-row' : '';
         }
     },
 
@@ -53,36 +51,41 @@ Ext.define('EC.Courses.view.List', {
             header: 'Группа',
             itemId: 'groupColumn',
             dataIndex: 'group_name',
-            flex: 1
-        },{
+            hidden: this.isPortlet,
+            width: 250
+        }, {
             header: '№ оферты',
             dataIndex: 'offer_num',
-            width: 70
-        },{
+            width: 100
+        }, {
             header: 'Название',
             dataIndex: 'name',
             flex: 1
-        },{
-            header: 'Описание',
-            dataIndex: 'description',
-            flex: 1
-        },{
+//        }, {
+//            header: 'Описание',
+//            dataIndex: 'description',
+//            hidden: this.isPortlet,
+//            flex: 1
+        }, {
             header: 'Цена',
             dataIndex: 'price',
-            width: 70
+            width: 80,
+            align: 'right',
+            renderer: xlib.formatCurrency
         }];
 
-        this.tbar = ['->',{
+        this.tbar = ['->', 'Отображать: ', {
             xtype: 'combo',
             valueField: 'id',
             displayField: 'name',
-            value: 2,
+            editable: false,
+            value: 0,
             store: Ext.create('Ext.data.Store', {
                 fields: ['id', 'name'],
                 data : [
-                    {"id": 2, "name":"Все курсы"},
-                    {"id": 1, "name":"Закрытые"},
-                    {"id": 0, "name":"Открытые"}
+                    {"id": 0, "name": "Актуальные курсы"},
+                    {"id": 1, "name": "Архивные курсы"},
+                    {"id": 2, "name": "Все курсы"}
                 ]
             }),
             listeners: {
@@ -109,16 +112,7 @@ Ext.define('EC.Courses.view.List', {
                 style: { background: '#FFD8D2', border: "1px solid white" }
             },{
                 xtype: 'label',
-                text: ' - закрытые курсы'
-            },{
-                xtype: 'container',
-                width: 15,
-                height: 15,
-                margin: '0 5 0 15',
-                style: { background: '#A4F0B0', border: "1px solid white" }
-            },{
-                xtype: 'label',
-                text: ' - открытые курсы'
+                text: ' - архивные курсы'
             }]
         }];
 
@@ -156,7 +150,6 @@ Ext.define('EC.Courses.view.List', {
                 {ptype: 'pagingtoolbarresizer'},
                 {ptype: 'progressbarpager'}
             ]
-//            plugins: this.isPortlet ? [] : Ext.create('xlib.ProgressBarPager', {})
         });
         
         this.callParent(arguments);

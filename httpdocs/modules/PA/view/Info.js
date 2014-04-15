@@ -1,6 +1,8 @@
-Ext.define('EC.PA.Profile.view.Info', {
+Ext.define('EC.PA.view.Info', {
 
     extend: 'Ext.window.Window',
+
+    alias: ['widget.ProfileInfo'],
 
     title: 'Карточка Специалиста',
 
@@ -28,11 +30,6 @@ Ext.define('EC.PA.Profile.view.Info', {
         layout: 'fit',
         autoScroll: true
     }],
-
-    alias: ['widget.ProfileInfo'],
-
-    layout: 'fit',
-
 
     initComponent: function() {
 

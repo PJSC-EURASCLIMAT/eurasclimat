@@ -23,6 +23,8 @@ Ext.define('xlib.TreeRefField', {
 
     multiSelect: false,
 
+    //TODO надо разобраться с setValue()
+
     initComponent: function() {
 
         this.configureStore();

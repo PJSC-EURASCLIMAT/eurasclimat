@@ -16,7 +16,7 @@ Ext.define('EC.Catalog.controller.Catalog', {
     ],
     
     catalogID: null,
-    
+
     run: function(container) {
 
         var content = container.add(Ext.create('EC.Catalog.view.CatalogLayout'));

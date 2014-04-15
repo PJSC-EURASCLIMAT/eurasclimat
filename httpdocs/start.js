@@ -28,8 +28,9 @@ Ext.application({
     ],
 
     routes: {
-        '/profile/:id/show' : 'main#profile',
-        '/download/:id' : 'main#download'
+        '/profile/:id/show' : 'EC.PA.controller.Router#showProfile',
+        '/download/:id' : 'EC.controller.Main#download',
+        '/catalog/:category/:id': 'EC.Catalog.controller.Router#showInfo'
     },
 
     // Глобальные переменные

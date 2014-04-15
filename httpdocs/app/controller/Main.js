@@ -11,11 +11,11 @@ Ext.define('App.controller.Main', {
 
     downloadFileURL: '/json/pa/info/download',
 
-    profile: function(params) {
-        var exCnt = this.getController("EC.PA.controller.Profile");
-        exCnt.showProfile(params.id);
-        Ext.Router.redirect('');
-    },
+//    profile: function(params) {
+//        var exCnt = this.getController("EC.PA.controller.Profile");
+//        exCnt.showProfile(params.id);
+//        Ext.Router.redirect('');
+//    },
 
     download: function(params) {
 

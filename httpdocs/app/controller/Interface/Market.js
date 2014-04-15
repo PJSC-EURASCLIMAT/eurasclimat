@@ -5,7 +5,7 @@ Ext.define('App.controller.Interface.Market', {
     views: ['App.view.Interface.Market'],
     
     viewLayout: 'MarketPanel',
-    
+
     init: function() {
         
         var container = this.getContainer();

@@ -361,6 +361,7 @@ Ext.define('xlib.Router', {
             classMgr    = Ext.ClassManager,
             controller  = route.controller;
 
+        return app.getController(controller);
         // try regular name
         controllerFullName = app.getModuleClassName(controller, 'controller');
         

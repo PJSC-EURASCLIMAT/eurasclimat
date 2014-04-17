@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     ],
 
     views: [
-        'EC.Catalog.view.Dustextraction.Layout',
         'EC.Catalog.view.Dustextraction.FiltersPanel',
         'EC.Catalog.view.Dustextraction.List',
         'EC.Catalog.view.Dustextraction.Edit',
@@ -32,8 +31,6 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     editPermition: acl.isUpdate('catalog', 'dustextraction'),
     
     settingsView: 'EC.Catalog.view.Dustextraction.SettingsLayout',
-    
-    catalogLayoutXType: 'DustextractionLayout', 
     
     filtersPanelXType: 'DustextractionFiltersPanel', 
     

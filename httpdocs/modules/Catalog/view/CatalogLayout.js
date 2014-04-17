@@ -9,18 +9,21 @@ Ext.define('EC.Catalog.view.CatalogLayout', {
     items: [{
         xtype: 'CatalogTree',
         region: 'west',
-        width: 170
+        width: 200,
+        split: true,
+        collapsible: true
     }, {
         xtype: 'panel',
         type: 'preview',
         layout: 'fit',
         region: 'center',
+        split: true,
+        border: false,
         items: [{
             xtype: 'panel',
             layout: 'fit',
             bodyPadding: 25,
             autoScroll: true,
-            border: false,
             style: 'text-align: justify;',
             html: 'Выберите каталог в меню слева'
         }]

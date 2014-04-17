@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     ],
 
     views: [
-        'EC.Catalog.view.Watersupply.Layout',
         'EC.Catalog.view.Watersupply.FiltersPanel',
         'EC.Catalog.view.Watersupply.List',
         'EC.Catalog.view.Watersupply.Edit',
@@ -37,8 +36,6 @@ Ext.define('EC.Catalog.controller.Watersupply', {
     editPermition: acl.isUpdate('catalog', 'watersupply'),
     
     settingsView: 'EC.Catalog.view.Watersupply.SettingsLayout',
-    
-    catalogLayoutXType: 'WatersupplyLayout', 
     
     filtersPanelXType: 'WatersupplyFiltersPanel', 
     

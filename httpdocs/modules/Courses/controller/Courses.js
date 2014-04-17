@@ -125,7 +125,7 @@ Ext.define('EC.Courses.controller.Courses', {
         }, this);
     },
 
-    closedChange: function( rowIndex, checked ) {
+    closedChange: function(rowIndex, checked) {
         //debugger;
         var record = this.grid.store.getAt(rowIndex);
         record.set('closed', checked);

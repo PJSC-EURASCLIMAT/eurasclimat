@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Automation', {
     ],
 
     views: [
-        'EC.Catalog.view.Automation.Layout',
         'EC.Catalog.view.Automation.FiltersPanel',
         'EC.Catalog.view.Automation.List',
         'EC.Catalog.view.Automation.Edit',
@@ -38,8 +37,6 @@ Ext.define('EC.Catalog.controller.Automation', {
     editPermition: acl.isUpdate('catalog', 'automation'),
     
     settingsView: 'EC.Catalog.view.Automation.SettingsLayout',
-    
-    catalogLayoutXType: 'AutomationLayout', 
     
     filtersPanelXType: 'AutomationFiltersPanel', 
     

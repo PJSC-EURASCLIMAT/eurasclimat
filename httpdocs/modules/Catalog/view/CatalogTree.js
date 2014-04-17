@@ -8,6 +8,8 @@ Ext.define('EC.Catalog.view.CatalogTree', {
     
     layout: 'fit',
     
+    title: 'Список каталогов',
+    
     rootVisible: false,
     
     hideHeaders: true,
@@ -21,11 +23,7 @@ Ext.define('EC.Catalog.view.CatalogTree', {
         this.columns = [{
             xtype: 'treecolumn',
             dataIndex: 'name',
-            flex: 1,
-            renderer : function(value, metadata) {
-                metadata.tdAttr = 'data-qtip="' + value + '"';
-                return value;
-            }
+            flex: 1
         }]; 
         
         this.callParent(arguments);

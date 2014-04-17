@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Electricity', {
     ],
 
     views: [
-        'EC.Catalog.view.Electricity.Layout',
         'EC.Catalog.view.Electricity.FiltersPanel',
         'EC.Catalog.view.Electricity.List',
         'EC.Catalog.view.Electricity.Edit',
@@ -38,8 +37,6 @@ Ext.define('EC.Catalog.controller.Electricity', {
     editPermition: acl.isUpdate('catalog', 'electricity'),
     
     settingsView: 'EC.Catalog.view.Electricity.SettingsLayout',
-    
-    catalogLayoutXType: 'ElectricityLayout', 
     
     filtersPanelXType: 'ElectricityFiltersPanel', 
     

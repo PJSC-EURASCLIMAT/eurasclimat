@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Airing', {
     ],
 
     views: [
-        'EC.Catalog.view.Airing.Layout',
         'EC.Catalog.view.Airing.FiltersPanel',
         'EC.Catalog.view.Airing.List',
         'EC.Catalog.view.Airing.Edit',
@@ -38,8 +37,6 @@ Ext.define('EC.Catalog.controller.Airing', {
     editPermition: acl.isUpdate('catalog', 'airing'),
     
     settingsView: 'EC.Catalog.view.Airing.SettingsLayout',
-    
-    catalogLayoutXType: 'AiringLayout', 
     
     filtersPanelXType: 'AiringFiltersPanel', 
     

@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Heating', {
     ],
 
     views: [
-        'EC.Catalog.view.Heating.Layout',
         'EC.Catalog.view.Heating.FiltersPanel',
         'EC.Catalog.view.Heating.List',
         'EC.Catalog.view.Heating.Edit',
@@ -37,8 +36,6 @@ Ext.define('EC.Catalog.controller.Heating', {
     editPermition: acl.isUpdate('catalog', 'heating'),
     
     settingsView: 'EC.Catalog.view.Heating.SettingsLayout',
-    
-    catalogLayoutXType: 'HeatingLayout', 
     
     filtersPanelXType: 'HeatingFiltersPanel', 
     

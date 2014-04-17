@@ -25,13 +25,10 @@ Ext.define('EC.Catalog.controller.Catalog', {
             previewPanel = content.down('panel[type=preview]');
         
         treePanel.on('select', function(tree, record, index, eOpts) {
-            this.showCatalog(record.get('id'), previewPanel);
+            previewPanel.removeAll(true);
+            var controller = this.getController('EC.Catalog.controller.' + record.get('id'));
+            controller.catalogName = record.get('name');
+            controller.run(previewPanel);
         }, this);
-    },
-    
-    showCatalog: function(id, container) {
-        container.removeAll(true);
-        var controller = 'EC.Catalog.controller.' + id;
-        this.getController(controller).run(container);
     }
 });

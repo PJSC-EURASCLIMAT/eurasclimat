@@ -10,8 +10,6 @@ Ext.define('EC.Catalog.view.ListAbstract', {
    
     layout: 'fit',
     
-    title: 'Результаты выборки',
-
     updatePermission: true,
     
     features: [{ftype: 'filters', encode: true, showMenu: false}],

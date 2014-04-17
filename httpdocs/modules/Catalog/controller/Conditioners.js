@@ -11,7 +11,6 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     ],
 
     views: [
-        'EC.Catalog.view.Conditioners.Layout',
         'EC.Catalog.view.Conditioners.FiltersPanel',
         'EC.Catalog.view.Conditioners.List',
         'EC.Catalog.view.Conditioners.Edit',
@@ -35,8 +34,6 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     editPermition: acl.isUpdate('catalog', 'conditioners'),
     
     settingsView: 'EC.Catalog.view.Conditioners.SettingsLayout',
-    
-    catalogLayoutXType: 'ConditionersLayout', 
     
     filtersPanelXType: 'ConditionersFiltersPanel', 
     

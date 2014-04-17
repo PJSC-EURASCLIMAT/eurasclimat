@@ -16,7 +16,9 @@ Ext.define('App.controller.ChapterAbstract', {
             xtype: this.viewLayout,
             listeners: {
                 activate: function() {
+                    
                     MC.populateChapterMenu(this.getMenu());
+                    MC.populateSubchapterMenu([]);
                     
                     if (!tab.is('tabpanel')) return;
                     

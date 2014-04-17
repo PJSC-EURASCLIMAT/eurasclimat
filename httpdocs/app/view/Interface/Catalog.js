@@ -1,4 +1,4 @@
-Ext.define('App.view.Interface.Main.Catalog', {
+Ext.define('App.view.Interface.Catalog', {
 
     extend: 'App.view.PortalLayoutAbstarct',
 

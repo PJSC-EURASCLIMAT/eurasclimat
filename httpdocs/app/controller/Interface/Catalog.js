@@ -1,12 +1,14 @@
-Ext.define('App.controller.Interface.Main.Catalog', {
+Ext.define('App.controller.Interface.Catalog', {
     
-    extend: 'App.controller.PortalAbstract',
+    extend: 'App.controller.ChapterAbstract',
 
-    views: ['App.view.Interface.Main.Catalog'],
+    views: ['App.view.Interface.Catalog'],
     
-    run: function(container) {
+    viewLayout: 'MainCatalogPanel',
+    
+    init: function() {
         
-        var panel = this.getContainer(container);
+        var panel = this.getContainer();
         
         var MC = this.getController('App.controller.Main');
         

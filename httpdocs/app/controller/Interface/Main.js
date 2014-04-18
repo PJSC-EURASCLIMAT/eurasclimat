@@ -10,8 +10,8 @@ Ext.define('App.controller.Interface.Main', {
         
         var container = this.getContainer();
         
-        container.fireEvent('activate');
-        container.setActiveTab(0);
+//        container.fireEvent('activate');
+//        container.setActiveTab(0);
         
         var MC = this.getController('App.controller.Main');
 

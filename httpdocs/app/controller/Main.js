@@ -88,7 +88,7 @@ Ext.define('App.controller.Main', {
         });
         
         this.getController('App.controller.Interface.Main');
-        this.getController('App.controller.Interface.Catalog');//.run(container);
+        this.getController('App.controller.Interface.Catalog');
         this.getController('App.controller.Interface.Manufacturers');
         this.getController('App.controller.Interface.Market');
 
@@ -97,9 +97,9 @@ Ext.define('App.controller.Main', {
         }
 
         // Make first tab active
-        centerPanel.setActiveTab(0);
-        centerPanel.getActiveTab().setActiveTab(0);
-        centerPanel.getActiveTab().fireEvent('activate');
+//        centerPanel.setActiveTab(0);
+//        centerPanel.getActiveTab().setActiveTab(0);
+//        centerPanel.getActiveTab().fireEvent('activate');
         
     },
     

@@ -6,13 +6,36 @@ Ext.define('App.controller.Interface.Manufacturers', {
     
     viewLayout: 'ManufacturersPanel',
     
+    modules: [{
+        title: 'Производители оборудования',
+        icon: '/images/icons/about.png',
+        allowMultiple: false,
+        launchModule: 'EC.Manufacturers.controller.SiteView'
+    }],
+    
     init: function() {
         
         var container = this.getContainer();
-        this.getController('App.controller.Interface.Manufacturers.Partners').run(container);
+        
+        var MC = this.getController('App.controller.Main');
+
+        container.on('show', function() {
+            MC.openModuleTab(this.modules[0]);
+        }, this, {single: true});
+        
     },
     
     getMenu: function() {
-        return [];
+        
+        var MC = this.getController('App.controller.Main');
+        
+        Ext.each(this.modules, function(item) {
+            item.text = item.title;
+            item.handler = function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        });
+        
+        return this.modules;
     }
 });

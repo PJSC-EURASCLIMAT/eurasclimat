@@ -136,7 +136,7 @@ class Xend_Tree_Model
         }
 
         try {
-            $response = $this->_table->deleteByPk($id);
+            $id = $this->_table->deleteByPk($id);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             // TODO не нашел как по фен-шую вынуть код mysql ошибки

@@ -99,8 +99,7 @@ Ext.define('xlib.Tree', {
 
         columnsList.push(treeColumn);
 
-//        this.tbar = [
-        // '->',{
+//        this.tbar = ['->',{
 //            text: 'Открыть все',
 //            itemId: 'open-all',
 //            scope: this,
@@ -110,9 +109,7 @@ Ext.define('xlib.Tree', {
 //            itemId: 'close-all',
 //            scope: this,
 //            handler: this.onCollapseAllClick
-//        }
-//        ];
-
+//        }];
 
         if ( this.permissions ) {
 
@@ -197,7 +194,6 @@ Ext.define('xlib.Tree', {
 
         }
 
-
         this.columns = columnsList;
 
         this.callParent();
@@ -267,7 +263,7 @@ Ext.define('xlib.Tree', {
 
             node.expand(false, function() {
                 var newNode = node.appendChild({
-                    leaf: true,
+                    leaf: false,
                     text: ''
                 });
                 me.editing.startEdit(newNode, 0);

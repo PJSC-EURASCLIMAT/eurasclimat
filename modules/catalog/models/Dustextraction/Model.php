@@ -59,6 +59,64 @@ class Catalog_Dustextraction_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
+    public function getInfo($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('c' => $this->_table->getTableName()))
+            ->joinLeft(
+                array('groups' => 'catalog_dustextraction_groups'),
+                'groups.id=c.group_id',
+                array(
+                     'group_name' => 'groups.name'
+                )
+            )
+            ->joinLeft(
+                array('f' => 'catalog_dustextraction_filtrations'),
+                'f.id=c.filtration_id',
+                array(
+                     'filtration_name' => 'f.name'
+                )
+            )
+            ->joinLeft(
+                array('m' => 'catalog_dustextraction_motors'),
+                'm.id=c.motor_id',
+                array(
+                     'motor_name' => 'm.name'
+                )
+            )
+            ->joinLeft(
+                array('marks' => 'catalog_marks'),
+                'marks.id=c.mark_id',
+                array(
+                     'mark_name' => 'marks.name'
+                )
+            )
+            ->where("c.id = ?", $id);
+
+        try {
+            $row = $select->query()->fetch();
+            if ( empty( $row ) ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $response->setRow($row);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
     public function add(array $params)
     {
         $f = new Xend_Filter_Input(array(

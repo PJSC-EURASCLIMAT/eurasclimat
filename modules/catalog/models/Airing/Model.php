@@ -139,7 +139,9 @@ class Catalog_Airing_Model
                 array(
                      'protection_type_name' => 'protection_types.name'
                 )
-            );
+            )
+            ->where("c.id = ?", $id);
+
         try {
             $row = $select->query()->fetch();
             if ( empty( $row ) ) {

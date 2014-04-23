@@ -307,3 +307,32 @@ body#login-page {
 .red-row .x-grid-cell {
     background-color: #FFD8D2;
 }
+
+/*      Каталог товаров       */
+
+.catalog-product-card {
+    overflow-y: auto;
+    background: white;
+}
+
+.catalog-product-card .description {
+    text-align: justify;
+    padding-right: 20px;
+    text-indent: 20px;
+}
+
+.catalog-product-card td {
+    padding: 5px;
+}
+.catalog-product-card .settings p {
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+
+
+    width: 200px;
+    margin: 10px 10px 10px 0;
+}
+

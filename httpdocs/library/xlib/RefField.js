@@ -175,7 +175,7 @@ Ext.define('xlib.RefField', {
         var value = ( Ext.isArray( this.value ) ) ? this.value.join(',') : this.value;
 
         this.storeConfig.empty = true;
-        this.storeConfig.pageSize = 5;
+//        this.storeConfig.pageSize = 25;
         this.storeConfig.proxy.extraParams = {value: value};
 
         this.store = Ext.create('Ext.data.Store', this.storeConfig);

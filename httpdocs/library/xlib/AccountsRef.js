@@ -15,7 +15,7 @@ Ext.define('xlib.AccountsRef', {
 
     windowTitle: 'Аккаунты',
 
-    value: 2,
+//    value: null,
 
     gridConfig: {
         features: [{
@@ -31,6 +31,7 @@ Ext.define('xlib.AccountsRef', {
         ]
     },
     storeConfig:{
+        pageSize: 13,
         fields: [{name: 'id', type: 'number'}, 'name', 'group'],
         groupers: [{property: 'group', direction: 'DESC'}],
         sorters: [{property: 'name', direction: 'ASC'}],

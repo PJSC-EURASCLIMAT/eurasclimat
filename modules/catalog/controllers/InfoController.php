@@ -5,6 +5,7 @@ class Catalog_InfoController extends Catalog_AbstractController
     public function init()
     {
         $category = $this->_getParam('category');
+        //TODO split . в small,  каждому ucfirst,  join _
         $modelClass = 'Catalog_' . ucfirst($category) . '_Model';
 
         $this->_entity = $category;

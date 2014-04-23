@@ -59,6 +59,92 @@ class Catalog_Watersupply_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
+    public function getInfo($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('c' => $this->_table->getTableName()))
+            ->joinLeft(
+                array('product_types' => 'catalog_watersupply_product_types'),
+                'product_types.id=c.product_type_id',
+                array(
+                     'product_type_name' => 'product_types.name'
+                )
+            )
+            ->joinLeft(
+                array('implementation_types' => 'catalog_watersupply_implementation_types'),
+                'implementation_types.id=c.implementation_type_id',
+                array(
+                     'implementation_type_name' => 'implementation_types.name'
+                )
+            )
+            ->joinLeft(
+                array('control_types' => 'catalog_watersupply_control_types'),
+                'control_types.id=c.control_type_id',
+                array(
+                     'control_type_name' => 'control_types.name'
+                )
+            )
+            ->joinLeft(
+                array('connection_types' => 'catalog_watersupply_connection_types'),
+                'connection_types.id=c.connection_type_id',
+                array(
+                     'connection_type_name' => 'connection_types.name'
+                )
+            )
+            ->joinLeft(
+                array('protection_types' => 'catalog_watersupply_protection_types'),
+                'protection_types.id=c.protection_type_id',
+                array(
+                     'protection_type_name' => 'protection_types.name'
+                )
+            )
+            ->joinLeft(
+                array('power_sources' => 'catalog_watersupply_power_sources'),
+                'power_sources.id=c.power_source_id',
+                array(
+                     'power_source_name' => 'power_sources.name'
+                )
+            )
+            ->joinLeft(
+                array('materials' => 'catalog_watersupply_materials'),
+                'materials.id=c.material_id',
+                array(
+                     'material_name' => 'materials.name'
+                )
+            )
+            ->joinLeft(
+                array('marks' => 'catalog_marks'),
+                'marks.id=c.mark_id',
+                array(
+                     'mark_name' => 'marks.name'
+                )
+            )
+            ->where("c.id = ?", $id);
+
+        try {
+            $row = $select->query()->fetch();
+            if ( empty( $row ) ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $response->setRow($row);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
     public function add(array $params)
     {
         $f = new Xend_Filter_Input(array(
@@ -105,7 +191,7 @@ class Catalog_Watersupply_Model
             'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
             'temp'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'power_supply'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_power_consumption' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'watersupply_power_consumption' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'amperage'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'sensor_inputs'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'pressure'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),

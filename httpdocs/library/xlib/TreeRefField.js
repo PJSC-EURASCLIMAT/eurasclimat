@@ -114,6 +114,8 @@ Ext.define('xlib.TreeRefField', {
             fields: ['id','text']
         });
 
+        //TODO грузить на первый setValue
+
         this.store.load({
             callback: this.firstStoreLoad,
             scope: this

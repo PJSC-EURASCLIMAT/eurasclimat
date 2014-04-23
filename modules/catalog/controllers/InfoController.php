@@ -5,8 +5,19 @@ class Catalog_InfoController extends Catalog_AbstractController
     public function init()
     {
         $category = $this->_getParam('category');
-        //TODO split . в small,  каждому ucfirst,  join _
-        $modelClass = 'Catalog_' . ucfirst($category) . '_Model';
+
+        $catArr = explode('_', $category);
+
+        for ( $i = 0; $i < count($catArr); $i++ ) {
+            $catArr[$i] = ucfirst($catArr[$i]);
+        }
+
+        $modelClass = 'Catalog_' . join('_',$catArr) . '_Model';
+
+        if ( !class_exists( $modelClass ) ) {
+            //TODO нужно как-то подобающе ругнуться
+            return false;
+        }
 
         $this->_entity = $category;
         $this->_model = new $modelClass();

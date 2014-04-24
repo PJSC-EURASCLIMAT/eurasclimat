@@ -39,7 +39,6 @@ Ext.define('EC.Catalog.view.Conditioners.Show', {
 
         // TODO может переименовать
         this.tpl.getCondPowerSource = function( id ) {
-            debugger;
             if ( Ext.isEmpty( id ) ) return;
             var map = {
                 0: 'Нет',

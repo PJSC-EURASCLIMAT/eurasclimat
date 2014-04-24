@@ -134,8 +134,8 @@ Ext.define('EC.Catalog.view.ShowAbstract', {
             units = ( !Ext.isEmpty(prop.units) ) ? '&nbsp;' + prop.units : '';
             value = prop.func || '{' + key + '}';
 
-//            content += '<tpl if="[values.' + key + '.length] &gt; 0"><p><small>' + key + '</small><br/>' + prop.name + ': <b>{' + key + '}' + units + '</b></p></tpl>';
-            content += '<p><small>' + key + '</small><br/>' + prop.name + ': <b>' + value + units + '</b></p>';
+            content += '<tpl if="[values.' + key + '.length] &gt; 0"><p><small>' + key + '</small><br/>' + prop.name + ': <b>{' + key + '}' + units + '</b></p></tpl>';
+//            content += '<p><small>' + key + '</small><br/>' + prop.name + ': <b>' + value + units + '</b></p>';
         }
         return content;
 

@@ -225,7 +225,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     showItem: function(grid, record) {
         var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id;
         var card = Ext.widget(this.showXType);
-        
+
         Ext.Ajax.request({
             params: {
                 id: recordId

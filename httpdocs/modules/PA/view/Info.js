@@ -48,6 +48,7 @@ Ext.define('EC.PA.view.Info', {
                         'ФИО: {name}<br/><br/>',
                         'Email: {login}<br/><br/>',
                         'г. {city}, {country}<br/><br/>',
+                        'Переходил на ukkom.ru: {[this.getUkkom(values.ukkom)]}<br/><br/>',
                     '</td>',
                 '</tr>',
 
@@ -68,6 +69,10 @@ Ext.define('EC.PA.view.Info', {
             '</table>',
 
             {
+                getUkkom: function(ukkom) {
+                    return ( parseInt(ukkom) ) ? 'да' : 'нет';
+                },
+
                 dc: function() {
                     return new Date().getTime();
                 },

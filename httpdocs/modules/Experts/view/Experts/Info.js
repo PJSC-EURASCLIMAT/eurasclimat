@@ -63,6 +63,7 @@ Ext.define('EC.Experts.view.Experts.Info', {
             '<p>Описание: {desc}</p>',
             '<p>Тип инженерных систем: {equipment}</p>',
             '<p>Статус: {status}</p>',
+            '<p>Заходил на ukkom.ru: {ukkom}</p>',
             '</td>',
             '</tr>',
             {

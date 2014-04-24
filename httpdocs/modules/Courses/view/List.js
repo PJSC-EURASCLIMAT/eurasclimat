@@ -74,47 +74,55 @@ Ext.define('EC.Courses.view.List', {
             renderer: xlib.formatCurrency
         }];
 
-        this.tbar = ['->', 'Отображать: ', {
-            xtype: 'combo',
-            valueField: 'id',
-            displayField: 'name',
-            editable: false,
-            value: 0,
-            store: Ext.create('Ext.data.Store', {
-                fields: ['id', 'name'],
-                data : [
-                    {"id": 0, "name": "Актуальные курсы"},
-                    {"id": 1, "name": "Архивные курсы"},
-                    {"id": 2, "name": "Все курсы"}
-                ]
-            }),
-            listeners: {
-                select: function( combo, records, eOpts ) {
-                    var f = this.filters.getFilter('closed');
-                    if ( records[0].data.id === 2 ) {
-                        f.setActive(false);
-                        return;
-                    }
-                    f.setValue({eq: records[0].data.id});
-                    f.setActive(true);
-                },
-                scope: this
-            }
-        },{
-            xtype: 'container',
-            layout: 'hbox',
-            margin: 5,
-            items: [{
-                xtype: 'container',
-                width: 15,
-                height: 15,
-                margin: '0 5 0 0',
-                style: { background: '#FFD8D2', border: "1px solid white" }
+        this.tbar = ['->',{
+            text: 'Перейти на www.ukkom.ru',
+            itemId: 'ukkom'
+        },'->'];
+
+        if ( !this.isPortlet ) {
+            Ext.Array.push(this.tbar, ['Отображать: ', {
+                xtype: 'combo',
+                valueField: 'id',
+                displayField: 'name',
+                editable: false,
+                value: 0,
+                store: Ext.create('Ext.data.Store', {
+                    fields: ['id', 'name'],
+                    data : [
+                        {"id": 0, "name": "Актуальные курсы"},
+                        {"id": 1, "name": "Архивные курсы"},
+                        {"id": 2, "name": "Все курсы"}
+                    ]
+                }),
+                listeners: {
+                    select: function( combo, records, eOpts ) {
+                        var f = this.filters.getFilter('closed');
+                        if ( records[0].data.id === 2 ) {
+                            f.setActive(false);
+                            return;
+                        }
+                        f.setValue({eq: records[0].data.id});
+                        f.setActive(true);
+                    },
+                    scope: this
+                }
             },{
-                xtype: 'label',
-                text: ' - архивные курсы'
-            }]
-        }];
+                xtype: 'container',
+                layout: 'hbox',
+                margin: 5,
+                items: [{
+                    xtype: 'container',
+                    width: 15,
+                    height: 15,
+                    margin: '0 5 0 0',
+                    style: { background: '#FFD8D2', border: "1px solid white" }
+                },{
+                    xtype: 'label',
+                    text: ' - архивные курсы'
+                }]
+            }]);
+        }
+
 
         if (this.permissions === true && !this.isPortlet) {
 

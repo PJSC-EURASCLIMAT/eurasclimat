@@ -13,6 +13,7 @@ class Courses_CoursesController extends Xend_Controller_Action
     public function init()
     {
         $this->_model = new Courses_Model();
+        $this->_accounts_model = new Xend_Accounts();
         parent::init();
     }
 
@@ -22,6 +23,7 @@ class Courses_CoursesController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'ukkom');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'destroy');
     }
@@ -50,6 +52,19 @@ class Courses_CoursesController extends Xend_Controller_Action
         } else {
             $this->_collectErrors($response);
         }
+    }
+
+    public function ukkomAction()
+    {
+
+        $response = $this->_accounts_model->setUkkom();
+
+        if ($response->hasNotSuccess()) {
+            $this->_collectErrors($response);
+            $this->view->success = false;
+            return;
+        }
+        $this->view->success = true;
     }
 
 

@@ -21,6 +21,7 @@ Ext.define('EC.Experts.model.Expert', {
         'work_years',
         'study_years',
         'sert_count',
-        {name: 'active', type: 'int'}
+        {name: 'active', type: 'int'},
+        {name: 'ukkom', type: 'int'}
     ]
 });

@@ -817,6 +817,36 @@ class Xend_Accounts
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
+
+    public function setUkkom()
+    {
+        $id = Xend_Accounts_Prototype::getId();
+
+        $response = new Xend_Response();
+
+        $f = new Xend_Filter_Input(
+            array('id' => 'int',),
+            array('id' => array('id', 'presence' => 'required'),
+        ), array('id' => $id));
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $affectedRows = $this->_tableAccounts->updateByPk(array('ukkom' => 1), $f->id);
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Accounts_Status($status));
+    }
+
     /*********************** Private methods ******************************/
 
     /**

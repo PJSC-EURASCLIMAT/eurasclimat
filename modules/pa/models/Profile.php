@@ -46,7 +46,7 @@ class PA_Profile
         $select = $this->_tableAccounts->getAdapter()->select()
             ->from(
                 array('a' => $this->_tableAccounts->getTableName()),
-                array( 'a.id', 'a.login', 'a.name', 'a.active', 'a.lang', 'a.tz')
+                array( 'a.id', 'a.login', 'a.name', 'a.active', 'a.lang', 'a.tz', 'a.ukkom')
             )
             ->joinLeft(
                 array('c' => 'cities'),

@@ -19,6 +19,8 @@ Ext.define('EC.Courses.controller.Courses', {
     permissions: acl.isUpdate('courses'),
 
     selectedGroup: null,
+
+    ukkomURL: 'json/courses/courses/ukkom',
     
     run: function(container, activeOnly) {
 
@@ -38,6 +40,11 @@ Ext.define('EC.Courses.controller.Courses', {
         this.filtersTree.on('select', this.onTreeFilterSelect, this);
 
         this.grid.store.load();
+
+        this.grid.down('#ukkom').on({
+            click: this.ukkomRedirect,
+            scope: this
+        });
 
         if ( this.permissions && !isPortlet ) {
 
@@ -60,6 +67,17 @@ Ext.define('EC.Courses.controller.Courses', {
                 scope: this
             }, this);
         }
+    },
+
+    ukkomRedirect: function() {
+        Ext.Ajax.request({
+            url: this.ukkomURL,
+            callback: function() {
+                var win = window.open("http://www.ukkom.ru", "_blank");
+                win.focus();
+
+            }
+        });
     },
 
     clearTreeFilter: function() {

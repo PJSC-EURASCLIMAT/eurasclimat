@@ -16,7 +16,6 @@ Ext.define('EC.Catalog.controller.Router', {
                 var classpath = this.createExtPath(opts.params.category);
 
                 var win = Ext.create('EC.Catalog.view.' + classpath + '.Show');
-//                var win = Ext.create('EC.Catalog.view.ShowAbstract');
 
                 win.update( data );
             },
@@ -25,10 +24,6 @@ Ext.define('EC.Catalog.controller.Router', {
             },
             scope: this
         });
-
-
-
-
     },
 
     createExtPath: function( path ) {

@@ -75,7 +75,6 @@ Ext.define('EC.Courses.controller.Courses', {
             callback: function() {
                 var win = window.open("http://www.ukkom.ru", "_blank");
                 win.focus();
-
             }
         });
     },

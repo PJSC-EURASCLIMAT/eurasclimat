@@ -33,8 +33,8 @@ Ext.define('EC.Catalog.view.AddAbstract', {
                 name: 'mark_id'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Маркировка',
-                name: 'marking'
+                fieldLabel: 'Наименование',
+                name: 'name'
             }],
             buttons: [{
                 text: 'Сохранить',

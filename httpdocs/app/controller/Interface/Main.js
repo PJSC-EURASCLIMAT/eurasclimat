@@ -88,8 +88,6 @@ Ext.define('App.controller.Interface.Main', {
     
     getMenu: function() {
         
-        console.log('main menu');
-        
         var MC = this.getController('App.controller.Main');
         
         return [{

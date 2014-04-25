@@ -103,10 +103,14 @@ Ext.define('Ext.ux.PagingToolbarResizer', {
       }
     });
 
-    var index = pagingToolbar.items.indexOf(pagingToolbar.items.map['refresh']);
-    pagingToolbar.insert(++index, this.displayText);
-    pagingToolbar.insert(++index, combo);
-    pagingToolbar.insert(++index,'-');
+    if (pagingToolbar.displayInfo) {
+        var index = pagingToolbar.items.indexOf(pagingToolbar.items.map['refresh']);
+        pagingToolbar.insert(++index, this.displayText);
+        pagingToolbar.insert(++index, combo);
+        pagingToolbar.insert(++index,'-');
+    } else {
+        pagingToolbar.add(['->', this.displayText, combo]);
+    }
     
     //destroy combobox before destroying the paging toolbar
     pagingToolbar.on({

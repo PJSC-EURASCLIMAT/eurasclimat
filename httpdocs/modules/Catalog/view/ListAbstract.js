@@ -2,6 +2,8 @@ Ext.define('EC.Catalog.view.ListAbstract', {
 
     extend: 'Ext.grid.Panel',
     
+    alias: 'widget.CatalogListAbstract',
+    
     requires: [
         'xlib.grid.FiltersFeature',
         'Ext.ux.PagingToolbarResizer',
@@ -10,13 +12,19 @@ Ext.define('EC.Catalog.view.ListAbstract', {
    
     layout: 'fit',
     
-    updatePermission: true,
+    entity: null,
+    
+    listURL: null,
+    
+    updatePermission: acl.isUpdate('catalog'),
     
     features: [{ftype: 'filters', encode: true, showMenu: false}],
     
-    rowBodyTpl: '',
-    
-    constructor: function() {
+    initComponent: function() {
+        
+        this.store = Ext.create('EC.Catalog.store.ListAbstract', {
+            listURL: this.listURL
+        });
         
         this.tools = [{
             type: 'plus',
@@ -27,31 +35,9 @@ Ext.define('EC.Catalog.view.ListAbstract', {
             type: 'refresh',
             tooltip: 'Обновить список',
             action: 'refresh'
-        }],
-        
-        this.plugins = [{
-            ptype: 'rowexpander',
-            rowBodyTpl: Ext.create('Ext.XTemplate', this.rowBodyTpl, 
-                {r: Ext.bind(this.comboRenderer, this)})
         }];
-        
-        this.callParent(arguments);
-    
-    },
-    
-    initComponent: function() {
 
         var actions = [];
-        
-        actions.push({
-            icon: '/images/icons/catalog.png',
-            tooltip: 'Карточка товара',
-            iconCls: 'x-btn',
-            handler: function(grid, rowIndex, colIndex) {
-                this.fireEvent('showitem', grid, grid.getStore().getAt(rowIndex));
-            },
-            scope: this
-        });
         
         if (this.updatePermission) {
             
@@ -73,33 +59,67 @@ Ext.define('EC.Catalog.view.ListAbstract', {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-                
             });
         }
         
-        this.columns.push({
+        this.columns = [{
+            header: 'Марка',
+            dataIndex: 'mark_id',
+            width: 150,
+            renderer: function(value, metaData, record) {
+                return record.get('mark_name');
+            },
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/catalog/' + this.entity + '/{id}">{name}</a>',
+            header: 'Наименование',
+            tooltip: 'Брендовое наименование модели (серии)',
+            flex: 1,
+            dataIndex: 'name',
+            filter: {
+                type: 'string'
+            }
+        }, {
+            header: 'Цена',
+            align: 'right',
+            width: 100,
+            dataIndex: 'price',
+            renderer: xlib.formatCurrencyNoSign,
+            filter: {
+                type: 'numeric'
+            }
+        }, {
+            header: 'Валюта',
+            width: 60,
+            dataIndex: 'currency_id',
+            renderer: function(value) {
+                return value == '0' ? '' : this.comboRenderer('EC.Catalog.store.Currency', value);
+            },
+            filter: {
+                type: 'numeric'
+            }
+        }, {
             xtype: 'actioncolumn',
             sortable: false,
             hideable: false,
             menuDisabled: true,
             width: parseInt(actions.length) * 20,
             items: actions
-        });
+        }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
-            displayInfo: true,
-            plugins: [
-                {ptype: 'pagingtoolbarresizer'},
-                {ptype: 'progressbarpager'}
-            ]
+            plugins: [{ptype: 'pagingtoolbarresizer'}]
         });
         
         this.callParent(arguments);
         
-        Ext.defer(function() {
-            this.getStore().load();
-        }, 1000, this);
+//        Ext.defer(function() {
+//            this.getStore().load();
+//        }, 1000, this);
     },
     
     comboRenderer: function(storeName, value) {

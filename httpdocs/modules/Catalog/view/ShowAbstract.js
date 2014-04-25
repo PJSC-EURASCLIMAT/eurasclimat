@@ -114,9 +114,10 @@ Ext.define('EC.Catalog.view.ShowAbstract', {
                 getCurrency: function( currency_id ) {
                     if ( Ext.isEmpty( currency_id ) ) return '';
                     var map = {
-                        0: 'Руб',
-                        1: 'USD',
-                        2: 'EUR'
+                        0: ' ',
+                        1: 'Руб',
+                        2: 'USD',
+                        3: 'EUR'
                     };
                     return map[currency_id];
                 }

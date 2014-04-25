@@ -14,9 +14,14 @@ Ext.require('xlib.Acl.Manager');
 Ext.require('xlib.Acl.AuthManager');
 
 Ext.ns('xlib');
+
 xlib.formatCurrency = function(value) {
     return Ext.util.Format.currency(value, ' р.', 2, true);
-}
+};
+
+xlib.formatCurrencyNoSign = function(value) {
+    return Ext.util.Format.currency(value, ' ', 2);
+};
 
 Ext.application({
     name: 'App',

@@ -2,17 +2,8 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    stores: [
-        'EC.Catalog.store.Automation'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Automation'
-    ],
-
     views: [
         'EC.Catalog.view.Automation.FiltersPanel',
-        'EC.Catalog.view.Automation.List',
         'EC.Catalog.view.Automation.Edit',
         'EC.Catalog.view.Automation.Show'
     ],
@@ -30,21 +21,17 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Filter.Country'
     ],
     
-    entity: 'automation',
-    
-    viewPermition: acl.isView('catalog', 'automation'),
-    
-    editPermition: acl.isUpdate('catalog', 'automation'),
+    entity: 'Automation',
     
     settingsView: 'EC.Catalog.view.Automation.SettingsLayout',
     
     filtersPanelXType: 'AutomationFiltersPanel', 
     
-    listXType: 'AutomationList',
-    
     showXType: 'AutomationShow',
     
     editXType: 'AutomationEdit',
+    
+    listURL: '/json/catalog/automation/get-list',
     
     getURL: '/json/catalog/automation/get',
     

@@ -24,6 +24,7 @@ Ext.define('EC.Catalog.controller.Router', {
             },
             scope: this
         });
+        Ext.Router.redirect('');
     },
 
     createExtPath: function( path ) {

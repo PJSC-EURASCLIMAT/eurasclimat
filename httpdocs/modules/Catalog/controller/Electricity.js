@@ -1,18 +1,9 @@
 Ext.define('EC.Catalog.controller.Electricity', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    stores: [
-        'EC.Catalog.store.Electricity'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Electricity'
-    ],
 
     views: [
         'EC.Catalog.view.Electricity.FiltersPanel',
-        'EC.Catalog.view.Electricity.List',
         'EC.Catalog.view.Electricity.Edit',
         'EC.Catalog.view.Electricity.Show'
     ],
@@ -30,21 +21,17 @@ Ext.define('EC.Catalog.controller.Electricity', {
         'EC.Catalog.view.Electricity.Filter.Country'
     ],
     
-    entity: 'electricity',
-    
-    viewPermition: acl.isView('catalog', 'electricity'),
-    
-    editPermition: acl.isUpdate('catalog', 'electricity'),
+    entity: 'Electricity',
     
     settingsView: 'EC.Catalog.view.Electricity.SettingsLayout',
     
     filtersPanelXType: 'ElectricityFiltersPanel', 
     
-    listXType: 'ElectricityList',
-    
     showXType: 'ElectricityShow',
     
     editXType: 'ElectricityEdit',
+    
+    listURL: '/json/catalog/electricity/get-list',
     
     getURL: '/json/catalog/electricity/get',
     

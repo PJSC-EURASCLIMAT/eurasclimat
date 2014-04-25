@@ -1,18 +1,9 @@
 Ext.define('EC.Catalog.controller.Watersupply', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    stores: [
-        'EC.Catalog.store.Watersupply'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Watersupply'
-    ],
 
     views: [
         'EC.Catalog.view.Watersupply.FiltersPanel',
-        'EC.Catalog.view.Watersupply.List',
         'EC.Catalog.view.Watersupply.Edit',
         'EC.Catalog.view.Watersupply.Show'
     ],
@@ -29,21 +20,17 @@ Ext.define('EC.Catalog.controller.Watersupply', {
         'EC.Catalog.view.Watersupply.Filter.Country'
     ],
     
-    entity: 'watersupply',
-    
-    viewPermition: acl.isView('catalog', 'watersupply'),
-    
-    editPermition: acl.isUpdate('catalog', 'watersupply'),
+    entity: 'Watersupply',
     
     settingsView: 'EC.Catalog.view.Watersupply.SettingsLayout',
     
     filtersPanelXType: 'WatersupplyFiltersPanel', 
     
-    listXType: 'WatersupplyList',
-    
     showXType: 'WatersupplyShow',
     
     editXType: 'WatersupplyEdit',
+    
+    listURL: '/json/catalog/watersupply/get-list',
     
     getURL: '/json/catalog/watersupply/get',
     

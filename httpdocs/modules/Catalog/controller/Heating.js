@@ -2,17 +2,8 @@ Ext.define('EC.Catalog.controller.Heating', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    stores: [
-        'EC.Catalog.store.Heating'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Heating'
-    ],
-
     views: [
         'EC.Catalog.view.Heating.FiltersPanel',
-        'EC.Catalog.view.Heating.List',
         'EC.Catalog.view.Heating.Edit',
         'EC.Catalog.view.Heating.Show'
     ],
@@ -29,21 +20,17 @@ Ext.define('EC.Catalog.controller.Heating', {
         'EC.Catalog.view.Heating.Filter.Country'
     ],
     
-    entity: 'heating',
-    
-    viewPermition: acl.isView('catalog', 'heating'),
-    
-    editPermition: acl.isUpdate('catalog', 'heating'),
-    
+    entity: 'Heating',
+
     settingsView: 'EC.Catalog.view.Heating.SettingsLayout',
     
     filtersPanelXType: 'HeatingFiltersPanel', 
     
-    listXType: 'HeatingList',
-    
     showXType: 'HeatingShow',
     
     editXType: 'HeatingEdit',
+    
+    listURL: '/json/catalog/heating/get-list',
     
     getURL: '/json/catalog/heating/get',
     

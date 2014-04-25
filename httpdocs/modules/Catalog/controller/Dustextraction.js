@@ -2,17 +2,8 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    stores: [
-        'EC.Catalog.store.Dustextraction'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Dustextraction'
-    ],
-
     views: [
         'EC.Catalog.view.Dustextraction.FiltersPanel',
-        'EC.Catalog.view.Dustextraction.List',
         'EC.Catalog.view.Dustextraction.Edit',
         'EC.Catalog.view.Dustextraction.Show'
     ],
@@ -24,21 +15,17 @@ Ext.define('EC.Catalog.controller.Dustextraction', {
         'EC.Catalog.view.Dustextraction.Filter.Country'
     ],
     
-    entity: 'dustextraction',
-    
-    viewPermition: acl.isView('catalog', 'dustextraction'),
-    
-    editPermition: acl.isUpdate('catalog', 'dustextraction'),
+    entity: 'Dustextraction',
     
     settingsView: 'EC.Catalog.view.Dustextraction.SettingsLayout',
     
     filtersPanelXType: 'DustextractionFiltersPanel', 
     
-    listXType: 'DustextractionList',
-    
     showXType: 'DustextractionShow',
     
     editXType: 'DustextractionEdit',
+    
+    listURL: '/json/catalog/dustextraction/get-list',
     
     getURL: '/json/catalog/dustextraction/get',
     

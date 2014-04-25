@@ -16,15 +16,15 @@ class Catalog_AbstractController extends Xend_Controller_Action
         if ($response->isSuccess()) {
 
             $data = $response->getRowset();
-            foreach ($data as &$row) {
-                $model = new Catalog_Images($this->_entity);
-                $resp = $model->getAll($this->_entity, $row['id']);
-                if ($resp->hasNotSuccess()) {
-                    $row['images'] = array();
-                } else {
-                    $row['images'] = $resp->getRowset();
-                }
-            }
+//            foreach ($data as &$row) {
+//                $model = new Catalog_Images($this->_entity);
+//                $resp = $model->getAll($this->_entity, $row['id']);
+//                if ($resp->hasNotSuccess()) {
+//                    $row['images'] = array();
+//                } else {
+//                    $row['images'] = $resp->getRowset();
+//                }
+//            }
             $this->view->success = true;
             $this->view->data = $data;
             $this->view->total = $response->totalCount;

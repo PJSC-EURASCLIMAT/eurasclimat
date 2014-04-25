@@ -162,7 +162,7 @@ Ext.define("Ext.locale.ru.toolbar.Paging", {
     nextText: "Следующая страница",
     lastText: "Последняя страница",
     refreshText: "Обновить",
-    displayMsg: "Отображаются записи с {0} по {1}, всего {2}",
+    displayMsg: "Записи с {0} по {1}, всего {2}",
     emptyMsg: 'Нет данных для отображения'
 });
 

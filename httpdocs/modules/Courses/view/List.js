@@ -34,8 +34,6 @@ Ext.define('EC.Courses.view.List', {
         }
     },
 
-
-
     initComponent: function() {
 
         var actions = [];
@@ -74,8 +72,9 @@ Ext.define('EC.Courses.view.List', {
             renderer: xlib.formatCurrency
         }];
 
-        this.tbar = ['->',{
-            text: 'Перейти на www.ukkom.ru',
+        this.tbar = ['->', {
+            text: 'Подать заявку на обучение',
+            pressed: true, 
             itemId: 'ukkom'
         },'->'];
 
@@ -123,7 +122,6 @@ Ext.define('EC.Courses.view.List', {
             }]);
         }
 
-
         if (this.permissions === true && !this.isPortlet) {
 
             actions.push({
@@ -148,7 +146,6 @@ Ext.define('EC.Courses.view.List', {
                 iconCls: 'add',
                 action: 'additem'
             });
-
         }
 
         this.bbar = Ext.create('Ext.PagingToolbar', {

@@ -2,17 +2,8 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    stores: [
-        'EC.Catalog.store.Conditioners'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Conditioners'
-    ],
-
     views: [
         'EC.Catalog.view.Conditioners.FiltersPanel',
-        'EC.Catalog.view.Conditioners.List',
         'EC.Catalog.view.Conditioners.Edit',
         'EC.Catalog.view.Conditioners.Show'
     ],
@@ -27,21 +18,17 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Filter.Country'
     ],
     
-    entity: 'conditioners',
-    
-    viewPermition: acl.isView('catalog', 'conditioners'),
-    
-    editPermition: acl.isUpdate('catalog', 'conditioners'),
+    entity: 'Conditioners',
     
     settingsView: 'EC.Catalog.view.Conditioners.SettingsLayout',
     
     filtersPanelXType: 'ConditionersFiltersPanel', 
     
-    listXType: 'ConditionersList',
-    
     showXType: 'ConditionersShow',
     
     editXType: 'ConditionersEdit',
+    
+    listURL: '/json/catalog/conditioners/get-list',
     
     getURL: '/json/catalog/conditioners/get',
 

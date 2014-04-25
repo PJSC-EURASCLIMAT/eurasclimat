@@ -1,18 +1,9 @@
 Ext.define('EC.Catalog.controller.Airing', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    stores: [
-        'EC.Catalog.store.Airing'
-    ],
-    
-    models: [
-        'EC.Catalog.model.Airing'
-    ],
 
     views: [
         'EC.Catalog.view.Airing.FiltersPanel',
-        'EC.Catalog.view.Airing.List',
         'EC.Catalog.view.Airing.Edit',
         'EC.Catalog.view.Airing.Show'
     ],
@@ -30,21 +21,17 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Filter.Country'
     ],
     
-    entity: 'airing',
-    
-    viewPermition: acl.isView('catalog', 'airing'),
-    
-    editPermition: acl.isUpdate('catalog', 'airing'),
+    entity: 'Airing',
     
     settingsView: 'EC.Catalog.view.Airing.SettingsLayout',
     
     filtersPanelXType: 'AiringFiltersPanel', 
     
-    listXType: 'AiringList',
-    
     showXType: 'AiringShow',
     
     editXType: 'AiringEdit',
+    
+    listURL: '/json/catalog/airing/get-list',
     
     getURL: '/json/catalog/airing/get',
     

@@ -36,7 +36,7 @@ Ext.define('xlib.ProgressBarPager', {
      * @cfg {Integer} width
      * <p>The default progress bar width.  Default is 225.</p>
     */
-    width: 300,
+    width: 200,
     
     /**
      * @cfg {String} defaultText

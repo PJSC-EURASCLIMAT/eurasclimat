@@ -3,11 +3,13 @@ Ext.define('EC.Catalog.controller.Abstract', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.RelatedServices'
+        'EC.Catalog.store.RelatedServices',
+        'EC.Catalog.store.Currency'
     ],
     
     models: [
-        'EC.Catalog.model.RelatedServices'
+        'EC.Catalog.model.RelatedServices',
+        'EC.Catalog.model.ListAbstract'
     ],
     
     uses: [
@@ -16,6 +18,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.RelatedServices.Edit',
         'EC.Catalog.view.Services.Combo',
         'EC.Catalog.view.FilterMark',
+        'EC.Catalog.view.ListAbstract',
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
         'EC.Catalog.view.SettingsLayoutAbstract',
@@ -27,19 +30,19 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     catalogName: null,
     
-    viewPermition: false,
+    viewPermition: acl.isView('catalog'),
     
-    editPermition: false,
+    editPermition: acl.isUpdate('catalog'),
     
     settingsView: null,
     
     filtersPanelXType: null, 
     
-    listXType: null,
-    
     showXType: null,
     
     editXType: null,
+    
+    listURL: null,
     
     getURL: null,
     
@@ -98,104 +101,100 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 })]
             });
             
-        } else {
-            
-            container.setLoading('Загрузка...', true);
-            var catalog = container.add({
-                layout: 'border',
-                border: false,
-                items: [{
-                    xtype: this.filtersPanelXType,
-                    region: 'east',
-                    width: 200,
-                    collapsible: true,
-                    split: true
-                }, {
-                    xtype: this.listXType,
-                    region: 'center',
-                    split: true,
-                    title: 'Каталог "' + this.catalogName + '"'
-                }],
-                listeners: {
-                    afterLayout: function() {
-                        container.setLoading(false);
-                    }
-                }
-            });
-            
-            // To enable filters panel let initialize grid to create filters
-            catalog.down(this.listXType).filters.createFilters();
-            
-            var filterCombos = catalog.down(this.filtersPanelXType).query('combo'), 
-                filterValues = this.Container.initConfig.filters;
-            
-            Ext.each(filterCombos, function(item) {
-                item.on('change', this.onFilter, this);
-            
-                if (!Ext.isEmpty(filterValues)) {
-                    Ext.each(filterValues, function(f) {
-                        if (item.getXType() == f.name) {
-                            item.setValue(f.value);
-                            return false;
-                        }
-                    }, this);
-                }
-            }, this);
-            
-            catalog.down(this.filtersPanelXType + ' tool[action=resetfilters]').on({
-                click: function() {
-                    this.resetFilters(catalog);
-                },
-                scope: this
-            });
-            
-            catalog.down(this.listXType).on({
-                showitem: this.showItem,
-                scope: this
-            });
-            
-            catalog.down(this.listXType + ' tool[action=refresh]').on({
-                click: function(button) {
-                    button.up(this.listXType).getStore().load();
-                },
-                scope: this
-            });
-            
-            if (this.editPermition) {
-            
-                catalog.down(this.filtersPanelXType + ' tool[action=settings]').on({
-                    click: this.editSettings,
-                    scope: this
-                });
-                
-                catalog.down(this.listXType + ' tool[action=additem]').on({
-                    click: this.addItem,
-                    scope: this
-                });
-                
-                catalog.down(this.listXType).on({
-                    edititem: this.editItem,
-                    deleteitem: this.deleteItem,
-                    scope: this
-                });
-            }
-            
-            var catalogGridStore = catalog.down(this.listXType).getStore(); 
-            this.on({
-                'itemSaved': function() {
-                    catalogGridStore.load();
-                },
-                scope: this
-            }, this);
-            
+            return;
         }
+        
+        container.setLoading('Загрузка...', true);
+        var catalog = container.add({
+            layout: 'border',
+            border: false,
+            items: [{
+                xtype: this.filtersPanelXType,
+                region: 'east',
+                width: 200,
+                collapsible: true,
+                split: true
+            }, {
+                xtype: 'CatalogListAbstract',
+                region: 'center',
+                split: true,
+                entity: this.entity,
+                listURL: this.listURL,
+                title: 'Каталог "' + this.catalogName + '"'
+            }],
+            listeners: {
+                afterLayout: function() {
+                    container.setLoading(false);
+                }
+            }
+        });
+        
+        // To enable filters panel let initialize grid to create filters
+        catalog.down('CatalogListAbstract').filters.createFilters();
+        
+        var filterCombos = catalog.down(this.filtersPanelXType).query('combo'), 
+            filterValues = this.Container.initConfig.filters;
+        
+        Ext.each(filterCombos, function(item) {
+            item.on('change', this.onFilter, this);
+        
+            if (!Ext.isEmpty(filterValues)) {
+                Ext.each(filterValues, function(f) {
+                    if (item.getXType() == f.name) {
+                        item.setValue(f.value);
+                        return false;
+                    }
+                }, this);
+            }
+        }, this);
+        
+        catalog.down(this.filtersPanelXType + ' tool[action=resetfilters]').on({
+            click: function() {
+                this.resetFilters(catalog);
+            },
+            scope: this
+        });
+        
+        catalog.down('CatalogListAbstract tool[action=refresh]').on({
+            click: function(button) {
+                button.up('CatalogListAbstract').getStore().load();
+            },
+            scope: this
+        });
+        
+        if (this.editPermition) {
+        
+            catalog.down(this.filtersPanelXType + ' tool[action=settings]').on({
+                click: this.editSettings,
+                scope: this
+            });
+            
+            catalog.down('CatalogListAbstract tool[action=additem]').on({
+                click: this.addItem,
+                scope: this
+            });
+            
+            catalog.down('CatalogListAbstract').on({
+                edititem: this.editItem,
+                deleteitem: this.deleteItem,
+                scope: this
+            });
+        }
+        
+        var catalogGridStore = catalog.down('CatalogListAbstract').getStore(); 
+        this.on({
+            'itemSaved': function() {
+                catalogGridStore.load();
+            },
+            scope: this
+        }, this);
     },
     
     onFilter: function(combo, newValue, oldValue, eOpts) {
 
         var view = combo.up(this.catalogLayoutXType);
         
-        var filter = view.down(this.listXType).filters.getFilter(combo.fieldName),
+        var filter = view.down('CatalogListAbstract').filters.getFilter(combo.fieldName),
             value = combo.getFilter();
             
         if (value === '') {
@@ -215,32 +214,12 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 cmp.resumeEvents();
             }
         });
-        view.down(this.listXType).filters.clearFilters();
+        view.down('CatalogListAbstract').filters.clearFilters();
     },
     
     editSettings: function() {
         this.getController('EC.Catalog.controller.Settings').run(this.settingsView);
     }, 
-    
-    showItem: function(grid, record) {
-        var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id;
-        var card = Ext.widget(this.showXType);
-
-        Ext.Ajax.request({
-            params: {
-                id: recordId
-            },
-            url: this.getURL,
-            success: function(response, opts) {
-                var data = Ext.decode(response.responseText).data;
-                card.showTpl.overwrite(card.down('panel').body, data);
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку товара.');
-            },
-            scope: this
-        });
-    },
     
     addItem: function() {
         var view = Ext.create('EC.Catalog.view.AddAbstract');
@@ -457,21 +436,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
             icon: Ext.MessageBox.QUESTION,
             scope: this
         });
-    },
-    
-    expandRows: function(button) {
-        
-        var grid = button.up(this.listXType),
-            view = grid.getView(),
-            plugin = grid.getPlugin('rowexpander');
-            
-        if (!plugin) {
-            return;
-        }
-        
-        for (var i = 0; i < view.getNodes().length; i++) {
-            plugin.toggleRow(i);
-        }
     },
     
     onUpload: function(id, panel) {

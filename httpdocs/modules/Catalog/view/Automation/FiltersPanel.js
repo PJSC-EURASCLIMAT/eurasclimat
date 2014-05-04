@@ -8,26 +8,26 @@ Ext.define('EC.Catalog.view.Automation.FiltersPanel', {
         
     items: [{
         xtype: 'FilterMark'
-    }, {
-        xtype: 'AutomationFilterGroup'
-    }, {
-        xtype: 'AutomationFilterProductType'
-    }, {
-        xtype: 'AutomationFilterImplementationType'
-    }, {
-        xtype: 'AutomationFilterConnectionType'
-    }, {
-        xtype: 'AutomationFilterProtectionType'
-    }, {
-        xtype: 'AutomationFilterPowerSource'
-    }, {
-        xtype: 'AutomationFilterMaterial'
-    }, {
-        xtype: 'AutomationFilterControlType'
-    }, {
-        xtype: 'AutomationFilterIsolationType'
-    }, {
-        xtype: 'AutomationFilterCountry'
+//    }, {
+//        xtype: 'AutomationFilterGroup'
+//    }, {
+//        xtype: 'AutomationFilterProductType'
+//    }, {
+//        xtype: 'AutomationFilterImplementationType'
+//    }, {
+//        xtype: 'AutomationFilterConnectionType'
+//    }, {
+//        xtype: 'AutomationFilterProtectionType'
+//    }, {
+//        xtype: 'AutomationFilterPowerSource'
+//    }, {
+//        xtype: 'AutomationFilterMaterial'
+//    }, {
+//        xtype: 'AutomationFilterControlType'
+//    }, {
+//        xtype: 'AutomationFilterIsolationType'
+//    }, {
+//        xtype: 'AutomationFilterCountry'
     }]
     
 });

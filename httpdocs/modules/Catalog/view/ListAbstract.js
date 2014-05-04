@@ -112,14 +112,17 @@ Ext.define('EC.Catalog.view.ListAbstract', {
         
         this.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
-            plugins: [{ptype: 'pagingtoolbarresizer'}]
+            plugins: [{ptype: 'pagingtoolbarresizer'}],
+            buttons: ['-', {
+                text: 'Добавить',
+                tooltip: 'Добавить позицию',
+                iconCls: 'add',
+                action: 'additem',
+                hidden: !this.updatePermission
+            }, '-']
         });
         
         this.callParent(arguments);
-        
-//        Ext.defer(function() {
-//            this.getStore().load();
-//        }, 1000, this);
     },
     
     comboRenderer: function(storeName, value) {

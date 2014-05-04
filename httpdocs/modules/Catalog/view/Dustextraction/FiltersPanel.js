@@ -8,14 +8,14 @@ Ext.define('EC.Catalog.view.Dustextraction.FiltersPanel', {
         
     items: [{
         xtype: 'FilterMark'
-    }, {
-        xtype: 'DustextractionFilterGroup'
-    }, {
-        xtype: 'DustextractionFilterFiltration'
-    }, {
-        xtype: 'DustextractionFilterMotor'
-    }, {
-        xtype: 'DustextractionFilterCountry'
+//    }, {
+//        xtype: 'DustextractionFilterGroup'
+//    }, {
+//        xtype: 'DustextractionFilterFiltration'
+//    }, {
+//        xtype: 'DustextractionFilterMotor'
+//    }, {
+//        xtype: 'DustextractionFilterCountry'
     }]
         
 });

@@ -8,26 +8,26 @@ Ext.define('EC.Catalog.view.Electricity.FiltersPanel', {
         
     items: [{
         xtype: 'FilterMark'
-    }, {
-        xtype: 'ElectricityFilterGroup'
-    }, {
-        xtype: 'ElectricityFilterProductType'
-    }, {
-        xtype: 'ElectricityFilterImplementationType'
-    }, {
-        xtype: 'ElectricityFilterConnectionType'
-    }, {
-        xtype: 'ElectricityFilterProtectionType'
-    }, {
-        xtype: 'ElectricityFilterPowerSource'
-    }, {
-        xtype: 'ElectricityFilterMaterial'
-    }, {
-        xtype: 'ElectricityFilterControlType'
-    }, {
-        xtype: 'ElectricityFilterIsolationType'
-    }, {
-        xtype: 'ElectricityFilterCountry'
+//    }, {
+//        xtype: 'ElectricityFilterGroup'
+//    }, {
+//        xtype: 'ElectricityFilterProductType'
+//    }, {
+//        xtype: 'ElectricityFilterImplementationType'
+//    }, {
+//        xtype: 'ElectricityFilterConnectionType'
+//    }, {
+//        xtype: 'ElectricityFilterProtectionType'
+//    }, {
+//        xtype: 'ElectricityFilterPowerSource'
+//    }, {
+//        xtype: 'ElectricityFilterMaterial'
+//    }, {
+//        xtype: 'ElectricityFilterControlType'
+//    }, {
+//        xtype: 'ElectricityFilterIsolationType'
+//    }, {
+//        xtype: 'ElectricityFilterCountry'
     }]
 
 });

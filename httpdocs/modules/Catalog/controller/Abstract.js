@@ -129,6 +129,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
             }
         });
         
+        /*
         // To enable filters panel let initialize grid to create filters
         catalog.down('CatalogListAbstract').filters.createFilters();
         
@@ -147,6 +148,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }, this);
             }
         }, this);
+        */
         
         catalog.down(this.filtersPanelXType + ' tool[action=resetfilters]').on({
             click: function() {
@@ -170,6 +172,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
             });
             
             catalog.down('CatalogListAbstract tool[action=additem]').on({
+                click: this.addItem,
+                scope: this
+            });
+            
+            catalog.down('CatalogListAbstract button[action=additem]').on({
                 click: this.addItem,
                 scope: this
             });

@@ -8,26 +8,26 @@ Ext.define('EC.Catalog.view.Airing.FiltersPanel', {
         
     items: [{
         xtype: 'FilterMark'
-    }, {
-        xtype: 'AiringFilterGroup'
-    }, {
-        xtype: 'AiringFilterProductType'
-    }, {
-        xtype: 'AiringFilterImplementationType'
-    }, {
-        xtype: 'AiringFilterConnectionType'
-    }, {
-        xtype: 'AiringFilterProtectionType'
-    }, {
-        xtype: 'AiringFilterPowerSource'
-    }, {
-        xtype: 'AiringFilterMaterial'
-    }, {
-        xtype: 'AiringFilterControlType'
-    }, {
-        xtype: 'AiringFilterIsolationClass'
-    }, {
-        xtype: 'AiringFilterCountry'
+//    }, {
+//        xtype: 'AiringFilterGroup'
+//    }, {
+//        xtype: 'AiringFilterProductType'
+//    }, {
+//        xtype: 'AiringFilterImplementationType'
+//    }, {
+//        xtype: 'AiringFilterConnectionType'
+//    }, {
+//        xtype: 'AiringFilterProtectionType'
+//    }, {
+//        xtype: 'AiringFilterPowerSource'
+//    }, {
+//        xtype: 'AiringFilterMaterial'
+//    }, {
+//        xtype: 'AiringFilterControlType'
+//    }, {
+//        xtype: 'AiringFilterIsolationClass'
+//    }, {
+//        xtype: 'AiringFilterCountry'
     }]
         
 });

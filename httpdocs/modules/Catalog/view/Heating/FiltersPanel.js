@@ -8,24 +8,24 @@ Ext.define('EC.Catalog.view.Heating.FiltersPanel', {
         
     items: [{
         xtype: 'FilterMark'
-    }, {
-        xtype: 'HeatingFilterGroup'
-    }, {
-        xtype: 'HeatingFilterProductType'
-    }, {
-        xtype: 'HeatingFilterImplementationType'
-    }, {
-        xtype: 'HeatingFilterConnectionType'
-    }, {
-        xtype: 'HeatingFilterProtectionType'
-    }, {
-        xtype: 'HeatingFilterPowerSource'
-    }, {
-        xtype: 'HeatingFilterMaterial'
-    }, {
-        xtype: 'HeatingFilterControlType'
-    }, {
-        xtype: 'HeatingFilterCountry'
+//    }, {
+//        xtype: 'HeatingFilterGroup'
+//    }, {
+//        xtype: 'HeatingFilterProductType'
+//    }, {
+//        xtype: 'HeatingFilterImplementationType'
+//    }, {
+//        xtype: 'HeatingFilterConnectionType'
+//    }, {
+//        xtype: 'HeatingFilterProtectionType'
+//    }, {
+//        xtype: 'HeatingFilterPowerSource'
+//    }, {
+//        xtype: 'HeatingFilterMaterial'
+//    }, {
+//        xtype: 'HeatingFilterControlType'
+//    }, {
+//        xtype: 'HeatingFilterCountry'
     }]
 
 });

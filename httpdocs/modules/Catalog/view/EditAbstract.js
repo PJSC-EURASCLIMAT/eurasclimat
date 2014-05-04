@@ -12,9 +12,9 @@ Ext.define('EC.Catalog.view.EditAbstract', {
     
     modal: true,
 
-    width: 1000,
+    width: 600,
     
-    height: 600,
+    height: 500,
     
     allowEdit: false,
     
@@ -40,38 +40,17 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                 items: [{
                     title: 'Основные параметры',
                     xtype: 'form',
-                    layout: 'column',
                     autoScroll: true,
-                    padding: 10,
                     defaults: {
                         border: false,
-                        columnWidth: .5,
                         padding: 5
                     },
                     fieldDefaults: {
                         labelAlign: 'left',
                         labelWidth: 270,
-                        anchor: '-15'
+                        anchor: '100%'
                     },
                     items: this.fields
-                }, {
-                    title: 'Дополнительные параметры',
-                    xtype: 'form',
-                    layout: 'column',
-                    autoScroll: true,
-                    padding: 10,
-                    columns: 2,
-                    defaults: {
-                        border: false,
-                        columnWidth: .5,
-                        padding: 5
-                    },
-                    fieldDefaults: {
-                        labelAlign: 'left',
-                        labelWidth: 270,
-                        anchor: '-15'
-                    },
-                    items: this.extrafields
                 }, {
                     title: 'Описание',
                     xtype: 'form',

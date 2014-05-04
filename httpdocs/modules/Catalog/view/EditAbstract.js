@@ -38,7 +38,7 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     border: false
                 },
                 items: [{
-                    title: 'Основные параметры',
+                    title: 'Параметры',
                     xtype: 'form',
                     autoScroll: true,
                     defaults: {

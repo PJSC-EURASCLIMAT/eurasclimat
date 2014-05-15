@@ -16,7 +16,7 @@ Ext.define('EC.Admin.view.Accounts.Roles', {
     
     height: 300,
     
-    buttons: [{
+    buttons: ['->',{
         text: 'Сохранить',
         action: 'save'
     }, {

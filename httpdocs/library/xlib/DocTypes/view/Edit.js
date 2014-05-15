@@ -47,7 +47,7 @@ Ext.define('xlib.DocTypes.view.Edit', {
             openMsg: function() {
                 Ext.Msg.alert("ALERT","Login form was submitted using ENTER Key!");
             },
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

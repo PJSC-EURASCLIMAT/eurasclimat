@@ -40,7 +40,7 @@ Ext.define('EC.Catalog.view.SpecialServices.EditRelatedExpendables', {
                 allowBlank: true,
                 name: 'price'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

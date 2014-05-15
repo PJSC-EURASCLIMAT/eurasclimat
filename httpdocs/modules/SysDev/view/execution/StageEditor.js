@@ -9,21 +9,18 @@ Ext.define('EC.SysDev.view.execution.StageEditor', {
     border: false,
     autoScroll: true,
     
-    tbar: [
-        '->',
-        {
-            text: 'Отменить',
-            itemId: 'cancel-button'
-        }, {
-            text: 'Сохранить',
-            itemId: 'save-button',
-            disabled: true
-        }, {
-            text: 'Сохранить',
-            itemId: 'add-button',
-            hidden: true
-        }
-    ],
+    tbar: ['->',{
+        text: 'Сохранить',
+        itemId: 'save-button',
+        disabled: true
+    }, {
+        text: 'Сохранить',
+        itemId: 'add-button',
+        hidden: true
+    }, {
+        text: 'Отменить',
+        itemId: 'cancel-button'
+    }],
     
     defaults: {
         labelWidth: 150,

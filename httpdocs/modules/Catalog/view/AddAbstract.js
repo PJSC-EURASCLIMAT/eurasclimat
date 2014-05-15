@@ -36,7 +36,7 @@ Ext.define('EC.Catalog.view.AddAbstract', {
                 fieldLabel: 'Наименование',
                 name: 'name'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

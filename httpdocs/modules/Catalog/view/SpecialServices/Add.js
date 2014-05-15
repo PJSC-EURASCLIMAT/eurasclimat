@@ -58,7 +58,7 @@ Ext.define('EC.Catalog.view.SpecialServices.Add', {
                 allowBlank: true,
                 name: 'price'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

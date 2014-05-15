@@ -78,7 +78,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
                     layout: 'fit',
                     items: [editor],
                     bodyStyle: 'font-size:11px;',
-                    buttons: [{
+                    buttons: ['->',{
                         text: 'Сохранить',
                         handler: function() {
                             Ext.Ajax.request({

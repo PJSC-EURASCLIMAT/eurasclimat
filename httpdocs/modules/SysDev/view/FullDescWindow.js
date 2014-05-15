@@ -22,25 +22,25 @@ Ext.define('EC.SysDev.view.FullDescWindow', {
     
     data: {},
 
-    tbar: ['->', {
-        text: 'Редактировать',
-        itemId: 'edit-button',
-        handler: function() {
-            this.up('window').onEditButton();
-        }
-    }, {
-        text: 'Отменить',
-        hidden: true,
-        itemId: 'cancel-button',
-        handler: function() {
-            this.up('window').onEditCancelButton();
-        }
-    }, {
+    tbar: ['->',{
         text: 'Сохранить',
         itemId: 'save-button',
         hidden: true,
         handler: function() {
             this.up('window').onSaveButton();
+        }
+    },{
+        text: 'Редактировать',
+        itemId: 'edit-button',
+        handler: function() {
+            this.up('window').onEditButton();
+        }
+    },{
+        text: 'Отменить',
+        hidden: true,
+        itemId: 'cancel-button',
+        handler: function() {
+            this.up('window').onEditCancelButton();
         }
     }],
 

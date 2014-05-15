@@ -32,7 +32,7 @@ Ext.define('EC.Catalog.view.Services.Add', {
                 allowBlank: false,
                 name: 'name'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

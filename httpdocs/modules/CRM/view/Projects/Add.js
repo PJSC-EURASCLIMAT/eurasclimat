@@ -44,7 +44,7 @@ Ext.define('EC.CRM.view.Projects.Add', {
             }]
         }];
 
-        this.buttons = [{
+        this.buttons = ['->',{
             text: 'Сохранить',
             formBind: true,
             action: 'save'

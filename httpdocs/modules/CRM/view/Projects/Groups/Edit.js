@@ -35,7 +35,7 @@ Ext.define('EC.CRM.view.Projects.Groups.Edit', {
                 fieldLabel: 'Наименование',
                 name: 'name'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

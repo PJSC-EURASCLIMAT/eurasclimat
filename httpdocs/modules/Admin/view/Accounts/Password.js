@@ -31,7 +31,7 @@ Ext.define('EC.Admin.view.Accounts.Password', {
                 anchor: '100%',
                 itemId: 'AdminAccountsPasswordField'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 disabled: true,

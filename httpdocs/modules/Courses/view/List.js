@@ -74,7 +74,7 @@ Ext.define('EC.Courses.view.List', {
 
         this.tbar = ['->', {
             text: 'Подать заявку на обучение',
-            pressed: true, 
+            pressed: true,
             itemId: 'ukkom'
         },'->'];
 

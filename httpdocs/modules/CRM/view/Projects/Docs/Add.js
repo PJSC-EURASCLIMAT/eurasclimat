@@ -44,7 +44,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Add', {
             }]
         }];
 
-        this.buttons = [{
+        this.buttons = ['->',{
             text: 'Сохранить и закрыть',
             formBind: true,
             scope: this,
@@ -58,7 +58,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Add', {
             handler: function(btn) {
                 this.fireEvent('save',null,true);
             }
-        }, '->', {
+        }, {
             text: 'Отменить',
             scope: this,
             handler: this.close

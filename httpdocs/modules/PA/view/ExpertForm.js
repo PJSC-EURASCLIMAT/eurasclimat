@@ -68,12 +68,12 @@ Ext.define('EC.PA.view.ExpertForm', {
             name: 'study_years'
         }];
 
-        this.bbar = [{
+        this.bbar = ['->',{
             text: 'Сохранить',
             formBind: true,
             scope: this,
             action: 'save'
-        } ,'->', {
+        },{
             text: 'Cбросить',
             formBind: true,
             scope: this,

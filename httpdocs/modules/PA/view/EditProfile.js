@@ -73,20 +73,16 @@ Ext.define('EC.PA.view.EditProfile', {
 
                         trackResetOnLoad: true,
 
-                        bbar: [
-                            {
-                                text: 'Сохранить',
-                                scope: this,
-                                handler: this.updateProfile
-                            },
-                            '->',
-                            {
-                                text: 'Сбросить',
-                                handler: function() {
-                                    this.up('form').getForm().reset();
-                                }
+                        bbar: ['->',{
+                            text: 'Сохранить',
+                            scope: this,
+                            handler: this.updateProfile
+                        },{
+                            text: 'Сбросить',
+                            handler: function() {
+                                this.up('form').getForm().reset();
                             }
-                        ],
+                        }],
                         items: [
                             {
                                 xtype: 'filefield',

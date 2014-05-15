@@ -13,12 +13,12 @@ Ext.define('EC.SysDev.view.InfoEditor', {
     autoScroll: true,
 
     tbar: [ '->', {
-        text: 'Отменить',
-        itemId: 'cancel-button'
-    }, {
         text: 'Сохранить',
         itemId: 'save-button',
         disabled: true
+    },{
+        text: 'Отменить',
+        itemId: 'cancel-button'
     }],
 
     defaults: {

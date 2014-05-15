@@ -30,8 +30,6 @@ Ext.define('EC.Experts.view.Experts.Info', {
 
     alias: ['widget.ExpertInfo'],
 
-    layout: 'fit',
-
     listeners: {
         close: function() {
             Ext.Router.redirect('');

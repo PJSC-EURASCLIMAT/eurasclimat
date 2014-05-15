@@ -46,7 +46,7 @@ Ext.define('EC.CRM.view.Calcpd.ConfigPriceForm', {
         name: 'price5'
     }],
     
-    bbar: ['->', {
+    bbar: ['->',{
         text: 'Сохранить',
         formBind: true,
         action: 'save'

@@ -80,7 +80,7 @@ Ext.define('EC.CRM.view.Demoprojects.BaseDescr', {
             }]
         }];
 
-        this.bbar = ['->', {
+        this.bbar = ['->',{
             text: 'Сохранить',
             formBind: true,
             action: 'save'

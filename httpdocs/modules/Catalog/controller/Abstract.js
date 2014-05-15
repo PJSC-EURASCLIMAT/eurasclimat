@@ -477,7 +477,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
             layout: 'fit',
             border: false,
             items: [f],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 handler: function() {
                     f.getForm().submit({
@@ -515,7 +515,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
             layout: 'fit',
             border: false,
             items: [f],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 handler: function() {
                     f.getForm().submit({

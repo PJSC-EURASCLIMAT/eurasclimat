@@ -30,7 +30,7 @@ Ext.define('EC.Catalog.view.Expendables.EditGroup', {
                 anchor: '100%',
                 name: 'name'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

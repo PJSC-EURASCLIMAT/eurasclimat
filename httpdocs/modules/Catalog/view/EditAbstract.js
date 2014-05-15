@@ -74,7 +74,7 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                     allowEdit: this.allowEdit
                 }]
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 action: 'save'
             }, {

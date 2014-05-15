@@ -128,12 +128,12 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
             ]});
         }
 
-        this.bbar = [{
+        this.bbar = ['->',{
             text: 'Сохранить',
             formBind: true,
             scope: this,
             action: 'save'
-        } ,'->', {
+        } , {
             text: 'Cбросить',
             formBind: true,
             scope: this,

@@ -40,7 +40,7 @@ Ext.define('EC.SysDev.view.Docs.Add', {
             }]
         }];
 
-        this.buttons = [{
+        this.buttons = ['->',{
             text: 'Сохранить и закрыть',
             formBind: true,
             scope: this,
@@ -54,7 +54,7 @@ Ext.define('EC.SysDev.view.Docs.Add', {
             handler: function(btn) {
                 this.fireEvent('save',null,true);
             }
-        }, '->', {
+        }, {
             text: 'Отменить',
             scope: this,
             handler: this.close

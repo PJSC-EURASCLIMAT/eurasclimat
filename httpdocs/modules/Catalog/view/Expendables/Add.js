@@ -53,7 +53,7 @@ Ext.define('EC.Catalog.view.Expendables.Add', {
                 fieldLabel: 'Цена',
                 name: 'price'
             }],
-            buttons: [{
+            buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,
                 action: 'save'

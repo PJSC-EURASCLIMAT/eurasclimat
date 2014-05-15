@@ -77,7 +77,7 @@ Ext.define('EC.Main.controller.SmokerCabin', {
                     layout: 'fit',
                     items: [editor],
                     bodyStyle: 'font-size:11px;',
-                    buttons: [{
+                    buttons: ['->',{
                         text: 'Сохранить',
                         handler: function() {
                             Ext.Ajax.request({

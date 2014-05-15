@@ -1,46 +1,45 @@
-Ext.define('xlib.Ref.List', {
+Ext.define('xlib.Reference.List', {
 
     extend: 'Ext.grid.Panel',
 
-    alias: 'widget.RefList',
+    alias: 'widget.ReferenceList',
     
     layout: 'fit',
     
     forceFit: true,
 
-    requires: ['xlib.Ref.Edit'],
+    requires: ['xlib.Reference.Edit'],
     
-    controllerURL: '/json/experts/experts-ref/',
+    getListURL: null,
 
-    ref_name: 'equipment',
+    addURL: null,
 
-    permissions: acl.isUpdate('admin'),
+    deleteURL: null,
+
+    updateURL: null,
+
+    permissions: null,
+
+    store: null,
 
     initComponent: function() {
 
-        this.store = {
-            fields: ['id', 'name'],
-
+        if ( this.store === null ) {
+            this.store = {
+                fields: ['id', 'name'],
                 proxy: {
-                type: 'ajax',
+                    type: 'ajax',
                     api: {
-                    read:   this.controllerURL+'get-list'
-                },
-                extraParams: {
-                    ref_name: this.ref_name
-                },
-                reader: {
-                    type: 'json',
-                    root: 'data',
-                    successProperty: 'success'
+                        read:   this.getListURL
+                    },
+                    reader: {
+                        type: 'json',
+                        root: 'data',
+                        successProperty: 'success'
+                    }
                 }
-            }
-        };
-
-
-        this.addURL = this.controllerURL + 'add?' + 'ref_name=' + this.ref_name;
-        this.deleteURL = this.controllerURL + 'delete?' + 'ref_name=' + this.ref_name;
-        this.editURL = this.controllerURL + 'update?' + 'ref_name=' + this.ref_name;
+            };
+        }
 
         var actions = [];
         
@@ -107,8 +106,7 @@ Ext.define('xlib.Ref.List', {
 
     addItem: function() {
 
-        var view = Ext.create('xlib.Ref.Edit');
-        view.on('close', this.refreshList, this);
+        var view = Ext.create('xlib.Reference.Edit');
         view.down('button[action=save]').on({
             click: function() {
                 this.updateItem(view, this.addURL);
@@ -119,10 +117,10 @@ Ext.define('xlib.Ref.List', {
 
     editItem: function(record) {
 
-        var view = Ext.create('xlib.Ref.Edit');
+        var view = Ext.create('xlib.Reference.Edit');
         view.down('button[action=save]').on({
             click: function() {
-                this.updateItem(view, this.editURL);
+                this.updateItem(view, this.updateURL);
             },
             scope: this
         });
@@ -164,27 +162,6 @@ Ext.define('xlib.Ref.List', {
             },
             scope: this
         });
-//
-//        form.submit({
-//            url: URL,
-//            success: function(form, action) {
-//                view.close();
-//                this.fireEvent('itemSaved');
-//            },
-//            failure: function(form, action) {
-//                switch (action.failureType) {
-//                    case Ext.form.action.Action.CLIENT_INVALID:
-//                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-//                        break;
-//                    case Ext.form.action.Action.CONNECT_FAILURE:
-//                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-//                        break;
-//                    case Ext.form.action.Action.SERVER_INVALID:
-//                        Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-//                }
-//            },
-//            scope: this
-//        });
     },
 
     deleteItem: function(record) {

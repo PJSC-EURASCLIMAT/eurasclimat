@@ -10,6 +10,8 @@ Ext.define('EC.Main.model.News.News', {
         'account_id',
         'author',
         'title',
-        'short_text'
+        'short_text',
+        'long_text',
+        'published'
     ]
 });

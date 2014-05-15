@@ -1,12 +1,12 @@
 <?php
 
-class News_Main
+class News_MainCategories
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new News_MainTable();
+        $this->_table = new News_MainCategoriesTable();
     }
 
     public function getList($params)
@@ -16,25 +16,8 @@ class News_Main
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('n' => $this->_table->getTableName()),
-                array('id', 'date', 'category_id', 'account_id', 'title', 'short_text', 'long_text', 'published')
-            )
-            ->joinLeft(
-                array('a' => 'accounts'),
-                'n.account_id=a.id',
-                array('author' => 'name')
-            )
-            ->joinLeft(
-                array('c' => 'news_main_category'),
-                'n.category_id=c.id',
-                array('category' => 'name')
+                array('id', 'name')
             );
-
-        if (isset($params['actuality']) && !empty($params['actuality'])) {
-            $where = $this->_getActualityFilter($params['actuality']);
-            if (!empty($where)) {
-                $select->where($where);
-            }
-        }
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -65,20 +48,8 @@ class News_Main
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('n' => $this->_table->getTableName()),
-                array('id', 'date', 'category_id', 'account_id', 'title', 'short_text', 'long_text', 'published')
-            )
-            ->joinLeft(
-                array('a' => 'accounts'),
-                'n.account_id=a.id',
-                array('author' => 'name')
-            )
-            ->joinLeft(
-                array('c' => 'news_main_category'),
-                'n.category_id=c.id',
-                array('category' => 'name')
-            )
-            ->where('n.id = ?', $id)
-            ->limit(1);
+                array('id', 'name')
+            );
 
         try {
             $rows = $select->query()->fetchAll();
@@ -93,48 +64,17 @@ class News_Main
         return $response->addStatus(new Xend_Status($status));
     }
 
-    private function _getActualityFilter($type)
-    {
-        $type = trim($type);
-
-        switch($type) {
-            case 'today':
-                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -1 DAY)');
-            case 'yesterday':
-                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -2 DAY)');
-            case 'lastthreedays':
-                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -4 DAY)');
-            case 'lastweek':
-                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -8 DAY)');
-            case 'lastmonth':
-                return new Zend_Db_Expr('DATE(date) > DATE_ADD(CURDATE(), INTERVAL -1 MONTH)');
-            default:
-                return '';
-        }
-    }
-
     public function update(array $data)
     {
         $response = new Xend_Response();
 
-        // 1 фильтры - Zend_Filter
-        // 2 валидаторы - Zend_Validator
-
         $f = new Xend_Filter_Input(array(
             'id'    => 'int',
-//            'date'          => 'StringTrim',
-            'category_id'   => 'int', // отсекает в '123абц' - 123
-            'account_id'    => 'int',
-            'title'         => 'StringTrim',
-            'short_text'    => 'int',
+            'name'  => 'StringTrim',
         ), array(
-            'id'            => 'Id',
-//            'date'          => array('StringLength'),
-            'category_id'   => array('Id', 'allowEmpty' => true),
-            'account_id'    => array('Id'),
-            'title'         => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'short_text'    => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
-        ), $data);
+            'id'    => array('Id'),
+            'name'  => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+          ), $data);
 
         $response->addInputStatus($f);
         if ($response->hasNotSuccess()) {
@@ -161,18 +101,10 @@ class News_Main
     {
         $response = new Xend_Response();
 
-        $data['account_id'] = Xend_Accounts_Prototype::getId();
-
         $f = new Xend_Filter_Input(array(
-//            'date'          => 'StringTrim',
-            'category_id'   => 'int',
-            'title'         => 'StringTrim',
-            'short_text'    => 'int',
+            'name'         => 'StringTrim',
         ), array(
-//            'date'          => array('StringLength'),
-            'category_id'   => array('Id', 'allowEmpty' => true),
-            'title'         => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'short_text'    => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
+            'name'         => array(array('StringLength', 1, 255), 'allowEmpty' => false),
         ), $data);
 
         $response->addInputStatus($f);
@@ -200,7 +132,6 @@ class News_Main
     {
         $response = new Xend_Response();
 
-//        $data = Zend_Json::decode($params['data']);
         $id = intval($data['id']);
 
         if ($id == 0) {

@@ -9,6 +9,7 @@ class News_MainTable extends Xend_Db_Table_Abstract
     protected $_name = 'news_main';
 
     protected $_nullableFields = array(
-        'account_id'
+        'account_id',
+        'category_id'
     );
 }

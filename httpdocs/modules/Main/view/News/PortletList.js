@@ -34,8 +34,7 @@ Ext.define('EC.Main.view.News.PortletList', {
             xtype: 'templatecolumn',
             header: 'Заголовок новости',
             flex: 1,
-            tpl: '<a href="#" title="Автор: {author}.\n' +
-                 'Категория: {category}." action="readmore" newsid="{id}">{title}</a>'
+            tpl: '<a href="#/news/{id}" title="Автор: {author}.\nКатегория: {category}.">{title}</a>'
         }, {
             xtype: 'datecolumn',
             header: 'Опубликовано',
@@ -46,7 +45,7 @@ Ext.define('EC.Main.view.News.PortletList', {
             xtype: 'templatecolumn',
             header: 'Автор',
             hidden: true,
-            tpl: '<a href="#" action="showperson" personid="{account_id}">{author}</a>'
+            tpl: '<a href="#/profile/{account_id}/show">{author}</a>'
         }, {
             xtype: 'templatecolumn',
             header: 'Категория',

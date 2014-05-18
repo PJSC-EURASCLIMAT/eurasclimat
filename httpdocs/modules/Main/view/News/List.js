@@ -41,7 +41,7 @@ Ext.define('EC.Main.view.News.List', {
             xtype: 'templatecolumn',
             header: 'Заголовок новости',
             flex: 1,
-            tpl: '<a href="#" action="readmore" newsid="{id}">{title}</a>'
+            tpl: '<a href="#/news/{id}">{title}</a>'
         }, {
             xtype: 'datecolumn',
             header: 'Дата и время публикации',

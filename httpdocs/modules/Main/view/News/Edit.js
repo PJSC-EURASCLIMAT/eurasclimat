@@ -31,23 +31,26 @@ Ext.define('EC.Main.view.News.Edit', {
                 xtype: 'textfield',
                 hidden: true,
                 name: 'id'
-            },{
+            }, {
                 xtype: 'textfield',
                 hidden: true,
                 name: 'account_id'
+            }, {
+                xtype: 'ReferenceCombo',
+                fieldLabel: 'Категория',
+                store: 'EC.Main.store.News.Categories',
+                name: 'category_id'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Заголовок новости',
                 name: 'title',
                 allowBlank:false
             }, {
-                xtype: 'datefield',
+                xtype: 'displayfield',
                 fieldLabel: 'Дата публикации',
-                format: 'd.m.Y',
-                altFormats: 'Y-m-d H:i:s',
-                submitFormat: 'Y-m-d H:i:s',
-                name: 'date',
-                allowBlank:false
+                value: new Date(),
+                renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s'),
+                name: 'date'
             }, {
                 fieldLabel: 'Опубликовано',
                 xtype: 'checkboxfield',
@@ -55,30 +58,20 @@ Ext.define('EC.Main.view.News.Edit', {
                 inputValue: 1,
                 uncheckedValue: 0
             }, {
-                xtype: 'ReferenceCombo',
-                fieldLabel: 'Категория',
-                store: 'EC.Main.store.News.Categories',
-                name: 'category_id'
-            },{
-                xtype: 'textarea',
-                labelAlign: 'top',
-                fieldLabel: 'Анотация',
-                name: 'short_text'
-            }, {
                 xtype: 'textarea',
                 labelAlign: 'top',
                 fieldLabel: 'Полный текст',
                 name: 'long_text'
             }],
 
-            buttons:['->', {
-                text: 'Сохранить',
-                formBind: true,
-                itemId: 'saveBtn'
-            }, {
+            buttons:[{
                 text: 'Удалить',
                 hidden: true,
                 itemId: 'delBtn'
+            }, '->', {
+                text: 'Сохранить',
+                formBind: true,
+                itemId: 'saveBtn'
             }, {
                 text: 'Отмена',
                 handler: function() {

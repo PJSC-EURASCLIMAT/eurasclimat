@@ -55,7 +55,10 @@ class NewsController extends Xend_Controller_Action
 
     public function updateAction()
     {
-        $response = $this->_model->update($this->_getAllParams());
+        $data = $this->_getAllParams();
+        $data['date'] = date('Y-m-d H:i:s');
+
+        $response = $this->_model->update($data);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
             $this->view->success = false;
@@ -66,7 +69,10 @@ class NewsController extends Xend_Controller_Action
 
     public function addAction()
     {
-        $modResponse = $this->_model->add($this->_getAllParams());
+        $data = $this->_getAllParams();
+        $data['date'] = date('Y-m-d H:i:s');
+
+        $modResponse = $this->_model->add($data);
 
         if ($modResponse->hasNotSuccess()) {
             $this->_collectErrors($modResponse);

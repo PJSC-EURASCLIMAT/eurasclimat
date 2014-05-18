@@ -38,7 +38,7 @@ Ext.define('EC.Main.controller.News', {
             
         this.grid = container.add(this.getView(viewName).create({
             listeners: {
-                itemclick: this.openCard,
+//                itemclick: this.openCard,
                 afterrender: function(g) {
                     // To enable filters let initialize grid to create filters
                     g.getView().getFeature('filter_feature').createFilters();
@@ -144,41 +144,23 @@ Ext.define('EC.Main.controller.News', {
     },
 
     delete: function(id) {
-        this.editWin.down('form').getForm().submit({
-            url: this.deleteURL,
-            scope: this,
-            success: function(response, opts) {
-                this.grid.getStore().load();
-                this.editWin.close();
-            },
-            failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+        Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+            if ('yes' === b) {
+                this.editWin.down('form').getForm().submit({
+                    url: this.deleteURL,
+                    scope: this,
+                    success: function(response, opts) {
+                        this.grid.getStore().load();
+                        this.editWin.close();
+                    },
+                    failure: function(response, opts) {
+                        Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
+                    }
+                });
             }
-        });
-        console.log('delete new');
+        }, this);
     },
-    
-    openCard: function(grid, record, item, index, e, eOpts) {
-        
-        var link = e.target.attributes,
-            MC = this.getController('App.controller.Main'); 
 
-        if (!link.action) {
-            return;
-        }
-        
-        if (link.action.value == 'readmore') {
-            MC.openModuleFullscreen({
-                title: record.get('title'),
-                allowMultiple: true,
-                icon: '/images/icons/news_current.png',
-                launchModule: 'EC.Main.controller.NewsCard'
-            });
-            
-            MC.getStore('EC.Main.store.News.Card').load({params: {id: link.newsid.value}});
-        }
-    },
-    
     onFilter: function(combo, newValue, oldValue, eOpts) {
 
         var filter = this.getView().getFeature('filter_feature').getFilter(combo.fieldName),

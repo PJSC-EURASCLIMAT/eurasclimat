@@ -47,9 +47,9 @@ Ext.define('EC.Main.controller.News', {
             }
         }));
 
-        this.grid.on ('add', this.showAddWin, this);
-        this.grid.on ('edit', this.showEditWin, this);
-        this.grid.on ('editCategories', this.editCategories, this);
+        this.grid.on('add', this.showAddWin, this);
+        this.grid.on('edit', this.showEditWin, this);
+        this.grid.on('editCategories', this.editCategories, this);
 
         this.grid.down('toolbar NewsCategoriesCombo').on('change', this.onFilter, this.grid);
         this.grid.down('toolbar NewsActualityCombo').on('change', this.onActualityFilter, this.grid);
@@ -82,9 +82,7 @@ Ext.define('EC.Main.controller.News', {
             this.grid.down('NewsCategoriesCombo').getStore().load();
         }, this);
 
-
         this.catWin.show();
-
     },
 
     showAddWin: function() {
@@ -96,7 +94,7 @@ Ext.define('EC.Main.controller.News', {
 
         form.down('[name=account_id]').setValue(curUserId);
 
-        saveBtn.on('click', this.add, this)
+        saveBtn.on('click', this.addItem, this)
     },
 
     showEditWin: function(record) {
@@ -109,11 +107,11 @@ Ext.define('EC.Main.controller.News', {
 
         delBtn.show();
 
-        delBtn.on('click', this.delete, this);
-        saveBtn.on('click', this.update, this)
+        delBtn.on('click', this.deleteItem, this);
+        saveBtn.on('click', this.updateItem, this)
     },
 
-    add: function() {
+    addItem: function() {
         this.editWin.down('form').getForm().submit({
             url: this.addURL,
             scope: this,
@@ -125,10 +123,9 @@ Ext.define('EC.Main.controller.News', {
                 Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
             }
         });
-        console.log('add new');
     },
 
-    update: function() {
+    updateItem: function() {
         this.editWin.down('form').getForm().submit({
             url: this.updateURL,
             scope: this,
@@ -140,10 +137,9 @@ Ext.define('EC.Main.controller.News', {
                 Ext.Msg.alert('Ошибка', 'Обновление не выполнено!');
             }
         });
-        console.log('update new');
     },
 
-    delete: function(id) {
+    deleteItem: function(id) {
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 this.editWin.down('form').getForm().submit({
@@ -175,7 +171,7 @@ Ext.define('EC.Main.controller.News', {
     },
     
     onActualityFilter: function(combo, newValue, oldValue, eOpts) {
-        this.getStore().getProxy().extraParams = {actuality: combo.getValue()};
-        this.getStore().guaranteeRange(0, 10);
+        this.getStore().getProxy().setExtraParam('actuality', newValue);
+        this.getStore().reload();
     }
 });

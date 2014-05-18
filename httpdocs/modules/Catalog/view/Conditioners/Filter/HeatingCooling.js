@@ -31,10 +31,13 @@ Ext.define('EC.Catalog.view.Conditioners.Filter.HeatingCooling', {
             name:   '- Не выбрано -'
         }, {
             id:     '0',
-            name:   'только охлаждение'
+            name:   'Только охлаждение'
         }, {
             id:     '1',
-            name:   'охлаждение/нагрев'
+            name:   'Охлаждение или нагрев'
+        }, {
+            id:     '2',
+            name:   'Охлаждение и нагрев одновременно'
         }]
     },
 

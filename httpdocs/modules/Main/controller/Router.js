@@ -15,6 +15,7 @@ Ext.define('EC.Main.controller.Router', {
                 if (!Ext.isEmpty(data)) {
                     var card = Ext.create('EC.Main.view.News.Card');
                     card.showTpl.overwrite(card.down('panel').body, data);
+                    card.setTitle(data.title);
                 }
 
             },

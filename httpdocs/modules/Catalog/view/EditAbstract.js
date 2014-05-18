@@ -20,8 +20,6 @@ Ext.define('EC.Catalog.view.EditAbstract', {
     
     fields: [],
     
-    extrafields: [],
-    
     catalog: null,
     
     catalogId: null,

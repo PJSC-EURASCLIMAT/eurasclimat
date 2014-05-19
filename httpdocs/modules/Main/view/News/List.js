@@ -71,7 +71,7 @@ Ext.define('EC.Main.view.News.List', {
                     this.fireEvent('edit', rec);
                 },
                 getClass: function(value, meta, record) {
-                    if (record.data.account_id !== curUserId || !this.permissions) {
+                    if (record.data.account_id !== curUserId && !this.permissions) {
                         return 'x-hide-visibility';
                     }
                 }

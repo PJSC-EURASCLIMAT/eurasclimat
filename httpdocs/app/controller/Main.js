@@ -94,8 +94,8 @@ Ext.define('App.controller.Main', {
 
         if (acl.isView('crm')) {
             this.getController('App.controller.Interface.CRM');
-            this.getController('App.controller.Interface.Mail');
         }
+        this.getController('App.controller.Interface.Mail');
 
         // Make first tab active
 //        centerPanel.setActiveTab(0);

@@ -31,6 +31,7 @@ Ext.define('xlib.Tree', {
 
         if ( this.store === null ) {
             this.store =  new Ext.data.TreeStore({
+                fields: this.fields,
                 proxy: {
                     type: 'ajax',
                     api: {
@@ -51,29 +52,10 @@ Ext.define('xlib.Tree', {
                         root: 'data',
                         encode: true
                     }
-//
-//                writer: {
-//                    type: 'json',
-//                    writeAllFields: false,
-//                    root: 'data'
-//                }
-//                url: 'json/experts/experts-courses/get-list',
-//                reader: {
-//                    type: 'json',
-//                    root: 'data'
-//                }
                 },
 
                 autoLoad: false,
-//            autoSync: true,
 
-//            root: {
-////                text: 'rootNode',
-////                id: 'root',
-////                path: 'extjs',
-//                expanded: true
-//            },
-//            folderSort: true,
                 sorters: [{
                     property: 'text',
                     direction: 'ASC'
@@ -89,6 +71,7 @@ Ext.define('xlib.Tree', {
 
         var treeColumn = {
             xtype: 'treecolumn',
+            text: 'Наименование',
             dataIndex: 'text',
             flex: 1,
             renderer: function(value, metadata) {
@@ -113,14 +96,16 @@ Ext.define('xlib.Tree', {
 
         if ( this.permissions ) {
 
-            this.tbar = [{
+            this.tbar = Ext.Array.merge([{
                 text: this.addText,
                 itemId: 'add',
                 icon: 'images/icons/fam/add.png',
                 tooltip: this.addToolTip,
                 scope: this,
-                handler: this.create
-            }];
+                handler: function() {
+                    this.create(true);
+                }
+            }], this.tbar);
 
             this.editing = Ext.create('Ext.grid.plugin.CellEditing', {
                 listeners: {
@@ -186,6 +171,10 @@ Ext.define('xlib.Tree', {
                 }
             }
 
+            if ( !Ext.isEmpty(this.columns) ) {
+                columnsList = Ext.Array.merge(columnsList, this.columns);
+            }
+
             columnsList.push({
                 xtype:'actioncolumn',
                 width: 20,
@@ -239,10 +228,11 @@ Ext.define('xlib.Tree', {
         });
     },
 
-    create: function() {
+    create: function( isLeaf ) {
         var selectedRecords = this.selModel.getSelection(),
             node,
-            me = this;
+            me = this,
+            leaf = isLeaf || false;
 
         if ( Ext.isArray( selectedRecords ) ) {
             node = selectedRecords[0];
@@ -263,7 +253,7 @@ Ext.define('xlib.Tree', {
 
             node.expand(false, function() {
                 var newNode = node.appendChild({
-                    leaf: false,
+                    leaf: leaf,
                     text: ''
                 });
                 me.editing.startEdit(newNode, 0);

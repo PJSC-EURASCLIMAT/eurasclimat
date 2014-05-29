@@ -31,6 +31,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
             previewPanel = content.down('panel[type=preview]');
         
         treePanel.on('select', function(tree, record, index, eOpts) {
+            if ( record.phantom ) return false;
             previewPanel.getLoader().load({
                 params: {
                     theme_id: record.get('id') 

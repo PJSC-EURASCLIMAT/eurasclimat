@@ -8,7 +8,6 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
 
     public function init()
     {
-//        $this->_model = new Aboutsystem_Themes_Model();
         $nullablse_fields = array(
             'parent_id',
             'account_id'
@@ -24,8 +23,6 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'destroy');
-
-//        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-tree');
     }
 
     public function createAction()
@@ -48,7 +45,6 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
             $data = $response->getRowset();
             $this->view->success = true;
             $this->view->data = $data;
-//            $this->view->total = $response->total;
         } else {
             $this->_collectErrors($response);
         }
@@ -75,18 +71,5 @@ class Aboutsystem_ThemesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
-
-//
-//    public function getTreeAction()
-//    {
-//        $response = $this->_model->fetchBranch(0);
-//        if ($response->isSuccess()) {
-//            $this->view->success = true;
-//            $rows = $response->getRowset();
-//            $this->view->assign(array('children' => $rows));
-//        } else {
-//            $this->_collectErrors($response);
-//        }
-//    }
 
 }

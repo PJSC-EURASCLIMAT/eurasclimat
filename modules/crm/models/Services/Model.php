@@ -14,7 +14,7 @@ class Crm_Services_Model
     public function create(array $data)
     {
 
-        $data['parent_id'] = $data['parentId'];
+        $data['chapter_id'] = $data['parentId'];
 
         $response = new Xend_Response();
 

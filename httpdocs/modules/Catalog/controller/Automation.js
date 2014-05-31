@@ -4,7 +4,6 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     views: [
         'EC.Catalog.view.Automation.FiltersPanel',
-        'EC.Catalog.view.Automation.Edit',
         'EC.Catalog.view.Automation.Show'
     ],
     
@@ -17,11 +16,12 @@ Ext.define('EC.Catalog.controller.Automation', {
         'EC.Catalog.view.Automation.Filter.ProtectionType',
         'EC.Catalog.view.Automation.Filter.PowerSource',
         'EC.Catalog.view.Automation.Filter.Material',
-        'EC.Catalog.view.Automation.Filter.IsolationType',
-        'EC.Catalog.view.Automation.Filter.Country'
+        'EC.Catalog.view.Automation.Filter.IsolationType'
     ],
     
     entity: 'Automation',
+    
+    fields: [],
     
     settingsView: 'EC.Catalog.view.Automation.SettingsLayout',
     
@@ -29,9 +29,9 @@ Ext.define('EC.Catalog.controller.Automation', {
     
     showXType: 'AutomationShow',
     
-    editXType: 'AutomationEdit',
-    
     listURL: '/json/catalog/automation/get-list',
+    
+    fieldsURL: '/catalog/automation/get-fields',
     
     getURL: '/json/catalog/automation/get',
     

@@ -76,6 +76,18 @@ class Catalog_AbstractController extends Xend_Controller_Action
         }
     }
 
+    public function getFieldsAction()
+    {
+        $this->disableRender();
+        $response = $this->_model->getFields();
+        if ($response->isSuccess()) {
+            $data = $response->getRow();
+        } else {
+            $data = array();
+        }
+        echo Zend_Json::encode($data);
+    }
+
     public function uploadAction()
     {
         $id = intval($this->_getParam('id'));

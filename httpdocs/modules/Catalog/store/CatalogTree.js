@@ -13,12 +13,6 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             hidden: !acl.isView('catalog', 'conditioners'),
             children: []
         }, {
-            id: 'Watersupply',
-            name: 'Водоснабжение',
-            icon: '/images/icons/water.png',
-            hidden: !acl.isView('catalog', 'watersupply'),
-            children: []
-        }, {
             id: 'Airing',
             name: 'Вентиляция',
             icon: '/images/icons/cooling.png',
@@ -57,6 +51,12 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             name: 'Отопление',
             icon: '/images/icons/heating.png',
             hidden: !acl.isView('catalog', 'heating'),
+            children: []
+        }, {
+            id: 'Watersupply',
+            name: 'Водоснабжение',
+            icon: '/images/icons/water.png',
+            hidden: !acl.isView('catalog', 'watersupply'),
             children: []
         }, {
             id: 'Dustextraction',

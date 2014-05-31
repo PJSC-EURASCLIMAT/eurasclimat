@@ -4,7 +4,8 @@ class Catalog_Airing_Model extends Catalog_ModelAbstract
 {
     public function __construct()
     {
-        $this->_table = new Catalog_Airing_Table();
+        $this->_table       = new Catalog_Airing_Table();
+        $this->_structure   = new Catalog_Airing_Structure();
         $this->_marksResource =
             (string) Xend_Acl_Resource_Generator::getInstance()->catalog->airing->marks;
     }
@@ -107,56 +108,5 @@ class Catalog_Airing_Model extends Catalog_ModelAbstract
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
-    }
-
-    public function update(array $params)
-    {
-        $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
-        ), array(
-            'id'                    => array('Id', 'presence' => 'required'),
-            'group_id'              => array('Id', 'allowEmpty' => true),
-            'mark_id'               => array('Id', 'allowEmpty' => true),
-            'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'code'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'product_type_id'       => array('Id', 'allowEmpty' => true),
-            'implementation_type_id' => array('Id', 'allowEmpty' => true),
-            'control_type_id'       => array('Id', 'allowEmpty' => true),
-            'connection_type_id'    => array('Id', 'allowEmpty' => true),
-            'protection_type_id'    => array('Id', 'allowEmpty' => true),
-            'material_id'           => array('Id', 'allowEmpty' => true),
-            'power_source_id'       => array('Id', 'allowEmpty' => true),
-            'isolation_class_id'    => array('Id', 'allowEmpty' => true),
-            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
-            'temp'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'power_supply'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_power_consumption' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'amperage'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'sensor_inputs'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'pressure'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'noise_level_min'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'eer'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'weight'                => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'dimensions'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'cable_length'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'pipe_diameter'         => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'speed'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'air_flow'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'url'                   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
-        ), $params);
-
-        $response = new Xend_Response();
-
-        $response->addInputStatus($f);
-        if ($response->hasNotSuccess()) {
-            return $response;
-        }
-
-        $rows = $this->_table->updateByPk($f->getData(), $f->id);
-        $status = Xend_Status::retrieveAffectedRowStatus($rows);
-        return $response->addStatus(new Xend_Status($status));
     }
 }

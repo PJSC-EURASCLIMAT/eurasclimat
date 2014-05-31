@@ -14,6 +14,7 @@ class Catalog_AiringController extends Catalog_AbstractController
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->catalog->airing);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-images');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-fields');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');

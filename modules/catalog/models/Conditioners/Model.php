@@ -4,8 +4,9 @@ class Catalog_Conditioners_Model extends Catalog_ModelAbstract
 {
     public function __construct()
     {
-        $this->_table = new Catalog_Conditioners_Table();
-        $this->_marksResource =
+        $this->_table           = new Catalog_Conditioners_Table();
+        $this->_structure       = new Catalog_Conditioners_Structure();
+        $this->_marksResource   =
             (string) Xend_Acl_Resource_Generator::getInstance()->catalog->conditioners->marks;
     }
 
@@ -65,54 +66,5 @@ class Catalog_Conditioners_Model extends Catalog_ModelAbstract
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
-    }
-
-    public function update(array $params)
-    {
-        $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
-        ), array(
-            'id'                    => array('Id', 'presence' => 'required'),
-            'group_id'              => array('Id', 'allowEmpty' => true),
-            'currency_id'           => array('Id', 'allowEmpty' => true),
-            'mark_id'               => array('Id', 'allowEmpty' => true),
-            'marking'               => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'name'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'code'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'product_type_id'       => array('Id', 'allowEmpty' => true),
-            'implementation_type_id'    => array('Id', 'allowEmpty' => true),
-            'power_source_id'       => array('Id', 'allowEmpty' => true),
-            'heatingcooling_id'     => array('Id', 'allowEmpty' => true),
-            'country'               => array(array('StringLength', 0, 2), 'allowEmpty' => true),
-            'cooling_capacity'      => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'heating_capacity'      => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'air_consumption_min'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'air_consumption_max'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'noise_level_min'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'noise_level_max'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'dimensions'            => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'warranty'              => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'seer'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'scop'                  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'ports'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'sound_power_level'     => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'working_amperage'      => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'operating_amperage'    => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'max_working_amperage'  => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'factory_refrigerant_charge'    => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'price'                 => array(array('StringLength', 0, 255), 'allowEmpty' => true),
-            'description'           => array(array('StringLength', 0, 204800), 'allowEmpty' => true)
-        ), $params);
-
-        $response = new Xend_Response();
-
-        $response->addInputStatus($f);
-        if ($response->hasNotSuccess()) {
-            return $response;
-        }
-
-        $rows = $this->_table->updateByPk($f->getData(), $f->id);
-        $status = Xend_Status::retrieveAffectedRowStatus($rows);
-        return $response->addStatus(new Xend_Status($status));
     }
 }

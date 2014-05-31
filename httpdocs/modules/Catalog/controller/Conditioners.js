@@ -4,7 +4,6 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     views: [
         'EC.Catalog.view.Conditioners.FiltersPanel',
-        'EC.Catalog.view.Conditioners.Edit',
         'EC.Catalog.view.Conditioners.Show'
     ],
     
@@ -13,12 +12,12 @@ Ext.define('EC.Catalog.controller.Conditioners', {
         'EC.Catalog.view.Conditioners.Filter.ProductType',
         'EC.Catalog.view.Conditioners.Filter.ImplementationType',
         'EC.Catalog.view.Conditioners.Filter.PowerSource',
-        'EC.Catalog.view.Conditioners.Filter.HeatingCooling',
-        'EC.Catalog.view.Conditioners.Filter.Currency',
-        'EC.Catalog.view.Conditioners.Filter.Country'
+        'EC.Catalog.view.Conditioners.Filter.HeatingCooling'
     ],
     
     entity: 'Conditioners',
+    
+    fields: [],
     
     settingsView: 'EC.Catalog.view.Conditioners.SettingsLayout',
     
@@ -26,8 +25,8 @@ Ext.define('EC.Catalog.controller.Conditioners', {
     
     showXType: 'ConditionersShow',
     
-    editXType: 'ConditionersEdit',
-    
+    fieldsURL: '/catalog/conditioners/get-fields',
+
     listURL: '/json/catalog/conditioners/get-list',
     
     getURL: '/json/catalog/conditioners/get',

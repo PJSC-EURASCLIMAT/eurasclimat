@@ -4,7 +4,6 @@ Ext.define('EC.Catalog.controller.Airing', {
 
     views: [
         'EC.Catalog.view.Airing.FiltersPanel',
-        'EC.Catalog.view.Airing.Edit',
         'EC.Catalog.view.Airing.Show'
     ],
     
@@ -17,11 +16,12 @@ Ext.define('EC.Catalog.controller.Airing', {
         'EC.Catalog.view.Airing.Filter.ProtectionType',
         'EC.Catalog.view.Airing.Filter.PowerSource',
         'EC.Catalog.view.Airing.Filter.Material',
-        'EC.Catalog.view.Airing.Filter.IsolationClass',
-        'EC.Catalog.view.Airing.Filter.Country'
+        'EC.Catalog.view.Airing.Filter.IsolationClass'
     ],
     
     entity: 'Airing',
+    
+    fields: [],
     
     settingsView: 'EC.Catalog.view.Airing.SettingsLayout',
     
@@ -29,7 +29,7 @@ Ext.define('EC.Catalog.controller.Airing', {
     
     showXType: 'AiringShow',
     
-    editXType: 'AiringEdit',
+    fieldsURL: '/catalog/airing/get-fields',
     
     listURL: '/json/catalog/airing/get-list',
     

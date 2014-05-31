@@ -18,6 +18,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.RelatedServices.Edit',
         'EC.Catalog.view.Services.Combo',
         'EC.Catalog.view.FilterMark',
+        'EC.Catalog.view.CurrencyCombo',
         'EC.Catalog.view.ListAbstract',
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
@@ -30,6 +31,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     catalogName: null,
     
+    fields: [],
+    
     viewPermition: acl.isView('catalog'),
     
     editPermition: acl.isUpdate('catalog'),
@@ -40,7 +43,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     showXType: null,
     
-    editXType: null,
+    fieldsURL: null,
     
     listURL: null,
     
@@ -103,6 +106,18 @@ Ext.define('EC.Catalog.controller.Abstract', {
             
             return;
         }
+        
+        // load fields list
+        Ext.Ajax.request({
+            url: this.fieldsURL,
+            success: function (response, opts) {
+                this.fields = Ext.decode(response.responseText); 
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить структуру.');
+            },
+            scope: this
+        });
         
         container.setLoading('Загрузка...', true);
         var catalog = container.add({
@@ -242,7 +257,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         var recordId = (record instanceof Ext.data.Record) ? record.get('id') : record.id; 
         
-        var view = Ext.widget(this.editXType, {
+        var view = Ext.create('EC.Catalog.view.EditAbstract', {
+            catalog: this.entity,
+            fields: this.fields,
             recordId: recordId,
             title: 'Редактирование позиции №' + recordId,
             allowEdit: this.editPermition

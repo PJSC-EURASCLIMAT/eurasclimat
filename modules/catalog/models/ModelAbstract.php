@@ -4,6 +4,8 @@ class Catalog_ModelAbstract
 {
     protected $_table;
 
+    protected $_structure;
+
     protected $_marksResource;
 
     /*
@@ -110,6 +112,46 @@ class Catalog_ModelAbstract
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function update(array $params)
+    {
+        $validators = array();
+
+        foreach($this->_structure->data as $v) {
+            $validators[$v['name']] = $v['validator'];
+        }
+
+        $f = new Xend_Filter_Input(array('*' => 'StringTrim'), $validators, $params);
+
+        $response = new Xend_Response();
+
+        $response->addInputStatus($f);
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
+        $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        return $response->addStatus(new Xend_Status($status));
+    }
+
+    public function getFields()
+    {
+        $fields = array();
+
+        foreach($this->_structure->data as $v) {
+            $fields[] = array(
+                'xtype'         => $v['xtype'],
+                'fieldLabel'    => $v['fieldLabel'],
+                'name'          => $v['name']
+            );
+        }
+
+        $response = new Xend_Response();
+
+        $response->setRow($fields);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 

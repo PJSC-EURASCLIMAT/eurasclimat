@@ -10,7 +10,7 @@ Ext.define('EC.Services.controller.Services', {
         'EC.Services.view.Layout',
         'EC.Services.view.TreeGrid',
 
-        'EC.Services.view.List',
+//        'EC.Services.view.List',
         'EC.Services.view.Edit',
         'EC.Services.view.Info'
     ],

@@ -1,57 +1,8 @@
 Ext.define('EC.Catalog.controller.Heating', {
     
-    extend: 'EC.Catalog.controller.Abstract',
+    extend: 'EC.Catalog.controller.ChapterAbstract',
     
-    views: [
-        'EC.Catalog.view.Heating.FiltersPanel',
-        'EC.Catalog.view.Heating.Edit',
-        'EC.Catalog.view.Heating.Show'
-    ],
-    
-    uses: [
-        'EC.Catalog.view.Heating.Filter.Group',
-        'EC.Catalog.view.Heating.Filter.ProductType',
-        'EC.Catalog.view.Heating.Filter.ImplementationType',
-        'EC.Catalog.view.Heating.Filter.ControlType',
-        'EC.Catalog.view.Heating.Filter.ConnectionType',
-        'EC.Catalog.view.Heating.Filter.ProtectionType',
-        'EC.Catalog.view.Heating.Filter.PowerSource',
-        'EC.Catalog.view.Heating.Filter.Material',
-        'EC.Catalog.view.Heating.Filter.Country'
-    ],
-    
-    entity: 'Heating',
+    content: 'Каталог Отопления. Для просмотра содержимого каталога разверните ' +
+             'пункт в левом меню и выберите раздел.'
 
-    settingsView: 'EC.Catalog.view.Heating.SettingsLayout',
-    
-    filtersPanelXType: 'HeatingFiltersPanel', 
-    
-    showXType: 'HeatingShow',
-    
-    editXType: 'HeatingEdit',
-    
-    listURL: '/json/catalog/heating/get-list',
-    
-    getURL: '/json/catalog/heating/get',
-    
-    addURL: '/json/catalog/heating/add',
-    
-    updateURL: '/json/catalog/heating/update',
-    
-    deleteURL: '/json/catalog/heating/delete',
-    
-    uploadURL: '/json/catalog/heating/upload',
-    
-    getImagesURL: '/json/catalog/heating/get-images',
-    
-    deleteImageURL: '/json/catalog/heating/delete-image',
-    
-    getRelatedServicesURL: '/json/catalog/heating/get-related-services',
-    
-    addRelatedServicesURL: '/json/catalog/heating/add-related-services',
-    
-    editRelatedServicesURL: '/json/catalog/heating/edit-related-services',
-    
-    deleteRelatedServicesURL: '/json/catalog/heating/delete-related-services'
-    
 });

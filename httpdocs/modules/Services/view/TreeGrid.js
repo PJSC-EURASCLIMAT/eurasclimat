@@ -21,7 +21,12 @@ Ext.define('EC.Services.view.TreeGrid', {
     
     layout: 'fit',
     
-    rootVisible: false,
+    rootVisible: true,
+
+    root: {
+        text: "Все услуги",
+        expanded: true
+    },
     
     hideHeaders: false,
     
@@ -29,7 +34,11 @@ Ext.define('EC.Services.view.TreeGrid', {
     
     scroll: 'vertical',
 
-    permissions: acl.isUpdate('services'),
+    showEditAction: true,
+
+    border: false,
+
+    permissions: acl.isUpdate('crm', 'services'),
 
     addText: "Добавить услугу",
 
@@ -51,18 +60,30 @@ Ext.define('EC.Services.view.TreeGrid', {
         dataIndex: 'min_rank'
     }],
 
+    configureTBar: function() {
+        this.callParent();
+
+        if ( this.permissions && !this.isPortlet ) {
+            Ext.Array.insert(this.tbar, 1, [{
+                icon: '/images/icons/folder.gif',
+                itemId: 'add-chapter',
+                scope: this,
+                text: 'Добавить раздел',
+                handler: function() {
+                    this.create(false);
+                }
+
+            }]);
+        }
+    },
+
     initComponent: function() {
-        this.tbar =  [{
-            icon: '/images/icons/folder.gif',
-            itemId: 'add-chapter',
-            scope: this,
-            text: 'Добавить раздел',
-            handler: function() {
-                this.create(false);
+        this.hideHeaders = this.isPortlet;
+        this.editActionConfig.getClass = function( value, meta, record ) {
+            if ( Ext.isEmpty( record.data.service_id ) ) {
+                return 'x-hide-visibility';
             }
-
-        }];
-
+        };
         this.callParent();
     },
 
@@ -76,7 +97,14 @@ Ext.define('EC.Services.view.TreeGrid', {
             node = selectedRecords;
         }
 
-        if ( !Ext.isEmpty(node) && node.data.leaf ) return;
+        if ( !Ext.isEmpty(node) && node.data.leaf ) {
+            var newNode = node.parentNode.insertBefore({
+                leaf: isLeaf,
+                text: ''
+            }, node.nextSibling);
+            this.editing.startEdit(newNode, 0);
+            return;
+        }
 
         this.superclass.create.call(this, isLeaf);
 

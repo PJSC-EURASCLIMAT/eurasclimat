@@ -1,11 +1,14 @@
 Ext.define('EC.Services.model.Service', {
 
     extend: 'Ext.data.Model',
-   
+
+    idProperty: 'service_id',
+
     fields: [
         'id',
         'text',
         'parent_id',
+        'service_id',
         'profession_id',
         'eng_sys_type_id',
         'norm_hours',

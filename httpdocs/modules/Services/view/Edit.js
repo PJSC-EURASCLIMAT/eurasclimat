@@ -2,7 +2,7 @@ Ext.define('EC.Services.view.Edit', {
     
     extend: 'Ext.window.Window',
     
-    title: 'Информация об эксперте',
+    title: 'Услуга',
     
     layout: 'fit',
     
@@ -12,67 +12,107 @@ Ext.define('EC.Services.view.Edit', {
     
     modal: true,
     
-    width: 500,
-
-    height: 400,
-
-    hideFiles: true,
-
-    getFilesURL: null,
-
-    items: [{
-        xtype: 'form',
-        fields: [{
-            fieldLabel: 'test'
-        }]
-    }],
-
-    requires: [
-        'EC.Experts.view.Experts.InfoForm',
-        'EC.Experts.view.Experts.FilesList'
-    ],
-
-    editURL: '/json/experts/experts/update',
-
+    width: 300,
 
     initComponent: function() {
-        this.callParent(arguments);
-
-        this.expertEditForm = this.down('#edit-service-form');
-        this.expertEditForm.down('[action=save]').on('click', this.editExpert, this);
-    },
-
-    editExpert: function() {
-
-        this.expertEditForm.getForm().submit({
-            url: this.editURL,
-            success: function(form, action) {
-                Ext.Msg.alert('Ответ системы',
-                    '<span style="color:green;">Обновление профиля специалиста прошло успешно.</span>');
-                this.fireEvent('updateSuccess', action);
+        this.items = [{
+            xtype: 'form',
+            bodyPadding: 10,
+            fieldDefaults: {
+                margin: '5 0',
+                labelWidth: 120,
+                anchor: '100%'
             },
-            failure: function(form, action) {
-                switch (action.failureType) {
-                    case Ext.form.action.Action.CLIENT_INVALID:
-                        Ext.Msg.alert('Ошибка', 'Поля формы заполнены неверно');
-                        break;
-                    case Ext.form.action.Action.CONNECT_FAILURE:
-                        Ext.Msg.alert('Ошибка', 'Проблемы коммуникации с сервером');
-                        break;
-                    case Ext.form.action.Action.SERVER_INVALID:
-                        var errorMsg = action.result.errors[0].msg;
-                        if(errorMsg === 'Expert exists already.') {
-                            Ext.Msg.alert('Ошибка', 'Эксперт с таким аккаунтом уже зарегистрирован.');
-                        } else {
-                            Ext.Msg.alert('Ошибка', action.result.errors[0].msg);
-                        }
-
-
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
+            items: [{
+                xtype: 'hiddenfield',
+                margin: 0,
+                name: 'id'
+            },{
+                xtype: 'hiddenfield',
+                margin: 0,
+                name: 'service_id'
+            },{
+                xtype: 'hiddenfield',
+                margin: 0,
+                name: 'parent_id'
+            },{
+                xtype: 'hiddenfield',
+                margin: 0,
+                name: 'profession_name'
+            },{
+                xtype: 'hiddenfield',
+                margin: 0,
+                name: 'eng_sys_type_name'
+            },{
+                fieldLabel: 'Наименование',
+                allowBlank: false,
+                xtype: 'textfield',
+                name: 'text'
+            },{
+                xtype: 'combo',
+                editable: false,
+                fieldLabel: 'Профессия',
+                store: 'EC.Professions.store.Professions',
+                valueField: 'id',
+                displayField: 'name',
+                name: 'profession_id',
+                listeners: {
+                    scope: this,
+                    change: function( combo, newValue, oldValue, eOpts ) {
+                        this.pfField.setValue(combo.getDisplayValue());
+                    }
                 }
-                this.fireEvent('updateFailure');
-            },
-            scope: this
-        });
+            },{
+                xtype: 'combo',
+                editable: false,
+                fieldLabel: 'Тип инженерных систем',
+                store: 'EC.EngSystemTypes.store.EngSystemTypes',
+                valueField: 'id',
+                displayField: 'name',
+                name: 'eng_sys_type_id',
+                listeners: {
+                    scope: this,
+                    change: function( combo, newValue, oldValue, eOpts ) {
+                        this.estField.setValue(combo.getDisplayValue());
+                    }
+                }
+            },{
+                xtype: 'numberfield',
+                fieldLabel: 'Кол-во нормочасов',
+                minValue: 0,
+                name: 'norm_hours'
+            },{
+                xtype: 'numberfield',
+                fieldLabel: 'Разряд',
+                minValue: 0,
+                name: 'min_rank'
+            }],
 
+            buttons: ['->',{
+                text: 'Сохранить',
+                formBind: true,
+                handler: function() {
+                    var form = this.up('form');
+                    this.up('form').fireEvent('save', form.getValues());
+                }
+            },{
+                text: 'Отмена',
+                handler: function() {
+                    this.up('window').close();
+                }
+            }]
+        }];
+
+        this.callParent();
+
+        this.pfField = this.down('[name=profession_name]');
+        this.estField = this.down('[name=eng_sys_type_name]');
     }
+
+
+
 });

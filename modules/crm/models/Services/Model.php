@@ -13,10 +13,12 @@ class Crm_Services_Model
 
     public function create(array $data)
     {
-
-        $data['chapter_id'] = $data['parentId'];
-
         $response = new Xend_Response();
+
+        if ( $data['parentId'] != 'root') {
+            $data['chapter_id'] = $data['parentId'];
+        }
+
 
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
@@ -29,9 +31,9 @@ class Crm_Services_Model
             'min_rank'          => array('Int', 'allowEmpty' => true),
         ), $data);
 
-        if ( $f->parent_id == 'root') {
-            $f->parent_id = new Zend_Db_Expr('NULL');
-        }
+//        if ( $f->chapter_id == -1) {
+//            $f->chapter_id = new Zend_Db_Expr('NULL');
+//        }
 
         $response->addInputStatus($f);
 

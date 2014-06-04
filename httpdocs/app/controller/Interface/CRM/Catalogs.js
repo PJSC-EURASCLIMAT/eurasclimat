@@ -40,8 +40,16 @@ Ext.define('App.controller.Interface.CRM.Catalogs', {
                 title: 'Каталог инструментов и материалов',
                 icon: '/images/icons/catalog.png',
                 portletHeight: 400,
-                position: 'CatalogPanel-column-3',
+                position: 'CatalogPanel-column-2',
                 launchModule: 'EC.Catalog.controller.Expendables'
+            });
+            MC.openModulePortlet({
+                text: 'Услуги',
+                title: 'Услуги',
+                icon: '/images/icons/catalog.png',
+                portletHeight: 400,
+                position: 'CatalogPanel-column-3',
+                launchModule: 'EC.Services.controller.Services'
             });
         }, this, {single: true});
     },

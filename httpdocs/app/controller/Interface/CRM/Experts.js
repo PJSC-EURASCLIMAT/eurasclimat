@@ -36,8 +36,28 @@ Ext.define('App.controller.Interface.CRM.Experts', {
             title: 'Администрирование специалистов',
             icon: '/images/icons/about.png',
             portletHeight: 400,
-            position: 'Experts-column-2',
+            position: 'Experts-column-1',
             launchModule: 'EC.Experts.controller.Experts',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        },{
+            text: 'Профессии',
+            title: 'Профессии',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'Experts-column-2',
+            launchModule: 'EC.Professions.controller.Professions',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        },{
+            text: 'Типы инженерных систем',
+            title: 'Типы инженерных систем',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'Experts-column-3',
+            launchModule: 'EC.EngSystemTypes.controller.EngSystemTypes',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

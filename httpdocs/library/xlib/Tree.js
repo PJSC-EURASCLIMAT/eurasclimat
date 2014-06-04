@@ -27,6 +27,12 @@ Ext.define('xlib.Tree', {
 
     addToolTip: 'Добавить',
 
+    showEditAction: false,
+
+    editActionConfig: {},
+
+    tbar: [],
+
     initComponent: function() {
 
         if ( this.store === null ) {
@@ -94,18 +100,7 @@ Ext.define('xlib.Tree', {
 //            handler: this.onCollapseAllClick
 //        }];
 
-        if ( this.permissions ) {
-
-            this.tbar = Ext.Array.merge([{
-                text: this.addText,
-                itemId: 'add',
-                icon: 'images/icons/fam/add.png',
-                tooltip: this.addToolTip,
-                scope: this,
-                handler: function() {
-                    this.create(true);
-                }
-            }], this.tbar);
+        if ( this.permissions && !this.isPortlet ) {
 
             this.editing = Ext.create('Ext.grid.plugin.CellEditing', {
                 listeners: {
@@ -156,40 +151,90 @@ Ext.define('xlib.Tree', {
                 allowBlank: false
             };
 
-            var removeIconConfig = {
+            var actions = [];
+
+            var removeActionConfig = {
                 text: 'Удалить',
-                icon: '/images/icons/delete.png',
+                icon: '/images/icons/fam/delete.gif',
                 scope: this,
                 handler: this.deleteNode
             };
 
             if ( this.rootVisible ) {
-                removeIconConfig.getClass = function( value, meta, record ) {
+                removeActionConfig.getClass = function( value, meta, record ) {
                     if( record.data.id === "root" ) {
                         return 'x-hide-visibility';
                     }
                 }
             }
 
-            if ( !Ext.isEmpty(this.columns) ) {
+
+
+            if ( this.showEditAction ) {
+                actions.push( Ext.apply({
+                    icon: '/images/icons/fam/plugin.gif',
+                    tooltip: 'Редактировать',
+                    handler: function(treeView, rowIndex, u, button, event, record, rowEl) {
+                        this.fireEvent('edititem', treeView, record);
+                    },
+                    scope: this
+                }, this.editActionConfig ) );
+            }
+
+            actions.push(removeActionConfig);
+
+            if ( !Ext.isEmpty( this.columns ) ) {
                 columnsList = Ext.Array.merge(columnsList, this.columns);
             }
 
             columnsList.push({
                 xtype:'actioncolumn',
-                width: 20,
-                items: [removeIconConfig]
+                width: actions.length * 20,
+                items: actions
             });
 
         }
+
+        this.configureTBar();
 
         this.columns = columnsList;
 
         this.callParent();
 
-        this.addBtn = this.down('#add');
-        this.openAllBtn = this.down('#open-all');
-        this.closeAllBtn = this.down('#close-all');
+        if ( this.permissions && !this.isPortlet) {
+            this.addBtn = this.down('#add');
+        }
+
+
+//        this.openAllBtn = this.down('#open-all');
+//        this.closeAllBtn = this.down('#close-all');
+
+    },
+
+    configureTBar: function() {
+
+        this.tbar = ['->',{
+            xtype: 'button',
+            tooltip: 'Обновить',
+            iconCls: 'x-tbar-loading',
+            scope: this,
+            handler: function() {
+                this.store.load();
+            }
+        }];
+
+        if ( this.permissions && !this.isPortlet ) {
+            this.tbar.unshift({
+                text: this.addText,
+                itemId: 'add',
+                icon: 'images/icons/fam/add.png',
+                tooltip: this.addToolTip,
+                scope: this,
+                handler: function() {
+                    this.create(true);
+                }
+            });
+        }
 
     },
 

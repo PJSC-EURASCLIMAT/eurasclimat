@@ -6,7 +6,7 @@ Ext.define('EC.Professions.view.List', {
     
     alias: ['widget.ProfessionsList'],
 
-    permissions: acl.isUpdate('professions'),
+    permissions: false,
 
     border: false,
 

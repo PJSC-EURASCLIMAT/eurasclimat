@@ -12,7 +12,7 @@ Ext.define('EC.Professions.controller.Professions', {
 //        'EC.Professions.view.Info'
     ],
     
-    permissions: acl.isUpdate('professions'),
+    permissions: acl.isUpdate('crm', 'professions'),
     
     run: function(container, activeOnly) {
 

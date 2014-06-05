@@ -1,6 +1,6 @@
 Ext.define('EC.Services.store.Services', {
 
-    extend: 'Ext.data.Store',
+    extend: 'Ext.data.TreeStore',
 
     model: 'EC.Services.model.Service',
 
@@ -9,13 +9,35 @@ Ext.define('EC.Services.store.Services', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/crm/services/read'
+            read: '/json/crm/services/read',
+            create: '/json/crm/services/create',
+            update: '/json/crm/services/update',
+            destroy: '/json/crm/services/destroy'
         },
+
         reader: {
             type: 'json',
             root: 'data',
-            successProperty: 'success'
+            successProperty: 'success',
+            messageProperty: 'message'
+        },
+
+        writer: {
+            root: 'data',
+            encode: true
         }
-    }
+    },
+
+    root: {
+        text: "Все услуги",
+        expanded: true
+    },
+
+    autoLoad: true,
+
+    sorters: [{
+        property: 'text',
+        direction: 'ASC'
+    }]
 
 });

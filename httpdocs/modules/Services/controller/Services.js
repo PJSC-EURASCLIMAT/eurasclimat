@@ -2,7 +2,11 @@ Ext.define('EC.Services.controller.Services', {
 
     extend: 'Ext.app.Controller',
     
-    stores: ['EC.Services.store.Services'],
+    stores: [
+        'EC.Services.store.Services',
+        'EC.Professions.store.Professions',
+        'EC.EngSystemTypes.store.EngSystemTypes'
+    ],
     
     models: ['EC.Services.model.Service'],
     
@@ -31,8 +35,9 @@ Ext.define('EC.Services.controller.Services', {
                 edititem: this.editItem,
                 scope: this
             });
-
         }
+
+//        this.treeGrid.store.load();
     },
 
     editItem: function(treeGrid, record ) {
@@ -42,14 +47,18 @@ Ext.define('EC.Services.controller.Services', {
         form.getForm().setValues( record.data );
 
         form.on('save',function(values) {
+            Ext.iterate(values, function(key, value){
+                if ( !Ext.isEmpty(value) ) record.set(key, value);
+            }, this);
 
-            // TODO так пашет
-            record.set('text', values.text);
-
-            // TODO так не пашет
-            record.set(values);
-
-            this.treeGrid.store.sync();
+            this.treeGrid.store.sync({
+                success: function() {
+                    record.commit();
+                },
+                failure: function() {
+                    record.reject();
+                }
+            });
             win.close();
         }, this );
 

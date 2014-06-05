@@ -12,7 +12,7 @@ Ext.define('EC.Services.view.Edit', {
     
     modal: true,
     
-    width: 300,
+    width: 400,
 
     initComponent: function() {
         this.items = [{
@@ -20,7 +20,7 @@ Ext.define('EC.Services.view.Edit', {
             bodyPadding: 10,
             fieldDefaults: {
                 margin: '5 0',
-                labelWidth: 120,
+                labelWidth: 170,
                 anchor: '100%'
             },
             layout: {

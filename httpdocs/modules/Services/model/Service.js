@@ -2,8 +2,6 @@ Ext.define('EC.Services.model.Service', {
 
     extend: 'Ext.data.Model',
 
-    idProperty: 'service_id',
-
     fields: [
         'id',
         'text',

@@ -4,30 +4,12 @@ Ext.define('EC.Services.view.TreeGrid', {
     
     alias: ['widget.ServicesTreeGrid'],
 
-    controllerURL: '/json/crm/services/',
-
-    fields: [
-        'id',
-        'service_id',
-        'text',
-        'parent_id',
-        'profession_id',
-        'eng_sys_type_id',
-        'norm_hours',
-        'min_rank',
-        'profession_name',
-        'eng_sys_type_name'
-    ],
+    store: 'EC.Services.store.Services',
     
     layout: 'fit',
     
     rootVisible: true,
 
-    root: {
-        text: "Все услуги",
-        expanded: true
-    },
-    
     hideHeaders: false,
     
     useArrows: true,
@@ -108,6 +90,19 @@ Ext.define('EC.Services.view.TreeGrid', {
 
         this.superclass.create.call(this, isLeaf);
 
+    },
+
+    syncSuccess: function(batch, options) {
+        Ext.each(batch.operations, function(op) {
+            var result = Ext.JSON.decode( op.response.responseText),
+                record = op.records[0];
+            if ( op.action = 'create' && !Ext.isEmpty(result.data) ) {
+                record.set( ( record.data.leaf ) ? 'service_id' : 'id', result.data.id);
+            }
+            record.commit();
+        });
+        debugger;
+        this.fireEvent('sync-success');
     }
 
 });

@@ -138,17 +138,25 @@ class Crm_Services_Model
 
         $data['parent_id'] = $data['parentId'];
 
+        if ( $data['parentId'] != 'root') {
+            $data['chapter_id'] = $data['parentId'];
+        }
+
         $f = new Xend_Filter_Input(array(
-            'id'        => 'Int',
-            'text'    => 'StringTrim'
+            '*'    => 'StringTrim'
         ), array(
-            'id'        => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
-            'text'    => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
+            'id'                => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
+            'text'              => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'chapter_id'        => array('Id', 'allowEmpty' => true),
+            'profession_id'     => array('Id', 'allowEmpty' => true),
+            'eng_sys_type_id'   => array('Id', 'allowEmpty' => true),
+            'norm_hours'        => array('Int', 'allowEmpty' => true),
+            'min_rank'          => array('Int', 'allowEmpty' => true),
         ), $data);
 
-        if ( $f->parent_id == 'root') {
-            $f->parent_id = new Zend_Db_Expr('NULL');
-        }
+//        if ( $f->parent_id == 'root') {
+//            $f->parent_id = new Zend_Db_Expr('NULL');
+//        }
 
         $response = new Xend_Response();
 
@@ -157,10 +165,7 @@ class Crm_Services_Model
             return $response;
         }
 
-        $rows = $this->_table->updateByPk(array(
-            'parent_id' => $f->parent_id,
-            'text' => $f->text
-        ), $f->id);
+        $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
     }

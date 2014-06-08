@@ -6,8 +6,6 @@ class Catalog_Automation_Model extends Catalog_ModelAbstract
     {
         $this->_table       = new Catalog_Automation_Table();
         $this->_structure   = new Catalog_Automation_Structure();
-        $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->automation->marks;
     }
 
     public function getInfo($id)

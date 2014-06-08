@@ -11,7 +11,7 @@ Ext.define('EC.Main.view.SmokerCabin.Layout', {
     items: [{
         xtype: 'SmokerCabinThemesTree',
         region: 'west',
-        width: 170
+        width: 250
     }, {
         xtype: 'panel',
         type: 'preview',

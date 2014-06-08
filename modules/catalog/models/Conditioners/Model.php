@@ -6,8 +6,6 @@ class Catalog_Conditioners_Model extends Catalog_ModelAbstract
     {
         $this->_table           = new Catalog_Conditioners_Table();
         $this->_structure       = new Catalog_Conditioners_Structure();
-        $this->_marksResource   =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->conditioners->marks;
     }
 
     public function getInfo($id)

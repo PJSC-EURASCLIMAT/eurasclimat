@@ -6,17 +6,6 @@ class Catalog_ModelAbstract
 
     protected $_structure;
 
-    protected $_marksResource;
-
-    /*
-    public function __construct()
-    {
-        $this->_table = new Catalog_Entity_Table();
-        $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->entity->marks;
-    }
-    */
-
     public function getList($params)
     {
         $response = new Xend_Response();
@@ -34,13 +23,6 @@ class Catalog_ModelAbstract
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
-
-        /*
-        if ($this->_isMarksEnabled()) {
-            $marks = $this->_getAllowedMarks();
-            $select->where('mark_id IN (?)', $marks);
-        }
-        */
 
         try {
             $rows = $select->query()->fetchAll();
@@ -150,38 +132,7 @@ class Catalog_ModelAbstract
         }
 
         $response = new Xend_Response();
-
         $response->setRow($fields);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
-    /* Private functions */
-
-    private function _isMarksEnabled()
-    {
-        $acl = Xend_Accounts_Prototype::getAcl();
-        return $acl->isAllowed($this->_marksResource, Xend_Acl_Privilege::VIEW);
-    }
-
-    /**
-     * Marks which allowed for current user
-     *
-     * @return array()
-     */
-    private function _getAllowedMarks()
-    {
-        $resourcesModel = new Xend_Acl_Resource();
-        $acl = Xend_Accounts_Prototype::getAcl();
-
-        $resources = $resourcesModel->fetchByParentId($this->_marksResource);
-
-        $marks = array();
-        foreach($resources->rows as $res) {
-            if ($acl->isAllowed($res['id'], Xend_Acl_Privilege::VIEW)) {
-                $marks[] = intval($res['name']);
-            }
-        }
-
-        return $marks;
-   }
 }

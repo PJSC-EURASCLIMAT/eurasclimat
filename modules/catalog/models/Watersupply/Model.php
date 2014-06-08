@@ -5,8 +5,6 @@ class Catalog_Watersupply_Model extends Catalog_ModelAbstract
     public function __construct()
     {
         $this->_table = new Catalog_Watersupply_Table();
-        $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->watersupply->marks;
     }
 
     public function getInfo($id)

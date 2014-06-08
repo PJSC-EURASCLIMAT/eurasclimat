@@ -40,10 +40,6 @@ class Xend_Accounts_Model_AuthKeys {
             ->where("hash = ?", new Zend_Db_Expr("'".$hash."'"))
             ->limit(1);
 
-//        Массив
-//        $select->where('mark_id IN (?)', $marks);
-//        ->where("hash = (?)", new Zend_Db_Expr("'".$hash."'"))
-
         // Массив массивов
 
         try {

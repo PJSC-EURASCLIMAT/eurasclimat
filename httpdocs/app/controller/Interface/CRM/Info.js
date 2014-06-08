@@ -31,16 +31,6 @@ Ext.define('App.controller.Interface.CRM.Info', {
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
-        }, {
-            text: 'Проект "Курилка"',
-            title: 'Проект "Курилка"',
-            icon: '/images/icons/about.png',
-            position: 'Info-column-2',
-            portletHeight: 400,
-            launchModule: 'EC.Main.controller.SmokerCabin',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
         }];
     }
 });

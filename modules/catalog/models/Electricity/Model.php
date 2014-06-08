@@ -5,8 +5,6 @@ class Catalog_Electricity_Model extends Catalog_ModelAbstract
     public function __construct()
     {
         $this->_table = new Catalog_Electricity_Table();
-        $this->_marksResource =
-            (string) Xend_Acl_Resource_Generator::getInstance()->catalog->electricity->marks;
     }
 
     public function getInfo($id)

@@ -61,6 +61,7 @@ class Crm_Projects_Members_Model
             return $response->addStatus(new Xend_Status(Xend_Status::ADD_FAILED));
         }
 
+        $this->_SendNotify($project_id, $account_id, $role);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -80,5 +81,39 @@ class Crm_Projects_Members_Model
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    private function _SendNotify($project_id, $account_id, $role)
+    {
+        $messenger = new PA_Messages_Model();
+
+        $projectsModel = new Crm_Projects_Model();
+        $project = $projectsModel->get($project_id)->getRow();
+
+        $registry = Zend_Registry::getInstance();
+        $mesTypes = $registry->sys->mesTypes;
+
+        $data = array(
+            'type'           => $mesTypes['SYSTEM'],
+            'receiver_id'    => $account_id,
+            'owner_id'       => $account_id,
+            'subject'        => 'Добавлен проект',
+            'message'        => 'Вы стали участником проекта "'
+                             . $project['name'] . '" №' . $project_id
+                             . ' в роли "' . $this->_getRoleTitleByName($role) . '"'
+        );
+        $messenger->add($data, true, true);
+    }
+
+    private function _getRoleTitleByName($role)
+    {
+        switch ($role) {
+            case 'customer': return 'Представитель заказчика';
+            case 'manager': return 'Менеджер проекта';
+            case 'projector': return 'Отдел проектирования';
+            case 'logistic': return 'Отдел логистики';
+            case 'productor': return 'Производственный отдел';
+            default: return $role;
+        }
     }
 }

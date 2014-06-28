@@ -41,11 +41,13 @@ Ext.define('EC.Qualifications.view.Edit', {
                 fieldLabel: 'Порядок',
                 allowBlank: false,
                 xtype: 'numberfield',
+                minValue: 1,
                 name: 'num'
             },{
                 xtype: 'combo',
+                allowBlank: false,
                 editable: false,
-                fieldLabel: 'Тип инженерных систем',
+                fieldLabel: 'Тип квалификации',
                 store: Ext.create('EC.Qualifications.store.QualificationsTypes'),
                 valueField: 'id',
                 displayField: 'name',

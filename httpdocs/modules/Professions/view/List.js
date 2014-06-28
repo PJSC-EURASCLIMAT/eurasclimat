@@ -31,9 +31,9 @@ Ext.define('EC.Professions.view.List', {
             flex: 1,
             dataIndex: 'eng_sys_type_name'
         },{
-            text: 'Уровень квалификации',
+            text: 'Тип квалификации',
             flex: 1,
-            dataIndex: 'qualification_name'
+            dataIndex: 'qualification_type_name'
         },{
             text: 'Базовая ставка',
             xtype: 'numbercolumn',
@@ -44,10 +44,6 @@ Ext.define('EC.Professions.view.List', {
             xtype: 'numbercolumn',
             width: 100,
             dataIndex: 'norm_hour_cost'
-        },{
-            text: 'Коэф.',
-            width: 70,
-            dataIndex: 'factor'
         },{
             text: 'Код выпуска ЕТКС',
             width: 100,

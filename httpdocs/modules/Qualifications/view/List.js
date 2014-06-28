@@ -6,9 +6,9 @@ Ext.define('EC.Qualifications.view.List', {
     
     alias: ['widget.qualifications-list'],
 
-    permissions: false,
+    title: 'Квалификации',
 
-    border: false,
+    permissions: false,
 
     initComponent: function() {
 

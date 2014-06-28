@@ -6,12 +6,11 @@ Ext.define('EC.Qualifications.view.TypesList', {
     
     alias: ['widget.qualifications-types-list'],
 
+    title: 'Типы квалификаций',
+
     permissions: false,
 
-    border: false,
-
     require: ['Ext.grid.plugin.CellEditing'],
-
 
     initComponent: function() {
 

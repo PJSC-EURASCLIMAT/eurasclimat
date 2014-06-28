@@ -20,12 +20,10 @@ Ext.define('EC.Qualifications.view.Layout', {
             permissions: this.permissions,
             hidden: this.isPortlet,
             itemId: 'types-list',
-            border: '0 1 0 0',
             split: true,
             width: 250
         }, {
             xtype: 'qualifications-list',
-            border: '0 0 0 1',
             permissions: this.permissions,
             isPortlet: this.isPortlet,
             layout: 'fit',

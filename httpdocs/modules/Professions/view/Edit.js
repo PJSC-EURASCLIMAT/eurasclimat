@@ -48,6 +48,11 @@ Ext.define('EC.Professions.view.Edit', {
             xtype: 'numberfield',
             name: 'okz'
         },{
+            fieldLabel: 'Базовая ставка',
+            xtype: 'numberfield',
+            minValue: 0,
+            name: 'base_salary'
+        },{
             xtype: 'combo',
             editable: false,
             fieldLabel: 'Тип инженерных систем',
@@ -58,11 +63,11 @@ Ext.define('EC.Professions.view.Edit', {
         },{
             xtype: 'combo',
             editable: false,
-            fieldLabel: 'Квалификация',
-            store: 'EC.Qualifications.store.Qualifications',
+            fieldLabel: 'Тип квалификации',
+            store: 'EC.Qualifications.store.QualificationsTypes',
             valueField: 'id',
             displayField: 'name',
-            name: 'qualification_id'
+            name: 'qualification_type_id'
         }],
 
         buttons: ['->',{

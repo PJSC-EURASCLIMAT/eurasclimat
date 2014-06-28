@@ -37,7 +37,11 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
 
         this.typesGrid = this.layout.down('#types-list');
 
-        this.grid.store.load();
+        this.grid.disable();
+        this.typesGrid.on('select', function(){
+            this.grid.store.load();
+        }, this, {single: true});
+
         this.typesGrid.store.load();
 
         if (this.permissions && !isPortlet) {
@@ -67,13 +71,25 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
     },
 
     typeSelect: function ( grid, record, index, eOpts) {
+        this.grid.enable();
         this.grid.store.clearFilter();
         this.grid.store.filter('type_id', record.data.id);
     },
 
     addItem: function() {
+
+
         var win = Ext.create('EC.Qualifications.view.Edit'),
             form = win.down('form');
+
+        var selection = this.typesGrid.getSelectionModel().getSelection()[0];
+
+        if ( !Ext.isEmpty(selection) ) {
+            form.getForm().setValues({
+                'type_id': selection.data.id
+            });
+        }
+
 
         form.on('save',function(values) {
             this.grid.store.add(values);

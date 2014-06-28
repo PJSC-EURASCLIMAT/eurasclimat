@@ -17,14 +17,13 @@ class Crm_Professions_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
-            'name'              => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'kch'               => array('Int', 'allowEmpty' => true),
-            'etks'              => array('Int', 'allowEmpty' => true),
-            'okz'               => array('Int', 'allowEmpty' => true),
-            'base_salary'       => array('Int', 'allowEmpty' => true),
-            'eng_sys_id'        => array('Int', 'allowEmpty' => true),
-            'qualification_id'  => array('Int', 'allowEmpty' => true),
-            'factor'            => array('Float', 'allowEmpty' => true),
+            'name'                  => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'kch'                   => array('Int', 'allowEmpty' => true),
+            'etks'                  => array('Int', 'allowEmpty' => true),
+            'okz'                   => array('Int', 'allowEmpty' => true),
+            'base_salary'           => array('Int', 'allowEmpty' => true),
+            'eng_sys_type_id'       => array('Id', 'allowEmpty' => true),
+            'qualification_type_id' => array('Id', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);
@@ -66,8 +65,7 @@ class Crm_Professions_Model
                        'p.okz',
                        'p.base_salary',
                        'p.eng_sys_type_id',
-                       'p.qualification_id',
-                       'p.factor',
+                       'p.qualification_type_id',
                 )
             )
             ->joinLeft(
@@ -76,9 +74,9 @@ class Crm_Professions_Model
                 array('eng_sys_type_name' => 'eng.name')
             )
             ->joinLeft(
-                array('q' => 'qualifications'),
-                'q.id=p.qualification_id',
-                array('qualification_name' => 'q.name')
+                array('q' => 'qualifications_types'),
+                'q.id=p.qualification_type_id',
+                array('qualification_type_name' => 'q.name')
             )
             ->where("p.id = ?", $id);
 
@@ -114,8 +112,7 @@ class Crm_Professions_Model
                        'p.okz',
                        'p.base_salary',
                        'p.eng_sys_type_id',
-                       'p.qualification_id',
-                       'p.factor',
+                       'p.qualification_type_id',
                 )
             )
             ->joinLeft(
@@ -124,9 +121,9 @@ class Crm_Professions_Model
                 array('eng_sys_type_name' => 'eng.name')
             )
             ->joinLeft(
-                array('q' => 'qualifications'),
-                'q.id=p.qualification_id',
-                array('qualification_name' => 'q.name')
+                array('q' => 'qualifications_types'),
+                'q.id=p.qualification_type_id',
+                array('qualification_type_name' => 'q.name')
             );
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
@@ -154,11 +151,14 @@ class Crm_Professions_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
-            'id'       => array('Id', 'allowEmpty' => false),
-            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'kch'       => array('Int', 'allowEmpty' => true),
-            'etks'      => array('Int', 'allowEmpty' => true),
-            'okz'       => array('Int', 'allowEmpty' => true),
+            'id'                    => array('Id', 'allowEmpty' => false),
+            'name'                  => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'kch'                   => array('Int', 'allowEmpty' => true),
+            'etks'                  => array('Int', 'allowEmpty' => true),
+            'okz'                   => array('Int', 'allowEmpty' => true),
+            'base_salary'           => array('Int', 'allowEmpty' => true),
+            'eng_sys_type_id'       => array('Id', 'allowEmpty' => true),
+            'qualification_type_id' => array('Id', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);

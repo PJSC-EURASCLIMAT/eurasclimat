@@ -1,18 +1,18 @@
 <?php
 
-class Crm_EngSystemTypesController extends Xend_Controller_Action
+class Crm_QualificationsTypesController extends Xend_Controller_Action
 {
     protected $_model;
 
     public function init()
     {
-        $this->_model = new Crm_EngSystemTypes_Model();
+        $this->_model = new Crm_QualificationsTypes_Model();
         parent::init();
     }
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->eng_system_types);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->qualifications_types);
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
@@ -33,7 +33,6 @@ class Crm_EngSystemTypesController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
     }
-
 
     public function getAction()
     {

@@ -55,6 +55,60 @@ class Crm_Services_Model
     }
 
 
+    public function get($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('s' => $this->_table->getTableName()),
+                array( 'service_id' => 's.id',
+                       'id' => new Zend_Db_Expr("NULL"),
+                       's.text',
+                       'parent_id' => 's.chapter_id',
+                       new Zend_Db_Expr('"true" AS leaf'),
+                       's.profession_id',
+                       's.eng_sys_type_id',
+                       's.norm_hours',
+                       's.min_rank',
+                )
+            )
+            ->joinLeft(
+                array('p' => 'professions'),
+                'p.id=s.profession_id',
+                array('profession_name' => 'p.name')
+            )
+            ->joinLeft(
+                array('e' => 'engineering_system_types'),
+                'e.id=s.profession_id',
+                array('eng_sys_type_name' => 'e.name')
+            )
+            ->where("s.id = ?", $id);
+
+        try {
+            $row = $select->query()->fetch();
+            if ( empty( $row ) ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $response->setRow($row);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+
+
     public function read($params = array())
     {
         $response = new Xend_Response();

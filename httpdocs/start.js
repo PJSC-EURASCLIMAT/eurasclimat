@@ -33,11 +33,19 @@ Ext.application({
     ],
 
     routes: {
-        '/profile/:id/show' : 'EC.PA.controller.Router#showProfile',
-        '/download/:id' : 'EC.controller.Main#download',
-        '/catalog/:category/:id': 'EC.Catalog.controller.Router#showInfo',
-        '/news/:id': 'EC.Main.controller.Router#showNew'
+        '/profile/:id/show'     : 'EC.Main.controller.Router#simple',
+        '/news/:id'             : 'EC.Main.controller.Router#simple',
+
+        '/qualifications/:id'   : 'EC.Main.controller.Router#simple',
+        '/professions/:id'      : 'EC.Main.controller.Router#simple',
+//        '/eng-system-types/:id' : 'EC.Main.controller.Router#simple',
+        '/services/:id'         : 'EC.Main.controller.Router#simple',
+
+        '/download/:id'         : 'EC.Main.controller.Router#download',
+
+        '/catalog/:category/:id': 'EC.Catalog.controller.Router#showInfo'
     },
+
 
     // Глобальные переменные
     globals: {

@@ -42,6 +42,16 @@ Ext.define('App.controller.Interface.CRM.Experts', {
                 MC.openModulePortlet(b.initialConfig);
             }
         },{
+            text: 'Квалификации',
+            title: 'Квалификации',
+            icon: '/images/icons/catalog.png',
+            portletHeight: 400,
+            position: 'Experts-column-2',
+            launchModule: 'EC.Qualifications.controller.Qualifications',
+            handler: function(b) {
+                MC.openModulePortlet(b.initialConfig);
+            }
+        },{
             text: 'Профессии',
             title: 'Профессии',
             icon: '/images/icons/catalog.png',

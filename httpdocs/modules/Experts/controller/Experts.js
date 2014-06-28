@@ -88,10 +88,6 @@ Ext.define('EC.Experts.controller.Experts', {
 
             this.grid.on({
                 edititem: this.editItem,
-//                itemdblclick: function(grid, record) {
-//                    var accId = record.get('account_id');
-//                    Ext.Router.redirect('#/profile/' + accId + '/show');
-//                },
                 deleteitem: this.deleteItem,
                 openref: this.openRef,
                 activechange: this.activeChange,

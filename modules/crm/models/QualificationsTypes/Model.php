@@ -1,26 +1,22 @@
 <?php
 
-class Crm_EngSystemTypes_Model
+class Crm_QualificationsTypes_Model
 {
     protected $_table;
 
     public function __construct()
     {
-        $this->_table = new Crm_EngSystemTypes_Table();
+        $this->_table = new Crm_QualificationsTypes_Table();
     }
 
     public function create(array $data)
     {
-
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
             'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'kch'       => array('Int', 'allowEmpty' => true),
-            'etks'      => array('Int', 'allowEmpty' => true),
-            'okz'       => array('Int', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);
@@ -74,7 +70,6 @@ class Crm_EngSystemTypes_Model
     }
 
 
-
     public function read($params = array())
     {
         $response = new Xend_Response();
@@ -107,11 +102,8 @@ class Crm_EngSystemTypes_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
-            'id'       => array('Id', 'allowEmpty' => false),
+            'id'        => array('Id', 'allowEmpty' => false),
             'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'kch'       => array('Int', 'allowEmpty' => true),
-            'etks'      => array('Int', 'allowEmpty' => true),
-            'okz'       => array('Int', 'allowEmpty' => true),
         ), $data);
 
         $response->addInputStatus($f);

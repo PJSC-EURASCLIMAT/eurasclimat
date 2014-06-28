@@ -1,61 +1,26 @@
-Ext.define('EC.Professions.view.List', {
+Ext.define('EC.Qualifications.view.TypesList', {
 
     extend: 'Ext.grid.Panel',
 
-    store: 'EC.Professions.store.Professions',
+    store: 'EC.Qualifications.store.QualificationsTypes',
     
-    alias: ['widget.ProfessionsList'],
+    alias: ['widget.qualifications-types-list'],
 
     permissions: false,
 
     border: false,
+
+    require: ['Ext.grid.plugin.CellEditing'],
+
 
     initComponent: function() {
 
         var actions = [];
 
         this.columns =  [{
-            text: 'Код',
-            width: 50,
-            dataIndex: 'id'
-        },{
-            text: 'КЧ',
-            width: 50,
-            dataIndex: 'kch'
-        },{
             text: 'Наименование',
             flex: 1,
             dataIndex: 'name'
-        },{
-            text: 'Тип инж. систем',
-            flex: 1,
-            dataIndex: 'eng_sys_type_name'
-        },{
-            text: 'Уровень квалификации',
-            flex: 1,
-            dataIndex: 'qualification_name'
-        },{
-            text: 'Базовая ставка',
-            xtype: 'numbercolumn',
-            width: 100,
-            dataIndex: 'base_salary'
-        },{
-            text: 'Стоимость НЧ',
-            xtype: 'numbercolumn',
-            width: 100,
-            dataIndex: 'norm_hour_cost'
-        },{
-            text: 'Коэф.',
-            width: 70,
-            dataIndex: 'factor'
-        },{
-            text: 'Код выпуска ЕТКС',
-            width: 100,
-            dataIndex: 'etks'
-        },{
-            text: 'Код по ОКЗ',
-            width: 70,
-            dataIndex: 'okz'
         }];
 
         if (this.permissions === true && !this.isPortlet) {
@@ -102,15 +67,7 @@ Ext.define('EC.Professions.view.List', {
 
         }
 
-        this.bbar = Ext.create('Ext.PagingToolbar', {
-            pageSize: 25,
-            store: this.store,
-            displayInfo: !this.isPortlet,
-            plugins: this.isPortlet ? [] : Ext.create('xlib.ProgressBarPager', {})
-        });
-
         this.callParent();
-
 
     }
 

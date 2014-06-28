@@ -36,6 +36,7 @@
       <password></password>
       <enable>0</enable>
     </remoteauth>
+    <testmode>1</testmode>
     <baseurl>eurazclimat:8888</baseurl>
   </general>
 </zend-config>

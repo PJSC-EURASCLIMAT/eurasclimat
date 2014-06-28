@@ -12,20 +12,20 @@ Ext.define('EC.Professions.view.Edit', {
     
     modal: true,
     
-    width: 300,
+    width: 400,
 
     items: [{
         xtype: 'form',
         bodyPadding: 10,
         fieldDefaults: {
             margin: '5 0',
-            labelWidth: 120,
+            labelWidth: 150,
             anchor: '100%'
         },
-        layout: {
-            type: 'vbox',
-            align: 'stretch'
-        },
+//        layout: {
+//            type: 'vbox',
+//            align: 'stretch'
+//        },
         items: [{
             xtype: 'hiddenfield',
             margin: 0,
@@ -47,6 +47,22 @@ Ext.define('EC.Professions.view.Edit', {
             fieldLabel: 'Код по ОКЗ',
             xtype: 'numberfield',
             name: 'okz'
+        },{
+            xtype: 'combo',
+            editable: false,
+            fieldLabel: 'Тип инженерных систем',
+            store: 'EC.EngSystemTypes.store.EngSystemTypes',
+            valueField: 'id',
+            displayField: 'name',
+            name: 'eng_sys_type_id'
+        },{
+            xtype: 'combo',
+            editable: false,
+            fieldLabel: 'Квалификация',
+            store: 'EC.Qualifications.store.Qualifications',
+            valueField: 'id',
+            displayField: 'name',
+            name: 'qualification_id'
         }],
 
         buttons: ['->',{

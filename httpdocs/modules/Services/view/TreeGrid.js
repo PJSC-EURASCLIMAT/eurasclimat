@@ -101,7 +101,7 @@ Ext.define('EC.Services.view.TreeGrid', {
             }
             record.commit();
         });
-        debugger;
+//        debugger;
         this.fireEvent('sync-success');
     }
 

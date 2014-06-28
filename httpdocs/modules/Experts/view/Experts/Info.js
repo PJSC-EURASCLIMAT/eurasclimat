@@ -64,6 +64,7 @@ Ext.define('EC.Experts.view.Experts.Info', {
             '<p>Заходил на ukkom.ru: {ukkom}</p>',
             '</td>',
             '</tr>',
+            '</table>',
             {
                 dc: function() {
                     return new Date().getTime();

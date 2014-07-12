@@ -31,19 +31,19 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             hidden: !acl.isView('catalog', 'electricity'),
             children: [{
                 id: 'Electricity.Battery',
-                name: 'Батареи',
+                name: 'Электрика - Батареи',
                 children: []
             }, {
                 id: 'Electricity.Isolation',
-                name: 'Изоляция',
+                name: 'Электрика - Изоляция',
                 children: []
             }, {
                 id: 'Electricity.Lamp',
-                name: 'Лампы',
+                name: 'Электрика - Лампы',
                 children: []
             }, {
                 id: 'Electricity.Wires',
-                name: 'Провода',
+                name: 'Электрика - Провода',
                 children: []
             }]
         }, {

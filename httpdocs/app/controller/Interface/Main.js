@@ -44,7 +44,7 @@ Ext.define('App.controller.Interface.Main', {
             text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
             title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
             icon: '/images/icons/catalog.png',
-            portletHeight: 370,
+            portletHeight: 200,
             position: 'MainPanel-column-1',
             launchModule: 'EC.CRM.controller.Demoprojects.Projects',
             helpURL: '/html/crm/demoprojects/help'
@@ -53,7 +53,7 @@ Ext.define('App.controller.Interface.Main', {
             title: 'Проект "Курилка"',
             icon: '/images/icons/about.png',
             position: 'MainPanel-column-2',
-            portletHeight: 370,
+            portletHeight: 410,
             launchModule: 'EC.Main.controller.SmokerCabin',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
@@ -71,6 +71,13 @@ Ext.define('App.controller.Interface.Main', {
             portletHeight: 200,
             position: 'MainPanel-column-1',
             launchModule: 'EC.CRM.controller.Calcpd.Main'
+        }, {
+            text: 'Калькулятор СМР',
+            title: 'Калькулятор СМР',
+            icon: '/images/icons/about.png',
+            portletHeight: 200,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.CRM.controller.Calcsmr.Main'
 //        }, {
 //            title: 'Специалисты',
 //            icon: '/images/icons/sys_dev.png',
@@ -80,7 +87,7 @@ Ext.define('App.controller.Interface.Main', {
         }, {
             title: 'Прогноз погоды',
             icon: '/images/icons/kweather.png',
-            portletHeight: 370,
+            portletHeight: 410,
             position: 'MainPanel-column-3',
             launchModule: 'EC.Main.controller.Weather'
 //        }, {

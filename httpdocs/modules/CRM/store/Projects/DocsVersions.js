@@ -17,7 +17,10 @@ Ext.define('EC.CRM.store.Projects.DocsVersions', {
         reader: {
             type: 'json',
             root: 'data'
-        }
+        },
+        pageParam: undefined,
+        startParam: undefined,
+        sortParam: undefined,
+        limitParam: undefined
     }
-
 });

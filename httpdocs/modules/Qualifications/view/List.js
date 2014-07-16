@@ -22,10 +22,6 @@ Ext.define('EC.Qualifications.view.List', {
             text: 'Наименование',
             flex: 1,
             dataIndex: 'name'
-        },{
-            text: 'Тип',
-            flex: 1,
-            dataIndex: 'type_name'
         }];
 
 

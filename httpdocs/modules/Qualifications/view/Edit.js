@@ -38,7 +38,7 @@ Ext.define('EC.Qualifications.view.Edit', {
                 xtype: 'textfield',
                 name: 'name'
             },{
-                fieldLabel: 'Порядок',
+                fieldLabel: 'Значимость',
                 allowBlank: false,
                 xtype: 'numberfield',
                 minValue: 1,

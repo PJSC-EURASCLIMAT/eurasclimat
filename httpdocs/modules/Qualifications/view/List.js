@@ -15,7 +15,7 @@ Ext.define('EC.Qualifications.view.List', {
         var actions = [];
 
         this.columns =  [{
-            text: 'Порядок',
+            text: 'Значимость',
             width: 100,
             dataIndex: 'num'
         },{
@@ -69,7 +69,7 @@ Ext.define('EC.Qualifications.view.List', {
                     this.fireEvent('additem');
                 },
                 scope: this
-            },'->', {
+            }, '->', {
                 xtype: 'button',
                 tooltip: 'Обновить',
                 iconCls: 'x-tbar-loading',

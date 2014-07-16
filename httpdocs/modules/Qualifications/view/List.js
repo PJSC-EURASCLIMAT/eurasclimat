@@ -9,21 +9,26 @@ Ext.define('EC.Qualifications.view.List', {
     title: 'Квалификации',
 
     permissions: false,
+    
+    enableColumnMove: false,
 
     initComponent: function() {
 
         var actions = [];
 
-        this.columns =  [{
+        this.columns = [{
             text: 'Значимость',
             width: 100,
+            sortable: false,
+            hideable: false,
             dataIndex: 'num'
-        },{
+        }, {
             text: 'Наименование',
             flex: 1,
+            sortable: false,
+            hideable: false,
             dataIndex: 'name'
         }];
-
 
         if ( this.permissions === true && !this.isPortlet ) {
 
@@ -45,16 +50,13 @@ Ext.define('EC.Qualifications.view.List', {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-
             });
-
 
             this.columns.push({
                 xtype:'actioncolumn',
                 width: parseInt(actions.length) * 20,
                 items: actions
             });
-
 
             this.tbar = [{
                 xtype: 'button',
@@ -74,12 +76,8 @@ Ext.define('EC.Qualifications.view.List', {
                 },
                 scope: this
             }];
-
         }
-
         this.callParent();
-
-
     }
 
 });

@@ -6,7 +6,7 @@ Ext.define('EC.Qualifications.store.Qualifications', {
 
     sorters: [{
         property: 'num',
-        direction: 'ASC'
+        direction: 'DESC'
     }],
 
     proxy: {

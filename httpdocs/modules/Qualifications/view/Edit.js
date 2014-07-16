@@ -28,22 +28,22 @@ Ext.define('EC.Qualifications.view.Edit', {
                 xtype: 'hiddenfield',
                 margin: 0,
                 name: 'id'
-            },{
+            }, {
                 xtype: 'hiddenfield',
                 margin: 0,
                 name: 'type_name'
-            },{
+            }, {
                 fieldLabel: 'Наименование',
                 allowBlank: false,
                 xtype: 'textfield',
                 name: 'name'
-            },{
+            }, {
                 fieldLabel: 'Значимость',
                 allowBlank: false,
                 xtype: 'numberfield',
                 minValue: 1,
                 name: 'num'
-            },{
+            }, {
                 xtype: 'combo',
                 allowBlank: false,
                 editable: false,
@@ -61,7 +61,7 @@ Ext.define('EC.Qualifications.view.Edit', {
                     var form = this.up('form');
                     this.up('form').fireEvent('save', form.getValues());
                 }
-            },{
+            }, {
                 text: 'Отмена',
                 handler: function() {
                     this.up('window').close();
@@ -81,6 +81,5 @@ Ext.define('EC.Qualifications.view.Edit', {
         var val = this.type.getDisplayValue();
         this.typeName.setValue( val );
     }
-
 
 });

@@ -4,8 +4,6 @@ Ext.define('EC.Qualifications.store.Qualifications', {
 
     model: 'EC.Qualifications.model.Qualification',
 
-//    pageSize: 25,
-
     sorters: [{
         property: 'num',
         direction: 'ASC'
@@ -32,7 +30,6 @@ Ext.define('EC.Qualifications.store.Qualifications', {
             root: 'data',
             encode: true
         }
-
     }
 
 });

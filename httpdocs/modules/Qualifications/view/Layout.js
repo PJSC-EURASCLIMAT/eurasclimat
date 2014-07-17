@@ -20,7 +20,7 @@ Ext.define('EC.Qualifications.view.Layout', {
             permissions: this.permissions,
             itemId: 'types-list',
             split: true,
-            width: 250
+            flex: .2
         }, {
             xtype: 'qualifications-list',
             permissions: this.permissions,
@@ -28,7 +28,8 @@ Ext.define('EC.Qualifications.view.Layout', {
             isPortlet: this.isPortlet,
             layout: 'fit',
             itemId: 'list',
-            region: 'center'
+            region: 'center',
+            flex: .8
         }];
         
         this.callParent();

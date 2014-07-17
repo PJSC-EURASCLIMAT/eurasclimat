@@ -10,10 +10,10 @@ Ext.define('EC.EngSystemTypes.store.EngSystemTypes', {
         type: 'ajax',
 
         api: {
-            read: '/json/crm/engSystemTypes/read',
-            create: '/json/crm/engSystemTypes/create',
-            update: '/json/crm/engSystemTypes/update',
-            destroy: '/json/crm/engSystemTypes/destroy'
+            read: '/json/crm/eng-system-types/read',
+            create: '/json/crm/eng-system-types/create',
+            update: '/json/crm/eng-system-types/update',
+            destroy: '/json/crm/eng-system-types/destroy'
         },
 
         reader: {

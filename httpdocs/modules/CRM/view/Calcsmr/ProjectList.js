@@ -120,7 +120,9 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                     var k = record.get('k_related');
                     if (!!k) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>оборуд. * К</b>"';
                     }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
@@ -129,7 +131,12 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                 tooltip: 'Общая стоимость затрат на материалы и оборудование',
                 dataIndex: 'related_system_sum_total',
                 summaryType: 'sum',
-                renderer: function(value) {
+                renderer: function(value, metaData, record) {
+                    if (!!value && !!record.get('id')) {
+                        metaData.tdCls = 'x-grid-dirty-cell';
+                        metaData.tdAttr = 'data-qtip="' +
+                            'Формула = <b>обор. + расх.мат.</b>"';
+                    }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
             }, {
@@ -139,10 +146,19 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                 summaryType: 'sum',
                 renderer: function(value, metaData, record) {
                     var k = record.get('k_compensation');
-                    if (!!k) {
+                    if (!!k && !!record.get('id')) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
-                    }
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>(обор. + расх.мат.) * К</b>"';
+                    } else {
+                        if (!!k && !record.get('id')) {
+                            metaData.tdCls = 'x-grid-dirty-cell';
+                            metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>(сумма опл. труда всех сист.) * К</b>"';
+                        }
+                    } 
                     return !value ? '' : xlib.formatCurrency(value);
                 }
             }, {
@@ -154,7 +170,9 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                     var k = record.get('k_amortisation');
                     if (!!k) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>опл. труда * К</b>"';
                     }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
@@ -167,7 +185,9 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                     var k = record.get('k_overheads');
                     if (!!k) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>опл. труда * К</b>"';
                     }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
@@ -180,7 +200,9 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                     var k = record.get('k_estimated');
                     if (!!k) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>опл. труда * К</b>"';
                     }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
@@ -199,7 +221,9 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                     var k = record.get('k_vat');
                     if (!!k) {
                         metaData.tdCls = 'x-grid-dirty-cell';
-                        metaData.tdAttr = 'data-qtip="Кэф. = ' + k + '"';
+                        metaData.tdAttr = 'data-qtip="' +
+                                'Коэф. К = <b>' + k + '</b><br/>' +
+                                'Формула = <b>всего * К</b>"';
                     }
                     return !value ? '' : xlib.formatCurrency(value);
                 }
@@ -207,7 +231,10 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                 header: 'Всего с НДС',
                 dataIndex: 'vat_total',
                 summaryType: 'sum',
-                renderer: function(value) {
+                renderer: function(value, metaData, record) {
+                    metaData.tdCls = 'x-grid-dirty-cell';
+                    metaData.tdAttr = 'data-qtip="' +
+                        'Формула = <b>всего + НДС</b>"';
                     return !value ? '' : xlib.formatCurrency(value);
                 }
             }]

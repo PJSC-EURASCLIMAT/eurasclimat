@@ -29,8 +29,8 @@ class Crm_Qualifications_Model
 
         try {
             $this->_table->getAdapter()->query(
-                'UPDATE qualifications SET num = num + 1 WHERE num >= ?',
-                array($f->num)
+                'UPDATE qualifications SET num = num + 1 WHERE num >= ? AND type_id = ?',
+                array($f->num, $f->type_id)
             );
             $response->id = $this->_table->insert($f->getData());
             $status = Xend_Accounts_Status::OK;
@@ -147,13 +147,16 @@ class Crm_Qualifications_Model
             )
             ->where('q.num >= ?', $num)
             ->where('q.id != ?', $f->id)
+            ->where('type_id', $f->type_id)
             ->order(array('num ASC'));
 
         $sortedIds = $select->query()->fetchAll();
 
         foreach( $sortedIds as $key => $value ) {
             $num++;
-            $this->_table->updateByPk(array('num' => $num), $value['id']);
+            $this->_table->updateByPk(array(
+                'num'       => $num
+            ), $value['id']);
         }
 
         $test = 0;

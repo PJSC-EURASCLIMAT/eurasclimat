@@ -18,13 +18,13 @@ Ext.define('EC.Qualifications.view.Layout', {
             xtype: 'qualifications-types-list',
             region: 'west',
             permissions: this.permissions,
-            hidden: this.isPortlet,
             itemId: 'types-list',
             split: true,
             width: 250
         }, {
             xtype: 'qualifications-list',
             permissions: this.permissions,
+            hidden: this.isPortlet,
             isPortlet: this.isPortlet,
             layout: 'fit',
             itemId: 'list',

@@ -20,15 +20,15 @@ class Crm_Calcsmr_Model
             ->joinLeft(array('a' => $accountsTable->getTableName()),
                 'a.id=c.account_id', array('account_name' => 'a.name'));
 
-        $acl = Xend_Accounts_Prototype::getAcl();
-        $perm = $acl->isAllowed(
-            Xend_Acl_Resource_Generator::getInstance()->admin,
-            Xend_Acl_Privilege::UPDATE
-        );
-
-        if (!$perm) {
-            $select->where('c.account_id = (?)', Xend_Accounts_Prototype::getId());
-        }
+//        $acl = Xend_Accounts_Prototype::getAcl();
+//        $perm = $acl->isAllowed(
+//            Xend_Acl_Resource_Generator::getInstance()->admin,
+//            Xend_Acl_Privilege::UPDATE
+//        );
+//
+//        if (!$perm) {
+//            $select->where('c.account_id = (?)', Xend_Accounts_Prototype::getId());
+//        }
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);

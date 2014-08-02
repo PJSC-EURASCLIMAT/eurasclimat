@@ -16,6 +16,8 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
     
     height: 600,
     
+    permission: false,
+    
     tbar: [{
         xtype: 'button',
         text: 'Добавить систему в проект',
@@ -76,7 +78,7 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                         grid.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
                     },
                     isDisabled: function(view, rowIndex, colIndex, item, record) {
-                        return !record.get('id');
+                        return !record.get('id') || !this.permission;
                     }
                 }, {
                     icon: '/images/icons/fam/delete.gif',
@@ -92,7 +94,7 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
                         }, this);
                     },
                     isDisabled: function(view, rowIndex, colIndex, item, record) {
-                        return !record.get('id');
+                        return !record.get('id') || !this.permission;
                     }
                 }]
             }, {

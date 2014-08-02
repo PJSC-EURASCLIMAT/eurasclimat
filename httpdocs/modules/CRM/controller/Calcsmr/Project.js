@@ -25,28 +25,34 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
     
     run: function(config) {
         
-        if (!acl.isUpdate('calcsmr')) return;
+        if (!acl.isView('calcsmr')) return;
         
         Ext.apply(this, config);   
         
-        this.Container = this.getView('EC.CRM.view.Calcsmr.ProjectList').create();
+        this.Container = this.getView('EC.CRM.view.Calcsmr.ProjectList').create({
+            permission: acl.isUpdate('calcsmr')
+        });
         this.Container.setTitle(this.title);
         
-        this.on('itemSaved', this.loadData, this);
-        this.on('itemCreated', function(recordId) {
-            var grid = this.Container.down('grid'), 
-                store = this.getStore('EC.CRM.store.Calcsmr.Project'); 
-            store.on('load', function() {
-                this.openSystem(grid, store.getById(recordId));
-            }, this, {single: true});
-            this.loadData();
-        }, this);
-        this.Container.down('button[action=refresh]').on('click', this.loadData, this);
-        this.Container.down('button[action=add]').on('click', this.onAdd, this);
         var grid = this.Container.down('grid');
         grid.on('opensystem', this.openSystem, this);
         grid.on('itemdblclick', this.openSystem, this);
-        grid.on('edititem', this.onEdit, this);
+        this.Container.down('button[action=refresh]').on('click', this.loadData, this);
+        
+        if (acl.isUpdate('calcsmr')) {
+            
+            this.on('itemSaved', this.loadData, this);
+            this.on('itemCreated', function(recordId) {
+                var grid = this.Container.down('grid'), 
+                    store = this.getStore('EC.CRM.store.Calcsmr.Project'); 
+                store.on('load', function() {
+                    this.openSystem(grid, store.getById(recordId));
+                }, this, {single: true});
+                this.loadData();
+            }, this);
+            this.Container.down('button[action=add]').on('click', this.onAdd, this);
+            grid.on('edititem', this.onEdit, this);
+        }
         
         this.loadData();
     },

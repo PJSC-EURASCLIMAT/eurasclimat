@@ -15,6 +15,8 @@ Ext.define('EC.CRM.controller.Calcsmr.System', {
         'EC.CRM.view.Calcsmr.SystemEdit'
     ],
 
+    permission: false,
+    
     systemID: null,
     
     title: null,
@@ -29,7 +31,7 @@ Ext.define('EC.CRM.controller.Calcsmr.System', {
     
     run: function(config) {
         
-        if (!acl.isUpdate('calcsmr')) return;
+        if (!acl.isView('calcsmr')) return;
         
         Ext.apply(this, config);   
         
@@ -37,14 +39,18 @@ Ext.define('EC.CRM.controller.Calcsmr.System', {
         this.Container.setTitle(this.title);
         
         this.Container.on('close', this.callbackFn, this.callbackFnScope);
-        
-        this.on('itemSaved', this.loadData, this);
-        this.on('itemCreated', this.loadData, this);
         this.Container.down('button[action=refresh]').on('click', this.loadData, this);
-        this.Container.down('button[action=add]').on('click', this.onAdd, this);
+        
         var grid = this.Container.down('grid');
         grid.on('itemdblclick', this.onEdit, this);
-        grid.on('edititem', this.onEdit, this);
+        
+        if (!acl.isUpdate('calcsmr')) {
+        
+            this.on('itemSaved', this.loadData, this);
+            this.on('itemCreated', this.loadData, this);
+            this.Container.down('button[action=add]').on('click', this.onAdd, this);
+            grid.on('edititem', this.onEdit, this);
+        }
         
         this.loadData();
     },

@@ -22,7 +22,8 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
         xtype: 'button',
         text: 'Добавить систему в проект',
         iconCls: 'add',
-        action: 'add'
+        action: 'add',
+        disabled: !this.permission
 //    }, {
 //        xtype: 'button',
 //        text: 'Настройки проекта и ПНР',

@@ -15,6 +15,8 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
         'EC.CRM.view.Calcsmr.ProjectEdit'
     ],
     
+    permission: false,
+    
     projectID: null,
     
     title: null,
@@ -144,6 +146,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
     openSystem: function(grid, record) {
         if (!record.get('id')) return;
         var module = this.getController('EC.CRM.controller.Calcsmr.System').run({
+            permission: this.permission,
             systemID: record.get('id'),
             title: '<i>Система:</i> "' + record.get('system_name') + '"',
             callbackFn: this.loadData,

@@ -16,11 +16,14 @@ Ext.define('EC.CRM.view.Calcsmr.SystemList', {
     
     height: 600,
     
+    permission: false,
+    
     tbar: [{
         xtype: 'button',
         text: 'Добавить оборудование в систему',
         iconCls: 'add',
-        action: 'add'
+        action: 'add',
+        disabled: !this.permission
     }, '->', {
         xtype: 'button',
         tooltip: 'Обновить',
@@ -50,6 +53,9 @@ Ext.define('EC.CRM.view.Calcsmr.SystemList', {
                     handler: function(view, rowIndex, colIndex) {
                         var grid = view.up('#CalcsmrSystemList');
                         grid.fireEvent('edititem', grid, grid.getStore().getAt(rowIndex));
+                    },
+                    isDisabled: function(view, rowIndex, colIndex, item, record) {
+                        return !record.get('id') || !this.permission;
                     }
                 }, {
                     icon: '/images/icons/fam/delete.gif',
@@ -63,6 +69,9 @@ Ext.define('EC.CRM.view.Calcsmr.SystemList', {
                                 store.reload();
                             }
                         }, this);
+                    },
+                    isDisabled: function(view, rowIndex, colIndex, item, record) {
+                        return !record.get('id') || !this.permission;
                     }
                 }]
             }, {

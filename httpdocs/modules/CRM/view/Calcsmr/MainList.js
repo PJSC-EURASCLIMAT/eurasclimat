@@ -12,6 +12,8 @@ Ext.define('EC.CRM.view.Calcsmr.MainList', {
     
     sortableColumns: false,
     
+    permission: acl.isUpdate('calcsmr'),
+    
     initComponent: function() {
         
         var actions = [];
@@ -26,7 +28,7 @@ Ext.define('EC.CRM.view.Calcsmr.MainList', {
             scope: this
         });
         
-        if (acl.isUpdate('calcsmr')) {
+        if (this.permission) {
             
             actions.push({
                 icon: '/images/icons/edit.png',
@@ -85,8 +87,8 @@ Ext.define('EC.CRM.view.Calcsmr.MainList', {
             xtype: 'button',
             text: 'Создать проект',
             iconCls: 'add',
-            hidden: !acl.isUpdate('calcsmr'),
-            action: 'additem'
+            action: 'additem',
+            disabled: !this.permission
         }];
         
         this.bbar = Ext.create('Ext.PagingToolbar', {

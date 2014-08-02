@@ -40,6 +40,12 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
             : Ext.create('EC.CRM.view.Calcsmr.MainList')
         );
         
+        grid.on({
+            itemdblclick: this.openProject,
+            openproject: this.openProject,
+            scope: this
+        });
+            
         if (acl.isUpdate('calcsmr') && !isPortlet) {
             
             grid.down('button[action=additem]').on({
@@ -48,8 +54,6 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
             });
             
             grid.on({
-                itemdblclick: this.openProject,
-                openproject: this.openProject,
                 edititem: this.editItem,
                 copyproject: this.copyProject,
                 deleteitem: this.deleteItem,

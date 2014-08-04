@@ -29,16 +29,15 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
     
     deleteURL: '/json/crm/calcsmr/delete',
     
+    permission: acl.isUpdate('calcsmr'),
+    
     run: function(container) {
 
         this.Container = container; 
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
-        
-        var grid = container.add(isPortlet 
-            ? Ext.create('EC.CRM.view.Calcsmr.MainListPortlet')
-            : Ext.create('EC.CRM.view.Calcsmr.MainList')
-        );
+        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')), 
+            view = isPortlet ? 'EC.CRM.view.Calcsmr.MainListPortlet' : 'EC.CRM.view.Calcsmr.MainList',
+            grid = container.add(Ext.create(view, {permission: this.permission}));
         
         grid.on({
             itemdblclick: this.openProject,
@@ -46,7 +45,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
             scope: this
         });
             
-        if (acl.isUpdate('calcsmr') && !isPortlet) {
+        if (this.permission && !isPortlet) {
             
             grid.down('button[action=additem]').on({
                 click: this.addItem,
@@ -83,6 +82,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
     openProject: function(grid, record) {
         
         this.getController('EC.CRM.controller.Calcsmr.Project').run({
+            permission: this.permission,
             projectID: record.get('id'),
             title: '<i>Проект:</i> "' + record.get('name') + '"'
         });

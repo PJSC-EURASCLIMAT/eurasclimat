@@ -12,7 +12,7 @@ Ext.define('EC.CRM.view.Calcsmr.MainList', {
     
     sortableColumns: false,
     
-    permission: acl.isUpdate('calcsmr'),
+    permission: false,
     
     initComponent: function() {
         

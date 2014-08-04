@@ -32,7 +32,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
         Ext.apply(this, config);   
         
         this.Container = this.getView('EC.CRM.view.Calcsmr.ProjectList').create({
-            permission: acl.isUpdate('calcsmr')
+            permission: this.permission
         });
         this.Container.setTitle(this.title);
         
@@ -41,7 +41,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
         grid.on('itemdblclick', this.openSystem, this);
         this.Container.down('button[action=refresh]').on('click', this.loadData, this);
         
-        if (acl.isUpdate('calcsmr')) {
+        if (this.permission) {
             
             this.on('itemSaved', this.loadData, this);
             this.on('itemCreated', function(recordId) {

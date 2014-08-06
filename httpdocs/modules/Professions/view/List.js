@@ -74,16 +74,13 @@ Ext.define('EC.Professions.view.List', {
                     this.fireEvent('deleteitem', grid, grid.getStore().getAt(rowIndex));
                 },
                 scope: this
-
             });
-
 
             this.columns.push({
                 xtype:'actioncolumn',
                 width: parseInt(actions.length) * 20,
                 items: actions
             });
-
 
             this.tbar = [{
                 xtype: 'button',
@@ -95,7 +92,6 @@ Ext.define('EC.Professions.view.List', {
                 },
                 scope: this
             }];
-
         }
 
         this.bbar = Ext.create('Ext.PagingToolbar', {
@@ -106,8 +102,5 @@ Ext.define('EC.Professions.view.List', {
         });
 
         this.callParent();
-
-
     }
-
 });

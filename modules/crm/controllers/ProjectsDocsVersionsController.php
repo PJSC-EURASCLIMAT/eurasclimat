@@ -63,7 +63,7 @@ class Crm_ProjectsDocsVersionsController extends Xend_Controller_Action
 
         if ($doc_id == 0) {
             $response = new Xend_Response();
-            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, '$doc_id'));
+            $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'doc_id'));
             $this->_collectErrors($response);
             return;
         }

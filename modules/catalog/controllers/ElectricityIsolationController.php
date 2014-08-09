@@ -1,11 +1,11 @@
 <?php
 
-class Catalog_ElectricityBatteryController extends Catalog_AbstractController
+class Catalog_ElectricityIsolationController extends Catalog_AbstractController
 {
     public function init()
     {
-        $this->_entity = 'electricity_battery';
-        $this->_model = new Catalog_Electricity_Battery_Model();
+        $this->_entity = 'electricity_isolation';
+        $this->_model = new Catalog_Electricity_Isolation_Model();
         parent::init();
     }
 

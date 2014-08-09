@@ -7,9 +7,9 @@ Ext.define('EC.Market.view.Trade.List', {
     hideHeaders: true,
 
     listeners: {
-        itemclick: function( grid, record, item, index, e, eOpts ){
+        itemclick: function(grid, record, item, index, e, eOpts) {
             var url = record.get('url');
-            this.fireEvent('rowClicked',url);
+            this.fireEvent('rowClicked', url);
         }
     },
 
@@ -42,11 +42,27 @@ Ext.define('EC.Market.view.Trade.List', {
         ]
     },
 
-    columns: [
-        {
+    initComponent: function() {
+        
+        this.columns = [{
             text: 'Name',
             dataIndex: 'name',
-            width: '100%'
-        }
-    ]
+            flex: 1
+        }, {
+            xtype:'actioncolumn',
+            width: 25,
+            items: [{
+                icon: '/images/icons/documents.png',
+                tooltip: 'Документы',
+                iconCls: 'x-btn',
+                hidden: !acl.isView('crm'),
+                handler: function(grid, rowIndex, colIndex) {
+                    this.fireEvent('docsClicked', grid, grid.getStore().getAt(rowIndex));
+                },
+                scope: this
+            }]
+        }];
+        
+        this.callParent(arguments);
+    }
 });

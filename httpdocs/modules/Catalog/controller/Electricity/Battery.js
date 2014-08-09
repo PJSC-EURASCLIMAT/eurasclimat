@@ -2,11 +2,11 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-//    views: [
-//        'EC.Catalog.view.Conditioners.FiltersPanel',
-//        'EC.Catalog.view.Conditioners.Show'
-//    ],
-//    
+    views: [
+        'EC.Catalog.view.Electricity.Battery.FiltersPanel',
+        'EC.Catalog.view.Electricity.Battery.Show'
+    ],
+
 //    uses: [
 //        'EC.Catalog.view.Conditioners.Filter.Group',
 //        'EC.Catalog.view.Conditioners.Filter.ProductType',
@@ -21,7 +21,7 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
     
     settingsView: 'EC.Catalog.view.Electricity.Battery.SettingsLayout',
     
-    filtersPanelXType: 'ConditionersBatteryFiltersPanel', 
+    filtersPanelXType: 'ElectricityBatteryFiltersPanel', 
     
     showXType: 'ElectricityBatteryShow',
     

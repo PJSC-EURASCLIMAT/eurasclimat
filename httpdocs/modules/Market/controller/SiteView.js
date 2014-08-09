@@ -4,48 +4,50 @@ Ext.define('EC.Market.controller.SiteView', {
 
     views: [
         'EC.Market.view.Trade.SiteView',
-        'EC.Market.view.Trade.List'
+        'EC.Market.view.Trade.List',
+        'EC.Market.view.Docs.Win'
+    ],
+    
+    uses: [
+        'EC.Market.controller.Docs'
     ],
 
-    refs: [
-        {
-            ref: 'list',
-            selector: 'TradeViewList'
-        },{
-            ref: 'frame',
-            selector: 'TradeView #tradeFrame'
-        }
-    ],
+    refs: [{
+        ref: 'list',
+        selector: 'TradeViewList'
+    }, {
+        ref: 'frame',
+        selector: 'TradeView #tradeFrame'
+    }],
 
-
-    run:function(container) {
+    run: function(container) {
 
         this.control({
             'TradeViewList': {
-                rowClicked: this.openSite
+                rowClicked: this.openSite,
+                docsClicked: this.openDocs
             },
             'TradeView' : {
                afterlayout: this.viewAfterLayout
-            }
+            },
+            scope: this
         });
 
         container.add(this.getView(this.views[0]).create());
+    },
 
-    }
-
-    ,openSite: function(url){
+    openSite: function(url) {
         this.getFrame().el.down('iframe').set({src: "" + url + ""});
-    }
+    },
 
-    ,viewAfterLayout: function ( view, layout, eOpts ) {
+    viewAfterLayout: function ( view, layout, eOpts ) {
         document.getElementById('eventsIFrame').contentWindow.document.getElementsByTagName('body')[0].innerHTML = "Выберите сайт из списка слева";
-//        this.selectFirstRow();
-    }
+    },
 
-    ,selectFirstRow: function(){
-        this.getList().getView().select(0);
-        var url = this.getList().store.getAt(0).get('url');
-        this.openSite(url);
+    openDocs: function(grid, record) {
+        var docsController = this.getController('EC.Market.controller.Docs');
+        docsController.cur_item_id = record.get('id');
+        var win = Ext.create('EC.Market.view.Docs.Win');
+        docsController.run(win);
     }
-
 });

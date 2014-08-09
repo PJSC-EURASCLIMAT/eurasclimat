@@ -44,23 +44,25 @@ Ext.define('EC.Market.view.Trade.List', {
 
     initComponent: function() {
         
+        var actions = !acl.isView('crm') ? [] : [{
+            icon: '/images/icons/documents.png',
+            tooltip: 'Документы',
+            iconCls: 'x-btn',
+            hidden: !acl.isView('crm'),
+            handler: function(grid, rowIndex, colIndex) {
+                this.fireEvent('docsClicked', grid, grid.getStore().getAt(rowIndex));
+            },
+            scope: this
+        }];
+        
         this.columns = [{
             text: 'Name',
             dataIndex: 'name',
             flex: 1
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             width: 25,
-            items: [{
-                icon: '/images/icons/documents.png',
-                tooltip: 'Документы',
-                iconCls: 'x-btn',
-                hidden: !acl.isView('crm'),
-                handler: function(grid, rowIndex, colIndex) {
-                    this.fireEvent('docsClicked', grid, grid.getStore().getAt(rowIndex));
-                },
-                scope: this
-            }]
+            items: actions
         }];
         
         this.callParent(arguments);

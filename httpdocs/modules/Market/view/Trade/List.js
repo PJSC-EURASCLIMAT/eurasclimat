@@ -35,7 +35,7 @@ Ext.define('EC.Market.view.Trade.List', {
             {id: 11, name: 'Газпром', url: 'http://www.gazprom.ru/tenders/'},
             {id: 12, name: 'МГУ', url: 'http://concom.msu.ru/'},
             {id: 13, name: 'МГТС', url: 'http://www.mgts.ru/partner/purchase'},
-            {id: 14, name: 'МТС', url: 'https://tenders.ssl.mts.ru/Default.aspx'},
+            {id: 14, name: 'МТС', url: 'http://tenders.mts.ru'},
             {id: 15, name: 'Билайн', url: 'http://partners.beeline.ru/request.wbp'},
             {id: 16, name: 'Мегафон', url: 'http://moscow.corp.megafon.ru/about/custom/'},
             {id: 17, name: 'УК ГК «Л’Этуаль» ООО «Алькор и Ко»', url: 'http://www.letoile.ru/company/history/'}

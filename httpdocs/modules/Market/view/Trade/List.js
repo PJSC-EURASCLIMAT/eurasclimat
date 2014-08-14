@@ -39,7 +39,7 @@ Ext.define('EC.Market.view.Trade.List', {
             {id: 15, name: 'Билайн', url: 'http://partners.beeline.ru/request.wbp'},
             {id: 16, name: 'Мегафон', url: 'http://moscow.corp.megafon.ru/about/custom/'},
             {id: 17, name: 'УК ГК «Л’Этуаль» ООО «Алькор и Ко»', url: 'http://www.letoile.ru/company/history/'},
-            {id: 17, name: 'ЗАО «Бизнес-Недвижимость»', url: 'http://www.uk.sistema.ru/purchases/index/'}
+            {id: 18, name: 'ЗАО «Бизнес-Недвижимость»', url: 'http://www.uk.sistema.ru/purchases/index/'}
         ]
     },
 

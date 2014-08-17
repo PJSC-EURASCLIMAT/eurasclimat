@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Electricity_Lamp_Structure
+class Catalog_Electricity_Wires_Structure
 {
     public $data = array(
         array(
@@ -39,17 +39,8 @@ class Catalog_Electricity_Lamp_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'group_id',
-            'fieldLabel'      => 'Группа оборудования',
-            //'xtype'           => 'ConditionersFilterImplementationType',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
-        ),
-        array(
             'name'            => 'production_type_id',
             'fieldLabel'      => 'Тип продукции',
-            //'xtype'           => 'ConditionersFilterImplementationType',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array('Id', 'allowEmpty' => true)
@@ -57,107 +48,132 @@ class Catalog_Electricity_Lamp_Structure
         array(
             'name'            => 'implementation_type_id',
             'fieldLabel'      => 'Тип исполнения',
-            //'xtype'           => 'ConditionersFilterImplementationType',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'cap_type_id',
-            'fieldLabel'      => 'Тип цоколя',
-            //'xtype'           => 'ConditionersFilterImplementationType',
+            'name'            => 'conductor_material_id',
+            'fieldLabel'      => 'Материал жил',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'bulb_type_id',
-            'fieldLabel'      => 'Тип колбы',
-            //'xtype'           => 'ConditionersFilterImplementationType',
+            'name'            => 'conductor_type_id',
+            'fieldLabel'      => 'Тип жилы',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'colour',
-            'fieldLabel'      => 'Цвет',
+            'name'            => 'conductor_profile_id',
+            'fieldLabel'      => 'Профиль жилы',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'pairs_number',
+            'fieldLabel'      => 'Количество пар',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'power',
-            'fieldLabel'      => 'Мощность (Вт)',
+            'name'            => 'conductors_number',
+            'fieldLabel'      => 'Количество жил',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'isolation_material_id',
+            'fieldLabel'      => 'Материал изоляции жил',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'cable_material_id',
+            'fieldLabel'      => 'Материал оболочки кабеля',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'wire_colour',
+            'fieldLabel'      => 'Цвет провода',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'screening_id',
+            'fieldLabel'      => 'Экранирование',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'outer_diameter',
+            'fieldLabel'      => 'Наружный диаметр (мм)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'working_voltage_id',
+            'fieldLabel'      => 'Рабочее напряжение (В)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'working_frequency_id',
+            'fieldLabel'      => 'Рабочая частота',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'isolation_resistance',
+            'fieldLabel'      => 'Cопротивление изоляции постоянному току +70°С, не менее МОм/км',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'voltage',
-            'fieldLabel'      => 'Напряжение (В)',
+            'name'            => 'bend_radius',
+            'fieldLabel'      => 'Минимальный радиус изгиба в наружных диаметрах (мм)',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'reflector_diameter',
-            'fieldLabel'      => 'Диаметр отражателя (мм)',
+            'name'            => 'combustibility_id',
+            'fieldLabel'      => 'Горючесть',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'beam_angle',
-            'fieldLabel'      => 'Угол светового пучка (°)',
-            'xtype'           => 'numberfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'dispersion_angle',
-            'fieldLabel'      => 'Угол рассеивания (°)',
+            'name'            => 'exploitation_id',
+            'fieldLabel'      => 'Эксплуатация',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'light_stream',
-            'fieldLabel'      => 'Световой поток (лм)',
+            'name'            => 'laying_temp',
+            'fieldLabel'      => 'Минимальная температура прокладки без подогрева (°)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'color_temp',
-            'fieldLabel'      => 'Цветовая температура (К)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'bulb_diameter',
-            'fieldLabel'      => 'Диаметр колбы (мм)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'tube_diameter',
-            'fieldLabel'      => 'Диаметр трубки (мм)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'lamp_diameter',
-            'fieldLabel'      => 'Диаметр лампы (мм)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'lamp_length',
-            'fieldLabel'      => 'Длина лампы (мм)',
+            'name'            => 'temp_range',
+            'fieldLabel'      => 'Диапозон температур эксплуатации от-/до+ (°)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

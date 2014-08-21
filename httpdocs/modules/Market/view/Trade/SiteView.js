@@ -11,7 +11,7 @@ Ext.define('EC.Market.view.Trade.SiteView', {
             itemId: 'tradeList',
             xtype: 'TradeViewList',
             region: 'west',
-            width: 200
+            width: 300
         },
         {
             itemId: 'tradeFrame',

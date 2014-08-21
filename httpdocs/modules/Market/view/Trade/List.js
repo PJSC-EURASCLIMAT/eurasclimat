@@ -61,9 +61,13 @@ Ext.define('EC.Market.view.Trade.List', {
         }];
         
         this.columns = [{
-            text: 'Name',
             dataIndex: 'name',
             flex: 1
+        }, {
+            xtype: 'templatecolumn',
+            tpl: '<a href="{url}" target="_blank">Открыть в новом окне</a>',
+            dataIndex: 'url',
+            width: 50
         }, {
             xtype: 'actioncolumn',
             width: 25,

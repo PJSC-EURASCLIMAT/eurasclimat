@@ -7,14 +7,6 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
         'EC.Catalog.view.Electricity.Battery.Show'
     ],
 
-//    uses: [
-//        'EC.Catalog.view.Conditioners.Filter.Group',
-//        'EC.Catalog.view.Conditioners.Filter.ProductType',
-//        'EC.Catalog.view.Conditioners.Filter.ImplementationType',
-//        'EC.Catalog.view.Conditioners.Filter.PowerSource',
-//        'EC.Catalog.view.Conditioners.Filter.HeatingCooling'
-//    ],
-    
     entity: 'Electricity.Battery',
     
     fields: [],

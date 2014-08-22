@@ -57,7 +57,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 expanded: true,
                 children: [
                     {id: 3,  iconCls: 'noicon', leaf: true, name: 'ЕЭТП (Росэлторг)', url: 'http://etp.roseltorg.ru'},
-                    {id: 9,  iconCls: 'noicon', leaf: true, name: '«Лидер-инвест»', url: 'http://www.uk.sistema.ru'},
+                    {id: 9,  iconCls: 'noicon', leaf: true, name: 'Бизнес недвижимость', url: 'http://www.uk.sistema.ru'},
                     {id: 15, iconCls: 'noicon', leaf: true, name: 'Фабрикант', url: 'http://www.fabrikant.ru'},
                     {id: 16, iconCls: 'noicon', leaf: true, name: 'B2B-Center', url: 'http://www.b2b-center.ru/personal/'},   
                     {id: 17, iconCls: 'noicon', leaf: true, name: 'Торговая Система "Спецстройторг"', url: 'http://www.sstorg.ru/market/?action=list_public_pdo_multilot&type=5360&status_group=sg_active'},

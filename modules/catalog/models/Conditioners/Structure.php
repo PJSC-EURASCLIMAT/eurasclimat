@@ -34,9 +34,22 @@ class Catalog_Conditioners_Structure
         array(
             'name'            => 'group_id',
             'fieldLabel'      => 'Группа оборудования',
-            'xtype'           => 'ConditionersFilterGroup',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Бытовые',
+                2  => 'Полупромышленные',
+                3  => 'Чиллеры',
+                4  => 'Фанкойлы',
+                5  => 'Центральные (шкафные)',
+                6  => 'Тепловые насосы бытовые',
+                7  => 'Тепловые насосы полупромышленные',
+                8  => 'Системы с изменяемым расходом хладагента VRF',
+                9  => 'Полупромышленные со встроенным теплообменником(фреон-вода)',
+                10 => 'Полупромышленные с внешним теплообменником (фреон-вода)'
+            )
         ),
         array(
             'name'            => 'marking',
@@ -48,30 +61,76 @@ class Catalog_Conditioners_Structure
         array(
             'name'            => 'product_type_id',
             'fieldLabel'      => 'Тип продукции',
-            'xtype'           => 'ConditionersFilterProductType',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Моноблок',
+                2  => 'Сплит система',
+                3  => 'Мультисистемы',
+                4  => 'Мультизональные системы',
+                5  => 'Воздушное охлаждение конденсатора',
+                6  => 'Водяное охлождение конденсатора',
+                7  => 'Гибридные',
+                8  => 'Приборы нагрева и охлаждения воды',
+                9  => 'Теплообменные блоки',
+                10 => 'Бустерный блок'
+            )
         ),
         array(
             'name'            => 'implementation_type_id',
             'fieldLabel'      => 'Тип исполнения системы',
-            'xtype'           => 'ConditionersFilterImplementationType',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Настенные',
+                2  => 'Напольные',
+                3  => 'Подпотолочные',
+                4  => 'Кассетные 1 поток',
+                5  => 'Кассетные 4 потока',
+                6  => 'Канальные',
+                7  => 'Универсальные'
+            )
+        ),
+        array(
+            'name'            => 'block_type_id',
+            'fieldLabel'      => 'Тип блока',
+            'xtype'           => 'combo',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Внутренний',
+                2  => 'Наружный'
+            )
         ),
         array(
             'name'            => 'power_source_id',
             'fieldLabel'      => 'Наличие инвертора',
-            'xtype'           => 'ConditionersFilterPowerSource',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Есть',
+                2  => 'Нет'
+            )
         ),
         array(
             'name'            => 'heatingcooling_id',
             'fieldLabel'      => 'Охлаждение/нагрев',
-            'xtype'           => 'ConditionersFilterHeatingCooling',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Только охлаждение',
+                2  => 'Охлаждение или нагрев',
+                3  => 'Охлаждение и нагрев одновременно'
+            )
         ),
         array(
             'name'            => 'country',
@@ -200,8 +259,15 @@ class Catalog_Conditioners_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
+            'name'            => 'dealer_price',
+            'fieldLabel'      => 'Диллерская цена',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
             'name'            => 'price',
-            'fieldLabel'      => 'Цена (р)',
+            'fieldLabel'      => 'Цена',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

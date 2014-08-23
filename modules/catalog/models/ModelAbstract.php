@@ -124,11 +124,15 @@ class Catalog_ModelAbstract
         $fields = array();
 
         foreach($this->_structure->data as $v) {
-            $fields[] = array(
+            $f = array(
                 'xtype'         => $v['xtype'],
                 'fieldLabel'    => $v['fieldLabel'],
                 'name'          => $v['name']
             );
+            if (!empty($v['values'])) {
+                $f['values'] = $v['values'];
+            }
+            $fields[] = $f;
         }
 
         $response = new Xend_Response();

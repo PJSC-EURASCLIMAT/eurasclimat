@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Electricity_Wires_Structure
+class Catalog_Electricity_Lamp_Structure
 {
     public $data = array(
         array(

@@ -111,7 +111,8 @@ Ext.define('EC.Catalog.controller.Abstract', {
         Ext.Ajax.request({
             url: this.fieldsURL,
             success: function (response, opts) {
-                this.fields = Ext.decode(response.responseText); 
+                var fields = Ext.decode(response.responseText);
+                this.parseFields(fields);
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Не удалось загрузить структуру.');
@@ -265,11 +266,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
             allowEdit: this.editPermition
         });
         
-        view.down('form').load({
-            url: this.getURL,
-            params: {id: recordId}
-        });
-        
         var catalogRelatedServicesPanel = view.down('CatalogRelatedServices');
         
         catalogRelatedServicesPanel.on({
@@ -344,6 +340,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 scope: this
             });
         }
+        
+        view.down('form').load({
+            url: this.getURL,
+            params: {id: recordId}
+        });
     },
     
     createItem: function(view) {
@@ -597,5 +598,30 @@ Ext.define('EC.Catalog.controller.Abstract', {
         this.Container.initConfig.filters = values; 
         
         MC.openModuleTab(this.Container);
+    },
+    
+    parseFields: function(fields) {
+        
+        Ext.each(fields, function(f) {
+            
+            if (f.xtype == 'combo') {
+                var values = f.values, data = [];
+                Ext.iterate(values, function(value, key) {
+                    data.push({
+                        id: key,
+                        name: value
+                    });
+                });
+                f.store = {
+                    xtype: 'store',
+                    fields: ['id', 'name'],
+                    data: data
+                };
+                f.valueField = 'id'; 
+                f.displayField = 'name';
+                f.queryMode = 'local';
+            }
+        });
+        this.fields = fields;
     }
 });

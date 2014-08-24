@@ -39,12 +39,34 @@ class Catalog_Electricity_Isolation_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
+            'name'            => 'product_type_id',
+            'fieldLabel'      => 'Тип продукции',
+            'xtype'           => 'combo',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Электроизоляционные материалы',
+                2  => 'Изоляционные материалы другого назначения'
+            )
+        ),
+        array(
             'name'            => 'implementation_type_id',
             'fieldLabel'      => 'Тип исполнения',
-            //'xtype'           => 'ConditionersFilterImplementationType',
-            'xtype'           => 'textfield',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Изолента ПВХ',
+                2  => 'Изолента Х/Б',
+                3  => 'Изолента самослипающаяся',
+                4  => 'Трубка ПВХ (кембрик)',
+                5  => 'Трубка термоусаживающаяся',
+                6  => 'Лента алюминивая армированная',
+                7  => 'Лента антикоррозионная',
+                8  => 'Пена огнезащитная'
+            )
         ),
         array(
             'name'            => 'colour',
@@ -68,11 +90,27 @@ class Catalog_Electricity_Isolation_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'pipe_diameter',
+            'name'            => 'pipe_diameter_id',
             'fieldLabel'      => 'Диаметр термоусадочных трубок до/после усадки (мм)',
-            'xtype'           => 'textfield',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '6/3',
+                2  => '8/4',
+                3  => '10/5',
+                4  => '12/6',
+                5  => '12,7/4,3',
+                6  => '14/7',
+                7  => '16/8',
+                8  => '20/10',
+                9  => '25/12,5',
+                10 => '30/15',
+                11 => '40/20',
+                12 => '50/25',
+                13 => '60/30'
+            )
         ),
         array(
             'name'            => 'cambric_diameter',
@@ -82,30 +120,50 @@ class Catalog_Electricity_Isolation_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'combustibility',
+            'name'            => 'combustibility_id',
             'fieldLabel'      => 'Горючесть',
-            'xtype'           => 'textfield',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Пониженная',
+                2  => 'Не поддерживающий горение',
+                3  => 'Самозатухающий',
+                4  => 'Низкое газо и дымо выделение'
+            )
         ),
         array(
-            'name'            => 'operation',
+            'name'            => 'exploitation_id',
             'fieldLabel'      => 'Эксплуатация',
-            'xtype'           => 'textfield',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'В помещениях',
+                2  => 'Вне помещений',
+                3  => 'Универсальный'
+            )
         ),
         array(
-            'name'            => 'tempranges',
+            'name'            => 'temp_ranges_id',
             'fieldLabel'      => 'Рабочие диапазоны температур -/+ (°C)',
-            'xtype'           => 'textfield',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '-50/+80',
+                2  => '-50/+90',
+                3  => '-40/+100',
+                4  => '-55/+105'
+            )
         ),
         array(
             'name'            => 'breakdown_voltage',
             'fieldLabel'      => 'Напряжение пробоя (кВт)',
-            'xtype'           => 'textfield',
+            'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
@@ -120,6 +178,13 @@ class Catalog_Electricity_Isolation_Structure
             'name'            => 'measure',
             'fieldLabel'      => 'Ед.Изм.',
             'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'dealer_price',
+            'fieldLabel'      => 'Диллерская цена',
+            'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),

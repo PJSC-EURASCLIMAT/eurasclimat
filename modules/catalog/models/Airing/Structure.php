@@ -34,9 +34,13 @@ class Catalog_Airing_Structure
         array(
             'name'            => 'group_id',
             'fieldLabel'      => 'Группа оборудования',
-            'xtype'           => 'AiringFilterGroup',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Вентустановки'
+            )
         ),
         array(
             'name'            => 'marking',
@@ -48,142 +52,128 @@ class Catalog_Airing_Structure
         array(
             'name'            => 'product_type_id',
             'fieldLabel'      => 'Тип продукции',
-            'xtype'           => 'AiringFilterProductType',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Бытовые',
+                2  => 'Полупромышленные',
+                3  => 'Промышленные'
+            )
         ),
         array(
             'name'            => 'implementation_type_id',
             'fieldLabel'      => 'Тип исполнения системы',
-            'xtype'           => 'AiringFilterImplementationType',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Настенные',
+                2  => 'Подвесные подпотолочные',
+                3  => 'Канальные'
+            )
         ),
         array(
-            'name'            => 'control_type_id',
-            'fieldLabel'      => 'Управление системой',
-            'xtype'           => 'AiringFilterControlType',
+            'name'            => 'recuperator_id',
+            'fieldLabel'      => 'Рекуператор',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Есть',
+                2  => 'Нет'
+            )
         ),
         array(
-            'name'            => 'connection_type_id',
-            'fieldLabel'      => 'Тип присоединения',
-            'xtype'           => 'AiringFilterConnectionType',
+            'name'            => 'operate_temp_range_cooling_id',
+            'fieldLabel'      => 'Диапазон рабочих температур (охлаждение) мин/макс (°)',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '+21/+43',
+                2  => '-10/+46',
+                3  => '-15/+46',
+                4  => '-5/+43'
+            )
         ),
         array(
-            'name'            => 'protection_type_id',
-            'fieldLabel'      => 'Тип защиты',
-            'xtype'           => 'AiringFilterProtectionType',
+            'name'            => 'operate_temp_range_cooling_id',
+            'fieldLabel'      => 'Диапазон рабочих температур (обогрев) мин/макс (°)',
+            'xtype'           => 'combo',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '-10/+21',
+                2  => '-10/+24',
+                3  => '-10/+46',
+                4  => '-15/+24',
+                5  => '-20/+15',
+                6  => '-25/+15',
+                7  => '-25/+24',
+                8  => '-25/+35'
+            )
         ),
         array(
-            'name'            => 'power_source_id',
-            'fieldLabel'      => 'Источник питания',
-            'xtype'           => 'AiringFilterPowerSource',
-            'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'material_id',
-            'fieldLabel'      => 'Материал',
-            'xtype'           => 'AiringFilterMaterial',
-            'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'isolation_class_id',
-            'fieldLabel'      => 'Класс изоляции',
-            'xtype'           => 'AiringFilterIsolationClass',
-            'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'country',
-            'fieldLabel'      => 'Страна производителя',
-            'xtype'           => 'CountriesCombo',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 2), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'temp',
-            'fieldLabel'      => 'Гарантированный диапазон наружных температур (охлаждение) (°C)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'power_supply',
-            'fieldLabel'      => 'Напряжение питания (В)',
+            'name'            => 'power_consumption',
+            'fieldLabel'      => 'Потребляемая мощность (кВт)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'amperage',
-            'fieldLabel'      => 'Рабочий ток (ампер)',
+            'name'            => 'air_consumption_min',
+            'fieldLabel'      => 'Расход воздуха мин (м³/ч)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'sensor_inputs',
-            'fieldLabel'      => 'Входов для подключаемых датчиков (ед.)',
+            'name'            => 'air_consumption_max',
+            'fieldLabel'      => 'Расход воздуха макс (м³/ч)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'pressure',
-            'fieldLabel'      => 'Максимальное рабочее давление (бар)',
+            'name'            => 'heat_utilization_efficiency_min',
+            'fieldLabel'      => 'Эффективность утилизации тепла мин (%)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'heat_utilization_efficiency_max',
+            'fieldLabel'      => 'Эффективность утилизации тепла макс (%)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'static_pressure',
+            'fieldLabel'      => 'Статическое давление (Па)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
             'name'            => 'noise_level_min',
-            'fieldLabel'      => 'Уровень звукового давления (дБ(А))',
+            'fieldLabel'      => 'Уровень шума мин (дБА)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'cable_length',
-            'fieldLabel'      => 'Длина кабеля (мм)',
+            'name'            => 'noise_level_max',
+            'fieldLabel'      => 'Уровень шума макс (дБА)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'pipe_diameter',
-            'fieldLabel'      => 'Диаметр трубок (мм)',
-            'xtype'           => 'numberfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'speed',
-            'fieldLabel'      => 'Скорость (1/мин)',
-            'xtype'           => 'numberfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'air_flow',
-            'fieldLabel'      => 'Макс. расход воздуха (м³/ч)',
-            'xtype'           => 'numberfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
-        ),
-        array(
-            'name'            => 'eer',
-            'fieldLabel'      => 'Энергоэффективность (EER)',
-            'xtype'           => 'textfield',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+            'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
             'name'            => 'weight',
@@ -194,21 +184,49 @@ class Catalog_Airing_Structure
         ),
         array(
             'name'            => 'dimensions',
-            'fieldLabel'      => 'Габариты (ШхДхВ) (мм)',
+            'fieldLabel'      => 'Габариты (ширина × длинна × высота) (мм)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'warranty',
-            'fieldLabel'      => 'Гарантия (лет)',
+            'name'            => 'power_voltage',
+            'fieldLabel'      => 'Электропитание (В)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_phases',
+            'fieldLabel'      => 'Электропитание (кол-во фаз)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_freq',
+            'fieldLabel'      => 'Электропитание (Hz)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'country',
+            'fieldLabel'      => 'Страна производителя',
+            'xtype'           => 'CountriesCombo',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 2), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'dealer_price',
+            'fieldLabel'      => 'Диллерская цена',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'price',
-            'fieldLabel'      => 'Цена (р)',
+            'fieldLabel'      => 'Цена',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

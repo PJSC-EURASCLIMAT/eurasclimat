@@ -90,6 +90,8 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 10, iconCls: 'noicon', leaf: true, name: 'OTS tender (Метро)', url: 'http://sso.otc-tender.ru/Login.aspx'},
                     {id: 11, iconCls: 'noicon', leaf: true, name: 'ГУП «Московский метрополитен»', url: 'http://www.torgi-mosmetro.ru/torgi/'},
                     {id: 19, iconCls: 'noicon', leaf: true, name: 'РЖД (ТП)', url: 'http://etzp.rzd.ru/freeccee/main'},
+                    {id: 21, iconCls: 'noicon', leaf: true, name: 'Московский аэропорт Домодедово', url: 'http://www.domodedovo.ru/ru/main/news/competition/'},
+                    {id: 22, iconCls: 'noicon', leaf: true, name: 'Международный аэропорт Шереметьево', url: 'http://svo.aero/tenders/'}
                 ]
             }, {
                 name: 'Учреждения общепита',

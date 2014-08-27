@@ -54,7 +54,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 ]
             }, {
                 name: 'Комерческие торговые системы',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 3,  iconCls: 'noicon', leaf: true, name: 'ЕЭТП (Росэлторг)', url: 'http://etp.roseltorg.ru'},
                     {id: 9,  iconCls: 'noicon', leaf: true, name: 'Бизнес недвижимость', url: 'http://www.uk.sistema.ru'},

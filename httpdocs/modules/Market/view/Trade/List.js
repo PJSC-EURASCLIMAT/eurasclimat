@@ -33,7 +33,7 @@ Ext.define('EC.Market.view.Trade.List', {
             expanded: true,
             children: [{
                 name: 'Банки',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 2,  iconCls: 'noicon', leaf: true, name: 'Сбербанк-АСТ', url: 'http://utp.sberbank-ast.ru'},
                     {id: 6,  iconCls: 'noicon', leaf: true, name: 'Закупки Сбербанк-АСТ', url: 'http://zakupki.sbrf.sberbank-ast.ru/default.aspx'},
@@ -42,14 +42,14 @@ Ext.define('EC.Market.view.Trade.List', {
                 ]
             }, {
                 name: 'Государственные сторонние системы',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 1,  iconCls: 'noicon', leaf: true, name: 'ЭТП ММББ', url: 'http://etp-micex.ru'},
                     {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'},
                 ]
             }, {
                 name: 'Энергетические компании',
-                expanded: true,
+                expanded: false,
                 children: [
                 ]
             }, {
@@ -65,25 +65,25 @@ Ext.define('EC.Market.view.Trade.List', {
                 ]
             }, {
                 name: 'Медецинские учреждения',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 18, iconCls: 'noicon', leaf: true, name: 'Medsi.ru', url: 'http://medsi.ru/about/purchases/'},
                 ]
             }, {
                 name: 'Оброзовательные учреждения',
-                expanded: true,
+                expanded: false,
                 children: [
                 ]
             }, {
                 name: 'Операторы сотовой связи',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 13, iconCls: 'noicon', leaf: true, name: 'МГТС', url: 'http://www.mgts.ru/partner/purchase'},
                     {id: 14, iconCls: 'noicon', leaf: true, name: 'МТС', url: 'http://tenders.mts.ru'},
                 ]
             }, {
                 name: 'Транспортные компании',
-                expanded: true,
+                expanded: false,
                 children: [
                     {id: 5,  iconCls: 'noicon', leaf: true, name: 'Аэрофлот', url: 'https://trade.aeroflot.ru'},
                     {id: 7,  iconCls: 'noicon', leaf: true, name: 'Почта России', url: 'http://www.russianpost.ru/rp/company/ru/home/tenders/search'},
@@ -95,7 +95,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 ]
             }, {
                 name: 'Учреждения общепита',
-                expanded: true,
+                expanded: false,
                 children: [
                 ]
             }]

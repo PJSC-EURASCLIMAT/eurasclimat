@@ -22,6 +22,7 @@ Ext.define('EC.CRM.view.Projects.List', {
         ftype: 'grouping',
         groupHeaderTpl: '{name} ({children.length})',
         hideGroupedHeader: true,
+        startCollapsed: true,
         id: 'ProjectsGrouping'
     }],
     
@@ -120,7 +121,7 @@ Ext.define('EC.CRM.view.Projects.List', {
             format: 'd.m.Y H:i',
             width: 100
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             width: parseInt(actions.length) * 20,
             items: actions
         }];

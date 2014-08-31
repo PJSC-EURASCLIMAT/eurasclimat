@@ -343,7 +343,16 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         view.down('form').load({
             url: this.getURL,
-            params: {id: recordId}
+            params: {id: recordId},
+            success: function() {
+                var fields = view.down('form').getForm().getFields();
+                fields.each(function(i) {
+                    if (i.getXType() == 'combobox' && null != i.getValue()) {
+                        i.setValue(parseInt(i.getValue()));
+                    }
+                }, this);
+            },
+            scope: this
         });
     },
     

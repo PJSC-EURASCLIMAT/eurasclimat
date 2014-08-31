@@ -102,7 +102,7 @@ class Catalog_Airing_Structure
             )
         ),
         array(
-            'name'            => 'operate_temp_range_cooling_id',
+            'name'            => 'operate_temp_range_heating_id',
             'fieldLabel'      => 'Диапазон рабочих температур (обогрев) мин/макс (°)',
             'xtype'           => 'combo',
             'editable'        => true,

@@ -345,7 +345,7 @@ class Xend_File
         return true;
     }
 
-    private function _pathinfo_utf($path)
+    protected function _pathinfo_utf($path)
     {
         if (strpos($path, DIRECTORY_SEPARATOR) !== false) {
             $basename = explode(DIRECTORY_SEPARATOR, $path);

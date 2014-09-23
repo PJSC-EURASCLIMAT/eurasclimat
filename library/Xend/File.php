@@ -92,7 +92,7 @@ class Xend_File
             return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
-        $fileNameInfo = $this->_pathinfo_utf($FILENAME);
+        $fileNameInfo = Xend_File::_pathinfo_utf($FILENAME);
 
         $fileName = $fileNameInfo['filename'];
 

@@ -371,6 +371,13 @@ class Catalog_Electricity_Wires_Structure
             )
         ),
         array(
+            'name'            => 'shipment_multiplicity',
+            'fieldLabel'      => 'Кратность отгрузки (м)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
             'name'            => 'country',
             'fieldLabel'      => 'Страна производителя',
             'xtype'           => 'CountriesCombo',

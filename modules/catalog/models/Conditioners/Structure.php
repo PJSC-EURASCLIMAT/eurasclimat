@@ -108,18 +108,6 @@ class Catalog_Conditioners_Structure
             )
         ),
         array(
-            'name'            => 'power_source_id',
-            'fieldLabel'      => 'Наличие инвертора',
-            'xtype'           => 'combo',
-            'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true),
-            'values'          => array(
-                0  => '-',
-                1  => 'Есть',
-                2  => 'Нет'
-            )
-        ),
-        array(
             'name'            => 'heatingcooling_id',
             'fieldLabel'      => 'Охлаждение/нагрев',
             'xtype'           => 'combo',
@@ -130,6 +118,18 @@ class Catalog_Conditioners_Structure
                 1  => 'Только охлаждение',
                 2  => 'Охлаждение или нагрев',
                 3  => 'Охлаждение и нагрев одновременно'
+            )
+        ),
+        array(
+            'name'            => 'power_source_id',
+            'fieldLabel'      => 'Наличие инвертора',
+            'xtype'           => 'combo',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => 'Есть',
+                2  => 'Нет'
             )
         ),
         array(

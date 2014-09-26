@@ -382,7 +382,7 @@ class Catalog_Electricity_Wires_Structure
             'fieldLabel'      => 'Страна производителя',
             'xtype'           => 'CountriesCombo',
             'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 2), 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'measure',

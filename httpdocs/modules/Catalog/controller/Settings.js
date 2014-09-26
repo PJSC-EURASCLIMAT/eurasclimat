@@ -7,8 +7,7 @@ Ext.define('EC.Catalog.controller.Settings', {
     ],
 
     views: [
-        'EC.Catalog.view.SettingsList',
-        'EC.Catalog.view.Conditioners.SettingsLayout'
+        'EC.Catalog.view.SettingsList'
     ],
     
     run: function(classname) {

@@ -102,13 +102,6 @@ class Catalog_Automation_Structure
             'validator'       => array('Id', 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'country',
-            'fieldLabel'      => 'Страна производителя',
-            'xtype'           => 'CountriesCombo',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 2), 'allowEmpty' => true)
-        ),
-        array(
             'name'            => 'temp_adjustment_range',
             'fieldLabel'      => 'Диапазон регулируемой температуры (°C)',
             'xtype'           => 'textfield',
@@ -189,6 +182,13 @@ class Catalog_Automation_Structure
             'name'            => 'dimensions',
             'fieldLabel'      => 'Габариты (ШхДхВ) (мм)',
             'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'country',
+            'fieldLabel'      => 'Страна производителя',
+            'xtype'           => 'CountriesCombo',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),

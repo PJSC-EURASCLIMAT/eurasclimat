@@ -133,13 +133,6 @@ class Catalog_Conditioners_Structure
             )
         ),
         array(
-            'name'            => 'country',
-            'fieldLabel'      => 'Страна производителя',
-            'xtype'           => 'CountriesCombo',
-            'editable'        => true,
-            'validator'       => array(array('StringLength', 0, 2), 'allowEmpty' => true)
-        ),
-        array(
             'name'            => 'cooling_capacity',
             'fieldLabel'      => 'Холодопроизводительность (кВт)',
             'xtype'           => 'numberfield',
@@ -248,6 +241,13 @@ class Catalog_Conditioners_Structure
             'name'            => 'dimensions',
             'fieldLabel'      => 'Габариты (ШхДхВ) (мм)',
             'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'country',
+            'fieldLabel'      => 'Страна производителя',
+            'xtype'           => 'CountriesCombo',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),

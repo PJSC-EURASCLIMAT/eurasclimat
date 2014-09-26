@@ -112,6 +112,7 @@ Ext.define('EC.Catalog.view.ListAbstract', {
         
         this.bbar = Ext.create('Ext.PagingToolbar', {
             store: this.store,
+            displayInfo: true,
             plugins: [{ptype: 'pagingtoolbarresizer'}],
             buttons: ['-', {
                 text: 'Добавить',

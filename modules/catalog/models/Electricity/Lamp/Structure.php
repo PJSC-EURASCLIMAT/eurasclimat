@@ -50,7 +50,7 @@ class Catalog_Electricity_Lamp_Structure
             )
         ),
         array(
-            'name'            => 'production_type_id',
+            'name'            => 'product_type_id',
             'fieldLabel'      => 'Тип продукции',
             'xtype'           => 'combo',
             'editable'        => true,
@@ -171,6 +171,13 @@ class Catalog_Electricity_Lamp_Structure
         array(
             'name'            => 'power',
             'fieldLabel'      => 'Мощность (Вт)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'color_temp',
+            'fieldLabel'      => 'Световая температура (°K)',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

@@ -124,56 +124,56 @@ class Catalog_Airing_Structure
             'fieldLabel'      => 'Потребляемая мощность (кВт)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'air_consumption_min',
             'fieldLabel'      => 'Расход воздуха мин (м³/ч)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'air_consumption_max',
             'fieldLabel'      => 'Расход воздуха макс (м³/ч)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'heat_utilization_efficiency_min',
             'fieldLabel'      => 'Эффективность утилизации тепла мин (%)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'heat_utilization_efficiency_max',
             'fieldLabel'      => 'Эффективность утилизации тепла макс (%)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'static_pressure',
             'fieldLabel'      => 'Статическое давление (Па)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'noise_level_min',
             'fieldLabel'      => 'Уровень шума мин (дБА)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'noise_level_max',
             'fieldLabel'      => 'Уровень шума макс (дБА)',
             'xtype'           => 'numberfield',
             'editable'        => true,
-            'validator'       => array('Id', 'allowEmpty' => true)
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'weight',

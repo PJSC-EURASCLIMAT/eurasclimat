@@ -122,7 +122,7 @@ class Catalog_Airing_Structure
         array(
             'name'            => 'power_consumption',
             'fieldLabel'      => 'Потребляемая мощность (кВт)',
-            'xtype'           => 'numberfield',
+            'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),

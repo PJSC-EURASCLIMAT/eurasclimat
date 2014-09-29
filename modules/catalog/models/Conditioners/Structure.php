@@ -92,7 +92,10 @@ class Catalog_Conditioners_Structure
                 4  => 'Кассетные 1 поток',
                 5  => 'Кассетные 4 потока',
                 6  => 'Канальные',
-                7  => 'Универсальные'
+                7  => 'Канальные низконапорные',
+                8  => 'Канальные средненапорные',
+                9  => 'Канальные высоконапорные',
+                10 => 'Универсальные'
             )
         ),
         array(
@@ -134,18 +137,19 @@ class Catalog_Conditioners_Structure
         ),
         array(
             'name'            => 'cooling_capacity',
-            'fieldLabel'      => 'Холодопроизводительность (кВт)',
-            'xtype'           => 'numberfield',
+            'fieldLabel'      => 'Холодопроизводительность /мин-ном-макс/ (кВт)',
+            'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'heating_capacity',
-            'fieldLabel'      => 'Теплопроизводительность (кВт)',
-            'xtype'           => 'numberfield',
+            'fieldLabel'      => 'Теплопроизводительность /мин-ном-макс/ (кВт)',
+            'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
+        // TODO
         array(
             'name'            => 'air_consumption_min',
             'fieldLabel'      => 'Расход воздуха (мин) (м³/ч)',
@@ -231,8 +235,80 @@ class Catalog_Conditioners_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
+            'name'            => 'power_voltage',
+            'fieldLabel'      => 'Электропитание (В)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_phases',
+            'fieldLabel'      => 'Электропитание (кол-во фаз)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_freq',
+            'fieldLabel'      => 'Электропитание (Hz)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
             'name'            => 'factory_refrigerant_charge',
             'fieldLabel'      => 'Заводская заправка хладагента (кг)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'operate_temp_range_cooling_id',
+            'fieldLabel'      => 'Диапазон рабочих температур (охлаждение) мин/макс (°)',
+            'xtype'           => 'combo',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '+19/+46',
+                2  => '+21/+43',
+                3  => '+10/+46',
+                4  => '-5/+46',
+                5  => '-10/+46',
+                6  => '-15/+46',
+                7  => '-15/+50',
+                8  => '-5/+43'
+            )
+        ),
+        array(
+            'name'            => 'operate_temp_range_heating_id',
+            'fieldLabel'      => 'Диапазон рабочих температур (обогрев) мин/макс (°)',
+            'xtype'           => 'combo',
+            'editable'        => true,
+            'validator'       => array('Id', 'allowEmpty' => true),
+            'values'          => array(
+                0  => '-',
+                1  => '-9/+18',
+                2  => '-10/+15',
+                3  => '-10/+20',
+                4  => '-10/+21',
+                5  => '-10/+24',
+                6  => '-15/+15',
+                7  => '-15/+15.5',
+                8  => '-15/+18',
+                9  => '-15/+20',
+                10 => '-15/+24',
+                11 => '-20/+15',
+                12 => '-20/+15.5',
+                13 => '-20/+18',
+                14 => '-25/+15',
+                15 => '-25/+24',
+                16 => '-25/+35'
+            )
+        ),
+        array(
+            'name'            => 'weight',
+            'fieldLabel'      => 'Вес (кг)',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

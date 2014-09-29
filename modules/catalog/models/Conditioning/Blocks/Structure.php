@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Conditioners_Structure
+class Catalog_Conditioning_Blocks_Structure
 {
     public $data = array(
         array(

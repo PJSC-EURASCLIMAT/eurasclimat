@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Airing_Structure
+class Catalog_Airing_Blocks_Structure
 {
     public $data = array(
         array(

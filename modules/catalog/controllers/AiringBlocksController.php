@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_AiringController extends Catalog_AbstractController
+class Catalog_AiringBlocksController extends Catalog_AbstractController
 {
     public function init()
     {

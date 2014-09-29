@@ -1,12 +1,12 @@
 <?php
 
-class Catalog_Airing_Table extends Xend_Db_Table_Abstract
+class Catalog_Airing_Blocks_Table extends Xend_Db_Table_Abstract
 {
     /**
      * Table name
      * @var string
      */
-    protected $_name = 'catalog_airing';
+    protected $_name = 'catalog_airing_blocks';
 
     protected $_nullableFields = array(
         'code',

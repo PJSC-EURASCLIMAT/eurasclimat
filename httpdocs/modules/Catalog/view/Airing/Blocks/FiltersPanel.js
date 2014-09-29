@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Airing.FiltersPanel', {
+Ext.define('EC.Catalog.view.Airing.Blocks.FiltersPanel', {
 
     extend: 'EC.Catalog.view.FiltersPanelAbstarct',
     
-    alias: ['widget.AiringFiltersPanel'],
+    alias: ['widget.AiringBlocksFiltersPanel'],
     
     permissions: !acl.isUpdate('catalog', 'airing'),
         

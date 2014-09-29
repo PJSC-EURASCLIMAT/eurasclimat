@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Airing.Show', {
+Ext.define('EC.Catalog.view.Airing.Blocks.Show', {
 
     extend: 'EC.Catalog.view.ShowAbstract',
     
-    alias: ['widget.AiringShow'],
+    alias: ['widget.AiringBlocksShow'],
 
     productProps: {
         product_type_name: {            name: 'Тип продукции'},

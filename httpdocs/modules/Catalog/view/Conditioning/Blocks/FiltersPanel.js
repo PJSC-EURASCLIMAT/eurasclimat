@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.Conditioners.FiltersPanel', {
+Ext.define('EC.Catalog.view.Conditioning.Blocks.FiltersPanel', {
 
     extend: 'EC.Catalog.view.FiltersPanelAbstarct',
     

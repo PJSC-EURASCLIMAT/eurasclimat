@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Electricity.Battery.Show', {
+Ext.define('EC.Catalog.view.Conditioning.Blocks.Show', {
 
     extend: 'EC.Catalog.view.ShowAbstract',
     
-    alias: ['widget.ElectricityBatteryShow'],
+    alias: ['widget.ConditioningBlocksShow'],
 
     productProps: {
         product_type_name: {            name: 'Тип продукции'},

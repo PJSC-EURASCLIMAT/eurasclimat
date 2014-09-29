@@ -13,11 +13,11 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             hidden: !acl.isView('catalog', 'conditioners'),
             children: [{
                 id: 'Conditioning.Blocks',
-                name: 'Кондиционирование - Блоки',
+                name: 'Блоки',
                 children: []
             }, {
                 id: 'Conditioning.Controllers',
-                name: 'Кондиционирование - Системы управления',
+                name: 'Системы управления',
                 children: []
             }]
         }, {
@@ -27,7 +27,7 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             hidden: !acl.isView('catalog', 'airing'),
             children: [{
                 id: 'Airing.Blocks',
-                name: 'Вентиляция - Блоки',
+                name: 'Блоки',
                 children: []
             }]
         }, {
@@ -43,19 +43,19 @@ Ext.define('EC.Catalog.store.CatalogTree', {
             hidden: !acl.isView('catalog', 'electricity'),
             children: [{
                 id: 'Electricity.Battery',
-                name: 'Электрика - Батареи',
+                name: 'Батареи',
                 children: []
             }, {
                 id: 'Electricity.Isolation',
-                name: 'Электрика - Изоляция',
+                name: 'Изоляция',
                 children: []
             }, {
                 id: 'Electricity.Lamp',
-                name: 'Электрика - Лампы',
+                name: 'Лампы',
                 children: []
             }, {
                 id: 'Electricity.Wires',
-                name: 'Электрика - Провода',
+                name: 'Провода',
                 children: []
             }]
         }, {

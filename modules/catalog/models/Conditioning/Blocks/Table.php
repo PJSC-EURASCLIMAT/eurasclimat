@@ -8,5 +8,5 @@ class Catalog_Conditioning_Blocks_Table extends Xend_Db_Table_Abstract
      */
     protected $_name = 'catalog_conditioning_blocks';
 
-    protected $_nullableFields = array(s);
+    protected $_nullableFields = array();
 }

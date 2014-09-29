@@ -151,14 +151,49 @@ class Catalog_Conditioners_Structure
         ),
         array(
             'name'            => 'air_consumption_min',
-            'fieldLabel'      => 'Расход воздуха (мин) (м³/ч)',
+            'fieldLabel'      => 'Расход воздуха минимальный (м³/ч)',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'air_consumption_max',
-            'fieldLabel'      => 'Расход воздуха (макс) (м³/ч)',
+            'fieldLabel'      => 'Расход воздуха максимальный (м³/ч)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'air_consumption_nominal',
+            'fieldLabel'      => 'Расход воздуха номинальный (м³/мин)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'air_consumption_cooling_max_min_quiet',
+            'fieldLabel'      => 'Расход воздуха охлаждение (макс/мин/тихий) (м³/мин)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'air_consumption_heating_max_min_quiet',
+            'fieldLabel'      => 'Расход воздуха нагрев (макс/мин/тихий) (м³/мин)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'air_consumption_cooling_nominal',
+            'fieldLabel'      => 'Расход воздуха охлаждение номинальный (м³/мин)',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'air_consumption_heating_nominal',
+            'fieldLabel'      => 'Расход воздуха нагрев номинальный (м³/мин)',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -173,6 +208,48 @@ class Catalog_Conditioners_Structure
         array(
             'name'            => 'noise_level_max',
             'fieldLabel'      => 'Уровень шума (макс) (дБ(А))',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_normal',
+            'fieldLabel'      => 'Уровень звукового давления нормальный (дБ(А))',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_cooling_normal',
+            'fieldLabel'      => 'Уровень звукового давления охлаждение нормальный (дБ(А))',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_heating_normal',
+            'fieldLabel'      => 'Уровень звукового давления нагрев нормальный (дБ(А))',
+            'xtype'           => 'numberfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_cooling_max_min_quiet',
+            'fieldLabel'      => 'Уровень звукового давления охлаждение (макс/мин/тихий) (дБ(А))',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_heating_max_min_quiet',
+            'fieldLabel'      => 'Уровень звукового давления нагрев (макс/мин/тихий) (дБ(А))',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'sound_pressure_level_heat_emitting_mode',
+            'fieldLabel'      => 'Уровень звукового давления в режиме теплового излучения (дБ(А))',
             'xtype'           => 'numberfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -201,6 +278,13 @@ class Catalog_Conditioners_Structure
         array(
             'name'            => 'cop',
             'fieldLabel'      => 'Энергоэффективность нагрев (COP)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'seer_load',
+            'fieldLabel'      => 'Сезонная энергоэффективность при нагрузке охлаждение/нагрев (кВт)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -321,14 +405,14 @@ class Catalog_Conditioners_Structure
         ),
         array(
             'name'            => 'power_consumption_cooling',
-            'fieldLabel'      => 'Потребляемая мощность охлаждение (кВт)',
+            'fieldLabel'      => 'Потребляемая мощность охлаждение /мин-ном-макс/ (кВт)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'power_consumption_heating',
-            'fieldLabel'      => 'Потребляемая мощность нагрев (кВт)',
+            'fieldLabel'      => 'Потребляемая мощность нагрев /мин-ном-макс/ (кВт)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -362,8 +446,22 @@ class Catalog_Conditioners_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'trunk_length',
+            'name'            => 'trunk_length_max',
             'fieldLabel'      => 'Максимальная длина магистрали (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'trunk_length_total',
+            'fieldLabel'      => 'Общая длина магистрали (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'trunk_length_inner_block',
+            'fieldLabel'      => 'Максимальная длина магистрали до внутреннего блока (м)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -376,8 +474,36 @@ class Catalog_Conditioners_Structure
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
-            'name'            => 'height_difference',
+            'name'            => 'height_difference_max',
             'fieldLabel'      => 'Максимальный перепад по высоте (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'height_difference_inout_blocks',
+            'fieldLabel'      => 'Максимальный перепад по высоте между внутренним и наружным блоками (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'height_difference_inner_blocks',
+            'fieldLabel'      => 'Максимальный перепад по высоте между внутренними блоками (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'annual_energy_consumption',
+            'fieldLabel'      => 'Годовое энергопотребление (охлаждение/нагрев) (кВт/час)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'area_square',
+            'fieldLabel'      => 'Для помещения площадью (м²)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)

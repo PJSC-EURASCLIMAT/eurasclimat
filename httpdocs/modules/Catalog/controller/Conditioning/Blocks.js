@@ -19,6 +19,8 @@ Ext.define('EC.Catalog.controller.Conditioning.Blocks', {
     
     entity: 'Conditioning.Blocks',
     
+    catalogName: 'Кондиционирование - Блоки',
+    
     fields: [],
     
     settingsView: 'EC.Catalog.view.Conditioning.Blocks.SettingsLayout',

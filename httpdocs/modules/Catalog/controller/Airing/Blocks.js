@@ -23,6 +23,8 @@ Ext.define('EC.Catalog.controller.Airing.Blocks', {
     
     entity: 'Airing.Blocks',
     
+    catalogName: 'Вентиляция - Блоки',
+    
     fields: [],
     
     settingsView: 'EC.Catalog.view.Airing.Blocks.SettingsLayout',

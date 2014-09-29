@@ -9,6 +9,8 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
 
     entity: 'Electricity.Battery',
     
+    catalogName: 'Электрика - Батареи',
+    
     fields: [],
     
     settingsView: 'EC.Catalog.view.Electricity.Battery.SettingsLayout',

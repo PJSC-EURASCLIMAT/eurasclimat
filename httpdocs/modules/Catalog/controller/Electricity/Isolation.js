@@ -9,6 +9,8 @@ Ext.define('EC.Catalog.controller.Electricity.Isolation', {
 
     entity: 'Electricity.Isolation',
     
+    catalogName: 'Электрика - Изоляция',
+    
     fields: [],
     
     settingsView: 'EC.Catalog.view.Electricity.Isolation.SettingsLayout',

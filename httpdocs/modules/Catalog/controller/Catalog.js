@@ -27,13 +27,7 @@ Ext.define('EC.Catalog.controller.Catalog', {
         treePanel.on('select', function(tree, record, index, eOpts) {
             previewPanel.removeAll(true);
             var controller = this.getController('EC.Catalog.controller.' + record.get('id'));
-            controller.catalogName = record.get('name');
             controller.run(previewPanel);
-            this.getName(record);
         }, this);
-    },
-    
-    getName: function(record) {
-    	console.log(record.parentNode, record.parentNode.parentNode, record.parentNode.parentNode.parentNode, record.parentNode.parentNode.parentNode.parentNode);
     }
 });

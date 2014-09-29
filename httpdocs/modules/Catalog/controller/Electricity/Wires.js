@@ -9,6 +9,8 @@ Ext.define('EC.Catalog.controller.Electricity.Wires', {
 
     entity: 'Electricity.Wires',
     
+    catalogName: 'Электрика - Провода',
+    
     fields: [],
     
     settingsView: 'EC.Catalog.view.Electricity.Wires.SettingsLayout',

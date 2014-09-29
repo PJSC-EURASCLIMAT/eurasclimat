@@ -7,17 +7,29 @@ Ext.define('EC.Catalog.store.CatalogTree', {
     root: {
         expanded: true,
         children: [{
-            id: 'Conditioners',
+            id: 'Conditioning',
             name: 'Кондиционирование',
             icon: '/images/icons/conditioning.png',
             hidden: !acl.isView('catalog', 'conditioners'),
-            children: []
+            children: [{
+                id: 'Conditioning.Blocks',
+                name: 'Кондиционирование - Блоки',
+                children: []
+            }, {
+                id: 'Conditioning.Controllers',
+                name: 'Кондиционирование - Системы управления',
+                children: []
+            }]
         }, {
             id: 'Airing',
             name: 'Вентиляция',
             icon: '/images/icons/cooling.png',
             hidden: !acl.isView('catalog', 'airing'),
-            children: []
+            children: [{
+                id: 'Airing.Blocks',
+                name: 'Вентиляция - Блоки',
+                children: []
+            }]
         }, {
             id: 'Automation',
             name: 'Автоматика',

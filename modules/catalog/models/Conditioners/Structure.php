@@ -149,7 +149,6 @@ class Catalog_Conditioners_Structure
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
-        // TODO
         array(
             'name'            => 'air_consumption_min',
             'fieldLabel'      => 'Расход воздуха (мин) (м³/ч)',
@@ -180,14 +179,28 @@ class Catalog_Conditioners_Structure
         ),
         array(
             'name'            => 'seer',
-            'fieldLabel'      => 'Сезонная энергоэффективность (SEER)',
+            'fieldLabel'      => 'Сезонная энергоэффективность охлаждение (SEER)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),
         array(
             'name'            => 'scop',
-            'fieldLabel'      => 'Сезонная энергоэффективность (SCOP)',
+            'fieldLabel'      => 'Сезонная энергоэффективность нагрев (SCOP)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'eer',
+            'fieldLabel'      => 'Энергоэффективность охлаждение (EER)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'cop',
+            'fieldLabel'      => 'Энергоэффективность нагрев (COP)',
             'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -307,6 +320,69 @@ class Catalog_Conditioners_Structure
             )
         ),
         array(
+            'name'            => 'power_consumption_cooling',
+            'fieldLabel'      => 'Потребляемая мощность охлаждение (кВт)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_consumption_heating',
+            'fieldLabel'      => 'Потребляемая мощность нагрев (кВт)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'power_coefficient',
+            'fieldLabel'      => 'Коеффициент мощности',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'diameter_pipe_liquid',
+            'fieldLabel'      => 'Диаметр труб жидкость (мм/дюйм)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'diameter_pipe_gas',
+            'fieldLabel'      => 'Диаметр труб газ (мм/дюйм)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'diameter_drainage',
+            'fieldLabel'      => 'Диаметр дренажа (мм)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'trunk_length',
+            'fieldLabel'      => 'Максимальная длина магистрали (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'trunk_length_blocks',
+            'fieldLabel'      => 'Максимальная длина магистрали до каждого блока (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'height_difference',
+            'fieldLabel'      => 'Максимальный перепад по высоте (м)',
+            'xtype'           => 'textfield',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
             'name'            => 'weight',
             'fieldLabel'      => 'Вес (кг)',
             'xtype'           => 'numberfield',
@@ -324,6 +400,13 @@ class Catalog_Conditioners_Structure
             'name'            => 'country',
             'fieldLabel'      => 'Страна производителя',
             'xtype'           => 'CountriesCombo',
+            'editable'        => true,
+            'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
+        ),
+        array(
+            'name'            => 'measure',
+            'fieldLabel'      => 'Ед.Изм.',
+            'xtype'           => 'textfield',
             'editable'        => true,
             'validator'       => array(array('StringLength', 0, 255), 'allowEmpty' => true)
         ),

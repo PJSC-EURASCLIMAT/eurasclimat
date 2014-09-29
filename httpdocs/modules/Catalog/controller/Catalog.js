@@ -34,6 +34,6 @@ Ext.define('EC.Catalog.controller.Catalog', {
     },
     
     getName: function(record) {
-    	console.log(record.parent, record.parent.parent, record.parent.parent.parent, record.parent.parent.parent.parent);
+    	console.log(record);
     }
 });

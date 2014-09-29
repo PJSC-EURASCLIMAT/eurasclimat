@@ -29,6 +29,11 @@ Ext.define('EC.Catalog.controller.Catalog', {
             var controller = this.getController('EC.Catalog.controller.' + record.get('id'));
             controller.catalogName = record.get('name');
             controller.run(previewPanel);
+            this.getName(record);
         }, this);
+    },
+    
+    getName: function(record) {
+    	console.log(record);
     }
 });

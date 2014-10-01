@@ -227,7 +227,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
      */
     public function _execute(array $params = null)
     {
-    	echo $this->_stmt;
+    	echo $this->_stmt->queryString;
         try {
             if ($params !== null) {
                 return $this->_stmt->execute($params);

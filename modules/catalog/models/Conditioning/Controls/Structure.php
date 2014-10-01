@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_Conditioning_Controls_Structure
+class Catalog_Conditioning_Controls_Structure 
 {
     public $data = array(
         array(

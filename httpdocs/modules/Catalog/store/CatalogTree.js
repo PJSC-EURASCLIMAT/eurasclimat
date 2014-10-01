@@ -16,7 +16,7 @@ Ext.define('EC.Catalog.store.CatalogTree', {
                 name: 'Блоки',
                 children: []
             }, {
-                id: 'Conditioning.Controllers',
+                id: 'Conditioning.Controls',
                 name: 'Системы управления',
                 children: []
             }]

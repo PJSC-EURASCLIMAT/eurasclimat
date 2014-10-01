@@ -1,11 +1,11 @@
 <?php
 
-class Catalog_ConditioningControllersController extends Catalog_AbstractController
+class Catalog_ConditioningControlsControl extends Catalog_AbstractController
 {
     public function init()
     {
-        $this->_entity = 'conditioning_сontrollers';
-        $this->_model = new Catalog_Conditioning_Controllers_Model();
+        $this->_entity = 'conditioning_сontrols';
+        $this->_model = new Catalog_Conditioning_Controls_Model();
         parent::init();
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_ConditioningControlsControl extends Catalog_AbstractController
+class Catalog_ConditioningControlsController extends Catalog_AbstractController
 {
     public function init()
     {

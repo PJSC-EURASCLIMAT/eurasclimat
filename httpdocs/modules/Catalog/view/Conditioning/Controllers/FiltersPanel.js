@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Conditioning.Controllers.FiltersPanel', {
+Ext.define('EC.Catalog.view.Conditioning.Controls.FiltersPanel', {
 
     extend: 'EC.Catalog.view.FiltersPanelAbstarct',
     
-    alias: ['widget.ConditioningControllersFiltersPanel'],
+    alias: ['widget.ConditioningControlsFiltersPanel'],
     
     permissions: !acl.isUpdate('catalog', 'conditioners'),
     

@@ -1,8 +1,8 @@
-Ext.define('EC.Catalog.view.Conditioning.Controllers.SettingsLayout', {
+Ext.define('EC.Catalog.view.Conditioning.Controls.SettingsLayout', {
     
     extend: 'EC.Catalog.view.SettingsLayoutAbstract',
     
-    alias: 'widget.ConditionersSettingsLayout',
+    alias: 'widget.ConditionersControlsSettingsLayout',
 
     title: 'Настройки каталога "Кондиционирование - Системы управления"',
     

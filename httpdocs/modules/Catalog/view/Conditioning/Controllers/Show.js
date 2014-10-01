@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.Conditioning.Controllers.Show', {
+Ext.define('EC.Catalog.view.Conditioning.Controls.Show', {
 
     extend: 'EC.Catalog.view.ShowAbstract',
     

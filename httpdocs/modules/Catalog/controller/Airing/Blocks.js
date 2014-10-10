@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Airing.Blocks', {
     extend: 'EC.Catalog.controller.Abstract',
 
     views: [
-        'EC.Catalog.view.Airing.Blocks.FiltersPanel',
-        'EC.Catalog.view.Airing.Blocks.Show'
+        'EC.Catalog.view.Airing.Blocks.FiltersPanel'
     ],
     
     /*

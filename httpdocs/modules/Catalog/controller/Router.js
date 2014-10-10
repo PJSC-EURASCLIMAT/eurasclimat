@@ -15,12 +15,12 @@ Ext.define('EC.Catalog.controller.Router', {
 
                 var classpath = this.createExtPath(opts.params.category);
 
-                var win = Ext.create('EC.Catalog.view.' + classpath + '.Show');
+                var win = Ext.create('EC.Catalog.view.ShowAbstract', {productProps: data});
 
                 win.update( data );
             },
             failure: function(response, opts) {
-                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку специалиста.');
+                Ext.Msg.alert('Ошибка', 'Не удалось загрузить карточку товара.');
             },
             scope: this
         });

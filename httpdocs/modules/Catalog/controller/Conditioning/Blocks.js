@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Conditioning.Blocks', {
     extend: 'EC.Catalog.controller.Abstract',
     
     views: [
-        'EC.Catalog.view.Conditioning.Blocks.FiltersPanel',
-        'EC.Catalog.view.Conditioning.Blocks.Show'
+        'EC.Catalog.view.Conditioning.Blocks.FiltersPanel'
     ],
     
     /*

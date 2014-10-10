@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
     extend: 'EC.Catalog.controller.Abstract',
     
     views: [
-        'EC.Catalog.view.Electricity.Battery.FiltersPanel',
-        'EC.Catalog.view.Electricity.Battery.Show'
+        'EC.Catalog.view.Electricity.Battery.FiltersPanel'
     ],
 
     entity: 'Electricity.Battery',

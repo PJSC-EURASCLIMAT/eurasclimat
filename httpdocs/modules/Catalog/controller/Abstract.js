@@ -23,8 +23,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
         'EC.Catalog.view.SettingsLayoutAbstract',
-        'EC.Catalog.view.FiltersPanelAbstarct',
-        'EC.Catalog.view.Chart'
+        'EC.Catalog.view.FiltersPanelAbstarct'
     ],
     
     entity: null,

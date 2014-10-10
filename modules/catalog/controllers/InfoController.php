@@ -6,13 +6,13 @@ class Catalog_InfoController extends Catalog_AbstractController
     {
         $category = $this->_getParam('category');
 
-        $catArr = explode('_', $category);
+        $catArr = explode('.', $category);
 
         for ( $i = 0; $i < count($catArr); $i++ ) {
             $catArr[$i] = ucfirst($catArr[$i]);
         }
 
-        $modelClass = 'Catalog_' . join('_',$catArr) . '_Model';
+        $modelClass = 'Catalog_' . join('_', $catArr) . '_Model';
 
         if ( !class_exists( $modelClass ) ) {
             //TODO нужно как-то подобающе ругнуться
@@ -32,18 +32,10 @@ class Catalog_InfoController extends Catalog_AbstractController
 
     public function getAction()
     {
-        $response = $this->_model->getInfo($this->_getParam('id'));
+        $response = $this->_model->getInfo($this->_getParam('id'), $this->_getParam('category'));
         if ($response->isSuccess()) {
-            $row = $response->getRow();
-            $model = new Catalog_Images($this->_entity);
-            $resp = $model->getAll($this->_entity, $row['id']);
-            if ($resp->hasNotSuccess()) {
-                $row['images'] = array();
-            } else {
-                $row['images'] = $resp->getRowset();
-            }
             $this->view->success = true;
-            $this->view->data = $row;
+            $this->view->data = $response->getRow();
         } else {
             $this->_collectErrors($response);
         }

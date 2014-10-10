@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Electricity.Isolation', {
     extend: 'EC.Catalog.controller.Abstract',
     
     views: [
-        'EC.Catalog.view.Electricity.Isolation.FiltersPanel',
-        'EC.Catalog.view.Electricity.Isolation.Show'
+        'EC.Catalog.view.Electricity.Isolation.FiltersPanel'
     ],
 
     entity: 'Electricity.Isolation',

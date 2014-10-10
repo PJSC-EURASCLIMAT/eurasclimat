@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Conditioning.Controls', {
     extend: 'EC.Catalog.controller.Abstract',
     
     views: [
-        'EC.Catalog.view.Conditioning.Controls.FiltersPanel',
-        'EC.Catalog.view.Conditioning.Controls.Show'
+        'EC.Catalog.view.Conditioning.Controls.FiltersPanel'
     ],
     
     entity: 'Conditioning.Controls',

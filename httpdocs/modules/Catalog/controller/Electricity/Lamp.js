@@ -3,8 +3,7 @@ Ext.define('EC.Catalog.controller.Electricity.Lamp', {
     extend: 'EC.Catalog.controller.Abstract',
     
     views: [
-        'EC.Catalog.view.Electricity.Lamp.FiltersPanel',
-        'EC.Catalog.view.Electricity.Lamp.Show'
+        'EC.Catalog.view.Electricity.Lamp.FiltersPanel'
     ],
 
     entity: 'Electricity.Lamp',

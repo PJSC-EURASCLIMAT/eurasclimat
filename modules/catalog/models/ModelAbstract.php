@@ -121,8 +121,57 @@ class Catalog_ModelAbstract
 
     public function getFields()
     {
-        $fields = array();
+        $response = new Xend_Response();
+        $response->setRow($this->_getFields());
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
 
+	public function getInfo($id, $entity)
+    {
+        $response = new Xend_Response();
+
+        $id = intval($id);
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        
+        $row = $this->_getRow($id);
+        if ($row === false) {
+	 		$response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+        }
+        
+        $fields = $this->_getFields();
+		
+        $data = array();
+        foreach ($fields as $f) {
+        	if (!empty($row[$f['name']]) && !in_array($f['name'], array(
+        			'price', 'dealer_price', 'currency_id', 'description', 'name', 'id'))) {
+        		$data[] = array(
+        			'label'	=> $f['fieldLabel'],
+        			'value'	=> $this->_getValue($row, $f)
+        		);
+        	}
+        }
+
+        $model = new Catalog_Images($entity);
+		$resp = $model->getAll($entity, $id);
+		$images = $resp->isSuccess() ? $resp->getRowset() : array();
+                    
+        $response->setRow(array(
+        	'name'			=> $row['name'],
+        	'price' 		=> $row['price'],
+        	'currency_id'	=> $row['currency_id'],
+			'description'	=> $row['description'],
+			'images' 		=> $images,
+			'data'			=> $data
+        ));
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+    
+    private function _getFields()
+    {
+    	$fields = array();
         foreach($this->_structure->data as $v) {
             $f = array(
                 'xtype'         => $v['xtype'],
@@ -134,9 +183,32 @@ class Catalog_ModelAbstract
             }
             $fields[] = $f;
         }
+        return $fields;
+    }
+    
+    private function _getValue($values, $field)
+    {
+    	return (!empty($field['values'])) ? $field['values'][$values[$field['name']]] : $values[$field['name']];
+    }
+    
+    private function _getRow($id)
+    {
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('c' => $this->_table->getTableName()))
+            ->joinLeft(array('marks' => 'catalog_marks'), 'marks.id=c.mark_id', array('mark_id' => 'marks.name'))
+            ->where("c.id = (?)", $id);
 
-        $response = new Xend_Response();
-        $response->setRow($fields);
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+        try {
+            $row = $select->query()->fetch();
+            if (empty($row)) {
+                return false;
+            }
+            return $row;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
     }
 }

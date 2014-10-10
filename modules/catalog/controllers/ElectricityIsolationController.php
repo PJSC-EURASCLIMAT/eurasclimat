@@ -4,7 +4,7 @@ class Catalog_ElectricityIsolationController extends Catalog_AbstractController
 {
     public function init()
     {
-        $this->_entity = 'electricity_isolation';
+        $this->_entity = 'electricity.isolation';
         $this->_model = new Catalog_Electricity_Isolation_Model();
         parent::init();
     }

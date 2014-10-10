@@ -105,7 +105,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
         }
 
         $model = new Catalog_Images($this->_entity);
-        $response = $model->add($response->fileName, $id);
+        $response = $model->add($response->uniqueName, $id);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
         } else {

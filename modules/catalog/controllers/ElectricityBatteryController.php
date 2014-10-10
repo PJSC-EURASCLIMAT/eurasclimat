@@ -4,7 +4,7 @@ class Catalog_ElectricityBatteryController extends Catalog_AbstractController
 {
     public function init()
     {
-        $this->_entity = 'electricity_battery';
+        $this->_entity = 'electricity.battery';
         $this->_model = new Catalog_Electricity_Battery_Model();
         parent::init();
     }

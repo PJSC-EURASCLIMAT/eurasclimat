@@ -4,7 +4,7 @@ class Catalog_ConditioningBlocksController extends Catalog_AbstractController
 {
     public function init()
     {
-        $this->_entity = 'conditioning_blocks';
+        $this->_entity = 'conditioning.blocks';
         $this->_model = new Catalog_Conditioning_Blocks_Model();
         parent::init();
     }

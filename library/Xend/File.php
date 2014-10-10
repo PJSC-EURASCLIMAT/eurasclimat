@@ -145,7 +145,7 @@ class Xend_File
 
         $response->addData('file_id', $file_id);
         $response->addData('fileName', $fileName);
-//        $response->addData('uniqueName', $fileName);
+        $response->addData('uniqueName', $uniqFileName);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 

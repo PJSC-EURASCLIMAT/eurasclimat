@@ -12,20 +12,12 @@ Ext.define('App.controller.Interface.CRM.Catalogs', {
         
         panel.on('show', function() {
             MC.openModulePortlet({
-                text: 'СПИСОК УСЛУГ',
-                title: 'Список услуг',
-                icon: '/images/icons/catalog.png',
-                portletHeight: 400,
-                position: 'CatalogPanel-column-3',
-                launchModule: 'EC.Catalog.controller.Services'
-            });
-            MC.openModulePortlet({
                 text: 'Настройки каталога товаров - Марки (производители)',
-                title: 'Каталог товаров',
+                title: 'Настройки каталога товаров - Марки (производители)',
                 icon: '/images/icons/catalog.png',
                 portletHeight: 400,
                 position: 'CatalogPanel-column-1',
-                launchModule: 'EC.Catalog.controller.Catalog'
+                launchModule: 'EC.Catalog.controller.Marks'
             });
             MC.openModulePortlet({
                 text: 'КАТАЛОГ ТОВАРОВ',
@@ -50,6 +42,14 @@ Ext.define('App.controller.Interface.CRM.Catalogs', {
                 portletHeight: 400,
                 position: 'CatalogPanel-column-2',
                 launchModule: 'EC.Catalog.controller.Expendables'
+            });
+            MC.openModulePortlet({
+            	text: 'СПИСОК УСЛУГ',
+            	title: 'Список услуг',
+            	icon: '/images/icons/catalog.png',
+            	portletHeight: 400,
+            	position: 'CatalogPanel-column-3',
+            	launchModule: 'EC.Catalog.controller.Services'
             });
             MC.openModulePortlet({
                 text: 'Услуги',

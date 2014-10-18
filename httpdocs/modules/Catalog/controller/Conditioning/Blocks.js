@@ -22,8 +22,6 @@ Ext.define('EC.Catalog.controller.Conditioning.Blocks', {
     
     fields: [],
     
-    settingsView: 'EC.Catalog.view.Conditioning.Blocks.SettingsLayout',
-    
     filtersPanelXType: 'ConditioningBlocksFiltersPanel', 
     
     showXType: 'ConditioningBlocksShow',

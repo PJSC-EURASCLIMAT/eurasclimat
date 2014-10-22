@@ -1,5 +1,5 @@
 Ext.define('EC.CRM.view.Calcsmr.SystemList', {
-    
+	
     extend: 'Ext.window.Window',
     
     layout: 'fit',
@@ -26,6 +26,11 @@ Ext.define('EC.CRM.view.Calcsmr.SystemList', {
             iconCls: 'add',
             action: 'add',
             disabled: !this.permission
+        }, {
+        	xtype: 'button',
+            text: 'Скачать список в Excel',
+            iconCls: 'excel',
+            action: 'excel'
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

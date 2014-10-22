@@ -2,6 +2,8 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
     
     extend: 'Ext.app.Controller',
     
+    requires: ['xlib.grid.Excel'],
+    
     stores: [
         'EC.CRM.store.Calcsmr.Project'
     ],
@@ -40,6 +42,10 @@ Ext.define('EC.CRM.controller.Calcsmr.Project', {
         grid.on('opensystem', this.openSystem, this);
         grid.on('itemdblclick', this.openSystem, this);
         this.Container.down('button[action=refresh]').on('click', this.loadData, this);
+        
+        this.Container.down('button[action=excel]').on('click', function() {
+    		grid.downloadExcelXml();
+    	}, this);
         
         if (this.permission) {
             

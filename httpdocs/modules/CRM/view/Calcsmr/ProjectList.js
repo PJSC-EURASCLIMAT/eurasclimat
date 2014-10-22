@@ -26,6 +26,11 @@ Ext.define('EC.CRM.view.Calcsmr.ProjectList', {
             iconCls: 'add',
             action: 'add',
             disabled: !this.permission
+        }, {
+        	xtype: 'button',
+            text: 'Скачать список в Excel',
+            iconCls: 'excel',
+            action: 'excel'
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

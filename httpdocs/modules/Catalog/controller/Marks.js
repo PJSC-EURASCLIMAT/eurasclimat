@@ -14,7 +14,7 @@ Ext.define('EC.Catalog.controller.Marks', {
         'EC.Catalog.view.Marks.List'
     ],
     
-    permissions: acl.isUpdate('admin'),
+    permissions: acl.isUpdate('catalog', 'marks'),
     
     addURL: '/json/catalog/marks/add',
     

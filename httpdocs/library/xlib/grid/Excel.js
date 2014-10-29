@@ -48,7 +48,16 @@ var Base64 = (function() {
         return utftext;
     }
 
-    // Public method for encoding
+    var mapObj = {
+       '&':"&amp;",
+       '<':"&lt;",
+       '>':"&gt;",
+       '"':"&quot;",
+       '\'':"&#039;"
+    };
+    var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+
+ // Public method for encoding
     return {
         encode: (typeof btoa == 'function') ? function(input) {
             return btoa(utf8Encode(input));
@@ -75,8 +84,15 @@ var Base64 = (function() {
                     keyStr.charAt(enc3) + keyStr.charAt(enc4);
             }
             return output;
+        },
+        escapeHtml: function(str) {
+        	var str = str.toString();
+            return str.replace(re, function(matched) {
+                return mapObj[matched.toLowerCase()];
+            });
         }
     };
+    
 })();
 
 Ext.define('xlib.grid.Excel', {
@@ -391,7 +407,7 @@ Ext.define('xlib.grid.Excel', {
                         if (cellType[k] == 'DateTime') {
                             t += Ext.Date.format(v, 'Y-m-d');
                         } else {
-                            t += v;
+                            t += Base64.escapeHtml(v);
                         }
                         t += '</Data></Cell>';
                     }

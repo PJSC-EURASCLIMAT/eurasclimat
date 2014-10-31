@@ -191,6 +191,7 @@ class Catalog_ModelAbstract
     	if (empty($field['values'])) {
     		return $values[$field['name']];
     	}
+    	print($field['name'] . '\r\n');
     	return $field['values'][$values[$field['name']]];
     }
     

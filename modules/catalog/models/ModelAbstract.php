@@ -188,7 +188,10 @@ class Catalog_ModelAbstract
     
     private function _getValue($values, $field)
     {
-    	return (!empty($field['values'])) ? $field['values'][$values[$field['name']]] : $values[$field['name']];
+    	if (empty($field['values'])) {
+    		return $values[$field['name']];
+    	}
+    	return $field['values'][$values[$field['name']]];
     }
     
     private function _getRow($id)

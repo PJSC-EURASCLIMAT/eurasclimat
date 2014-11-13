@@ -51,6 +51,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 name: 'Энергетические компании',
                 expanded: false,
                 children: [
+                    {id: 23, iconCls: 'noicon', leaf: true, name: 'РОСАТОМ', url: 'http://zakupki.rosatom.ru/'}
                 ]
             }, {
                 name: 'Комерческие торговые системы',

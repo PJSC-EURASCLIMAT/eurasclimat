@@ -16,12 +16,22 @@ Ext.define('App.controller.Main', {
         this.control({
             'LeftPanel button[action=admin], TopPanel button[action=auth] menuitem, TopPanel button[action=messages]': {
                 click: function(button, e, options) {
-                    if (!Ext.isEmpty(button.launchModule)) {
-                        this.getController(button.launchModule).run(centerPanel);
-                    }
+		        	if (!Ext.isEmpty(button.launchModule)) {
+		        		this.getController(button.launchModule).run(centerPanel);
+		        	}
+                },
+                scope: this
+            }
+        });
+        
+        this.control({
+            'TopPanel button[action=contacts]': {
+                click: function(button, e, options) {
+        			this.showHelp({helpURL: '/html/aboutsystem/contacts/help'});
                 }
             }
         });
+        
         /*
         Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=run]'), function(item) {
             Ext.get(item).on('click', function(e, node, options) {
@@ -220,9 +230,8 @@ Ext.define('App.controller.Main', {
     },
     
     showHelp: function(module) {
-        
+    	
         var noHelpText = '<p>Справка отсутствует...</p>',
-            isSetHelpURL = !Ext.isEmpty(module)
             helpContainer = Ext.create('Ext.panel.Panel', {
                 layout: 'fit',
                 border: false,

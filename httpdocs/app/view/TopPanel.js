@@ -25,6 +25,14 @@ Ext.define('App.view.TopPanel', {
 //    }, 
     
     items: ['->',
+    {
+        xtype: 'button',
+        tooltip: 'Контакты',
+        icon: '/images/icons/notification.png',
+        arrowCls: '',
+        action: 'contacts'
+    },
+    {xtype:"tbspacer", width:15},
     {xtype: 'top-panel-msg-button'},
     {xtype:"tbspacer", width:15},
     {

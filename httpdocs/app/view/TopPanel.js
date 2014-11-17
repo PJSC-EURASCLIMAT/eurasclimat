@@ -34,9 +34,9 @@ Ext.define('App.view.TopPanel', {
         arrowCls: '',
         action: 'contacts',
         menu: [
-           {text: '<b>Адрес:</b> 115088, г.Москва, ул.Угрешская, д.2, стр.52'},
-           {text: '<b>Тел./факс:</b> +7 495 988 9296'},
-           {text: '<b>E-mail:</b> info@eurasmail.ru'},
+           {text: '115088, г.Москва, ул.Угрешская, д.2, стр.52', icon: '/images/icons/icon-building.png'},
+           {text: '+7 495 988 9296', icon: '/images/icons/icon-phone.png'},
+           {text: 'info@eurasmail.ru', icon: '/images/icons/icon-email.png'},
         ]
     },
     {xtype: "tbspacer", width:15},

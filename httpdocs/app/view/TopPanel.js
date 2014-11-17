@@ -25,16 +25,21 @@ Ext.define('App.view.TopPanel', {
 //    }, 
     
     items: ['->',
+    {xtype: 'top-panel-msg-button'},
+    {xtype: "tbspacer", width:15},
     {
         xtype: 'button',
         tooltip: 'Контакты',
-        icon: '/images/icons/notification.png',
+        icon: '/images/icons/contacts_contact_book_address-16.png',
         arrowCls: '',
-        action: 'contacts'
+        action: 'contacts',
+        menu: [
+           {text: '<b>Адрес:</b> 115088, г.Москва, ул.Угрешская, д.2, стр.52'},
+           {text: '<b>Тел./факс:</b> +7 495 988 9296'},
+           {text: '<b>E-mail:</b> info@eurasmail.ru'},
+        ]
     },
-    {xtype:"tbspacer", width:15},
-    {xtype: 'top-panel-msg-button'},
-    {xtype:"tbspacer", width:15},
+    {xtype: "tbspacer", width:15},
     {
         xtype: 'button',
         tooltip: 'Все виджеты',
@@ -51,7 +56,7 @@ Ext.define('App.view.TopPanel', {
                 position: 'MainPanel-column-1',
                 launchModule: 'EC.Main.controller.News'
             }
-        },{
+        }, {
             text: 'Разработка системы',
             icon: '/images/icons/about.png',
             initConfig: {
@@ -61,7 +66,7 @@ Ext.define('App.view.TopPanel', {
                 position: 'MainPanel-column-1',
                 launchModule: 'EC.Main.controller.Sysdev'
             }
-        },{
+        }, {
             text: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
             initConfig: {
@@ -71,7 +76,7 @@ Ext.define('App.view.TopPanel', {
                 position: 'MainPanel-column-3',
                 launchModule: 'EC.Main.controller.Currency'
             }
-        },{
+        }, {
             text: 'Прогноз погоды',
             icon: '/images/icons/kweather.png',
             initConfig: {
@@ -83,7 +88,7 @@ Ext.define('App.view.TopPanel', {
             }
         }]
     },
-    {xtype:"tbspacer", width:15},
+    {xtype: "tbspacer", width:15},
     {
         xtype: 'button',
         tooltip: isAuth ? 'Выход' : 'Вход/Регистрация',
@@ -97,13 +102,13 @@ Ext.define('App.view.TopPanel', {
             hidden: !isAuth,
             action: 'run',
             launchModule: 'EC.PA.controller.Profile'
-        },{
+        }, {
             text: 'Регистрация',
             icon: '/images/icons/about.png',
             hidden: isAuth,
             action: 'run',
             launchModule: 'App.controller.Register'
-        },{
+        }, {
             text: isAuth ? 'Выйти из системы' : 'Войти в систему',
             icon: isAuth ? '/images/icons/logout.png' : '/images/icons/login.png',
             action: 'auth',

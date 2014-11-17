@@ -24,6 +24,7 @@ Ext.define('App.controller.Main', {
             }
         });
         
+        /*
         this.control({
             'TopPanel button[action=contacts]': {
                 click: function(button, e, options) {
@@ -32,7 +33,6 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        /*
         Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=run]'), function(item) {
             Ext.get(item).on('click', function(e, node, options) {
                 var module = node.attributes.launchModule.value;

@@ -15,6 +15,7 @@ class Catalog_ConditioningBlocksController extends Catalog_AbstractController
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-images');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-fields');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'export-fields');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');

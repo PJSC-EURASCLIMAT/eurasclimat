@@ -88,6 +88,28 @@ class Catalog_AbstractController extends Xend_Controller_Action
         echo Zend_Json::encode($data);
     }
 
+    public function exportFieldsAction()
+    {
+        $this->disableRender();
+        $response = $this->_model->getFields();
+        $xml = new DOMDocument('1.0', 'utf-8');
+        if ($response->isSuccess()) {
+            $data = $response->getRow();
+        } else {
+            $data = array();
+        }
+        $row = $xml->createElement('Row');
+        foreach ($data as $d) {
+        	$row->appendChild($xml->createElement('Cell'))->appendChild($xml->createElement('Data', $d['fieldLabel']));
+        }
+        $xml->appendChild($xml->createElement('Workbook'))
+        	->appendChild($xml->createElement('Worksheet'))
+        	->appendChild($xml->createElement('Table'))
+        	->appendChild($row);
+        $this->_response->setHeader('Content-Type', 'text/xml; charset=utf-8')->setBody($xml->saveXML());
+        
+    }
+    
     public function uploadAction()
     {
         $id = intval($this->_getParam('id'));

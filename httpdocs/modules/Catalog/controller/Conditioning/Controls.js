@@ -2,19 +2,11 @@ Ext.define('EC.Catalog.controller.Conditioning.Controls', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    views: [
-        'EC.Catalog.view.Conditioning.Controls.FiltersPanel'
-    ],
-    
     entity: 'Conditioning.Controls',
     
     catalogName: 'Кондиционирование - Системы управления',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Conditioning.Controls.SettingsLayout',
-    
-    filtersPanelXType: 'ConditioningControlsFiltersPanel', 
     
     showXType: 'ConditioningControlsShow',
     

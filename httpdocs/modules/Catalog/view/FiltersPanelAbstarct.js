@@ -2,7 +2,9 @@ Ext.define('EC.Catalog.view.FiltersPanelAbstarct', {
 
     extend: 'Ext.panel.Panel',
     
-    title: 'Фильтры и настройки',
+    alias: 'widget.CatalogFiltersPanelAbstarct',
+    
+    title: 'Фильтры',
         
     layout: 'column',
     
@@ -29,11 +31,15 @@ Ext.define('EC.Catalog.view.FiltersPanelAbstarct', {
             type: 'refresh',
             tooltip: 'Сбросить фильтры',
             action: 'resetfilters'
-        }, {
-            type: 'gear',
-            tooltip: 'Настройки каталога',
-            action: 'settings',
-            hidden: this.permissions
+//        }, {
+//            type: 'gear',
+//            tooltip: 'Настройки каталога',
+//            action: 'settings',
+//            hidden: this.permissions
+        }];
+        
+        this.items = [{
+            xtype: 'FilterMark'
         }];
         
         this.callParent(arguments);

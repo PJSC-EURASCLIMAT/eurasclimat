@@ -22,7 +22,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
         'EC.Catalog.view.ListAbstract',
         'EC.Catalog.view.AddAbstract',
         'EC.Catalog.view.EditAbstract',
-        'EC.Catalog.view.SettingsLayoutAbstract',
         'EC.Catalog.view.FiltersPanelAbstarct'
     ],
     
@@ -35,10 +34,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
     viewPermition: acl.isView('catalog'),
     
     editPermition: acl.isUpdate('catalog'),
-    
-    settingsView: null,
-    
-    filtersPanelXType: null, 
     
     showXType: null,
     
@@ -124,7 +119,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
             layout: 'border',
             border: false,
             items: [{
-                xtype: this.filtersPanelXType,
+                xtype: 'CatalogFiltersPanelAbstarct',
                 region: 'east',
                 width: 200,
                 collapsible: true,
@@ -144,11 +139,11 @@ Ext.define('EC.Catalog.controller.Abstract', {
             }
         });
         
-        /*
+        
         // To enable filters panel let initialize grid to create filters
         catalog.down('CatalogListAbstract').filters.createFilters();
         
-        var filterCombos = catalog.down(this.filtersPanelXType).query('combo'), 
+        var filterCombos = catalog.down('CatalogFiltersPanelAbstarct').query('combo'), 
             filterValues = this.Container.initConfig.filters;
         
         Ext.each(filterCombos, function(item) {
@@ -163,9 +158,9 @@ Ext.define('EC.Catalog.controller.Abstract', {
                 }, this);
             }
         }, this);
-        */
         
-        catalog.down(this.filtersPanelXType + ' tool[action=resetfilters]').on({
+        
+        catalog.down('CatalogFiltersPanelAbstarct tool[action=resetfilters]').on({
             click: function() {
                 this.resetFilters(catalog);
             },
@@ -181,11 +176,13 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         if (this.editPermition) {
         
-            catalog.down(this.filtersPanelXType + ' tool[action=settings]').on({
+        	/*
+            catalog.down('CatalogFiltersPanelAbstarct tool[action=settings]').on({
                 click: this.editSettings,
                 scope: this
             });
-            
+            */
+        	
             catalog.down('CatalogListAbstract tool[action=additem]').on({
                 click: this.addItem,
                 scope: this
@@ -214,9 +211,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     onFilter: function(combo, newValue, oldValue, eOpts) {
 
-        var view = combo.up(this.catalogLayoutXType);
-        
-        var filter = view.down('CatalogListAbstract').filters.getFilter(combo.fieldName),
+        var filter = this.Container.down('CatalogListAbstract').filters.getFilter(combo.fieldName),
             value = combo.getFilter();
             
         if (value === '') {
@@ -229,7 +224,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     resetFilters: function(view) {
         
-        view.down(this.filtersPanelXType).cascade(function(cmp) {
+        view.down('CatalogFiltersPanelAbstarct').cascade(function(cmp) {
             if (cmp.isFormField) {
                 cmp.suspendEvents();
                 cmp.reset();
@@ -598,7 +593,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
         
         var MC = this.getController('App.controller.Main'), 
             values = [];
-        Ext.each(button.up(this.filtersPanelXType).query('combo'), function(item) {
+        Ext.each(button.up('CatalogFiltersPanelAbstarct').query('combo'), function(item) {
             var value = {name: item.getXType(), value: item.getValue()};
             values.push(value);
         }, this);

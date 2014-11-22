@@ -2,19 +2,11 @@ Ext.define('EC.Catalog.controller.Electricity.Battery', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    views: [
-        'EC.Catalog.view.Electricity.Battery.FiltersPanel'
-    ],
-
     entity: 'Electricity.Battery',
     
     catalogName: 'Электрика - Батареи',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Electricity.Battery.SettingsLayout',
-    
-    filtersPanelXType: 'ElectricityBatteryFiltersPanel', 
     
     showXType: 'ElectricityBatteryShow',
     

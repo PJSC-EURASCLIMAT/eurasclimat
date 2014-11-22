@@ -1,20 +1,12 @@
 Ext.define('EC.Catalog.controller.Electricity.Isolation', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    views: [
-        'EC.Catalog.view.Electricity.Isolation.FiltersPanel'
-    ],
 
     entity: 'Electricity.Isolation',
     
     catalogName: 'Электрика - Изоляция',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Electricity.Isolation.SettingsLayout',
-    
-    filtersPanelXType: 'ElectricityIsolationFiltersPanel', 
     
     showXType: 'ElectricityIsolationShow',
     

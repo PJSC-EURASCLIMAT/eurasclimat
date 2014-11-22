@@ -2,27 +2,11 @@ Ext.define('EC.Catalog.controller.Conditioning.Blocks', {
     
     extend: 'EC.Catalog.controller.Abstract',
     
-    views: [
-        'EC.Catalog.view.Conditioning.Blocks.FiltersPanel'
-    ],
-    
-    /*
-    uses: [
-        'EC.Catalog.view.Conditioners.Filter.Group',
-        'EC.Catalog.view.Conditioners.Filter.ProductType',
-        'EC.Catalog.view.Conditioners.Filter.ImplementationType',
-        'EC.Catalog.view.Conditioners.Filter.PowerSource',
-        'EC.Catalog.view.Conditioners.Filter.HeatingCooling'
-    ],
-    */
-    
     entity: 'Conditioning.Blocks',
     
     catalogName: 'Кондиционирование - Блоки',
     
     fields: [],
-    
-    filtersPanelXType: 'ConditioningBlocksFiltersPanel', 
     
     showXType: 'ConditioningBlocksShow',
     

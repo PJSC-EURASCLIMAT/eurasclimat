@@ -2,33 +2,11 @@ Ext.define('EC.Catalog.controller.Airing.Blocks', {
     
     extend: 'EC.Catalog.controller.Abstract',
 
-    views: [
-        'EC.Catalog.view.Airing.Blocks.FiltersPanel'
-    ],
-    
-    /*
-    uses: [
-        'EC.Catalog.view.Airing.Filter.Group',
-        'EC.Catalog.view.Airing.Filter.ProductType',
-        'EC.Catalog.view.Airing.Filter.ImplementationType',
-        'EC.Catalog.view.Airing.Filter.ControlType',
-        'EC.Catalog.view.Airing.Filter.ConnectionType',
-        'EC.Catalog.view.Airing.Filter.ProtectionType',
-        'EC.Catalog.view.Airing.Filter.PowerSource',
-        'EC.Catalog.view.Airing.Filter.Material',
-        'EC.Catalog.view.Airing.Filter.IsolationClass'
-    ],
-    */
-    
     entity: 'Airing.Blocks',
     
     catalogName: 'Вентиляция - Блоки',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Airing.Blocks.SettingsLayout',
-    
-    filtersPanelXType: 'AiringBlocksFiltersPanel', 
     
     showXType: 'AiringBlocksShow',
     

@@ -1,20 +1,12 @@
 Ext.define('EC.Catalog.controller.Electricity.Lamp', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    views: [
-        'EC.Catalog.view.Electricity.Lamp.FiltersPanel'
-    ],
 
     entity: 'Electricity.Lamp',
     
     catalogName: 'Электрика - Лампы',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Electricity.Lamp.SettingsLayout',
-    
-    filtersPanelXType: 'ElectricityLampFiltersPanel', 
     
     showXType: 'ElectricityLampShow',
     

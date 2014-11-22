@@ -1,20 +1,12 @@
 Ext.define('EC.Catalog.controller.Electricity.Wires', {
     
     extend: 'EC.Catalog.controller.Abstract',
-    
-    views: [
-        'EC.Catalog.view.Electricity.Wires.FiltersPanel'
-    ],
 
     entity: 'Electricity.Wires',
     
     catalogName: 'Электрика - Провода',
     
     fields: [],
-    
-    settingsView: 'EC.Catalog.view.Electricity.Wires.SettingsLayout',
-    
-    filtersPanelXType: 'ElectricityWiresFiltersPanel', 
     
     showXType: 'ElectricityWiresShow',
     

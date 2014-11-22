@@ -40,6 +40,10 @@ Ext.define('EC.Catalog.view.FiltersPanelAbstarct', {
         
         this.items = [{
             xtype: 'FilterMark'
+        }, {
+        	xtype: 'textfield',
+        	fieldName: 'name',
+        	fieldLabel: 'Наименование'
         }];
         
         this.callParent(arguments);

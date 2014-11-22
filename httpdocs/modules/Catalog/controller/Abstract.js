@@ -139,27 +139,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
             }
         });
         
-        
-        // To enable filters panel let initialize grid to create filters
-        catalog.down('CatalogListAbstract').filters.createFilters();
-        
-        var filterCombos = catalog.down('CatalogFiltersPanelAbstarct').query('combo'), 
-            filterValues = this.Container.initConfig.filters;
-        
-        Ext.each(filterCombos, function(item) {
-            item.on('change', this.onFilter, this);
-        
-            if (!Ext.isEmpty(filterValues)) {
-                Ext.each(filterValues, function(f) {
-                    if (item.getXType() == f.name) {
-                        item.setValue(f.value);
-                        return false;
-                    }
-                }, this);
-            }
-        }, this);
-        
-        
         catalog.down('CatalogFiltersPanelAbstarct tool[action=resetfilters]').on({
             click: function() {
                 this.resetFilters(catalog);
@@ -207,9 +186,23 @@ Ext.define('EC.Catalog.controller.Abstract', {
             },
             scope: this
         }, this);
+        
+        // To enable filters panel let initialize grid to create filters
+        catalog.down('CatalogListAbstract').filters.createFilters();
+        
+        var filterCombo = catalog.down('CatalogFiltersPanelAbstarct').query('combo');
+        Ext.each(filterCombo, function(item) {
+        	item.on('change', this.onFilterCombo, this);
+        }, this);
+        
+        var filterText = catalog.down('CatalogFiltersPanelAbstarct').query('textfield');
+        Ext.each(filterText, function(item) {
+        	item.on('change', this.onFilterText, this);
+        }, this);
+        
     },
     
-    onFilter: function(combo, newValue, oldValue, eOpts) {
+    onFilterCombo: function(combo, newValue, oldValue, eOpts) {
 
         var filter = this.Container.down('CatalogListAbstract').filters.getFilter(combo.fieldName),
             value = combo.getFilter();
@@ -218,6 +211,19 @@ Ext.define('EC.Catalog.controller.Abstract', {
             filter.setActive(false);
         } else {
             filter.setValue(value);
+            filter.setActive(true);
+        }
+    },
+
+    
+    onFilterText: function(field, e, eOpts) {
+
+        var filter = this.Container.down('CatalogListAbstract').filters.getFilter(field.fieldName);
+            
+        if (field.getValue() === '') {
+            filter.setActive(false);
+        } else {
+            filter.setValue(field.getValue());
             filter.setActive(true);
         }
     },

@@ -21,7 +21,7 @@ class Catalog_ModelAbstract
                 )
             );
 
-        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
+        $plugin = new Xend_Db_Plugin_Select($this->_table, $select, array('mark_id', 't.name' => 'name'));
         $plugin->parse($params);
 
         try {

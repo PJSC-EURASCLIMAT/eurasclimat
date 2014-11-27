@@ -29,7 +29,42 @@ Ext.define('EC.Market.view.Trade.List', {
 
         fields: ['id', 'name', 'url'],
 
-        root: {
+        root: null
+    },
+
+    initComponent: function() {
+        
+        var actions = !acl.isView('crm') ? [] : [{
+            icon: '/images/icons/documents.png',
+            tooltip: 'Документы',
+            iconCls: 'x-btn',
+            isDisabled: function(grid, rowIndex, colIndex, item, record) {
+                return !(record.get('id') > 0);
+            }, 
+            handler: function(grid, rowIndex, colIndex) {
+                this.fireEvent('docsClicked', grid, grid.getStore().getAt(rowIndex));
+            },
+            scope: this
+        }];
+        
+        this.columns = [{
+            xtype: 'treecolumn',
+            dataIndex: 'name',
+            flex: 1
+        }, {
+            xtype: 'templatecolumn',
+            tpl: '<tpl if="url"><a href="{url}" target="_blank">Открыть в новом окне</a></tpl>',
+            dataIndex: 'url',
+            width: 50
+        }, {
+            xtype: 'actioncolumn',
+            width: 25,
+            items: actions
+        }];
+        
+        this.callParent(arguments);
+        
+        this.getStore().setRootNode({
             expanded: true,
             children: [{
                 name: 'Банки',
@@ -100,39 +135,6 @@ Ext.define('EC.Market.view.Trade.List', {
                 children: [
                 ]
             }]
-        }
-    },
-
-    initComponent: function() {
-        
-        var actions = !acl.isView('crm') ? [] : [{
-            icon: '/images/icons/documents.png',
-            tooltip: 'Документы',
-            iconCls: 'x-btn',
-            isDisabled: function(grid, rowIndex, colIndex, item, record) {
-                return !(record.get('id') > 0);
-            }, 
-            handler: function(grid, rowIndex, colIndex) {
-                this.fireEvent('docsClicked', grid, grid.getStore().getAt(rowIndex));
-            },
-            scope: this
-        }];
-        
-        this.columns = [{
-            xtype: 'treecolumn',
-            dataIndex: 'name',
-            flex: 1
-        }, {
-            xtype: 'templatecolumn',
-            tpl: '<tpl if="url"><a href="{url}" target="_blank">Открыть в новом окне</a></tpl>',
-            dataIndex: 'url',
-            width: 50
-        }, {
-            xtype: 'actioncolumn',
-            width: 25,
-            items: actions
-        }];
-        
-        this.callParent(arguments);
+        });
     }
 });

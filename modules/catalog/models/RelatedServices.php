@@ -10,9 +10,9 @@ class Catalog_RelatedServices
 
     public function __construct($entity)
     {
-        $this->_entity = $entity;
+        $this->_entity = ucfirst(str_replace('.', '_', $entity));
         $this->_servicesTable = new Catalog_Services_Table();
-        $this->_table = new Xend_Db_Table_Factory('catalog_' . $entity . '_services');
+        $this->_table = new Xend_Db_Table_Factory('catalog_' . $this->_entity . '_services');
     }
 
     public function getAll($id)

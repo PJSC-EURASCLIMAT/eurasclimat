@@ -20,6 +20,11 @@
 	background-image:url(/images/icons/fam/book.png) !important;
 }
 
+.search-trigger {
+	background-image:url(/images/icons/search-trigger.png) !important;
+	border: none !important;
+}
+
 .user {
     background-image:url( /images/icons/fam/user.gif ) !important;
 }

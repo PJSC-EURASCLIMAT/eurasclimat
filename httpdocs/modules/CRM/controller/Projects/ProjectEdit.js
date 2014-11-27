@@ -53,8 +53,8 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         
         this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
             title: 'Проект № ' + this.projectID 
-                         + ' от ' + this.projectCreateDate 
-                         + ' "' + this.projectName + '"',
+                     + ' от ' + this.projectCreateDate 
+                     + ' "' + this.projectName + '"',
             listeners: {
                 close: function() {
                     this.fireEvent('projectEditClose');

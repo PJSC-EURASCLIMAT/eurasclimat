@@ -23,63 +23,63 @@ Ext.define('App.controller.Interface.Main', {
 //            allowMultiple: false,
 //            launchModule: 'EC.Main.controller.AboutCompany'
 //        }, {
+        	title: 'Новости',
+        	icon: '/images/icons/news.png',
+        	portletHeight: 450,
+        	position: 'MainPanel-column-1',
+        	launchModule: 'EC.Main.controller.News'
+        }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-3',
+            portletHeight: 450,
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
         }, {
-            title: 'Новости',
-            icon: '/images/icons/news.png',
-            portletHeight: 200,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.Main.controller.News'
+        	title: 'Прогноз погоды',
+        	icon: '/images/icons/kweather.png',
+        	portletHeight: 450,
+        	position: 'MainPanel-column-3',
+        	launchModule: 'EC.Main.controller.Weather'
 //        }, {
 //            title: 'О системе',
 //            icon: '/images/icons/sys_dev.png',
 //            portletHeight: 370,
 //            position: 'MainPanel-column-2',
 //            launchModule: 'EC.Main.controller.AboutSystem'
-        }, {
-            text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-            icon: '/images/icons/catalog.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
-            helpURL: '/html/crm/demoprojects/help'
+//        }, {
+//            text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+//            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
+//            icon: '/images/icons/catalog.png',
+//            portletHeight: 410,
+//            position: 'MainPanel-column-2',
+//            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
+//            helpURL: '/html/crm/demoprojects/help'
 //        }, {
 //            title: 'Заказ',
 //            icon: '/images/icons/sys_dev.png',
 //            portletHeight: 370,
 //            position: 'MainPanel-column-2',
 //            launchModule: 'EC.Main.controller.Order'
-        }, {
-            text: 'Калькулятор ПИР',
-            title: 'Калькулятор ПИР',
-            icon: '/images/icons/about.png',
-            portletHeight: 305,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.CRM.controller.Calcpd.Main'
-        }, {
-            text: 'Калькулятор СМР',
-            title: 'Калькулятор СМР',
-            icon: '/images/icons/about.png',
-            portletHeight: 305,
-            position: 'MainPanel-column-1',
-            launchModule: 'EC.CRM.controller.Calcsmr.Main'
+//        }, {
+//            text: 'Калькулятор ПИР',
+//            title: 'Калькулятор ПИР',
+//            icon: '/images/icons/about.png',
+//            portletHeight: 305,
+//            position: 'MainPanel-column-1',
+//            launchModule: 'EC.CRM.controller.Calcpd.Main'
+//        }, {
+//            text: 'Калькулятор СМР',
+//            title: 'Калькулятор СМР',
+//            icon: '/images/icons/about.png',
+//            portletHeight: 305,
+//            position: 'MainPanel-column-1',
+//            launchModule: 'EC.CRM.controller.Calcsmr.Main'
 //        }, {
 //            title: 'Специалисты',
 //            icon: '/images/icons/sys_dev.png',
 //            portletHeight: 370,
 //            position: 'MainPanel-column-1',
 //            launchModule: 'EC.Experts.controller.ActiveExperts'
-        }, {
-            title: 'Прогноз погоды',
-            icon: '/images/icons/kweather.png',
-            portletHeight: 410,
-            position: 'MainPanel-column-3',
-            launchModule: 'EC.Main.controller.Weather'
 //        }, {
 //            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
 //            icon: '/images/icons/kweather.png',

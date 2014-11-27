@@ -41,7 +41,8 @@ Ext.define('EC.Catalog.view.FiltersPanelAbstarct', {
         this.items = [{
             xtype: 'FilterMark'
         }, {
-        	xtype: 'textfield',
+        	xtype: 'trigger',
+        	triggerCls: 'search-trigger',
         	fieldName: 'name',
         	fieldLabel: 'Наименование'
         }];

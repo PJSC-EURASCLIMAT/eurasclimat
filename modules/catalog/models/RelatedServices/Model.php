@@ -1,6 +1,6 @@
 <?php
 
-class Catalog_RelatedServices
+class Catalog_RelatedServices_Model
 {
 	protected $_table;
 
@@ -10,9 +10,9 @@ class Catalog_RelatedServices
 
     public function __construct($entity)
     {
-        $this->_entity = ucfirst(str_replace('.', '_', $entity));
+        $this->_entity = $entity;
+        $this->_table = new Catalog_RelatedServices_Table();
         $this->_servicesTable = new Catalog_Services_Table();
-        $this->_table = new Xend_Db_Table_Factory('catalog_' . $this->_entity . '_services');
     }
 
     public function getAll($id)
@@ -21,7 +21,7 @@ class Catalog_RelatedServices
 
         $id = intval($id);
 
-        if (!$id) {
+        if(!$id) {
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT));
         }
@@ -33,7 +33,8 @@ class Catalog_RelatedServices
             ->join(array('s' => $this->_servicesTable->getTableName()),
                    's.id=i.service_id', array()
                 )
-            ->where('i.item_id = (?)', $id);
+            ->where('i.entity_id = (?)', $id)
+            ->where('i.entity = (?)', $this->_entity);
 
         try {
             $rows = $select->query()->fetchAll();
@@ -54,7 +55,7 @@ class Catalog_RelatedServices
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'item_id'       => array('Id', 'allowEmpty' => false),
+            'entity_id'     => array('Id', 'allowEmpty' => false),
             'service_id'    => array('Id', 'allowEmpty' => false),
             'term'          => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'price'         => array(array('StringLength', 0, 255), 'allowEmpty' => true)
@@ -68,8 +69,11 @@ class Catalog_RelatedServices
             return $response;
         }
 
+        $data = $f->getData();
+        $data['entity'] = $this->_entity;
+        
         try {
-            $id = $this->_table->insert($f->getData());
+            $id = $this->_table->insert($data);
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;

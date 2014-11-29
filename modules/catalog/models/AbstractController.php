@@ -181,7 +181,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
 
-        $model = new Catalog_RelatedServices($this->_entity);
+        $model = new Catalog_RelatedServices_Model($this->_entity);
         $response = $model->getAll($id);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
@@ -193,7 +193,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
 
     public function addRelatedServicesAction()
     {
-        $model = new Catalog_RelatedServices($this->_entity);
+        $model = new Catalog_RelatedServices_Model($this->_entity);
         $response = $model->add($this->_getAllParams());
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
@@ -204,7 +204,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
 
     public function editRelatedServicesAction()
     {
-        $model = new Catalog_RelatedServices($this->_entity);
+        $model = new Catalog_RelatedServices_Model($this->_entity);
         $response = $model->update($this->_getAllParams());
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
@@ -222,7 +222,7 @@ class Catalog_AbstractController extends Xend_Controller_Action
             $this->_collectErrors($response);
         }
 
-        $model = new Catalog_RelatedServices($this->_entity);
+        $model = new Catalog_RelatedServices_Model($this->_entity);
         $response = $model->delete($id);
         if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);

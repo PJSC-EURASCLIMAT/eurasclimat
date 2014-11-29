@@ -4,6 +4,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     
     stores: [
         'EC.Catalog.store.RelatedServices',
+        'EC.Catalog.store.Services',
         'EC.Catalog.store.Currency'
     ],
     
@@ -494,80 +495,60 @@ Ext.define('EC.Catalog.controller.Abstract', {
     },
     
     onAddService: function(itemId, panel) {
+
+        var w = Ext.create('EC.Catalog.view.RelatedServices.Edit', {
+            title: 'Добавление услуги к товару'
+        });
         
-        var f = Ext.create('EC.Catalog.view.RelatedServices.Edit'),
-            w = Ext.create('Ext.window.Window', {
-            title: 'Добавление услуги к товару',
-            modal: true,
-            width: 400,
-            autoShow: true,
-            layout: 'fit',
-            border: false,
-            items: [f],
-            buttons: ['->',{
-                text: 'Сохранить',
-                handler: function() {
-                    f.getForm().submit({
-                        url: this.addRelatedServicesURL,
-                        params: {item_id: itemId},
-                        success: function(response, opts) {
-                            panel.setActive(true);
-                            w.close();
-                        },
-                        failure: function(response, opts) {
-                            Ext.Msg.alert('Ошибка', 'Добавление не выполнено!');
-                        },
-                        scope: this
-                    });
+        w.down('button[action=save]').on('click', function() {
+            w.down('form').getForm().submit({
+                url: this.addRelatedServicesURL,
+                params: {entity_id: itemId},
+                success: function(response, opts) {
+                    panel.setActive(true);
+                    w.close();
+                },
+                failure: function(response, opts) {
+                    Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
                 },
                 scope: this
-            }, {
-                text: 'Отменить',
-                scope: this,
-                handler: function() {
-                    w.close();
-                }
-            }]
-        });
+            });
+        }, this);
+        
+        w.down('button[action=close]').on('click', function() {
+        	w.close();
+        }, this);
+        
+        w.show();
     },
     
     onEditService: function(record, panel) {
         
-        var f = Ext.create('EC.Catalog.view.RelatedServices.Edit'),
-            w = Ext.create('Ext.window.Window', {
-            title: 'Редактирование услуги к товару',
-            modal: true,
-            width: 400,
-            autoShow: true,
-            layout: 'fit',
-            border: false,
-            items: [f],
-            buttons: ['->',{
-                text: 'Сохранить',
-                handler: function() {
-                    f.getForm().submit({
-                        url: this.editRelatedServicesURL,
-                        success: function(response, opts) {
-                            panel.setActive(true);
-                            w.close();
-                        },
-                        failure: function(response, opts) {
-                            Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
-                        },
-                        scope: this
-                    });
-                },
-                scope: this
-            }, {
-                text: 'Отменить',
-                scope: this,
-                handler: function() {
-                    w.close();
-                }
-            }]
+    	var w = Ext.create('EC.Catalog.view.RelatedServices.Edit', {
+            title: 'Редактирование услуги к товару'
         });
         
-        f.getForm().loadRecord(record);
+        w.down('button[action=save]').on('click', function() {
+            w.down('form').getForm().submit({
+            	url: this.editRelatedServicesURL,
+                success: function(response, opts) {
+                    panel.setActive(true);
+                    w.close();
+                },
+                failure: function(response, opts) {
+                    Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
+                },
+                scope: this
+            });
+        }, this);
+        
+        w.down('button[action=close]').on('click', function() {
+        	w.close();
+        }, this);
+        
+        w.show();
+        
+        w.down('form').getForm().loadRecord(record);
     },
     
     onDeleteService: function(id, panel) {

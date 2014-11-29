@@ -1,33 +1,48 @@
 Ext.define('EC.Catalog.view.RelatedServices.Edit', {
     
-    extend: 'Ext.form.Panel',
+	extend: 'Ext.window.Window',
     
-    title: false,
+	modal: true,
     
-    bodyPadding: 5,
+	width: 400,
     
-    fieldDefaults: {
-        labelAlign: 'left',
-        labelWidth: 130,
-        border: false,
-        allowBlank: false,
-        anchor: '100%'
-    },
+	layout: 'fit',
+    
+	border: false,
     
     items: [{
-        xtype: 'hiddenfield',
-        name: 'id'
+    	xtype: 'form',
+    	bodyPadding: 5,
+	    fieldDefaults: {
+	        labelAlign: 'left',
+	        labelWidth: 130,
+	        border: false,
+	        allowBlank: false,
+	        anchor: '100%'
+	    },
+	    items: [{
+	        xtype: 'hiddenfield',
+	        name: 'id'
+	    }, {
+	        xtype: 'ServicesCombo',
+	        name: 'service_id',
+	        hiddenName: 'service_id'
+	    }, {
+	        xtype: 'textfield',
+	        fieldLabel: 'Срок выполнения',
+	        name: 'term'
+	    }, {
+	        xtype: 'numberfield',
+	        fieldLabel: 'Цена (р.)',
+	        name: 'price'
+	    }]
+    }],
+    
+    buttons: ['->', {
+        text: 'Сохранить',
+        action: 'save'
     }, {
-        xtype: 'ServicesCombo',
-        name: 'service_id',
-        hiddenName: 'service_id'
-    }, {
-        xtype: 'textfield',
-        fieldLabel: 'Срок выполнения',
-        name: 'term'
-    }, {
-        xtype: 'numberfield',
-        fieldLabel: 'Цена (р.)',
-        name: 'price'
+        text: 'Отменить',
+        action: 'close'
     }]
 });

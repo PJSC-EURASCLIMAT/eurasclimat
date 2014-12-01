@@ -45,9 +45,7 @@ class Crm_Projects_Configurator_Model
                     Xend_Status::INPUT_PARAMS_INCORRECT, 'entity_id'));
             }
 
-            
-            
-            $tableName = 'Catalog_' . Xend_Common::convertEntity($entity) . '_Table';
+            $tableName = 'Catalog_' . Xend_Common::convertEntity($row['entity']) . '_Table';
             try {
                 $table = new $tableName;
             } catch (Exception $e) {

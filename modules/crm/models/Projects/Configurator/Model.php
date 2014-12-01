@@ -658,7 +658,7 @@ class Crm_Projects_Configurator_Model
             return false;
         }
 
-        $relatedServices = new Catalog_RelatedServices($entity);
+        $relatedServices = new Catalog_RelatedServices_Model($entity);
 
         $response = $relatedServices->getAll($entity_id);
         if ($response->hasNotSuccess()) {

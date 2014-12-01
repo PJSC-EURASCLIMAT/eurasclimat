@@ -45,7 +45,9 @@ class Crm_Projects_Configurator_Model
                     Xend_Status::INPUT_PARAMS_INCORRECT, 'entity_id'));
             }
 
-            $tableName = 'Catalog_' . ucfirst(str_replace('.', '_', $row['entity'])) . '_Table';
+            
+            
+            $tableName = 'Catalog_' . Xend_Common::convertEntity($entity) . '_Table';
             try {
                 $table = new $tableName;
             } catch (Exception $e) {
@@ -121,7 +123,7 @@ class Crm_Projects_Configurator_Model
             return $response;
         }
 
-        $tableName = 'Catalog_' . ucfirst(str_replace('.', '_', $f->entity)) . '_Table';
+        $tableName = 'Catalog_' . Xend_Common::convertEntity($f->entity) . '_Table';
         try {
             $table = new $tableName;
         } catch (Exception $e) {

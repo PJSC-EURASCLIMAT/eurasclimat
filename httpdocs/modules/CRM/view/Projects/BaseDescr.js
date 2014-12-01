@@ -59,23 +59,23 @@ Ext.define('EC.CRM.view.Projects.BaseDescr', {
             xtype: 'textarea',
             fieldLabel: 'Описание',
             name: 'description',
-            height: 250
+            height: 190
         }, {
             xtype: 'radiogroup',
             fieldLabel: 'Этап проекта',
-            columns: 4,
+            layout: 'vbox',
             defaults: {name: 'stage'},
             items: [{
-                boxLabel: 'Подготовка',
+                boxLabel: 'Формирование (подготовка)',
                 inputValue: 'preparation'
             }, {
-                boxLabel: 'Согласование',
+                boxLabel: 'Формирование (согласование)',
                 inputValue: 'coordination'
             }, {
-                boxLabel: 'Выполнение',
+                boxLabel: 'Исполнение (выполнение)',
                 inputValue: 'execution'
             }, {
-                boxLabel: 'Внедрение',
+                boxLabel: 'Исполнение (внедрение)',
                 inputValue: 'implementation'
             }]
         }];

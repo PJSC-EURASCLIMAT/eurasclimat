@@ -129,10 +129,9 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
     },
     
     onAddService: function() {
-        var sForm = this.getView('EC.Catalog.view.RelatedServices.Edit').create();
-        var win = this.getWindow([sForm], 'Добавление услуги', 400, 170);
+        var win = Ext.create('EC.Catalog.view.RelatedServices.Edit', {title: 'Добавление услуги'});
         win.down('button[action=save]').on('click', function() {
-            sForm.submit({
+        	win.down('form').getForm().submit({
                 params: {eq_id: this.itemID},
                 url: this.addServiceURL,
                 success: function(form, action) {
@@ -145,13 +144,13 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
                 scope: this
             });
         }, this);
+        win.show();
     },
     
     onEditService: function(grid, record) {
-        var sForm = this.getView('EC.Catalog.view.RelatedServices.Edit').create();
-        var win = this.getWindow([sForm], 'Редактирование услуги', 400, 170);
+    	var win = Ext.create('EC.Catalog.view.RelatedServices.Edit', {title: 'Редактирование услуги'});
         win.down('button[action=save]').on('click', function() {
-            sForm.submit({
+        	win.down('form').getForm().submit({
                 url: this.updateServiceURL,
                 success: function(form, action) {
                     this.loadServices();
@@ -163,6 +162,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
                 scope: this
             });
         }, this);
+        
+        win.show();
         
         sForm.loadRecord(record);
         sForm.down('ServicesCombo').disable();

@@ -57,6 +57,7 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
                      + ' "' + this.projectName + '"',
             listeners: {
                 close: function() {
+        			//this.onClose();
                     this.fireEvent('projectEditClose');
                 },
                 scope: this

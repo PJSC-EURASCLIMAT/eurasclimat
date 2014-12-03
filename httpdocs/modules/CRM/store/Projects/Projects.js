@@ -4,8 +4,6 @@ Ext.define('EC.CRM.store.Projects.Projects', {
    
     model: 'EC.CRM.model.Projects.Projects',
     
-    //autoLoad: true,
-    
     groupField: 'group_name',
     
     groupDir: 'DESC',

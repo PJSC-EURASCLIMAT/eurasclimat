@@ -59,6 +59,9 @@ Ext.define('EC.CRM.view.Projects.List', {
             dataIndex: 'name',
             flex: .5
         }, {
+        	header: 'Группа',
+            dataIndex: 'group_name'
+        }, {
             text: 'Формирование',
             columns: [{
                 xtype: 'datecolumn',
@@ -113,7 +116,7 @@ Ext.define('EC.CRM.view.Projects.List', {
             header: 'Создатель проекта',
             tpl: '<a href="#/profile/{creator_id}/show">{creator_name}</a>',
             dataIndex: 'creator_name',
-            flex: .5
+            width: 200
         }, {
             xtype: 'datecolumn',
             header: 'Дата создания',

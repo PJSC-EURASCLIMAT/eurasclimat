@@ -75,6 +75,12 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
             }, this);
         }
         
+        var projectsStore = this.getStore('EC.CRM.store.Projects.Projects');
+        projectsStore.on('load', function(store, records, successful, eOpts) {
+        	this.Container.down('grid').getView().getFeature('ProjectsGrouping').collapseAll();
+        }, this);
+        projectsStore.load();
+        
     },
     
     showGroups: function() {

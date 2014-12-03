@@ -107,7 +107,8 @@ class Catalog_Conditioning_Blocks_Structure
             'values'          => array(
                 0  => '-',
                 1  => 'Внутренний',
-                2  => 'Наружный'
+                2  => 'Наружный',
+                3  => 'Комплект'
             )
         ),
         array(

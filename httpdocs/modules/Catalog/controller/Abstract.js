@@ -3,21 +3,16 @@ Ext.define('EC.Catalog.controller.Abstract', {
     extend: 'Ext.app.Controller',
     
     stores: [
-        'EC.Catalog.store.RelatedServices',
         'EC.Catalog.store.Services',
         'EC.Catalog.store.Currency'
     ],
     
     models: [
-        'EC.Catalog.model.RelatedServices',
         'EC.Catalog.model.ListAbstract'
     ],
     
     uses: [
         'EC.Catalog.view.Images',
-        'EC.Catalog.view.RelatedServices.List',
-        'EC.Catalog.view.RelatedServices.Edit',
-        'EC.Catalog.view.Services.Combo',
         'EC.Catalog.view.FilterMark',
         'EC.Catalog.view.CurrencyCombo',
         'EC.Catalog.view.ListAbstract',
@@ -267,24 +262,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
             allowEdit: this.editPermition
         });
         
-        var catalogRelatedServicesPanel = view.down('CatalogRelatedServices');
-        
-        catalogRelatedServicesPanel.on({
-            activate: function(panel) {
-                var store = panel.getStore();
-                store.load({url: this.getRelatedServicesURL, id: recordId});
-            },
-            scope: this
-        });
-        
-        catalogRelatedServicesPanel.down('button[action=refresh]').on({
-            click: function() {
-                var store = catalogRelatedServicesPanel.getStore();
-                store.load({url: this.getRelatedServicesURL, id: recordId});
-            },
-            scope: this
-        });
-        
         var catalogImagesPanel = view.down('CatalogImages');
         
         catalogImagesPanel.on({
@@ -308,23 +285,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
             view.down('button[action=save]').on({
                 click: function() {
                     this.updateItem(view);
-                },
-                scope: this
-            });
-            
-            catalogRelatedServicesPanel.down('button[action=add]').on({
-                click: function() {
-                    this.onAddService(recordId, catalogRelatedServicesPanel);
-                },
-                scope: this
-            });
-            
-            catalogRelatedServicesPanel.on({
-                deleteservice: function(view, record) {
-                    this.onDeleteService(record.get('id'), catalogRelatedServicesPanel);
-                },
-                editservice: function(view, record) {
-                    this.onEditService(record, catalogRelatedServicesPanel);
                 },
                 scope: this
             });
@@ -491,88 +451,6 @@ Ext.define('EC.Catalog.controller.Abstract', {
                     scope: this
                 }
             }
-        });
-    },
-    
-    onAddService: function(itemId, panel) {
-
-        var w = Ext.create('EC.Catalog.view.RelatedServices.Edit', {
-            title: 'Добавление услуги к товару'
-        });
-        
-        w.down('button[action=save]').on('click', function() {
-            w.down('form').getForm().submit({
-                url: this.addRelatedServicesURL,
-                params: {entity_id: itemId},
-                success: function(response, opts) {
-                    panel.setActive(true);
-                    w.close();
-                },
-                failure: function(response, opts) {
-                    Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
-                },
-                scope: this
-            });
-        }, this);
-        
-        w.down('button[action=close]').on('click', function() {
-        	w.close();
-        }, this);
-        
-        w.show();
-    },
-    
-    onEditService: function(record, panel) {
-        
-    	var w = Ext.create('EC.Catalog.view.RelatedServices.Edit', {
-            title: 'Редактирование услуги к товару'
-        });
-        
-        w.down('button[action=save]').on('click', function() {
-            w.down('form').getForm().submit({
-            	url: this.editRelatedServicesURL,
-                success: function(response, opts) {
-                    panel.setActive(true);
-                    w.close();
-                },
-                failure: function(response, opts) {
-                    Ext.Msg.alert('Ошибка', 'Сохранение не выполнено!');
-                },
-                scope: this
-            });
-        }, this);
-        
-        w.down('button[action=close]').on('click', function() {
-        	w.close();
-        }, this);
-        
-        w.show();
-        
-        w.down('form').getForm().loadRecord(record);
-    },
-    
-    onDeleteService: function(id, panel) {
-        
-        Ext.Msg.show({
-            title: 'Подтверждение',
-            msg: 'Вы уверены?',
-            buttons: Ext.Msg.YESNO,
-            fn: function(b) {
-                if ('yes' == b) {
-                    panel.setLoading({msg: 'Загрузка...'});
-                    Ext.Ajax.request({
-                        url: this.deleteRelatedServicesURL,
-                        params: {id: id},
-                        callback: function() {
-                            panel.setLoading(false);
-                            panel.setActive(true);
-                        },
-                        scope: this
-                    });
-                }
-            },
-            icon: Ext.MessageBox.QUESTION,
-            scope: this
         });
     },
     

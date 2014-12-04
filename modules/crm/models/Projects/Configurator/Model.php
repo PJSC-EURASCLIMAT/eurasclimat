@@ -149,9 +149,6 @@ class Crm_Projects_Configurator_Model
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
-        // Automatically add related services for given equipment
-        // $this->_addRelatedServices($f->project_id, $f->entity, $f->entity_id);
-
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
@@ -233,33 +230,7 @@ class Crm_Projects_Configurator_Model
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
 
-        $relatedServices = $this->_getRelatedServices(
-                            $equipmentRecord->entity,
-                            $equipmentRecord->entity_id
-                           );
-
-        $attachedServices = $this->_getAttachedServices($id);
-
-        foreach ($attachedServices as $as) {
-            foreach ($relatedServices as $i => $rs) {
-                if ($as['service_id'] == $rs['service_id']) {
-                    unset($relatedServices[$i]);
-                    break;
-                }
-            }
-        }
-
-        foreach ($relatedServices as $rs) {
-            $attachedServices[] = array(
-                'id'            => null,
-                'service_id'    => $rs['service_id'],
-                'name'          => $rs['name'],
-                'term'          => $rs['term'],
-                'price'         => $rs['price']
-            );
-        }
-
-        $response->setRowset($attachedServices);
+        $response->setRowset($this->_getAttachedServices($id));
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -650,23 +621,6 @@ class Crm_Projects_Configurator_Model
 
 
     // Private section
-
-    private function _getRelatedServices($entity, $entity_id) {
-
-        $entity_id = intval($entity_id);
-        if (0 == $entity_id) {
-            return false;
-        }
-
-        $relatedServices = new Catalog_RelatedServices_Model($entity);
-
-        $response = $relatedServices->getAll($entity_id);
-        if ($response->hasNotSuccess()) {
-            return false;
-        }
-
-        return $response->getRowset();
-    }
 
     private function _getAttachedServices($id) {
 

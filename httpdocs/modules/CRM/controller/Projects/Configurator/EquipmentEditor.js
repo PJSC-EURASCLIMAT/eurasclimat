@@ -17,7 +17,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
     views: [
         'EC.CRM.view.Projects.Configurator.EquipmentForm',
         'EC.CRM.view.Projects.Configurator.ServicesList',
-        'EC.Catalog.view.RelatedServices.Edit',
+        'EC.CRM.view.Projects.Configurator.ServicesForm',
         'EC.Catalog.view.Services.Combo'
     ],
     
@@ -129,7 +129,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
     },
     
     onAddService: function() {
-        var win = Ext.create('EC.Catalog.view.RelatedServices.Edit', {title: 'Добавление услуги'});
+        var win = Ext.create('EC.CRM.view.Projects.Configurator.ServicesForm', {title: 'Добавление услуги'});
         win.down('button[action=save]').on('click', function() {
         	win.down('form').getForm().submit({
                 params: {eq_id: this.itemID},
@@ -148,7 +148,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
     },
     
     onEditService: function(grid, record) {
-    	var win = Ext.create('EC.Catalog.view.RelatedServices.Edit', {title: 'Редактирование услуги'});
+    	var win = Ext.create('EC.CRM.view.Projects.Configurator.ServicesForm', {title: 'Редактирование услуги'});
         win.down('button[action=save]').on('click', function() {
         	win.down('form').getForm().submit({
                 url: this.updateServiceURL,
@@ -165,8 +165,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
         
         win.show();
         
-        sForm.loadRecord(record);
-        sForm.down('ServicesCombo').disable();
+        win.down('form').loadRecord(record);
     },
     
     onCheckService: function(column, rowIndex, checked, eOpts) {

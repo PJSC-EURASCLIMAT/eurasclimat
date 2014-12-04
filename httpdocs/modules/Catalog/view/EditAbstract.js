@@ -61,11 +61,6 @@ Ext.define('EC.Catalog.view.EditAbstract', {
                         name: 'description'
                     }]
                 }, {
-                    xtype: 'CatalogRelatedServices',
-                    catalog: this.catalog,
-                    catalogId: this.catalogId,
-                    allowEdit: this.allowEdit
-                }, {
                     xtype: 'CatalogImages',
                     catalog: this.catalog,
                     catalogId: this.catalogId,

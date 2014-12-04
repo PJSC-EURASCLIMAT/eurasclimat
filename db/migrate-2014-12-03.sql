@@ -1,0 +1,5 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE `catalog_related_services`;
+
+SET FOREIGN_KEY_CHECKS=1;

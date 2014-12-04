@@ -27,6 +27,7 @@ Ext.define('App.controller.Interface.CRM.Orders', {
             portletHeight: 400,
             position: 'OrdersPanel-column-3',
             launchModule: 'EC.CRM.controller.Projects.Projects',
+            helpURL: '/html/crm/projects/help',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }

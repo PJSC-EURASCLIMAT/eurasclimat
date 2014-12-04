@@ -68,6 +68,14 @@ class Xend_Controller_Action extends Zend_Controller_Action
     }
 
     /**
+     * Load help page
+     *
+     * @return Xend_Controller_Action
+     */
+	public function helpAction()
+    {}
+    
+    /**
      * Collect errors from response to $this->view->errors
      *
      * @param Xend_Response $response

@@ -47,14 +47,6 @@ Ext.define('App.controller.Interface.Main', {
 //            position: 'MainPanel-column-2',
 //            launchModule: 'EC.Main.controller.AboutSystem'
 //        }, {
-//            text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-//            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-//            icon: '/images/icons/catalog.png',
-//            portletHeight: 410,
-//            position: 'MainPanel-column-2',
-//            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
-//            helpURL: '/html/crm/demoprojects/help'
-//        }, {
 //            title: 'Заказ',
 //            icon: '/images/icons/sys_dev.png',
 //            portletHeight: 370,
@@ -97,6 +89,8 @@ Ext.define('App.controller.Interface.Main', {
         
         var MC = this.getController('App.controller.Main');
         
+        return [];
+        /*
         return [{
             text: 'Заказ',
             title: 'Заказ',
@@ -105,16 +99,6 @@ Ext.define('App.controller.Interface.Main', {
             portletHeight: 200,
             allowMultiple: false,
             launchModule: 'EC.Main.controller.Order',
-            handler: function(b) {
-                MC.openModulePortlet(b.initialConfig);
-            }
-        }, {text: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-            title: 'ЗАКАЗЫ-ПРОЕКТЫ (ДЕМО)',
-            icon: '/images/icons/catalog.png',
-            portletHeight: 370,
-            position: 'MainPanel-column-2',
-            launchModule: 'EC.CRM.controller.Demoprojects.Projects',
-            helpURL: '/html/crm/demoprojects/help',
             handler: function(b) {
                 MC.openModulePortlet(b.initialConfig);
             }
@@ -139,5 +123,6 @@ Ext.define('App.controller.Interface.Main', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }];
+        */
     }
 });

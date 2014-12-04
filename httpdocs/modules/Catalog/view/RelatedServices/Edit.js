@@ -1,4 +1,4 @@
-Ext.define('EC.Catalog.view.RelatedServices.Edit', {
+Ext.define('EC.CRM.view.Projects.Configurator.ServicesForm', {
     
 	extend: 'Ext.window.Window',
     

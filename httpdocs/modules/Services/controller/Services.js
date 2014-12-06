@@ -21,7 +21,6 @@ Ext.define('EC.Services.controller.Services', {
     run: function(container, activeOnly) {
 
         this.Container = container;
-        
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
 
         this.treeGrid = container.add(Ext.create('EC.Services.view.TreeGrid', {
@@ -29,26 +28,25 @@ Ext.define('EC.Services.controller.Services', {
             isPortlet: isPortlet
         }));
 
-        if ( this.permissions && !isPortlet ) {
-
+        if (this.permissions && !isPortlet) {
             this.treeGrid.on({
                 edititem: this.editItem,
                 scope: this
             });
         }
-
 //        this.treeGrid.store.load();
     },
 
     editItem: function(treeGrid, record ) {
+    	
         var win = Ext.create('EC.Services.view.Edit'),
             form = win.down('form');
 
-        form.getForm().setValues( record.data );
-
-        form.on('save',function(values) {
+        form.getForm().setValues(record.data);
+        form.on('save', function(values) {
+        	
             Ext.iterate(values, function(key, value){
-                if ( !Ext.isEmpty(value) ) record.set(key, value);
+                if (!Ext.isEmpty(value)) record.set(key, value);
             }, this);
 
             this.treeGrid.store.sync({
@@ -61,8 +59,5 @@ Ext.define('EC.Services.controller.Services', {
             });
             win.close();
         }, this );
-
     }
-
-
 });

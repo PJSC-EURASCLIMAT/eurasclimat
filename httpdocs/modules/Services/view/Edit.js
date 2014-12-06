@@ -62,7 +62,7 @@ Ext.define('EC.Services.view.Edit', {
                 name: 'profession_id',
                 listeners: {
                     scope: this,
-                    change: function( combo, newValue, oldValue, eOpts ) {
+                    change: function(combo, newValue, oldValue, eOpts) {
                         this.pfField.setValue(combo.getDisplayValue());
                     }
                 }
@@ -76,7 +76,7 @@ Ext.define('EC.Services.view.Edit', {
                 name: 'eng_sys_type_id',
                 listeners: {
                     scope: this,
-                    change: function( combo, newValue, oldValue, eOpts ) {
+                    change: function(combo, newValue, oldValue, eOpts) {
                         this.estField.setValue(combo.getDisplayValue());
                     }
                 }
@@ -92,7 +92,7 @@ Ext.define('EC.Services.view.Edit', {
                 name: 'min_rank'
             }],
 
-            buttons: ['->',{
+            buttons: ['->', {
                 text: 'Сохранить',
                 formBind: true,
                 handler: function() {
@@ -112,7 +112,4 @@ Ext.define('EC.Services.view.Edit', {
         this.pfField = this.down('[name=profession_name]');
         this.estField = this.down('[name=eng_sys_type_name]');
     }
-
-
-
 });

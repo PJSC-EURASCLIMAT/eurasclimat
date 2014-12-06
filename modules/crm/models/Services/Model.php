@@ -10,51 +10,6 @@ class Crm_Services_Model
         $this->_chapTable = new Crm_Services_ChaptersTable();
     }
 
-
-    public function create(array $data)
-    {
-        $response = new Xend_Response();
-
-        if ( $data['parentId'] != 'root') {
-            $data['chapter_id'] = $data['parentId'];
-        }
-
-
-        $f = new Xend_Filter_Input(array(
-            '*'             => 'StringTrim'
-        ), array(
-            'text'              => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'chapter_id'        => array('Id', 'allowEmpty' => true),
-            'profession_id'     => array('Id', 'allowEmpty' => true),
-            'eng_sys_type_id'   => array('Id', 'allowEmpty' => true),
-            'norm_hours'        => array('Int', 'allowEmpty' => true),
-            'min_rank'          => array('Int', 'allowEmpty' => true),
-        ), $data);
-
-//        if ( $f->chapter_id == -1) {
-//            $f->chapter_id = new Zend_Db_Expr('NULL');
-//        }
-
-        $response->addInputStatus($f);
-
-        if ( $response->hasNotSuccess() ) {
-            return $response;
-        }
-
-        try {
-            $response->id = $this->_table->insert($f->getData());
-            $status = Xend_Accounts_Status::OK;
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-            $status = Xend_Accounts_Status::DATABASE_ERROR;
-        }
-
-        return $response->addStatus(new Xend_Status($status));
-    }
-
-
     public function get($id)
     {
         $id = intval($id);
@@ -92,7 +47,7 @@ class Crm_Services_Model
 
         try {
             $row = $select->query()->fetch();
-            if ( empty( $row ) ) {
+            if (empty($row)) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
 
@@ -107,7 +62,47 @@ class Crm_Services_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
+    public function create(array $data)
+    {
+        $response = new Xend_Response();
 
+        if ('root' != $data['parentId']) {
+            $data['chapter_id'] = $data['parentId'];
+        }
+
+        $f = new Xend_Filter_Input(array(
+            '*'             => 'StringTrim'
+        ), array(
+            'text'              => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'chapter_id'        => array('Id', 'allowEmpty' => true),
+            'profession_id'     => array('Id', 'allowEmpty' => true),
+            'eng_sys_type_id'   => array('Id', 'allowEmpty' => true),
+            'norm_hours'        => array('Int', 'allowEmpty' => true),
+            'min_rank'          => array('Int', 'allowEmpty' => true),
+        ), $data);
+
+//        if ( $f->chapter_id == -1) {
+//            $f->chapter_id = new Zend_Db_Expr('NULL');
+//        }
+
+        $response->addInputStatus($f);
+
+        if ($response->hasNotSuccess()) {
+            return $response;
+        }
+
+        try {
+            $response->id = $this->_table->insert($f->getData());
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status($status));
+    }
 
     public function read($params = array())
     {
@@ -116,15 +111,15 @@ class Crm_Services_Model
         $servSelect = $this->_table->getAdapter()->select()
             ->from(
                 array('s' => $this->_table->getTableName()),
-                array( 'service_id' => 's.id',
-                       'id' => new Zend_Db_Expr("NULL"),
-                       's.text',
-                       'parent_id' => 's.chapter_id',
-                       new Zend_Db_Expr('"true" AS leaf'),
-                       's.profession_id',
-                       's.eng_sys_type_id',
-                       's.norm_hours',
-                       's.min_rank',
+                array('service_id' => 's.id',
+					  'id' => new Zend_Db_Expr("NULL"),
+                      's.text',
+                      'parent_id' => 's.chapter_id',
+                      new Zend_Db_Expr('"true" AS leaf'),
+                      's.profession_id',
+                      's.eng_sys_type_id',
+                      's.norm_hours',
+                      's.min_rank',
                 )
             )
             ->joinLeft(
@@ -140,25 +135,25 @@ class Crm_Services_Model
         $chapSelect = $this->_table->getAdapter()->select()
             ->from(
                 array('c' => 'services_chapters'),
-                array( new Zend_Db_Expr("NULL"),
-                       'c.id',
-                       'c.text',
-                       'c.parent_id',
-                       new Zend_Db_Expr('"false" AS leaf'),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
+                array(new Zend_Db_Expr("NULL"),
+                      'c.id',
+                      'c.text',
+                      'c.parent_id',
+                      new Zend_Db_Expr('"false" AS leaf'),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
                 )
             );
 
-        if ( isset( $params['node'] ) && $params['node'] != 'root' ) {
+        if (isset($params['node']) && 'root' != $params['node']) {
             $servSelect->where('chapter_id = ?', $params['node']);
             $chapSelect->where('parent_id = ?', $params['node']);
         }
-        if ( isset( $params['node'] ) && $params['node'] == 'root' ) {
+        if (isset($params['node']) && 'root' == $params['node']) {
             $servSelect->where('ISNULL(chapter_id)');
             $chapSelect->where('ISNULL(parent_id)');
         }
@@ -187,7 +182,6 @@ class Crm_Services_Model
 
     public function update(array $data)
     {
-
 //        $data = Zend_Json::decode($params['data']);
 
         $data['parent_id'] = $data['parentId'];
@@ -238,19 +232,16 @@ class Crm_Services_Model
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             // TODO не нашел как по фен-шую вынуть код mysql ошибки
-            if ( preg_match('/Integrity constraint violation: 1451/',$e->getMessage()) ) {
+            if (preg_match('/Integrity constraint violation: 1451/', $e->getMessage())) {
                 $status = Xend_Status::DATABASE_CONSTRAINT_ERROR;
                 return $response->addStatus(new Xend_Status($status));
             }
             if (DEBUG) {
                 throw $e;
             }
-
             $status = Xend_Status::DATABASE_ERROR;
         }
 
-
         return $response->addStatus(new Xend_Status($status));
     }
-
 }

@@ -22,7 +22,7 @@ Ext.define('EC.Services.view.TreeGrid', {
 
     permissions: acl.isUpdate('crm', 'services'),
 
-    addText: "Добавить услугу",
+    addText: 'Добавить услугу',
 
     columns: [{
         text: 'Профессия',
@@ -43,9 +43,10 @@ Ext.define('EC.Services.view.TreeGrid', {
     }],
 
     configureTBar: function() {
+	
         this.callParent();
 
-        if ( this.permissions && !this.isPortlet ) {
+        if (this.permissions && !this.isPortlet) {
             Ext.Array.insert(this.tbar, 1, [{
                 icon: '/images/icons/folder.gif',
                 itemId: 'add-chapter',
@@ -54,32 +55,34 @@ Ext.define('EC.Services.view.TreeGrid', {
                 handler: function() {
                     this.create(false);
                 }
-
             }]);
         }
     },
 
     initComponent: function() {
+    	
         this.hideHeaders = this.isPortlet;
-        this.editActionConfig.getClass = function( value, meta, record ) {
-            if ( Ext.isEmpty( record.data.service_id ) ) {
+        this.editActionConfig.getClass = function(value, meta, record) {
+            if (Ext.isEmpty(record.data.service_id)) {
                 return 'x-hide-visibility';
             }
         };
+        
         this.callParent();
     },
 
-    create: function( isLeaf ) {
+    create: function(isLeaf) {
+    	
         var selectedRecords = this.selModel.getSelection(),
             node;
 
-        if ( Ext.isArray( selectedRecords ) ) {
+        if (Ext.isArray(selectedRecords)) {
             node = selectedRecords[0];
-        } else if ( Ext.isObject( selectedRecords ) ) {
+        } else if (Ext.isObject(selectedRecords)) {
             node = selectedRecords;
         }
 
-        if ( !Ext.isEmpty(node) && node.data.leaf ) {
+        if (!Ext.isEmpty(node) && node.data.leaf) {
             var newNode = node.parentNode.insertBefore({
                 leaf: isLeaf,
                 text: ''
@@ -88,21 +91,19 @@ Ext.define('EC.Services.view.TreeGrid', {
             return;
         }
 
-        this.superclass.create.call(this, isLeaf);
-
+        this.callParent(arguments);
     },
 
     syncSuccess: function(batch, options) {
+    	
         Ext.each(batch.operations, function(op) {
-            var result = Ext.JSON.decode( op.response.responseText),
+            var result = Ext.JSON.decode(op.response.responseText),
                 record = op.records[0];
-            if ( op.action = 'create' && !Ext.isEmpty(result.data) ) {
-                record.set( ( record.data.leaf ) ? 'service_id' : 'id', result.data.id);
+            if ('create' == op.action && !Ext.isEmpty(result.data)) {
+                record.set((record.data.leaf) ? 'service_id' : 'id', result.data.id);
             }
             record.commit();
         });
-//        debugger;
         this.fireEvent('sync-success');
     }
-
 });

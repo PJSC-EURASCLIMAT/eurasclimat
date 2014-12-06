@@ -11,5 +11,4 @@ class Crm_Services_ChaptersTable extends Xend_Db_Table_Abstract
     protected $_nullableFields = array(
         'parent_id',
     );
-
 }

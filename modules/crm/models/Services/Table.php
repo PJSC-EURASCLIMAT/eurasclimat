@@ -15,5 +15,4 @@ class Crm_Services_Table extends Xend_Db_Table_Abstract
         'norm_hours',
         'min_rank'
     );
-
 }

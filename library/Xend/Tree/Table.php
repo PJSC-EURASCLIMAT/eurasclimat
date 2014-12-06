@@ -6,7 +6,7 @@ class Xend_Tree_Table extends Xend_Db_Table_Abstract
     {
         $this->_name = $table_name;
 
-        if ( count($nullable_fields) != 0 ) {
+        if (count($nullable_fields) > 0) {
             $this->_nullableFields = $nullable_fields;
         }
 

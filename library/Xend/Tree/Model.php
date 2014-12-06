@@ -17,10 +17,9 @@ class Xend_Tree_Model
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-//            'parent_id' => 'Int',
-            'text'      => 'StringTrim'
+            '*'      => 'StringTrim'
         ), array(
-//            'parent_id' => array('Id'),
+            'parent_id' => array('StringLength'),
             'text'      => array('StringLength')
         ), $data);
 
@@ -90,7 +89,6 @@ class Xend_Tree_Model
 
     public function update(array $params)
     {
-
         // TODO нужно как-то проверить что parent_id - это cуществующий id или 'root'
 
         $data = Zend_Json::decode($params['data']);
@@ -105,7 +103,7 @@ class Xend_Tree_Model
             'text'    => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
         ), $data);
 
-        if ( $f->parent_id == 'root') {
+        if ($f->parent_id == 'root') {
             $f->parent_id = new Zend_Db_Expr('NULL');
         }
 
@@ -140,7 +138,7 @@ class Xend_Tree_Model
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             // TODO не нашел как по фен-шую вынуть код mysql ошибки
-            if ( preg_match('/Integrity constraint violation: 1451/',$e->getMessage()) ) {
+            if (preg_match('/Integrity constraint violation: 1451/', $e->getMessage())) {
                 $status = Xend_Status::DATABASE_CONSTRAINT_ERROR;
                 return $response->addStatus(new Xend_Status($status));
             }
@@ -151,8 +149,6 @@ class Xend_Tree_Model
             $status = Xend_Status::DATABASE_ERROR;
         }
 
-
         return $response->addStatus(new Xend_Status($status));
     }
-
 }

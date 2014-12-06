@@ -9,10 +9,8 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         $this->_table = new Crm_Services_ChaptersTable();
     }
 
-
     public function create(array $data)
     {
-
         $data['parent_id'] = $data['parentId'];
 
         $response = new Xend_Response();
@@ -20,17 +18,17 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         $f = new Xend_Filter_Input(array(
             '*'             => 'StringTrim'
         ), array(
-            'text'              => array(array('StringLength', 1, 255), 'allowEmpty' => false),
-            'parent_id'        => array('Id', 'allowEmpty' => true),
+            'text'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'parent_id'     => array('Id', 'allowEmpty' => true),
         ), $data);
 
-        if ( $f->parent_id == 'root') {
+        if ('root' == $f->parent_id) {
             $f->parent_id = new Zend_Db_Expr('NULL');
         }
 
         $response->addInputStatus($f);
 
-        if ( $response->hasNotSuccess() ) {
+        if ($response->hasNotSuccess()) {
             return $response;
         }
 
@@ -43,10 +41,8 @@ class Crm_Services_ChaptersModel extends Xend_Tree
             }
             $status = Xend_Accounts_Status::DATABASE_ERROR;
         }
-
         return $response->addStatus(new Xend_Status($status));
     }
-
 
     public function read($params = array())
     {
@@ -55,15 +51,15 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         $servSelect = $this->_table->getAdapter()->select()
             ->from(
                 array('s' => $this->_table->getTableName()),
-                array( 'service_id' => 's.id',
-                       'id' => new Zend_Db_Expr("NULL"),
-                       's.text',
-                       'parent_id' => 's.chapter_id',
-                       new Zend_Db_Expr('"true" AS leaf'),
-                       's.profession_id',
-                       's.eng_sys_type_id',
-                       's.norm_hours',
-                       's.min_rank',
+                array('service_id' => 's.id',
+                      'id' => new Zend_Db_Expr("NULL"),
+                      's.text',
+                      'parent_id' => 's.chapter_id',
+                      new Zend_Db_Expr('"true" AS leaf'),
+                      's.profession_id',
+                      's.eng_sys_type_id',
+                      's.norm_hours',
+                      's.min_rank',
                 )
             )
             ->joinLeft(
@@ -79,25 +75,25 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         $chapSelect = $this->_table->getAdapter()->select()
             ->from(
                 array('c' => 'services_chapters'),
-                array( new Zend_Db_Expr("NULL"),
-                       'c.id',
-                       'c.text',
-                       'c.parent_id',
-                       new Zend_Db_Expr('"false" AS leaf'),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
-                       new Zend_Db_Expr("NULL"),
+                array(new Zend_Db_Expr("NULL"),
+                      'c.id',
+                      'c.text',
+                      'c.parent_id',
+                      new Zend_Db_Expr('"false" AS leaf'),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
+                      new Zend_Db_Expr("NULL"),
                 )
             );
 
-        if ( isset( $params['node'] ) && $params['node'] != 'root' ) {
+        if (isset($params['node']) && 'root' != $params['node']) {
             $servSelect->where('chapter_id = ?', $params['node']);
             $chapSelect->where('parent_id = ?', $params['node']);
         }
-        if ( isset( $params['node'] ) && $params['node'] == 'root' ) {
+        if (isset($params['node']) && 'root' == $params['node']) {
             $servSelect->where('ISNULL(chapter_id)');
             $chapSelect->where('ISNULL(parent_id)');
         }
@@ -120,13 +116,11 @@ class Crm_Services_ChaptersModel extends Xend_Tree
             }
             $status = Xend_Status::DATABASE_ERROR;
         }
-
         return $response->addStatus(new Xend_Status($status));
     }
 
     public function update(array $params)
     {
-
         // TODO нужно как-то проверить что parent_id - это cуществующий id или 'root'
 
         $data = Zend_Json::decode($params['data']);
@@ -134,12 +128,12 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         $data['parent_id'] = $data['parentId'];
 
         $f = new Xend_Filter_Input(array(
-                                        'id'        => 'Int',
-                                        'text'    => 'StringTrim'
-                                   ), array(
-                                           'id'        => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
-                                           'text'    => array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
-                                      ), $data);
+			'id'    => 'Int',
+            'text'  => 'StringTrim'
+        ), array(
+        	'id'    => array('Id', 'allowEmpty' => false, 'presence' => 'required'),
+            'text'	=> array(array('StringLength', 0, 255), 'allowEmpty' => false, 'presence' => 'required')
+        ), $data);
 
         if ( $f->parent_id == 'root') {
             $f->parent_id = new Zend_Db_Expr('NULL');
@@ -153,9 +147,9 @@ class Crm_Services_ChaptersModel extends Xend_Tree
         }
 
         $rows = $this->_table->updateByPk(array(
-                                               'parent_id' => $f->parent_id,
-                                               'text' => $f->text
-                                          ), $f->id);
+			'parent_id' => $f->parent_id,
+            'text' => $f->text
+        ), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
     }
@@ -183,12 +177,8 @@ class Crm_Services_ChaptersModel extends Xend_Tree
             if (DEBUG) {
                 throw $e;
             }
-
             $status = Xend_Status::DATABASE_ERROR;
         }
-
-
         return $response->addStatus(new Xend_Status($status));
     }
-
 }

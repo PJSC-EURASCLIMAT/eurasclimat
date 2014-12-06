@@ -4,7 +4,7 @@ Ext.define('EC.Services.store.Services', {
 
     model: 'EC.Services.model.Service',
 
-    pageSize: 25,
+    //pageSize: 25,
 
     proxy: {
         type: 'ajax',
@@ -14,14 +14,12 @@ Ext.define('EC.Services.store.Services', {
             update: '/json/crm/services/update',
             destroy: '/json/crm/services/destroy'
         },
-
         reader: {
             type: 'json',
             root: 'data',
             successProperty: 'success',
             messageProperty: 'message'
         },
-
         writer: {
             root: 'data',
             encode: true
@@ -36,6 +34,9 @@ Ext.define('EC.Services.store.Services', {
     autoLoad: true,
 
     sorters: [{
+    	property: 'leaf',
+        direction: 'ASC'
+    }, {
         property: 'text',
         direction: 'ASC'
     }]

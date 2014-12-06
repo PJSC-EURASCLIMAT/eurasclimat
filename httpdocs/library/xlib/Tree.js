@@ -1,4 +1,5 @@
 Ext.define('xlib.Tree', {
+	
     extend: 'Ext.tree.Panel',
 
     requires: [
@@ -12,7 +13,7 @@ Ext.define('xlib.Tree', {
     useArrows: true,
 
     animate: false,
-
+    
     rootVisible: false,
 
     permissions: false,
@@ -20,6 +21,8 @@ Ext.define('xlib.Tree', {
     controllerURL: null,
 
     hideHeaders: true,
+    
+    sortableColumns: false,
 
     store: null,
 
@@ -31,12 +34,14 @@ Ext.define('xlib.Tree', {
 
     editActionConfig: {},
 
+    confirmDrop: true,
+    
     tbar: [],
 
     initComponent: function() {
 
-        if ( this.store === null ) {
-            this.store =  new Ext.data.TreeStore({
+        if (null === this.store) {
+            this.store = new Ext.data.TreeStore({
                 fields: this.fields,
                 proxy: {
                     type: 'ajax',
@@ -46,35 +51,27 @@ Ext.define('xlib.Tree', {
                         update: this.controllerURL + 'update',
                         destroy: this.controllerURL + 'destroy'
                     },
-
                     reader: {
                         type: 'json',
                         root: 'data',
                         successProperty: 'success',
                         messageProperty: 'message'
                     },
-
                     writer: {
                         root: 'data',
                         encode: true
                     }
                 },
-
                 autoLoad: false,
-
                 sorters: [{
                     property: 'text',
                     direction: 'ASC'
                 }]
             });
-
             this.store.load();
-
         }
 
-
         var columnsList = [];
-
         var treeColumn = {
             xtype: 'treecolumn',
             text: 'Наименование',
@@ -100,11 +97,11 @@ Ext.define('xlib.Tree', {
 //            handler: this.onCollapseAllClick
 //        }];
 
-        if ( this.permissions && !this.isPortlet ) {
+        if (this.permissions && !this.isPortlet) {
 
             this.editing = Ext.create('Ext.grid.plugin.CellEditing', {
                 listeners: {
-                    canceledit: function( editor, e, eOpts ) {
+                    canceledit: function(editor, e, eOpts) {
                         e.record.reject();
                         this.store.sync({
                             success: this.syncSuccess,
@@ -112,7 +109,7 @@ Ext.define('xlib.Tree', {
                             scope: this
                         });
                     },
-                    edit: function( editor, e, eOpts ) {
+                    edit: function(editor, e, eOpts) {
                         this.store.sync({
                             success: this.syncSuccess,
                             failure: this.syncFailure,
@@ -137,8 +134,6 @@ Ext.define('xlib.Tree', {
                 scope: this
             };
 
-//            this.viewConfig.on('beforedrop', this.onBeforeDrop, this);
-
             this.plugins = [this.editing];
 
             this.selModel = {
@@ -160,30 +155,29 @@ Ext.define('xlib.Tree', {
                 handler: this.deleteNode
             };
 
-            if ( this.rootVisible ) {
-                removeActionConfig.getClass = function( value, meta, record ) {
-                    if( record.data.id === "root" ) {
+            if (this.rootVisible) {
+                removeActionConfig.getClass = function(value, meta, record) {
+                    if ("root" === record.data.id) {
                         return 'x-hide-visibility';
                     }
                 }
             }
 
-
-
-            if ( this.showEditAction ) {
-                actions.push( Ext.apply({
+            if (this.showEditAction) {
+            	var action = {
                     icon: '/images/icons/fam/plugin.gif',
                     tooltip: 'Редактировать',
                     handler: function(treeView, rowIndex, u, button, event, record, rowEl) {
                         this.fireEvent('edititem', treeView, record);
                     },
                     scope: this
-                }, this.editActionConfig ) );
+                };
+            	actions.push(Ext.apply(action, this.editActionConfig));
             }
 
             actions.push(removeActionConfig);
 
-            if ( !Ext.isEmpty( this.columns ) ) {
+            if (!Ext.isEmpty(this.columns)) {
                 columnsList = Ext.Array.merge(columnsList, this.columns);
             }
 
@@ -192,7 +186,6 @@ Ext.define('xlib.Tree', {
                 width: actions.length * 20,
                 items: actions
             });
-
         }
 
         this.configureTBar();
@@ -205,7 +198,6 @@ Ext.define('xlib.Tree', {
             this.addBtn = this.down('#add');
         }
 
-
 //        this.openAllBtn = this.down('#open-all');
 //        this.closeAllBtn = this.down('#close-all');
 
@@ -213,7 +205,7 @@ Ext.define('xlib.Tree', {
 
     configureTBar: function() {
 
-        this.tbar = ['->',{
+        this.tbar = ['->', {
             xtype: 'button',
             tooltip: 'Обновить',
             iconCls: 'x-tbar-loading',
@@ -223,7 +215,7 @@ Ext.define('xlib.Tree', {
             }
         }];
 
-        if ( this.permissions && !this.isPortlet ) {
+        if (this.permissions && !this.isPortlet) {
             this.tbar.unshift({
                 text: this.addText,
                 itemId: 'add',
@@ -235,9 +227,7 @@ Ext.define('xlib.Tree', {
                 }
             });
         }
-
     },
-
 
     syncSuccess: function(batch, options) {
         this.fireEvent('sync-success');
@@ -248,8 +238,8 @@ Ext.define('xlib.Tree', {
         Ext.MessageBox.alert('Сообщение', 'Операция не выполнена!');
     },
 
-
-    onExpandAllClick: function(){
+    onExpandAllClick: function() {
+    	
         var me = this,
             toolbar = me.down('toolbar');
 
@@ -263,9 +253,9 @@ Ext.define('xlib.Tree', {
         });
     },
 
-    onCollapseAllClick: function(){
+    onCollapseAllClick: function() {
+    	
         var toolbar = this.down('toolbar');
-
 //        toolbar.disable();
         this.getRootNode().collapseChildren(null, function() {
             // TODO Если все закрыты, то не попадает сюда
@@ -273,29 +263,29 @@ Ext.define('xlib.Tree', {
         });
     },
 
-    create: function( isLeaf ) {
+    create: function(isLeaf) {
+
         var selectedRecords = this.selModel.getSelection(),
             node,
             me = this,
             leaf = isLeaf || false;
 
-        if ( Ext.isArray( selectedRecords ) ) {
+        if (Ext.isArray(selectedRecords)) {
             node = selectedRecords[0];
-        } else if ( Ext.isObject( selectedRecords ) ) {
+        } else if (Ext.isObject(selectedRecords)) {
             node = selectedRecords;
         }
 
-        if ( Ext.isEmpty(node) ) {
+        if (Ext.isEmpty(node)) {
             node = this.getRootNode();
         }
 
         this.addBtn.disable();
 
         var fn = function() {
+        	
             node.set('leaf', false);
-
             me.getView().refresh();
-
             node.expand(false, function() {
                 var newNode = node.appendChild({
                     leaf: leaf,
@@ -306,12 +296,12 @@ Ext.define('xlib.Tree', {
             }, me);
         };
 
-        if ( !node ) {
+        if (!node) {
             node = this.getRootNode();
         }
 
-        if ( node.phantom ) {
-            this.on('sync-success', fn.bind(this), this, { single: true });
+        if (node.phantom) {
+            this.on('sync-success', fn.bind(this), this, {single: true});
             return;
         }
 
@@ -320,13 +310,13 @@ Ext.define('xlib.Tree', {
     },
 
     constraintErrorHandler: function() {
-        Ext.MessageBox.alert("Сообщение", "Невозможно удалить элемент, т.к есть зависимости");
+        Ext.MessageBox.alert('Сообщение', 'Невозможно удалить элемент, есть зависимости');
     },
 
     checkErrors: function() {
         //TODO хз как ошибки по человечески вынуть
-        Ext.each(this.store.proxy.reader.jsonData.errors, function(error){
-            if ( error.code === -41 ) {
+        Ext.each(this.store.proxy.reader.jsonData.errors, function(error) {
+            if (-41 === error.code) {
                 this.constraintErrorHandler();
             }
         }, this);
@@ -334,7 +324,7 @@ Ext.define('xlib.Tree', {
 
     deleteNode: function(treeView, rowIndex, u, button, event, record, rowEl) {
 
-        if ( record.data.id === "root" ) return;
+        if ('root' === record.data.id) return;
 
         var tree = treeView.ownerCt,
             beforeNode,
@@ -349,7 +339,7 @@ Ext.define('xlib.Tree', {
 
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
 
-            if ( 'yes' === b ) {
+            if ('yes' === b) {
 
                 // просто удаляет без синхронизации стора
                 // в store.removed падает только один record
@@ -363,36 +353,37 @@ Ext.define('xlib.Tree', {
                     scope: this
                 });
             }
-
         }, this);
-
-
-
     },
 
-    onBeforeDrop: function( node, data, overModel, dropPosition, dropHandlers, eOpts ) {
-//        dropHandlers.processDrop();
+    onBeforeDrop: function(node, data, overModel, dropPosition, dropHandlers, eOpts) {
+    	if (this.confirmDrop) {
+	    	dropHandlers.wait = true;
+	        Ext.MessageBox.confirm('Подтверждение', 'Вы уверены что хотите перенести позицию?', function(btn){
+	            if (btn === 'yes') {
+	                dropHandlers.processDrop();
+	            } else {
+	                dropHandlers.cancelDrop();
+	            }
+	        });
+    	}
     },
 
-    onDrop: function ( node, data, overModel, dropPosition, eOpts ) {
+    onDrop: function(node, data, overModel, dropPosition, eOpts) {
 
-        if ( overModel.isExpanded() ) {
+        if (overModel.isExpanded()) {
             this.store.sync();
             return;
         }
-
-        if ( overModel.data.parentId === 'root' && (dropPosition === 'before' || dropPosition === 'after')) {
+        
+        if ('root' === overModel.data.parentId && ('before' === dropPosition || 'after' === dropPosition)) {
             this.store.sync();
             return;
         }
-
-        if ( !overModel.isExpanded() ) {
+        if (!overModel.isExpanded()) {
             data.records[0].on('move', function(){
                 this.store.sync();
             }, this, {single: true});
         }
-
     }
-
-
 });

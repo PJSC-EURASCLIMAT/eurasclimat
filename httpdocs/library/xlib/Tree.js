@@ -64,6 +64,9 @@ Ext.define('xlib.Tree', {
                 },
                 autoLoad: false,
                 sorters: [{
+                	property: 'leaf',
+                    direction: 'ASC'
+                }, {
                     property: 'text',
                     direction: 'ASC'
                 }]

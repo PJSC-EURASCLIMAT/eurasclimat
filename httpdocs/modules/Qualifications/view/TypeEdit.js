@@ -26,26 +26,25 @@ Ext.define('EC.Qualifications.view.TypeEdit', {
             xtype: 'hiddenfield',
             margin: 0,
             name: 'id'
-        },{
+        }, {
             fieldLabel: 'Наименование',
             allowBlank: false,
             xtype: 'textfield',
             name: 'name'
         }],
 
-        buttons: ['->',{
+        buttons: ['->', {
             text: 'Сохранить',
             formBind: true,
             handler: function() {
                 var form = this.up('form');
                 this.up('form').fireEvent('save', form.getValues());
             }
-        },{
+        }, {
             text: 'Отмена',
             handler: function() {
                 this.up('window').close();
             }
         }]
     }]
-
 });

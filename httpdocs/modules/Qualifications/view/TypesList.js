@@ -22,7 +22,7 @@ Ext.define('EC.Qualifications.view.TypesList', {
             dataIndex: 'name'
         }];
 
-        if (this.permissions === true && !this.isPortlet) {
+        if (this.permissions true && !this.isPortlet) {
 
             actions.push({
                 icon: '/images/icons/fam/plugin.gif',
@@ -45,13 +45,11 @@ Ext.define('EC.Qualifications.view.TypesList', {
 
             });
 
-
             this.columns.push({
                 xtype:'actioncolumn',
                 width: parseInt(actions.length) * 20,
                 items: actions
             });
-
 
             this.tbar = [{
                 xtype: 'button',
@@ -63,11 +61,8 @@ Ext.define('EC.Qualifications.view.TypesList', {
                 },
                 scope: this
             }];
-
         }
 
         this.callParent();
-
     }
-
 });

@@ -70,7 +70,7 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
         }
     },
 
-    typeSelect: function ( grid, record, index, eOpts) {
+    typeSelect: function(grid, record, index, eOpts) {
         this.grid.enable();
         this.grid.store.clearFilter();
         this.grid.store.filter('type_id', record.data.id);
@@ -78,20 +78,18 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
 
     addItem: function() {
 
-
         var win = Ext.create('EC.Qualifications.view.Edit'),
             form = win.down('form');
 
         var selection = this.typesGrid.getSelectionModel().getSelection()[0];
 
-        if ( !Ext.isEmpty(selection) ) {
+        if (!Ext.isEmpty(selection)) {
             form.getForm().setValues({
                 'type_id': selection.data.id
             });
         }
 
-
-        form.on('save',function(values) {
+        form.on('save', function(values) {
             this.grid.store.add(values);
             this.grid.store.sync();
             this.grid.store.load();
@@ -99,13 +97,14 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
         }, this );
     },
 
-    editItem: function( grid, record ) {
+    editItem: function(grid, record) {
+    	
         var win = Ext.create('EC.Qualifications.view.Edit'),
             form = win.down('form');
 
-        form.getForm().setValues( record.data );
+        form.getForm().setValues(record.data);
 
-        form.on('save',function(values) {
+        form.on('save', function(values) {
             record.set(values);
             this.grid.store.sync();
             this.grid.store.load();
@@ -114,7 +113,8 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
 
     },
 
-    deleteItem: function( grid, record ) {
+    deleteItem: function(grid, record) {
+    	
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 this.grid.store.remove(record);
@@ -123,25 +123,26 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
         }, this);
     },
 
-
     addTypeItem: function() {
+    	
         var win = Ext.create('EC.Qualifications.view.TypeEdit'),
             form = win.down('form');
 
-        form.on('save',function(values) {
+        form.on('save', function(values) {
             this.typesGrid.store.add(values);
             this.typesGrid.store.sync();
             win.close();
         }, this );
     },
 
-    editTypeItem: function( grid, record ) {
+    editTypeItem: function(grid, record) {
+    	
         var win = Ext.create('EC.Qualifications.view.TypeEdit'),
             form = win.down('form');
 
-        form.getForm().setValues( record.data );
+        form.getForm().setValues(record.data);
 
-        form.on('save',function(values) {
+        form.on('save', function(values) {
             record.set(values);
             this.typesGrid.store.sync();
             win.close();
@@ -149,7 +150,8 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
 
     },
 
-    deleteTypeItem: function( grid, record ) {
+    deleteTypeItem: function(grid, record) {
+    	
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
             if ('yes' === b) {
                 this.typesGrid.store.remove(record);
@@ -157,5 +159,4 @@ Ext.define('EC.Qualifications.controller.Qualifications', {
             }
         }, this);
     }
-
 });

@@ -70,16 +70,15 @@ Ext.define('EC.Qualifications.view.Edit', {
         }];
 
         this.callParent();
+        
         this.type = this.down('[name=type_id]');
         this.typeName = this.down('[name=type_name]');
 
         this.type.on('select', this.onTypeSelect, this);
-
     },
 
-    onTypeSelect: function( combo, records, eOpts ) {
+    onTypeSelect: function(combo, records, eOpts) {
         var val = this.type.getDisplayValue();
-        this.typeName.setValue( val );
+        this.typeName.setValue(val);
     }
-
 });

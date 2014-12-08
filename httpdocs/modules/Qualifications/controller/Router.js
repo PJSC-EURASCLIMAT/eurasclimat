@@ -5,6 +5,7 @@ Ext.define('EC.Qualifications.controller.Router', {
     getURL: '/json/crm/qualifications/get',
 
     showInfo: function(recordId) {
+	
         Ext.Ajax.request({
             params: {
                 id: recordId
@@ -18,7 +19,6 @@ Ext.define('EC.Qualifications.controller.Router', {
                     card.showTpl.overwrite(card.down('panel').body, data);
                     card.setTitle(card.title + ' - ' + data.name);
                 }
-
             },
             failure: function(response, opts) {
                 Ext.Msg.alert('Ошибка', 'Не удалось загрузить новость.');

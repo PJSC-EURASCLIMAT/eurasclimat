@@ -14,5 +14,4 @@ Ext.define('EC.Qualifications.view.Info', {
         '<b>Тип: </b> {type_name}<br/><br/>',
         '</div>'
     )
-
 });

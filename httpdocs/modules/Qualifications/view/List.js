@@ -30,7 +30,7 @@ Ext.define('EC.Qualifications.view.List', {
             dataIndex: 'name'
         }];
 
-        if ( this.permissions === true && !this.isPortlet ) {
+        if (this.permissions && !this.isPortlet ) {
 
             actions.push({
                 icon: '/images/icons/fam/plugin.gif',
@@ -79,5 +79,4 @@ Ext.define('EC.Qualifications.view.List', {
         }
         this.callParent();
     }
-
 });

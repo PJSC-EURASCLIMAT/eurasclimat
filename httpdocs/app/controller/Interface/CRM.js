@@ -14,6 +14,7 @@ Ext.define('App.controller.Interface.CRM', {
         this.getController('App.controller.Interface.CRM.Calcsmr').run(container);
         this.getController('App.controller.Interface.CRM.Calcpd').run(container);
         this.getController('App.controller.Interface.CRM.Development').run(container);
+        this.getController('App.controller.Interface.CRM.Contractors').run(container);
         if (acl.isView('experts')) {
             this.getController('App.controller.Interface.CRM.Experts').run(container);
         }

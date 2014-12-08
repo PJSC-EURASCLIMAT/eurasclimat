@@ -1,0 +1,10 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS `contractors`;
+CREATE TABLE IF NOT EXISTS `contractors` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS=1;

@@ -21,7 +21,6 @@ Ext.define('EC.Contractors.controller.Contractors', {
 		get: '/json/crm/contractors/get',
 	    add: '/json/crm/contractors/create',
 	    update: '/json/crm/contractors/update',
-	    destroy: '/json/crm/contractors/destroy'
 	},
     
     permissions: acl.isUpdate('crm', 'contractors'),
@@ -101,7 +100,7 @@ Ext.define('EC.Contractors.controller.Contractors', {
 
         form.on('save', function(values) {
         	form.submit({
-	        	url: this.URL.edit,
+	        	url: this.URL.update,
 	    		success: function() {
 	    			this.fireEvent('itemSaved');
 	    			win.close();

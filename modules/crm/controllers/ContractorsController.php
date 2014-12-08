@@ -45,9 +45,7 @@ class Crm_ContractorsController extends Xend_Controller_Action
 
     public function readAction()
     {
-        $params =  $this->_getAllParams();
-
-        $response = $this->_model->read($params);
+        $response = $this->_model->read();
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
@@ -60,10 +58,7 @@ class Crm_ContractorsController extends Xend_Controller_Action
 
     public function updateAction()
     {
-        $params =  $this->_getAllParams();
-        $data = Zend_Json::decode($params['data']);
-
-        $response = $this->_model->update($data);
+        $response = $this->_model->update($this->_getAllParams());
         if ($response->isSuccess()) {
             $this->view->success = true;
         } else {

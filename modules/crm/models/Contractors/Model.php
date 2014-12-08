@@ -113,29 +113,6 @@ class Crm_Contractors_Model
             return $response;
         }
 
-        $num = $f->num;
-
-        $select = $this->_table->getAdapter()->select()
-            ->from(
-                array('q' => $this->_table->getTableName()),
-                array('q.id')
-            )
-            ->where('q.num >= ?', $num)
-            ->where('q.id != ?', $f->id)
-            ->where('type_id', $f->type_id)
-            ->order(array('num ASC'));
-
-        $sortedIds = $select->query()->fetchAll();
-
-        foreach( $sortedIds as $key => $value ) {
-            $num++;
-            $this->_table->updateByPk(array(
-                'num'       => $num
-            ), $value['id']);
-        }
-
-        $test = 0;
-
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));

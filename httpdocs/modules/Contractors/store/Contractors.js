@@ -20,6 +20,10 @@ Ext.define('EC.Contractors.store.Contractors', {
         writer: {
             root: 'data',
             encode: true
-        }
+        },
+        pageParam: undefined,
+        startParam: undefined,
+        sortParam: undefined,
+        limitParam: undefined
     }
 });

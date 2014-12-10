@@ -4,6 +4,23 @@ Ext.define('EC.Contractors.model.Contractors', {
 
     fields: [
         'id',
-        'name'
+        'name',
+        'full_name',
+		'legal_address',
+		'postal_address',
+		'form_organization',
+		'ogrn',
+		'okved',
+		'okato',
+		'okpo',
+		'inn_kpp',
+		'bank_account',
+		'bank',
+		'bik',
+		'corr_account',
+		'general_director',
+		'chief_accountant',
+		'phone',
+    	'site'
     ]
 });

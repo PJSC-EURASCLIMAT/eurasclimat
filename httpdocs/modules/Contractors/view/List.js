@@ -22,6 +22,38 @@ Ext.define('EC.Contractors.view.List', {
             sortable: false,
             hideable: false,
             dataIndex: 'name'
+        }, {
+        	text: 'Юридический адрес',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'legal_address'
+        }, {
+        	text: 'Ген.директор',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'general_director'
+        }, {
+        	text: 'Главный бухгалтер',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'chief_accountant'
+        }, {
+        	text: 'Телефон (секретарь)',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'phone'
+        }, {
+        	text: 'Сайт',
+        	xtype: 'templatecolumn',
+            tpl: '<a target="_blank" href="{site}">{site}</a>',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'site'
         }];
 
         if (this.permissions && !this.isPortlet ) {

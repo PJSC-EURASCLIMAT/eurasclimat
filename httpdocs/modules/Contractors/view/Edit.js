@@ -12,7 +12,7 @@ Ext.define('EC.Contractors.view.Edit', {
     
     modal: true,
     
-    width: 400,
+    width: 700,
 
     initComponent: function() {
 
@@ -22,8 +22,10 @@ Ext.define('EC.Contractors.view.Edit', {
             fieldDefaults: {
                 margin: '5 0',
                 labelWidth: 150,
-                anchor: '100%'
+                anchor: '100%',
+                allowBlank: true
             },
+            defaultType: 'textfield',
             items: [{
                 xtype: 'hiddenfield',
                 margin: 0,
@@ -31,11 +33,61 @@ Ext.define('EC.Contractors.view.Edit', {
             }, {
                 fieldLabel: 'Наименование',
                 allowBlank: false,
-                xtype: 'textfield',
                 name: 'name'
+            }, {
+                fieldLabel: 'Полное наименование',
+                name: 'full_name'
+            }, {
+                fieldLabel: 'Юридический адрес',
+                name: 'legal_address'
+            }, {
+                fieldLabel: 'Почтовый адрес',
+                name: 'postal_address'
+            }, {
+                fieldLabel: 'Форма организации',
+                name: 'form_organization'
+            }, {
+                fieldLabel: 'ОГРН',
+                name: 'ogrn'
+            }, {
+                fieldLabel: 'ОКВЭД',
+                name: 'okved'
+            }, {
+                fieldLabel: 'ОКАТО',
+                name: 'okato'
+            }, {
+                fieldLabel: 'ОКПО',
+                name: 'okpo'
+            }, {
+                fieldLabel: 'ИНН/КПП',
+                name: 'inn_kpp'
+            }, {
+                fieldLabel: 'Р/счет',
+                name: 'bank_account'
+            }, {
+                fieldLabel: 'Банк',
+                name: 'bank'
+            }, {
+                fieldLabel: 'БИК',
+                name: 'bik'
+            }, {
+                fieldLabel: 'Кор.счет',
+                name: 'corr_account'
+            }, {
+                fieldLabel: 'Ген.директор',
+                name: 'general_director'
+            }, {
+                fieldLabel: 'Главный бухгалтер',
+                name: 'chief_accountant'
+            }, {
+                fieldLabel: 'Телефон (секретарь)',
+                name: 'phone'
+            }, {
+            	fieldLabel: 'Сайт',
+            	name: 'site'
             }],
 
-            buttons: ['->',{
+            buttons: ['->', {
                 text: 'Сохранить',
                 formBind: true,
                 handler: function() {

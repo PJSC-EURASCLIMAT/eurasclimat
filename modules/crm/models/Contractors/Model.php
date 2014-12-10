@@ -103,8 +103,24 @@ class Crm_Contractors_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
-            'id'        => array('Id', 'allowEmpty' => false),
-            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'id'        		=> array('Id', 'allowEmpty' => false),
+            'name'      		=> array(array('StringLength', 1, 255), 'allowEmpty' => false),
+        	'full_name'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'legal_address'		=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'postal_address'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'form_organization'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'ogrn'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'okved'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'okato'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'okpo'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'inn_kpp'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'bank_account'		=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'bank'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'bik'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'corr_account'		=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'general_director'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'chief_accountant'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'phone'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true)
         ), $data);
 
         $response->addInputStatus($f);
@@ -136,5 +152,4 @@ class Crm_Contractors_Model
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
 }

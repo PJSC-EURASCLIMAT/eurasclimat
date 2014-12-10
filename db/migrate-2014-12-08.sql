@@ -21,6 +21,11 @@ CREATE TABLE IF NOT EXISTS `contractors` (
   `chief_accountant` text,
   `phone` text,
   `site` text,
+  `goods` text,
+  `address' text,
+  `shipment' text,
+  `discount' text,
+  `note' text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 

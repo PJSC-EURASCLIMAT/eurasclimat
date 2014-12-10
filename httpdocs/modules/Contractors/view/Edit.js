@@ -85,6 +85,23 @@ Ext.define('EC.Contractors.view.Edit', {
             }, {
             	fieldLabel: 'Сайт',
             	name: 'site'
+            }, {
+            	fieldLabel: 'Товар',
+            	name: 'goods'
+            }, {
+            	fieldLabel: 'Адрес',
+            	name: 'address'
+            }, {
+            	xtype: 'textarea',
+            	fieldLabel: 'Условия доставки',
+            	name: 'shipment'
+            }, {
+            	fieldLabel: 'Скидка %',
+            	name: 'discount'
+            }, {
+            	xtype: 'textarea',
+            	fieldLabel: 'Примечание',
+            	name: 'note'
             }],
 
             buttons: ['->', {

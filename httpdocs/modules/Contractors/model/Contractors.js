@@ -21,6 +21,11 @@ Ext.define('EC.Contractors.model.Contractors', {
 		'general_director',
 		'chief_accountant',
 		'phone',
-    	'site'
+    	'site',
+    	'goods',
+    	'address',
+    	'shipment',
+    	'discount',
+    	'note'
     ]
 });

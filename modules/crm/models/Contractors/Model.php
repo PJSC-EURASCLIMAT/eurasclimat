@@ -120,7 +120,13 @@ class Crm_Contractors_Model
 			'corr_account'		=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'general_director'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'chief_accountant'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
-			'phone'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true)
+			'phone'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'site'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'goods'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'address'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'shipment'			=> array(array('StringLength', 1, 4096), 'allowEmpty' => true),
+			'discount'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'note'				=> array(array('StringLength', 1, 4096), 'allowEmpty' => true)
         ), $data);
 
         $response->addInputStatus($f);

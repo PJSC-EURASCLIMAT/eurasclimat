@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `contractors_contacts` (
   `contractor_id` int(10) unsigned NOT NULL,
   `account_id` int(10) unsigned DEFAULT NULL,
   `name` text NOT NULL,
+  `function` text,
   `work_phone` text,
   `mobile_phone` text,
   `email` text,

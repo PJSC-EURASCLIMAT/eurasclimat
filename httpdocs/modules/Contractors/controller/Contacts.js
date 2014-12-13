@@ -1,78 +1,71 @@
-Ext.define('EC.Contractors.controller.Contractors', {
+Ext.define('EC.Contractors.controller.Contacts', {
 
     extend: 'Ext.app.Controller',
     
-    controllers: [
-	    'EC.Contractors.controller.Contacts'
-	],
-    
     stores: [
-        'EC.Contractors.store.Contractors'
+        'EC.Contractors.store.Contacts'
     ],
     
     models: [
-        'EC.Contractors.model.Contractors'
+        'EC.Contractors.model.Contacts'
     ],
     
     views: [
-        'EC.Contractors.view.List',
-        'EC.Contractors.view.Add',
-        'EC.Contractors.view.Edit',
-        //'EC.Contractors.view.Info'
+        'EC.Contractors.view.Contacts.List',
+        'EC.Contractors.view.Contacts.Edit'
     ],
     
     URL: {
-		get: '/json/crm/contractors/get',
-	    add: '/json/crm/contractors/create',
-	    update: '/json/crm/contractors/update'
+		get: '/json/crm/contractors-contacts/get',
+	    add: '/json/crm/contractors-contacts/create',
+	    update: '/json/crm/contractors-contacts/update'
 	},
     
+	contractor_id: null,
+	
     permissions: acl.isUpdate('crm', 'contractors'),
     
-    run: function(container) {
+    run: function(container, contractor_id) {
 
         this.Container = container;
+        this.contractor_id = contractor_id;
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
-
-        this.grid = container.add(Ext.create('EC.Contractors.view.List', {
-            permissions: this.permissions,
-            isPortlet: isPortlet
+        this.grid = container.add(Ext.create('EC.Contractors.view.Contacts.List', {
+            permissions: this.permissions
         }));
 
-        this.grid.getStore().load();
-
-        if (this.permissions && !isPortlet) {
+        if (this.permissions) {
 
             this.grid.on({
                 additem: this.addItem,
                 edititem: this.editItem,
                 deleteitem: this.deleteItem,
+                reload: this.loadList,
                 scope: this
             });
 
-            this.on('itemSaved', function() {
-                this.grid.getStore().load();
-            }, this);
-            
-            this.on('itemCreated', function(id) {
-        		var record = this.getModel('EC.Contractors.model.Contractors').create({id: id});
-        		this.editItem(this.grid, record);
-            }, this);
+            this.on('itemSaved', this.loadList, this);
         }
+        
+        this.loadList();
     },
 
+    loadList: function() {
+    	this.grid.getStore().load({params: {contractor_id: this.contractor_id}});
+    },
+    
     addItem: function() {
 
-        var win = Ext.create('EC.Contractors.view.Add'),
+        var win = Ext.create('EC.Contractors.view.Contacts.Edit'),
             form = win.down('form');
 
+        form.getForm().setValues({contractor_id: this.contractor_id});
+        
         form.on('save', function(values) {
         	form.submit({
         		url: this.URL.add,
         		success: function(form, action) {
         			this.fireEvent('itemSaved');
-        			this.fireEvent('itemCreated', action.result.id);
         			win.close();
         		},
         		failure: function(form, action) {
@@ -94,15 +87,12 @@ Ext.define('EC.Contractors.controller.Contractors', {
 
     editItem: function(grid, record) {
 
-        var win = Ext.create('EC.Contractors.view.Edit'),
-            form = win.down('form'),
-            contractor_id = record.get('id');
+        var win = Ext.create('EC.Contractors.view.Contacts.Edit'),
+            form = win.down('form');
 
-        this.getController('EC.Contractors.controller.Contacts').run(win.down('#ContractorsContactsTab'), contractor_id);
-        
         form.getForm().load({
         	url: this.URL.get,
-        	params: {id: contractor_id}
+        	params: {id: record.get('id')}
         });
 
         form.on('save', function(values) {

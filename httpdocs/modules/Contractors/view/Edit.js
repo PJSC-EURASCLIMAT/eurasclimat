@@ -12,7 +12,7 @@ Ext.define('EC.Contractors.view.Edit', {
     
     modal: true,
     
-    width: 700,
+    width: 900,
     
     height: 500,
     

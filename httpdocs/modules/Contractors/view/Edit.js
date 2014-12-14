@@ -137,7 +137,8 @@ Ext.define('EC.Contractors.view.Edit', {
         		itemId: 'ContractorsContactsTab'
         	}, {
         		title: 'Документы',
-        		itemId: 'ContractorsDocumentsTab'
+        		layout: 'fit',
+        		itemId: 'ContractorsDocsTab'
 	        }]
         }];
         

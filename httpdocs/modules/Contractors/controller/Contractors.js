@@ -3,7 +3,8 @@ Ext.define('EC.Contractors.controller.Contractors', {
     extend: 'Ext.app.Controller',
     
     controllers: [
-	    'EC.Contractors.controller.Contacts'
+	    'EC.Contractors.controller.Contacts',
+	    'EC.Contractors.controller.Docs'
 	],
     
     stores: [
@@ -100,6 +101,7 @@ Ext.define('EC.Contractors.controller.Contractors', {
             contractor_id = record.get('id');
 
         this.getController('EC.Contractors.controller.Contacts').run(win.down('#ContractorsContactsTab'), contractor_id);
+        this.getController('EC.Contractors.controller.Docs').run(win.down('#ContractorsDocsTab'), contractor_id);
         
         form.getForm().load({
         	url: this.URL.get,

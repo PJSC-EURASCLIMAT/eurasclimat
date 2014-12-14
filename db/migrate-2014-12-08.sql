@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `contractors` (
   `discount` text,
   `note` text,
   PRIMARY KEY (`id`),
-  KEY `eng_sys_type_id` (`eng_sys_type_id`),
+  KEY `eng_sys_type_id` (`eng_sys_type_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 INSERT INTO `contractors` (`id`, `name`, `full_name`, `legal_address`, `postal_address`, `form_organization`, `ogrn`, `okved`, `okato`, `okpo`, `inn_kpp`, `bank_account`, `bank`, `bik`, `corr_account`, `general_director`, `chief_accountant`, `phone`, `site`) VALUES

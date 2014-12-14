@@ -7,7 +7,8 @@ Ext.define('EC.Contractors.controller.Contractors', {
 	],
     
     stores: [
-        'EC.Contractors.store.Contractors'
+        'EC.Contractors.store.Contractors',
+        'EC.EngSystemTypes.store.EngSystemTypes'
     ],
     
     models: [

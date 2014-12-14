@@ -21,12 +21,14 @@ CREATE TABLE IF NOT EXISTS `contractors` (
   `chief_accountant` text,
   `phone` text,
   `site` text,
+  `eng_sys_type_id` INT(10) UNSIGNED NULL,
   `goods` text,
   `address` text,
   `shipment` text,
   `discount` text,
   `note` text,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `eng_sys_type_id` (`eng_sys_type_id`),
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 INSERT INTO `contractors` (`id`, `name`, `full_name`, `legal_address`, `postal_address`, `form_organization`, `ogrn`, `okved`, `okato`, `okpo`, `inn_kpp`, `bank_account`, `bank`, `bik`, `corr_account`, `general_director`, `chief_accountant`, `phone`, `site`) VALUES
@@ -46,6 +48,8 @@ CREATE TABLE IF NOT EXISTS `contractors_contacts` (
   KEY `contractor_id` (`contractor_id`),
   KEY `account_id` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `contractors` ADD FOREIGN KEY (`eng_sys_type_id`) REFERENCES `engineering_system_types`(`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
 
 ALTER TABLE `contractors_contacts`
   ADD CONSTRAINT `contractors_contacts_ibfk_1` FOREIGN KEY (`contractor_id`) REFERENCES `contractors` (`id`) ON DELETE CASCADE,

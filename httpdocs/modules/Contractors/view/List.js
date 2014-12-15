@@ -18,6 +18,8 @@ Ext.define('EC.Contractors.view.List', {
 
         this.columns = [{
             text: 'Наименование',
+            xtype: 'templatecolumn',
+            tpl: '<a href="#/contractors/{id}">{name}</a>',
             flex: 1,
             sortable: false,
             hideable: false,

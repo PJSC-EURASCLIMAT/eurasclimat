@@ -20,7 +20,7 @@ Ext.define('EC.Contractors.controller.Contractors', {
         'EC.Contractors.view.List',
         'EC.Contractors.view.Add',
         'EC.Contractors.view.Edit',
-        //'EC.Contractors.view.Info'
+        'EC.Contractors.view.Info'
     ],
     
     URL: {

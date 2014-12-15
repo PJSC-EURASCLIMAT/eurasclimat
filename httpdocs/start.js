@@ -43,7 +43,9 @@ Ext.application({
 
         '/download/:id'         : 'EC.Main.controller.Router#download',
 
-        '/catalog/:category/:id': 'EC.Catalog.controller.Router#showInfo'
+        '/catalog/:category/:id': 'EC.Catalog.controller.Router#showInfo',
+        	
+    	'/contractors/:id'		: 'EC.Contractors.controller.Router#showInfo'
     },
 
 

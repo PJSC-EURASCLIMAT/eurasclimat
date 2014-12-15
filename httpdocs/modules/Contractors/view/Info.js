@@ -32,7 +32,7 @@ Ext.define('EC.Contractors.view.Info', {
         	'<tr><td>Ген.директор:</td><td><b>{general_director}</td></tr>',
         	'<tr><td>Главный бухгалтер:</td><td><b>{chief_accountant}</td></tr>',
         	'<tr><td>Телефон (секретарь):</td><td><b>{phone}</td></tr>',
-        	'<tr><td>Сайт:</td><td><b>{site}</td></tr>',
+        	'<tr><td>Сайт:</td><td><b><a target="_blank" href="{site}">{site}</a></td></tr>',
         	'<tr><td>Тип инженерных систем:</td><td><b>{eng_sys_type_id}</td></tr>',
         	'<tr><td>Товар:</td><td><b>{goods}</td></tr>',
         	'<tr><td>Адрес:</td><td><b>{address}</td></tr>',

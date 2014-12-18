@@ -9,6 +9,36 @@ class Crm_Contractors_ContactsModel
         $this->_table = new Crm_Contractors_ContactsTable();
     }
 
+    public function get($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('c' => $this->_table->getTableName()))
+            ->where("c.id = ?", $id);
+
+        try {
+            $row = $select->query()->fetch();
+            if ( empty( $row ) ) {
+                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+            }
+
+            $response->setRow($row);
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Status::DATABASE_ERROR;
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
     public function create(array $data)
     {
         $response = new Xend_Response();
@@ -43,61 +73,15 @@ class Crm_Contractors_ContactsModel
         return $response->addStatus(new Xend_Status($status));
     }
 
-
-    public function read($params = array())
+    public function read($contractor_id)
     {
         $response = new Xend_Response();
 
-        $select = $this->_table->getAdapter()->select()
-            ->from(
-                array('c' => $this->_table->getTableName())
-            );
-
-        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
-        $plugin->parse($params);
-
-        try {
-            $rows = $select->query()->fetchAll();
-            $response->setRowset($rows);
-            $response->total = $plugin->getTotalCount();
-            $status = Xend_Status::OK;
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-            $status = Xend_Status::DATABASE_ERROR;
-        }
-
-        return $response->addStatus(new Xend_Status($status));
-    }
-
-    public function get($id)
-    {
-        $id = intval($id);
-        $response = new Xend_Response();
-        if ($id == 0) {
-            return $response->addStatus(new Xend_Status(
-                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        $select = $this->_table->getAdapter()->select()
-            ->from(array('c' => $this->_table->getTableName()))
-            ->where("c.id = ?", $id);
-
-        try {
-            $row = $select->query()->fetch();
-            if ( empty( $row ) ) {
-                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
-            }
-
-            $response->setRow($row);
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-            $status = Xend_Status::DATABASE_ERROR;
-        }
-
+		$rows = $this->_getList($contractor_id);
+		if (false == $rows) {
+			return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+		}
+        $response->setRowset($rows);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -145,5 +129,24 @@ class Crm_Contractors_ContactsModel
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+    
+    public function _getList($contractor_id)
+    {
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('c' => $this->_table->getTableName())
+            )
+            ->where('contractor_id = (?)', $contractor_id);
+
+        try {
+            $rows = $select->query()->fetchAll();
+            return $rows;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
     }
 }

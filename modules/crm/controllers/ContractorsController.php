@@ -13,19 +13,21 @@ class Crm_ContractorsController extends Xend_Controller_Action
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->contractors);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-info');
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'create');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'read');
-        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'destroy');
     }
 
-    public function createAction()
+    public function getInfoAction()
     {
-        $response = $this->_model->create($this->_getAllParams());
-        if ( $response->isSuccess() ) {
+        $response = $this->_model->getInfo($this->_getParam('id'));
+        if ($response->isSuccess()) {
+            $row = $response->getRow();
             $this->view->success = true;
-            $this->view->id = $response->id;
+            $this->view->data = $row;
         } else {
             $this->_collectErrors($response);
         }
@@ -38,6 +40,17 @@ class Crm_ContractorsController extends Xend_Controller_Action
             $row = $response->getRow();
             $this->view->success = true;
             $this->view->data = $row;
+        } else {
+            $this->_collectErrors($response);
+        }
+    }
+
+    public function createAction()
+    {
+        $response = $this->_model->create($this->_getAllParams());
+        if ( $response->isSuccess() ) {
+            $this->view->success = true;
+            $this->view->id = $response->id;
         } else {
             $this->_collectErrors($response);
         }

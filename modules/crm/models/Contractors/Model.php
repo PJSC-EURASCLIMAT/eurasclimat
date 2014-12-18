@@ -9,6 +9,42 @@ class Crm_Contractors_Model
         $this->_table = new Crm_Contractors_Table();
     }
 
+    public function getInfo($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $row = $this->_getRow($id);
+		if (false == $row) {
+			return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+		}
+		$contactsModel = new Crm_Contractors_ContactsModel();
+		$row['contacts'] = $contactsModel->_getList($id);   
+		$response->setRow($row);
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function get($id)
+    {
+        $id = intval($id);
+        $response = new Xend_Response();
+        if ($id == 0) {
+            return $response->addStatus(new Xend_Status(
+                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+
+        $row = $this->_getRow($id);
+		if (false == $row) {
+			return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
+		}
+		$response->setRow($row);
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
     public function create(array $data)
     {
         $response = new Xend_Response();
@@ -64,36 +100,6 @@ class Crm_Contractors_Model
         }
 
         return $response->addStatus(new Xend_Status($status));
-    }
-
-    public function get($id)
-    {
-        $id = intval($id);
-        $response = new Xend_Response();
-        if ($id == 0) {
-            return $response->addStatus(new Xend_Status(
-                    Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
-        }
-
-        $select = $this->_table->getAdapter()->select()
-            ->from(array('c' => $this->_table->getTableName()))
-            ->where("c.id = ?", $id);
-
-        try {
-            $row = $select->query()->fetch();
-            if ( empty( $row ) ) {
-                return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
-            }
-
-            $response->setRow($row);
-        } catch (Exception $e) {
-            if (DEBUG) {
-                throw $e;
-            }
-            $status = Xend_Status::DATABASE_ERROR;
-        }
-
-        return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
     public function update(array $data)
@@ -157,5 +163,27 @@ class Crm_Contractors_Model
         }
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+    
+	private function _getRow($id)
+    {
+        $id = intval($id);
+        $select = $this->_table->getAdapter()->select()
+            ->from(array('c' => $this->_table->getTableName()))
+            ->where("c.id = ?", $id);
+
+        try {
+            $row = $select->query()->fetch();
+            if (empty($row)) {
+                return false;
+            }
+
+            return $row;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
     }
 }

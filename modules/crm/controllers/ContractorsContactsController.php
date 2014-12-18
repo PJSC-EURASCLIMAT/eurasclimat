@@ -45,12 +45,11 @@ class Crm_ContractorsContactsController extends Xend_Controller_Action
 
     public function readAction()
     {
-        $response = $this->_model->read($this->_getAllParams());
+        $response = $this->_model->read($this->_getParam('contractor_id'));
         if ($response->isSuccess()) {
             $data = $response->getRowset();
             $this->view->success = true;
             $this->view->data = $data;
-            $this->view->total = $response->total;
         } else {
             $this->_collectErrors($response);
         }

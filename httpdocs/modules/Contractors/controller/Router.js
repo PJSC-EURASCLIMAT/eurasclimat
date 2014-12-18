@@ -2,7 +2,7 @@ Ext.define('EC.Contractors.controller.Router', {
     
     extend: 'Ext.app.Controller',
 
-    getURL: '/json/crm/contractors/get',
+    getURL: '/json/crm/contractors/get-info',
 
     showInfo: function(recordId) {
 	

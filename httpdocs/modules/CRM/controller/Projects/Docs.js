@@ -90,7 +90,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                         src: url
                     });
                 } else {
-                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                    Ext.Msg.alert('Сообщение', 'Запрашиваемый файл не найден');
                 }
             },
             failure: function(response, opts) {
@@ -314,7 +314,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                         src: url
                     });
                 } else {
-                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                    Ext.Msg.alert('Сообщение', 'Запрашиваемый файл не найден');
                 }
 
             },

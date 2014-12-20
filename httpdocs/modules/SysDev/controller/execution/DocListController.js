@@ -89,7 +89,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                         src: url
                     });
                 } else {
-                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                    Ext.Msg.alert('Сообщение', 'Запрашиваемый файл не найден');
                 }
 
             },
@@ -296,7 +296,7 @@ Ext.define('EC.SysDev.controller.execution.DocListController', {
                         src: url
                     });
                 } else {
-                    Ext.Msg.alert('Сообщение', 'Заправшиваемый файл не найден');
+                    Ext.Msg.alert('Сообщение', 'Запрашиваемый файл не найден');
                 }
 
             },

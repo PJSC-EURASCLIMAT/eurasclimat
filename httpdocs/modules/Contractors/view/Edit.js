@@ -93,6 +93,9 @@ Ext.define('EC.Contractors.view.Edit', {
 	            	fieldLabel: 'Сайт',
 	            	name: 'site'
 	            }, {
+	            	fieldLabel: 'Торговая марка',
+	            	name: 'trademark'
+	            }, {
 	                xtype: 'combo',
 	                editable: false,
 	                fieldLabel: 'Тип инженерных систем',

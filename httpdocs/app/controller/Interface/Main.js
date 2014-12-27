@@ -25,20 +25,20 @@ Ext.define('App.controller.Interface.Main', {
 //        }, {
         	title: 'Новости',
         	icon: '/images/icons/news.png',
-        	portletHeight: 450,
-        	position: 'MainPanel-column-1',
+        	portletHeight: 350,
+        	position: 'MainPanel-column-3',
         	launchModule: 'EC.Main.controller.News'
         }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 450,
-            position: 'MainPanel-column-2',
+            portletHeight: 660,
+            position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.Currency'
         }, {
         	title: 'Прогноз погоды',
         	icon: '/images/icons/kweather.png',
-        	portletHeight: 450,
-        	position: 'MainPanel-column-3',
+        	portletHeight: 660,
+        	position: 'MainPanel-column-2',
         	launchModule: 'EC.Main.controller.Weather'
 //        }, {
 //            title: 'О системе',
@@ -72,12 +72,12 @@ Ext.define('App.controller.Interface.Main', {
 //            portletHeight: 370,
 //            position: 'MainPanel-column-1',
 //            launchModule: 'EC.Experts.controller.ActiveExperts'
-//        }, {
-//            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
-//            icon: '/images/icons/kweather.png',
-//            portletHeight: 300,
-//            position: 'MainPanel-column-3',
-//            launchModule: 'EC.Main.controller.Newyear'
+        }, {
+            title: 'С НАСТУПАЮЩИМ НОВЫМ ГОДОМ! ',
+            icon: '/images/icons/kweather.png',
+            portletHeight: 300,
+            position: 'MainPanel-column-3',
+            launchModule: 'EC.Main.controller.Newyear'
         }];
         
         Ext.each(modulesToOpen, function(item) {

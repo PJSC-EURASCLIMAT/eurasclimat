@@ -25,6 +25,12 @@ Ext.define('EC.Contractors.view.List', {
             hideable: false,
             dataIndex: 'name'
         }, {
+        	text: 'Торговая марка',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'trademark'
+        }, {
         	text: 'Юридический адрес',
         	flex: .5,
         	sortable: false,

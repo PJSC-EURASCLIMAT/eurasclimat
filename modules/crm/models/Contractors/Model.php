@@ -128,6 +128,7 @@ class Crm_Contractors_Model
 			'chief_accountant'	=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'phone'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'site'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
+			'trademark'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'goods'				=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'address'			=> array(array('StringLength', 1, 255), 'allowEmpty' => true),
 			'shipment'			=> array(array('StringLength', 1, 4096), 'allowEmpty' => true),

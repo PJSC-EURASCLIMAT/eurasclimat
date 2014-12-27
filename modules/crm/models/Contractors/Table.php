@@ -26,6 +26,7 @@ class Crm_Contractors_Table extends Xend_Db_Table_Abstract
 		'chief_accountant',
 		'phone',
     	'site',
+    	'trademark',
     	'goods',
     	'address',
     	'shipment',

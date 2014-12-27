@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `contractors` (
   `chief_accountant` text,
   `phone` text,
   `site` text,
+  `trademark` text,
   `eng_sys_type_id` INT(10) UNSIGNED NULL,
   `goods` text,
   `address` text,

@@ -17,6 +17,12 @@ Ext.define('EC.Contractors.view.List', {
         var actions = [];
 
         this.columns = [{
+        	text: 'Торговая марка',
+        	flex: .5,
+        	sortable: false,
+        	hideable: false,
+        	dataIndex: 'trademark'
+        }, {
             text: 'Наименование',
             xtype: 'templatecolumn',
             tpl: '<a href="#/contractors/{id}">{name}</a>',
@@ -24,12 +30,6 @@ Ext.define('EC.Contractors.view.List', {
             sortable: false,
             hideable: false,
             dataIndex: 'name'
-        }, {
-        	text: 'Торговая марка',
-        	flex: .5,
-        	sortable: false,
-        	hideable: false,
-        	dataIndex: 'trademark'
         }, {
         	text: 'Юридический адрес',
         	flex: .5,

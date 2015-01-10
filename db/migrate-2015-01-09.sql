@@ -1,0 +1,5 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE `crm_projects_members` ADD `is_editor` INT NOT NULL ;
+
+SET FOREIGN_KEY_CHECKS=1;

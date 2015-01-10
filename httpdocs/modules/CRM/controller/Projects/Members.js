@@ -16,6 +16,8 @@ Ext.define('EC.CRM.controller.Projects.Members', {
     
     deleteURL: '/json/crm/projects/delete-member',
     
+    editURL: '/json/crm/projects/edit-member',
+    
     projectID: null,
     
     permissions: acl.isUpdate('crm', 'projects'),
@@ -35,6 +37,11 @@ Ext.define('EC.CRM.controller.Projects.Members', {
         
             membersPanel.on('deleteitem', this.onDelete, this);
             
+            Ext.each(membersPanel.query('checkcolumn'), function(item) {
+                item.on('checkchange', this.onEdit, this);
+            }, this);
+                
+            
             var addButtons = membersPanel.query('menuitem');
             Ext.each(addButtons, function(item) {
                 item.on({
@@ -44,6 +51,14 @@ Ext.define('EC.CRM.controller.Projects.Members', {
                     scope: this
                 });
             }, this);
+            
+        } else {
+        	
+        	Ext.each(membersPanel.query('checkcolumn'), function(item) {
+        		item.on('beforecheckchange', function() {
+        			return false;
+        		});
+        	}, this);
         }
         
         this.loadStore();
@@ -139,5 +154,31 @@ Ext.define('EC.CRM.controller.Projects.Members', {
                 });
             }
         }, this);
+    },
+    
+    onEdit: function(checkColumn, recordIndex, checked, record, dataIndex) {
+        
+        var failure = function() {
+            record.reject();
+            Ext.Msg.alert('Ошибка', 'Ошибка при установке свойства!');
+        };
+        
+        Ext.Ajax.request({
+            params: {
+                id: record.get('id'),
+                value: checked
+            },
+            url: this.editURL,
+            success: function(response, opts) {
+                var resp = Ext.decode(response.responseText, true);
+                if (!resp || !resp.success) {
+                    failure();
+                    return;
+                }
+                record.commit();
+            },
+            failure: failure,
+            scope: this
+        });
     }
 });

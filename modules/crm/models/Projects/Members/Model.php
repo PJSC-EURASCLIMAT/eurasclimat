@@ -21,7 +21,7 @@ class Crm_Projects_Members_Model
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('m' => $this->_table->getTableName()),
-                array( 'm.id', 'm.account_id', 'm.role')
+                array( 'm.id', 'm.account_id', 'm.role', 'm.is_editor')
             )
             ->joinLeft(array('a' => 'accounts'), 'a.id=m.account_id',
                 array('account_name' => 'a.name')
@@ -76,6 +76,32 @@ class Crm_Projects_Members_Model
         }
 
         $res = $this->_table->deleteByPk($id);
+        if (false === $res) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+        }
+
+        return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+
+    public function edit($id, $value)
+    {
+        $response = new Xend_Response();
+        
+        $id = intval($id);
+        $validator = new Xend_Validate_Id();
+        if (!$validator->isValid($id)) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        
+        $value = intval($value);
+        $validator = new Xend_Validate_Id(true);
+    	if (!$validator->isValid($value)) {
+            return $response->addStatus(new Xend_Status(
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'value'));
+        }
+
+        $res = $this->_table->updateByPk(array('is_editor' => $value), $id);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }

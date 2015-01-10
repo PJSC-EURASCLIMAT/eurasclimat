@@ -1,6 +1,0 @@
-ALTER TABLE `calcpd_price` CHANGE `price` `price1` DOUBLE(10,2) UNSIGNED NOT NULL;
-ALTER TABLE `calcpd_price` 
-    ADD `price2` DOUBLE(10,2) UNSIGNED NOT NULL , 
-    ADD `price3` DOUBLE(10,2) UNSIGNED NOT NULL , 
-    ADD `price4` DOUBLE(10,2) UNSIGNED NOT NULL , 
-    ADD `price5` DOUBLE(10,2) UNSIGNED NOT NULL ;

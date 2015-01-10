@@ -58,6 +58,13 @@ Ext.define('EC.CRM.view.Projects.Members', {
             dataIndex: 'country',
             width: 200
         }, {
+        	xtype: 'checkcolumn',
+        	text: 'Редактирование',
+        	align: 'center',
+            dataIndex: 'is_editor',
+            disabled: !this.permissions,
+            width: 120
+        }, {
             xtype: 'actioncolumn',
             width: 20,
             items: [{

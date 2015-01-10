@@ -8,6 +8,7 @@ Ext.define('EC.CRM.model.Projects.Members', {
         'account_id',
         'account_name',
         'city',
-        'country'
+        'country',
+        'is_editor'
     ]
 });

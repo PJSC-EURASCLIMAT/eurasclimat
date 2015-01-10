@@ -30,6 +30,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-members');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-member');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-member');
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-member');
     }
 
     public function getListAction()
@@ -150,7 +151,6 @@ class Crm_ProjectsController extends Xend_Controller_Action
             $this->_getParam('role')
         );
         if ($response->isSuccess()) {
-            $this->view->data = $response->data;
             $this->view->success = true;
         } else {
            $this->_collectErrors($response);
@@ -162,7 +162,17 @@ class Crm_ProjectsController extends Xend_Controller_Action
         $model = new Crm_Projects_Members_Model();
         $response = $model->delete($this->_getParam('id'));
         if ($response->isSuccess()) {
-            $this->view->data = $response->data;
+            $this->view->success = true;
+        } else {
+           $this->_collectErrors($response);
+        }
+    }
+
+    public function editMemberAction()
+    {
+        $model = new Crm_Projects_Members_Model();
+        $response = $model->edit($this->_getParam('id'), $this->_getParam('value'));
+        if ($response->isSuccess()) {
             $this->view->success = true;
         } else {
            $this->_collectErrors($response);

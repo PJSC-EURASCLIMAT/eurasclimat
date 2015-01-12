@@ -39,7 +39,6 @@ class Crm_ProjectsController extends Xend_Controller_Action
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->data = $response->getRowset();
-            $this->view->total = $response->totalCount;
         } else {
             $this->_collectErrors($response);
         }

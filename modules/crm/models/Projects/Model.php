@@ -15,6 +15,7 @@ class Crm_Projects_Model
 
         $accountsTable = new Xend_Accounts_Table_Accounts();
         $groupsTable = new Crm_Projects_Groups_Table();
+        $membersTable = new Crm_Projects_Members_Table();
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('p' => $this->_table->getTableName()))
@@ -23,13 +24,21 @@ class Crm_Projects_Model
             ->join(array('g' => $groupsTable->getTableName()),
                 'g.id=p.group_id', array('group_name'    => 'g.name'));
 
+		$userID = Xend_Accounts_Prototype::getId();
+		$accounts = new Xend_Accounts();
+		if (!$accounts->isAdmin($userID)) {
+			$select->join(array('m' => $membersTable->getTableName()), 'm.project_id = p.id', array('account_id'));
+			$select->where('m.account_id = (?)', $userID);
+			$select->orWhere('p.creator_id = (?)', $userID);
+			$select->group('id');
+		}
+		
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
 
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
-            $response->totalCount = $plugin->getTotalCount();
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

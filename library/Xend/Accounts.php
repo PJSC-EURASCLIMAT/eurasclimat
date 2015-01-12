@@ -847,23 +847,21 @@ class Xend_Accounts
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
-    /*********************** Private methods ******************************/
-
     /**
      * @param int $id
      * @return bool
      */
-    private function isAdmin($id)
+    public function isAdmin($id)
     {
         if (intval($id) < 1) {
             return false;
         }
-        $row = $this->_tableAccounts->findOne(intval($id));
-        if (!$row || is_null($row)) {
-            return false;
-        }
-        return ($row->role_id == ADMIN_ROLE);
+        $table = new Xend_Acl_Table_RolesAccounts();
+        $roles = $table->getRolesByAccountId($id);
+        return (in_array(ADMIN_ROLE, $roles));
     }
+
+    /*********************** Private methods ******************************/
 
     /**
      * @return int

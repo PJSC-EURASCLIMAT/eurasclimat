@@ -15,27 +15,24 @@ class Crm_Projects_Model
 
         $accountsTable = new Xend_Accounts_Table_Accounts();
         $groupsTable = new Crm_Projects_Groups_Table();
-        $membersTable = new Crm_Projects_Members_Table();
 
         $select = $this->_table->getAdapter()->select()
             ->from(array('p' => $this->_table->getTableName()))
             ->joinLeft(array('a' => $accountsTable->getTableName()),
-                'a.id=p.creator_id', array('creator_name'  => 'a.name'))
+                'a.id=p.creator_id', array('creator_name' => 'a.name'))
             ->join(array('g' => $groupsTable->getTableName()),
-                'g.id=p.group_id', array('group_name'    => 'g.name'));
+                'g.id=p.group_id', array('group_name' => 'g.name'));
 
 		$userID = Xend_Accounts_Prototype::getId();
 		$accounts = new Xend_Accounts();
 		if (!$accounts->isAdmin($userID)) {
-			$select->join(array('m' => $membersTable->getTableName()), 'm.project_id = p.id', array('account_id'));
-			$select->where('m.account_id = (?)', $userID);
-			$select->orWhere('p.creator_id = (?)', $userID);
+        	$membersTable = new Crm_Projects_Members_Table();
+			$select->joinLeft(array('m' => $membersTable->getTableName()), 'm.project_id = p.id', array('account_id', 'is_editor'));
+			$select->orWhere('account_id = (?)', $userID);
+			$select->orWhere('creator_id = (?)', $userID);
 			$select->group('id');
 		}
 		
-        $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
-        $plugin->parse($params);
-
         try {
             $rows = $select->query()->fetchAll();
             $response->setRowset($rows);
@@ -70,7 +67,22 @@ class Crm_Projects_Model
         if (!$rows) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
-        $response->setRow($rows[0]);
+        
+        $row = $rows[0];
+    	$userID = Xend_Accounts_Prototype::getId();
+		$accounts = new Xend_Accounts();
+		if ($accounts->isAdmin($userID) || $row['creator_id'] == $userID) {
+			$row['is_editor'] = 1;
+		} else {
+        	$members = new Crm_Projects_Members_Model();
+        	$memberinfo = $members->getMemberByProjectIdAndAccountId($id, $userID);
+        	if (!$memberinfo) {
+        		return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        	}
+        	$row['is_editor'] = $memberinfo['is_editor']; 
+		}
+        
+        $response->setRow($row);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
@@ -110,6 +122,18 @@ class Crm_Projects_Model
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
+        
+        $project = $this->_table->findOne($id);
+        if (!$project) {
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
+        }
+        
+        $userID = Xend_Accounts_Prototype::getId();
+		$accounts = new Xend_Accounts();
+        if ($project->creator_id != $userID && !$accounts->isAdmin($userID)) {
+            return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
+        } 
+        
         $res = $this->_table->deleteByPk($id);
         if (false === $res) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));

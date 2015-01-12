@@ -109,6 +109,46 @@ class Crm_Projects_Members_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
+    public function getMemberByProjectIdAndAccountId($projectID, $accountID) 
+    {
+    	$projectID = intval($projectID);
+    	$accountID = intval($accountID);
+        if (0 == $accountID || 0 == $projectID) {
+            return false;
+        }
+
+        $select = $this->_table->getAdapter()->select()
+            ->from(
+                array('m' => $this->_table->getTableName()),
+                array( 'm.id', 'm.account_id', 'm.role', 'm.is_editor')
+            )
+            ->joinLeft(array('a' => 'accounts'), 'a.id=m.account_id',
+                array('account_name' => 'a.name')
+            )
+            ->joinLeft(array('c' => 'cities'), 'c.id=a.city_id',
+                array('city' => 'c.name')
+            )
+            ->joinLeft(array('co' => 'countries'), 'co.id=c.country_id',
+                array('country' => 'co.name')
+            )
+            ->where('m.project_id = (?)', $projectID)
+            ->where('m.account_id = (?)', $accountID)
+            ;
+
+        try {
+            $rows = $select->query()->fetchAll();
+            if (!$rows || !is_array($rows) || count($rows) < 1) {
+            	return false;	
+            }
+            return $rows[0];
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            return false;
+        }
+    }
+    
     private function _SendNotify($project_id, $account_id, $role)
     {
         $messenger = new PA_Messages_Model();

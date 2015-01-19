@@ -154,7 +154,7 @@ class Crm_Projects_Model
             'address'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'object_type'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'area'          => array('Id', 'allowEmpty' => true),
-            'description'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),
+            'description'   => array(array('StringLength', 0, 8196), 'allowEmpty' => true),
             'stage'         => array(array('InArray', array('preparation',
                                                             'coordination',
                                                             'execution',

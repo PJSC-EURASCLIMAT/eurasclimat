@@ -16,7 +16,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
-        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->crm->projects);
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projects);
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'help');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
@@ -132,7 +132,7 @@ class Crm_ProjectsController extends Xend_Controller_Action
     public function getMembersAction()
     {
         $model = new Crm_Projects_Members_Model();
-        $response = $model->get($this->_getParam('project_id'));
+        $response = $model->getListByProjectID($this->_getParam('project_id'));
         if ($response->isSuccess()) {
             $this->view->success = true;
             $this->view->data = $response->getRowset();

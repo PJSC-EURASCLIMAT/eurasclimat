@@ -20,7 +20,7 @@ Ext.define('EC.CRM.controller.Projects.Members', {
     
     projectID: null,
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     run: function(container) {
 

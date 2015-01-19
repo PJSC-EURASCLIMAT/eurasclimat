@@ -2,7 +2,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator.EquipmentEditor', {
     
     extend: 'Ext.app.Controller',
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     getURL: '/json/crm/projects-configurator/get-equipment',
     

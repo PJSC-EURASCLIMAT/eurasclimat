@@ -9,7 +9,7 @@ class Crm_Projects_Members_Model
         $this->_table = new Crm_Projects_Members_Table();
     }
 
-    public function get($id)
+    public function getListByProjectID($id)
     {
         $id = intval($id);
         $response = new Xend_Response();

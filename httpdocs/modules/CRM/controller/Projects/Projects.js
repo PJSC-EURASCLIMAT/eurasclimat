@@ -23,7 +23,7 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         'EC.CRM.controller.Projects.ProjectEdit'
     ],
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     addURL: '/json/crm/projects/add',
     

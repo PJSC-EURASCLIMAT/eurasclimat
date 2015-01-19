@@ -53,7 +53,6 @@ Ext.define('EC.CRM.controller.Projects.ProjectsGroups', {
                 scope: this
             }, this);
         }
-        
     },
     
     addItem: function() {

@@ -1,6 +1,8 @@
-Ext.define('App.view.Interface.CRM.Orders', {
+Ext.define('App.view.Interface.Projects', {
 
     extend: 'App.view.PortalLayoutAbstarct',
+    
+    alias: 'widget.ProjectsPanel',
 
     title: 'Заказы-проекты',
     
@@ -15,11 +17,11 @@ Ext.define('App.view.Interface.CRM.Orders', {
         closable: false,
         columns: 3,
         items: [{
-            id: 'MainPanel-orders-column-1'
+            id: 'ProjectsPanel-orders-column-1'
         }, {
-            id: 'MainPanel-orders-column-2'
+            id: 'ProjectsPanel-orders-column-2'
         }, {
-            id: 'MainPanel-orders-column-3'
+            id: 'ProjectsPanel-orders-column-3'
         }]
     }]
 

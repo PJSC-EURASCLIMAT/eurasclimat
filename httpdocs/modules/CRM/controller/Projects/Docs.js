@@ -167,7 +167,6 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                 }
             }, this);
         }
-
     },
 
     removeDocVersion: function(id, file_id) {

@@ -31,7 +31,7 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     projectCreateDate: null,
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     getBaseDescrURL: '/json/crm/projects/get-base-descr',
     

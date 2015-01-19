@@ -19,7 +19,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     projectID: null,
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     addEquipmentURL: '/json/crm/projects-configurator/add-equipment',
     

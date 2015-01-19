@@ -6,8 +6,6 @@ Ext.define('App.controller.Main', {
     
     requires: ['xlib.portal.PortalPanel'],
 
-
-    
     run: function() {
         
         var MainLayout = this.getView('Layout').create();
@@ -56,6 +54,7 @@ Ext.define('App.controller.Main', {
         });
         
         this.getController('App.controller.Interface.Main');
+        this.getController('App.controller.Interface.Projects');
         this.getController('App.controller.Interface.Catalog');
         this.getController('App.controller.Interface.Manufacturers');
         this.getController('App.controller.Interface.Market');

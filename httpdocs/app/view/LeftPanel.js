@@ -113,22 +113,6 @@ Ext.define('App.view.LeftPanel', {
         }, {
             id: 'EC-subchapter-menu',
             items: []
-        }, {
-            text: 'Служебное меню',
-            xtype: 'label',
-            hidden: !acl.isView('admin'),
-            style: 'margin-top: 10px;',
-            cls: 'x-panel-header-text-default'
-        }, {
-            id: 'EC-support-menu',
-            hidden: !acl.isView('admin'),
-            items: [{
-                text: 'Администрирование',
-                iconCls: 'expand-all',
-                action: 'admin',
-                hidden: !acl.isView('admin'),
-                launchModule: 'EC.Admin.controller.Main'
-            }]
         }]
     }]
 });

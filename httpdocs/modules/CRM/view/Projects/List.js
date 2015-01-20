@@ -8,7 +8,7 @@ Ext.define('EC.CRM.view.Projects.List', {
     
     store: 'EC.CRM.store.Projects.Projects',
     
-    permissions: acl.isUpdate('projects'),
+    permissions: null,
     
     enableColumnHide: false,
     

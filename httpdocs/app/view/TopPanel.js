@@ -39,55 +39,55 @@ Ext.define('App.view.TopPanel', {
            {text: 'info@eurasmail.ru', icon: '/images/icons/icon-email.png'},
         ]
     },
-    {xtype: "tbspacer", width:15},
-    {
-        xtype: 'button',
-        tooltip: 'Все виджеты',
-        icon: '/images/icons/widgets_all.png',
-        arrowCls: '',
-        action: 'allwidgets',
-        menu: [{
-            text: 'Новости',
-            icon: '/images/icons/news_list.png',
-            initConfig: {
-                title: 'Новости',
-                icon: '/images/icons/news_list.png',
-                portletHeight: 210,
-                position: 'MainPanel-column-1',
-                launchModule: 'EC.Main.controller.News'
-            }
-        }, {
-            text: 'Разработка системы',
-            icon: '/images/icons/about.png',
-            initConfig: {
-                title: 'Разработка системы',
-                icon: '/images/icons/about.png',
-                portletHeight: 410,
-                position: 'MainPanel-column-1',
-                launchModule: 'EC.Main.controller.Sysdev'
-            }
-        }, {
-            text: 'Курсы валют',
-            icon: '/images/icons/cur_exch.png',
-            initConfig: {
-                title: 'Курсы валют',
-                icon: '/images/icons/cur_exch.png',
-                portletHeight: 200,
-                position: 'MainPanel-column-3',
-                launchModule: 'EC.Main.controller.Currency'
-            }
-        }, {
-            text: 'Прогноз погоды',
-            icon: '/images/icons/kweather.png',
-            initConfig: {
-                title: 'Прогноз погоды',
-                icon: '/images/icons/kweather.png',
-                portletHeight: 300,
-                position: 'MainPanel-column-3',
-                launchModule: 'EC.Main.controller.Weather'
-            }
-        }]
-    },
+//    {xtype: "tbspacer", width:15},
+//    {
+//        xtype: 'button',
+//        tooltip: 'Все виджеты',
+//        icon: '/images/icons/widgets_all.png',
+//        arrowCls: '',
+//        action: 'allwidgets',
+//        menu: [{
+//            text: 'Новости',
+//            icon: '/images/icons/news_list.png',
+//            initConfig: {
+//                title: 'Новости',
+//                icon: '/images/icons/news_list.png',
+//                portletHeight: 210,
+//                position: 'MainPanel-column-1',
+//                launchModule: 'EC.Main.controller.News'
+//            }
+//        }, {
+//            text: 'Разработка системы',
+//            icon: '/images/icons/about.png',
+//            initConfig: {
+//                title: 'Разработка системы',
+//                icon: '/images/icons/about.png',
+//                portletHeight: 410,
+//                position: 'MainPanel-column-1',
+//                launchModule: 'EC.Main.controller.Sysdev'
+//            }
+//        }, {
+//            text: 'Курсы валют',
+//            icon: '/images/icons/cur_exch.png',
+//            initConfig: {
+//                title: 'Курсы валют',
+//                icon: '/images/icons/cur_exch.png',
+//                portletHeight: 200,
+//                position: 'MainPanel-column-3',
+//                launchModule: 'EC.Main.controller.Currency'
+//            }
+//        }, {
+//            text: 'Прогноз погоды',
+//            icon: '/images/icons/kweather.png',
+//            initConfig: {
+//                title: 'Прогноз погоды',
+//                icon: '/images/icons/kweather.png',
+//                portletHeight: 300,
+//                position: 'MainPanel-column-3',
+//                launchModule: 'EC.Main.controller.Weather'
+//            }
+//        }]
+//    },
     {xtype: "tbspacer", width:15},
     {
         xtype: 'button',

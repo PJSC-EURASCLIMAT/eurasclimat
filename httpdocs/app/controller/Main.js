@@ -22,28 +22,10 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        /*
-        this.control({
-            'TopPanel button[action=contacts]': {
-                click: function(button, e, options) {
-        			this.showHelp({helpURL: '/html/aboutsystem/contacts/help'});
-                }
-            }
-        });
-        
-        Ext.each(MainLayout.down('TopPanel').getEl().query('a[action=run]'), function(item) {
-            Ext.get(item).on('click', function(e, node, options) {
-                var module = node.attributes.launchModule.value;
-                if (module) {
-                    this.getController(module).run(centerPanel);
-                }
-            }, this);
-        }, this);
-        */
-        this.control({'TopPanel button[action=allwidgets] menuitem': {
-                click: this.openModulePortlet
-            }
-        });
+//        this.control({'TopPanel button[action=allwidgets] menuitem': {
+//                click: this.openModulePortlet
+//            }
+//        });
         
         this.control({
             'CenterPanel portlet': {
@@ -54,17 +36,26 @@ Ext.define('App.controller.Main', {
         });
         
         this.getController('App.controller.Interface.Main');
+        
         if (acl.isView('projects')) {
         	this.getController('App.controller.Interface.Projects');
         }
+        
         this.getController('App.controller.Interface.Catalog');
+        
         this.getController('App.controller.Interface.Manufacturers');
+        
         this.getController('App.controller.Interface.Market');
 
         if (acl.isView('crm')) {
             this.getController('App.controller.Interface.CRM');
         }
+        
         this.getController('App.controller.Interface.Mail');
+        
+        if (acl.isView('admin')) {
+            this.getController('App.controller.Interface.Admin');
+        }
 
         // Make first tab active
 //        centerPanel.setActiveTab(0);
@@ -105,6 +96,17 @@ Ext.define('App.controller.Main', {
     openModuleTab: function(module) {
 
         var config = module.initConfig || module;
+        var parent = Ext.ComponentQuery.query('portalpanel{isVisible(true)}');
+        
+        if (!Ext.isEmpty(parent[0])) {
+        	parent = parent[0].up();
+        } else if (module.initConfig) {
+        	parent = module.up('tabpanel');
+        } else if (module.target) {
+        	parent = Ext.ComponentQuery.query(module.target)[0];
+        } else {
+        	return;
+        }
         
         var panel = Ext.create('Ext.Panel', {
             frame: true,
@@ -152,9 +154,6 @@ Ext.define('App.controller.Main', {
             }
         });
         
-        var parent = Ext.ComponentQuery.query('portalpanel{isVisible(true)}')[0].up()
-                  || module.up('tabpanel');
-                  
         var tab = parent.add({
             closable: false,
             border: false,

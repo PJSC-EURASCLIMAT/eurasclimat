@@ -27,7 +27,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
         iconCls: 'add',
         text: 'Добавить',
         tooltip: 'Добавить новую версию',
-        hidden: !acl.isView('crm', 'projects', 'docs', 'versions'),
+        hidden: !acl.isView('projects'),
         listeners: {
             click: function() {
                 var win = this.up('window');
@@ -82,7 +82,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
                 iconCls: 'x-btn icon',
                 icon: '/images/icons/delete.png',
                 tooltip: 'Удалить',
-                disabled: !acl.isUpdate('crm', 'projects', 'docs', 'versions'),
+                disabled: !acl.isUpdate('projects'),
                 handler: function(grid, rowIndex, colIndex) {
                     var rec = grid.getStore().getAt(rowIndex);
                     this.up('#docVersGrid').fireEvent('delete', rec);

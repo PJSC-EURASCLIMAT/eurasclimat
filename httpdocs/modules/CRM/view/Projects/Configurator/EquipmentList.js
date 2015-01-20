@@ -10,7 +10,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
     
     store: 'EC.CRM.store.Projects.Configurator.Equipment',
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         

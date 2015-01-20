@@ -14,7 +14,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.ExpendablesList', {
     
     store: 'EC.CRM.store.Projects.Configurator.Expendables',
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         

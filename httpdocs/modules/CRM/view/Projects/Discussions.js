@@ -29,7 +29,7 @@ Ext.define('EC.CRM.view.Projects.Discussions', {
             height: 100,
             items: [{
                 xtype: 'textareafield',
-                disabled: !acl.isUpdate('crm', 'projects', 'discussions'),
+                disabled: !acl.isUpdate('projects'),
                 grow: true,
                 itemId: 'commentContent',
                 //name: 'message',
@@ -41,7 +41,7 @@ Ext.define('EC.CRM.view.Projects.Discussions', {
                 validateOnChange: false
             }, {
                 xtype: 'button',
-                disabled: !acl.isUpdate('crm', 'projects', 'discussions'),
+                disabled: !acl.isUpdate('projects'),
                 scale: 'large',
                 itemId: 'commentSubmit',
                 text: 'Коментировать',

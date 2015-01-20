@@ -63,7 +63,7 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         hidden: true
     }, {
         xtype:'actioncolumn',
-        hidden: !acl.isUpdate('crm', 'projects', 'docs'),
+        hidden: !acl.isUpdate('projects'),
         width: 85,
         items: [
         {
@@ -104,13 +104,13 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         text: 'Добавить документ',
         iconCls: 'add',
         action: 'add',
-        hidden: !acl.isUpdate('crm', 'projects', 'docs'),
+        hidden: !acl.isUpdate('projects'),
         scope: this
     },{
         text: 'Типы документов',
         iconCls: 'option',
         action: 'edit-doc-types',
-        hidden: !acl.isUpdate('crm', 'projects', 'docs'),
+        hidden: !acl.isUpdate('projects'),
         scope: this
     }, '->', {
         xtype: 'button',

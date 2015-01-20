@@ -14,7 +14,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.ServicesList', {
     
     store: 'EC.CRM.store.Projects.Configurator.Services',
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         

@@ -10,7 +10,7 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
     
     store: 'EC.CRM.store.Projects.Configurator.SpecialServices',
     
-    permissions: acl.isUpdate('crm', 'projects'),
+    permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         

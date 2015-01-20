@@ -55,7 +55,6 @@ Ext.define('App.controller.Main', {
         
         this.getController('App.controller.Interface.Main');
         if (acl.isView('projects')) {
-        	console.log('projects: ', acl.isView('projects'));
         	this.getController('App.controller.Interface.Projects');
         }
         this.getController('App.controller.Interface.Catalog');

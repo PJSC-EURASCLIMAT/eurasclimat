@@ -36,7 +36,7 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         this.Container = container; 
         
         var isPortlet = ('portlet' == container.getXType() || container.up('portlet')); 
-        console.log(this.permissions);
+
         var grid = container.add(Ext.create('EC.CRM.view.Projects.List', {
             permissions: this.permissions
         }));

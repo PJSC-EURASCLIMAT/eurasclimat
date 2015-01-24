@@ -179,6 +179,8 @@ class Crm_Projects_Members_Model
             case 'projector': return 'Отдел проектирования';
             case 'logistic': return 'Отдел логистики';
             case 'productor': return 'Производственный отдел';
+            case 'bookkeeper': return 'Финансовый отдел';
+            case 'clerk': return 'Отдел делопроизводства';
             default: return $role;
         }
     }

@@ -55,7 +55,6 @@ Zend_Registry::set('config', $config);
 /**
  * Сделал через объект, чтобы не городить $rg['sys']['mesType'] и т.д
  */
-
 $rg = Zend_Registry::getInstance();
 $rg::set('sys', new StdClass);
 $rg->sys->mesTypes = array(

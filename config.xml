@@ -14,9 +14,9 @@
     </accounts>
     <db>
       <host>localhost</host>
-      <username>ec</username>
-      <password>0TurnGod</password>
-      <dbname>e-head_ec</dbname>
+      <username>eurasclimat</username>
+      <password>eurasclimat</password>
+      <dbname>eurasclimat</dbname>
       <prefix></prefix>
     </db>
     <mail>

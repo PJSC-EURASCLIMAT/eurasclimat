@@ -1,8 +1,6 @@
 <?php
 //die('This resource is temporary unavailable.');
 
-ini_set('session.gc_maxlifetime', 28800);
-
 error_reporting(E_ALL | E_STRICT);
 
 define('DOCUMENT_ROOT', dirname(__FILE__));

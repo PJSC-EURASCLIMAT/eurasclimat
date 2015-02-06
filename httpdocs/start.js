@@ -55,14 +55,17 @@ Ext.application({
     },
 
     launch: function() {
+    	
+    	// чтобы был доступ к объекту приложения
+    	App.app = this;
 
-        /*
         Ext.Ajax.on({
             requestexception: function(conn, response, options) {
                 switch (response.status) {
                     case 401:
-                        alert("Авторизация истекла! \n Вы будете перенаправлены на страницу входа.");
+                    	alert('Авторизация истекла!');
                         window.location.reload();
+                    	//App.app.getController('App.controller.Auth').run();
                         break;
                         
                     case 404:
@@ -95,10 +98,6 @@ Ext.application({
                 }
             }  
         });
-        */
-        
-        // чтобы был доступ к объекту приложения
-        App.app = this;
 
         // Fix quick tips width
         delete Ext.tip.Tip.prototype.minWidth;

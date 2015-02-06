@@ -24,7 +24,6 @@ Ext.define('EC.Contractors.view.Add', {
                 name: 'name',
                 anchor: '100%'
             }],
-
             buttons: ['->',{
                 text: 'Сохранить',
                 formBind: true,

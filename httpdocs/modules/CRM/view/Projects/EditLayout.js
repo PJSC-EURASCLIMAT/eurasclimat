@@ -41,7 +41,6 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
             itemId: 'discussionsPanel',
             title: 'Обсуждение'
         }, {
-            xtype: 'tabpanel',
             layout: 'fit',
             itemId: 'equipmentPanel',
             title: 'Оборудование и работы'

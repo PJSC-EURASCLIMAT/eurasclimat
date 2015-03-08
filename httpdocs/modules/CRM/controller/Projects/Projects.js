@@ -47,7 +47,7 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
             },
             scope: this
         });
-        
+
         if (this.permissions) {
             
             grid.down('button[action=additem]').on({
@@ -80,9 +80,8 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         	this.Container.down('grid').getView().getFeature('ProjectsGrouping').collapseAll();
         }, this, {single: true});
         projectsStore.load();
-        
     },
-    
+
     showGroups: function() {
         
         var w = Ext.create('Ext.window.Window', {
@@ -101,14 +100,12 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
                 }
             }]
         });
-        
         this.getController('EC.CRM.controller.Projects.ProjectsGroups').run(w);
     },
-    
+
     addItem: function() {
         
         var view = Ext.create('EC.CRM.view.Projects.Add');
-        
         view.down('button[action=save]').on({
             click: function() {
                 var form = view.down('form');
@@ -136,7 +133,7 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
             scope: this
         });
     },
-    
+
     editItem: function(grid, record) {
         
         var projectEdit = this.getController('EC.CRM.controller.Projects.ProjectEdit');
@@ -148,15 +145,13 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         });
         projectEdit.run();
     },
-    
+
     deleteItem: function(grid, record) {
         
         var failureFn = function(response, opts) {
             Ext.Msg.alert('Ошибка', 'Удаление не выполнено!');
         }
-        
         Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
-            
             if ('yes' === b) {
                 Ext.Ajax.request({
                     params: {
@@ -181,5 +176,4 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
             }
         }, this);
     }
-    
 });

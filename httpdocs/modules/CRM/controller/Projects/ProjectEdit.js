@@ -101,11 +101,7 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         
         var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
         configurator.projectID = this.projectID;
-        configurator.run(this.Container.down('#equipmentPanel').add({
-            title: 'Кондиционирование',
-            layout: 'fit',
-            itemId: 'configuratorPanel'
-        }));
+        configurator.run(this.Container.down('#equipmentPanel'));
         
         var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
         discussionsController.cur_project_id = this.projectID;

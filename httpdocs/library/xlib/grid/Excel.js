@@ -304,7 +304,7 @@ Ext.define('xlib.grid.Excel', {
         var visibleColumnCountReduction = 0;
         var colCount = cm.length;
         for (var i = 0; i < colCount; i++) {
-            if (cm[i].xtype != 'actioncolumn' && (cm[i].dataIndex != '') && (includeHidden || !cm[i].hidden)) {
+            if (cm[i].xtype != 'actioncolumn' && (cm[i].dataIndex != undefined) && (cm[i].dataIndex != '') && (includeHidden || !cm[i].hidden)) {
                 var w = cm[i].getEl().getWidth();
                 totalWidthInPixels += w;
 
@@ -400,7 +400,7 @@ Ext.define('xlib.grid.Excel', {
             r = it[i].data;
             var k = 0;
             for (var j = 0; j < colCount; j++) {
-                if (cm[j].xtype != 'actioncolumn' && (cm[j].dataIndex != '') && (includeHidden || !cm[j].hidden)) {
+                if (cm[j].xtype != 'actioncolumn' && (cm[j].dataIndex != undefined) && (cm[j].dataIndex != '') && (includeHidden || !cm[j].hidden)) {
                     var v = r[cm[j].dataIndex];
                     if (cellType[k] !== "None") {
                         t += '<Cell ss:StyleID="' + cellClass + cellTypeClass[k] + '"><Data ss:Type="' + cellType[k] + '">';

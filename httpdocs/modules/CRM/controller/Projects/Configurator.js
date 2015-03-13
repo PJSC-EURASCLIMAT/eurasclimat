@@ -2,6 +2,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     extend: 'Ext.app.Controller',
     
+    requires: ['xlib.grid.Excel'],
+    
     stores: [
         'EC.CRM.store.Projects.Configurator.Equipment',
         'EC.CRM.store.Projects.Configurator.SpecialServices'
@@ -47,6 +49,13 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         
         this.equipmentPanel.down('button[action=refresh]').on('click', this.loadEquipment, this);
         this.specialServicesPanel.down('button[action=refresh]').on('click', this.loadSpecialServices, this);
+        
+        this.equipmentPanel.down('button[action=excel]').on('click', function() {
+        	this.equipmentPanel.downloadExcelXml();
+    	}, this);
+        this.specialServicesPanel.down('button[action=excel]').on('click', function() {
+        	this.specialServicesPanel.downloadExcelXml();
+        }, this);
             
         if (this.permissions) {
             

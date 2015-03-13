@@ -99,10 +99,6 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         membersForm.permissions = this.permissions;
         membersForm.run(this.Container.down('#membersPanel'));
         
-        var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
-        configurator.projectID = this.projectID;
-        configurator.run(this.Container.down('#equipmentPanel'));
-        
         var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
         discussionsController.cur_project_id = this.projectID;
         var discussionsPanel = this.Container.down('#discussionsPanel');
@@ -112,6 +108,10 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         docsController.cur_project_id = this.projectID;
         var docsPanel = this.Container.down('#docsPanel');
         docsController.run(docsPanel);
+
+        var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
+        configurator.projectID = this.projectID;
+        configurator.run(this.Container.down('#equipmentPanel'));
     },
 
     updateItem: function(form, url) {

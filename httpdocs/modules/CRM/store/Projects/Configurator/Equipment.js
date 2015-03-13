@@ -17,7 +17,11 @@ Ext.define('EC.CRM.store.Projects.Configurator.Equipment', {
             type: 'json',
             root: 'data',
             successProperty: 'success'
-        }
+        },
+        pageParam: undefined,
+        startParam: undefined,
+        sortParam: undefined,
+        limitParam: undefined
     }
 
 });

@@ -91,6 +91,11 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
             iconCls: 'add',
             hidden: !this.permissions,
             action: 'additem'
+        }, {
+        	xtype: 'button',
+            text: 'Скачать список в Excel',
+            iconCls: 'excel',
+            action: 'excel'
         }, '->', {
             xtype: 'button',
             tooltip: 'Обновить',

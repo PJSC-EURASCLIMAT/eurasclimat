@@ -119,6 +119,12 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 14, iconCls: 'noicon', leaf: true, name: 'МТС', url: 'http://tenders.mts.ru'},
                 ]
             }, {
+            	name: 'Строительные компании',
+            	expanded: false,
+            	children: [
+    	           {id: 25, iconCls: 'noicon', leaf: true, name: 'ГВСУ «Центр»', url: 'http://tenders.gvsu.ru/'},
+	           ]
+            }, {
                 name: 'Транспортные компании',
                 expanded: false,
                 children: [

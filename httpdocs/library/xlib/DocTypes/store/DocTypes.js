@@ -15,7 +15,11 @@ Ext.define('xlib.DocTypes.store.DocTypes', {
             type: 'json',
             root: 'data',
             successProperty: 'success'
-        }
+        },
+        pageParam: undefined,
+        startParam: undefined,
+        sortParam: undefined,
+        limitParam: undefined
     }
 
 });

@@ -44,6 +44,11 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
             layout: 'fit',
             itemId: 'equipmentPanel',
             title: 'Оборудование и работы'
+        }, {
+        	layout: 'fit',
+        	itemId: 'calcpdPanel',
+        	title: 'ПИР',
+        	tooltip: 'Проектно-инженерные расчёты'
         }]
     }]
 });

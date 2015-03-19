@@ -13,7 +13,7 @@ Ext.define('EC.CRM.store.Calcpd.Info', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/crm/calcpd/get-info'
+            read:   '/json/crm/calcpd-config/info'
         },
         reader: {
             type: 'json',

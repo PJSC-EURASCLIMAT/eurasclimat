@@ -1,21 +1,29 @@
-Ext.define('EC.CRM.controller.Calcpd.Editor', {
+Ext.define('EC.CRM.controller.Projects.Calcpd', {
     
     extend: 'Ext.app.Controller',
     
+    controllers: [
+        'EC.CRM.controller.Calcpd.Config'
+	],
+    
     stores: [
-        'EC.CRM.store.Calcpd.Editor'
+        'EC.CRM.store.Projects.Calcpd',
+        'EC.CRM.store.Calcpd.Info'
     ],
     
     models: [
-        'EC.CRM.model.Calcpd.Editor'
+        'EC.CRM.model.Projects.Calcpd',
+        'EC.CRM.model.Calcpd.Info'
     ],
     
     views: [
-        'EC.CRM.view.Calcpd.EditorLayout'
+        'EC.CRM.view.Projects.Calcpd',
+        'EC.CRM.view.Calcpd.Info'
     ],
 
     requires: [
-        'Ext.grid.feature.Grouping'
+        'Ext.grid.feature.Grouping',
+        'xlib.grid.Excel'
     ],
     
     projectID: null,
@@ -24,20 +32,22 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
     
     title: null,
     
-    addURL: '/json/crm/calcpd/add-line',
+    addURL: '/json/crm/projects-calcpd/add',
     
-    run: function(config) {
+    run: function(container) {
         
-        if (!acl.isUpdate('calcpd')) return;
-        
-        Ext.apply(this, config);        
-        this.Container = this.getView('EC.CRM.view.Calcpd.EditorLayout').create();
-        this.Container.setTitle(this.title);
-        
+    	this.Container = container.add(Ext.create('EC.CRM.view.Projects.Calcpd'));
+    	
+        this.Container.down('button[action=info]').on('click', this.showInfo, this);
+        this.Container.down('button[action=config]').on('click', this.showConfig, this);
+        this.Container.down('button[action=refresh]').on('click', this.loadData, this);
         this.Container.down('button[action=addline]').on('click', this.onAdd, this);
         
         this.on('itemSaved', this.loadData, this);
-        this.loadData();
+        
+        this.Container.down('button[action=excel]').on('click', function() {
+        	this.Container.down('grid').downloadExcelXml();
+    	}, this);
         
         this.Container.down('grid').on({
             'edit': function(editor, e) {
@@ -46,10 +56,21 @@ Ext.define('EC.CRM.controller.Calcpd.Editor', {
             },
             scope: this
         });
+        
+        this.loadData();
     },
 
     loadData: function() {
-        this.getStore('EC.CRM.store.Calcpd.Editor').load({id: this.projectID});
+        this.getStore('EC.CRM.store.Projects.Calcpd').load({id: this.projectID});
+    },
+    
+    showConfig: function() {
+        this.getController('EC.CRM.controller.Calcpd.Config').run();
+    },
+    
+    showInfo: function() {
+    	this.getView('EC.CRM.view.Calcpd.Info').create();
+        this.getStore('EC.CRM.store.Calcpd.Info').load();
     },
     
     onAdd: function() {

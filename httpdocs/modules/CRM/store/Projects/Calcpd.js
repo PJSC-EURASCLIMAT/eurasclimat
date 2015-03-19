@@ -1,8 +1,8 @@
-Ext.define('EC.CRM.store.Calcpd.Editor', {
+Ext.define('EC.CRM.store.Projects.Calcpd', {
 
     extend: 'Ext.data.Store',
    
-    model: 'EC.CRM.model.Calcpd.Editor',
+    model: 'EC.CRM.model.Projects.Calcpd',
     
     groupField: 'obj_class_name',
     
@@ -11,9 +11,9 @@ Ext.define('EC.CRM.store.Calcpd.Editor', {
     proxy: {
         type: 'ajax',
         api: {
-            read:   '/json/crm/calcpd/get',
-            update: '/json/crm/calcpd/update-line',
-            destroy: '/json/crm/calcpd/delete-line'
+            read:   '/json/crm/projects-calcpd/list',
+            update: '/json/crm/projects-calcpd/update',
+            destroy: '/json/crm/projects-calcpd/delete'
         },
         reader: {
             type: 'json',

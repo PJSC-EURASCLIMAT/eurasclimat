@@ -22,7 +22,8 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     uses: [
         'EC.CRM.controller.Projects.ProjectsGroups',
         'EC.CRM.controller.Projects.Configurator',
-        'EC.CRM.controller.Projects.Members'
+        'EC.CRM.controller.Projects.Members',
+        'EC.CRM.controller.Projects.Calcpd'
     ],
     
     projectID: null,
@@ -112,6 +113,10 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
         configurator.projectID = this.projectID;
         configurator.run(this.Container.down('#equipmentPanel'));
+        
+        var calcpd = this.getController('EC.CRM.controller.Projects.Calcpd');
+        calcpd.projectID = this.projectID;
+        calcpd.run(this.Container.down('#calcpdPanel'));
     },
 
     updateItem: function(form, url) {

@@ -16,6 +16,9 @@ class Crm_CalcpdConfigController extends Xend_Controller_Action
 
     public function permission(Xend_Controller_Action_Helper_Acl $acl)
     {
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->projects);
+        $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'info');
+        
         $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->calcpd->admin);
 
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-obj-tree');
@@ -38,7 +41,18 @@ class Crm_CalcpdConfigController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-obj-class');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'destroy-obj-class');
     }
-
+    
+    public function infoAction()
+    {
+    	$response = $this->_model->info();
+    	if ($response->isSuccess()) {
+    		$this->view->success = true;
+    		$this->view->data = $response->getRowset();
+    	} else {
+    		$this->_collectErrors($response);
+    	}
+    }
+    
     public function getObjTreeAction()
     {
         $response = $this->_model->getObjTree();

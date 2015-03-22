@@ -114,6 +114,14 @@ Ext.define('EC.CRM.view.Projects.Members', {
             	text: 'Отдел делопроизводства',
             	role: 'clerk',
             	iconCls: 'user-add'
+            }, {
+            	text: 'Отдел рекламы и маркетинга',
+            	role: 'adv',
+            	iconCls: 'user-add'
+            }, {
+            	text: 'Производство металоконструкций',
+            	role: 'metalconst',
+            	iconCls: 'user-add'
             }]
         }, '->', {
             xtype: 'button',

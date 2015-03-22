@@ -181,6 +181,8 @@ class Crm_Projects_Members_Model
             case 'productor': return 'Производственный отдел';
             case 'bookkeeper': return 'Финансовый отдел';
             case 'clerk': return 'Отдел делопроизводства';
+            case 'adv': return 'Отдел рекламы и маркетинга';
+			case 'metalconst': return 'Производство металоконструкций';
             default: return $role;
         }
     }

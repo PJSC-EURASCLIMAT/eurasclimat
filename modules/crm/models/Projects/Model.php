@@ -92,7 +92,7 @@ class Crm_Projects_Model
             '*'             => 'StringTrim'
         ), array(
             'group_id'  => array('Id', 'allowEmpty' => false),
-            'name'      => array(array('StringLength', 1, 255), 'allowEmpty' => false)
+            'name'      => array(array('StringLength', 1, 4096), 'allowEmpty' => false)
         ), $params);
 
         $response = new Xend_Response();
@@ -149,7 +149,7 @@ class Crm_Projects_Model
         ), array(
             'id'            => array('Id', 'presence' => 'required'),
             'group_id'      => array('Id', 'allowEmpty' => false),
-            'name'          => array(array('StringLength', 1, 255), 'allowEmpty' => false),
+            'name'          => array(array('StringLength', 1, 4096), 'allowEmpty' => false),
             'customer_name' => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'address'       => array(array('StringLength', 0, 255), 'allowEmpty' => true),
             'object_type'   => array(array('StringLength', 0, 255), 'allowEmpty' => true),

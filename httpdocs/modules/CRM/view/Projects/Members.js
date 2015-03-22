@@ -31,6 +31,7 @@ Ext.define('EC.CRM.view.Projects.Members', {
                         case 'productor': return 'Производственный отдел';
                         case 'bookkeeper': return 'Финансовый отдел';
                         case 'clerk': return 'Отдел делопроизводства';
+                        case 'adv': return 'Производство металоконструкций';
                         default: return v;
                     }
                 }

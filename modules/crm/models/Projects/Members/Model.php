@@ -183,6 +183,8 @@ class Crm_Projects_Members_Model
             case 'clerk': return 'Отдел делопроизводства';
             case 'adv': return 'Отдел рекламы и маркетинга';
 			case 'metalconst': return 'Производство металоконструкций';
+			case 'provider': return 'Поставщик';
+			case 'contractor': return 'Подрядчик';
             default: return $role;
         }
     }

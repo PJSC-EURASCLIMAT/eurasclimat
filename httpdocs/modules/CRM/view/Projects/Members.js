@@ -33,6 +33,8 @@ Ext.define('EC.CRM.view.Projects.Members', {
                         case 'clerk': return 'Отдел делопроизводства';
                         case 'adv': return 'Отдел рекламы и маркетинга';
                         case 'metalconst': return 'Производство металоконструкций';
+                        case 'provider': return 'Поставщик';
+                    	case 'contractor': return 'Подрядчик';
                         default: return v;
                     }
                 }
@@ -121,6 +123,14 @@ Ext.define('EC.CRM.view.Projects.Members', {
             }, {
             	text: 'Производство металоконструкций',
             	role: 'metalconst',
+            	iconCls: 'user-add'
+            }, {
+            	text: 'Поставщик',
+            	role: 'provider',
+            	iconCls: 'user-add'
+            }, {
+            	text: 'Подрядчик',
+            	role: 'contractor',
             	iconCls: 'user-add'
             }]
         }, '->', {

@@ -4,6 +4,7 @@ Ext.define('EC.Contractors.controller.Contractors', {
     
     controllers: [
 	    'EC.Contractors.controller.Contacts',
+	    'EC.Contractors.controller.EngSys',
 	    'EC.Contractors.controller.Docs'
 	],
     
@@ -100,6 +101,7 @@ Ext.define('EC.Contractors.controller.Contractors', {
             form = win.down('form'),
             contractor_id = record.get('id');
 
+        this.getController('EC.Contractors.controller.EngSys').run(win.down('#ContractorsEngSysTab'), contractor_id);
         this.getController('EC.Contractors.controller.Contacts').run(win.down('#ContractorsContactsTab'), contractor_id);
         this.getController('EC.Contractors.controller.Docs').run(win.down('#ContractorsDocsTab'), contractor_id);
         

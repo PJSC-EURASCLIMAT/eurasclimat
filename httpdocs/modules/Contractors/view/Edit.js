@@ -135,6 +135,10 @@ Ext.define('EC.Contractors.view.Edit', {
 	                }
 	            }]
         	}, {
+        		title: 'Инженерные системы',
+        		layout: 'fit',
+        		itemId: 'ContractorsEngSysTab'
+        	}, {
         		title: 'Контакты',
         		layout: 'fit',
         		itemId: 'ContractorsContactsTab'

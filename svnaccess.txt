@@ -1,3 +1,0 @@
-svn://95.169.190.190/eurasclimat/trunk
-login: guest
-passw: guest

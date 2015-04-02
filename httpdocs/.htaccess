@@ -18,6 +18,4 @@ RewriteRule ^setup - [L,NC]
 RewriteRule ^files - [L,NC]
 RewriteRule ^workspace - [L,NC]
 RewriteRule ^phpinfo.php - [L,NC]
-# Hide .SVN Folders
-RewriteRule ^(.*/)*\.svn/ / [F,L]
 RewriteRule .* index.php

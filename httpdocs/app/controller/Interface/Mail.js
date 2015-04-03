@@ -6,14 +6,19 @@ Ext.define('App.controller.Interface.Mail', {
     
     viewLayout: 'MailPanel',
     
+    /*
     modules: [{
         title: 'Почта',
         icon: '/images/icons/messages.png',
         launchModule: 'EC.Main.controller.Mail'
     }],
+    */
     
     init: function() {
         
+    	this.getController('EC.Main.controller.Mail').run(this.getContainer());
+    	
+    	/*
         var container = this.getContainer();
         
         var MC = this.getController('App.controller.Main');
@@ -21,11 +26,14 @@ Ext.define('App.controller.Interface.Mail', {
         container.on('show', function() {
             MC.openModuleTab(this.modules[0]);
         }, this, {single: true});
-        
+        */
     },
     
     getMenu: function() {
         
+    	return [];
+    	
+    	/*
         var MC = this.getController('App.controller.Main');
         
         Ext.each(this.modules, function(item) {
@@ -36,5 +44,6 @@ Ext.define('App.controller.Interface.Mail', {
         });
         
         return this.modules;
+        */
     }
 });

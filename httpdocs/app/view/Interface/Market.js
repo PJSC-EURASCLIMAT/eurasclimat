@@ -1,6 +1,6 @@
 Ext.define('App.view.Interface.Market', {
 
-    extend: 'App.view.PortalLayoutAbstarct',
+    extend: 'Ext.panel.Panel',
 
     alias: 'widget.MarketPanel',
     
@@ -8,18 +8,10 @@ Ext.define('App.view.Interface.Market', {
     
     icon: '/images/icons/trade_platform.png',
     
-    items: [{
-        title: 'Панель виджетов',
-        xtype: 'portalpanel',
-        border: false,
-        closable: false,
-        columns: 3,
-        items: [{
-            id: 'Market-Partners-column-1'
-        }, {
-            id: 'Market-Partners-column-2'
-        }, {
-            id: 'Market-Partners-column-3'
-        }]
-    }]
+    layout: 'fit',
+    
+    padding: 10,
+    
+    border: false
+    
 });

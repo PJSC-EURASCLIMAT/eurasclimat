@@ -6,6 +6,10 @@ Ext.define('EC.Catalog.view.CatalogLayout', {
     
     border: false,
     
+    title: 'Каталог товаров',
+    
+    frame: true,
+    
     items: [{
         xtype: 'CatalogTree',
         region: 'west',

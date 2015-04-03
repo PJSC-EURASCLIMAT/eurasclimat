@@ -1,10 +1,14 @@
 Ext.define('EC.Manufacturers.view.Trade.SiteView', {
 
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
 
     alias: 'widget.ManufacturersTradeView',
 
     layout: 'border',
+    
+    frame: true,
+
+    title: 'Производители оборудования',
 
     items: [
         {

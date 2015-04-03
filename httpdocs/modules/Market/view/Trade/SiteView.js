@@ -1,10 +1,14 @@
 Ext.define('EC.Market.view.Trade.SiteView', {
 
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
 
     alias: 'widget.TradeView',
 
     layout: 'border',
+    
+    frame: true,
+    
+    title: 'Тендеры',
 
     items: [
         {

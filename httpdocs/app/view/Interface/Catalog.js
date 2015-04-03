@@ -1,6 +1,6 @@
 Ext.define('App.view.Interface.Catalog', {
 
-    extend: 'App.view.PortalLayoutAbstarct',
+    extend: 'Ext.panel.Panel',
 
     alias: 'widget.MainCatalogPanel',
     
@@ -10,18 +10,8 @@ Ext.define('App.view.Interface.Catalog', {
     
     icon: '/images/icons/catalog.png',
     
-    items: [{
-        title: 'Панель виджетов',
-        xtype: 'portalpanel',
-        border: false,
-        closable: false,
-        columns: 3,
-        items: [{
-            id: 'MainPanelCatalog-column-1'
-        }, {
-            id: 'MainPanelCatalog-column-2'
-        }, {
-            id: 'MainPanelCatalog-column-3'
-        }]
-    }]
+    padding: 10,
+    
+    border: false
+    
 });

@@ -5,6 +5,8 @@ Ext.define('EC.Main.controller.Mail', {
     run: function(container) {
         
         container.add(Ext.create('Ext.panel.Panel', {
+        	title: 'Почта',
+        	frame: true,
             items: [Ext.create('Ext.Component', {
                 autoEl: {
                     tag: 'iframe',

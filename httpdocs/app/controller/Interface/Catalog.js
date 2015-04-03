@@ -8,6 +8,9 @@ Ext.define('App.controller.Interface.Catalog', {
     
     init: function() {
         
+    	this.getController('EC.Catalog.controller.Catalog').run(this.getContainer());
+        
+    	/*
         var panel = this.getContainer();
         
         var MC = this.getController('App.controller.Main');
@@ -21,10 +24,14 @@ Ext.define('App.controller.Interface.Catalog', {
                 launchModule: 'EC.Catalog.controller.Catalog'
             });
         }, this, {single: true});
+        */
     },
     
     getMenu: function() {
         
+    	return [];
+
+    	/*
         var MC = this.getController('App.controller.Main');
         
         return [{
@@ -37,5 +44,6 @@ Ext.define('App.controller.Interface.Catalog', {
                 MC.openModulePortlet(b.initialConfig);
             }
         }];
+        */
     }
 });

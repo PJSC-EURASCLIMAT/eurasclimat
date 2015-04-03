@@ -6,15 +6,20 @@ Ext.define('App.controller.Interface.Market', {
     
     viewLayout: 'MarketPanel',
     
+    /*
     modules: [{
         title: 'Тендеры',
         icon: '/images/icons/about.png',
         allowMultiple: true,
         launchModule: 'EC.Market.controller.SiteView'
     }],
+    */
     
     init: function() {
         
+    	this.getController('EC.Market.controller.SiteView').run(this.getContainer());
+    	
+    	/*
         var container = this.getContainer();
         
         var MC = this.getController('App.controller.Main');
@@ -22,11 +27,14 @@ Ext.define('App.controller.Interface.Market', {
         container.on('show', function() {
             MC.openModuleTab(this.modules[0]);
         }, this, {single: true});
-        
+        */
     },
     
     getMenu: function() {
-        
+
+    	return [];
+    	
+    	/*
         var MC = this.getController('App.controller.Main');
         
         Ext.each(this.modules, function(item) {
@@ -37,5 +45,6 @@ Ext.define('App.controller.Interface.Market', {
         });
         
         return this.modules;
+        */
     }
 });

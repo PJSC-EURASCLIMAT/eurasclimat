@@ -6,6 +6,9 @@ Ext.define('App.controller.Interface.CRM.Development', {
     
     run: function(container) {
         
+    	this.getController('EC.SysDev.controller.Main').run(this.getContainer(container));
+    	
+    	/*
         var container = this.getContainer(container),
             MC = this.getController('App.controller.Main'),
             menu = this.getMenu();
@@ -13,11 +16,15 @@ Ext.define('App.controller.Interface.CRM.Development', {
        container.on('activate', function() {
             MC.openModuleTab(menu[0]);
        }, this, {single: true});
+       */
        
     },
     
     getMenu: function() {
         
+    	return [];
+    	
+    	/*
         var MC = this.getController('App.controller.Main');
         
         return [{
@@ -29,5 +36,6 @@ Ext.define('App.controller.Interface.CRM.Development', {
                 MC.openModuleTab(b.initialConfig);
             }
         }];
+        */
     }
 });

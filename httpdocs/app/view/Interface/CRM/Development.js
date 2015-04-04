@@ -1,26 +1,15 @@
 Ext.define('App.view.Interface.CRM.Development', {
 
-    extend: 'App.view.PortalLayoutAbstarct',
+    extend: 'Ext.panel.Panel',
 
     title: 'Разработка проектов',
     
     icon: '/images/icons/sys_dev.png',
     
-    loaded: false,
+    layout: 'fit',
         
-    items: [{
-        title: 'Панель виджетов',
-        xtype: 'portalpanel',
-        border: false,
-        closable: false,
-        columns: 3,
-        items: [{
-            id: 'MainPanel-development-column-1'
-        }, {
-            id: 'MainPanel-development-column-2'
-        }, {
-            id: 'MainPanel-development-column-3'
-        }]
-    }]
+    padding: 10,
+    
+    border: false
 
 });

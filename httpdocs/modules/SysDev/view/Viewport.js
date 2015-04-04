@@ -2,12 +2,10 @@ Ext.define('EC.SysDev.view.Viewport', {
     
     extend: 'Ext.container.Viewport',
 
-    layout: {
-        type: 'fit'
-    },
-
+    layout: 'fit',
+    
     items: [{
         xtype: 'project-main'
     }]
-
+    
 });

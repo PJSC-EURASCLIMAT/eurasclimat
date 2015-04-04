@@ -1,6 +1,6 @@
 Ext.define('EC.SysDev.view.Main', {
 
-    extend: 'Ext.container.Container',
+    extend: 'Ext.panel.Panel',
 
     alias: 'widget.project-main',
 
@@ -14,7 +14,13 @@ Ext.define('EC.SysDev.view.Main', {
         type: 'vbox',
         align: "stretch"
     },
+    
     split: false,
+    
+    title: 'Разработка проектов',
+    
+    frame: true,
+    
     items: [
 
         {

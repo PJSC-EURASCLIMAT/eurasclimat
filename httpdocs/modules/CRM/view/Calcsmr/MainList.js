@@ -14,6 +14,10 @@ Ext.define('EC.CRM.view.Calcsmr.MainList', {
     
     permission: false,
     
+    frame: true,
+    
+    title: 'Калькулятор СМР',
+    
     initComponent: function() {
         
         var actions = [];

@@ -16,7 +16,6 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
     
     views: [
         'EC.CRM.view.Calcsmr.MainList',
-        'EC.CRM.view.Calcsmr.MainListPortlet',
         'EC.CRM.view.Calcsmr.MainEdit',
         'EC.CRM.view.Calcsmr.Copy'
     ],
@@ -35,9 +34,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
 
         this.Container = container; 
         
-        var isPortlet = ('portlet' == container.getXType() || container.up('portlet')), 
-            view = isPortlet ? 'EC.CRM.view.Calcsmr.MainListPortlet' : 'EC.CRM.view.Calcsmr.MainList',
-            grid = container.add(Ext.create(view, {permission: this.permission}));
+        var grid = container.add(Ext.create('EC.CRM.view.Calcsmr.MainList', {permission: this.permission}));
         
         grid.on({
             itemdblclick: this.openProject,
@@ -45,7 +42,7 @@ Ext.define('EC.CRM.controller.Calcsmr.Main', {
             scope: this
         });
             
-        if (this.permission && !isPortlet) {
+        if (this.permission) {
             
             grid.down('button[action=additem]').on({
                 click: this.addItem,

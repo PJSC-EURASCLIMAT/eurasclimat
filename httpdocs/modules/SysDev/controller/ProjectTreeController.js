@@ -368,12 +368,6 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
         leaf.set('name',record.get('name'));
     },
 
-    onTreeReady: function() {
-        var tree = this.getProjectTree();
-        tree.getEl().down('.x-tree-view').dom.style.display = "none";
-        tree.setLoading();
-    },
-
     run: function() {
         
         var me = this;
@@ -385,15 +379,7 @@ Ext.define('EC.SysDev.controller.ProjectTreeController', {
                     'project-tree-context-menu-requested': this.showContextMenu,
                     select: this.onSelect,
                     itemcontextmenu: this.onItemContextMenu,
-                    containercontextmenu: this.onTreeClick,
-                    viewready: this.onTreeReady,
-                    beforeload: function() {
-                        tree.setLoading(true);
-                    },
-                    load: function() {
-                        tree.getEl().down('.x-tree-view').dom.style.display = "block";
-                        tree.setLoading(false);
-                    }
+                    containercontextmenu: this.onTreeClick
                 },
                 'project-tree > treeview': {
                     drop: this.onDrop,

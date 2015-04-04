@@ -6,18 +6,24 @@ Ext.define('App.controller.Interface.CRM.Calcsmr', {
     
     run: function(container) {
         
-        var container = this.getContainer(container),
+    	this.getController('EC.CRM.controller.Calcsmr.Main').run(this.getContainer(container));
+    	
+    	/*
+		var container = this.getContainer(container),
             MC = this.getController('App.controller.Main'),
             menu = this.getMenu();
             
-       container.on('activate', function() {
-            MC.openModuleTab(menu[0]);
-       }, this, {single: true});
-       
+       	container.on('activate', function() {
+        	MC.openModuleTab(menu[0]);
+		}, this, {single: true});
+    	*/
     },
     
     getMenu: function() {
         
+    	return [];
+    	
+    	/*
         var MC = this.getController('App.controller.Main');
         
         return [{
@@ -31,5 +37,6 @@ Ext.define('App.controller.Interface.CRM.Calcsmr', {
                 MC.openModuleTab(b.initialConfig);
             }
         }];
+        */
     }
 });

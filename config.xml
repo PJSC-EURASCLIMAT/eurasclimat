@@ -38,6 +38,6 @@
       <enable>0</enable>
     </remoteauth>
     <testmode>1</testmode>
-    <baseurl>eurazclimat:8888</baseurl>
+    <baseurl>eurasclimat.ru</baseurl>
   </general>
 </zend-config>

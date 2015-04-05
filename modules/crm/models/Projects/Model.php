@@ -24,8 +24,13 @@ class Crm_Projects_Model
                 'g.id=p.group_id', array('group_name' => 'g.name'));
 
 		$userID = Xend_Accounts_Prototype::getId();
-		$accounts = new Xend_Accounts();
-		if (!$accounts->isAdmin($userID)) {
+		$acl = Xend_Accounts_Prototype::getAcl();
+		$perm = $acl->isAllowed(
+        	Xend_Acl_Resource_Generator::getInstance()->projects->viewall,
+        	Xend_Acl_Privilege::VIEW
+		);
+
+		if (!$perm) {
         	$membersTable = new Crm_Projects_Members_Table();
 			$select->joinLeft(array('m' => $membersTable->getTableName()), 'm.project_id = p.id', array('account_id', 'is_editor'));
 			$select->orWhere('account_id = (?)', $userID);

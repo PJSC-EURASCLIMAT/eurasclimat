@@ -7,13 +7,6 @@ Ext.define('App.controller.Interface.Admin', {
     viewLayout: 'AdminPanel',
     
     modules: [{
-    	title: 'Роли',
-    	iconCls: 'user-suit',
-    	hidden: !acl.isView('admin'),
-    	allowMultiple: true,
-    	target: 'AdminPanel',
-    	launchModule: 'EC.Admin.controller.Roles'
-    }, {
     	title: 'Пользователи',
     	iconCls: 'user',
     	hidden: !acl.isView('admin'),
@@ -27,21 +20,28 @@ Ext.define('App.controller.Interface.Admin', {
     	allowMultiple: true,
     	target: 'AdminPanel',
     	launchModule: 'EC.Admin.controller.Acl'
+    }, {
+    	title: 'Роли',
+    	iconCls: 'user-suit',
+    	hidden: !acl.isView('admin'),
+    	allowMultiple: true,
+    	target: 'AdminPanel',
+    	launchModule: 'EC.Admin.controller.Roles'
     }],
     
     init: function() {
         
 		var container = this.getContainer();
-	    var MC = this.getController('App.controller.Main');
-	    container.on('show', function() {
-	    	Ext.each(this.modules, function(item) {
-                MC.openModuleTab(item);
-	        });
-        }, this, {single: true});
+    	Ext.each(this.modules, function(item) {
+    		this.getController(item.launchModule).run(container.add(item));
+        }, this);
     },
     
     getMenu: function() {
         
+    	return [];
+    	
+    	/*
         var MC = this.getController('App.controller.Main');
         
         Ext.each(this.modules, function(item) {
@@ -52,5 +52,6 @@ Ext.define('App.controller.Interface.Admin', {
         });
         
         return this.modules;
+        */
     }
 });

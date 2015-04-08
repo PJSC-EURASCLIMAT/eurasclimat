@@ -134,8 +134,13 @@ class Crm_Projects_Model
         }
         
         $userID = Xend_Accounts_Prototype::getId();
-		$accounts = new Xend_Accounts();
-        if ($project->creator_id != $userID && !$accounts->isAdmin($userID)) {
+        $acl = Xend_Accounts_Prototype::getAcl();
+        $perm = $acl->isAllowed(
+        		Xend_Acl_Resource_Generator::getInstance()->projects->viewall,
+        		Xend_Acl_Privilege::UPDATE
+        );
+        
+        if ($project->creator_id != $userID && !$perm && !$this->_isProjectEditor($id)) {
             return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         } 
         
@@ -259,5 +264,25 @@ class Crm_Projects_Model
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         return $response->addStatus(new Xend_Status($status));
+    }
+    
+    /**
+     * Private area
+     */
+    
+    private function _isProjectEditor($projectID)
+    {
+    	$projectID = intval($projectID);
+    	$userID = Xend_Accounts_Prototype::getId();
+    	$membersTable = new Crm_Projects_Members_Table();
+    	
+    	$res = $membersTable->fetchAll(array('project_id' => $projectID, 'account_id' => $userID));
+    	
+    	if (!$res->count() > 0) {
+    	    return false;
+    	}
+    	
+    	$row = $res->current();
+    	return $row['is_editor'] > 0;
     }
 }

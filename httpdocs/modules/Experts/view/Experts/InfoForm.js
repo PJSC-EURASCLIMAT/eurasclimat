@@ -113,7 +113,7 @@ Ext.define('EC.Experts.view.Experts.InfoForm', {
                 title: 'Типы деятельности',
                 store: this.jobTypesStore,
                 hideHeaders: true,
-                height: 200,
+                height: 500,
                 columns: [
                 { dataIndex: 'name', flex: 1 },
                 {

@@ -31,7 +31,6 @@ class Crm_Contractors_Table extends Xend_Db_Table_Abstract
     	'address',
     	'shipment',
     	'discount',
-    	'note',
-    	'eng_sys_type_id'
+    	'note'
     );
 }

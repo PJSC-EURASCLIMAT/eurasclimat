@@ -5,5 +5,6 @@ Ext.define('EC.Contractors.model.EngSys', {
     fields: [
         'id',
         'name',
+        'checked'
     ]
 });

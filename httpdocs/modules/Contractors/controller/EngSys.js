@@ -14,11 +14,6 @@ Ext.define('EC.Contractors.controller.EngSys', {
         'EC.Contractors.view.EngSys'
     ],
     
-    URL: {
-		get: '/json/crm/contractors-engsys/get',
-	    update: '/json/crm/contractors-engsys/update'
-	},
-    
 	contractor_id: null,
 	
     permissions: acl.isUpdate('crm', 'contractors'),
@@ -29,14 +24,17 @@ Ext.define('EC.Contractors.controller.EngSys', {
         this.contractor_id = contractor_id;
         
         this.grid = container.add(Ext.create('EC.Contractors.view.EngSys', {
+        	store: 'EC.Contractors.store.EngSys',
+        	contractor_id: this.contractor_id,
             permissions: this.permissions
         }));
 
         this.grid.on({
-        	ready: this.loadList,
         	reload: this.loadList,
         	scope: this
         });
+        
+        this.loadList();
         
         if (this.permissions) {
         }

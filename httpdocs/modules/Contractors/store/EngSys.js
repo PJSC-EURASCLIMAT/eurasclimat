@@ -7,10 +7,7 @@ Ext.define('EC.Contractors.store.EngSys', {
     proxy: {
         type: 'ajax',
         api: {
-            read: '/json/crm/contractors-engsys/read',
-            create: '/json/crm/contractors-engsys/create',
-            update: '/json/crm/contractors-engsys/update',
-            destroy: '/json/crm/contractors-engsys/destroy'
+            read: '/json/crm/contractors-engsys/get'
         },
         reader: {
             type: 'json',

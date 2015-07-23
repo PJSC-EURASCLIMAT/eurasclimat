@@ -22,8 +22,13 @@ class Crm_Contractors_Model
 		if (false == $row) {
 			return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
 		}
+		
+		$engsystypesModel = new Crm_Contractors_EngsysModel();
+		$row['engsystypes'] = $engsystypesModel->_getList($id);   
+
 		$contactsModel = new Crm_Contractors_ContactsModel();
 		$row['contacts'] = $contactsModel->_getList($id);   
+		
 		$response->setRow($row);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

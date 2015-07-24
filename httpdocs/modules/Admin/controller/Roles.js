@@ -73,8 +73,10 @@ Ext.define('EC.Admin.controller.Roles', {
                 parent_id: parentNode.getId()
             }), column;
         
-        parentNode.set('leaf', false);
-        parentNode.expand();
+        if (!parentNode.isRoot()) {
+        	parentNode.set('leaf', false);
+        	parentNode.expand();
+        }
         
         Ext.each(view.getGridColumns(), function(o) {
             if (o.dataIndex == 'name') {

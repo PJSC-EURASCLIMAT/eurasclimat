@@ -17,10 +17,16 @@ class Admin_RolesController extends Xend_Controller_Action
     {
         $roles = new Xend_Acl_Roles();
         $data = Zend_Json::decode($this->_getParam('data'));
-        $response = $roles->createRole($data);
-        if ($response->isError()) {
-            $this->_collectErrors($response);
-            return;
+        if (is_array($data)) {
+            foreach ($data as $el) {
+                $response = $roles->createRole($el);
+                if ($response->isError()) {
+                    $this->_collectErrors($response);
+                    continue;
+                }
+            }
+        } else {
+            $response = $roles->createRole($data);
         }
         $this->view->id = $response->id;
         $this->view->success = true;

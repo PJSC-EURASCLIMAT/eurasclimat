@@ -18,37 +18,37 @@ Ext.define('EC.Professions.view.List', {
             text: 'Код',
             width: 50,
             dataIndex: 'kod'
-        },{
+        }, {
+        	text: 'Наименование',
+        	flex: 1,
+        	dataIndex: 'name'
+        }, {
             text: 'КЧ',
             width: 50,
             dataIndex: 'kch'
-        },{
-            text: 'Наименование',
-            flex: 1,
-            dataIndex: 'name'
-        },{
+        }, {
             text: 'Тип инж. систем',
             flex: 1,
             dataIndex: 'eng_sys_type_name'
-        },{
+        }, {
             text: 'Тип квалификации',
             flex: 1,
             dataIndex: 'qualification_type_name'
-        },{
+        }, {
             text: 'Базовая ставка',
             xtype: 'numbercolumn',
             width: 100,
             dataIndex: 'base_salary'
-        },{
+        }, {
             text: 'Стоимость НЧ',
             xtype: 'numbercolumn',
             width: 100,
             dataIndex: 'norm_hour_cost'
-        },{
+        }, {
             text: 'Код выпуска ЕТКС',
             width: 100,
             dataIndex: 'etks'
-        },{
+        }, {
             text: 'Код по ОКЗ',
             width: 70,
             dataIndex: 'okz'

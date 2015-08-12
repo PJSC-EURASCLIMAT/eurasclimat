@@ -37,7 +37,7 @@
       <password></password>
       <enable>0</enable>
     </remoteauth>
-    <testmode>1</testmode>
+    <testmode>0</testmode>
     <baseurl>eurasclimat.ru</baseurl>
   </general>
 </zend-config>

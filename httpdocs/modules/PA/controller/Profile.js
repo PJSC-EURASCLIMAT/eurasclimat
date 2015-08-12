@@ -23,8 +23,7 @@ Ext.define('EC.PA.controller.Profile', {
 
     addExpertURL: '/json/pa/profile/register-expert',
 
-    refs: [
-        {
+    refs: [{
             ref: 'profileWin',
             selector: 'profilewin'
         },{
@@ -33,8 +32,7 @@ Ext.define('EC.PA.controller.Profile', {
         },{
             ref: 'displayProfileForm',
             selector: 'profilewin form#displayProfile'
-        }
-    ],
+    }],
 
     showProfile: function(recordId) {
         Ext.Ajax.request({
@@ -66,18 +64,19 @@ Ext.define('EC.PA.controller.Profile', {
     },
 
     run: function(container) {
+    	
+    	this.Container = container;
+        
+        var isPortlet = ('portlet' == container.getXType() || container.up('portlet'));
 
-        this.control({
-            'passchangeview button#saveBtn': {
-                click: this.chagePassword
-            }
-        });
-
-        //заполняем формы
-        this.refreshData();
+        if (!isPortlet) {
+        	this.refreshData();
+        } else {
+        	
+        }
     },
 
-    refreshData: function(){
+    refreshData: function() {
         Ext.Ajax.request({
             url: this.URL,
             success: function(response) {
@@ -100,7 +99,7 @@ Ext.define('EC.PA.controller.Profile', {
             return;
         }
 
-        this.profileWin = Ext.create('EC.PA.view.Profile',{
+        this.profileWin = Ext.create('EC.PA.view.ProfileWindow', {
 //            getFilesURL: this.getExpertDocsURL,
             data: this.account,
             listeners: {
@@ -118,7 +117,7 @@ Ext.define('EC.PA.controller.Profile', {
     addExpert: function(fromCurrent) {
         var me = this;
 
-        var view = Ext.create('EC.PA.view.ExpertForm',{
+        var view = Ext.create('EC.PA.view.ExpertForm', {
             header: false,
             fromCurrent: true,
             listeners: {
@@ -174,7 +173,7 @@ Ext.define('EC.PA.controller.Profile', {
 
         var win = this.profileWin;
 
-        this.editProfileWin = Ext.create('EC.PA.view.EditProfile',{
+        this.editProfileWin = Ext.create('EC.PA.view.EditProfile', {
             data: this.account,
             hideExpert: !this.isExpert(),
             listeners: {

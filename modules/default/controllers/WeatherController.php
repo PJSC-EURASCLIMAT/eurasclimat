@@ -122,6 +122,9 @@ class WeatherController extends Xend_Controller_Action
         $this->disableRender(true);
         $data = file('http://xml.weather.co.ua/1.2/forecast/'
               . $this->_getParam('id') . '?dayf=5&userid=eurasclimat.ru');
+        
+        // echo '<pre>'; var_dump($data); echo '</pre>'; die;
+        
         $xml = new SimpleXMLIterator(join('', $data));
 
         $arr = $xml->xpath('city');
@@ -171,7 +174,7 @@ class WeatherController extends Xend_Controller_Action
             }
         }
 
-//        echo '<pre>'; var_dump($days); die;
+        // echo '<pre>'; var_dump($days); die;
 
         echo Zend_Json::encode(array(
             'location'  => $location,

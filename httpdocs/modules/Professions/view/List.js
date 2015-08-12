@@ -17,7 +17,7 @@ Ext.define('EC.Professions.view.List', {
         this.columns =  [{
             text: 'Код',
             width: 50,
-            dataIndex: 'id'
+            dataIndex: 'kod'
         },{
             text: 'КЧ',
             width: 50,

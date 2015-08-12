@@ -4,6 +4,7 @@ Ext.define('EC.Professions.model.Profession', {
 
     fields: [
         'id',
+        'kod',
         'name',
         'kch',
         'etks',

@@ -17,6 +17,7 @@ class Crm_Professions_Model
         $f = new Xend_Filter_Input(array(
             '*'         => 'StringTrim'
         ), array(
+            'kod'                   => array('Int', 'allowEmpty' => true),
             'name'                  => array(array('StringLength', 1, 255), 'allowEmpty' => false),
             'kch'                   => array('Int', 'allowEmpty' => true),
             'etks'                  => array('Int', 'allowEmpty' => true),
@@ -59,6 +60,7 @@ class Crm_Professions_Model
             ->from(
                 array('p' => $this->_table->getTableName()),
                 array( 'p.id',
+                       'p.kod',
                        'p.name',
                        'p.kch',
                        'p.etks',
@@ -106,6 +108,7 @@ class Crm_Professions_Model
             ->from(
                 array('p' => $this->_table->getTableName()),
                 array( 'p.id',
+                       'p.kod',
                        'p.name',
                        'p.kch',
                        'p.etks',
@@ -152,6 +155,7 @@ class Crm_Professions_Model
             '*'         => 'StringTrim'
         ), array(
             'id'                    => array('Id', 'allowEmpty' => false),
+            'kod'                   => array('Int', 'allowEmpty' => true),
             'name'                  => array(array('StringLength', 1, 255), 'allowEmpty' => false),
             'kch'                   => array('Int', 'allowEmpty' => true),
             'etks'                  => array('Int', 'allowEmpty' => true),

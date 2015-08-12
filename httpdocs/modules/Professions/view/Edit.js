@@ -30,29 +30,33 @@ Ext.define('EC.Professions.view.Edit', {
             xtype: 'hiddenfield',
             margin: 0,
             name: 'id'
-        },{
+        }, {
+        	fieldLabel: 'Код',
+        	xtype: 'numberfield',
+        	name: 'kod'
+        }, {
             fieldLabel: 'Наименование',
             allowBlank: false,
             xtype: 'textfield',
             name: 'name'
-        },{
+        }, {
             fieldLabel: 'КЧ',
             xtype: 'numberfield',
             name: 'kch'
-        },{
+        }, {
             fieldLabel: 'Код выпуска ЕТКС',
             xtype: 'numberfield',
             name: 'etks'
-        },{
+        }, {
             fieldLabel: 'Код по ОКЗ',
             xtype: 'numberfield',
             name: 'okz'
-        },{
+        }, {
             fieldLabel: 'Базовая ставка',
             xtype: 'numberfield',
             minValue: 0,
             name: 'base_salary'
-        },{
+        }, {
             xtype: 'combo',
             editable: false,
             fieldLabel: 'Тип инженерных систем',
@@ -60,7 +64,7 @@ Ext.define('EC.Professions.view.Edit', {
             valueField: 'id',
             displayField: 'name',
             name: 'eng_sys_type_id'
-        },{
+        }, {
             xtype: 'combo',
             editable: false,
             fieldLabel: 'Тип квалификации',
@@ -70,14 +74,14 @@ Ext.define('EC.Professions.view.Edit', {
             name: 'qualification_type_id'
         }],
 
-        buttons: ['->',{
+        buttons: ['->', {
             text: 'Сохранить',
             formBind: true,
             handler: function() {
                 var form = this.up('form');
                 this.up('form').fireEvent('save', form.getValues());
             }
-        },{
+        }, {
             text: 'Отмена',
             handler: function() {
                 this.up('window').close();

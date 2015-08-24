@@ -7,6 +7,9 @@ Ext.define('EC.CRM.model.Projects.Docs', {
         'name',
         'project_id',
         'type',
-        'type_id'
+        'type_id',
+        'date',
+        'creator',
+        'account_id'
     ]
 });

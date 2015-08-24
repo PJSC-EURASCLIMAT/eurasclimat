@@ -3,10 +3,12 @@
 class Crm_Projects_Docs_Model
 {
     protected $_table;
+    protected $_versions_table;
 
     public function __construct()
     {
         $this->_table = new Crm_Projects_Docs_Table();
+        $this->_versions_table = new Crm_Projects_Docs_Versions_Table();
         $this->_versions_model = new Crm_Projects_Docs_Versions_Model();
     }
 
@@ -22,11 +24,22 @@ class Crm_Projects_Docs_Model
                     'type_id' => 't.id',
                     'type' => 't.name'
                 )
-            )
-            ->joinLeft(
+            )->join(
                 array('t' => 'doc_types'),
                 't.id=d.type_id', null
-            );
+            )->joinLeft(
+                array('v' => $this->_versions_table->getTableName()),
+                'd.id=v.doc_id', null
+            )->joinLeft(
+                array('f' => 'files'),
+                'f.id=v.file_id',
+                array('date', 'account_id')
+            )->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=f.account_id',
+                array('creator' => 'a.name')
+            )
+            ->order('f.date ASC');
 
         $plugin = new Xend_Db_Plugin_Select($this->_table, $select);
         $plugin->parse($params);
@@ -39,6 +52,8 @@ class Crm_Projects_Docs_Model
             }
             $select->where('d.project_id=?', $params['project_id']);
         }
+        
+        //echo $select->assemble(); die;
 
         try {
             $rows = $select->query()->fetchAll();

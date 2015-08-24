@@ -56,11 +56,19 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
             allowBlank: false
         },
         dataIndex: 'name'
-    },
-        {
+    }, {
         header: 'project_id',
         dataIndex: 'project_id',
         hidden: true
+    }, {
+    	header: 'Автор',
+    	dataIndex: 'creator',
+    	width: 200
+	}, {
+        text: 'Дата загрузки',
+        xtype: 'datecolumn',
+        dataIndex: 'date',
+        format: 'd.m.Y H:i'
     }, {
         xtype:'actioncolumn',
         hidden: !acl.isUpdate('projects'),

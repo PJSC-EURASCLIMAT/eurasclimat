@@ -2,4 +2,5 @@
 /.settings/
 /cache/
 /tmp/
+/files/*
 /config.xml

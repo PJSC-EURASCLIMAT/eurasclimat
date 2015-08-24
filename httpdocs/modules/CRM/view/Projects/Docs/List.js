@@ -61,7 +61,9 @@ Ext.define('EC.CRM.view.Projects.Docs.List', {
         dataIndex: 'project_id',
         hidden: true
     }, {
+    	xtype: 'templatecolumn',
     	header: 'Автор',
+    	tpl: '<a href="#/profile/{account_id}/show">{creator}</a>',
     	dataIndex: 'creator',
     	width: 200
 	}, {

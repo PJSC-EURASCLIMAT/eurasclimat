@@ -68,8 +68,6 @@ class Crm_Projects_Discussions_Model
             return $response;
         }
 
-        //var_dump($f->getData()); die;
-        
         $id = $this->_table->insert($f->getData());
         if (!$id) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
@@ -98,10 +96,10 @@ class Crm_Projects_Discussions_Model
 
 
         $messagesModel = new PA_Messages_Model();
-        $messagesModel->add(array(
+        $messagesModel->sendMessage(array(
             'sender_id'      => Xend_Accounts_Prototype::getId(),
             'receiver_id'    => $receiver_id,
             'message'        => $messageBody
-        ));
+        ), true);
     }
 }

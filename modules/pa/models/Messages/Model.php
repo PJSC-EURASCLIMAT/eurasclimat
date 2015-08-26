@@ -323,14 +323,14 @@ class PA_Messages_Model
         }
 
         $f = new Xend_Filter_Input(array(
-//            'sender_id'      => 'int',
+            'sender_id'      => 'int',
             'receiver_id'    => 'int',
             'owner_id'       => 'int',
             'type'           => 'int',
             'subject'        => 'StringTrim',
             'message'        => 'StringTrim',
         ), array(
-//            'sender_id'      => array('Id', 'allowEmpty' => true),
+            'sender_id'      => array('Id', 'allowEmpty' => true),
             'receiver_id'    => array('Id', 'allowEmpty' => false),
             'owner_id'       => array('Id', 'allowEmpty' => false),
             'type'           => array('int', 'allowEmpty' => true),
@@ -372,7 +372,7 @@ class PA_Messages_Model
         }
 
         $response->id = $id;
-        $response->receiver_name = $receiverData['name'];
+        $response->receiver_name = $receiverInfo['name'];
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

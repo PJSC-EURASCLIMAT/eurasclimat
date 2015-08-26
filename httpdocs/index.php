@@ -2,6 +2,7 @@
 //die('This resource is temporary unavailable.');
 
 error_reporting(E_ALL | E_STRICT);
+ini_set('display_errors', 1);
 
 define('DOCUMENT_ROOT', dirname(__FILE__));
 define('ROOT_DIR', dirname(DOCUMENT_ROOT));

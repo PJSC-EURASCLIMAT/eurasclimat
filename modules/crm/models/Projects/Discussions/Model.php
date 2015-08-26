@@ -68,6 +68,8 @@ class Crm_Projects_Discussions_Model
             return $response;
         }
 
+        var_dump($f->getData()); die;
+        
         $id = $this->_table->insert($f->getData());
         if (!$id) {
             return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));

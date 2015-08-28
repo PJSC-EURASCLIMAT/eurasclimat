@@ -23,22 +23,22 @@ Ext.define('App.controller.Interface.Main', {
 //            allowMultiple: false,
 //            launchModule: 'EC.Main.controller.AboutCompany'
 //        }, {
-        	title: 'Мой профиль',
-        	icon: '/images/icons/about.png',
-        	portletHeight: 700,
-        	position: 'MainPanel-column-1',
-        	launchModule: 'EC.PA.controller.Profile'
-        }, {
+//        	title: 'Мой профиль',
+//        	icon: '/images/icons/about.png',
+//        	portletHeight: 700,
+//        	position: 'MainPanel-column-1',
+//        	launchModule: 'EC.PA.controller.Profile'
+//        }, {
         	title: 'Новости',
         	icon: '/images/icons/news.png',
-        	portletHeight: 700,
+        	portletHeight: 345,
         	position: 'MainPanel-column-2',
         	launchModule: 'EC.Main.controller.News'
         }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 700,
-            position: 'MainPanel-column-3',
+            portletHeight: 345,
+            position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
 //        }, {
 //        	title: 'Прогноз погоды',
@@ -46,12 +46,12 @@ Ext.define('App.controller.Interface.Main', {
 //        	portletHeight: 700,
 //        	position: 'MainPanel-column-2',
 //        	launchModule: 'EC.Main.controller.Weather'
-//        }, {
-//            title: 'О системе',
-//            icon: '/images/icons/sys_dev.png',
-//            portletHeight: 370,
-//            position: 'MainPanel-column-2',
-//            launchModule: 'EC.Main.controller.AboutSystem'
+        }, {
+            title: 'О системе',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 700,
+            position: 'MainPanel-column-1',
+            launchModule: 'EC.Main.controller.AboutSystem'
 //        }, {
 //            title: 'Заказ',
 //            icon: '/images/icons/sys_dev.png',

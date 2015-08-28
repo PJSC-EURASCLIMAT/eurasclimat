@@ -13,13 +13,15 @@ Ext.define('App.view.Interface.Main', {
         xtype: 'portalpanel',
         border: false,
         closable: false,
-        columns: 3,
+        columns: 2,
         items: [{
-            id: 'MainPanel-column-1'
+            id: 'MainPanel-column-1',
+        	columnWidth: 0.7
         }, {
-            id: 'MainPanel-column-2'
-        }, {
-            id: 'MainPanel-column-3'
+            id: 'MainPanel-column-2',
+        	columnWidth: 0.3
+//        }, {
+//            id: 'MainPanel-column-3'
         }]
     }]
 });

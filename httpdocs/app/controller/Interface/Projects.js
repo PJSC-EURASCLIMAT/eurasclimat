@@ -8,9 +8,8 @@ Ext.define('App.controller.Interface.Projects', {
     
     init: function() {
     	
-    	this.getController('EC.CRM.controller.Projects.Projects').run(this.getContainer());
+    	//this.getController('EC.CRM.controller.Projects.Projects').run(this.getContainer());
         
-    	/*
 		var panel = this.getContainer();
 	    
 	    var MC = this.getController('App.controller.Main');
@@ -23,7 +22,6 @@ Ext.define('App.controller.Interface.Projects', {
 	            launchModule: 'EC.CRM.controller.Projects.Projects'
 	        });
 	    }, this, {single: true});
-	    */
     },
     
     getMenu: function() {

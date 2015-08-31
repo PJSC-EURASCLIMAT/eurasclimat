@@ -12,6 +12,7 @@ Ext.define('EC.Catalog.controller.Abstract', {
     ],
     
     uses: [
+        'xlib.CountriesCombo',
         'EC.Catalog.view.Images',
         'EC.Catalog.view.FilterMark',
         'EC.Catalog.view.CurrencyCombo',

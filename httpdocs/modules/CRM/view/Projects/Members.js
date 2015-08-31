@@ -6,8 +6,6 @@ Ext.define('EC.CRM.view.Projects.Members', {
     
     border: false,
 
-    store: 'EC.CRM.store.Projects.Members',
-    
     layout: 'fit',
     
     enableColumnHide: false,
@@ -46,6 +44,8 @@ Ext.define('EC.CRM.view.Projects.Members', {
 
     initComponent: function() {
         
+    	this.store = Ext.create('EC.CRM.store.Projects.Members');
+    	
         this.columns = [{
             header: 'Роль',
             dataIndex: 'role'

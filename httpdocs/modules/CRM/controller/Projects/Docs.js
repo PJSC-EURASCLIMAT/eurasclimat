@@ -1,6 +1,6 @@
 Ext.define('EC.CRM.controller.Projects.Docs', {
 
-    itemId: 'EC.CRM.controller.Projects.Docs',
+//    itemId: 'EC.CRM.controller.Projects.Docs',
     
     extend: 'Ext.app.Controller',
 
@@ -42,9 +42,11 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
         
         this.Container = container;
         
-        container.add(this.getView('EC.CRM.view.Projects.Docs.List'));
+        var docsPanel = container.add(Ext.create('EC.CRM.view.Projects.Docs.List', {
+        	cur_project_id: this.cur_project_id
+        }));
         
-        this.Container.down('grid').on({
+        docsPanel.on({
             deleteitem: this.onDocDelete,
             'open-versions': this.openVersionsForDoc,
             download: this.downloadDoc,
@@ -53,22 +55,28 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
             scope: this
         });
         
-        this.Container.down('button[action=add]').on({
+        docsPanel.down('button[action=add]').on({
             click: this.addDoc,
             scope: this
         });
         
-        this.Container.down('button[action=refresh]').on({
+        docsPanel.down('button[action=refresh]').on({
             click: this.docListRefresh,
             scope: this
         });
         
-        this.Container.down('button[action=edit-doc-types]').on({
+        docsPanel.down('button[action=edit-doc-types]').on({
             click: this.editDocTypes,
             scope: this
         });
         
         this.docListRefresh();
+    },
+    
+    docListRefresh: function() {
+       	this.Container.down('grid').getStore().load({
+            params: {project_id: this.cur_project_id}
+        });
     },
 
     downloadDocVersion: function(record) {
@@ -227,25 +235,6 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
         this.docVerList.down('grid').store.load();
     },
 
-    onProjectSelected: function(record) {
-
-        if (record.get('leaf') != true) {
-            return;
-        }
-
-        if (!acl.isView('crm', 'projects', 'docs')) {
-            return;
-        }
-
-        this.getDocList().getStore().load({
-            params: {
-                project_id: record.get('id')
-            }
-        });
-
-        this.cur_project_id = record.get('id');
-    },
-
     deleteDoc: function(id) {
         
         var failure = function() {
@@ -283,15 +272,6 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                 this.deleteDoc(record.getId());
             }
         }, this);
-    },
-
-    docListRefresh: function() {
-        
-        this.getDocList().getStore().load({
-            params: {
-                project_id: this.cur_project_id
-            }
-        });
     },
 
     downloadDoc: function(record) {

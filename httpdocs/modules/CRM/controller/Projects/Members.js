@@ -8,9 +8,7 @@ Ext.define('EC.CRM.controller.Projects.Members', {
     
     views: ['EC.CRM.view.Projects.Members'],
     
-    uses: [
-        'xlib.AccountsCombo'
-    ],
+    uses: ['xlib.AccountsCombo'],
     
     addURL: '/json/crm/projects/add-member',
     

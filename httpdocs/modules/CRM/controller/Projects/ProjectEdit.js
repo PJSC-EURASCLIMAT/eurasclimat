@@ -95,27 +95,34 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
             waitMsg: 'Загрузка...'
         });
         
-        var membersForm = this.getController('EC.CRM.controller.Projects.Members');
-        membersForm.projectID = this.projectID;
-        membersForm.permissions = this.permissions;
+        var membersForm = Ext.create('EC.CRM.controller.Projects.Members', {
+        	projectID: this.projectID,
+        	permissions: this.permissions
+        });
         membersForm.run(this.Container.down('#membersPanel'));
         
-        var discussionsController = this.getController('EC.CRM.controller.Projects.Discussions');
-        discussionsController.cur_project_id = this.projectID;
-        var discussionsPanel = this.Container.down('#discussionsPanel');
-        discussionsController.run(discussionsPanel);
+        var discussionsController = Ext.create('EC.CRM.controller.Projects.Discussions', {
+        	cur_project_id: this.projectID,
+        	permissions: this.permissions
+        });
+        discussionsController.run(this.Container.down('#discussionsPanel'));
         
-        var docsController = this.getController('EC.CRM.controller.Projects.Docs');
-        docsController.cur_project_id = this.projectID;
-        var docsPanel = this.Container.down('#docsPanel');
-        docsController.run(docsPanel);
+        var docsController = Ext.create('EC.CRM.controller.Projects.Docs', {
+        	cur_project_id: this.projectID,
+        	permissions: this.permissions
+        });
+        docsController.run(this.Container.down('#docsPanel'));
 
-        var configurator = this.getController('EC.CRM.controller.Projects.Configurator');
-        configurator.projectID = this.projectID;
+        var configurator = Ext.create('EC.CRM.controller.Projects.Configurator'{
+        	projectID: this.projectID,
+        	permissions: this.permissions
+        });
         configurator.run(this.Container.down('#equipmentPanel'));
         
-        var calcpd = this.getController('EC.CRM.controller.Projects.Calcpd');
-        calcpd.projectID = this.projectID;
+        var calcpd = Ext.create('EC.CRM.controller.Projects.Calcpd'{
+        	projectID: this.projectID,
+        	permissions: this.permissions
+        });
         calcpd.run(this.Container.down('#calcpdPanel'));
     },
 

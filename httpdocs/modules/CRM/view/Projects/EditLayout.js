@@ -1,9 +1,11 @@
 Ext.define('EC.CRM.view.Projects.EditLayout', {
     
-    extend: 'Ext.window.Window',
+//    extend: 'Ext.window.Window',
+	extend: 'Ext.panel.Panel',
     
     layout: 'fit',
     
+    /*
     border: false,
     
     autoShow: true,
@@ -13,6 +15,7 @@ Ext.define('EC.CRM.view.Projects.EditLayout', {
     width: 1000,
     
     height: 600,
+    */
     
     items: [{
         xtype: 'tabpanel',

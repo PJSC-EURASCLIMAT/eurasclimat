@@ -19,6 +19,9 @@ Ext.define('App.controller.Interface.Projects', {
 	            text: 'Заказы-проекты',
 	            title: 'Заказы-проекты',
 	            icon: '/images/icons/catalog.png',
+	            minimizable: false,
+	            maximizable: false,
+	            closable: false,
 	            launchModule: 'EC.CRM.controller.Projects.Projects'
 	        });
 	    }, this, {single: true});

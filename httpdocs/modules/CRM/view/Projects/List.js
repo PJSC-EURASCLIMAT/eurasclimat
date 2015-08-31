@@ -6,9 +6,11 @@ Ext.define('EC.CRM.view.Projects.List', {
     
     layout: 'fit',
     
-    title: 'Заказы-проекты',
+    //title: 'Заказы-проекты',
     
     frame: true,
+    
+    border: false,
     
     store: 'EC.CRM.store.Projects.Projects',
     

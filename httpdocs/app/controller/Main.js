@@ -127,6 +127,7 @@ Ext.define('App.controller.Main', {
                 type: 'save',
                 tooltip: 'Свернуть на рабочий стол',
                 action: 'minimize',
+                hidden: (false === config.minimizable),
                 handler: function() {
                     this.openModulePortlet(panel);
                     tab.close();
@@ -136,6 +137,7 @@ Ext.define('App.controller.Main', {
                 type: 'maximize',
                 tooltip: 'Раскрыть на весь экран',
                 action: 'maximize',
+                hidden: (false === config.maximizable),
                 handler: function() {
                     this.openModuleFullscreen(panel);
                 },
@@ -144,6 +146,7 @@ Ext.define('App.controller.Main', {
                 type: 'close',
                 tooltip: 'Закрыть',
                 action: 'close',
+                hidden: (false === config.closable),
                 handler: function() {
                     tab.close();
                 },

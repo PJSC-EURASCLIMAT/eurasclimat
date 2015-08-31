@@ -144,6 +144,18 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
 
     editItem: function(grid, record) {
         
+    	var MC = this.getController('App.controller.Main');
+    	var date = Ext.util.Format.date(record.get('created_date'), 'd.m.Y');
+    	var title = 'Проект № ' + record.get('id') + ' от ' + date + ' "' + record.get('name') + '"';
+        
+        MC.openModuleTab({
+        	target: 'ProjectsPanel',
+        	title: '<span title=\'' + title + '\'>' + title + '</span>',
+        	projectID: record.get('id'),
+            launchModule: 'EC.CRM.controller.Projects.ProjectEdit'
+        });
+    	
+    	/*
         var projectEdit = this.getController('EC.CRM.controller.Projects.ProjectEdit');
         projectEdit.projectID = record.get('id');
         projectEdit.projectName = record.get('name');
@@ -151,7 +163,9 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         projectEdit.on('projectEditClose', function() {
             grid.getStore().load();
         });
+        
         projectEdit.run();
+        */
     },
 
     deleteItem: function(grid, record) {

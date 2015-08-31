@@ -28,10 +28,6 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     projectID: null,
     
-    projectName: null,
-    
-    projectCreateDate: null,
-    
     permissions: acl.isUpdate('projects'),
     
     getBaseDescrURL: '/json/crm/projects/get-base-descr',
@@ -49,13 +45,18 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     run: function(container) {
 
         if (!this.projectID) {
-            throw 'The project ID must be set!';
+        	
+        	this.projectID = container.initConfig.projectID || null;
+        	
+        	if (!this.projectID) {
+        		throw 'The project ID must be set!';
+        	}
         }
         
         this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
-            title: 'Проект № ' + this.projectID 
-                     + ' от ' + this.projectCreateDate 
-                     + ' "' + this.projectName + '"',
+//            title: 'Проект № ' + this.projectID 
+//                     + ' от ' + this.projectCreateDate 
+//                     + ' "' + this.projectName + '"',
             listeners: {
                 close: function() {
         			//this.onClose();
@@ -64,6 +65,8 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
                 scope: this
             }
         });
+        
+        container.add(this.Container);
         
         var baseDescrForm = this.Container.down('#baseDescrPanel').add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
         baseDescrForm.down('button[action=save]').on('click', function() {

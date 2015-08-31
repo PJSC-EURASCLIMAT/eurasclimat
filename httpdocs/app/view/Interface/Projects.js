@@ -8,6 +8,8 @@ Ext.define('App.view.Interface.Projects', {
     icon: '/images/icons/sys_dev.png',
     
     title: 'Заказы-проекты',
+    
+    maxTabWidth: 150,
 
     /*
     layout: 'fit',

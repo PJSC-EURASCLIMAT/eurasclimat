@@ -44,14 +44,11 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     
     run: function(container) {
 
-        if (!this.projectID) {
-        	
-        	this.projectID = container.initConfig.projectID || null;
-        	
-        	if (!this.projectID) {
-        		throw 'The project ID must be set!';
-        	}
-        }
+    	this.projectID = container.initConfig.projectID || null;
+    	
+    	if (!this.projectID) {
+    		throw 'The project ID must be set!';
+    	}
         
         this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
 //            title: 'Проект № ' + this.projectID 

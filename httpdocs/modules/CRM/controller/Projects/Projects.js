@@ -150,6 +150,8 @@ Ext.define('EC.CRM.controller.Projects.Projects', {
         
         MC.openModuleTab({
         	target: 'ProjectsPanel',
+        	minimizable: false,
+        	maximizable: false,
         	title: '<span title=\'' + title + '\'>' + title + '</span>',
         	projectID: record.get('id'),
             launchModule: 'EC.CRM.controller.Projects.ProjectEdit'

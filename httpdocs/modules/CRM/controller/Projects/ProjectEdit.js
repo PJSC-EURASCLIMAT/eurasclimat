@@ -113,13 +113,13 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         });
         docsController.run(this.Container.down('#docsPanel'));
 
-        var configurator = Ext.create('EC.CRM.controller.Projects.Configurator'{
+        var configurator = Ext.create('EC.CRM.controller.Projects.Configurator', {
         	projectID: this.projectID,
         	permissions: this.permissions
         });
         configurator.run(this.Container.down('#equipmentPanel'));
         
-        var calcpd = Ext.create('EC.CRM.controller.Projects.Calcpd'{
+        var calcpd = Ext.create('EC.CRM.controller.Projects.Calcpd', {
         	projectID: this.projectID,
         	permissions: this.permissions
         });

@@ -148,6 +148,7 @@ Ext.define('App.controller.Main', {
                 action: 'close',
                 hidden: (false === config.closable),
                 handler: function() {
+                	panel.fireEvent('close');
                     tab.close();
                 },
                 scope: this

@@ -50,20 +50,13 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
     		throw 'The project ID must be set!';
     	}
         
-        this.Container = Ext.create('EC.CRM.view.Projects.EditLayout', {
-//            title: 'Проект № ' + this.projectID 
-//                     + ' от ' + this.projectCreateDate 
-//                     + ' "' + this.projectName + '"',
-            listeners: {
-                close: function() {
-        			//this.onClose();
-                    this.fireEvent('projectEditClose');
-                },
-                scope: this
-            }
-        });
+        this.Container = Ext.create('EC.CRM.view.Projects.EditLayout');
         
         container.add(this.Container);
+        
+        container.on('close', function() {
+            this.fireEvent('projectEditClose');
+        }, this);
         
         var baseDescrForm = this.Container.down('#baseDescrPanel').add(Ext.create('EC.CRM.view.Projects.BaseDescr'));
         baseDescrForm.down('button[action=save]').on('click', function() {
@@ -95,35 +88,30 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
             waitMsg: 'Загрузка...'
         });
         
-        var membersForm = Ext.create('EC.CRM.controller.Projects.Members', {
+        Ext.create('EC.CRM.controller.Projects.Members', {
         	projectID: this.projectID,
         	permissions: this.permissions
-        });
-        membersForm.run(this.Container.down('#membersPanel'));
+        }).run(this.Container.down('#membersPanel'));
         
-        var discussionsController = Ext.create('EC.CRM.controller.Projects.Discussions', {
+        Ext.create('EC.CRM.controller.Projects.Discussions', {
         	cur_project_id: this.projectID,
         	permissions: this.permissions
-        });
-        discussionsController.run(this.Container.down('#discussionsPanel'));
+        }).run(this.Container.down('#discussionsPanel'));
         
-        var docsController = Ext.create('EC.CRM.controller.Projects.Docs', {
+        Ext.create('EC.CRM.controller.Projects.Docs', {
         	cur_project_id: this.projectID,
         	permissions: this.permissions
-        });
-        docsController.run(this.Container.down('#docsPanel'));
+        }).run(this.Container.down('#docsPanel'));
 
-        var configurator = Ext.create('EC.CRM.controller.Projects.Configurator', {
+        Ext.create('EC.CRM.controller.Projects.Configurator', {
         	projectID: this.projectID,
         	permissions: this.permissions
-        });
-        configurator.run(this.Container.down('#equipmentPanel'));
+        }).run(this.Container.down('#equipmentPanel'));
         
-        var calcpd = Ext.create('EC.CRM.controller.Projects.Calcpd', {
+        Ext.create('EC.CRM.controller.Projects.Calcpd', {
         	projectID: this.projectID,
         	permissions: this.permissions
-        });
-        calcpd.run(this.Container.down('#calcpdPanel'));
+        }).run(this.Container.down('#calcpdPanel'));
     },
 
     updateItem: function(form, url) {

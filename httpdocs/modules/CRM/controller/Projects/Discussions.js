@@ -8,19 +8,15 @@ Ext.define('EC.CRM.controller.Projects.Discussions', {
 
     views: ['EC.CRM.view.Projects.Discussions'],
     
-    refs: [
-        { ref: 'discussionsList', selector: '#CRMProjectsDiscussions' }
-    ],
-    
     cur_project_id: null,
     
     run: function(container) {
         
         this.Container = container;
-        var view = container.add(this.getView('EC.CRM.view.Projects.Discussions').create());
+        var view = container.add(Ext.create('EC.CRM.view.Projects.Discussions'));
         this.Container.down('#commentSubmit').on('click', this.addComment, this);
         
-        this.discussionsStore = this.getStore('EC.CRM.store.Projects.Discussions');
+        this.discussionsStore = Ext.create('EC.CRM.store.Projects.Discussions');
         this.discussionsStore.on('load', this.onStoreLoad, this);
         this.loadStore();
     },
@@ -39,12 +35,10 @@ Ext.define('EC.CRM.controller.Projects.Discussions', {
                 for (var i = 0; i < records.length; i++) {
                     updRecords.push(records[i].data);
                 }
-                this.getDiscussionsList().update(updRecords);
-                this.getDiscussionsList().scrollBy(0,99999,true)
+                var list = this.Container.down('#CRMProjectsDiscussions'); 
+                list.update(updRecords);
+                list.scrollBy(0, 99999, true)
             }
-
-//        } else {
-//            this.getDiscussionsList().update({});
         }
     },
 

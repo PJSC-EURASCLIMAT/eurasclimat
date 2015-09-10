@@ -6,121 +6,121 @@ Ext.define('EC.CRM.view.Projects.Calcpd', {
     
     border: false,
     
-    items: [{
-        xtype: 'grid',
-        store: 'EC.CRM.store.Projects.Calcpd',
-        layout: 'fit',
-        enableColumnHide: false,
-        enableColumnMove: false,
-        features: [{
-            ftype: 'groupingsummary',
-            groupHeaderTpl: '{name}',
-            enableGroupingMenu: false,
-            hideGroupedHeader: true
-        }, {
-            ftype: 'summary',
-            dock: 'bottom'
-        }],
-        plugins: [{
-            ptype: 'cellediting',
-            pluginId: 'CalcpdEditor',
-            clicksToEdit: 1
-        }],
-        columns: [{
-            header: 'Класс помещения',
-            dataIndex: 'obj_class_name'
-        }, {
-            header: 'Наименование работы',
-            dataIndex: 'serv_name',
-            flex: 1,
-            hideable: false,
-            sortable: false,
-            summaryType: 'count',
-            summaryRenderer: function(value, summaryData, dataIndex) {
-                return 'Итого (' + value + ')';
-            }
-        }, {
-        	header: 'Тип объекта',
-        	dataIndex: 'obj_type_name',
-            width: 200,
-        }, {
-            xtype: 'numbercolumn',
-            header: 'Цена за м.кв.',
-            hideable: false,
-            sortable: false,
-            align: 'right',
-            width: 100,
-            dataIndex: 'price',
-            renderer: xlib.formatCurrency
-        }, {
-            xtype: 'numbercolumn',
-            header: 'Площадь (м.кв.)',
-            hideable: false,
-            sortable: false,
-            align: 'right',
-            width: 100,
-            dataIndex: 'square',
-            summaryType: 'sum',
-            field: {
-                xtype: 'numberfield',
-                minValue: 0 
-            }
-        }, {
-            xtype: 'numbercolumn',
-            header: 'Сумма',
-            hideable: false,
-            sortable: false,
-            align: 'right',
-            width: 100,
-            dataIndex: 'summ',
-            summaryRenderer: xlib.formatCurrency,
-            renderer: function(value, metaData, record, rowIdx, colIdx, store, view) {
-                return xlib.formatCurrency(record.get('price') * record.get('square'));
-            },
-            summaryType: function(records) {
-                var i = 0, length = records.length, total = 0, record;
-                for (; i < length; ++i) {
-                    record = records[i];
-                    total += (record.get('price') * record.get('square'));
-                }
-                return total;
-            }
-        }, {
-            xtype: 'actioncolumn',
-            hideable: false,
-            sortable: false,
-            align: 'center',
-            width: 45,
-            items: [{
-                icon: '/images/icons/edit.png',
-                tooltip: 'Редактировать',
-                iconCls: 'x-btn',
-                handler: function(view, rowIndex, colIndex) {
-                    var grid = view.up('grid'),
-                        editor = grid.getPlugin('CalcpdEditor'),
-                        record = grid.getStore().getAt(rowIndex),
-                        column = grid.down('numbercolumn[dataIndex=square]');
-                    editor.startEdit(record, column);
-                }
-            }, {
-                icon: '/images/icons/fam/delete.gif',
-                tooltip: 'Удалить',
-                iconCls: 'x-btn',
-                handler: function(view, rowIndex, colIndex) {
-                    Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
-                        if ('yes' === b) {
-                            var store = view.up('grid').getStore();
-                            store.removeAt(rowIndex);
-                            store.reload();
-                        }
-                    }, this);
-                }
-            }]
-        }]
-    }],
-    
     initComponent: function() {
     	
+	    this.items = [{
+	        xtype: 'grid',
+	        store: Ext.create('EC.CRM.store.Projects.Calcpd'),
+	        layout: 'fit',
+	        enableColumnHide: false,
+	        enableColumnMove: false,
+	        features: [{
+	            ftype: 'groupingsummary',
+	            groupHeaderTpl: '{name}',
+	            enableGroupingMenu: false,
+	            hideGroupedHeader: true
+	        }, {
+	            ftype: 'summary',
+	            dock: 'bottom'
+	        }],
+	        plugins: [{
+	            ptype: 'cellediting',
+	            pluginId: 'CalcpdEditor',
+	            clicksToEdit: 1
+	        }],
+	        columns: [{
+	            header: 'Класс помещения',
+	            dataIndex: 'obj_class_name'
+	        }, {
+	            header: 'Наименование работы',
+	            dataIndex: 'serv_name',
+	            flex: 1,
+	            hideable: false,
+	            sortable: false,
+	            summaryType: 'count',
+	            summaryRenderer: function(value, summaryData, dataIndex) {
+	                return 'Итого (' + value + ')';
+	            }
+	        }, {
+	        	header: 'Тип объекта',
+	        	dataIndex: 'obj_type_name',
+	            width: 200,
+	        }, {
+	            xtype: 'numbercolumn',
+	            header: 'Цена за м.кв.',
+	            hideable: false,
+	            sortable: false,
+	            align: 'right',
+	            width: 100,
+	            dataIndex: 'price',
+	            renderer: xlib.formatCurrency
+	        }, {
+	            xtype: 'numbercolumn',
+	            header: 'Площадь (м.кв.)',
+	            hideable: false,
+	            sortable: false,
+	            align: 'right',
+	            width: 100,
+	            dataIndex: 'square',
+	            summaryType: 'sum',
+	            field: {
+	                xtype: 'numberfield',
+	                minValue: 0 
+	            }
+	        }, {
+	            xtype: 'numbercolumn',
+	            header: 'Сумма',
+	            hideable: false,
+	            sortable: false,
+	            align: 'right',
+	            width: 100,
+	            dataIndex: 'summ',
+	            summaryRenderer: xlib.formatCurrency,
+	            renderer: function(value, metaData, record, rowIdx, colIdx, store, view) {
+	                return xlib.formatCurrency(record.get('price') * record.get('square'));
+	            },
+	            summaryType: function(records) {
+	                var i = 0, length = records.length, total = 0, record;
+	                for (; i < length; ++i) {
+	                    record = records[i];
+	                    total += (record.get('price') * record.get('square'));
+	                }
+	                return total;
+	            }
+	        }, {
+	            xtype: 'actioncolumn',
+	            hideable: false,
+	            sortable: false,
+	            align: 'center',
+	            width: 45,
+	            items: [{
+	                icon: '/images/icons/edit.png',
+	                tooltip: 'Редактировать',
+	                iconCls: 'x-btn',
+	                handler: function(view, rowIndex, colIndex) {
+	                    var grid = view.up('grid'),
+	                        editor = grid.getPlugin('CalcpdEditor'),
+	                        record = grid.getStore().getAt(rowIndex),
+	                        column = grid.down('numbercolumn[dataIndex=square]');
+	                    editor.startEdit(record, column);
+	                }
+	            }, {
+	                icon: '/images/icons/fam/delete.gif',
+	                tooltip: 'Удалить',
+	                iconCls: 'x-btn',
+	                handler: function(view, rowIndex, colIndex) {
+	                    Ext.MessageBox.confirm('Подтверждение', 'Удалить позицию?', function(b) {
+	                        if ('yes' === b) {
+	                            var store = view.up('grid').getStore();
+	                            store.removeAt(rowIndex);
+	                            store.reload();
+	                        }
+	                    }, this);
+	                }
+	            }]
+	        }]
+	    }];
+    
     	this.tbar = {
 			layout: 'vbox',
 			style: 'height: 60px;',

@@ -53,7 +53,7 @@ Ext.define('EC.CRM.view.Calcpd.ConfigListAbstract', {
                 allowBlank: false
             }
         }, {
-            xtype:'actioncolumn',
+            xtype: 'actioncolumn',
             width: parseInt(actions.length) * 25,
             items: actions
         }];

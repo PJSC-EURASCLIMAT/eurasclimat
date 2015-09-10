@@ -2,10 +2,6 @@ Ext.define('EC.CRM.controller.Projects.Calcpd', {
     
     extend: 'Ext.app.Controller',
     
-    controllers: [
-        'EC.CRM.controller.Calcpd.Config'
-	],
-    
     stores: [
         'EC.CRM.store.Projects.Calcpd',
         'EC.CRM.store.Calcpd.Info'
@@ -20,8 +16,9 @@ Ext.define('EC.CRM.controller.Projects.Calcpd', {
         'EC.CRM.view.Projects.Calcpd',
         'EC.CRM.view.Calcpd.Info'
     ],
-
-    requires: [
+    
+    uses: [
+        'EC.CRM.controller.Calcpd.Config',
         'Ext.grid.feature.Grouping',
         'xlib.grid.Excel'
     ],
@@ -61,11 +58,12 @@ Ext.define('EC.CRM.controller.Projects.Calcpd', {
     },
 
     loadData: function() {
-        this.getStore('EC.CRM.store.Projects.Calcpd').load({id: this.projectID});
+        this.Container.down('grid').getStore('EC.CRM.store.Projects.Calcpd').load({id: this.projectID});
     },
     
     showConfig: function() {
-        this.getController('EC.CRM.controller.Calcpd.Config').run();
+        var calcpdConfig = this.getController('EC.CRM.controller.Calcpd.Config');
+        calcpdConfig.run();
     },
     
     showInfo: function() {

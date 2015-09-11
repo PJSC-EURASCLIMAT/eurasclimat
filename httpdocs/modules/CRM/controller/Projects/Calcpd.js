@@ -58,7 +58,7 @@ Ext.define('EC.CRM.controller.Projects.Calcpd', {
     },
 
     loadData: function() {
-        this.Container.down('grid').getStore('EC.CRM.store.Projects.Calcpd').load({id: this.projectID});
+        this.Container.down('grid').getStore().load({id: this.projectID});
     },
     
     showConfig: function() {

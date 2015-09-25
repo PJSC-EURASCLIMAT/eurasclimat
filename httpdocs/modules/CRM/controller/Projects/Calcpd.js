@@ -62,7 +62,7 @@ Ext.define('EC.CRM.controller.Projects.Calcpd', {
     },
     
     showConfig: function() {
-        var calcpdConfig = this.getController('EC.CRM.controller.Calcpd.Config');
+        var calcpdConfig = Ext.create('EC.CRM.controller.Calcpd.Config');
         calcpdConfig.run();
     },
     

@@ -66,8 +66,10 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 41, name: 'Kermi', type: 'Отопление, водоснабжение' , url: 'http://www.kermi.ru/'},
             {id: 42, name: 'KAMPMANN', type: 'Отопление, охлаждение, вентиляция' , url: 'http://www.kampmann.ru/'},
             {id: 43, name: 'Viega', type: 'Водоснабжение, канализация' , url: 'http://www.viega.ru/'},
-            {id: 44, name: 'REFLEX', type: 'Отопление, охлаждение' , url: 'http://www.reflex-rus.ru/ '}
-
+            {id: 44, name: 'REFLEX', type: 'Отопление, охлаждение' , url: 'http://www.reflex-rus.ru/'},
+            {id: 45, name: 'ВЕЗА', type: 'Кондиционирование, вентиляция' , url: 'http://www.veza.ru/'},
+            {id: 46, name: 'Маммут Климат', type: 'Кондиционирование, вентиляция, отопление' , url: 'http://www.mammoth-russia.ru/'},
+            {id: 47, name: 'Varmann', type: 'Отопление' , url: 'http://varmann.ru/'}
         ]
     },
 

@@ -142,8 +142,8 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     
     addEquipment: function() {
         
-        var win = this.getAddingWindow(),
-            CC = this.getController('EC.Catalog.controller.Catalog');
+    	var win = this.getAddingWindow();
+        var CC = MC.getController('EC.Catalog.controller.Catalog');
             
         CC.run(win);
         

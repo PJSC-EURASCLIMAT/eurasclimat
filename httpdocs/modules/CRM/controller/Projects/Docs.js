@@ -404,7 +404,7 @@ Ext.define('EC.CRM.controller.Projects.Docs', {
                 }
             }]
         });
-        this.getController('xlib.DocTypes.controller.DocTypes').run(win);
+        Ext.create('xlib.DocTypes.controller.DocTypes').run(win);
     }
 
 });

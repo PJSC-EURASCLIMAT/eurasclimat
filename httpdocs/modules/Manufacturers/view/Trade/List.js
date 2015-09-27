@@ -70,7 +70,7 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 45, name: 'ВЕЗА', type: 'Кондиционирование, вентиляция', url: 'http://www.veza.ru/'},
             {id: 46, name: 'Маммут Климат', type: 'Кондиционирование, вентиляция, отопление', url: 'http://www.mammoth-russia.ru/'},
             {id: 47, name: 'Varmann', type: 'Отопление', url: 'http://varmann.ru/'},
-            {id: 47, name: 'KTK KLIMATECHNIK', type: 'Кондиционирование', url: 'http://www.ktk.it/'}
+            {id: 48, name: 'KTK KLIMATECHNIK', type: 'Кондиционирование', url: 'http://www.ktk.it/'}
         ]
     },
 

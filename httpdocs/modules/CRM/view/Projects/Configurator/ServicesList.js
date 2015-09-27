@@ -12,12 +12,12 @@ Ext.define('EC.CRM.view.Projects.Configurator.ServicesList', {
     
     border: false,
     
-    store: 'EC.CRM.store.Projects.Configurator.Services',
-    
     permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         
+    	this.store = Ext.create('EC.CRM.store.Projects.Configurator.Services');
+    	
         this.columns = [{
             xtype: 'checkcolumn',
             bubbleEvents: ['checkchange'],

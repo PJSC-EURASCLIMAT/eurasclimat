@@ -99,7 +99,7 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 17, iconCls: 'noicon', leaf: true, name: 'Торговая Система "Спецстройторг"', url: 'http://www.sstorg.ru/market/?action=list_public_pdo_multilot&type=5360&status_group=sg_active'},
                     {id: 20, iconCls: 'noicon', leaf: true, name: 'Заказ РФ', url: 'http://zakazrf.ru'},
                     {id: 24, iconCls: 'noicon', leaf: true, name: 'ЭТП Газпромбанка', url: 'https://etpgaz.gazprombank.ru'},
-                    {id: 26, iconCls: 'noicon', leaf: true, name: 'Business Connect тендер', url: 'http://www.bicotender.ru'}
+                    {id: 26, iconCls: 'noicon', leaf: true, name: 'BiCo тендер', url: 'http://www.bicotender.ru'}
                 ]
             }, {
                 name: 'Медецинские учреждения',

@@ -8,8 +8,6 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Projects.Configurator.Equipment',
-    
     permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
@@ -38,6 +36,8 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
                 scope: this
             });
         }
+        
+        this.store = Ext.create('EC.CRM.store.Projects.Configurator.Equipment');
         
         this.columns = [{
             header: 'Артикул',

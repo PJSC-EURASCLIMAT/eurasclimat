@@ -8,8 +8,6 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
     
     layout: 'fit',
     
-    store: 'EC.CRM.store.Projects.Configurator.SpecialServices',
-    
     permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
@@ -38,6 +36,8 @@ Ext.define('EC.CRM.view.Projects.Configurator.SpecialServicesList', {
                 scope: this
             });
         }
+        
+        this.store = 'EC.CRM.store.Projects.Configurator.SpecialServices';
         
         this.columns = [{
             header: 'Артикул',

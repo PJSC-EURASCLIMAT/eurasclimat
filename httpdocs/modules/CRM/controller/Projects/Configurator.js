@@ -143,7 +143,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     addEquipment: function() {
         
     	var win = this.getAddingWindow();
-        var CC = MC.getController('EC.Catalog.controller.Catalog');
+        var CC = Ext.create('EC.Catalog.controller.Catalog');
             
         CC.run(win);
         
@@ -204,7 +204,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     },
     
     editEquipment: function(grid, record) {
-        var editWin = this.getController('EC.CRM.controller.Projects.Configurator.EquipmentEditor');
+        var editWin = Ext.create('EC.CRM.controller.Projects.Configurator.EquipmentEditor');
         editWin.itemID = record.get('id');
         editWin.on('saved', this.loadEquipment, this);
         editWin.run();
@@ -216,7 +216,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
         
         var win = this.getAddingWindow();
         
-        this.getController('EC.Catalog.controller.SpecialServices').run(win);
+        Ext.create('EC.Catalog.controller.SpecialServices').run(win);
         
         var grid = win.down('SpecialServicesList');
         
@@ -275,7 +275,7 @@ Ext.define('EC.CRM.controller.Projects.Configurator', {
     },
     
     editSpecialService: function(grid, record) {
-        var editWin = this.getController('EC.CRM.controller.Projects.Configurator.SpecialServicesEditor');
+        var editWin = Ext.create('EC.CRM.controller.Projects.Configurator.SpecialServicesEditor');
         editWin.itemID = record.get('id');
         editWin.on('saved', this.loadSpecialServices, this);
         editWin.run();

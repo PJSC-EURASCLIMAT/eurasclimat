@@ -12,12 +12,12 @@ Ext.define('EC.CRM.view.Projects.Configurator.ExpendablesList', {
     
     border: false,
     
-    store: 'EC.CRM.store.Projects.Configurator.Expendables',
-    
     permissions: acl.isUpdate('projects'),
     
     initComponent: function() {
         
+    	this.store = 'EC.CRM.store.Projects.Configurator.Expendables';
+    	
         this.columns = [{
             xtype: 'checkcolumn',
             bubbleEvents: ['checkchange'],

@@ -21,7 +21,7 @@ class Market_DocsModel
             array(
                 'd.id', 'd.name', 'd.item_id',
                 'type_id' => 't.id',
-                'type' => 't.name'
+                'type'    => 't.name'
             )
         )
         ->joinLeft(
@@ -92,8 +92,8 @@ class Market_DocsModel
             'name'      => 'StringTrim'
         ), array(
             'id'    => array('int', 'presence' => 'required'),
-            'type_id'    => array('int', 'presence' => 'required'),
-            'name'       => array('StringLength')
+            'type_id'   => array('int', 'presence' => 'required'),
+            'name'      => array('StringLength')
         ), $data);
 
         $response->addInputStatus($f);
@@ -111,11 +111,11 @@ class Market_DocsModel
         $response = new Xend_Response();
 
         $f = new Xend_Filter_Input(array(
-            'item_id'    => 'int',
-            'name'          => 'StringTrim'
+            'item_id'   => 'int',
+            'name'      => 'StringTrim'
         ), array(
-            'item_id'    => array('int', 'presence' => 'required'),
-            'name'          => array('StringLength'),
+            'item_id'   => array('int', 'presence' => 'required'),
+            'name'      => array('StringLength'),
         ), $data);
 
         $response->addInputStatus($f);
@@ -203,7 +203,7 @@ class Market_DocsModel
 
         try {
             $rows = $select->query()->fetchAll();
-            if(count($rows) == 0) {
+            if (count($rows) == 0) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
             $response->setRowset($rows[0]);

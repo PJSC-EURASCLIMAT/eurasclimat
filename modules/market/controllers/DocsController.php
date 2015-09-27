@@ -9,7 +9,6 @@ class Market_DocsController extends Xend_Controller_Action
     {
         $this->_model = new Market_DocsModel();
         $this->_versions_model = new Market_DocsVersionsModel();
-
         parent::init();
     }
 
@@ -27,19 +26,18 @@ class Market_DocsController extends Xend_Controller_Action
     public function getByItemAction()
     {
         $response = $this->_model->getByItem($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->data = $response->getRowset();
-            $this->view->total = $response->totalCount;
-        } else {
+        if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
+            return;
         }
+        $this->view->success = true;
+        $this->view->data = $response->getRowset();
+        $this->view->total = $response->totalCount;
     }
 
     public function downloadAction()
     {
         $id = intval($this->_getParam('id'));
-
         $response = $this->_model->getById($id);
         if ($response->isError()) {
             $this->_collectErrors($response);
@@ -58,10 +56,9 @@ class Market_DocsController extends Xend_Controller_Action
     public function updateDocAction()
     {
         $response = $this->_model->update($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-        } else {
+        if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
+            return;
         }
         $this->view->success = true;
     }
@@ -69,77 +66,60 @@ class Market_DocsController extends Xend_Controller_Action
     public function addDocAction()
     {
         $response = new Xend_Response();
-
         $data = $this->_getAllParams();
-
         if ($data['item_id'] == 0) {
             $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'item_id'));
             $this->_collectErrors($response);
             return;
         }
-
         $modResponse = $this->_model->add($data);
-
         if ($modResponse->hasNotSuccess()) {
             $this->_collectErrors($modResponse);
             return;
-        } else {
-            $this->view->success = true;
-            $this->view->id = $modResponse->id;
         }
+        $this->view->success = true;
+        $this->view->id = $modResponse->id;
     }
-
 
     public function uploadAction()
     {
         $item_id = intval($this->_getParam('item_id'));
-
         $data['item_id'] = $item_id;
-
         if ($item_id == 0) {
             $response = new Xend_Response();
             $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'item_id'));
             $this->_collectErrors($response);
             return;
         }
-
         $fileNameInfo = pathinfo($_GET['X-File-Name']);
-
         $data['name'] = $fileNameInfo['filename'];
-
         $modResponse = $this->_model->add($data);
-
         if ($modResponse->hasNotSuccess()) {
             $this->_collectErrors($modResponse);
             return;
-        } else {
-
-            $this->view->success = true;
         }
+        $this->view->success = true;
     }
 
     public function deleteAction()
     {
         $id = intval($this->_getParam('id'));
-
         $deleteResponse = $this->_model->delete($id);
-        if ($deleteResponse->isSuccess()) {
-            $this->view->success = true;
-        } else {
+        if ($deleteResponse->hasNotSuccess()) {
             $this->_collectErrors($deleteResponse);
+            return;
         }
+        $this->view->success = true;
     }
 
     public function deleteVersionAction()
     {
         $data = $this->_getAllParams();
-
         $deleteResponse = $this->_versions_model->delete($data);
-        if ($deleteResponse->isSuccess()) {
-            $this->view->success = true;
-        } else {
+        if ($deleteResponse->hasNotSuccess()) {
             $this->_collectErrors($deleteResponse);
+            return;
         }
+        $this->view->success = true;
     }
-
 }

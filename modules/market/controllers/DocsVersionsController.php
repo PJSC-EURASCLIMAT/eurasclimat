@@ -24,21 +24,20 @@ class Market_DocsVersionsController extends Xend_Controller_Action
     public function getDocVersionsAction()
     {
         $response = $this->_versions_model->getByDoc($this->_getAllParams());
-        if ($response->isSuccess()) {
-            $this->view->success = true;
-            $this->view->data = $response->getRowset();
-            $this->view->total = $response->totalCount;
-        } else {
+        if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
+            return;
         }
+        $this->view->data = $response->getRowset();
+        $this->view->total = $response->totalCount;
+        $this->view->success = true;
     }
 
     public function downloadVersionAction()
     {
         $id = intval($this->_getParam('id'));
-
         $response = $this->_versions_model->getById($id);
-        if ($response->isError()) {
+        if ($response->hasNotSuccess()) {
             $this->_collectErrors($response);
             return;
         }
@@ -50,47 +49,36 @@ class Market_DocsVersionsController extends Xend_Controller_Action
             return;
         }
         $this->view->success = true;
-
     }
 
     public function uploadVersionAction()
     {
         $doc_id = intval($this->_getParam('doc_id'));
-
         $data['doc_id'] = $doc_id;
-
         if ($doc_id == 0) {
             $response = new Xend_Response();
             $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'doc_id'));
             $this->_collectErrors($response);
             return;
         }
-
         $fileNameInfo = pathinfo($_GET['X-File-Name']);
         $data['name'] = $_GET['X-File-Name'];
-
         $modResponse = $this->_versions_model->add($data);
-
         if ($modResponse->hasNotSuccess()) {
             $this->_collectErrors($modResponse);
             return;
-        } else {
-
-            $this->view->success = true;
         }
-
+        $this->view->success = true;
     }
 
     public function deleteVersionAction()
     {
         $data = $this->_getAllParams();
-
         $deleteResponse = $this->_versions_model->delete($data);
-        if ($deleteResponse->isSuccess()) {
-            $this->view->success = true;
-        } else {
+        if ($deleteResponse->hasNotSuccess()) {
             $this->_collectErrors($deleteResponse);
+            return;
         }
+        $this->view->success = true;
     }
-
 }

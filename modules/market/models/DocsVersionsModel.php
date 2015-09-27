@@ -33,7 +33,7 @@ class Market_DocsVersionsModel
         }
 
         $data['file_id'] = $fileResponse->__get('file_id');
-
+        //var_dump($data); die;
         try {
             $id = $this->_table->insert($data);
             $status = Xend_Accounts_Status::OK;
@@ -48,7 +48,6 @@ class Market_DocsVersionsModel
 
         $response->id = $id;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
-
     }
 
     /**
@@ -62,9 +61,7 @@ class Market_DocsVersionsModel
      */
     public function getByDoc($params)
     {
-
         $response = new Xend_Response();
-
         $select = $this->_table->getAdapter()->select()
             ->from(
                 array('d' => $this->_table->getTableName()),
@@ -109,43 +106,33 @@ class Market_DocsVersionsModel
     public function deleteAllByDoc($params)
     {
         $response = new Xend_Response();
-
         $versionsResponse = $this->getByDoc($params);
         if ($versionsResponse->hasNotSuccess()) {
             return $versionsResponse;
         }
         $rows = $versionsResponse->getRowset();
-
         foreach ($rows as &$row) {
             $this->delete($row);
         }
-
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
-
 
     public function delete($data)
     {
         $response = new Xend_Response();
-
         $id = intval($data['id']);
         if ($id == 0) {
             $response = new Xend_Response();
             return $response->addStatus(new Xend_Status(
                 Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         }
-
         $file = new Xend_File();
         $fileResponse = $file->deleteFile($data['file_id']);
-
         if ($fileResponse->hasNotSuccess()) {
             return $fileResponse->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         }
-
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
 
     public function getById($id)
     {

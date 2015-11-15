@@ -73,20 +73,21 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 2,  iconCls: 'noicon', leaf: true, name: 'Сбербанк-АСТ', url: 'http://utp.sberbank-ast.ru'},
                     {id: 6,  iconCls: 'noicon', leaf: true, name: 'Закупки Сбербанк-АСТ', url: 'http://zakupki.sbrf.sberbank-ast.ru/default.aspx'},
                     {id: 8,  iconCls: 'noicon', leaf: true, name: 'ВТБ', url: 'http://www.vtb.ru/group/purchases/all/'},
-                    {id: 12, iconCls: 'noicon', leaf: true, name: 'Промсвязьбанк', url: 'http://www.psbank.ru/Bank/About/Tenders/Current'},
+                    {id: 12, iconCls: 'noicon', leaf: true, name: 'Промсвязьбанк', url: 'http://www.psbank.ru/Bank/About/Tenders/Current'}
                 ]
             }, {
                 name: 'Государственные сторонние системы',
                 expanded: false,
                 children: [
                     {id: 1,  iconCls: 'noicon', leaf: true, name: 'ЭТП ММББ', url: 'http://etp-micex.ru'},
-                    {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'},
+                    {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'}
                 ]
             }, {
                 name: 'Энергетические компании',
                 expanded: false,
                 children: [
-                    {id: 23, iconCls: 'noicon', leaf: true, name: 'РОСАТОМ', url: 'http://zakupki.rosatom.ru/'}
+                    {id: 23, iconCls: 'noicon', leaf: true, name: 'РОСАТОМ', url: 'http://zakupki.rosatom.ru/'},
+                    {id: 27, iconCls: 'noicon', leaf: true, name: 'Славнефть - закупки', url: 'http://www.slavneft.ru/supplier/procurement/'}
                 ]
             }, {
                 name: 'Комерческие торговые системы',
@@ -105,7 +106,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 name: 'Медецинские учреждения',
                 expanded: false,
                 children: [
-                    {id: 18, iconCls: 'noicon', leaf: true, name: 'Medsi.ru', url: 'http://medsi.ru/about/purchases/'},
+                    {id: 18, iconCls: 'noicon', leaf: true, name: 'Medsi.ru', url: 'http://medsi.ru/about/purchases/'}
                 ]
             }, {
                 name: 'Оброзовательные учреждения',
@@ -117,13 +118,13 @@ Ext.define('EC.Market.view.Trade.List', {
                 expanded: false,
                 children: [
                     {id: 13, iconCls: 'noicon', leaf: true, name: 'МГТС', url: 'http://www.mgts.ru/partner/purchase'},
-                    {id: 14, iconCls: 'noicon', leaf: true, name: 'МТС', url: 'http://tenders.mts.ru'},
+                    {id: 14, iconCls: 'noicon', leaf: true, name: 'МТС', url: 'http://tenders.mts.ru'}
                 ]
             }, {
             	name: 'Строительные компании',
             	expanded: false,
             	children: [
-    	           {id: 25, iconCls: 'noicon', leaf: true, name: 'ГВСУ «Центр»', url: 'http://tenders.gvsu.ru/'},
+    	           {id: 25, iconCls: 'noicon', leaf: true, name: 'ГВСУ «Центр»', url: 'http://tenders.gvsu.ru/'}
 	           ]
             }, {
                 name: 'Транспортные компании',

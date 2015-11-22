@@ -73,7 +73,8 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 2,  iconCls: 'noicon', leaf: true, name: 'Сбербанк-АСТ', url: 'http://utp.sberbank-ast.ru'},
                     {id: 6,  iconCls: 'noicon', leaf: true, name: 'Закупки Сбербанк-АСТ', url: 'http://zakupki.sbrf.sberbank-ast.ru/default.aspx'},
                     {id: 8,  iconCls: 'noicon', leaf: true, name: 'ВТБ', url: 'http://www.vtb.ru/group/purchases/all/'},
-                    {id: 12, iconCls: 'noicon', leaf: true, name: 'Промсвязьбанк', url: 'http://www.psbank.ru/Bank/About/Tenders/Current'}
+                    {id: 12, iconCls: 'noicon', leaf: true, name: 'Промсвязьбанк', url: 'http://www.psbank.ru/Bank/About/Tenders/Current'},
+                    {id: 28, iconCls: 'noicon', leaf: true, name: 'Альфа-Банк', url: 'https://alfabank.ru/tenders/current/'}
                 ]
             }, {
                 name: 'Государственные сторонние системы',

@@ -274,7 +274,7 @@ class IndexController extends Xend_Controller_Action
         Zend_Auth::getInstance()->clearIdentity();
 
         $login = 'guest';
-        $password = 'welcome';
+        $password = 'guest';
 
         $dbAdapter = Xend_Db_Table_Abstract::getDefaultAdapter();
         $authAdapter = new Zend_Auth_Adapter_DbTable($dbAdapter);

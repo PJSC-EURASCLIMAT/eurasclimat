@@ -77,11 +77,12 @@ Ext.define('EC.Market.view.Trade.List', {
                     {id: 28, iconCls: 'noicon', leaf: true, name: 'Альфа-Банк', url: 'https://alfabank.ru/tenders/current/'}
                 ]
             }, {
-                name: 'Государственные сторонние системы',
+                name: 'Государственные системы',
                 expanded: false,
                 children: [
                     {id: 1,  iconCls: 'noicon', leaf: true, name: 'ЭТП ММББ', url: 'http://etp-micex.ru'},
-                    {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'}
+                    {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'},
+                    {id: 29,  iconCls: 'noicon', leaf: true, name: 'ОАО "ГУОВ" - закупки', url: 'http://www.yovmo.ru/torgi/zakupki'}
                 ]
             }, {
                 name: 'Энергетические компании',

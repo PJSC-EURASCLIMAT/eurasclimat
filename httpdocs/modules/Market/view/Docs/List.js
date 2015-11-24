@@ -93,6 +93,7 @@ Ext.define('EC.Market.view.Docs.List', {
         }, {
             icon: '/images/icons/fam/delete.gif',
             tooltip: 'Удалить документ',
+            disabled: !acl.isUpdate('admin'),
             iconCls: 'x-btn',
             handler: function(grid, rowIndex, colIndex) {
                 this.up('panel').fireEvent('deleteitem', grid.getStore().getAt(rowIndex));

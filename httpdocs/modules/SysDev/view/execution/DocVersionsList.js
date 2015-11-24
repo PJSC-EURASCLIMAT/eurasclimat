@@ -80,7 +80,7 @@ Ext.define('EC.SysDev.view.execution.DocVersionsList', {
                 iconCls: 'x-btn icon',
                 icon: '/images/icons/delete.png',
                 tooltip: 'Удалить',
-                disabled: !acl.isUpdate('sysdev', 'docs', 'versions'),
+                disabled: !acl.isUpdate('admin'),
                 handler: function(grid, rowIndex, colIndex) {
                     var rec = grid.getStore().getAt(rowIndex);
                     this.up('#docVersGrid').fireEvent('delete', rec);

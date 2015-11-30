@@ -126,7 +126,8 @@ Ext.define('EC.Market.view.Trade.List', {
             	name: 'Строительные компании',
             	expanded: false,
             	children: [
-    	           {id: 25, iconCls: 'noicon', leaf: true, name: 'ГВСУ «Центр»', url: 'http://tenders.gvsu.ru/'}
+    	           {id: 25, iconCls: 'noicon', leaf: true, name: 'ГВСУ «Центр»', url: 'http://tenders.gvsu.ru/'},
+    	           {id: 30, iconCls: 'noicon', leaf: true, name: 'МОРТОН - закупки', url: 'https://zakupki.morton.ru/user/login/'}
 	           ]
             }, {
                 name: 'Транспортные компании',

@@ -28,6 +28,7 @@ Ext.define('EC.CRM.view.Projects.Members', {
                         case 'logistic': return 'Отдел логистики';
                         case 'productor': return 'Производственный отдел';
                         case 'bookkeeper': return 'Финансовый отдел';
+                        case 'commercial': return 'Коммерческий отдел';
                         case 'clerk': return 'Отдел делопроизводства';
                         case 'adv': return 'Отдел рекламы и маркетинга';
                         case 'metalconst': return 'Производство металоконструкций';
@@ -111,6 +112,10 @@ Ext.define('EC.CRM.view.Projects.Members', {
             }, {
             	text: 'Финансовый отдел',
             	role: 'bookkeeper',
+            	iconCls: 'user-add'
+            }, {
+            	text: 'Коммерческий отдел',
+            	role: 'commercial',
             	iconCls: 'user-add'
             }, {
             	text: 'Отдел делопроизводства',

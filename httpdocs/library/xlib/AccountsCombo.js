@@ -26,6 +26,12 @@ Ext.define('xlib.AccountsCombo', {
         fields: ['id', 'name'],
 
         autoLoad: true,
+        
+        remoteSort: true,
+        
+        sorters: [{
+        	property: 'name'
+        }],
 
         proxy: {
             type: 'ajax',

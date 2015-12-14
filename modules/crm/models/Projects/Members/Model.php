@@ -180,11 +180,12 @@ class Crm_Projects_Members_Model
             case 'logistic': return 'Отдел логистики';
             case 'productor': return 'Производственный отдел';
             case 'bookkeeper': return 'Финансовый отдел';
+            case 'commercial': return 'Коммерческий отдел';
             case 'clerk': return 'Отдел делопроизводства';
             case 'adv': return 'Отдел рекламы и маркетинга';
-			case 'metalconst': return 'Производство металоконструкций';
-			case 'provider': return 'Поставщик';
-			case 'contractor': return 'Подрядчик';
+            case 'metalconst': return 'Производство металоконструкций';
+            case 'provider': return 'Поставщик';
+        	case 'contractor': return 'Подрядчик';
             default: return $role;
         }
     }

@@ -93,7 +93,6 @@ class PA_Messages_Model
                 Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
-
     public function getUserUnreadMesCount($receiver_id)
     {
         $response = new Xend_Response();

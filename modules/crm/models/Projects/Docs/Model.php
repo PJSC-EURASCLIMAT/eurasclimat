@@ -96,6 +96,7 @@ class Crm_Projects_Docs_Model
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
+    
     public function update($data)
     {
         $response = new Xend_Response();

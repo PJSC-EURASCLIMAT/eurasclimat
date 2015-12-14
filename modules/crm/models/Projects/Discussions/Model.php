@@ -87,10 +87,24 @@ class Crm_Projects_Discussions_Model
 
         $response = $projectModel->get($project_id);
         if ($response->hasNotSuccess()) return;
-        $projectInfo = $response->getRow();
-        $receiver_id = intval($projectInfo['creator_id']);
-        if (!$receiver_id > 0) return;
 
+        // Fetch creator ID
+        $projectInfo = $response->getRow();
+        $creator_id = intval($projectInfo['creator_id']);
+        if (!$creator_id > 0) return;
+
+        $members = array($creator_id);
+        
+        // Fetch members IDs
+        $membersModel = new Crm_Projects_Members_Model();
+        $response = $membersModel->getListByProjectID($project_id);
+        if ($response->hasNotSuccess()) return;
+        $membersData = $response->getRowset();
+         
+        foreach ($membersData as $member) {
+            $members[] = $member['account_id'];
+        }
+        
         $messageBody = 'Добавлен комментарий в модуль "Производственные проекты" к проекту "'
                      . $projectInfo['name'] . '":</p><p>' . $message . '</p>';
 
@@ -98,7 +112,7 @@ class Crm_Projects_Discussions_Model
         $messagesModel = new PA_Messages_Model();
         $messagesModel->sendMessage(array(
             'sender_id'      => Xend_Accounts_Prototype::getId(),
-            'receiver_id'    => $receiver_id,
+            'receiver_id'    => join(',', $members),
             'message'        => $messageBody
         ), true);
     }

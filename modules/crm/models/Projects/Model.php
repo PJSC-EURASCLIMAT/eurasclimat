@@ -200,6 +200,8 @@ class Crm_Projects_Model
 
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        
+        $this->_sendMessage($f->id);
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -239,6 +241,8 @@ class Crm_Projects_Model
 
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        
+        $this->_sendMessage($f->id);
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -263,6 +267,8 @@ class Crm_Projects_Model
 
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
+        
+        $this->_sendMessage($f->id);
         return $response->addStatus(new Xend_Status($status));
     }
     
@@ -285,4 +291,39 @@ class Crm_Projects_Model
     	$row = $res->current();
     	return $row['is_editor'] > 0;
     }
+    
+    private function _sendMessage($project_id)
+    {
+        if (!class_exists('PA_Messages_Model')) return;
+    
+        $response = $this->get($project_id);
+        if ($response->hasNotSuccess()) return;
+    
+        // Fetch creator ID
+        $projectInfo = $response->getRow();
+        $creator_id = intval($projectInfo['creator_id']);
+        if (!$creator_id > 0) return;
+    
+        $members = array($creator_id);
+    
+        // Fetch members IDs
+        $membersModel = new Crm_Projects_Members_Model();
+        $response = $membersModel->getListByProjectID($project_id);
+        if ($response->hasNotSuccess()) return;
+        $membersData = $response->getRowset();
+         
+        foreach ($membersData as $member) {
+            $members[] = $member['account_id'];
+        }
+    
+        $messageBody = 'В модуле "Производственные проекты" обновились данные в проекте "' . $projectInfo['name'] . '"';
+
+        $messagesModel = new PA_Messages_Model();
+        $messagesModel->sendMessage(array(
+                'sender_id'      => Xend_Accounts_Prototype::getId(),
+                'receiver_id'    => join(',', $members),
+                'message'        => $messageBody
+        ), true);
+    }
+    
 }

@@ -201,7 +201,7 @@ class Crm_Projects_Model
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         
-        $this->_sendMessage($f->id);
+        $this->_sendMessage($f->id, 'Описание');
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -242,7 +242,7 @@ class Crm_Projects_Model
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         
-        $this->_sendMessage($f->id);
+        $this->_sendMessage($f->id, 'Конфигурация');
         return $response->addStatus(new Xend_Status($status));
     }
 
@@ -268,7 +268,7 @@ class Crm_Projects_Model
         $rows = $this->_table->updateByPk($f->getData(), $f->id);
         $status = Xend_Status::retrieveAffectedRowStatus($rows);
         
-        $this->_sendMessage($f->id);
+        $this->_sendMessage($f->id, 'План-Факт');
         return $response->addStatus(new Xend_Status($status));
     }
     
@@ -292,7 +292,7 @@ class Crm_Projects_Model
     	return $row['is_editor'] > 0;
     }
     
-    private function _sendMessage($project_id)
+    private function _sendMessage($project_id, $info)
     {
         if (!class_exists('PA_Messages_Model')) return;
     
@@ -316,7 +316,8 @@ class Crm_Projects_Model
             $members[] = $member['account_id'];
         }
     
-        $messageBody = 'В модуле "Производственные проекты" обновились данные в проекте "' . $projectInfo['name'] . '"';
+        $messageBody = 'В модуле "Производственные проекты" обновились данные в проекте "' 
+                     . $projectInfo['name'] . '" на вкладке "' . $info . '".';
 
         $messagesModel = new PA_Messages_Model();
         $messagesModel->sendMessage(array(

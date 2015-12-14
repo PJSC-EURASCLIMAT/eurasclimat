@@ -45,7 +45,7 @@ class Crm_ProjectsDocsController extends Xend_Controller_Action
             $this->_collectErrors($response);
             return;
         }
-        $data = $response->getRowset();
+        $data = $response->getRow();
         $file = new Xend_File();
         $download = $file->download($data['file_id'], $data['name']);
         if ($download->isError()) {

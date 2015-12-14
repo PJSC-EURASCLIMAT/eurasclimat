@@ -223,7 +223,7 @@ class Crm_Projects_Docs_Model
             if(count($rows) == 0) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }
-            $response->setRowset($rows[0]);
+            $response->setRow($rows[0]);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
             if (DEBUG) {

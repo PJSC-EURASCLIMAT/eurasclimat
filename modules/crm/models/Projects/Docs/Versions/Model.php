@@ -37,6 +37,7 @@ class Crm_Projects_Docs_Versions_Model
         try {
             $id = $this->_table->insert($data);
             $status = Xend_Accounts_Status::OK;
+            $this->_sendMessage($f->doc_id);
         } catch (Exception $e) {
             if (DEBUG) {
                 throw $e;
@@ -47,8 +48,8 @@ class Crm_Projects_Docs_Versions_Model
         }
 
         $response->id = $id;
+        
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
-
     }
 
     /**
@@ -123,8 +124,6 @@ class Crm_Projects_Docs_Versions_Model
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
 
-
-
     public function delete($data)
     {
         $response = new Xend_Response();
@@ -145,7 +144,6 @@ class Crm_Projects_Docs_Versions_Model
 
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }
-
 
     public function getById($id)
     {
@@ -176,5 +174,47 @@ class Crm_Projects_Docs_Versions_Model
 
         $response->setRowset($rowset);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
+    }
+    
+    private function _sendMessage($doc_id)
+    {
+        if (!class_exists('PA_Messages_Model')) return;
+    
+        $docsModel = new Crm_Projects_Docs_Model();
+        $response = $docsModel->getById($doc_id);
+        if ($response->hasNotSuccess()) return;
+        $docInfo = $response->getRow();
+        
+        $projectModel = new Crm_Projects_Model();
+
+        $response = $projectModel->get($docInfo['project_id']);
+        if ($response->hasNotSuccess()) return;
+    
+        // Fetch creator ID
+        $projectInfo = $response->getRow();
+        $creator_id = intval($projectInfo['creator_id']);
+        if (!$creator_id > 0) return;
+    
+        $members = array($creator_id);
+    
+        // Fetch members IDs
+        $membersModel = new Crm_Projects_Members_Model();
+        $response = $membersModel->getListByProjectID($docInfo['project_id']);
+        if ($response->hasNotSuccess()) return;
+        $membersData = $response->getRowset();
+         
+        foreach ($membersData as $member) {
+            $members[] = $member['account_id'];
+        }
+    
+        $messageBody = 'В модуле "Производственные проекты", в проекте "'
+                . $projectInfo['name'] . '" обновился/добавился документ по имени "' . $docInfo['name'] . '".';
+    
+        $messagesModel = new PA_Messages_Model();
+        $messagesModel->sendMessage(array(
+                'sender_id'      => Xend_Accounts_Prototype::getId(),
+                'receiver_id'    => join(',', $members),
+                'message'        => $messageBody
+        ), true);
     }
 }

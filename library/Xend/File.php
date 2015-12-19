@@ -255,7 +255,36 @@ class Xend_File
 
 //        $response->fileName = $fileName;
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
-
+    }
+    
+    public function fetchAbsentFiles()
+    {
+        $response = new Xend_Response();
+        
+        try {
+            $rows = $this->_table->fetchAll();
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+        
+        $absentFiles = array();
+        foreach ($rows as $row) {
+            if (file_exists($this->default_dir . $row['path'])) continue;
+            $absentFiles[] = $row->toArray();
+        }
+        
+        $response->setRowset($absentFiles);
+        return $response->addStatus(new Xend_Accounts_Status($status));
+    }
+    
+    private function file_exists($filename)
+    {
+        return file_exists($this->default_dir . $filename);
     }
 
     private function _thumbnail($inputFileName, $maxSize = 100)

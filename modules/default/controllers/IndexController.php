@@ -268,6 +268,16 @@ class IndexController extends Xend_Controller_Action
             $this->view->success = true;
         }
     }
+    
+    public function checkFilesAction()
+    {
+        $this->disableLayout(true);
+        $fileModel = new Xend_File();
+        $response = $fileModel->fetchAbsentFiles();
+        $data = $response->getRowset(); 
+        $this->view->data = $data;
+        $this->view->count = sizeof($data);
+    }
 
     private function _loginAsGuest()
     {

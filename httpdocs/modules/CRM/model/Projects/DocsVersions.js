@@ -10,6 +10,8 @@ Ext.define('EC.CRM.model.Projects.DocsVersions', {
         'file_id',
         'file_name',
         'project_id',
+        'creator',
+        'account_id',
         {name: 'date_create', type: 'date', dateFormat: 'Y-m-d H:i:s'}
     ]
 });

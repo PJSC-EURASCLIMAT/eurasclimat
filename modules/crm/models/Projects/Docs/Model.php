@@ -39,6 +39,7 @@ class Crm_Projects_Docs_Model
                 'a.id=f.account_id',
                 array('creator' => 'a.name')
             )
+            ->group('d.id')
             ->group('v.doc_id')
             ->order('f.date ASC');
 

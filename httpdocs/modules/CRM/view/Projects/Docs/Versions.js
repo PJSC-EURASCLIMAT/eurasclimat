@@ -12,7 +12,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
 
     modal: true,
 
-    width: 500,
+    width: 700,
 
     height: 300,
 
@@ -60,10 +60,6 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
             }
         },
         columns: [{
-            text: '№',
-            dataIndex: 'id',
-            width: 30
-        }, {
             xtype: 'templatecolumn',
             header: 'Наименование',
             tpl: '<a href="#">{file_name}</a>',
@@ -73,7 +69,13 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
             xtype: 'datecolumn',
             dataIndex: 'date_create',
             format: 'd.m.Y H:i',
-            flex: 1
+            width: 100
+        }, {
+	    	xtype: 'templatecolumn',
+	    	header: 'Автор',
+	    	tpl: '<a href="#/profile/{account_id}/show">{creator}</a>',
+	    	dataIndex: 'creator',
+	    	width: 200
         }, {
             xtype: 'actioncolumn',
             align: 'left',

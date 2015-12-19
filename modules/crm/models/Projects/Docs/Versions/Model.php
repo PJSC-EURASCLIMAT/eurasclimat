@@ -76,8 +76,12 @@ class Crm_Projects_Docs_Versions_Model
                 'f.id=d.file_id',
                 array(
                     'date_create' => 'f.date',
-                    'file_name' => new Zend_Db_Expr("CONCAT(name,'.', SUBSTRING_INDEX(f.path,'.',-1))"),
+                    'file_name' => new Zend_Db_Expr("CONCAT(f.name,'.', SUBSTRING_INDEX(f.path,'.',-1))"),
                 )
+            )->joinLeft(
+                array('a' => 'accounts'),
+                'a.id=f.account_id',
+                array('creator' => 'a.name')
             )
             ->order('f.date ASC');
 

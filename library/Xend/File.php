@@ -303,6 +303,42 @@ class Xend_File
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
+
+    public function fetchAbsentProjectsDocsVersionsFiles()
+    {
+        $response = new Xend_Response();
+    
+        $select = $this->_table->getAdapter()->select()
+        ->from(
+                array('v' => 'crm_projects_docs_versions'),
+                array('v.id', 'v.file_id')
+        )
+        ->join(
+                array('f' => 'files'),
+                'f.id=v.file_id'
+        );
+    
+        try {
+            $rows = $select->query()->fetchAll();
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+    
+        $absentFiles = array();
+        foreach ($rows as $row) {
+            if (file_exists($this->default_dir . $row['path'])) continue;
+            $absentFiles[] = $row;
+        }
+    
+        $response->setRowset($absentFiles);
+        return $response->addStatus(new Xend_Accounts_Status($status));
+    }
+    
     private function _thumbnail($inputFileName, $maxSize = 100)
     {
         $info = getimagesize($inputFileName);

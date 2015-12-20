@@ -361,7 +361,7 @@ class Xend_File
         )->joinLeft(
                 array('p' => 'crm_projects'),
                 'p.id=d.project_id',
-                array('project_name' => 'p.name')
+                array('project_name' => 'p.name', 'created_date')
         )->joinLeft(
                 array('g' => 'crm_projects_groups'),
                 'g.id=p.group_id',

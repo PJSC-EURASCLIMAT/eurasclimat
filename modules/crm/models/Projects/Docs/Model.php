@@ -167,7 +167,7 @@ class Crm_Projects_Docs_Model
         if ($response->hasNotSuccess()) {
             return $response->addStatus(new Xend_Status(Xend_Status::DELETE_FAILED));
         }
-        $data = $response->getRowSet();
+        $data = $response->getRow();
 
         $delVersionsResponse = $this->_versions_model->deleteAllByDoc($data);
         if ($delVersionsResponse->hasNotSuccess()) {
@@ -217,10 +217,9 @@ class Crm_Projects_Docs_Model
             ->order('f.date DESC')
             ->limit(1);
 
-//        echo $select->assemble();
-
         try {
             $rows = $select->query()->fetchAll();
+            
             if(count($rows) == 0) {
                 return $response->addStatus(new Xend_Status(Xend_Status::FAILURE));
             }

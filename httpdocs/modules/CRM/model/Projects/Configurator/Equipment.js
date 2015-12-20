@@ -4,6 +4,7 @@ Ext.define('EC.CRM.model.Projects.Configurator.Equipment', {
    
     fields: [
         'id',
+        'name',
         'entity',
         'entity_id',
         'number',

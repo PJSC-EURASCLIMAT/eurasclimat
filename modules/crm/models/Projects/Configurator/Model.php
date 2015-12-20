@@ -63,7 +63,8 @@ class Crm_Projects_Configurator_Model
             ->from(array('c' => $table->getTableName()), array(
                 'code'      => 'c.code',
                 'marking'   => 'c.marking',
-                'mark'      => 'm.name'
+                'mark'      => 'm.name',
+                'name'      => 'c.name'
             ))
             ->joinLeft(array('m' => $marksTable->getTableName()),
                 'm.id=c.mark_id', array())

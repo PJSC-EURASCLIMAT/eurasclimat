@@ -50,7 +50,11 @@ Ext.define('EC.CRM.view.Projects.Configurator.EquipmentList', {
         }, {
             header: 'Маркировка',
             dataIndex: 'marking',
-            flex: 1
+            width: 200
+        }, {
+        	header: 'Наименование',
+        	dataIndex: 'name',
+        	flex: 1
         }, {
             header: 'Цена',
             dataIndex: 'price',

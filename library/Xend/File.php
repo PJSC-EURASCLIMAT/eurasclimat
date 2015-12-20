@@ -282,9 +282,25 @@ class Xend_File
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
     
-    private function file_exists($filename)
+    public function fetchLostFiles()
     {
-        return file_exists($this->default_dir . $filename);
+        $response = new Xend_Response();
+        
+        try {
+            $records = $this->_table->fetchAllColumn(null, null, 'path');
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+        
+        $files = array_diff(scandir($this->default_dir), array('..', '.'));
+        
+        $response->setRowset(array_diff($files, $records));
+        return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
     private function _thumbnail($inputFileName, $maxSize = 100)

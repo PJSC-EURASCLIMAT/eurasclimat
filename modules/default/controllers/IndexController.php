@@ -278,6 +278,16 @@ class IndexController extends Xend_Controller_Action
         $this->view->data = $data;
         $this->view->count = sizeof($data);
     }
+    
+    public function lostFilesAction()
+    {
+        $this->disableLayout(true);
+        $fileModel = new Xend_File();
+        $response = $fileModel->fetchLostFiles();
+        $data = $response->getRowset(); 
+        $this->view->data = $data;
+        $this->view->count = sizeof($data);
+    }
 
     private function _loginAsGuest()
     {

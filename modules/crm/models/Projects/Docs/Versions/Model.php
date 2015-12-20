@@ -77,6 +77,7 @@ class Crm_Projects_Docs_Versions_Model
                 array(
                     'date_create' => 'f.date',
                     'file_name' => new Zend_Db_Expr("CONCAT(f.name,'.', SUBSTRING_INDEX(f.path,'.',-1))"),
+                    'path'
                 )
             )->joinLeft(
                 array('a' => 'accounts'),
@@ -99,6 +100,10 @@ class Crm_Projects_Docs_Versions_Model
 
         try {
             $rows = $select->query()->fetchAll();
+            $fileModel = new Xend_File();
+            foreach ($rows as &$row) {
+                $row['file_exists'] = $fileModel->file_exists($row['path']);
+            }
             $response->setRowset($rows);
             $response->totalCount = $plugin->getTotalCount();
             $status = Xend_Status::OK;

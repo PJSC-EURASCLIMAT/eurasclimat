@@ -339,6 +339,11 @@ class Xend_File
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
     
+    public function file_exists($name)
+    {
+        return file_exists($this->default_dir . $name);
+    }
+    
     private function _thumbnail($inputFileName, $maxSize = 100)
     {
         $info = getimagesize($inputFileName);

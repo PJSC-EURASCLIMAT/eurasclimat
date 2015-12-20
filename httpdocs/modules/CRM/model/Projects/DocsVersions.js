@@ -9,6 +9,7 @@ Ext.define('EC.CRM.model.Projects.DocsVersions', {
         'doc_id',
         'file_id',
         'file_name',
+        'file_exists',
         'project_id',
         'creator',
         'account_id',

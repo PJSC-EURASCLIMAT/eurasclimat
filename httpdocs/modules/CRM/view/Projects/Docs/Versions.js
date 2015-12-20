@@ -21,7 +21,7 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
     closeAction: 'close',
 
     doc_id: null,
-
+    
     tbar: [{
         xtype: 'button',
         iconCls: 'add',
@@ -42,24 +42,31 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
         action: 'refresh'
     }],
 
-
-
     items: [{
         xtype: 'grid',
         itemId: 'docVersGrid',
         border: false,
         store: 'EC.CRM.store.Projects.DocsVersions',
-        listeners: {
-            cellclick: function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-                if (cellIndex === 1) {
-                    this.fireEvent('download', record);
-                }
-            },
-            beforeload: function() {
-
-            }
+        viewConfig: {
+        	getRowClass: function(record) {
+        		if (false == record.get('file_exists')) {
+        			return 'red-row';
+        		}
+        	}
         },
         columns: [{
+	        xtype: 'actioncolumn',
+	        width: 25,
+	        items: [{
+	            icon: '/images/icons/download.png',
+	            tooltip: 'Скачать версию документа',
+	            iconCls: 'x-btn',
+	            handler: function(grid, rowIndex, colIndex) {
+	                var record = grid.getStore().getAt(rowIndex);
+	                this.up('panel').fireEvent('download', record);
+	            }
+	        }]
+	    }, {
             header: 'Наименование',
             dataIndex: 'file_name',
             flex: 1

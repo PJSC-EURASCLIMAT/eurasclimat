@@ -60,9 +60,8 @@ Ext.define('EC.CRM.view.Projects.Docs.Versions', {
             }
         },
         columns: [{
-            xtype: 'templatecolumn',
             header: 'Наименование',
-            tpl: '<a href="#">{file_name}</a>',
+            dataIndex: 'file_name',
             flex: 1
         }, {
             text: 'Дата загрузки',

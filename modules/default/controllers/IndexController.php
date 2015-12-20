@@ -289,11 +289,21 @@ class IndexController extends Xend_Controller_Action
         $this->view->count = sizeof($data);
     }
 
-    public function checkPdAction()
+    public function checkPdvAction()
     {
         $this->disableLayout(true);
         $fileModel = new Xend_File();
         $response = $fileModel->fetchAbsentProjectsDocsVersionsFiles();
+        $data = $response->getRowset();
+        $this->view->data = $data;
+        $this->view->count = sizeof($data);
+    }
+
+    public function checkPdAction()
+    {
+        $this->disableLayout(true);
+        $fileModel = new Xend_File();
+        $response = $fileModel->fetchAbsentProjectsDocsFiles();
         $data = $response->getRowset();
         $this->view->data = $data;
         $this->view->count = sizeof($data);

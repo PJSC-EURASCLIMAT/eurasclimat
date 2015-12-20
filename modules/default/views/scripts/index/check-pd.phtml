@@ -1,15 +1,17 @@
-<h1>Absent Projects Docs Versions files count: <?=$this->count?></h1>
+<h1>Количество пустых документов: <?=$this->count?></h1>
 <table cellspacing="0" cellpadding="5" border="1">
     <thead>
-        <td><b>Имя файла</b></td>
-        <td><b>Дата загрузки</b></td>
-        <td><b>Владелец</b></td>
+        <td><b>Имя документа</b></td>
+        <td><b>Тип документа</b></td>
+        <td><b>Проект</b></td>
+        <td><b>Группа проекта</b></td>
     </thead>
     <?php foreach ($this->data as $row):?>
         <tr>
             <td><?=$row['name']?></td>
-            <td><?=$row['date']?></td>
-            <td><?=$row['creator']?></td>
+            <td><?=$row['doc_type']?></td>
+            <td><?=$row['project_name']?></td>
+            <td><?=$row['project_group']?></td>
         </tr>
     <?php endforeach;?>
 </table>

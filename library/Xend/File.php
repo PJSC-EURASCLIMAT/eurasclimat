@@ -341,6 +341,48 @@ class Xend_File
         $response->setRowset($absentFiles);
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
+
+    public function fetchAbsentProjectsDocsFiles()
+    {
+        $response = new Xend_Response();
+    
+        $select = $this->_table->getAdapter()->select()
+        ->from(
+                array('d' => 'crm_projects_docs'),
+                array('d.name', 'd.project_id', 'd.type_id')
+        )->joinLeft(
+                array('v' => 'crm_projects_docs_versions'),
+                'd.id=v.doc_id',
+                array('v.doc_id')
+        )->joinLeft(
+                array('t' => 'doc_types'),
+                't.id=d.type_id',
+                array('doc_type' => 't.name')
+        )->joinLeft(
+                array('p' => 'crm_projects'),
+                'p.id=d.project_id',
+                array('project_name' => 'p.name')
+        )->joinLeft(
+                array('g' => 'crm_projects_groups'),
+                'g.id=p.group_id',
+                array('project_group' => 'g.name')
+        )->where('v.doc_id IS NULL'
+        )->order('project_id');
+    
+        try {
+            $rows = $select->query()->fetchAll();
+            $status = Xend_Accounts_Status::OK;
+        } catch (Exception $e) {
+            if (DEBUG) {
+                throw $e;
+            }
+            $status = Xend_Accounts_Status::DATABASE_ERROR;
+            return $response->addStatus(new Xend_Accounts_Status($status));
+        }
+
+        $response->setRowset($rows);
+        return $response->addStatus(new Xend_Accounts_Status($status));
+    }
     
     public function file_exists($name)
     {

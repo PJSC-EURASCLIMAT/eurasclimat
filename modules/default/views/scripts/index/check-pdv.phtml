@@ -1,0 +1,15 @@
+<h1>Количество отсутствующих физических файлов, для которых есть связи в базе: <?=$this->count?></h1>
+<table cellspacing="0" cellpadding="5" border="1">
+    <thead>
+        <td><b>Имя файла</b></td>
+        <td><b>Дата загрузки</b></td>
+        <td><b>Владелец</b></td>
+    </thead>
+    <?php foreach ($this->data as $row):?>
+        <tr>
+            <td><?=$row['name']?></td>
+            <td><?=$row['date']?></td>
+            <td><?=$row['creator']?></td>
+        </tr>
+    <?php endforeach;?>
+</table>

@@ -303,7 +303,6 @@ class Xend_File
         return $response->addStatus(new Xend_Accounts_Status($status));
     }
 
-
     public function fetchAbsentProjectsDocsVersionsFiles()
     {
         $response = new Xend_Response();
@@ -316,6 +315,10 @@ class Xend_File
         ->join(
                 array('f' => 'files'),
                 'f.id=v.file_id'
+        )->join(
+                array('a' => 'accounts'),
+                'a.id=f.account_id',
+                array('creator' => 'a.name')
         );
     
         try {
@@ -406,7 +409,6 @@ class Xend_File
                 return false;
             }
         }
-
 
         $ext = strtolower(substr($fileName, strrpos($fileName, '.')));
 

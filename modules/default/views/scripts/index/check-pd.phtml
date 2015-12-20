@@ -1,19 +1,15 @@
 <h1>Absent Projects Docs Versions files count: <?=$this->count?></h1>
 <table cellspacing="0" cellpadding="5" border="1">
     <thead>
-        <td><b>ID</b></td>
-        <td><b>Path</b></td>
-        <td><b>Date</b></td>
-        <td><b>Name</b></td>
-        <td><b>Account ID</b></td>
+        <td><b>Имя файла</b></td>
+        <td><b>Дата загрузки</b></td>
+        <td><b>Владелец</b></td>
     </thead>
     <?php foreach ($this->data as $row):?>
         <tr>
-            <td><?=$row['id']?></td>
-            <td><?=$row['path']?></td>
-            <td><?=$row['date']?></td>
             <td><?=$row['name']?></td>
-            <td><?=$row['account_id']?></td>
+            <td><?=$row['date']?></td>
+            <td><?=$row['creator']?></td>
         </tr>
     <?php endforeach;?>
 </table>

@@ -11,6 +11,7 @@ Ext.define('App.view.Layout', {
     	region: 'north',
     	height: 100,
     	border: false,
+    	baseCls: 'xlib-bkg',
     	html: '<iframe style="height: 100px; width: 100%; border:none;" src="/index/nyb"></iframe>'
     }, {
         xtype: 'LeftPanel'

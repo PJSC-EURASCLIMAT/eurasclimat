@@ -7,6 +7,12 @@ Ext.define('App.view.Layout', {
     baseCls: 'xlib-wallpaper',
     
     items: [{
+    	xtype: 'panel',
+    	region: 'north',
+    	height: 100,
+    	border: false,
+    	html: '<iframe style="height: 100px; width: 100%; border:none;" src="/index/nyb"></iframe>'
+    }, {
         xtype: 'LeftPanel'
     }, {
         region: 'center',

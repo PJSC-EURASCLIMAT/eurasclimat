@@ -358,4 +358,9 @@ class IndexController extends Xend_Controller_Action
 
         //header('Location: /');
     }
+    
+    public function nybAction()
+    {
+        $this->disableLayout(true);
+    }
 }

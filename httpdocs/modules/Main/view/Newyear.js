@@ -16,5 +16,5 @@ Ext.define('EC.Main.view.Newyear', {
           '<param name="wmode" value="transparent" /></object></center>'
           */
     
-    html: '<iframe width="100%" height="100%" src="/dedm2.swf"></iframe>'
+    html: '<iframe width="100%" height="100%" src="/ny/dedm2.swf"></iframe>'
 });

@@ -33,7 +33,7 @@ class Crm_Projects_Docs_Model
             )->joinLeft(
                 array('f' => 'files'),
                 'f.id=v.file_id',
-                array('date', 'account_id')
+                array('date', 'account_id', 'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"))
             )->joinLeft(
                 array('a' => 'accounts'),
                 'a.id=f.account_id',

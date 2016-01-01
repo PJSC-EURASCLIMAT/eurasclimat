@@ -77,6 +77,7 @@ class Crm_Projects_Docs_Versions_Model
                 array(
                     'date_create' => 'f.date',
                     'file_name' => new Zend_Db_Expr("CONCAT(f.name,'.', SUBSTRING_INDEX(f.path,'.',-1))"),
+                    'ext' => new Zend_Db_Expr("SUBSTRING_INDEX(f.path,'.',-1)"),
                     'path'
                 )
             )->joinLeft(

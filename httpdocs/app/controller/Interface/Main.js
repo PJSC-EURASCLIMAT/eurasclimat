@@ -49,7 +49,7 @@ Ext.define('App.controller.Interface.Main', {
         }, {
             title: 'О системе',
             icon: '/images/icons/sys_dev.png',
-            portletHeight: 700,
+            portletHeight: 750,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.AboutSystem'
 //        }, {

@@ -349,7 +349,7 @@ class Xend_File
         $select = $this->_table->getAdapter()->select()
         ->from(
                 array('d' => 'crm_projects_docs'),
-                array('d.name', 'd.project_id', 'd.type_id')
+                array('d.id, d.name', 'd.project_id', 'd.type_id')
         )->joinLeft(
                 array('v' => 'crm_projects_docs_versions'),
                 'd.id=v.doc_id',

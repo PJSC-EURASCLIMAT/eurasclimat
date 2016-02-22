@@ -1,6 +1,7 @@
 <h1>Количество пустых документов: <?=$this->count?></h1>
 <table cellspacing="0" cellpadding="5" border="1">
     <thead>
+        <td><b>ID</b></td>
         <td><b>Имя документа</b></td>
         <td><b>Тип документа</b></td>
         <td><b>Проект</b></td>
@@ -9,6 +10,7 @@
     </thead>
     <?php foreach ($this->data as $row):?>
         <tr>
+            <td><?=$row['id']?></td>
             <td><?=$row['name']?></td>
             <td><?=$row['doc_type']?></td>
             <td><?=$row['project_name']?></td>
@@ -17,3 +19,9 @@
         </tr>
     <?php endforeach;?>
 </table>
+<br/><br/><br/>
+<?php 
+foreach ($this->data as $row) {
+    echo $row['id'] . ', ';
+}
+?>

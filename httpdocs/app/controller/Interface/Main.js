@@ -31,13 +31,13 @@ Ext.define('App.controller.Interface.Main', {
 //        }, {
         	title: 'Новости',
         	icon: '/images/icons/news.png',
-        	portletHeight: 370,
+        	portletHeight: 200,
         	position: 'MainPanel-column-2',
         	launchModule: 'EC.Main.controller.News'
         }, {
             title: 'Курсы валют',
             icon: '/images/icons/cur_exch.png',
-            portletHeight: 370,
+            portletHeight: 200,
             position: 'MainPanel-column-2',
             launchModule: 'EC.Main.controller.Currency'
 //        }, {
@@ -52,12 +52,12 @@ Ext.define('App.controller.Interface.Main', {
             portletHeight: 750,
             position: 'MainPanel-column-1',
             launchModule: 'EC.Main.controller.AboutSystem'
-//        }, {
-//            title: 'Заказ',
-//            icon: '/images/icons/sys_dev.png',
-//            portletHeight: 370,
-//            position: 'MainPanel-column-2',
-//            launchModule: 'EC.Main.controller.Order'
+        }, {
+            title: 'Заказ',
+            icon: '/images/icons/sys_dev.png',
+            portletHeight: 330,
+            position: 'MainPanel-column-2',
+            launchModule: 'EC.Main.controller.Order'
 //        }, {
 //            text: 'Калькулятор ПИР',
 //            title: 'Калькулятор ПИР',

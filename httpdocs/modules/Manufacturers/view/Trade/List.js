@@ -23,7 +23,7 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
 
         data : [
 
-            {id: 1, name: 'Mitsubishi Electric', type: 'Кондиционирование, отопление, вентиляция ', url: 'http://www.mitsubishi-aircon.ru'},
+            {id: 1, name: 'Mitsubishi Electric', type: 'Кондиционирование, отопление, вентиляция', url: 'http://www.mitsubishi-aircon.ru'},
             {id: 2, name: 'Daikin', type: 'Кондиционирование, отопление, вентиляция', url: 'http://www.daikin.ru/'},
             {id: 3, name: 'Panasonic', type: 'Кондиционирование', url: 'http://www.panasonic.ru/'},
             {id: 4, name: 'General climate ', type: 'Кондиционирование, вентиляция, отопление', url: 'http://generalclimate.ru/'},
@@ -71,7 +71,9 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 46, name: 'Маммут Климат', type: 'Кондиционирование, вентиляция, отопление', url: 'http://www.mammoth-russia.ru/'},
             {id: 47, name: 'Varmann', type: 'Отопление', url: 'http://varmann.ru/'},
             {id: 48, name: 'KTK KLIMATECHNIK', type: 'Кондиционирование', url: 'http://www.ktk.it/'},
-            {id: 49, name: 'EDPAC', type: 'Кондиционирование', url: 'http://www.edpac.com/'}
+            {id: 49, name: 'EDPAC', type: 'Кондиционирование', url: 'http://www.edpac.com/'},
+            {id: 50, name: 'STULZ', type: 'Кондиционирование', url: 'http://www.stulz-air.ru/'},
+            {id: 51, name: 'AL-KO', type: 'Кондиционирование, вентиляция', url: 'http://www.al-ko.com.ru/'}
         ]
     },
 

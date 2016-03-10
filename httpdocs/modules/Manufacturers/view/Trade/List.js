@@ -70,7 +70,10 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 48, name: 'KTK KLIMATECHNIK', type: 'Кондиционирование', url: 'http://www.ktk.it/'},
             {id: 49, name: 'EDPAC', type: 'Кондиционирование', url: 'http://www.edpac.com/'},
             {id: 50, name: 'STULZ', type: 'Кондиционирование', url: 'http://www.stulz-air.ru/'},
-            {id: 51, name: 'AL-KO', type: 'Кондиционирование, вентиляция', url: 'http://www.al-ko.com.ru/'}
+            {id: 51, name: 'AL-KO', type: 'Кондиционирование, вентиляция', url: 'http://www.al-ko.com.ru/'},
+            {id: 52, name: 'DANTEX', type: 'Кондиционирование, вентиляция', url: 'http://dantex.ru/'},
+            {id: 53, name: 'MASEnergo Group', type: 'Кондиционирование, автоматика', url: 'http://www.liebert-masenergo.ru/'},
+            {id: 54, name: 'Uniflair', type: 'Кондиционирование', url: 'http://uniflair.ru/'}
         ]
     },
 

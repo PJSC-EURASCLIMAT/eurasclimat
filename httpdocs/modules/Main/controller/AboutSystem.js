@@ -17,7 +17,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
     
     uses: ['xlib.form.HtmlEditor'],
     
-    theme: null,
+    theme: 61,
     
     run: function(container) {
 

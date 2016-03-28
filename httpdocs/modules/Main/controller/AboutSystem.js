@@ -17,7 +17,7 @@ Ext.define('EC.Main.controller.AboutSystem', {
     
     uses: ['xlib.form.HtmlEditor'],
     
-    theme: 61,
+    theme: null,
     
     run: function(container) {
 
@@ -41,11 +41,11 @@ Ext.define('EC.Main.controller.AboutSystem', {
         }, this);
         
         treePanel.getStore().on('load', function() {
-            var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(1);
+            var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(61);
             treePanel.getSelectionModel().select(theme);
         }, this);
         
-        var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(1);
+        var theme = !Ext.isEmpty(this.theme) ? this.theme : treeStore.getNodeById(61);
         treePanel.getSelectionModel().select(theme);
         
         if (acl.isUpdate('aboutsystem')) {

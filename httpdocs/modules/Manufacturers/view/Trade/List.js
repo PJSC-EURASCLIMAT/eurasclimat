@@ -73,7 +73,9 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 51, name: 'AL-KO', type: 'Кондиционирование, вентиляция', url: 'http://www.al-ko.com.ru/'},
             {id: 52, name: 'DANTEX', type: 'Кондиционирование, вентиляция', url: 'http://dantex.ru/'},
             {id: 53, name: 'MASEnergo Group', type: 'Кондиционирование, автоматика', url: 'http://www.liebert-masenergo.ru/'},
-            {id: 54, name: 'Uniflair', type: 'Кондиционирование', url: 'http://uniflair.ru/'}
+            {id: 54, name: 'Uniflair', type: 'Кондиционирование', url: 'http://uniflair.ru/'},
+            {id: 55, name: 'APC', type: 'Электрика', url: 'http://www.apc.com/'},
+            {id: 56, name: 'Rittal', type: 'Кондиционирование, электрика', url: 'http://www.rittal.com/'}
         ]
     },
 

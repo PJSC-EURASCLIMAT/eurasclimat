@@ -75,7 +75,11 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 53, name: 'MASEnergo Group', type: 'Кондиционирование, автоматика', url: 'http://www.liebert-masenergo.ru/'},
             {id: 54, name: 'Uniflair', type: 'Кондиционирование', url: 'http://uniflair.ru/'},
             {id: 55, name: 'APC', type: 'Электрика', url: 'http://www.apc.com/'},
-            {id: 56, name: 'Rittal', type: 'Кондиционирование, электрика', url: 'http://www.rittal.com/'}
+            {id: 56, name: 'Rittal', type: 'Кондиционирование, электрика', url: 'http://www.rittal.com/'},
+            {id: 57, name: 'ZPAS', type: 'Телекоммуникации, электрика', url: 'http://www.zpas.ru/'},
+            {id: 58, name: 'CONTEG', type: 'Телекоммуникации', url: 'http://www.conteg.ru/'},
+            {id: 59, name: 'АЕСП', type: 'Телекоммуникации', url: 'http://www.aesp.ru/'},
+            {id: 60, name: 'TLK', type: 'Телекоммуникации', url: 'http://www.tlk-rc.ru/'}
         ]
     },
 

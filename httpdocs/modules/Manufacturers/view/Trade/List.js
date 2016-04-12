@@ -79,7 +79,8 @@ Ext.define('EC.Manufacturers.view.Trade.List', {
             {id: 57, name: 'ZPAS', type: 'Телекоммуникации, электрика', url: 'http://www.zpas.ru/'},
             {id: 58, name: 'CONTEG', type: 'Телекоммуникации', url: 'http://www.conteg.ru/'},
             {id: 59, name: 'АЕСП', type: 'Телекоммуникации', url: 'http://www.aesp.ru/'},
-            {id: 60, name: 'TLK', type: 'Телекоммуникации', url: 'http://www.tlk-rc.ru/'}
+            {id: 60, name: 'TLK', type: 'Телекоммуникации', url: 'http://www.tlk-rc.ru/'},
+            {id: 61, name: 'DELL', type: 'Телекоммуникации', url: 'http://www.dell.ru/'}
         ]
     },
 

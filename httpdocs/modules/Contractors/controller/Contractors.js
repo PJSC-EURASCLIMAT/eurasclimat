@@ -3,10 +3,10 @@ Ext.define('EC.Contractors.controller.Contractors', {
     extend: 'Ext.app.Controller',
     
     controllers: [
-	    'EC.Contractors.controller.Contacts',
-	    'EC.Contractors.controller.EngSys',
-	    'EC.Contractors.controller.Docs'
-	],
+         'EC.Contractors.controller.Contacts',
+         'EC.Contractors.controller.EngSys',
+         'EC.Contractors.controller.Docs'
+	  ],
     
     stores: [
         'EC.Contractors.store.Contractors',
@@ -25,10 +25,10 @@ Ext.define('EC.Contractors.controller.Contractors', {
     ],
     
     URL: {
-		get: '/json/crm/contractors/get',
-	    add: '/json/crm/contractors/create',
-	    update: '/json/crm/contractors/update'
-	},
+        get: '/json/crm/contractors/get',
+	      add: '/json/crm/contractors/create',
+	      update: '/json/crm/contractors/update'
+    },
     
     permissions: acl.isUpdate('crm', 'contractors'),
     

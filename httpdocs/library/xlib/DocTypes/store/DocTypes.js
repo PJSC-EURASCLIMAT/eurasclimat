@@ -6,6 +6,11 @@ Ext.define('xlib.DocTypes.store.DocTypes', {
     
     autoLoad: true,
     
+    sorters: {
+        property: 'name',
+        direction: 'ASC'
+    },
+    
     proxy: {
         type: 'ajax',
         api: {

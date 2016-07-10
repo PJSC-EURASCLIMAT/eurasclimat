@@ -6,7 +6,7 @@ Ext.define('EC.CRM.store.Projects.Projects', {
     
     groupField: 'group_name',
     
-    groupDir: 'DESC',
+    groupDir: 'ASC',
     
     proxy: {
         type: 'ajax',

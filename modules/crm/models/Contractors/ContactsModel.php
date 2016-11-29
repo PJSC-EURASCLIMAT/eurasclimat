@@ -77,10 +77,10 @@ class Crm_Contractors_ContactsModel
     {
         $response = new Xend_Response();
 
-		$rows = $this->_getList($contractor_id);
-		if (false == $rows) {
-			return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
-		}
+    		$rows = $this->_getList($contractor_id);
+    		if (false === $rows) {
+    			return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
+    		}
         $response->setRowset($rows);
         return $response->addStatus(new Xend_Status(Xend_Status::OK));
     }

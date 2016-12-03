@@ -82,7 +82,7 @@ Ext.define('EC.Market.view.Trade.List', {
                 children: [
                     {id: 1,  iconCls: 'noicon', leaf: true, name: 'ЭТП ММББ', url: 'http://etp-micex.ru'},
                     {id: 4,  iconCls: 'noicon', leaf: true, name: 'ЗакупкиРУ', url: 'http://www.zakupki.gov.ru/epz/'},
-                    {id: 29,  iconCls: 'noicon', leaf: true, name: 'ОАО "ГУОВ" - закупки', url: 'http://www.yovmo.ru/torgi/zakupki'}
+                    {id: 29,  iconCls: 'noicon', leaf: true, name: 'Торговая Система "ОБОРОНТОРГ"', url: 'https://www.oborontorg.ru/'}
                 ]
             }, {
                 name: 'Энергетические компании',

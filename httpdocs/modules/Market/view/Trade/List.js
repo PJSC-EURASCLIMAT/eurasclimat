@@ -89,7 +89,8 @@ Ext.define('EC.Market.view.Trade.List', {
                 expanded: false,
                 children: [
                     {id: 23, iconCls: 'noicon', leaf: true, name: 'РОСАТОМ', url: 'http://zakupki.rosatom.ru/'},
-                    {id: 27, iconCls: 'noicon', leaf: true, name: 'Славнефть - закупки', url: 'http://www.slavneft.ru/supplier/procurement/'}
+                    {id: 27, iconCls: 'noicon', leaf: true, name: 'Славнефть - закупки', url: 'http://www.slavneft.ru/supplier/procurement/'},
+                    {id: 32, iconCls: 'noicon', leaf: true, name: 'НК Роснефть - закупки', url: 'http://zakupki.rosneft.ru/'}
                 ]
             }, {
                 name: 'Комерческие торговые системы',

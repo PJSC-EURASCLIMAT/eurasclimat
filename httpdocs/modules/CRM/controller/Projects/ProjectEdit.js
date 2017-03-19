@@ -23,7 +23,8 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         'EC.CRM.controller.Projects.ProjectsGroups',
         'EC.CRM.controller.Projects.Configurator',
         'EC.CRM.controller.Projects.Members',
-        'EC.CRM.controller.Projects.Calcpd'
+        'EC.CRM.controller.Projects.Calcpd',
+        'EC.CRM.controller.Calcfot.Main'
     ],
     
     projectID: null,
@@ -112,6 +113,12 @@ Ext.define('EC.CRM.controller.Projects.ProjectEdit', {
         	projectID: this.projectID,
         	permissions: this.permissions
         }).run(this.Container.down('#calcpdPanel'));
+        /*
+        Ext.create('EC.CRM.controller.Calcfot.Main', {
+          projectID: this.projectID,
+          permissions: this.permissions
+        }).run(this.Container.down('#calcfotPanel'));
+        */
     },
 
     updateItem: function(form, url) {

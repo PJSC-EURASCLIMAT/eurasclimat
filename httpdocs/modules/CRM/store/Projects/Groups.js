@@ -9,7 +9,7 @@ Ext.define('EC.CRM.store.Projects.Groups', {
     groupField: 'group_name',
     
     sorters: {
-        property: 'group_name',
+        property: 'name',
         direction: 'ASC'
     },
     

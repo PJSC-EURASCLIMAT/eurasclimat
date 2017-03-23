@@ -47,6 +47,9 @@ Ext.define('EC.CRM.view.Projects.List', {
                 },
                 scope: this
             });
+        }
+
+        if (acl.isUpdate('admin')) {
             
             actions.push({
                 icon: '/images/icons/fam/delete.gif',

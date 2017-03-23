@@ -20,7 +20,6 @@ class Crm_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'help');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-list');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add');
-        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-base-descr');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'update-base-descr');
         $acl->isAllowed(Xend_Acl_Privilege::VIEW, 'get-config');
@@ -31,6 +30,9 @@ class Crm_ProjectsController extends Xend_Controller_Action
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'add-member');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete-member');
         $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'edit-member');
+        
+        $acl->setResource(Xend_Acl_Resource_Generator::getInstance()->admin);
+        $acl->isAllowed(Xend_Acl_Privilege::UPDATE, 'delete');
     }
 
     public function getListAction()

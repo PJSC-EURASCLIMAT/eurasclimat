@@ -12,8 +12,7 @@ class Catalog_Images
     {
         $this->_entity = $entity;
         $this->_table = new Catalog_ImagesTable();
-        $this->IMAGE_PATH = IMAGES_DIR . DIRECTORY_SEPARATOR
-               . 'catalog' . DIRECTORY_SEPARATOR;
+        $this->IMAGE_PATH = IMAGES_DIR . DIRECTORY_SEPARATOR . 'catalog' . DIRECTORY_SEPARATOR;
     }
 
     public function getAll($entity, $entity_id)
@@ -24,6 +23,9 @@ class Catalog_Images
 
         try {
             $rows = $this->_table->fetchAll($where)->toArray();
+            foreach ($rows as $k => $row) {
+                $rows[$k]['type'] = $this->_getType($row['name']);
+            }
             $response->setRowset($rows);
             $status = Xend_Status::OK;
         } catch (Exception $e) {
@@ -66,8 +68,7 @@ class Catalog_Images
             if (DEBUG) {
                 throw $e;
             }
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::DATABASE_ERROR));
+            return $response->addStatus(new Xend_Status(Xend_Status::DATABASE_ERROR));
         }
 
         $response->id = $id;
@@ -81,8 +82,7 @@ class Catalog_Images
         $response = new Xend_Response();
 
         if (!$id) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT));
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
         try {
@@ -104,8 +104,7 @@ class Catalog_Images
 
         $result = $this->_table->deleteByPk($id);
 
-        return $response->addStatus(new Xend_Status(
-            Xend_Status::retrieveAffectedRowStatus($result)));
+        return $response->addStatus(new Xend_Status(Xend_Status::retrieveAffectedRowStatus($result)));
     }
 
     public function deleteAllImages($entity_id)
@@ -115,8 +114,7 @@ class Catalog_Images
         $response = new Xend_Response();
 
         if (!$entity_id) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT));
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
         $where = array('entity = (?)' => $this->_entity, 'entity_id = (?)' => $entity_id);
@@ -143,8 +141,7 @@ class Catalog_Images
         $response = new Xend_Response();
 
         if (!$id) {
-            return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT));
+            return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT));
         }
 
         try {
@@ -159,5 +156,12 @@ class Catalog_Images
         }
 
         return $response->addStatus(new Xend_Status($status));
+    }
+    
+    private function _getType($name)
+    {
+        $images = ['bmp', 'cpt', 'gif', 'jpg', 'jpeg', 'jpe', 'jp2', 'pcx', 'png', 'tga', 'tiff'];
+        $ext = explode('.', $name);
+        return in_array(strtolower(end($ext)), $images) ? 'image' : 'doc';
     }
 }

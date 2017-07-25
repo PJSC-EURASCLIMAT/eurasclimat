@@ -1,6 +1,7 @@
 /.buildpath
+/.project
 /.settings/
-/cache/
-/tmp/
-/files/
 /config.xml
+/cache/*
+/tmp/*
+/files/*

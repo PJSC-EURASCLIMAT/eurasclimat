@@ -13,7 +13,7 @@ php_flag register_globals off
 
 RewriteEngine on
 RewriteBase /
-RewriteRule \.(js|jsb|ico|gif|jpg|png|css|pdf|htm|xml|lpk|cab|txt|swf)$ - [L,NC]
+RewriteRule \.(js|jsb|ico|gif|jpg|png|css|pdf|htm|xml|lpk|cab|txt|swf|xls|xlsx|doc|docx|zip|rar|arj|7z|cdr|ai)$ - [L,NC]
 RewriteRule ^setup - [L,NC]
 RewriteRule ^files - [L,NC]
 RewriteRule ^workspace - [L,NC]

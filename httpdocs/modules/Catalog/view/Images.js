@@ -4,7 +4,7 @@ Ext.define('EC.Catalog.view.Images', {
     
     alias: 'widget.CatalogImages',
 
-    title: 'Изображения',
+    title: 'Изображения и документы',
 	
     autoScroll: true,
 
@@ -46,18 +46,24 @@ Ext.define('EC.Catalog.view.Images', {
                         successProperty: 'success'
                     }
                 },
-                fields: ['id', 'name']
+                fields: ['id', 'name', 'type']
             }),
             tpl: new Ext.XTemplate(
                 '<tpl for=".">',
 	                '<div class="thumb-wrap" id="{name}">',
 		                '<div class="thumb">',
-		                	'<img src="/images/catalog/{name}" title="{name}" class="thumb-img">',
+                            '<tpl if="type == \'image\'">',
+                                '<img src="/images/catalog/{name}" title="{name}" class="thumb-img">',
+                            '<tpl else>',
+                                '<a href="/images/catalog/{name}" style="border: none;" target="_blank">',
+                                '<img src="/images/document-download.png" title="{name}" class="thumb-img"></a>',
+                            '</tpl>',
 		                '</div>',
 		                '<span class="x-editable">',
-		                	'<a href="#" title="Удалить">' +
-                            '<img src="/images/icons/fam/delete.gif" ' +
-                            'action="delete" ' +
+                            '{name}<br/>',
+		                	'<a href="#" title="Удалить">',
+                            '<img src="/images/icons/fam/delete.gif" ',
+                            'action="delete" ',
                             'img_id="{id}"></a>',
 	                	'</span>',
 	            	'</div>',
@@ -97,25 +103,26 @@ Ext.define('EC.Catalog.view.Images', {
     },
     
     showFile: function(record) {
-    	
-        var img = new Ext.ComponentMgr.create({
-            xtype: 'box',
-            html: '<a href="/images/catalog/' + record.get('name') + '" '
-        		+ 'style="border: none;" target="_blank">'
-            	+ '<img src="/images/catalog/' + record.get('name') + '" '
-            	+ 'style="max-height: 400px; max-width: 600px;" /></a>'
-        });
-        
-        var wind = new Ext.Window({
-            title: record.get('name'),
-            modal: true,
-            minWidth: 300,
-            minHeight: 300,
-            autoWidth: true,
-            resizable: false,
-            autoHeight: true,
-            items:[img]
-        });
-        wind.show();
+        if (record.get('type') == 'image') {
+            var img = new Ext.ComponentMgr.create({
+                xtype: 'box',
+                html: '<a href="/images/catalog/' + record.get('name') + '" '
+                    + 'style="border: none;" target="_blank">'
+                    + '<img src="/images/catalog/' + record.get('name') + '" '
+                    + 'style="max-height: 400px; max-width: 600px;" /></a>'
+            });
+            
+            var wind = new Ext.Window({
+                title: record.get('name'),
+                modal: true,
+                minWidth: 300,
+                minHeight: 300,
+                autoWidth: true,
+                resizable: false,
+                autoHeight: true,
+                items:[img]
+            });
+            wind.show();
+        }
     }
 });

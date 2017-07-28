@@ -57,7 +57,7 @@ class Crm_Projects_Model
         $response = new Xend_Response();
         if ($id == 0) {
             return $response->addStatus(new Xend_Status(
-                Xend_Status::INPUT_PARAMS_INCORRECT, 'id, given - ' . $id));
+                Xend_Status::INPUT_PARAMS_INCORRECT, 'id, given1 - ' . $id));
         }
 
         $accountsTable = new Xend_Accounts_Table_Accounts();
@@ -82,7 +82,7 @@ class Crm_Projects_Model
         	$members = new Crm_Projects_Members_Model();
         	$memberinfo = $members->getMemberByProjectIdAndAccountId($id, $userID);
         	if (!$memberinfo) {
-        		return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id, given - ' . $id));
+        		return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id, given2 - ' . $id));
         	}
         	$row['is_editor'] = $memberinfo['is_editor']; 
 		}

@@ -118,7 +118,7 @@ class Xend_Controller_Action extends Zend_Controller_Action
                     'id'    => $status->getField(),
                     'msg'   => $msg,
                     'code'  => $status->getCode(),
-                    'p_id'  => $this->_getAllParama()
+                    'p_id'  => $this->_getAllParams()
                 );
             }
         }

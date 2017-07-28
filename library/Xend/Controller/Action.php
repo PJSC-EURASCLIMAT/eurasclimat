@@ -115,10 +115,10 @@ class Xend_Controller_Action extends Zend_Controller_Action
                 }
 
                 $errors[] = array(
-                    'id'    => $status->getField(),
-                    'msg'   => $msg,
-                    'code'  => $status->getCode(),
-                    'p_id'  => $this->_getAllParams()
+                    'id'        => $status->getField(),
+                    'msg'       => $msg,
+                    'code'      => $status->getCode(),
+                    'params'    => $this->_getAllParams()
                 );
             }
         }

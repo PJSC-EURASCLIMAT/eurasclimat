@@ -82,9 +82,6 @@ class Crm_Projects_Model
         	$members = new Crm_Projects_Members_Model();
         	$memberinfo = $members->getMemberByProjectIdAndAccountId($id, $userID);
         	if (!$memberinfo) {
-                var_dump($$id);
-                var_dump($userID); 
-                exit;
         		return $response->addStatus(new Xend_Status(Xend_Status::INPUT_PARAMS_INCORRECT, 'id'));
         	}
         	$row['is_editor'] = $memberinfo['is_editor']; 

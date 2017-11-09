@@ -1,0 +1,1 @@
+﻿INSERT INTO `crm_projects_members`(`project_id`, `account_id`, `role`, `is_editor`) SELECT `id`, X, 'xxx', 1 FROM `crm_projects`;

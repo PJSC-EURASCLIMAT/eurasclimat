@@ -176,7 +176,7 @@ class Crm_Projects_Members_Model
         switch ($role) {
             case 'customer': return 'Представитель заказчика';
             case 'manager': return 'Менеджер проекта';
-            case 'projector': return 'Отдел проектирования';
+            case 'projector': return 'Отдел экспертизы и проектирования';
             case 'logistic': return 'Отдел логистики';
             case 'productor': return 'Производственный отдел';
             case 'bookkeeper': return 'Финансовый отдел';
